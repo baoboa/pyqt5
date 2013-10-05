@@ -1,0 +1,19 @@
+CONFIG      += plugin release warn_on
+QT          += qml
+
+TARGET      = pyqt5qmlplugin
+TEMPLATE    = lib
+
+INCLUDEPATH += @PYINCDIR@ @SIPINCDIR@
+LIBS        += @PYLINK@
+
+SOURCES     = pluginloader.cpp
+HEADERS     = pluginloader.h
+
+# Install.
+target.path = @QTPLUGINDIR@
+
+python.path = @QTPLUGINDIR@
+python.files = python
+
+INSTALLS    += target python

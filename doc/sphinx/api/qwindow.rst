@@ -1,0 +1,8 @@
+.. currentmodule:: PyQt5.QtGui
+
+QWindow
+-------
+
+.. class:: QWindow
+
+    `C++ documentation <http://qt-project.org/doc/qt-5.1/qtgui/qwindow.html>`_

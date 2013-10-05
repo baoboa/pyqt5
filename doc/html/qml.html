@@ -1,0 +1,380 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Integrating Python and QML &mdash; PyQt 5.1.1-snapshot-3c895ca14f00 Reference Guide</title>
+    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '#',
+        VERSION:     '5.1.1-snapshot-3c895ca14f00',
+        COLLAPSE_MODINDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="shortcut icon" href="_static/logo_tn.ico"/>
+    <link rel="top" title="PyQt 5.1.1-snapshot-3c895ca14f00 Reference Guide" href="index.html" />
+    <link rel="next" title="Support for Cooperative Multi-inheritance" href="multiinheritance.html" />
+    <link rel="prev" title="Support for QSettings" href="pyqt_qsettings.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="modindex.html" title="Global Module Index"
+             accesskey="M">modules</a> |</li>
+        <li class="right" >
+          <a href="multiinheritance.html" title="Support for Cooperative Multi-inheritance"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="pyqt_qsettings.html" title="Support for QSettings"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">PyQt 5.1.1-snapshot-3c895ca14f00 Reference Guide</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="integrating-python-and-qml">
+<span id="ref-integrating-qml"></span><h1>Integrating Python and QML<a class="headerlink" href="#integrating-python-and-qml" title="Permalink to this headline">¶</a></h1>
+<p>Qt includes QML as a means of declaratively describing a user interface and
+using JavaScript as a scripting language within it.  It is possible to write
+complete standalone QML applications, or to combine them with C++.  PyQt5
+allows QML to be integrated with Python in exactly the same way.  In
+particular:</p>
+<ul class="simple">
+<li>Python types that are sub-classed from <a title="PyQt5.QtCore.QObject" class="reference external" href="api/qobject.html#PyQt5.QtCore.QObject"><tt class="xref docutils literal"><span class="pre">QObject</span></tt></a> can be
+registered with QML.</li>
+<li>Instances of registered Python types can be created and made available to QML
+scripts.</li>
+<li>Instances of registered Python types can be created by QML scripts.</li>
+<li>Singleton instances of registered Python types can be created automatically
+by a QML engine and made available to QML scripts.</li>
+<li>QML scripts interact with Python objects through their properties, signals
+and slots.</li>
+<li>Python properties, signals and slots can be given revision numbers that only
+those implemented by a specific version are made available to QML.</li>
+</ul>
+<div class="section" id="registering-python-types">
+<h2>Registering Python Types<a class="headerlink" href="#registering-python-types" title="Permalink to this headline">¶</a></h2>
+<p>Registering Python types with QML is done in the same way is it is done with
+C++ classes, i.e. using the <tt class="xref docutils literal"><span class="pre">qmlRegisterType()</span></tt>,
+<tt class="xref docutils literal"><span class="pre">qmlRegisterSingletonType()</span></tt>,
+<tt class="xref docutils literal"><span class="pre">qmlRegisterUncreatableType()</span></tt> and
+<tt class="xref docutils literal"><span class="pre">qmlRegisterRevision()</span></tt> functions.</p>
+<p>In C++ these are template based functions that take the C++ class, and
+sometimes a revision, as template arguments.  In the Python implementation
+these are simply passed as the first arguments to the respective functions.</p>
+</div>
+<div class="section" id="a-simple-example">
+<h2>A Simple Example<a class="headerlink" href="#a-simple-example" title="Permalink to this headline">¶</a></h2>
+<p>The following simple example demonstates the implementation of a Python class
+that is registered with QML.  The class defines two properties.  A QML script
+is executed which creates an instance of the class and sets the values of the
+properties.  That instance is then returned to Python which then prints the
+values of those properties.</p>
+<p>Hopefully the comments are self explanatory:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">sys</span>
+
+<span class="kn">from</span> <span class="nn">PyQt5.QtCore</span> <span class="kn">import</span> <span class="n">pyqtProperty</span><span class="p">,</span> <span class="n">QCoreApplication</span><span class="p">,</span> <span class="n">QObject</span><span class="p">,</span> <span class="n">QUrl</span>
+<span class="kn">from</span> <span class="nn">PyQt5.QtQml</span> <span class="kn">import</span> <span class="n">qmlRegisterType</span><span class="p">,</span> <span class="n">QQmlComponent</span><span class="p">,</span> <span class="n">QQmlEngine</span>
+
+
+<span class="c"># This is the type that will be registered with QML.  It must be a</span>
+<span class="c"># sub-class of QObject.</span>
+<span class="k">class</span> <span class="nc">Person</span><span class="p">(</span><span class="n">QObject</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">parent</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="n">parent</span><span class="p">)</span>
+
+        <span class="c"># Initialise the value of the properties.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_name</span> <span class="o">=</span> <span class="s">&#39;&#39;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_shoeSize</span> <span class="o">=</span> <span class="mi">0</span>
+
+    <span class="c"># Define the getter of the &#39;name&#39; property.  The C++ type of the</span>
+    <span class="c"># property is QString which Python will convert to and from a string.</span>
+    <span class="nd">@pyqtProperty</span><span class="p">(</span><span class="s">&#39;QString&#39;</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">name</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_name</span>
+
+    <span class="c"># Define the setter of the &#39;name&#39; property.</span>
+    <span class="nd">@name.setter</span>
+    <span class="k">def</span> <span class="nf">name</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_name</span> <span class="o">=</span> <span class="n">name</span>
+
+    <span class="c"># Define the getter of the &#39;shoeSize&#39; property.  The C++ type and</span>
+    <span class="c"># Python type of the property is int.</span>
+    <span class="nd">@pyqtProperty</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">shoeSize</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_shoeSize</span>
+
+    <span class="c"># Define the setter of the &#39;shoeSize&#39; property.</span>
+    <span class="nd">@shoeSize.setter</span>
+    <span class="k">def</span> <span class="nf">shoeSize</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">shoeSize</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_shoeSize</span> <span class="o">=</span> <span class="n">shoeSize</span>
+
+
+<span class="c"># Create the application instance.</span>
+<span class="n">app</span> <span class="o">=</span> <span class="n">QCoreApplication</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">)</span>
+
+<span class="c"># Register the Python type.  Its URI is &#39;People&#39;, it&#39;s v1.0 and the type</span>
+<span class="c"># will be called &#39;Person&#39; in QML.</span>
+<span class="n">qmlRegisterType</span><span class="p">(</span><span class="n">Person</span><span class="p">,</span> <span class="s">&#39;People&#39;</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="s">&#39;Person&#39;</span><span class="p">)</span>
+
+<span class="c"># Create a QML engine.</span>
+<span class="n">engine</span> <span class="o">=</span> <span class="n">QQmlEngine</span><span class="p">()</span>
+
+<span class="c"># Create a component factory and load the QML script.</span>
+<span class="n">component</span> <span class="o">=</span> <span class="n">QQmlComponent</span><span class="p">(</span><span class="n">engine</span><span class="p">)</span>
+<span class="n">component</span><span class="o">.</span><span class="n">loadUrl</span><span class="p">(</span><span class="n">QUrl</span><span class="p">(</span><span class="s">&#39;example.qml&#39;</span><span class="p">))</span>
+
+<span class="c"># Create an instance of the component.</span>
+<span class="n">person</span> <span class="o">=</span> <span class="n">component</span><span class="o">.</span><span class="n">create</span><span class="p">()</span>
+
+<span class="k">if</span> <span class="n">person</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+    <span class="c"># Print the value of the properties.</span>
+    <span class="k">print</span><span class="p">(</span><span class="s">&quot;The person&#39;s name is </span><span class="si">%s</span><span class="s">.&quot;</span> <span class="o">%</span> <span class="n">person</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
+    <span class="k">print</span><span class="p">(</span><span class="s">&quot;They wear a size </span><span class="si">%d</span><span class="s"> shoe.&quot;</span> <span class="o">%</span> <span class="n">person</span><span class="o">.</span><span class="n">shoeSize</span><span class="p">)</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="c"># Print all errors that occurred.</span>
+    <span class="k">for</span> <span class="n">error</span> <span class="ow">in</span> <span class="n">component</span><span class="o">.</span><span class="n">errors</span><span class="p">():</span>
+        <span class="k">print</span><span class="p">(</span><span class="n">error</span><span class="o">.</span><span class="n">toString</span><span class="p">())</span>
+</pre></div>
+</div>
+<p>The following is the <tt class="docutils literal"><span class="pre">example.qml</span></tt> QML script that is executed:</p>
+<div class="highlight-python"><pre>import People 1.0
+
+Person {
+    name: "Bob Jones"
+    shoeSize: 12
+}</pre>
+</div>
+</div>
+<div class="section" id="using-qqmllistproperty">
+<h2>Using <a title="PyQt5.QtQml.QQmlListProperty" class="reference external" href="api/qqmllistproperty.html#PyQt5.QtQml.QQmlListProperty"><tt class="xref docutils literal"><span class="pre">QQmlListProperty</span></tt></a><a class="headerlink" href="#using-qqmllistproperty" title="Permalink to this headline">¶</a></h2>
+<p>Defining list-based properties in Python that can be updated from QML is done
+using the <a title="PyQt5.QtQml.QQmlListProperty" class="reference external" href="api/qqmllistproperty.html#PyQt5.QtQml.QQmlListProperty"><tt class="xref docutils literal"><span class="pre">QQmlListProperty</span></tt></a> class.  However the way it is
+used in Python is slightly different to the way it is used in C++.</p>
+<p>The following code fragment is taken from the <tt class="docutils literal"><span class="pre">chapter5-listproperties.py</span></tt>
+example included with PyQt5:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">class</span> <span class="nc">PieChart</span><span class="p">(</span><span class="n">QQuickItem</span><span class="p">):</span>
+
+    <span class="nd">@pyqtProperty</span><span class="p">(</span><span class="n">QQmlListProperty</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">slices</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">QQmlListProperty</span><span class="p">(</span><span class="n">PieSlice</span><span class="p">,</span> <span class="bp">self</span><span class="p">,</span>
+                <span class="n">append</span><span class="o">=</span><span class="k">lambda</span> <span class="n">pie_ch</span><span class="p">,</span> <span class="n">pie_sl</span><span class="p">:</span> <span class="n">pie_sl</span><span class="o">.</span><span class="n">setParentItem</span><span class="p">(</span><span class="n">pie_ch</span><span class="p">))</span>
+</pre></div>
+</div>
+<p><tt class="docutils literal"><span class="pre">PieChart</span></tt> and <tt class="docutils literal"><span class="pre">PieSlice</span></tt> are Quick items that are registered using
+<tt class="xref docutils literal"><span class="pre">qmlRegisterType()</span></tt>.  Instances of both can be created from
+QML.  <tt class="docutils literal"><span class="pre">slices</span></tt> is a property of <tt class="docutils literal"><span class="pre">PieChart</span></tt> that, as far as QML is
+concerned, is a list of <tt class="docutils literal"><span class="pre">PieSlice</span></tt> instances.</p>
+<p>The <a title="PyQt5.QtCore.pyqtProperty" class="reference external" href="qt_properties.html#PyQt5.QtCore.pyqtProperty"><tt class="xref docutils literal"><span class="pre">pyqtProperty()</span></tt></a> decorator specifies that the property is
+a <a title="PyQt5.QtQml.QQmlListProperty" class="reference external" href="api/qqmllistproperty.html#PyQt5.QtQml.QQmlListProperty"><tt class="xref docutils literal"><span class="pre">QQmlListProperty</span></tt></a>, that its name is <tt class="docutils literal"><span class="pre">slices</span></tt> and that
+the <tt class="docutils literal"><span class="pre">slices()</span></tt> function is its getter.</p>
+<p>The getter returns an instance of <a title="PyQt5.QtQml.QQmlListProperty" class="reference external" href="api/qqmllistproperty.html#PyQt5.QtQml.QQmlListProperty"><tt class="xref docutils literal"><span class="pre">QQmlListProperty</span></tt></a>.  This
+specifies that elements of the list should be of type <tt class="docutils literal"><span class="pre">PieSlice</span></tt>, that the
+<tt class="docutils literal"><span class="pre">PieChart</span></tt> instance (i.e. <tt class="docutils literal"><span class="pre">self</span></tt>) has the property, and defines the
+callable that will be invoked in order to append a new element to the list.</p>
+<p>The <tt class="docutils literal"><span class="pre">append</span></tt> callable is passed two arguments: the object whose property is
+to be updated (i.e. the <tt class="docutils literal"><span class="pre">PyChart</span></tt> instance), and the element to be appended
+(i.e. a <tt class="docutils literal"><span class="pre">PieSlice</span></tt> instance).  Here we simply set the chart as the slice&#8217;s
+parent item.  Note that there isn&#8217;t actually a list anywhere - this is because,
+in this particular example, one isn&#8217;t needed.</p>
+<p>The signature of the <tt class="docutils literal"><span class="pre">append</span></tt> callable is slightly different to that of the
+corresponding C++ function.  In C++ the first argument is the
+<a title="PyQt5.QtQml.QQmlListProperty" class="reference external" href="api/qqmllistproperty.html#PyQt5.QtQml.QQmlListProperty"><tt class="xref docutils literal"><span class="pre">QQmlListProperty</span></tt></a> instance rather than the <tt class="docutils literal"><span class="pre">PyChart</span></tt>
+instance.  The signatures of the <tt class="docutils literal"><span class="pre">at</span></tt>, <tt class="docutils literal"><span class="pre">clear</span></tt> and <tt class="docutils literal"><span class="pre">count</span></tt> callables are
+different in the same way.</p>
+</div>
+<div class="section" id="using-attached-properties">
+<h2>Using Attached Properties<a class="headerlink" href="#using-attached-properties" title="Permalink to this headline">¶</a></h2>
+<p>In order to use attached properties in C++, three steps need to be taken.</p>
+<ul class="simple">
+<li>A type that has attached properties must implement a static function called
+<tt class="docutils literal"><span class="pre">qmlAttachedProperties</span></tt>.  This is a factory that creates an instance of the
+properties object to attach.</li>
+<li>A type that has attached properties needs to be defined as such using the
+<tt class="docutils literal"><span class="pre">QML_DECLARE_TYPEINFO</span></tt> macro with the <tt class="docutils literal"><span class="pre">QML_HAS_ATTACHED_PROPERTIES</span></tt>
+argument.</li>
+<li>The instance of an attached properties object is retrieved using the
+<tt class="docutils literal"><span class="pre">qmlAttachedPropertiesObject()</span></tt> template function.  The template type is
+the type that has the attached properties.</li>
+</ul>
+<p>PyQt5 uses similar, but slightly simpler steps to achieve the same thing.</p>
+<ul class="simple">
+<li>When calling <tt class="xref docutils literal"><span class="pre">qmlRegisterType()</span></tt> to register a type that
+has attached properties the type of the properties object is passed as the
+<tt class="docutils literal"><span class="pre">attachedProperties</span></tt> argument.  This type will be used as the factory for
+creating an instance of the properties object.</li>
+<li>The instance of an attached properties object is retrieved using the
+<tt class="xref docutils literal"><span class="pre">qmlAttachedPropertiesObject()</span></tt> function in the same way
+that you would from C++.  Just like <tt class="xref docutils literal"><span class="pre">qmlRegisterType()</span></tt>,
+<tt class="xref docutils literal"><span class="pre">qmlAttachedPropertiesObject()</span></tt> takes an additional first
+argument that is the type that, in C++, would be the template argument.</li>
+</ul>
+<p>See the <tt class="docutils literal"><span class="pre">attach.py</span></tt> example included with PyQt5 for a complete example
+showing the use of attached properties.</p>
+</div>
+<div class="section" id="using-property-value-sources">
+<h2>Using Property Value Sources<a class="headerlink" href="#using-property-value-sources" title="Permalink to this headline">¶</a></h2>
+<p>Property values sources are implemented in PyQt5 in the same way as they are
+implemented in C++.  Simply sub-class from both <a title="PyQt5.QtCore.QObject" class="reference external" href="api/qobject.html#PyQt5.QtCore.QObject"><tt class="xref docutils literal"><span class="pre">QObject</span></tt></a>
+and <a title="PyQt5.QtQml.QQmlPropertyValueSource" class="reference external" href="api/qqmlpropertyvaluesource.html#PyQt5.QtQml.QQmlPropertyValueSource"><tt class="xref docutils literal"><span class="pre">QQmlPropertyValueSource</span></tt></a> and provide an implementation
+of the <tt class="xref docutils literal"><span class="pre">setTarget()</span></tt> method.</p>
+</div>
+<div class="section" id="using-qqmlparserstatus">
+<h2>Using <a title="PyQt5.QtQml.QQmlParserStatus" class="reference external" href="api/qqmlparserstatus.html#PyQt5.QtQml.QQmlParserStatus"><tt class="xref docutils literal"><span class="pre">QQmlParserStatus</span></tt></a><a class="headerlink" href="#using-qqmlparserstatus" title="Permalink to this headline">¶</a></h2>
+<p>Monitoring the QML parser status is implemented in PyQt5 in the same way as it
+is implemented in C++.  Simply sub-class from both
+<a title="PyQt5.QtCore.QObject" class="reference external" href="api/qobject.html#PyQt5.QtCore.QObject"><tt class="xref docutils literal"><span class="pre">QObject</span></tt></a> and <a title="PyQt5.QtQml.QQmlParserStatus" class="reference external" href="api/qqmlparserstatus.html#PyQt5.QtQml.QQmlParserStatus"><tt class="xref docutils literal"><span class="pre">QQmlParserStatus</span></tt></a> and
+provide implementations of the <tt class="xref docutils literal"><span class="pre">classBegin()</span></tt>
+and <tt class="xref docutils literal"><span class="pre">componentComplete()</span></tt> methods.</p>
+</div>
+<div class="section" id="writing-python-plugins-for-qmlscene">
+<h2>Writing Python Plugins for <strong>qmlscene</strong><a class="headerlink" href="#writing-python-plugins-for-qmlscene" title="Permalink to this headline">¶</a></h2>
+<p>Qt allows plugins that implement QML modules to be written that can be
+dynamically loaded by a C++ application (e.g. <strong>qmlscene</strong>).  These
+plugins are sub-classes of <a title="PyQt5.QtQml.QQmlExtensionPlugin" class="reference external" href="api/qqmlextensionplugin.html#PyQt5.QtQml.QQmlExtensionPlugin"><tt class="xref docutils literal"><span class="pre">QQmlExtensionPlugin</span></tt></a>.  PyQt5
+supports exactly the same thing and allows those plugin to be written in
+Python.  In other words it is possible to provide QML extensions written in
+Python to a C++ application, and to provide QML extensions written in C++ to a
+Python application.</p>
+<p>PyQt5 provides a QML plugin called <tt class="docutils literal"><span class="pre">pyqt5qmlplugin</span></tt>.  This acts as a wrapper
+around the Python code that implements the plugin.  It handles the loading of
+the Python interpreter, locating and importing the Python module that contains
+the implementation of <a title="PyQt5.QtQml.QQmlExtensionPlugin" class="reference external" href="api/qqmlextensionplugin.html#PyQt5.QtQml.QQmlExtensionPlugin"><tt class="xref docutils literal"><span class="pre">QQmlExtensionPlugin</span></tt></a>, creating an
+instance of that class, and calling the instance&#8217;s
+<tt class="xref docutils literal"><span class="pre">registerTypes()</span></tt> method.  By default the
+<tt class="docutils literal"><span class="pre">pyqt5qmlplugin</span></tt> is installed in the <tt class="docutils literal"><span class="pre">PyQt5</span></tt> sub-directory of your Qt
+installation&#8217;s <tt class="docutils literal"><span class="pre">plugin</span></tt> directory.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last"><tt class="docutils literal"><span class="pre">pyqt5qmlplugin</span></tt> is the name of the plugin as seen by QML.  Its actual
+filename will be different and operating system dependent.</p>
+</div>
+<p>A QML extension module is a directory containing a file called <tt class="docutils literal"><span class="pre">qmldir</span></tt>.  The
+file contains the name of the module and the name of the plugin that implements
+the module.  It may also specify the directory containing the plugin.  Usually
+this isn&#8217;t needed because the plugin is installed in the same directory.</p>
+<p>Therefore, for a QML extension module called <tt class="docutils literal"><span class="pre">Charts</span></tt>, the contents of the
+<tt class="docutils literal"><span class="pre">qmldir</span></tt> file might be:</p>
+<div class="highlight-python"><pre>module Charts
+plugin pyqt5qmlplugin /path/to/qt/plugins/PyQt5</pre>
+</div>
+<p>The <tt class="docutils literal"><span class="pre">pyqt5qmlplugin</span></tt> expects to find a Python module in the same directory
+with a filename ending with <tt class="docutils literal"><span class="pre">plugin.py</span></tt> or <tt class="docutils literal"><span class="pre">plugin.pyw</span></tt>.  In this case the
+name <tt class="docutils literal"><span class="pre">chartsplugin.py</span></tt> would be a sensible choice.  Before importing this
+module <tt class="docutils literal"><span class="pre">pyqt5qmlplugin</span></tt> first places the name of the directory at the start
+of <tt class="xref docutils literal"><span class="pre">sys.path</span></tt>.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last"><tt class="docutils literal"><span class="pre">pyqt5qmlplugin</span></tt> has to locate the directory containing the <tt class="docutils literal"><span class="pre">qmldir</span></tt>
+file itself.  It does this using the same algorithm used by QML, i.e. it
+searches some standard locations and locations specified by the
+<span class="target" id="index-5"></span><strong class="xref">QML2_IMPORT_PATH</strong> environment variable.  When using
+<strong>qmlscene</strong>, <tt class="docutils literal"><span class="pre">pyqt5qmlplugin</span></tt> will not know about any additional
+locations specified by its <em class="xref">-I</em> option.  Therefore,
+<span class="target" id="index-6"></span><strong class="xref">QML2_IMPORT_PATH</strong> should always be used to specify additional
+locations to search.</p>
+</div>
+<p>Due to a limitation in QML it is not possible for multiple QML modules to use
+the same C++ plugin.  In C++ this is not a problem as there is a one-to-one
+relationship between a module and the plugin.  However, when using Python,
+<tt class="docutils literal"><span class="pre">pyqt5qmlplugin</span></tt> is used by every module.  There are two solutions to this:</p>
+<ul class="simple">
+<li>on operating systems that support it, place a symbolic link in the directory
+containing the <tt class="docutils literal"><span class="pre">qmldir</span></tt> file that points to the actual <tt class="docutils literal"><span class="pre">pyqt5qmlplugin</span></tt></li>
+<li>make a copy of <tt class="docutils literal"><span class="pre">pyqt5qmlplugin</span></tt> in the directory containing the <tt class="docutils literal"><span class="pre">qmldir</span></tt>
+file.</li>
+</ul>
+<p>In both cases the contents of the <tt class="docutils literal"><span class="pre">qmldir</span></tt> file can be simplifed to:</p>
+<div class="highlight-python"><pre>module Charts
+plugin pyqt5qmlplugin</pre>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="index.html">
+              <img class="logo" src="_static/logo.png" alt="Logo"/>
+            </a></p>
+            <h3><a href="index.html">Table Of Contents</a></h3>
+            <ul>
+<li><a class="reference external" href="#">Integrating Python and QML</a><ul>
+<li><a class="reference external" href="#registering-python-types">Registering Python Types</a></li>
+<li><a class="reference external" href="#a-simple-example">A Simple Example</a></li>
+<li><a class="reference external" href="#using-qqmllistproperty">Using <tt class="docutils literal"><span class="pre">QQmlListProperty</span></tt></a></li>
+<li><a class="reference external" href="#using-attached-properties">Using Attached Properties</a></li>
+<li><a class="reference external" href="#using-property-value-sources">Using Property Value Sources</a></li>
+<li><a class="reference external" href="#using-qqmlparserstatus">Using <tt class="docutils literal"><span class="pre">QQmlParserStatus</span></tt></a></li>
+<li><a class="reference external" href="#writing-python-plugins-for-qmlscene">Writing Python Plugins for <strong>qmlscene</strong></a></li>
+</ul>
+</li>
+</ul>
+
+            <h4>Previous topic</h4>
+            <p class="topless"><a href="pyqt_qsettings.html"
+                                  title="previous chapter">Support for <tt class="docutils literal docutils literal docutils literal"><span class="pre">QSettings</span></tt></a></p>
+            <h4>Next topic</h4>
+            <p class="topless"><a href="multiinheritance.html"
+                                  title="next chapter">Support for Cooperative Multi-inheritance</a></p>
+          <div id="searchbox" style="display: none">
+            <h3>Quick search</h3>
+              <form class="search" action="search.html" method="get">
+                <input type="text" name="q" size="18" />
+                <input type="submit" value="Go" />
+                <input type="hidden" name="check_keywords" value="yes" />
+                <input type="hidden" name="area" value="default" />
+              </form>
+              <p class="searchtip" style="font-size: 90%">
+              Enter search terms or a module, class or function name.
+              </p>
+          </div>
+          <script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="modindex.html" title="Global Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="multiinheritance.html" title="Support for Cooperative Multi-inheritance"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="pyqt_qsettings.html" title="Support for QSettings"
+             >previous</a> |</li>
+        <li><a href="index.html">PyQt 5.1.1-snapshot-3c895ca14f00 Reference Guide</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+      &copy; Copyright 2013 Riverbank Computing Limited.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 0.6.4.
+    </div>
+  </body>
+</html>

@@ -1,0 +1,8 @@
+.. currentmodule:: PyQt5.QtWidgets
+
+QPlainTextEdit
+--------------
+
+.. class:: QPlainTextEdit
+
+    `C++ documentation <http://qt-project.org/doc/qt-5.1/qtwidgets/qplaintextedit.html>`_

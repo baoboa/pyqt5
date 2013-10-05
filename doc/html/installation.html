@@ -1,0 +1,426 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Installing PyQt5 &mdash; PyQt 5.1.1-snapshot-3c895ca14f00 Reference Guide</title>
+    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '#',
+        VERSION:     '5.1.1-snapshot-3c895ca14f00',
+        COLLAPSE_MODINDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="shortcut icon" href="_static/logo_tn.ico"/>
+    <link rel="top" title="PyQt 5.1.1-snapshot-3c895ca14f00 Reference Guide" href="index.html" />
+    <link rel="next" title="Differences Between PyQt4 and PyQt5" href="pyqt4_differences.html" />
+    <link rel="prev" title="Introduction" href="introduction.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="modindex.html" title="Global Module Index"
+             accesskey="M">modules</a> |</li>
+        <li class="right" >
+          <a href="pyqt4_differences.html" title="Differences Between PyQt4 and PyQt5"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="introduction.html" title="Introduction"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">PyQt 5.1.1-snapshot-3c895ca14f00 Reference Guide</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="installing-pyqt5">
+<h1>Installing PyQt5<a class="headerlink" href="#installing-pyqt5" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="downloading-sip">
+<h2>Downloading SIP<a class="headerlink" href="#downloading-sip" title="Permalink to this headline">¶</a></h2>
+<p>SIP must be installed before building and using PyQt5.  You can get the latest
+release of the SIP source code from
+<a class="reference external" href="http://www.riverbankcomputing.com/software/sip/download">http://www.riverbankcomputing.com/software/sip/download</a>.</p>
+<p>The SIP documentation can be found at <a class="reference external" href="http://pyqt.sourceforge.net/Docs/sip4/">http://pyqt.sourceforge.net/Docs/sip4/</a>.</p>
+</div>
+<div class="section" id="downloading-pyqt5">
+<h2>Downloading PyQt5<a class="headerlink" href="#downloading-pyqt5" title="Permalink to this headline">¶</a></h2>
+<p>You can get the latest release of the GPL version of the PyQt5 source code from
+<a class="reference external" href="http://www.riverbankcomputing.com/software/pyqt/download5">http://www.riverbankcomputing.com/software/pyqt/download5</a>.</p>
+<p>If you are using the commercial version of PyQt5 then you should use the
+download instructions which were sent to you when you made your purchase.  You
+must also download your license file.</p>
+</div>
+<div class="section" id="configuring-pyqt5">
+<h2>Configuring PyQt5<a class="headerlink" href="#configuring-pyqt5" title="Permalink to this headline">¶</a></h2>
+<p>After unpacking the source package (either a <tt class="docutils literal"><span class="pre">.tar.gz</span></tt> or a <tt class="docutils literal"><span class="pre">.zip</span></tt> file
+depending on your platform) you should then check for any <tt class="docutils literal"><span class="pre">README</span></tt> files
+that relate to your platform.</p>
+<p>If you are using the commercial version of PyQt5 then you must copy your
+license file to the <tt class="docutils literal"><span class="pre">sip</span></tt> directory.</p>
+<p>You need to make sure your environment variables are set properly for your
+development environment.</p>
+<p>In order to configure the build of PyQt5 you need to run the
+<strong>configure.py</strong> script as follows:</p>
+<div class="highlight-python"><pre>python configure.py</pre>
+</div>
+<p>This assumes that the Python interpreter is on your path.  Something like the
+following may be appropriate on Windows:</p>
+<div class="highlight-python"><pre>c:\Python33\python configure.py</pre>
+</div>
+<p>If you have multiple versions of Python installed then make sure you use the
+interpreter for which you wish to build PyQt5 for.</p>
+<p>The full set of command line options is:</p>
+<dl class="cmdoption">
+<dt id="cmdoption-configure.py--assume-shared">
+<tt class="descname">--assume-shared</tt><tt class="descclassname"></tt><a class="headerlink" href="#cmdoption-configure.py--assume-shared" title="Permalink to this definition">¶</a></dt>
+<dd>Normally Qt is checked to see if it has been built as shared libraries.
+Some Linux distributions configure their Qt builds to make this check
+unreliable.  This option ignores the result of the check and assumes that
+Qt has been built as shared libraries.</dd></dl>
+
+<dl class="cmdoption">
+<dt id="cmdoption-configure.py--bindir">
+<tt class="descname">--bindir</tt><tt class="descclassname"> &lt;DIR&gt;</tt><a class="headerlink" href="#cmdoption-configure.py--bindir" title="Permalink to this definition">¶</a></dt>
+<dd>The <strong>pyuic5</strong>, <strong>pyrcc5</strong> and <strong>pylupdate5</strong>
+utilities will be installed in the directory <tt class="docutils literal"><span class="pre">&lt;DIR&gt;</span></tt>.</dd></dl>
+
+<dl class="cmdoption">
+<dt id="cmdoption-configure.py--concatenate">
+<tt class="descname">--concatenate</tt><tt class="descclassname"></tt><a class="headerlink" href="#cmdoption-configure.py--concatenate" title="Permalink to this definition">¶</a></dt>
+<dd>The C++ source files for a Python module will be concatenated.  This
+results in significantly reduced compilation times.  Most, but not all,
+C++ compilers can handle the large files that result.  See also the
+<a class="reference internal" href="#cmdoption-configure.py--concatenate-split"><em class="xref">--concatenate-split</em></a> option.</dd></dl>
+
+<dl class="cmdoption">
+<dt id="cmdoption-configure.py--concatenate-split">
+<tt class="descname">--concatenate-split</tt><tt class="descclassname"> &lt;N&gt;</tt><a class="headerlink" href="#cmdoption-configure.py--concatenate-split" title="Permalink to this definition">¶</a></dt>
+<dd>If the <a class="reference internal" href="#cmdoption-configure.py--concatenate"><em class="xref">--concatenate</em></a> option is used to concatenate the C++ source
+files then this option determines how many files are created.  The default
+is 1.</dd></dl>
+
+<dl class="cmdoption">
+<dt id="cmdoption-configure.py--configuration">
+<tt class="descname">--configuration</tt><tt class="descclassname"> &lt;FILE&gt;</tt><a class="headerlink" href="#cmdoption-configure.py--configuration" title="Permalink to this definition">¶</a></dt>
+<dd><tt class="docutils literal"><span class="pre">&lt;FILE&gt;</span></tt> contains the configuration of the PyQt5 build to be used instead
+of dynamically introspecting the system and is used when cross-compiling.
+The <tt class="docutils literal"><span class="pre">configurations</span></tt> directory contains configuration files for a
+number of target devices.</dd></dl>
+
+<dl class="cmdoption">
+<dt id="cmdoption-configure.py--confirm-license">
+<tt class="descname">--confirm-license</tt><tt class="descclassname"></tt><a class="headerlink" href="#cmdoption-configure.py--confirm-license" title="Permalink to this definition">¶</a></dt>
+<dd>Using this confirms that you accept the terms of the PyQt5 license.  If it
+is omitted then you will be asked for confirmation during configuration.</dd></dl>
+
+<dl class="cmdoption">
+<dt id="cmdoption-configure.py--consolidate">
+<tt class="descname">--consolidate</tt><tt class="descclassname"></tt><a class="headerlink" href="#cmdoption-configure.py--consolidate" title="Permalink to this definition">¶</a></dt>
+<dd>Normally each PyQt5 module (except for the <a title="" class="reference external" href="introduction.html#module-PyQt5.Qt"><tt class="xref docutils literal"><span class="pre">Qt</span></tt></a> module) is
+linked against the corresponding Qt library.  This option creates a module
+called <tt class="xref docutils literal"><span class="pre">_qt</span></tt> which is linked against all the required Qt
+libraries and the other modules are stub modules that populate their module
+dictionaries from this one.  This is useful when linking against static Qt
+libraries to eliminate the need to distribute the Qt libraries while
+minimising the memory footprint of the PyQt5 modules.</dd></dl>
+
+<dl class="cmdoption">
+<dt id="cmdoption-configure.py--dbus">
+<tt class="descname">--dbus</tt><tt class="descclassname"> &lt;DIR&gt;</tt><a class="headerlink" href="#cmdoption-configure.py--dbus" title="Permalink to this definition">¶</a></dt>
+<dd>The <tt class="docutils literal"><span class="pre">dbus-python.h</span></tt> header file of the dbus-python package can be
+found in the directory <tt class="docutils literal"><span class="pre">&lt;DIR&gt;/dbus</span></tt>.</dd></dl>
+
+<dl class="cmdoption">
+<dt id="cmdoption-configure.py--debug">
+<tt class="descname">--debug</tt><tt class="descclassname"></tt><a class="headerlink" href="#cmdoption-configure.py--debug" title="Permalink to this definition">¶</a></dt>
+<dd>The PyQt5 modules will be built with debugging symbols.  On Windows this
+requires that a debug version of Python is installed.</dd></dl>
+
+<dl class="cmdoption">
+<dt id="cmdoption-configure.py--designer-plugindir">
+<tt class="descname">--designer-plugindir</tt><tt class="descclassname"> &lt;DIR&gt;</tt><a class="headerlink" href="#cmdoption-configure.py--designer-plugindir" title="Permalink to this definition">¶</a></dt>
+<dd>The Python plugin for Qt Designer will be installed in the directory
+<tt class="docutils literal"><span class="pre">&lt;DIR&gt;</span></tt>.</dd></dl>
+
+<dl class="cmdoption">
+<dt id="cmdoption-configure.py--destdir">
+<tt class="descname">--destdir</tt><tt class="descclassname"> &lt;DIR&gt;</tt><a class="headerlink" href="#cmdoption-configure.py--destdir" title="Permalink to this definition">¶</a></dt>
+<dd>The PyQt5 Python package will be installed in the directory <tt class="docutils literal"><span class="pre">&lt;DIR&gt;</span></tt>.  The
+default is the Python installation&#8217;s <tt class="docutils literal"><span class="pre">site-packages</span></tt> directory.  If
+you use this option then the <span class="target" id="index-1"></span><strong class="xref">PYTHONPATH</strong> environment variable must
+include <tt class="docutils literal"><span class="pre">&lt;DIR&gt;</span></tt>.</dd></dl>
+
+<dl class="cmdoption">
+<dt id="cmdoption-configure.py--enable">
+<tt class="descname">--enable</tt><tt class="descclassname"> &lt;MODULE&gt;</tt><a class="headerlink" href="#cmdoption-configure.py--enable" title="Permalink to this definition">¶</a></dt>
+<dd>Normally all PyQt5 modules are enabled and are built if the corresponding
+Qt library can be found.  Using this option only those modules specifically
+enabled will be checked for and built.  The option may be specified any
+number of times.</dd></dl>
+
+<dl class="cmdoption">
+<dt id="cmdoption-configure.py--help">
+<tt class="descname">--help</tt><tt class="descclassname"></tt><tt class="descclassname">, </tt><tt class="descname">-h</tt><tt class="descclassname"></tt><a class="headerlink" href="#cmdoption-configure.py--help" title="Permalink to this definition">¶</a></dt>
+<dd>Display a help message.</dd></dl>
+
+<dl class="cmdoption">
+<dt id="cmdoption-configure.py--no-designer-plugin">
+<tt class="descname">--no-designer-plugin</tt><tt class="descclassname"></tt><a class="headerlink" href="#cmdoption-configure.py--no-designer-plugin" title="Permalink to this definition">¶</a></dt>
+<dd>The Qt Designer plugin will not be built.</dd></dl>
+
+<dl class="cmdoption">
+<dt id="cmdoption-configure.py--no-docstrings">
+<tt class="descname">--no-docstrings</tt><tt class="descclassname"></tt><a class="headerlink" href="#cmdoption-configure.py--no-docstrings" title="Permalink to this definition">¶</a></dt>
+<dd>The PyQt5 modules will not contain automatically generated docstrings.</dd></dl>
+
+<dl class="cmdoption">
+<dt id="cmdoption-configure.py--no-qml-plugin">
+<tt class="descname">--no-qml-plugin</tt><tt class="descclassname"></tt><a class="headerlink" href="#cmdoption-configure.py--no-qml-plugin" title="Permalink to this definition">¶</a></dt>
+<dd>The <strong>qmlscene</strong> plugin will not be built.</dd></dl>
+
+<dl class="cmdoption">
+<dt id="cmdoption-configure.py--no-qsci-api">
+<tt class="descname">--no-qsci-api</tt><tt class="descclassname"></tt><a class="headerlink" href="#cmdoption-configure.py--no-qsci-api" title="Permalink to this definition">¶</a></dt>
+<dd>The <tt class="docutils literal"><span class="pre">PyQt5.api</span></tt> QScintilla API file is not installed even if
+QScintilla does appear to be installed.</dd></dl>
+
+<dl class="cmdoption">
+<dt id="cmdoption-configure.py--no-sip-files">
+<tt class="descname">--no-sip-files</tt><tt class="descclassname"></tt><a class="headerlink" href="#cmdoption-configure.py--no-sip-files" title="Permalink to this definition">¶</a></dt>
+<dd>The <tt class="docutils literal"><span class="pre">.sip</span></tt> files for the PyQt5 modules will not be installed.</dd></dl>
+
+<dl class="cmdoption">
+<dt id="cmdoption-configure.py--no-timestamp">
+<tt class="descname">--no-timestamp</tt><tt class="descclassname"></tt><a class="headerlink" href="#cmdoption-configure.py--no-timestamp" title="Permalink to this definition">¶</a></dt>
+<dd>Normally the header comments of each generated C/C++ source file includes
+a timestamp corresponding to when the file was generated.  This option
+suppresses the inclusion of the timestamp.</dd></dl>
+
+<dl class="cmdoption">
+<dt id="cmdoption-configure.py--protected-is-public">
+<tt class="descname">--protected-is-public</tt><tt class="descclassname"></tt><a class="headerlink" href="#cmdoption-configure.py--protected-is-public" title="Permalink to this definition">¶</a></dt>
+<dd>On certain platforms the size of PyQt5 modules can be significantly reduced
+by redefining the C++ <tt class="docutils literal"><span class="pre">protected</span></tt> keyword as <tt class="docutils literal"><span class="pre">public</span></tt> during
+compilation.  This option enables this behaviour and is the default on
+Linux and MacOS/X.</dd></dl>
+
+<dl class="cmdoption">
+<dt id="cmdoption-configure.py--protected-not-public">
+<tt class="descname">--protected-not-public</tt><tt class="descclassname"></tt><a class="headerlink" href="#cmdoption-configure.py--protected-not-public" title="Permalink to this definition">¶</a></dt>
+<dd>The default redefinition of <tt class="docutils literal"><span class="pre">protected</span></tt> to <tt class="docutils literal"><span class="pre">public</span></tt> during compilation
+on Linux and MacOS/X is disabled.</dd></dl>
+
+<dl class="cmdoption">
+<dt id="cmdoption-configure.py--pyuic5-interpreter">
+<tt class="descname">--pyuic5-interpreter</tt><tt class="descclassname"> &lt;FILE&gt;</tt><a class="headerlink" href="#cmdoption-configure.py--pyuic5-interpreter" title="Permalink to this definition">¶</a></dt>
+<dd><tt class="docutils literal"><span class="pre">&lt;FILE&gt;</span></tt> is the name of the Python interpreter used in the pyuic5
+wrapper.  The default is platform dependent.</dd></dl>
+
+<dl class="cmdoption">
+<dt id="cmdoption-configure.py--qmake">
+<tt class="descname">--qmake</tt><tt class="descclassname"> &lt;FILE&gt;</tt><a class="headerlink" href="#cmdoption-configure.py--qmake" title="Permalink to this definition">¶</a></dt>
+<dd>Qt&#8217;s <strong>qmake</strong> program is used to determine how your Qt installation
+is laid out.  Normally <strong>qmake</strong> is found on your <span class="target" id="index-2"></span><strong class="xref">PATH</strong>.
+This option can be used to specify a particular instance of
+<strong>qmake</strong> to use.  This option is not available on Windows where
+<strong>qmake</strong> must be on <span class="target" id="index-3"></span><strong class="xref">PATH</strong>.</dd></dl>
+
+<dl class="cmdoption">
+<dt id="cmdoption-configure.py--qml-plugindir">
+<tt class="descname">--qml-plugindir</tt><tt class="descclassname"> &lt;DIR&gt;</tt><a class="headerlink" href="#cmdoption-configure.py--qml-plugindir" title="Permalink to this definition">¶</a></dt>
+<dd>The Python plugin for <strong>qmlscene</strong> will be installed in the
+directory <tt class="docutils literal"><span class="pre">&lt;DIR&gt;</span></tt>.</dd></dl>
+
+<dl class="cmdoption">
+<dt id="cmdoption-configure.py--qsci-api">
+<tt class="descname">--qsci-api</tt><tt class="descclassname"></tt><a class="headerlink" href="#cmdoption-configure.py--qsci-api" title="Permalink to this definition">¶</a></dt>
+<dd>The <tt class="docutils literal"><span class="pre">PyQt5.api</span></tt> QScintilla API file is installed even if QScintilla
+does not appear to be installed.  This option is implied if the
+<a class="reference internal" href="#cmdoption-configure.py--qsci-api-destdir"><em class="xref">--qsci-api-destdir</em></a> option is specified.</dd></dl>
+
+<dl class="cmdoption">
+<dt id="cmdoption-configure.py--qsci-api-destdir">
+<tt class="descname">--qsci-api-destdir</tt><tt class="descclassname"> &lt;DIR&gt;</tt><a class="headerlink" href="#cmdoption-configure.py--qsci-api-destdir" title="Permalink to this definition">¶</a></dt>
+<dd>The QScintilla API file will be installed in the <tt class="docutils literal"><span class="pre">python</span></tt>
+subdirectory of the <tt class="docutils literal"><span class="pre">api</span></tt> subdirectory of the directory <tt class="docutils literal"><span class="pre">&lt;DIR&gt;</span></tt>.</dd></dl>
+
+<dl class="cmdoption">
+<dt id="cmdoption-configure.py--sip">
+<tt class="descname">--sip</tt><tt class="descclassname"> &lt;FILE&gt;</tt><a class="headerlink" href="#cmdoption-configure.py--sip" title="Permalink to this definition">¶</a></dt>
+<dd>The <strong>sip</strong> program is used to generate PyQt5&#8217;s C++ source code.
+Normally <strong>sip</strong> is found on your <span class="target" id="index-4"></span><strong class="xref">PATH</strong>.  This option can
+be used to specify a particular instance of <strong>sip</strong> to use.</dd></dl>
+
+<dl class="cmdoption">
+<dt id="cmdoption-configure.py--sip-incdir">
+<tt class="descname">--sip-incdir</tt><tt class="descclassname"> &lt;DIR&gt;</tt><a class="headerlink" href="#cmdoption-configure.py--sip-incdir" title="Permalink to this definition">¶</a></dt>
+<dd>The <tt class="docutils literal"><span class="pre">sip.h</span></tt> header file can be found in the directory <tt class="docutils literal"><span class="pre">&lt;DIR&gt;</span></tt>.</dd></dl>
+
+<dl class="cmdoption">
+<dt id="cmdoption-configure.py--sipdir">
+<tt class="descname">--sipdir</tt><tt class="descclassname"> &lt;DIR&gt;</tt><a class="headerlink" href="#cmdoption-configure.py--sipdir" title="Permalink to this definition">¶</a></dt>
+<dd>The <tt class="docutils literal"><span class="pre">.sip</span></tt> files for the PyQt5 modules will be installed in the directory
+<tt class="docutils literal"><span class="pre">&lt;DIR&gt;</span></tt>.</dd></dl>
+
+<dl class="cmdoption">
+<dt id="cmdoption-configure.py--spec">
+<tt class="descname">--spec</tt><tt class="descclassname"> &lt;SPEC&gt;</tt><a class="headerlink" href="#cmdoption-configure.py--spec" title="Permalink to this definition">¶</a></dt>
+<dd>The argument <tt class="docutils literal"><span class="pre">-spec</span> <span class="pre">SPEC</span></tt> will be passed to <strong>qmake</strong>.  The
+default behaviour is platform specific.  On Windows <strong>configure.py</strong>
+will choose the value that is correct for the version of Python that is
+being used.  (However if you have built Python yourself then you may need
+to explicitly specify <tt class="docutils literal"><span class="pre">&lt;SPEC&gt;</span></tt>.)  On MacOS <strong>configure.py</strong> will
+try and avoid <tt class="docutils literal"><span class="pre">macx-xcode</span></tt> if possible.)</dd></dl>
+
+<dl class="cmdoption">
+<dt id="cmdoption-configure.py--static">
+<tt class="descname">--static</tt><tt class="descclassname"></tt><a class="headerlink" href="#cmdoption-configure.py--static" title="Permalink to this definition">¶</a></dt>
+<dd>The PyQt5 modules will be built as static libraries.  This is useful when
+building a custom interpreter with the PyQt5 modules built in to the
+interpreter.</dd></dl>
+
+<dl class="cmdoption">
+<dt id="cmdoption-configure.py--trace">
+<tt class="descname">--trace</tt><tt class="descclassname"></tt><a class="headerlink" href="#cmdoption-configure.py--trace" title="Permalink to this definition">¶</a></dt>
+<dd>The generated PyQt5 modules contain additional tracing code that is enabled
+using SIP&#8217;s <tt class="xref docutils literal"><span class="pre">sip.settracemask()</span></tt> function.</dd></dl>
+
+<dl class="cmdoption">
+<dt id="cmdoption-configure.py--vendorid">
+<tt class="descname">--vendorid</tt><tt class="descclassname"></tt><a class="headerlink" href="#cmdoption-configure.py--vendorid" title="Permalink to this definition">¶</a></dt>
+<dd>The checking of signed Python interpreters using the <a class="reference external" href="http://www.riverbankcomputing.com/software/vendorid/">VendorID</a> package is
+enabled.  See also the <a class="reference internal" href="#cmdoption-configure.py--vendorid-incdir"><em class="xref">--vendorid-incdir</em></a> and
+<a class="reference internal" href="#cmdoption-configure.py--vendorid-libdir"><em class="xref">--vendorid-libdir</em></a> options and <a class="reference external" href="deploy_commercial.html#ref-deploy-commercial"><em>Deploying Commercial PyQt5 Applications</em></a>.</dd></dl>
+
+<dl class="cmdoption">
+<dt id="cmdoption-configure.py--vendorid-incdir">
+<tt class="descname">--vendorid-incdir</tt><tt class="descclassname"> &lt;DIR&gt;</tt><a class="headerlink" href="#cmdoption-configure.py--vendorid-incdir" title="Permalink to this definition">¶</a></dt>
+<dd>The header file of the VendorID package can be found in the directory
+<tt class="docutils literal"><span class="pre">&lt;DIR&gt;</span></tt>.</dd></dl>
+
+<dl class="cmdoption">
+<dt id="cmdoption-configure.py--vendorid-libdir">
+<tt class="descname">--vendorid-libdir</tt><tt class="descclassname"> &lt;DIR&gt;</tt><a class="headerlink" href="#cmdoption-configure.py--vendorid-libdir" title="Permalink to this definition">¶</a></dt>
+<dd>The library of the VendorID package can be found in the directory
+<tt class="docutils literal"><span class="pre">&lt;DIR&gt;</span></tt>.</dd></dl>
+
+<dl class="cmdoption">
+<dt id="cmdoption-configure.py--verbose">
+<tt class="descname">--verbose</tt><tt class="descclassname"></tt><a class="headerlink" href="#cmdoption-configure.py--verbose" title="Permalink to this definition">¶</a></dt>
+<dd>Compiler commands and any output issued during configuration is displayed
+instead of being suppressed.  Use this if <strong>configure.py</strong> is having
+problems to see what exactly is going wrong.</dd></dl>
+
+<dl class="cmdoption">
+<dt id="cmdoption-configure.py--version">
+<tt class="descname">--version</tt><tt class="descclassname"></tt><a class="headerlink" href="#cmdoption-configure.py--version" title="Permalink to this definition">¶</a></dt>
+<dd>Display the PyQt5 version number.</dd></dl>
+
+<p>Any remaining command line arguments are expected to be in the form
+<tt class="docutils literal"><span class="pre">name=value</span></tt> or <tt class="docutils literal"><span class="pre">name+=value</span></tt>.  Such arguments are added to any
+<strong>qmake</strong> <tt class="docutils literal"><span class="pre">.pro</span></tt> file created by <strong>configure.py</strong>.</p>
+</div>
+<div class="section" id="building-pyqt5">
+<h2>Building PyQt5<a class="headerlink" href="#building-pyqt5" title="Permalink to this headline">¶</a></h2>
+<p>The next step is to build PyQt5 by running your platform&#8217;s <strong>make</strong>
+command.  For example:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">make</span>
+</pre></div>
+</div>
+<p>The final step is to install PyQt5 by running the following command:</p>
+<div class="highlight-python"><pre>make install</pre>
+</div>
+<p>(Depending on your system you may require root or administrator privileges.)</p>
+<p>This will install the various PyQt5 components.</p>
+</div>
+<div class="section" id="co-existence-with-pyqt4">
+<h2>Co-existence with PyQt4<a class="headerlink" href="#co-existence-with-pyqt4" title="Permalink to this headline">¶</a></h2>
+<p>PyQt5 can be installed alongside PyQt4 using the same Python interpreter
+without any problems so long as they are built with the same versions of SIP.</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="index.html">
+              <img class="logo" src="_static/logo.png" alt="Logo"/>
+            </a></p>
+            <h3><a href="index.html">Table Of Contents</a></h3>
+            <ul>
+<li><a class="reference external" href="#">Installing PyQt5</a><ul>
+<li><a class="reference external" href="#downloading-sip">Downloading SIP</a></li>
+<li><a class="reference external" href="#downloading-pyqt5">Downloading PyQt5</a></li>
+<li><a class="reference external" href="#configuring-pyqt5">Configuring PyQt5</a></li>
+<li><a class="reference external" href="#building-pyqt5">Building PyQt5</a></li>
+<li><a class="reference external" href="#co-existence-with-pyqt4">Co-existence with PyQt4</a></li>
+</ul>
+</li>
+</ul>
+
+            <h4>Previous topic</h4>
+            <p class="topless"><a href="introduction.html"
+                                  title="previous chapter">Introduction</a></p>
+            <h4>Next topic</h4>
+            <p class="topless"><a href="pyqt4_differences.html"
+                                  title="next chapter">Differences Between PyQt4 and PyQt5</a></p>
+          <div id="searchbox" style="display: none">
+            <h3>Quick search</h3>
+              <form class="search" action="search.html" method="get">
+                <input type="text" name="q" size="18" />
+                <input type="submit" value="Go" />
+                <input type="hidden" name="check_keywords" value="yes" />
+                <input type="hidden" name="area" value="default" />
+              </form>
+              <p class="searchtip" style="font-size: 90%">
+              Enter search terms or a module, class or function name.
+              </p>
+          </div>
+          <script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="modindex.html" title="Global Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="pyqt4_differences.html" title="Differences Between PyQt4 and PyQt5"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="introduction.html" title="Introduction"
+             >previous</a> |</li>
+        <li><a href="index.html">PyQt 5.1.1-snapshot-3c895ca14f00 Reference Guide</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+      &copy; Copyright 2013 Riverbank Computing Limited.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 0.6.4.
+    </div>
+  </body>
+</html>

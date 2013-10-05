@@ -1,0 +1,339 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Differences Between PyQt4 and PyQt5 &mdash; PyQt 5.1.1-snapshot-3c895ca14f00 Reference Guide</title>
+    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '#',
+        VERSION:     '5.1.1-snapshot-3c895ca14f00',
+        COLLAPSE_MODINDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="shortcut icon" href="_static/logo_tn.ico"/>
+    <link rel="top" title="PyQt 5.1.1-snapshot-3c895ca14f00 Reference Guide" href="index.html" />
+    <link rel="next" title="PyQt5 Class Reference" href="class_reference.html" />
+    <link rel="prev" title="Installing PyQt5" href="installation.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="modindex.html" title="Global Module Index"
+             accesskey="M">modules</a> |</li>
+        <li class="right" >
+          <a href="class_reference.html" title="PyQt5 Class Reference"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="installation.html" title="Installing PyQt5"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">PyQt 5.1.1-snapshot-3c895ca14f00 Reference Guide</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="differences-between-pyqt4-and-pyqt5">
+<h1>Differences Between PyQt4 and PyQt5<a class="headerlink" href="#differences-between-pyqt4-and-pyqt5" title="Permalink to this headline">¶</a></h1>
+<p>PyQt5 is not compatibile with PyQt4 (although experience shows that the effort
+in porting applications from PyQt4 to PyQt5 is not great).  This section
+describes the main differences between the two.</p>
+<div class="section" id="supported-python-versions">
+<h2>Supported Python Versions<a class="headerlink" href="#supported-python-versions" title="Permalink to this headline">¶</a></h2>
+<p>Versions of Python earlier than v2.6 are not supported.</p>
+</div>
+<div class="section" id="deprecated-features">
+<h2>Deprecated Features<a class="headerlink" href="#deprecated-features" title="Permalink to this headline">¶</a></h2>
+<p>PyQt5 does not support any parts of the Qt API that are marked as deprecated or
+obsolete in Qt v5.0.  However it is possible that some of these have been
+included accidentaly.  These are considered bugs and will be removed if found.</p>
+</div>
+<div class="section" id="multiple-apis">
+<h2>Multiple APIs<a class="headerlink" href="#multiple-apis" title="Permalink to this headline">¶</a></h2>
+<p>PyQt4 supports a number of different API versions (<tt class="docutils literal"><span class="pre">QString</span></tt>,
+<a title="PyQt5.QtCore.QVariant" class="reference external" href="api/qvariant.html#PyQt5.QtCore.QVariant"><tt class="xref docutils literal"><span class="pre">QVariant</span></tt></a> etc.).  With the exception of
+<a title="PyQt5.QtCore.QVariant" class="reference external" href="api/qvariant.html#PyQt5.QtCore.QVariant"><tt class="xref docutils literal"><span class="pre">QVariant</span></tt></a>, PyQt5 only implements v2 of those APIs for all
+versions of Python.  The changed support for <a title="PyQt5.QtCore.QVariant" class="reference external" href="api/qvariant.html#PyQt5.QtCore.QVariant"><tt class="xref docutils literal"><span class="pre">QVariant</span></tt></a>,
+including the removal of <tt class="docutils literal"><span class="pre">QPyNullVariant</span></tt>, is described in
+<a class="reference external" href="pyqt_qvariant.html#ref-qvariant"><em>Support for QVariant</em></a>.</p>
+</div>
+<div class="section" id="old-style-signals-and-slots">
+<h2>Old-style Signals and Slots<a class="headerlink" href="#old-style-signals-and-slots" title="Permalink to this headline">¶</a></h2>
+<p>PyQt4&#8217;s old-style signals and slots are not supported.  Therefore the following
+are not implemented in PyQt5:</p>
+<ul class="simple">
+<li><tt class="docutils literal"><span class="pre">QObject.connect()</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">QObject.emit()</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">SIGNAL()</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">SLOT()</span></tt></li>
+</ul>
+<p>All methods that had arguments that are usually the results of calls to
+<tt class="docutils literal"><span class="pre">SIGNAL()</span></tt> or <tt class="docutils literal"><span class="pre">SLOT()</span></tt> are no longer supported.  There will always be an
+equivalent that takes a bound signal or callable respectively.</p>
+<p>In addition the following methods have differences:</p>
+<ul class="simple">
+<li><tt class="xref docutils literal"><span class="pre">disconnect()</span></tt> takes no arguments and disconnects
+all connections to the <a title="PyQt5.QtCore.QObject" class="reference external" href="api/qobject.html#PyQt5.QtCore.QObject"><tt class="xref docutils literal"><span class="pre">QObject</span></tt></a> instance.</li>
+</ul>
+</div>
+<div class="section" id="qtdeclarative-qtscript-and-qtscripttools-modules">
+<h2><tt class="docutils literal"><span class="pre">QtDeclarative</span></tt>, <tt class="docutils literal"><span class="pre">QtScript</span></tt> and <tt class="docutils literal"><span class="pre">QtScriptTools</span></tt> Modules<a class="headerlink" href="#qtdeclarative-qtscript-and-qtscripttools-modules" title="Permalink to this headline">¶</a></h2>
+<p>PyQt4&#8217;s <tt class="docutils literal"><span class="pre">QtDeclarative</span></tt>, <tt class="docutils literal"><span class="pre">QtScript</span></tt> and <tt class="docutils literal"><span class="pre">QtScriptTools</span></tt> modules are not
+supported.  These have been replaced by PyQt5&#8217;s <a title="" class="reference external" href="introduction.html#module-PyQt5.QtQml"><tt class="xref docutils literal"><span class="pre">QtQml</span></tt></a> and
+<a title="" class="reference external" href="introduction.html#module-PyQt5.QtQuick"><tt class="xref docutils literal"><span class="pre">QtQuick</span></tt></a> modules.  Unlike PyQt4, PyQt5 supports the creation of
+Python objects from QML.</p>
+</div>
+<div class="section" id="qtgui-module">
+<h2><tt class="docutils literal"><span class="pre">QtGui</span></tt> Module<a class="headerlink" href="#qtgui-module" title="Permalink to this headline">¶</a></h2>
+<p>PyQt4&#8217;s <tt class="docutils literal"><span class="pre">QtGui</span></tt> module has been split into PyQt5&#8217;s <a title="" class="reference external" href="introduction.html#module-PyQt5.QtGui"><tt class="xref docutils literal"><span class="pre">QtGui</span></tt></a>,
+<a title="" class="reference external" href="introduction.html#module-PyQt5.QtPrintSupport"><tt class="xref docutils literal"><span class="pre">QtPrintSupport</span></tt></a> and <a title="" class="reference external" href="introduction.html#module-PyQt5.QtWidgets"><tt class="xref docutils literal"><span class="pre">QtWidgets</span></tt></a> modules.</p>
+</div>
+<div class="section" id="qtopengl-module">
+<h2><tt class="docutils literal"><span class="pre">QtOpenGL</span></tt> Module<a class="headerlink" href="#qtopengl-module" title="Permalink to this headline">¶</a></h2>
+<p>Only the <a title="PyQt5.QtOpenGL.QGLContext" class="reference external" href="api/qglcontext.html#PyQt5.QtOpenGL.QGLContext"><tt class="xref docutils literal"><span class="pre">QGLContext</span></tt></a>,
+<a title="PyQt5.QtOpenGL.QGLFormat" class="reference external" href="api/qglformat.html#PyQt5.QtOpenGL.QGLFormat"><tt class="xref docutils literal"><span class="pre">QGLFormat</span></tt></a> and <a title="PyQt5.QtOpenGL.QGLWidget" class="reference external" href="api/qglwidget.html#PyQt5.QtOpenGL.QGLWidget"><tt class="xref docutils literal"><span class="pre">QGLWidget</span></tt></a>
+classes are supported by PyQt5.</p>
+</div>
+<div class="section" id="qtwebkit-module">
+<h2><tt class="docutils literal"><span class="pre">QtWebKit</span></tt> Module<a class="headerlink" href="#qtwebkit-module" title="Permalink to this headline">¶</a></h2>
+<p>PyQt4&#8217;s <tt class="docutils literal"><span class="pre">QtWebKit</span></tt> module has been split into PyQt5&#8217;s <a title="" class="reference external" href="introduction.html#module-PyQt5.QtWebKit"><tt class="xref docutils literal"><span class="pre">QtWebKit</span></tt></a>
+and <a title="" class="reference external" href="introduction.html#module-PyQt5.QtWebKitWidgets"><tt class="xref docutils literal"><span class="pre">QtWebKitWidgets</span></tt></a> modules.</p>
+</div>
+<div class="section" id="qtxml-module">
+<h2><tt class="docutils literal"><span class="pre">QtXml</span></tt> Module<a class="headerlink" href="#qtxml-module" title="Permalink to this headline">¶</a></h2>
+<p>PyQt4&#8217;s <tt class="docutils literal"><span class="pre">QtXml</span></tt> module is not supported.  Use either the
+<tt class="xref docutils literal"><span class="pre">QXMLStreamReader</span></tt> and
+<tt class="xref docutils literal"><span class="pre">QXMLStreamWriter</span></tt> classes or Python&#8217;s standard XML
+modules.</p>
+</div>
+<div class="section" id="pyqtconfig-module">
+<h2><tt class="docutils literal"><span class="pre">pyqtconfig</span></tt> Module<a class="headerlink" href="#pyqtconfig-module" title="Permalink to this headline">¶</a></h2>
+<p>PyQt4&#8217;s <tt class="docutils literal"><span class="pre">pyqtconfig</span></tt> module is not supported.  The section
+<a class="reference external" href="extension_api.html#ref-build-system"><em>The PyQt5 Extension API</em></a> describes the support that PyQt5 provides to
+third-party packages (e.g.
+<a class="reference external" href="http://www.riverbankcomputing.com/software/qscintilla/">QScintilla</a>) that
+want to build on top of PyQt5.</p>
+</div>
+<div class="section" id="dbus-mainloop-qt-module">
+<h2><tt class="docutils literal"><span class="pre">dbus.mainloop.qt</span></tt> Module<a class="headerlink" href="#dbus-mainloop-qt-module" title="Permalink to this headline">¶</a></h2>
+<p>PyQt4&#8217;s <tt class="docutils literal"><span class="pre">dbus.mainloop.qt</span></tt> module is called <tt class="xref docutils literal"><span class="pre">dbus.mainloop.pyqt5</span></tt> in
+PyQt5.  This allows them to be installed side by side.  Their functionality is
+identical.</p>
+</div>
+<div class="section" id="qdatastream">
+<h2><tt class="docutils literal"><span class="pre">QDataStream</span></tt><a class="headerlink" href="#qdatastream" title="Permalink to this headline">¶</a></h2>
+<p>The <tt class="xref docutils literal"><span class="pre">readUInt8()</span></tt>,
+<tt class="xref docutils literal"><span class="pre">readInt8()</span></tt>,
+<tt class="xref docutils literal"><span class="pre">writeUInt8()</span></tt> and
+<tt class="xref docutils literal"><span class="pre">writeInt8()</span></tt> methods all interpret the values
+being read and written as numeric values.  In PyQt4 they are interpreted as
+single character strings.</p>
+</div>
+<div class="section" id="qfiledialog">
+<h2><tt class="docutils literal"><span class="pre">QFileDialog</span></tt><a class="headerlink" href="#qfiledialog" title="Permalink to this headline">¶</a></h2>
+<p>The <tt class="docutils literal"><span class="pre">getOpenFileNameAndFilter()</span></tt>, <tt class="docutils literal"><span class="pre">getOpenFileNamesAndFilter()</span></tt> and
+<tt class="docutils literal"><span class="pre">getSaveFileNameAndFilter()</span></tt> methods of PyQt4&#8217;s <tt class="docutils literal"><span class="pre">QFileDialog</span></tt> have now been
+renamed <tt class="xref docutils literal"><span class="pre">getOpenFileName()</span></tt>,
+<tt class="xref docutils literal"><span class="pre">getOpenFileNames()</span></tt> and
+<tt class="xref docutils literal"><span class="pre">getSaveFileName()</span></tt> respectively in PyQt5.
+PyQt4&#8217;s implementations of <tt class="docutils literal"><span class="pre">getOpenFileName()</span></tt>, <tt class="docutils literal"><span class="pre">getOpenFileNames()</span></tt> and
+<tt class="docutils literal"><span class="pre">getSaveFileName()</span></tt> are not supported in PyQt5.</p>
+</div>
+<div class="section" id="qgraphicsitemanimation">
+<h2><tt class="docutils literal"><span class="pre">QGraphicsItemAnimation</span></tt><a class="headerlink" href="#qgraphicsitemanimation" title="Permalink to this headline">¶</a></h2>
+<p>Support for the deprecated <tt class="docutils literal"><span class="pre">QGraphicsItemAnimation</span></tt> class has been removed.
+If porting an existing PyQt4 application then consider first updating it to use
+<a title="PyQt5.QtCore.QPropertyAnimation" class="reference external" href="api/qpropertyanimation.html#PyQt5.QtCore.QPropertyAnimation"><tt class="xref docutils literal"><span class="pre">QPropertyAnimation</span></tt></a> instead.</p>
+</div>
+<div class="section" id="qmatrix">
+<h2><tt class="docutils literal"><span class="pre">QMatrix</span></tt><a class="headerlink" href="#qmatrix" title="Permalink to this headline">¶</a></h2>
+<p>Support for the deprecated <tt class="docutils literal"><span class="pre">QMatrix</span></tt> class has been removed.  If porting an
+existing PyQt4 application then consider first updating it to use
+<a title="PyQt5.QtGui.QTransform" class="reference external" href="api/qtransform.html#PyQt5.QtGui.QTransform"><tt class="xref docutils literal"><span class="pre">QTransform</span></tt></a> instead.</p>
+</div>
+<div class="section" id="qpytextobject">
+<h2><tt class="docutils literal"><span class="pre">QPyTextObject</span></tt><a class="headerlink" href="#qpytextobject" title="Permalink to this headline">¶</a></h2>
+<p>PyQt4 implements the <tt class="docutils literal"><span class="pre">QPyTextObject</span></tt> as a workaround for the inability to
+define a Python class that is sub-classed from more than one Qt class.  PyQt5
+does support the ability to define a Python class that is sub-classed from more
+than one Qt class so long as all but one of the Qt classes are interfaces, i.e.
+they have been declared in C++ as such using <tt class="docutils literal"><span class="pre">Q_DECLARE_INTERFACE</span></tt>.
+Therefore <tt class="docutils literal"><span class="pre">QPyTextObject</span></tt> is not implemented in PyQt5.</p>
+</div>
+<div class="section" id="qset">
+<h2><tt class="docutils literal"><span class="pre">QSet</span></tt><a class="headerlink" href="#qset" title="Permalink to this headline">¶</a></h2>
+<p>In PyQt4, <tt class="docutils literal"><span class="pre">QSet</span></tt> was implemented as a list in Python v2 and a set in Python
+v3.  In PyQt5 <tt class="docutils literal"><span class="pre">QSet</span></tt> is always implemented as a set.</p>
+</div>
+<div class="section" id="pyuic5">
+<h2><tt class="docutils literal"><span class="pre">pyuic5</span></tt><a class="headerlink" href="#pyuic5" title="Permalink to this headline">¶</a></h2>
+<p><strong>pyuic5</strong> does not support the <tt class="docutils literal"><span class="pre">--pyqt3-wrapper</span></tt> flag of <tt class="docutils literal"><span class="pre">pyuic4</span></tt>.</p>
+</div>
+<div class="section" id="pyrcc5">
+<h2><tt class="docutils literal"><span class="pre">pyrcc5</span></tt><a class="headerlink" href="#pyrcc5" title="Permalink to this headline">¶</a></h2>
+<p><strong>pyrcc5</strong> does not support the <tt class="docutils literal"><span class="pre">-py2</span></tt> and <tt class="docutils literal"><span class="pre">-py3</span></tt> flags of
+<tt class="docutils literal"><span class="pre">pyrcc4</span></tt>.  The output of <strong>pyrcc5</strong> is compatible with all versions of
+Python starting with Python v2.6.</p>
+</div>
+<div class="section" id="cooperative-multi-inheritance">
+<h2>Cooperative Multi-inheritance<a class="headerlink" href="#cooperative-multi-inheritance" title="Permalink to this headline">¶</a></h2>
+<p>Unlike PyQt4, PyQt5 classes implement cooperative multi-inheritance.  In other
+words PyQt5 classes always do the equivalent of the following Python v3 code
+in their <tt class="docutils literal"><span class="pre">__init__</span></tt> methods (where <tt class="docutils literal"><span class="pre">kwds</span></tt> is a dictionary of unused keyword
+arguments):</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="o">**</span><span class="n">kwds</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>This means that those unused keyword arguments are passed to the <tt class="docutils literal"><span class="pre">__init__</span></tt>
+methods of any mixin classes.  Those mixin classes must cooperate, i.e. they
+must make a similar call if they have their own <tt class="docutils literal"><span class="pre">__init__</span></tt> implementations.</p>
+<p>When using multiple inheritance in PyQt4 it is common to call the <tt class="docutils literal"><span class="pre">__init__</span></tt>
+methods of the super-classes explicitly, for example:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">class</span> <span class="nc">MyQObject</span><span class="p">(</span><span class="n">QObject</span><span class="p">,</span> <span class="n">MyMixin</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">parent</span><span class="p">,</span> <span class="n">mixin_arg</span><span class="p">):</span>
+        <span class="n">QObject</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">parent</span><span class="p">)</span>
+        <span class="n">MyMixin</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">mixin_arg</span><span class="p">)</span>
+
+        <span class="c"># Other initialisation...</span>
+</pre></div>
+</div>
+<p>In PyQt5 the above would cause <tt class="docutils literal"><span class="pre">MyMixin.__init__</span></tt> to be called twice.
+Instead it should be implemented as follows:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">class</span> <span class="nc">MyQObject</span><span class="p">(</span><span class="n">QObject</span><span class="p">,</span> <span class="n">MyMixin</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwds</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="o">**</span><span class="n">kwds</span><span class="p">)</span>
+
+        <span class="c"># Other initialisation...</span>
+</pre></div>
+</div>
+<p>Note that if there is no other initialisation to do then the <tt class="docutils literal"><span class="pre">__init__</span></tt>
+method isn&#8217;t actually needed.</p>
+<p>The mixin class should be implemented as follows:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">class</span> <span class="nc">MyMixin</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">mixin_arg</span><span class="p">,</span> <span class="o">**</span><span class="n">kwds</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="o">**</span><span class="n">kwds</span><span class="p">)</span>
+
+        <span class="c"># Other initialisation...</span>
+</pre></div>
+</div>
+<p>If a class only inherits from a single class then it can still call the
+super-class&#8217;s <tt class="docutils literal"><span class="pre">__init__</span></tt> method explicitly (although it is recommended to use
+<tt class="docutils literal"><span class="pre">super()</span></tt>).</p>
+<p>See <a class="reference external" href="multiinheritance.html#ref-cooperative-multiinheritance"><em>Support for Cooperative Multi-inheritance</em></a>.</p>
+</div>
+<div class="section" id="releasing-the-gil">
+<h2>Releasing the GIL<a class="headerlink" href="#releasing-the-gil" title="Permalink to this headline">¶</a></h2>
+<p>The GIL is only released when it is known to be needed.  PyQt4 always released
+the GIL when calling Qt.</p>
+</div>
+<div class="section" id="object-destruction-on-exit">
+<h2>Object Destruction on Exit<a class="headerlink" href="#object-destruction-on-exit" title="Permalink to this headline">¶</a></h2>
+<p>When the Python interpreter exits PyQt4 (by default) calls the C++ destructor
+of all wrapped instances that it owns.  This happens in a random order and can
+therefore cause the interpreter to crash.  This behavior can be disabled by
+calling the <tt class="xref docutils literal"><span class="pre">sip.setdestroyonexit()</span></tt> function.</p>
+<p>PyQt5 always calls <tt class="xref docutils literal"><span class="pre">sip.setdestroyonexit()</span></tt> automatically.</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="index.html">
+              <img class="logo" src="_static/logo.png" alt="Logo"/>
+            </a></p>
+            <h3><a href="index.html">Table Of Contents</a></h3>
+            <ul>
+<li><a class="reference external" href="#">Differences Between PyQt4 and PyQt5</a><ul>
+<li><a class="reference external" href="#supported-python-versions">Supported Python Versions</a></li>
+<li><a class="reference external" href="#deprecated-features">Deprecated Features</a></li>
+<li><a class="reference external" href="#multiple-apis">Multiple APIs</a></li>
+<li><a class="reference external" href="#old-style-signals-and-slots">Old-style Signals and Slots</a></li>
+<li><a class="reference external" href="#qtdeclarative-qtscript-and-qtscripttools-modules"><tt class="docutils literal"><span class="pre">QtDeclarative</span></tt>, <tt class="docutils literal"><span class="pre">QtScript</span></tt> and <tt class="docutils literal"><span class="pre">QtScriptTools</span></tt> Modules</a></li>
+<li><a class="reference external" href="#qtgui-module"><tt class="docutils literal"><span class="pre">QtGui</span></tt> Module</a></li>
+<li><a class="reference external" href="#qtopengl-module"><tt class="docutils literal"><span class="pre">QtOpenGL</span></tt> Module</a></li>
+<li><a class="reference external" href="#qtwebkit-module"><tt class="docutils literal"><span class="pre">QtWebKit</span></tt> Module</a></li>
+<li><a class="reference external" href="#qtxml-module"><tt class="docutils literal"><span class="pre">QtXml</span></tt> Module</a></li>
+<li><a class="reference external" href="#pyqtconfig-module"><tt class="docutils literal"><span class="pre">pyqtconfig</span></tt> Module</a></li>
+<li><a class="reference external" href="#dbus-mainloop-qt-module"><tt class="docutils literal"><span class="pre">dbus.mainloop.qt</span></tt> Module</a></li>
+<li><a class="reference external" href="#qdatastream"><tt class="docutils literal"><span class="pre">QDataStream</span></tt></a></li>
+<li><a class="reference external" href="#qfiledialog"><tt class="docutils literal"><span class="pre">QFileDialog</span></tt></a></li>
+<li><a class="reference external" href="#qgraphicsitemanimation"><tt class="docutils literal"><span class="pre">QGraphicsItemAnimation</span></tt></a></li>
+<li><a class="reference external" href="#qmatrix"><tt class="docutils literal"><span class="pre">QMatrix</span></tt></a></li>
+<li><a class="reference external" href="#qpytextobject"><tt class="docutils literal"><span class="pre">QPyTextObject</span></tt></a></li>
+<li><a class="reference external" href="#qset"><tt class="docutils literal"><span class="pre">QSet</span></tt></a></li>
+<li><a class="reference external" href="#pyuic5"><tt class="docutils literal"><span class="pre">pyuic5</span></tt></a></li>
+<li><a class="reference external" href="#pyrcc5"><tt class="docutils literal"><span class="pre">pyrcc5</span></tt></a></li>
+<li><a class="reference external" href="#cooperative-multi-inheritance">Cooperative Multi-inheritance</a></li>
+<li><a class="reference external" href="#releasing-the-gil">Releasing the GIL</a></li>
+<li><a class="reference external" href="#object-destruction-on-exit">Object Destruction on Exit</a></li>
+</ul>
+</li>
+</ul>
+
+            <h4>Previous topic</h4>
+            <p class="topless"><a href="installation.html"
+                                  title="previous chapter">Installing PyQt5</a></p>
+            <h4>Next topic</h4>
+            <p class="topless"><a href="class_reference.html"
+                                  title="next chapter">PyQt5 Class Reference</a></p>
+          <div id="searchbox" style="display: none">
+            <h3>Quick search</h3>
+              <form class="search" action="search.html" method="get">
+                <input type="text" name="q" size="18" />
+                <input type="submit" value="Go" />
+                <input type="hidden" name="check_keywords" value="yes" />
+                <input type="hidden" name="area" value="default" />
+              </form>
+              <p class="searchtip" style="font-size: 90%">
+              Enter search terms or a module, class or function name.
+              </p>
+          </div>
+          <script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="modindex.html" title="Global Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="class_reference.html" title="PyQt5 Class Reference"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="installation.html" title="Installing PyQt5"
+             >previous</a> |</li>
+        <li><a href="index.html">PyQt 5.1.1-snapshot-3c895ca14f00 Reference Guide</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+      &copy; Copyright 2013 Riverbank Computing Limited.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 0.6.4.
+    </div>
+  </body>
+</html>

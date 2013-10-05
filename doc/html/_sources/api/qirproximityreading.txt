@@ -1,0 +1,8 @@
+.. currentmodule:: PyQt5.QtSensors
+
+QIRProximityReading
+-------------------
+
+.. class:: QIRProximityReading
+
+    `C++ documentation <http://qt-project.org/doc/qt-5.1/qtsensors/qirproximityreading.html>`_

@@ -1,0 +1,31 @@
+v5.1 2nd October 2013
+  - Added full support for Qt v5.1.
+  - Added the QtSensors module.
+  - Added the QtSerialPort module.
+  - A (nearly) complete set of OpenGL v2.0 and OpenGL ES/2 bindings are
+    included.
+  - Cross-compilation is now supported. A configuration file for Python3 on the
+    Raspberry Pi is included.
+
+v5.0.1 21st August 2013
+  - Added the QtQuick module including the ability to create Python Quick items
+    from QML.
+  - Added the QtQml module including the ability to create Python objects from
+    QML.
+  - Added the QtMultimediaWidgets module.
+  - Completed the implementation of the QtMultimedia module including support
+    for cameras and radios.
+  - Added the remaining OpenGL classes to the QtGui module.
+  - Added the 'revision' keyword argument to pyqtProperty().
+  - Added the 'revision' and 'arguments' keyword arguments to pyqtSignal().
+  - Added the 'revision' keyword argument to pyqtSlot().
+  - Added the 'pyqt5qmlplugin' plugin for qmlscene.
+  - The DBus main loop module has been renamed to dbus.mainloop.pyqt5 from
+    dbus.mainloop.qt.
+  - Added the --no-qml-plugin and --qml-plugindir options to configure.py.
+  - Added many QtMultimedia, QML and QtQuick related examples.
+  - Classes now support co-operative multi-inheritance.  (This may introduce
+    incompatibilities with PyQt v5.0.)
+
+v5.0 16th June 2013
+  - The first release of PyQt5.

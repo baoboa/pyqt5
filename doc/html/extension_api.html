@@ -1,0 +1,142 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>The PyQt5 Extension API &mdash; PyQt 5.1.1-snapshot-3c895ca14f00 Reference Guide</title>
+    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '#',
+        VERSION:     '5.1.1-snapshot-3c895ca14f00',
+        COLLAPSE_MODINDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="shortcut icon" href="_static/logo_tn.ico"/>
+    <link rel="top" title="PyQt 5.1.1-snapshot-3c895ca14f00 Reference Guide" href="index.html" />
+    <link rel="prev" title="Deploying Commercial PyQt5 Applications" href="deploy_commercial.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="modindex.html" title="Global Module Index"
+             accesskey="M">modules</a> |</li>
+        <li class="right" >
+          <a href="deploy_commercial.html" title="Deploying Commercial PyQt5 Applications"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">PyQt 5.1.1-snapshot-3c895ca14f00 Reference Guide</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="the-pyqt5-extension-api">
+<span id="ref-build-system"></span><h1>The PyQt5 Extension API<a class="headerlink" href="#the-pyqt5-extension-api" title="Permalink to this headline">¶</a></h1>
+<p>An important feature of PyQt5 (and SIP generated modules in general) is the
+ability for other extension modules to build on top of it.
+<a class="reference external" href="http://www.riverbankcomputing.com/software/qscintilla/">QScintilla</a> is
+such an example.</p>
+<p>PyQt5 provides an extension API that can be used by other modules.  This has
+the advantage of sharing code and also enforcing consistent behaviour.  Part of
+the API is accessable from Python and part from C++.</p>
+<div class="section" id="python-api">
+<h2>Python API<a class="headerlink" href="#python-api" title="Permalink to this headline">¶</a></h2>
+<p>The Python part of the API is accessible via the <a title="" class="reference external" href="introduction.html#module-PyQt5.QtCore"><tt class="xref docutils literal"><span class="pre">QtCore</span></tt></a> module
+and is typically used by an extension module&#8217;s equivalent of PyQt5&#8217;s
+<strong>configure.py</strong>.</p>
+<p>The API consists of <tt class="xref docutils literal"><span class="pre">PyQt5.QtCore.PYQT_CONFIGURATION</span></tt> which is a dict
+that describes how PyQt5 was configured.  At the moment it contains a single
+value called <tt class="docutils literal"><span class="pre">sip_flags</span></tt> which is a string containing the <tt class="docutils literal"><span class="pre">-t</span></tt> and <tt class="docutils literal"><span class="pre">-x</span></tt>
+flags that were passed to the <strong>sip</strong> executable by
+<strong>configure.py</strong>.  Other extension modules must use the same flags in
+their configuration.</p>
+<p>This information is also provided by SIP v4&#8217;s <tt class="xref docutils literal"><span class="pre">sipconfig</span></tt> module.
+However this module will not be implemented by SIP v5.</p>
+</div>
+<div class="section" id="c-api">
+<h2>C++ API<a class="headerlink" href="#c-api" title="Permalink to this headline">¶</a></h2>
+<p>The C++ API is a set of functions.  The addresses of each function is obtained
+by calling SIP&#8217;s <a href="#id1"><span class="problematic" id="id2">:c:func:`sipImportSymbol`</span></a> function with the name of the
+function required.</p>
+<p>Several of the functions are provided as a replacement for SIP v4 features
+(i.e. <tt class="docutils literal"><span class="pre">SIP_ANYSLOT</span></tt>, <tt class="docutils literal"><span class="pre">SIP_QOBJECT</span></tt>, <tt class="docutils literal"><span class="pre">SIP_RXOBJ_CON</span></tt>, <tt class="docutils literal"><span class="pre">SIP_RXOBJ_DIS</span></tt>,
+<tt class="docutils literal"><span class="pre">SIP_SIGNAL</span></tt>, <tt class="docutils literal"><span class="pre">SIP_SLOT</span></tt>, <tt class="docutils literal"><span class="pre">SIP_SLOT_CON</span></tt> and <tt class="docutils literal"><span class="pre">SIP_SLOT_DIS</span></tt>) that will
+not be supported by SIP v5.</p>
+<p>The functions exported by PyQt5 are as follows:</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="index.html">
+              <img class="logo" src="_static/logo.png" alt="Logo"/>
+            </a></p>
+            <h3><a href="index.html">Table Of Contents</a></h3>
+            <ul>
+<li><a class="reference external" href="#">The PyQt5 Extension API</a><ul>
+<li><a class="reference external" href="#python-api">Python API</a></li>
+<li><a class="reference external" href="#c-api">C++ API</a></li>
+</ul>
+</li>
+</ul>
+
+            <h4>Previous topic</h4>
+            <p class="topless"><a href="deploy_commercial.html"
+                                  title="previous chapter">Deploying Commercial PyQt5 Applications</a></p>
+          <div id="searchbox" style="display: none">
+            <h3>Quick search</h3>
+              <form class="search" action="search.html" method="get">
+                <input type="text" name="q" size="18" />
+                <input type="submit" value="Go" />
+                <input type="hidden" name="check_keywords" value="yes" />
+                <input type="hidden" name="area" value="default" />
+              </form>
+              <p class="searchtip" style="font-size: 90%">
+              Enter search terms or a module, class or function name.
+              </p>
+          </div>
+          <script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="modindex.html" title="Global Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="deploy_commercial.html" title="Deploying Commercial PyQt5 Applications"
+             >previous</a> |</li>
+        <li><a href="index.html">PyQt 5.1.1-snapshot-3c895ca14f00 Reference Guide</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+      &copy; Copyright 2013 Riverbank Computing Limited.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 0.6.4.
+    </div>
+  </body>
+</html>

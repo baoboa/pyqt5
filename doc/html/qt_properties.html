@@ -1,0 +1,204 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Support for Qt Properties &mdash; PyQt 5.1.1-snapshot-3c895ca14f00 Reference Guide</title>
+    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '#',
+        VERSION:     '5.1.1-snapshot-3c895ca14f00',
+        COLLAPSE_MODINDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="shortcut icon" href="_static/logo_tn.ico"/>
+    <link rel="top" title="PyQt 5.1.1-snapshot-3c895ca14f00 Reference Guide" href="index.html" />
+    <link rel="next" title="Support for OpenGL" href="opengl.html" />
+    <link rel="prev" title="Support for Signals and Slots" href="signals_slots.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="modindex.html" title="Global Module Index"
+             accesskey="M">modules</a> |</li>
+        <li class="right" >
+          <a href="opengl.html" title="Support for OpenGL"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="signals_slots.html" title="Support for Signals and Slots"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">PyQt 5.1.1-snapshot-3c895ca14f00 Reference Guide</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="support-for-qt-properties">
+<h1>Support for Qt Properties<a class="headerlink" href="#support-for-qt-properties" title="Permalink to this headline">¶</a></h1>
+<p>PyQt5 does not support the setting and getting of Qt properties as if they were
+normal instance attributes.  This is because the name of a property often
+conflicts with the name of the property&#8217;s getter method.</p>
+<p>However, PyQt5 does support the initial setting of properties using keyword
+arguments passed when an instance is created.  For example:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">act</span> <span class="o">=</span> <span class="n">QAction</span><span class="p">(</span><span class="s">&quot;&amp;Save&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="p">,</span> <span class="n">shortcut</span><span class="o">=</span><span class="n">QKeySequence</span><span class="o">.</span><span class="n">Save</span><span class="p">,</span>
+        <span class="n">statusTip</span><span class="o">=</span><span class="s">&quot;Save the document to disk&quot;</span><span class="p">,</span> <span class="n">triggered</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">save</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>The example also demonstrates the use of a keyword argument to connect a
+signal to a slot.</p>
+<p>PyQt5 also supports setting the values of properties (and connecting a signal
+to a slot) using the <tt class="xref docutils literal"><span class="pre">pyqtConfigure()</span></tt> method.  For
+example, the following gives the same results as above:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">act</span> <span class="o">=</span> <span class="n">QAction</span><span class="p">(</span><span class="s">&quot;&amp;Save&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span>
+<span class="n">act</span><span class="o">.</span><span class="n">pyqtConfigure</span><span class="p">(</span><span class="n">shortcut</span><span class="o">=</span><span class="n">QKeySequence</span><span class="o">.</span><span class="n">Save</span><span class="p">,</span>
+        <span class="n">statusTip</span><span class="o">=</span><span class="s">&quot;Save the document to disk&quot;</span><span class="p">,</span> <span class="n">triggered</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">save</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="section" id="defining-new-qt-properties">
+<h2>Defining New Qt Properties<a class="headerlink" href="#defining-new-qt-properties" title="Permalink to this headline">¶</a></h2>
+<p>A new Qt property may be defined using the <a title="PyQt5.QtCore.pyqtProperty" class="reference internal" href="#PyQt5.QtCore.pyqtProperty"><tt class="xref docutils literal"><span class="pre">pyqtProperty()</span></tt></a>
+function.  It is used in the same way as the standard Python <tt class="docutils literal"><span class="pre">property()</span></tt>
+function.  In fact, Qt properties defined in this way also behave as Python
+properties.</p>
+<dl class="function">
+<dt id="PyQt5.QtCore.pyqtProperty">
+<tt class="descclassname">PyQt5.QtCore.</tt><tt class="descname">pyqtProperty</tt><big>(</big><em>type</em><span class="optional">[</span>, <em>fget=None</em><span class="optional">[</span>, <em>fset=None</em><span class="optional">[</span>, <em>freset=None</em><span class="optional">[</span>, <em>fdel=None</em><span class="optional">[</span>, <em>doc=None</em><span class="optional">[</span>, <em>designable=True</em><span class="optional">[</span>, <em>scriptable=True</em><span class="optional">[</span>, <em>stored=True</em><span class="optional">[</span>, <em>user=False</em><span class="optional">[</span>, <em>constant=False</em><span class="optional">[</span>, <em>final=False</em><span class="optional">[</span>, <em>notify=None</em><span class="optional">[</span>, <em>revision=0</em><span class="optional">]</span><span class="optional">]</span><span class="optional">]</span><span class="optional">]</span><span class="optional">]</span><span class="optional">]</span><span class="optional">]</span><span class="optional">]</span><span class="optional">]</span><span class="optional">]</span><span class="optional">]</span><span class="optional">]</span><span class="optional">]</span><big>)</big><a class="headerlink" href="#PyQt5.QtCore.pyqtProperty" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create a property that behaves as both a Python property and a Qt property.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><em>type</em> &#8211; the type of the property.  It is either a Python type object or a
+string that is the name of a C++ type.</li>
+<li><em>fget</em> &#8211; the optional callable used to get the value of the property.</li>
+<li><em>fset</em> &#8211; the optional callable used to set the value of the property.</li>
+<li><em>freset</em> &#8211; the optional callable used to reset the value of the property to its
+default value.  It is ignored by Python</li>
+<li><em>fdel</em> &#8211; the optional callable used to delete the property.  It is ignored by
+Qt.</li>
+<li><em>doc</em> &#8211; the optional docstring of the property.  It is ignored by Qt.</li>
+<li><em>designable</em> &#8211; optionally sets the Qt <tt class="docutils literal"><span class="pre">DESIGNABLE</span></tt> flag.  It is ignored by Python</li>
+<li><em>scriptable</em> &#8211; optionally sets the Qt <tt class="docutils literal"><span class="pre">SCRIPTABLE</span></tt> flag.  It is ignored by Python</li>
+<li><em>stored</em> &#8211; optionally sets the Qt <tt class="docutils literal"><span class="pre">STORED</span></tt> flag.  It is ignored by Python</li>
+<li><em>user</em> &#8211; optionally sets the Qt <tt class="docutils literal"><span class="pre">USER</span></tt> flag.  It is ignored by Python</li>
+<li><em>constant</em> &#8211; optionally sets the Qt <tt class="docutils literal"><span class="pre">CONSTANT</span></tt> flag.  It is ignored by Python</li>
+<li><em>final</em> &#8211; optionally sets the Qt <tt class="docutils literal"><span class="pre">FINAL</span></tt> flag.  It is ignored by Python</li>
+<li><em>notify</em> &#8211; the optional unbound notify signal.  It is ignored by Python</li>
+<li><em>revision</em> &#8211; the revision exported to QML.  It is ignored by Python</li>
+</ul>
+</td>
+</tr>
+<tr class="field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">the property object.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<p>It is also possible to use <a title="PyQt5.QtCore.pyqtProperty" class="reference internal" href="#PyQt5.QtCore.pyqtProperty"><tt class="xref docutils literal"><span class="pre">pyqtProperty()</span></tt></a> as a decorator in
+the same way as the standard Python <tt class="docutils literal"><span class="pre">property()</span></tt> function.  The following
+example shows how to define an <tt class="docutils literal"><span class="pre">int</span></tt> property with a getter and setter:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">PyQt5.QtCore</span> <span class="kn">import</span> <span class="n">QObject</span><span class="p">,</span> <span class="n">pyqtProperty</span>
+
+<span class="k">class</span> <span class="nc">Foo</span><span class="p">(</span><span class="n">QObject</span><span class="p">):</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">QObject</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_total</span> <span class="o">=</span> <span class="mi">0</span>
+
+    <span class="nd">@pyqtProperty</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">total</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_total</span>
+
+    <span class="nd">@total.setter</span>
+    <span class="k">def</span> <span class="nf">total</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_total</span> <span class="o">=</span> <span class="n">value</span>
+</pre></div>
+</div>
+<p>If you prefer the Qt terminology you may also use <tt class="docutils literal"><span class="pre">write</span></tt> instead of
+<tt class="docutils literal"><span class="pre">setter</span></tt> (and <tt class="docutils literal"><span class="pre">read</span></tt> instead of <tt class="docutils literal"><span class="pre">getter</span></tt>).</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="index.html">
+              <img class="logo" src="_static/logo.png" alt="Logo"/>
+            </a></p>
+            <h3><a href="index.html">Table Of Contents</a></h3>
+            <ul>
+<li><a class="reference external" href="#">Support for Qt Properties</a><ul>
+<li><a class="reference external" href="#defining-new-qt-properties">Defining New Qt Properties</a></li>
+</ul>
+</li>
+</ul>
+
+            <h4>Previous topic</h4>
+            <p class="topless"><a href="signals_slots.html"
+                                  title="previous chapter">Support for Signals and Slots</a></p>
+            <h4>Next topic</h4>
+            <p class="topless"><a href="opengl.html"
+                                  title="next chapter">Support for OpenGL</a></p>
+          <div id="searchbox" style="display: none">
+            <h3>Quick search</h3>
+              <form class="search" action="search.html" method="get">
+                <input type="text" name="q" size="18" />
+                <input type="submit" value="Go" />
+                <input type="hidden" name="check_keywords" value="yes" />
+                <input type="hidden" name="area" value="default" />
+              </form>
+              <p class="searchtip" style="font-size: 90%">
+              Enter search terms or a module, class or function name.
+              </p>
+          </div>
+          <script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="modindex.html" title="Global Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="opengl.html" title="Support for OpenGL"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="signals_slots.html" title="Support for Signals and Slots"
+             >previous</a> |</li>
+        <li><a href="index.html">PyQt 5.1.1-snapshot-3c895ca14f00 Reference Guide</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+      &copy; Copyright 2013 Riverbank Computing Limited.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 0.6.4.
+    </div>
+  </body>
+</html>
