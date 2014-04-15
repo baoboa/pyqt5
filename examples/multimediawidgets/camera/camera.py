@@ -377,7 +377,7 @@ class Camera(QMainWindow):
 
         if settingsDialog.exec_():
             self.imageSettings = settingsDialog.imageSettings()
-            imageCapture.setEncodingSettings(self.imageSettings)
+            self.imageCapture.setEncodingSettings(self.imageSettings)
 
     def record(self):
         self.mediaRecorder.record()

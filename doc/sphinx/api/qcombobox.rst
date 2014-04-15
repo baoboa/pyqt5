@@ -5,4 +5,4 @@ QComboBox
 
 .. class:: QComboBox
 
-    `C++ documentation <http://qt-project.org/doc/qt-5.1/qtwidgets/qcombobox.html>`_
+    `C++ documentation <http://qt-project.org/doc/qt-5.2/qcombobox.html>`_

@@ -409,7 +409,7 @@ class GraphWidget(QGraphicsView):
         painter.drawText(textRect, message)
 
     def scaleView(self, scaleFactor):
-        factor = self.matrix().scale(scaleFactor, scaleFactor).mapRect(QRectF(0, 0, 1, 1)).width()
+        factor = self.transform().scale(scaleFactor, scaleFactor).mapRect(QRectF(0, 0, 1, 1)).width()
 
         if factor < 0.07 or factor > 100:
             return

@@ -5,4 +5,4 @@ QWebHistoryInterface
 
 .. class:: QWebHistoryInterface
 
-    `C++ documentation <http://qt-project.org/doc/qt-5.1/qtwebkit/qwebhistoryinterface.html>`_
+    `C++ documentation <http://qt-project.org/doc/qt-5.2/qwebhistoryinterface.html>`_

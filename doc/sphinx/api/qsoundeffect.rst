@@ -5,4 +5,4 @@ QSoundEffect
 
 .. class:: QSoundEffect
 
-    `C++ documentation <http://qt-project.org/doc/qt-5.1/qtmultimedia/qsoundeffect.html>`_
+    `C++ documentation <http://qt-project.org/doc/qt-5.2/qsoundeffect.html>`_

@@ -5,4 +5,4 @@ QGraphicsSceneMouseEvent
 
 .. class:: QGraphicsSceneMouseEvent
 
-    `C++ documentation <http://qt-project.org/doc/qt-5.1/qtwidgets/qgraphicsscenemouseevent.html>`_
+    `C++ documentation <http://qt-project.org/doc/qt-5.2/qgraphicsscenemouseevent.html>`_

@@ -5,4 +5,4 @@ QStyleOptionSlider
 
 .. class:: QStyleOptionSlider
 
-    `C++ documentation <http://qt-project.org/doc/qt-5.1/qtwidgets/qstyleoptionslider.html>`_
+    `C++ documentation <http://qt-project.org/doc/qt-5.2/qstyleoptionslider.html>`_

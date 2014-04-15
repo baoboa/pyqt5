@@ -1,6 +1,6 @@
 // This is the implementation of dataCache.
 //
-// Copyright (c) 2013 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2014 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -21,6 +21,8 @@
 #include <Python.h>
 
 #include "sipAPIQtGui.h"
+
+#if defined(SIP_FEATURE_PyQt_OpenGL)
 
 #include "qpyopengl_data_cache.h"
 
@@ -81,7 +83,10 @@ PyTypeObject qpyopengl_dataCache_Type = {
     0,
     0,
     0,
-    0
+    0,
+#if PY_VERSION_HEX >= 0x03040000
+    0,
+#endif
 };
 
 
@@ -276,3 +281,6 @@ int Array::traverse(visitproc visit, void *arg)
 
     return obj ? visit(obj, arg) : 0;
 }
+
+
+#endif

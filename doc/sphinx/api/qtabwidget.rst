@@ -5,4 +5,4 @@ QTabWidget
 
 .. class:: QTabWidget
 
-    `C++ documentation <http://qt-project.org/doc/qt-5.1/qtwidgets/qtabwidget.html>`_
+    `C++ documentation <http://qt-project.org/doc/qt-5.2/qtabwidget.html>`_

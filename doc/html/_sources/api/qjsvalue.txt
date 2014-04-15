@@ -5,4 +5,4 @@ QJSValue
 
 .. class:: QJSValue
 
-    `C++ documentation <http://qt-project.org/doc/qt-5.1/qtqml/qjsvalue.html>`_
+    `C++ documentation <http://qt-project.org/doc/qt-5.2/qjsvalue.html>`_

@@ -5,4 +5,4 @@ QTimeLine
 
 .. class:: QTimeLine
 
-    `C++ documentation <http://qt-project.org/doc/qt-5.1/qtcore/qtimeline.html>`_
+    `C++ documentation <http://qt-project.org/doc/qt-5.2/qtimeline.html>`_

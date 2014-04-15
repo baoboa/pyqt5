@@ -5,4 +5,4 @@ QRadioButton
 
 .. class:: QRadioButton
 
-    `C++ documentation <http://qt-project.org/doc/qt-5.1/qtwidgets/qradiobutton.html>`_
+    `C++ documentation <http://qt-project.org/doc/qt-5.2/qradiobutton.html>`_

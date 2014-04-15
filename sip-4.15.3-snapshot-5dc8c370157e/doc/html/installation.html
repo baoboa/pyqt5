@@ -1,0 +1,302 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Installation &mdash; SIP 4.15.3-snapshot-5dc8c370157e Reference Guide</title>
+    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '#',
+        VERSION:     '4.15.3-snapshot-5dc8c370157e',
+        COLLAPSE_MODINDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="shortcut icon" href="_static/logo_tn.ico"/>
+    <link rel="top" title="SIP 4.15.3-snapshot-5dc8c370157e Reference Guide" href="index.html" />
+    <link rel="next" title="Using SIP" href="using.html" />
+    <link rel="prev" title="Potential Incompatibilities with Earlier Versions" href="incompatibilities.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="modindex.html" title="Global Module Index"
+             accesskey="M">modules</a> |</li>
+        <li class="right" >
+          <a href="using.html" title="Using SIP"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="incompatibilities.html" title="Potential Incompatibilities with Earlier Versions"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">SIP 4.15.3-snapshot-5dc8c370157e Reference Guide</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="installation">
+<h1>Installation<a class="headerlink" href="#installation" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="downloading">
+<h2>Downloading<a class="headerlink" href="#downloading" title="Permalink to this headline">¶</a></h2>
+<p>You can get the latest release of the SIP source code from
+<a class="reference external" href="http://www.riverbankcomputing.com/software/sip/download">http://www.riverbankcomputing.com/software/sip/download</a>.</p>
+<p>SIP is also included with all of the major Linux distributions.  However, it
+may be a version or two out of date.</p>
+</div>
+<div class="section" id="configuring">
+<h2>Configuring<a class="headerlink" href="#configuring" title="Permalink to this headline">¶</a></h2>
+<p>After unpacking the source package (either a <tt class="docutils literal"><span class="pre">.tar.gz</span></tt> or a <tt class="docutils literal"><span class="pre">.zip</span></tt> file
+depending on your platform) you should then check for any <tt class="docutils literal"><span class="pre">README</span></tt> files
+that relate to your platform.</p>
+<p>Next you need to configure SIP by executing the <tt class="docutils literal"><span class="pre">configure.py</span></tt> script.  For
+example:</p>
+<div class="highlight-python"><pre>python configure.py</pre>
+</div>
+<p>This assumes that the Python interpreter is on your path.  Something like the
+following may be appropriate on Windows:</p>
+<div class="highlight-python"><pre>c:\python32\python configure.py</pre>
+</div>
+<p>If you have multiple versions of Python installed then make sure you use the
+interpreter for which you wish SIP to generate bindings for.</p>
+<p>The full set of command line options is:</p>
+<dl class="cmdoption">
+<dt id="cmdoption-configure.py--version">
+<tt class="descname">--version</tt><tt class="descclassname"></tt><a class="headerlink" href="#cmdoption-configure.py--version" title="Permalink to this definition">¶</a></dt>
+<dd>Display the SIP version number.</dd></dl>
+
+<dl class="cmdoption">
+<dt id="cmdoption-configure.py-h">
+<tt class="descname">-h</tt><tt class="descclassname"></tt><tt class="descclassname">, </tt><tt class="descname">--help</tt><tt class="descclassname"></tt><a class="headerlink" href="#cmdoption-configure.py-h" title="Permalink to this definition">¶</a></dt>
+<dd>Display a help message.</dd></dl>
+
+<dl class="cmdoption">
+<dt id="cmdoption-configure.py--arch">
+<tt class="descname">--arch</tt><tt class="descclassname"> &lt;ARCH&gt;</tt><a class="headerlink" href="#cmdoption-configure.py--arch" title="Permalink to this definition">¶</a></dt>
+<dd>Binaries for the MacOS/X architecture <tt class="docutils literal"><span class="pre">&lt;ARCH&gt;</span></tt> will be built.  This
+option should be given once for each architecture to be built.  Specifying
+more than one architecture will cause a universal binary to be created.</dd></dl>
+
+<dl class="cmdoption">
+<dt id="cmdoption-configure.py-b">
+<tt class="descname">-b</tt><tt class="descclassname"> &lt;DIR&gt;</tt><tt class="descclassname">, </tt><tt class="descname">--bindir</tt><tt class="descclassname"> &lt;DIR&gt;</tt><a class="headerlink" href="#cmdoption-configure.py-b" title="Permalink to this definition">¶</a></dt>
+<dd>The SIP code generator will be installed in the directory <tt class="docutils literal"><span class="pre">&lt;DIR&gt;</span></tt>.</dd></dl>
+
+<dl class="cmdoption">
+<dt id="cmdoption-configure.py-d">
+<tt class="descname">-d</tt><tt class="descclassname"> &lt;DIR&gt;</tt><tt class="descclassname">, </tt><tt class="descname">--destdir</tt><tt class="descclassname"> &lt;DIR&gt;</tt><a class="headerlink" href="#cmdoption-configure.py-d" title="Permalink to this definition">¶</a></dt>
+<dd>The SIP module will be installed in the directory <tt class="docutils literal"><span class="pre">&lt;DIR&gt;</span></tt>.</dd></dl>
+
+<dl class="cmdoption">
+<dt id="cmdoption-configure.py--deployment-target">
+<tt class="descname">--deployment-target</tt><tt class="descclassname"> &lt;VERSION&gt;</tt><a class="headerlink" href="#cmdoption-configure.py--deployment-target" title="Permalink to this definition">¶</a></dt>
+<dd><p>
+<span class="versionmodified">New in version 4.12.1.</span></p>
+<p>Each generated Makefile will set the <span class="target" id="index-0"></span><strong class="xref">MACOSX_DEPLOYMENT_TARGET</strong>
+environment variable to <tt class="docutils literal"><span class="pre">&lt;VERSION&gt;</span></tt>.  In order to work around bugs in
+some versions of Python, this should be used instead of setting the
+environment variable in the shell.</p>
+</dd></dl>
+
+<dl class="cmdoption">
+<dt id="cmdoption-configure.py-e">
+<tt class="descname">-e</tt><tt class="descclassname"> &lt;DIR&gt;</tt><tt class="descclassname">, </tt><tt class="descname">--incdir</tt><tt class="descclassname"> &lt;DIR&gt;</tt><a class="headerlink" href="#cmdoption-configure.py-e" title="Permalink to this definition">¶</a></dt>
+<dd>The SIP header file will be installed in the directory <tt class="docutils literal"><span class="pre">&lt;DIR&gt;</span></tt>.</dd></dl>
+
+<dl class="cmdoption">
+<dt id="cmdoption-configure.py-k">
+<tt class="descname">-k</tt><tt class="descclassname"></tt><tt class="descclassname">, </tt><tt class="descname">--static</tt><tt class="descclassname"></tt><a class="headerlink" href="#cmdoption-configure.py-k" title="Permalink to this definition">¶</a></dt>
+<dd>The SIP module will be built as a static library.  This is useful when
+building the SIP module as a Python builtin (see <a class="reference external" href="builtin.html#ref-builtin"><em>Builtin Modules and Custom Interpreters</em></a>).</dd></dl>
+
+<dl class="cmdoption">
+<dt id="cmdoption-configure.py-n">
+<tt class="descname">-n</tt><tt class="descclassname"></tt><tt class="descclassname">, </tt><tt class="descname">--universal</tt><tt class="descclassname"></tt><a class="headerlink" href="#cmdoption-configure.py-n" title="Permalink to this definition">¶</a></dt>
+<dd>The SIP code generator and module will be built as universal binaries
+under MacOS/X.  If the <a class="reference internal" href="#cmdoption-configure.py--arch"><em class="xref">--arch</em></a> option has
+not been specified then the universal binary will include the <tt class="docutils literal"><span class="pre">i386</span></tt> and
+<tt class="docutils literal"><span class="pre">ppc</span></tt> architectures.</dd></dl>
+
+<dl class="cmdoption">
+<dt id="cmdoption-configure.py-p">
+<tt class="descname">-p</tt><tt class="descclassname"> &lt;PLATFORM&gt;</tt><tt class="descclassname">, </tt><tt class="descname">--platform</tt><tt class="descclassname"> &lt;PLATFORM&gt;</tt><a class="headerlink" href="#cmdoption-configure.py-p" title="Permalink to this definition">¶</a></dt>
+<dd>Explicitly specify the platform/compiler to be used by the build system,
+otherwise a platform specific default will be used.  The
+<a class="reference internal" href="#cmdoption-configure.py--show-platforms"><em class="xref">--show-platforms</em></a> option will
+display all the supported platform/compilers.</dd></dl>
+
+<dl class="cmdoption">
+<dt id="cmdoption-configure.py-s">
+<tt class="descname">-s</tt><tt class="descclassname"> &lt;SDK&gt;</tt><tt class="descclassname">, </tt><tt class="descname">--sdk</tt><tt class="descclassname"> &lt;SDK&gt;</tt><a class="headerlink" href="#cmdoption-configure.py-s" title="Permalink to this definition">¶</a></dt>
+<dd>If the <a class="reference internal" href="#cmdoption-configure.py-n"><em class="xref">--universal</em></a> option was given then this
+specifies the name of the SDK directory.  If a path is not given then it is
+assumed to be a sub-directory of
+<tt class="docutils literal"><span class="pre">/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs</span></tt>
+or <tt class="docutils literal"><span class="pre">/Developer/SDKs</span></tt>.</dd></dl>
+
+<dl class="cmdoption">
+<dt id="cmdoption-configure.py-u">
+<tt class="descname">-u</tt><tt class="descclassname"></tt><tt class="descclassname">, </tt><tt class="descname">--debug</tt><tt class="descclassname"></tt><a class="headerlink" href="#cmdoption-configure.py-u" title="Permalink to this definition">¶</a></dt>
+<dd>The SIP module will be built with debugging symbols.</dd></dl>
+
+<dl class="cmdoption">
+<dt id="cmdoption-configure.py-v">
+<tt class="descname">-v</tt><tt class="descclassname"> &lt;DIR&gt;</tt><tt class="descclassname">, </tt><tt class="descname">--sipdir</tt><tt class="descclassname"> &lt;DIR&gt;</tt><a class="headerlink" href="#cmdoption-configure.py-v" title="Permalink to this definition">¶</a></dt>
+<dd>By default <tt class="docutils literal"><span class="pre">.sip</span></tt> files will be installed in the directory <tt class="docutils literal"><span class="pre">&lt;DIR&gt;</span></tt>.</dd></dl>
+
+<dl class="cmdoption">
+<dt id="cmdoption-configure.py--show-platforms">
+<tt class="descname">--show-platforms</tt><tt class="descclassname"></tt><a class="headerlink" href="#cmdoption-configure.py--show-platforms" title="Permalink to this definition">¶</a></dt>
+<dd>The list of all supported platform/compilers will be displayed.</dd></dl>
+
+<dl class="cmdoption">
+<dt id="cmdoption-configure.py--show-build-macros">
+<tt class="descname">--show-build-macros</tt><tt class="descclassname"></tt><a class="headerlink" href="#cmdoption-configure.py--show-build-macros" title="Permalink to this definition">¶</a></dt>
+<dd>The list of all available build macros will be displayed.</dd></dl>
+
+<dl class="cmdoption">
+<dt id="cmdoption-configure.py--sip-module">
+<tt class="descname">--sip-module</tt><tt class="descclassname"> &lt;NAME&gt;</tt><a class="headerlink" href="#cmdoption-configure.py--sip-module" title="Permalink to this definition">¶</a></dt>
+<dd>The SIP module will be created with the name <tt class="docutils literal"><span class="pre">&lt;NAME&gt;</span></tt> rather than the
+default <tt class="docutils literal"><span class="pre">sip</span></tt>.  <tt class="docutils literal"><span class="pre">&lt;NAME&gt;</span></tt> may be of the form
+<tt class="docutils literal"><span class="pre">package.sub-package.module</span></tt>.  See <a class="reference external" href="using.html#ref-private-sip"><em>Building a Private Copy of the sip Module</em></a> for how to
+use this to create a private copy of the SIP module.</dd></dl>
+
+<p>The <tt class="docutils literal"><span class="pre">configure.py</span></tt> script takes many other options that allows the build
+system to be finely tuned.  These are of the form <tt class="docutils literal"><span class="pre">name=value</span></tt> or
+<tt class="docutils literal"><span class="pre">name+=value</span></tt>.  The <em class="xref">--show-build-macros </em> option will display each supported <tt class="docutils literal"><span class="pre">name</span></tt>, although not
+all are applicable to all platforms.</p>
+<p>The <tt class="docutils literal"><span class="pre">name=value</span></tt> form means that <tt class="docutils literal"><span class="pre">value</span></tt> will replace the existing value of
+<tt class="docutils literal"><span class="pre">name</span></tt>.</p>
+<p>The <tt class="docutils literal"><span class="pre">name+=value</span></tt> form means that <tt class="docutils literal"><span class="pre">value</span></tt> will be appended to the existing
+value of <tt class="docutils literal"><span class="pre">name</span></tt>.</p>
+<p>For example, the following will disable support for C++ exceptions (and so
+reduce the size of module binaries) when used with GCC:</p>
+<div class="highlight-python"><pre>python configure.py CXXFLAGS+=-fno-exceptions</pre>
+</div>
+<p>A pure Python module called <tt class="docutils literal"><span class="pre">sipconfig.py</span></tt> is generated by <tt class="docutils literal"><span class="pre">configure.py</span></tt>.
+This defines each <tt class="docutils literal"><span class="pre">name</span></tt> and its corresponding <tt class="docutils literal"><span class="pre">value</span></tt>.  Looking at it will
+give you a good idea of how the build system uses the different options.  It is
+covered in detail in <a class="reference external" href="build_system.html#ref-build-system"><em>The Build System</em></a>.</p>
+<div class="section" id="configuring-for-mingw">
+<h3>Configuring for MinGW<a class="headerlink" href="#configuring-for-mingw" title="Permalink to this headline">¶</a></h3>
+<p>SIP, and the modules it generates, can be built with MinGW, the Windows port of
+GCC.  You must use the <a class="reference internal" href="#cmdoption-configure.py-p"><em class="xref">--platform</em></a> command line
+option to specify the correct platform.  For example:</p>
+<div class="highlight-python"><pre>c:\python32\python configure.py --platform win32-g++</pre>
+</div>
+</div>
+<div class="section" id="configuring-for-the-borland-c-compiler">
+<h3>Configuring for the Borland C++ Compiler<a class="headerlink" href="#configuring-for-the-borland-c-compiler" title="Permalink to this headline">¶</a></h3>
+<p>SIP, and the modules it generates, can be built with the free Borland C++
+compiler.  You must use the <a class="reference internal" href="#cmdoption-configure.py-p"><em class="xref">--platform</em></a> command line
+option to specify the correct platform.  For example:</p>
+<div class="highlight-python"><pre>c:\python32\python configure.py --platform win32-borland</pre>
+</div>
+<p>You must also make sure you have a Borland-compatible version of the Python
+library.  If you are using the standard Python distribution (built using the
+Microsoft compiler) then you must convert the format of the Python library.
+For example:</p>
+<div class="highlight-python"><pre>coff2omf python32.lib python32_bcpp.lib</pre>
+</div>
+</div>
+</div>
+<div class="section" id="building">
+<h2>Building<a class="headerlink" href="#building" title="Permalink to this headline">¶</a></h2>
+<p>The next step is to build SIP by running your platform&#8217;s <tt class="docutils literal"><span class="pre">make</span></tt> command.  For
+example:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">make</span>
+</pre></div>
+</div>
+<p>The final step is to install SIP by running the following command:</p>
+<div class="highlight-python"><pre>make install</pre>
+</div>
+<p>(Depending on your system you may require root or administrator privileges.)</p>
+<p>This will install the various SIP components.</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="index.html">
+              <img class="logo" src="_static/logo.png" alt="Logo"/>
+            </a></p>
+            <h3><a href="index.html">Table Of Contents</a></h3>
+            <ul>
+<li><a class="reference external" href="#">Installation</a><ul>
+<li><a class="reference external" href="#downloading">Downloading</a></li>
+<li><a class="reference external" href="#configuring">Configuring</a><ul>
+<li><a class="reference external" href="#configuring-for-mingw">Configuring for MinGW</a></li>
+<li><a class="reference external" href="#configuring-for-the-borland-c-compiler">Configuring for the Borland C++ Compiler</a></li>
+</ul>
+</li>
+<li><a class="reference external" href="#building">Building</a></li>
+</ul>
+</li>
+</ul>
+
+            <h4>Previous topic</h4>
+            <p class="topless"><a href="incompatibilities.html"
+                                  title="previous chapter">Potential Incompatibilities with Earlier Versions</a></p>
+            <h4>Next topic</h4>
+            <p class="topless"><a href="using.html"
+                                  title="next chapter">Using SIP</a></p>
+          <div id="searchbox" style="display: none">
+            <h3>Quick search</h3>
+              <form class="search" action="search.html" method="get">
+                <input type="text" name="q" size="18" />
+                <input type="submit" value="Go" />
+                <input type="hidden" name="check_keywords" value="yes" />
+                <input type="hidden" name="area" value="default" />
+              </form>
+              <p class="searchtip" style="font-size: 90%">
+              Enter search terms or a module, class or function name.
+              </p>
+          </div>
+          <script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="modindex.html" title="Global Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="using.html" title="Using SIP"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="incompatibilities.html" title="Potential Incompatibilities with Earlier Versions"
+             >previous</a> |</li>
+        <li><a href="index.html">SIP 4.15.3-snapshot-5dc8c370157e Reference Guide</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+      &copy; Copyright 2013 Riverbank Computing Limited.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 0.6.4.
+    </div>
+  </body>
+</html>

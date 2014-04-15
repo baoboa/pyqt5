@@ -5,4 +5,4 @@ QGraphicsEllipseItem
 
 .. class:: QGraphicsEllipseItem
 
-    `C++ documentation <http://qt-project.org/doc/qt-5.1/qtwidgets/qgraphicsellipseitem.html>`_
+    `C++ documentation <http://qt-project.org/doc/qt-5.2/qgraphicsellipseitem.html>`_

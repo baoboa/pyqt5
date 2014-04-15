@@ -5,4 +5,4 @@ QAltimeterFilter
 
 .. class:: QAltimeterFilter
 
-    `C++ documentation <http://qt-project.org/doc/qt-5.1/qtsensors/qaltimeterfilter.html>`_
+    `C++ documentation <http://qt-project.org/doc/qt-5.2/qaltimeterfilter.html>`_

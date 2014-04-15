@@ -5,4 +5,4 @@ QAbstractScrollArea
 
 .. class:: QAbstractScrollArea
 
-    `C++ documentation <http://qt-project.org/doc/qt-5.1/qtwidgets/qabstractscrollarea.html>`_
+    `C++ documentation <http://qt-project.org/doc/qt-5.2/qabstractscrollarea.html>`_

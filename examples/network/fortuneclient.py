@@ -48,7 +48,8 @@ from PyQt5.QtWidgets import (QApplication, QComboBox, QDialog,
         QDialogButtonBox, QGridLayout, QLabel, QLineEdit, QMessageBox,
         QPushButton)
 from PyQt5.QtNetwork import (QAbstractSocket, QHostInfo, QNetworkConfiguration,
-        QNetworkConfigurationManager, QNetworkInterface, QTcpSocket)
+        QNetworkConfigurationManager, QNetworkInterface, QNetworkSession,
+        QTcpSocket)
 
 
 class Client(QDialog):

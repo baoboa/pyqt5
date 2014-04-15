@@ -1,0 +1,255 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Introduction &mdash; SIP 4.15.3-snapshot-5dc8c370157e Reference Guide</title>
+    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '#',
+        VERSION:     '4.15.3-snapshot-5dc8c370157e',
+        COLLAPSE_MODINDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="shortcut icon" href="_static/logo_tn.ico"/>
+    <link rel="top" title="SIP 4.15.3-snapshot-5dc8c370157e Reference Guide" href="index.html" />
+    <link rel="next" title="Potential Incompatibilities with Earlier Versions" href="incompatibilities.html" />
+    <link rel="prev" title="SIP Reference Guide" href="index.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="modindex.html" title="Global Module Index"
+             accesskey="M">modules</a> |</li>
+        <li class="right" >
+          <a href="incompatibilities.html" title="Potential Incompatibilities with Earlier Versions"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="index.html" title="SIP Reference Guide"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">SIP 4.15.3-snapshot-5dc8c370157e Reference Guide</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="introduction">
+<h1>Introduction<a class="headerlink" href="#introduction" title="Permalink to this headline">¶</a></h1>
+<p>This is the reference guide for SIP 4.15.3-snapshot-5dc8c370157e.  SIP is a tool for
+automatically generating <a class="reference external" href="http://www.python.org">Python</a> bindings for C and
+C++ libraries.  SIP was originally developed in 1998 for
+<a class="reference external" href="http://www.riverbankcomputing.com/software/pyqt">PyQt</a> - the Python
+bindings for the Qt GUI toolkit - but is suitable for generating bindings for
+any C or C++ library.</p>
+<p>This version of SIP generates bindings for Python v2.3 or later, including
+Python v3.</p>
+<p>There are many other similar tools available.  One of the original such tools
+is <a class="reference external" href="http://www.swig.org">SWIG</a> and, in fact, SIP is so called because it
+started out as a small SWIG.  Unlike SWIG, SIP is specifically designed for
+bringing together Python and C/C++ and goes to great lengths to make the
+integration as tight as possible.</p>
+<p>The homepage for SIP is <a class="reference external" href="http://www.riverbankcomputing.com/software/sip">http://www.riverbankcomputing.com/software/sip</a>.  Here
+you will always find the latest stable version and the latest version of this
+documentation.</p>
+<p>SIP can also be downloaded from the
+<a class="reference external" href="http://mercurial.selenic.com/">Mercurial</a> repository at
+<a class="reference external" href="http://www.riverbankcomputing.com/hg/sip">http://www.riverbankcomputing.com/hg/sip</a>.</p>
+<div class="section" id="license">
+<h2>License<a class="headerlink" href="#license" title="Permalink to this headline">¶</a></h2>
+<p>SIP is licensed under similar terms as Python itself.  SIP is also licensed
+under the GPL (both v2 and v3).  It is your choice as to which license you
+use.  If you choose the GPL then any bindings you create must be distributed
+under the terms of the GPL.</p>
+</div>
+<div class="section" id="features">
+<h2>Features<a class="headerlink" href="#features" title="Permalink to this headline">¶</a></h2>
+<p>SIP, and the bindings it produces, have the following features:</p>
+<ul class="simple">
+<li>bindings are fast to load and minimise memory consumption especially when
+only a small sub-set of a large library is being used</li>
+<li>automatic conversion between standard Python and C/C++ data types</li>
+<li>overloading of functions and methods with different argument signatures</li>
+<li>support for Python&#8217;s keyword argument syntax</li>
+<li>support for both explicitly specified and automatically generated docstrings</li>
+<li>access to a C++ class&#8217;s protected methods</li>
+<li>the ability to define a Python class that is a sub-class of a C++ class,
+including abstract C++ classes</li>
+<li>Python sub-classes can implement the <tt class="xref docutils literal"><span class="pre">__dtor__()</span></tt> method which will be
+called from the C++ class&#8217;s virtual destructor</li>
+<li>support for ordinary C++ functions, class methods, static class methods,
+virtual class methods and abstract class methods</li>
+<li>the ability to re-implement C++ virtual and abstract methods in Python</li>
+<li>support for global and class variables</li>
+<li>support for global and class operators</li>
+<li>support for C++ namespaces</li>
+<li>support for C++ templates</li>
+<li>support for C++ exceptions and wrapping them as Python exceptions</li>
+<li>the automatic generation of complementary rich comparison slots</li>
+<li>support for deprecation warnings</li>
+<li>the ability to define mappings between C++ classes and similar Python data
+types that are automatically invoked</li>
+<li>the ability to automatically exploit any available run time type information
+to ensure that the class of a Python instance object matches the class of the
+corresponding C++ instance</li>
+<li>the ability to change the type and meta-type of the Python object used to
+wrap a C/C++ data type</li>
+<li>full support of the Python global interpreter lock, including the ability to
+specify that a C++ function of method may block, therefore allowing the lock
+to be released and other Python threads to run</li>
+<li>support for consolidated modules where the generated wrapper code for a
+number of related modules may be included in a single, possibly private,
+module</li>
+<li>support for the concept of ownership of a C++ instance (i.e. what part of the
+code is responsible for calling the instance&#8217;s destructor) and how the
+ownership may change during the execution of an application</li>
+<li>the ability to generate bindings for a C++ class library that itself is built
+on another C++ class library which also has had bindings generated so that
+the different bindings integrate and share code properly</li>
+<li>a sophisticated versioning system that allows the full lifetime of a C++
+class library, including any platform specific or optional features, to be
+described in a single set of specification files</li>
+<li>the ability to include documentation in the specification files which can be
+extracted and subsequently processed by external tools</li>
+<li>the ability to include copyright notices and licensing information in the
+specification files that is automatically included in all generated source
+code</li>
+<li>a build system, written in Python, that you can extend to configure, compile
+and install your own bindings without worrying about platform specific issues</li>
+<li>support for building your extensions using distutils</li>
+<li>SIP, and the bindings it produces, runs under UNIX, Linux, Windows and
+MacOS/X</li>
+</ul>
+</div>
+<div class="section" id="sip-components">
+<h2>SIP Components<a class="headerlink" href="#sip-components" title="Permalink to this headline">¶</a></h2>
+<p>SIP comprises a number of different components.</p>
+<ul class="simple">
+<li>The SIP code generator (<strong>sip</strong>).  This processes <tt class="docutils literal"><span class="pre">.sip</span></tt>
+specification files and generates C or C++ bindings.  It is covered in detail
+in <a class="reference external" href="using.html#ref-using"><em>Using SIP</em></a>.</li>
+<li>The SIP header file (<tt class="docutils literal"><span class="pre">sip.h</span></tt>).  This contains definitions and data
+structures needed by the generated C and C++ code.</li>
+<li>The SIP module (<tt class="docutils literal"><span class="pre">sip.so</span></tt> or <tt class="docutils literal"><span class="pre">sip.pyd</span></tt>).  This is a Python
+extension module that is imported automatically by SIP generated bindings and
+provides them with some common utility functions.  See also
+<a class="reference external" href="python_api.html#ref-python-api"><em>Python API for Applications</em></a>.</li>
+<li>The SIP build system (<tt class="docutils literal"><span class="pre">sipconfig.py</span></tt>).  This is a pure Python module
+that is created when SIP is configured and encapsulates all the necessary
+information about your system including relevant directory names, compiler
+and linker flags, and version numbers.  It also includes several Python
+classes and functions which help you write configuration scripts for your own
+bindings.  It is covered in detail in <a class="reference external" href="build_system.html#ref-build-system"><em>The Build System</em></a>.</li>
+<li>The SIP distutils extension (<tt class="docutils literal"><span class="pre">sipdistutils.py</span></tt>).  This is a distutils
+extension that can be used to build your extension modules using distutils
+and is an alternative to writing configuration scripts with the SIP build
+system.  This can be as simple as adding your .sip files to the list of files
+needed to build the extension module.  It is covered in detail in
+<a class="reference external" href="distutils.html#ref-distutils"><em>Building Your Extension with distutils</em></a>.</li>
+</ul>
+</div>
+<div class="section" id="preparing-for-sip-v5">
+<h2>Preparing for SIP v5<a class="headerlink" href="#preparing-for-sip-v5" title="Permalink to this headline">¶</a></h2>
+<p>The syntax of a SIP specification file will change in SIP v5.  The command line
+options to the SIP code generator will also change.  In order to help users
+manage the transition the following approach will be adopted.</p>
+<ul class="simple">
+<li>Where possible, all incompatible changes will be first implemented in SIP v4.</li>
+<li>When an incompatible change is implemented, the old syntax will be deprecated
+(with a warning message) but will be supported for the lifetime of v4.</li>
+</ul>
+</div>
+<div class="section" id="qt-support">
+<h2>Qt Support<a class="headerlink" href="#qt-support" title="Permalink to this headline">¶</a></h2>
+<p>SIP has specific support for the creation of bindings based on Digia&#8217;s Qt
+toolkit.</p>
+<p>The SIP code generator understands the signal/slot type safe callback mechanism
+that Qt uses to connect objects together.  This allows applications to define
+new Python signals, and allows any Python callable object to be used as a slot.</p>
+<p>SIP itself does not require Qt to be installed.</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="index.html">
+              <img class="logo" src="_static/logo.png" alt="Logo"/>
+            </a></p>
+            <h3><a href="index.html">Table Of Contents</a></h3>
+            <ul>
+<li><a class="reference external" href="#">Introduction</a><ul>
+<li><a class="reference external" href="#license">License</a></li>
+<li><a class="reference external" href="#features">Features</a></li>
+<li><a class="reference external" href="#sip-components">SIP Components</a></li>
+<li><a class="reference external" href="#preparing-for-sip-v5">Preparing for SIP v5</a></li>
+<li><a class="reference external" href="#qt-support">Qt Support</a></li>
+</ul>
+</li>
+</ul>
+
+            <h4>Previous topic</h4>
+            <p class="topless"><a href="index.html"
+                                  title="previous chapter">SIP Reference Guide</a></p>
+            <h4>Next topic</h4>
+            <p class="topless"><a href="incompatibilities.html"
+                                  title="next chapter">Potential Incompatibilities with Earlier Versions</a></p>
+          <div id="searchbox" style="display: none">
+            <h3>Quick search</h3>
+              <form class="search" action="search.html" method="get">
+                <input type="text" name="q" size="18" />
+                <input type="submit" value="Go" />
+                <input type="hidden" name="check_keywords" value="yes" />
+                <input type="hidden" name="area" value="default" />
+              </form>
+              <p class="searchtip" style="font-size: 90%">
+              Enter search terms or a module, class or function name.
+              </p>
+          </div>
+          <script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="modindex.html" title="Global Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="incompatibilities.html" title="Potential Incompatibilities with Earlier Versions"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="index.html" title="SIP Reference Guide"
+             >previous</a> |</li>
+        <li><a href="index.html">SIP 4.15.3-snapshot-5dc8c370157e Reference Guide</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+      &copy; Copyright 2013 Riverbank Computing Limited.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 0.6.4.
+    </div>
+  </body>
+</html>

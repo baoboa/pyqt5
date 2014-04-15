@@ -5,4 +5,4 @@ QMetaType
 
 .. class:: QMetaType
 
-    `C++ documentation <http://qt-project.org/doc/qt-5.1/qtcore/qmetatype.html>`_
+    `C++ documentation <http://qt-project.org/doc/qt-5.2/qmetatype.html>`_

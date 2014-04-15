@@ -1,6 +1,6 @@
 // This contains the main implementation of qmlRegisterType.
 //
-// Copyright (c) 2013 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2014 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -44,7 +44,7 @@ static int register_type(QQmlPrivate::RegisterType *rt);
 
 
 // The number of types that can be registered.
-const int NrOfTypes = 20;
+const int NrOfTypes = 60;
 
 
 // The registration data for the proxy types.
@@ -129,7 +129,7 @@ static int register_type(QQmlPrivate::RegisterType *rt)
         rt->typeId = qRegisterNormalizedMetaType<QPyQmlObject##n *>(ptr_name); \
         rt->listId = qRegisterNormalizedMetaType<QQmlListProperty<QPyQmlObject##n> >(list_name); \
         rt->objectSize = ctor ? sizeof(QPyQmlObject##n) : 0; \
-        rt->create = ctor ? QQmlPrivate::createInto<QPyQmlObject##n> : 0; \
+        if (ctor) rt->create = QQmlPrivate::createInto<QPyQmlObject##n>; else rt->create = 0; \
         rt->metaObject = mo; \
         rt->attachedPropertiesFunction = attached_mo ? QPyQmlObject##n::attachedProperties : 0; \
         rt->attachedPropertiesMetaObject = attached_mo; \
@@ -137,6 +137,72 @@ static int register_type(QQmlPrivate::RegisterType *rt)
         rt->valueSourceCast = is_value_source ? QQmlPrivate::StaticCastSelector<QPyQmlObject##n,QQmlPropertyValueSource>::cast() : -1; \
         rt->valueInterceptorCast = QQmlPrivate::StaticCastSelector<QPyQmlObject##n,QQmlPropertyValueInterceptor>::cast(); \
         break
+
+
+// This is needed for GCC v4.6 and earlier.
+#define QPYQML_TYPE_IMPL(n) \
+    template void QQmlPrivate::createInto<QPyQmlObject##n>(void *)
+
+QPYQML_TYPE_IMPL(0);
+QPYQML_TYPE_IMPL(1);
+QPYQML_TYPE_IMPL(2);
+QPYQML_TYPE_IMPL(3);
+QPYQML_TYPE_IMPL(4);
+QPYQML_TYPE_IMPL(5);
+QPYQML_TYPE_IMPL(6);
+QPYQML_TYPE_IMPL(7);
+QPYQML_TYPE_IMPL(8);
+QPYQML_TYPE_IMPL(9);
+QPYQML_TYPE_IMPL(10);
+QPYQML_TYPE_IMPL(11);
+QPYQML_TYPE_IMPL(12);
+QPYQML_TYPE_IMPL(13);
+QPYQML_TYPE_IMPL(14);
+QPYQML_TYPE_IMPL(15);
+QPYQML_TYPE_IMPL(16);
+QPYQML_TYPE_IMPL(17);
+QPYQML_TYPE_IMPL(18);
+QPYQML_TYPE_IMPL(19);
+QPYQML_TYPE_IMPL(20);
+QPYQML_TYPE_IMPL(21);
+QPYQML_TYPE_IMPL(22);
+QPYQML_TYPE_IMPL(23);
+QPYQML_TYPE_IMPL(24);
+QPYQML_TYPE_IMPL(25);
+QPYQML_TYPE_IMPL(26);
+QPYQML_TYPE_IMPL(27);
+QPYQML_TYPE_IMPL(28);
+QPYQML_TYPE_IMPL(29);
+QPYQML_TYPE_IMPL(30);
+QPYQML_TYPE_IMPL(31);
+QPYQML_TYPE_IMPL(32);
+QPYQML_TYPE_IMPL(33);
+QPYQML_TYPE_IMPL(34);
+QPYQML_TYPE_IMPL(35);
+QPYQML_TYPE_IMPL(36);
+QPYQML_TYPE_IMPL(37);
+QPYQML_TYPE_IMPL(38);
+QPYQML_TYPE_IMPL(39);
+QPYQML_TYPE_IMPL(40);
+QPYQML_TYPE_IMPL(41);
+QPYQML_TYPE_IMPL(42);
+QPYQML_TYPE_IMPL(43);
+QPYQML_TYPE_IMPL(44);
+QPYQML_TYPE_IMPL(45);
+QPYQML_TYPE_IMPL(46);
+QPYQML_TYPE_IMPL(47);
+QPYQML_TYPE_IMPL(48);
+QPYQML_TYPE_IMPL(49);
+QPYQML_TYPE_IMPL(50);
+QPYQML_TYPE_IMPL(51);
+QPYQML_TYPE_IMPL(52);
+QPYQML_TYPE_IMPL(53);
+QPYQML_TYPE_IMPL(54);
+QPYQML_TYPE_IMPL(55);
+QPYQML_TYPE_IMPL(56);
+QPYQML_TYPE_IMPL(57);
+QPYQML_TYPE_IMPL(58);
+QPYQML_TYPE_IMPL(59);
 
 
 // Return a pointer to the initialised registration structure for a type.
@@ -253,6 +319,46 @@ static QQmlPrivate::RegisterType *init_type(PyTypeObject *py_type, bool ctor,
         QPYQML_TYPE_INIT(17);
         QPYQML_TYPE_INIT(18);
         QPYQML_TYPE_INIT(19);
+        QPYQML_TYPE_INIT(20);
+        QPYQML_TYPE_INIT(21);
+        QPYQML_TYPE_INIT(22);
+        QPYQML_TYPE_INIT(23);
+        QPYQML_TYPE_INIT(24);
+        QPYQML_TYPE_INIT(25);
+        QPYQML_TYPE_INIT(26);
+        QPYQML_TYPE_INIT(27);
+        QPYQML_TYPE_INIT(28);
+        QPYQML_TYPE_INIT(29);
+        QPYQML_TYPE_INIT(30);
+        QPYQML_TYPE_INIT(31);
+        QPYQML_TYPE_INIT(32);
+        QPYQML_TYPE_INIT(33);
+        QPYQML_TYPE_INIT(34);
+        QPYQML_TYPE_INIT(35);
+        QPYQML_TYPE_INIT(36);
+        QPYQML_TYPE_INIT(37);
+        QPYQML_TYPE_INIT(38);
+        QPYQML_TYPE_INIT(39);
+        QPYQML_TYPE_INIT(40);
+        QPYQML_TYPE_INIT(41);
+        QPYQML_TYPE_INIT(42);
+        QPYQML_TYPE_INIT(43);
+        QPYQML_TYPE_INIT(44);
+        QPYQML_TYPE_INIT(45);
+        QPYQML_TYPE_INIT(46);
+        QPYQML_TYPE_INIT(47);
+        QPYQML_TYPE_INIT(48);
+        QPYQML_TYPE_INIT(49);
+        QPYQML_TYPE_INIT(50);
+        QPYQML_TYPE_INIT(51);
+        QPYQML_TYPE_INIT(52);
+        QPYQML_TYPE_INIT(53);
+        QPYQML_TYPE_INIT(54);
+        QPYQML_TYPE_INIT(55);
+        QPYQML_TYPE_INIT(56);
+        QPYQML_TYPE_INIT(57);
+        QPYQML_TYPE_INIT(58);
+        QPYQML_TYPE_INIT(59);
     }
 
     complete_init(rt, revision);

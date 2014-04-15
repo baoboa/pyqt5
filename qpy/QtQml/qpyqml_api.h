@@ -1,6 +1,6 @@
 // This defines the API provided by this library.
 //
-// Copyright (c) 2013 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2014 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -24,6 +24,7 @@
 
 #include <Python.h>
 
+#include <QJSValue>
 #include <QMetaObject>
 #include <QObject>
 #include <QString>
@@ -42,6 +43,11 @@ int qpyqml_register_uncreatable_type(PyTypeObject *py_type, const char *uri,
 
 // Support for qmlAttachedPropertiesObject().
 QObject *qpyqml_find_proxy_for(QObject *proxied);
+
+// Support for QJSValue.
+int qpyqml_canConvertTo_QJSValue(PyObject *py);
+int qpyqml_convertTo_QJSValue(PyObject *py, PyObject *transferObj,
+        QJSValue **cpp, int *isErr);
 
 // Imports from QtCore.
 typedef const QMetaObject *(*pyqt5_get_qmetaobject_t)(PyTypeObject *);

@@ -5,4 +5,4 @@ QDynamicPropertyChangeEvent
 
 .. class:: QDynamicPropertyChangeEvent
 
-    `C++ documentation <http://qt-project.org/doc/qt-5.1/qtcore/qdynamicpropertychangeevent.html>`_
+    `C++ documentation <http://qt-project.org/doc/qt-5.2/qdynamicpropertychangeevent.html>`_

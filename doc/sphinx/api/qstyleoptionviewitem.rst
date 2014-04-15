@@ -5,4 +5,4 @@ QStyleOptionViewItem
 
 .. class:: QStyleOptionViewItem
 
-    `C++ documentation <http://qt-project.org/doc/qt-5.1/qtwidgets/qstyleoptionviewitem.html>`_
+    `C++ documentation <http://qt-project.org/doc/qt-5.2/qstyleoptionviewitem.html>`_

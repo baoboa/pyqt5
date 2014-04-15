@@ -5,4 +5,4 @@ QAbstractSpinBox
 
 .. class:: QAbstractSpinBox
 
-    `C++ documentation <http://qt-project.org/doc/qt-5.1/qtwidgets/qabstractspinbox.html>`_
+    `C++ documentation <http://qt-project.org/doc/qt-5.2/qabstractspinbox.html>`_

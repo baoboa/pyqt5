@@ -4,7 +4,7 @@
 // internal code.  The alternative would be to reverse engineer other internal
 // data structures which would be even more fragile.
 //
-// Copyright (c) 2013 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2014 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -33,6 +33,7 @@
 QT_BEGIN_NAMESPACE
 
 
+class QMetaEnumBuilder;
 class QMetaMethodBuilder;
 class QMetaPropertyBuilder;
 
@@ -49,6 +50,7 @@ public:
     QMetaMethodBuilder addSignal(const QByteArray &signature);
     QMetaPropertyBuilder addProperty(const QByteArray &name,
             const QByteArray &type, int notifierId=-1);
+    QMetaEnumBuilder addEnumerator(const QByteArray &name);
     int addClassInfo(const QByteArray &name, const QByteArray &value);
     int addRelatedMetaObject(const QMetaObject *meta);
     int indexOfSignal(const QByteArray &signature);
@@ -93,6 +95,20 @@ public:
     void setConstant(bool value);
     void setFinal(bool value);
     void setRevision(int revision);
+
+private:
+    const QMetaObjectBuilder *_mobj;
+    int _index;
+};
+
+
+class Q_CORE_EXPORT QMetaEnumBuilder
+{
+public:
+    QMetaEnumBuilder() : _mobj(0), _index(0) {}
+
+    void setIsFlag(bool value);
+    int addKey(const QByteArray &name, int value);
 
 private:
     const QMetaObjectBuilder *_mobj;

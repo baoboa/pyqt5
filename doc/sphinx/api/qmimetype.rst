@@ -5,4 +5,4 @@ QMimeType
 
 .. class:: QMimeType
 
-    `C++ documentation <http://qt-project.org/doc/qt-5.1/qtcore/qmimetype.html>`_
+    `C++ documentation <http://qt-project.org/doc/qt-5.2/qmimetype.html>`_

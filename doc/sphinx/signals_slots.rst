@@ -30,11 +30,11 @@ The signal/slot mechanism has the following features.
 Unbound and Bound Signals
 -------------------------
 
-A signal (specifically an unbound signal) is an attribute of a class that is a
-sub-class of :class:`~PyQt5.QtCore.QObject`.  When a signal is referenced as an
-attribute of an instance of the class then PyQt5 automatically binds the
-instance to the signal in order to create a *bound signal*.  This is the same
-mechanism that Python itself uses to create bound methods from class functions.
+A signal (specifically an unbound signal) is a class attribute.  When a signal
+is referenced as an attribute of an instance of the class then PyQt5
+automatically binds the instance to the signal in order to create a *bound
+signal*.  This is the same mechanism that Python itself uses to create bound
+methods from class functions.
 
 A bound signal has ``connect()``, ``disconnect()`` and ``emit()`` methods that
 implement the associated functionality.  It also has a ``signal`` attribute
@@ -104,9 +104,6 @@ The following example shows the definition of a number of new signals::
         # argument.  Note that because we use a string to specify the type of
         # the QString argument then this code will run under Python v2 and v3.
         valueChanged = pyqtSignal([int], ['QString'])
-
-New signals should only be defined in sub-classes of
-:class:`~PyQt5.QtCore.QObject`.
 
 New signals defined in this way will be automatically added to the class's
 :class:`~PyQt5.QtCore.QMetaObject`.  This means that they will appear in Qt
@@ -319,17 +316,6 @@ name ``spinbox``) then it will be connected to both variations of the signal.
 Therefore, when the user changes the value, your slot will be called twice -
 once with an integer argument, and once with a string argument.
 
-This also happens with signals that take optional arguments.  Qt implements
-this using multiple signals.  For example,
-:class:`~PyQt5.QtWidgets.QAbstractButton` has the following signal::
-
-    void clicked(bool checked = false);
-
-Qt implements this as the following::
-
-    void clicked();
-    void clicked(bool checked);
-
 The :func:`~PyQt5.QtCore.pyqtSlot` decorator can be used to specify which of
 the signals should be connected to the slot.
 
@@ -352,11 +338,4 @@ methods, then your slot definitions might look like the following::
     @pyqtSlot(str, name='on_spinbox_valueChanged')
     def spinbox_qstring_value(self, s):
         # s will be a Python string object (or a QString if they are enabled).
-        pass
-
-The following shows an example using a button when you are not interested in
-the optional argument::
-
-    @pyqtSlot()
-    def on_button_clicked(self):
         pass

@@ -10,6 +10,7 @@ PyQt5 Reference Guide
     class_reference
     signals_slots
     qt_properties
+    metaobjects
     opengl
     qt_interfaces
     pyqt_qvariant

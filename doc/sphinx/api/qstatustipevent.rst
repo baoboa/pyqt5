@@ -5,4 +5,4 @@ QStatusTipEvent
 
 .. class:: QStatusTipEvent
 
-    `C++ documentation <http://qt-project.org/doc/qt-5.1/qtgui/qstatustipevent.html>`_
+    `C++ documentation <http://qt-project.org/doc/qt-5.2/qstatustipevent.html>`_

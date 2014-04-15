@@ -1,6 +1,6 @@
 // This contains the implementation of the pyqtSignal type.
 //
-// Copyright (c) 2013 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2014 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -46,7 +46,7 @@ static int init_signal_from_types(qpycore_pyqtSignal *ps, const char *name,
         const QList<QByteArray> *parameter_names, int revision,
         PyObject *types);
 static void append_overload(qpycore_pyqtSignal *ps);
-static bool is_signal_name(const char *sig, const char *name, uint name_len);
+static bool is_signal_name(const char *sig, const QByteArray &name);
 
 
 // Define the mapping methods.
@@ -126,6 +126,9 @@ PyTypeObject qpycore_pyqtSignal_Type = {
     0,                      /* tp_weaklist */
     0,                      /* tp_del */
     0,                      /* tp_version_tag */
+#if PY_VERSION_HEX >= 0x03040000
+    0,                      /* tp_finalize */
+#endif
 };
 
 
@@ -192,7 +195,7 @@ static PyObject *pyqtSignal_repr(PyObject *self)
 #else
         PyString_FromFormat
 #endif
-            ("<unbound signal %s>", ps->signature->name().constData() + 1);
+            ("<unbound signal %s>", ps->parsed_signature->name().constData() + 1);
 }
 
 
@@ -209,7 +212,7 @@ static void pyqtSignal_dealloc(PyObject *self)
 {
     qpycore_pyqtSignal *ps = (qpycore_pyqtSignal *)self;
 
-    delete ps->signature;
+    delete ps->parsed_signature;
 
     if (ps->parameter_names)
         delete ps->parameter_names;
@@ -287,7 +290,7 @@ static int pyqtSignal_init(PyObject *self, PyObject *args, PyObject *kwd_args)
 #else
             Q_ASSERT(PyString_Check(key));
 
-            if (qstrcmp(PyString_AS_STRING(key), "name") != 0)
+            if (qstrcmp(PyString_AS_STRING(key), "name") == 0)
 #endif
             {
                 name_obj = value;
@@ -305,7 +308,7 @@ static int pyqtSignal_init(PyObject *self, PyObject *args, PyObject *kwd_args)
 #if PY_MAJOR_VERSION >= 3
             else if (PyUnicode_CompareWithASCIIString(key, "revision") == 0)
 #else
-            else if (qstrcmp(PyString_AS_STRING(key), "revision") != 0)
+            else if (qstrcmp(PyString_AS_STRING(key), "revision") == 0)
 #endif
             {
                 PyErr_Clear();
@@ -325,7 +328,7 @@ static int pyqtSignal_init(PyObject *self, PyObject *args, PyObject *kwd_args)
 #if PY_MAJOR_VERSION >= 3
             else if (PyUnicode_CompareWithASCIIString(key, "arguments") == 0)
 #else
-            else if (qstrcmp(PyString_AS_STRING(key), "arguments") != 0)
+            else if (qstrcmp(PyString_AS_STRING(key), "arguments") == 0)
 #endif
             {
                 bool ok = true;
@@ -495,21 +498,21 @@ static PyObject *pyqtSignal_mp_subscript(PyObject *self, PyObject *subscript)
 
 
 // Create a new signal instance.
-qpycore_pyqtSignal *qpycore_pyqtSignal_New(const char *signature_str, bool *fatal)
+qpycore_pyqtSignal *qpycore_pyqtSignal_New(const char *signature, bool *fatal)
 {
     // Assume any error is fatal.
     if (fatal)
         *fatal = true;
 
-    QByteArray norm = QMetaObject::normalizedSignature(signature_str);
-    Chimera::Signature *signature = Chimera::parse(norm, "a signal argument");
+    Chimera::Signature *parsed_signature = Chimera::parse(signature,
+                "a signal argument");
 
     // At first glance the parse should never fail because the signature
     // originates from the .sip file.  However it might if it includes a type
     // that has been forward declared, but not yet defined.  The only example
-    // int PyQt is the declaration of QWidget by QSignalMapper.  Therefore we
+    // in PyQt is the declaration of QWidget by QSignalMapper.  Therefore we
     // assume the error isn't fatal.
-    if (!signature)
+    if (!parsed_signature)
     {
         if (fatal)
             *fatal = false;
@@ -517,14 +520,15 @@ qpycore_pyqtSignal *qpycore_pyqtSignal_New(const char *signature_str, bool *fata
         return 0;
     }
 
-    signature->signature.prepend('2');
+    parsed_signature->signature.prepend('2');
 
+    // Create and initialise the signal.
     qpycore_pyqtSignal *ps = (qpycore_pyqtSignal *)PyType_GenericNew(
             &qpycore_pyqtSignal_Type, 0, 0);
 
     if (!ps)
     {
-        delete signature;
+        delete parsed_signature;
         return 0;
     }
 
@@ -532,7 +536,9 @@ qpycore_pyqtSignal *qpycore_pyqtSignal_New(const char *signature_str, bool *fata
     ps->next = 0;
     ps->docstring = 0;
     ps->parameter_names = 0;
-    ps->signature = signature;
+    ps->revision = 0;
+    ps->parsed_signature = parsed_signature;
+    ps->emitter = 0;
     ps->non_signals = 0;
 
     return ps;
@@ -575,7 +581,7 @@ qpycore_pyqtSignal *qpycore_find_signal(qpycore_pyqtSignal *ps,
 
     do
     {
-        if (overload->signature->arguments() == ss_signature->signature)
+        if (overload->parsed_signature->arguments() == ss_signature->signature)
             break;
 
         overload = overload->next;
@@ -597,21 +603,22 @@ static int init_signal_from_types(qpycore_pyqtSignal *ps, const char *name,
         const QList<QByteArray> *parameter_names, int revision,
         PyObject *types)
 {
-    Chimera::Signature *signature = Chimera::parse(types, name,
+    Chimera::Signature *parsed_signature = Chimera::parse(types, name,
             "a pyqtSignal() type argument");
 
-    if (!signature)
+    if (!parsed_signature)
         return -1;
 
     if (name)
-        signature->signature.prepend('2');
+        parsed_signature->signature.prepend('2');
 
     ps->default_signal = ps;
     ps->next = 0;
     ps->docstring = 0;
     ps->parameter_names = parameter_names;
     ps->revision = revision;
-    ps->signature = signature;
+    ps->parsed_signature = parsed_signature;
+    ps->emitter = 0;
     ps->non_signals = 0;
 
     return 0;
@@ -639,17 +646,17 @@ void qpycore_set_signal_name(qpycore_pyqtSignal *ps, const char *type_name,
 
     // If the signature already has a name then they all have and there is
     // nothing more to do.
-    if (!ps->signature->signature.startsWith('('))
+    if (!ps->parsed_signature->signature.startsWith('('))
         return;
 
     do
     {
-        QByteArray &sig = ps->signature->signature;
+        QByteArray &sig = ps->parsed_signature->signature;
 
         sig.prepend(name);
         sig.prepend('2');
 
-        QByteArray &py_sig = ps->signature->py_signature;
+        QByteArray &py_sig = ps->parsed_signature->py_signature;
 
         py_sig.prepend(name);
         py_sig.prepend('.');
@@ -664,8 +671,8 @@ void qpycore_set_signal_name(qpycore_pyqtSignal *ps, const char *type_name,
 // Handle the getting of a lazy attribute, ie. a native Qt signal.
 int qpycore_get_lazy_attr(const sipTypeDef *td, PyObject *dict)
 {
-    pyqt4ClassTypeDef *ctd = (pyqt4ClassTypeDef *)td;
-    const pyqt4QtSignal *sigs = ctd->qt4_signals;
+    pyqt5ClassTypeDef *ctd = (pyqt5ClassTypeDef *)td;
+    const pyqt5QtSignal *sigs = ctd->qt_signals;
 
     // Handle the trvial case.
     if (!sigs)
@@ -677,7 +684,7 @@ int qpycore_get_lazy_attr(const sipTypeDef *td, PyObject *dict)
     do
     {
         // See if we have come to the end of the current signal.
-        if (default_signal && !is_signal_name(sigs->signature, default_name.constData(), default_name.size()))
+        if (default_signal && !is_signal_name(sigs->signature, default_name))
         {
             if (PyDict_SetItemString(dict, default_name.constData(), (PyObject *)default_signal) < 0)
                 return -1;
@@ -700,6 +707,7 @@ int qpycore_get_lazy_attr(const sipTypeDef *td, PyObject *dict)
         }
 
         sig->docstring = sigs->docstring;
+        sig->emitter = sigs->emitter;
 
         // See if this is a new default.
         if (default_signal)
@@ -713,8 +721,8 @@ int qpycore_get_lazy_attr(const sipTypeDef *td, PyObject *dict)
 
             default_signal = sig->default_signal = sig;
 
-            // Get the name.
-            default_name = sig->signature->name().mid(1);
+            default_name = sigs->signature;
+            default_name.truncate(default_name.indexOf('('));
         }
     }
     while ((++sigs)->signature);
@@ -723,14 +731,15 @@ int qpycore_get_lazy_attr(const sipTypeDef *td, PyObject *dict)
     if (!default_signal)
         return 0;
 
-    return PyDict_SetItemString(dict, default_name.constData(), (PyObject *)default_signal);
+    return PyDict_SetItemString(dict, default_name.constData(),
+            (PyObject *)default_signal);
 }
 
 
-// Return true if the signal has the given name.
-static bool is_signal_name(const char *sig, const char *name, uint name_len)
+// Return true if a signal signatures has a particular name.
+static bool is_signal_name(const char *sig, const QByteArray &name)
 {
-    return (qstrncmp(sig, name, name_len) == 0 && sig[name_len] == '(');
+    return (qstrncmp(sig, name.constData(), name.size()) == 0 && sig[name.size()] == '(');
 }
 
 

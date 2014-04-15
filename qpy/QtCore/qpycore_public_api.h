@@ -1,6 +1,6 @@
 // This defines the public API provided by PyQt to external packages.
 //
-// Copyright (c) 2013 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2014 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -19,7 +19,7 @@
 
 
 #ifndef _QPYCORE_PUBLIC_API_H
-#define _QPYCORE_APUBLIC_PI_H
+#define _QPYCORE_PUBLIC_API_H
 
 
 #include <Python.h>

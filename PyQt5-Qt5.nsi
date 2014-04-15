@@ -1,6 +1,6 @@
 # PyQt5 NSIS installer script.
 # 
-# Copyright (c) 2013 Riverbank Computing Limited <info@riverbankcomputing.com>
+# Copyright (c) 2014 Riverbank Computing Limited <info@riverbankcomputing.com>
 # 
 # This file is part of PyQt5.
 # 
@@ -19,7 +19,7 @@
 
 
 # These will change with different releases.
-!define PYQT_VERSION        "5.1.1-snapshot-3c895ca14f00"
+!define PYQT_VERSION        "5.2.1"
 !define PYQT_INSTALLER      ""
 #!define PYQT_INSTALLER      "-2"
 !define PYQT_LICENSE        "GPL"
@@ -27,8 +27,8 @@
 !define PYQT_PYTHON_MAJOR   "3"
 !define PYQT_PYTHON_MINOR   "3"
 !define PYQT_ARCH           "x64"
-!define PYQT_QT_VERS        "5.1.1"
-!define PYQT_QT_DOC_VERS    "5.1"
+!define PYQT_QT_VERS        "5.2.1"
+!define PYQT_QT_DOC_VERS    "5.2"
 
 # These are all derived from the above.
 !define PYQT_PYTHON_DIR     "C:\Python${PYQT_PYTHON_MAJOR}${PYQT_PYTHON_MINOR}"
@@ -199,6 +199,7 @@ Section "Extension modules" SecModules
     File .\build\QtMultimediaWidgets\QtMultimediaWidgets.pyd
     File .\build\QtNetwork\QtNetwork.pyd
     File .\build\QtOpenGL\QtOpenGL.pyd
+    File .\build\QtPositioning\QtPositioning.pyd
     File .\build\QtPrintSupport\QtPrintSupport.pyd
     File .\build\QtQml\QtQml.pyd
     File .\build\QtQuick\QtQuick.pyd
@@ -209,6 +210,7 @@ Section "Extension modules" SecModules
     File .\build\QtTest\QtTest.pyd
     File .\build\QtWebKit\QtWebKit.pyd
     File .\build\QtWebKitWidgets\QtWebKitWidgets.pyd
+    File .\build\QtWinExtras\QtWinExtras.pyd
     File .\build\QtWidgets\QtWidgets.pyd
     File .\build\QtXmlPatterns\QtXmlPatterns.pyd
     File .\build\QAxContainer\QAxContainer.pyd
@@ -252,6 +254,7 @@ Section "Qt runtime" SecQt
     File "${QT_SRC_DIR}\bin\Qt5MultimediaWidgets.dll"
     File "${QT_SRC_DIR}\bin\Qt5Network.dll"
     File "${QT_SRC_DIR}\bin\Qt5OpenGL.dll"
+    File "${QT_SRC_DIR}\bin\Qt5Positioning.dll"
     File "${QT_SRC_DIR}\bin\Qt5PrintSupport.dll"
     File "${QT_SRC_DIR}\bin\Qt5Qml.dll"
     File "${QT_SRC_DIR}\bin\Qt5Quick.dll"
@@ -261,10 +264,10 @@ Section "Qt runtime" SecQt
     File "${QT_SRC_DIR}\bin\Qt5Sql.dll"
     File "${QT_SRC_DIR}\bin\Qt5Svg.dll"
     File "${QT_SRC_DIR}\bin\Qt5Test.dll"
-    File "${QT_SRC_DIR}\bin\Qt5V8.dll"
     File "${QT_SRC_DIR}\bin\Qt5WebKit.dll"
     File "${QT_SRC_DIR}\bin\Qt5WebKitWidgets.dll"
     File "${QT_SRC_DIR}\bin\Qt5Widgets.dll"
+    File "${QT_SRC_DIR}\bin\Qt5WinExtras.dll"
     File "${QT_SRC_DIR}\bin\Qt5Xml.dll"
     File "${QT_SRC_DIR}\bin\Qt5XmlPatterns.dll"
     File "${QT_SRC_DIR}\bin\QtWebProcess.exe"

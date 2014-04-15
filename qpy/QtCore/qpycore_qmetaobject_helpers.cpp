@@ -1,6 +1,6 @@
 // This implements the helpers for QMetaObject.
 //
-// Copyright (c) 2013 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2014 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -25,9 +25,13 @@
 #include <QMetaObject>
 #include <QObject>
 
+#include "qpycore_api.h"
 #include "qpycore_chimera.h"
 #include "qpycore_misc.h"
+#include "qpycore_objectified_strings.h"
 #include "qpycore_public_api.h"
+
+#include "sipAPIQtCore.h"
 
 
 // Forward declarations.
@@ -63,7 +67,7 @@ void qpycore_qmetaobject_connectslotsbyname(QObject *qobj,
 
         // Use the signature attribute instead of the name if there is one.
         PyObject *sigattr = PyObject_GetAttr(slot_obj,
-                qpycore_signature_attr_name);
+                qpycore_dunder_pyqtsignature);
 
         if (sigattr)
         {

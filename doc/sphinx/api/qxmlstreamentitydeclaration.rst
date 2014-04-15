@@ -5,4 +5,4 @@ QXmlStreamEntityDeclaration
 
 .. class:: QXmlStreamEntityDeclaration
 
-    `C++ documentation <http://qt-project.org/doc/qt-5.1/qtcore/qxmlstreamentitydeclaration.html>`_
+    `C++ documentation <http://qt-project.org/doc/qt-5.2/qxmlstreamentitydeclaration.html>`_

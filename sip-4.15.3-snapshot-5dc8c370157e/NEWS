@@ -1,0 +1,555 @@
+v4.15.2 14th September 2013
+  - sipConvertToArray() will now optionally take ownership of the array memory.
+  - Added support for char, unsigned char, short, int, float and double as
+    array types.
+  - Bug fixes.
+
+v4.15.1 23rd August 2013
+  - Fixes a regression in the handling of hidden virtual methods.
+
+v4.15 21st August 2013
+  - Added the call_super_init argument to the %Module directive to specify that
+    classes should support cooperative multi-inheritance.
+  - Added the %FinalisationCode directive.
+  - Added the /Mixin/ class annotation.
+  - Added the /NoScope/ enum annotation.
+  - Added sipConvertFromNewPyType() to the C API.
+  - Added sipConvertToArray() and sipConvertToTypedArray() to the C API.
+  - Added sipRegisterProxyResolver() to the C API.
+  - Bug fixes.
+
+v4.14.7 16th June 2013
+  - The internal API version is increased to 10.0 requiring the regeneration of
+    all modules.
+  - Added the /Sequence/ function annotation.
+  - %ConvertFromTypeCode can now be specified for classes.
+  - Added sipEnableAutoconversion() to the C API.
+  - Added sipSetDestroyOnExit() to the C API.
+  - Bug fixes.
+
+v4.14.6 21st April 2013
+  - Bug fixes.
+
+v4.14.5 26th March 2013
+  - Bug fixes (specifically for QGIS).
+
+v4.14.4 1st March 2013
+  - The handwritten code provided to the %VirtualErrorHandler directive is now
+    called with the GIL held and from the thread that raised the error.  This
+    is, potentially, an incompatible change.
+  - Bug fixes.
+
+v4.14.3 28th January 2013
+  - The /KeepReference/ argument annotation, when applied to factories, will
+    now keep the reference with the object created by the factory.
+  - Any object that supports the buffer protocol can now be passed when a
+    sip.voidptr is expected.
+  - Bug fixes.
+
+v4.14.2 8th December 2012
+  - Added sip.setdestroyonexit().
+  - sip.voidptr() will now accept any object that implements the buffer
+    protocol.
+  - Bug fixes.
+
+v4.14.1 27th October 2012
+  - SIP_PYBUFFER can now be used to define objects that implement the Python
+    buffer protocol.
+  - Added /Capsule/ typedef annotation.
+  - Added the 'z' format character to sipBuildResult().
+  - Added the 'z', '!' and '$' format characters to sipParseResult().
+  - The C prototype foo(void) is now accepted.
+  - sipdistutils.py will now include swig_opts if no sip_opts have been
+    defined.
+  - Bug fixes.
+
+v4.14 29th September 2012
+  - The internal API version is increased to 9.0 requiring the regeneration of
+    all modules.
+  - Added the %InstanceCode directive.
+  - Added the %VirtualErrorHandler directive.
+  - Added the default_VirtualErrorHandler argument to the %Module directive.
+  - Added the /VirtualErrorHandler/ class annotation.
+  - Added the /NoVirtualErrorHandler/ and /VirtualErrorHandler/ function
+    annotations.
+  - The /AllowNone/ and /NoRelease/ mapped type annotations can now be used
+    with mapped type templates.
+  - SIP_PLATFORM_* and SIP_TIMELINE_* preprocessor symbols are generated
+    corresponding to the '-t' arguments passed on the command line.
+  - Deprecated sipTransferBreak().
+  - For Python v2.x unsigned short and unsigned char (when used as a byte) are
+    now converted to int, rather than long, objects.
+  - Added support for MSVC 2010 to the build system.
+
+v4.13.3 20th June 2012
+  - The /NoRaisesPyException/ and /RaisesPyException/ function annotations can
+    now be applied to constructors.
+  - Added support for the Python v3.3 handling of Unicode.
+
+v4.13.2 10th February 2012
+  - A bug fix release.
+
+v4.13.1 22nd December 2011
+  - Deprecation warnings can no longer be disabled.
+  - Added the all_raise_py_exception argument to the %Module directive.
+  - Added the /NoRaisesPyException/ function annotation.
+  - Added the /PyName/ typedef annotation.
+  - Class templates now allow super-classes to be defined as template
+    arguments.
+  - Added support for 'public' preceding the name of a class in a super-class
+    list.
+  - Added support for 'protected' and 'private' preceding the name of a class
+    in a super-class list.  Any such super-class will be ignored.
+
+v4.13 25th October 2011
+  - Added the %DefaultDocstringFormat directive.
+  - Added the format argument to the %Docstring directive.
+  - %ConvertToSubClassCode can now cause a restart of the conversion process
+    using a different requested type.
+  - '*' and '&' are now supported as unary operators in expressions used in the
+    values of default arguments.
+  - The /Transfer/ annotation can now be used with the /Array/ annotation to
+    prevent the freeing of the temporary array of pointers.
+
+v4.12.4 2nd August 2011
+  - PyLong_AsUnsignedLongMask() and PyLong_AsUnsignedLongLongMask() are now
+    used in preference to PyLong_AsUnsignedLong() and
+    PyLong_AsUnsignedLongLong().
+  - The build system now supports Qt being built with the -qtlibinfix flag.
+
+v4.12.3 22nd May 2011
+  - A bug fix release.
+
+v4.12.2 30th April 2011
+  - /KeepReference/ is now supported as a function annotation.
+  - Handwritten code in class templates no longer have the types substituted in
+    lines that appear to contain C preprocessor directives.
+  - Added support for global inplace numeric operators.
+
+v4.12.1 22nd January 2011
+  - Added support for the __getattribute__, __getattr__, __setattr__ and
+    __delattr__ methods.
+  - Added the /RaisesPyException/ function annotation.
+  - Added SIP_SSIZE_T as a predefined type.
+  - PyObject * can now be used as a synonym for SIP_PYOBJECT.
+  - Added sip.ispycreated() to the sip module.
+  - Added the --deployment-target flag to configure.py for MacOS/X.
+
+v4.12 23rd December 2010
+  - Implemented the revised directive syntax for %Module.
+  - Deprecated %CModule, use %Module instead.
+  - Added the keyword_arguments argument to %Module to specify the level of
+    support for Python keyword arguments.
+  - Deprecated the -k flag to sip, use the keyword_arguments argument to
+    %Module instead.
+  - Added an automatic pseudo-%Timeline to allow the SIP version number to be
+    used in the %If directive.
+  - Changed the behavior of the /KeywordArgs/ annotation to specify the level
+    of support for Python keyword arguments.
+  - Deprecated the /NoKeywordArgs/ annotation, use /KeywordArgs="None"/
+    instead.
+  - Added the use_argument_names argument to %Module to provide the real names
+    of arguments to handwritten code.
+  - Module docstrings are now supported.
+  - Added %AutoPyName to automatically provide Python names.
+  - Added %Property to implement Python properties based on C/C++ getters and
+    setters.
+  - Added %Extract to allow arbitrary text to be embedded in specification
+    files and subsequently extracted.
+  - Deprecated %Doc and %ExportedDoc, use %Extract instead.
+  - Added the -X flag to sip to extract text defined with %Extract.
+  - Deprecated the -d flag to sip, use -X instead.
+  - Added /PyInt/ as an argument, function and typedef annotation to force
+    char types to be handled as Python integers rather than single character
+    strings.
+  - Added the L and M format characters to sipBuildResult(), sipCallMethod()
+    and sipParseResult().
+  - Added sipGetAddress().
+  - Added the -T flag to sip to suppress the timestamp in the header comments
+    of generated files.
+  - sip.voidptr now behaves like a Python memoryview object and supports
+    sub-script assignment.
+  - Added the --sip-module flag to configure.py to allow the name and
+    containing package of the sip module to be specified thereby allowing
+    packages to include a local copy of the sip module.
+
+v4.11.2 22nd October 2010
+  - /KeepReference/ can now be applied to global functions and static methods.
+  - %TypeCode can now be specified in a %MappedType directive.
+  - Mapped types for templates no longer require the template arguments to be
+    fully defined.
+  - Build system changes required by PyQt v4.8 and Qt v4.7.
+
+v4.11.1 6th September 2010
+  - A bug fix release.
+
+v4.11 31st August 2010
+  - Added the %UnitPostIncludeCode directive.
+  - /KeepReference/ will now accept a key to track when the same object is
+    passed to more than one method.
+  - operator() and __call__() can now accept keyword arguments.
+  - Added support for Python v3.2.
+
+v4.10.5 16th July 2010
+  - A bug fix release for Python v3 and Python v2.7.
+
+v4.10.4 15th July 2010
+  - Use capsules when being built for Python v2.7 to work around an apparent
+    bug in the support for PyCObject.
+
+v4.10.3 12th July 2010
+  - Added support for Q_SLOT, Q_SLOTS, Q_SIGNAL and Q_SIGNALS.
+  - Added the /__len__/ function annotation.
+
+v4.10.2 16th April 2010
+  - A bug fix release.
+
+v4.10.1 17th March 2010
+  - Added the /NoCopy/ function and argument annotations.
+
+v4.10 14th January 2010
+  - Added the sip.voidptr.ascapsule() method.
+  - Added the -P command line option to build modules with "protected"
+    redefined to "public" if supported by the platform.  This can result in
+    significantly smaller modules.
+  - Added the -o command line option to automatically generate docstrings.
+  - Added the -k command line option and /KeywordArgs/ and /NoKeywordArgs/
+    function annotations to support keyword arguments.
+  - Added the /Default/ exception annotation.
+  - Added the /DocType/ argument, function, mapped type and variable
+    annotation.
+  - Added the /DocValue/ argument annotation.
+  - Added the %Docstring directive to specify explicit docstrings for classes,
+    functions and methods.
+  - Added sipError to %MethodCode to allow user errors to be distinguished from
+    interpreter errors.
+  - Added sipBadCallableArg() to the C API.
+  - Added support for configuring and building outside of the source tree.
+
+v4.9.3 23rd November 2009
+  - A bug fix release.
+
+v4.9.2 20th November 2009
+  - A bug fix release.
+
+v4.9.1 23rd October 2009
+  - A bug fix release.
+
+v4.9 26th September 2009
+  - Added support for __iter__ and __next__.  (__next__ is used for Python v2
+    as well as v3.)
+  - Added the %API directive.
+  - Added the /API/ annotation.
+  - Added sipIsAPIEnabled() to the C API.
+  - Added sip.getapi() and sip.setapi() to the Python API.
+  - Added sip.ispyowned() to the Python API.
+  - Mapped types can now act as a namespace for enums and static methods.
+  - The /Array/ annotation can now be applied to classes and mapped types.
+  - The /NoArgParser/ annotation can now be applied to methods as well as
+    functions.
+  - Added the --arch flag to configure.py to specify which MacOS/X
+    architectures are built.
+  - SIP is now also licensed under the GPL v2 and v3.
+
+v4.8.2 27th July 2009
+  - Added the /AllowNone/ class annotation.
+
+v4.8.1 16th June 2009
+  - Added support for defining a private assignment operator to suppress the
+    possible generation of an assignment helper.
+
+v4.8 5th June 2009
+  - Added support for Python v3.
+  - Added the %BIGetBufferCode and %BIReleaseBufferCode to support the buffer
+    interface of Python v3.
+  - Added the %DefaultMetatype directive and the /Metatype/ class annotation to
+    allow the meta-type of a wrapped type to be changed.
+  - Added the %DefaultSupertype directive and the /Supertype/ class annotation
+    to allow the super-type of a wrapped type to be changed.
+  - Added the sip.simplewrapper type to be used as a super-type for wrapped
+    types that don't take part in parent/child relationships.
+  - Added the %InitialisationCode directive.
+  - Added the /KeepReference/ argument annotation.
+  - Added the /Encoding/ argument, function, typedef and variable annotation.
+  - super() now works as expected with wrapped types.
+  - Added support for __floordiv__, __ifloordiv__, __truediv__, __itruediv__
+    and __index__.
+  - __bool__ is a synonym for __nonzero__.
+  - Sphinx is now used for the documentation.
+  - Many additions and deprecations in the API to eliminate the differences
+    between classes and mapped types.  (See the documentation for the details.)
+
+v4.7.9 17th November 2008
+  - A bug fix release.
+
+v4.7.8 8th November 2008
+  - Added the /Deprecated/ class and function annotation (based on a patch from
+    Lorenzo Berni).
+  - Templates now support instance variables and enums.
+  - A Python int object can now be used whenever an enum is expected without
+    needing to explicitly cast it using the enum's constructor.  The
+    /Constrained/ argument annotation can be used to suppress this behaviour.
+  - typedef type names are now used in string representations of types (e.g. in
+    the names of mapped types) to reflect what the programmer sees rather than
+    what the compiler sees.  The /NoTypeName/ typedef annotation can be used to
+    suppress this behaviour.
+
+v4.7.7 8th August 2008
+  - C++ structs are now properly handled as a class with a default public
+    section.
+  - sip.dump() now includes the object's first child wrapper.
+
+v4.7.6 20th May 2008
+  - Added the -s flag to configure.py to specify the SDK directory to use when
+    building universal binaries on MacOS/X.
+  - Added support for MSVC 2008 to the build system.
+  - Added support for v10.x of the Intel compiler and removed support for
+    earlier versions.
+  - MSVC 2008 is the default platform when using Python v2.6.
+
+v4.7.5 13th May 2008
+  - The sip.voidptr type has an optional size associated with it and supports
+    const void *.  If a size is associated then it also supports Python's
+    buffer protocol.
+  - Added sipConvertToVoidPtr() to the SIP API.
+  - Added sipConvertFromConstVoidPtr(), sipConvertFromConstVoidPtrAndSize(),
+    sipConvertFromVoidPtr() and sipConvertFromVoidPtrAndSize() to the SIP API.
+  - Added the /ResultSize/ argument annotation to specify the size of a block
+    of memory returned as a void * or const void *.
+  - Added the /NoArgParser/ function annotation to give %MethodCode complete
+    responsibility for argument parsing.
+  - Added the /NoRelease/ mapped type annotation to specify that the
+    sipReleaseMappedType() function is not supported.
+  - The /ArraySize/ annotation now supports arrays with more than 2^31
+    elements.
+  - %GetCode and %SetCode for class attributes now have access to the
+    referencing type object.
+  - Any object that supports the Python buffer protocol can now be passed as a
+    char or char * argument.
+
+v4.7.4 12th February 2008
+  - The build system handles the directory structure used by Leopard's Python
+    installation.
+  - Added support for /Transfer/ as a constructor annotation.
+
+v4.7.3 6th December 2007
+  - Added support for automatically generating missing complementary
+    comparision operators.  Note that this introduces a potential compatibility
+    problem - see the documentation for details.
+
+v4.7.2 5th December 2007
+  - Added the /SingleShot/ argument annotation.
+  - Added the /TransferThis/ function annotation.
+
+v4.7.1 28th September 2007
+  - A bug fix release.
+
+v4.7 30th July 2007
+  - Added %PickleCode to allow handwritten code to pickle a wrapped C++
+    instance or C structure.
+  - Added %CompositeModule to create modules that are composites of ordinary
+    modules.
+  - Added %ConsolidatedModule (and the -p command line option) to create
+    modules that contain all the wrapper code on behalf of ordinary modules.
+  - Added the dump() function to the sip module.
+  - Added sipTransferBreak() to the SIP API.
+  - Added support for /Transfer/ as a function annotation.
+
+v4.6 10th April 2007
+  - Added support for wchar_t.
+  - The -g command line option releases the GIL whenever a call is made to the
+    wrapped library.
+  - Added the /HoldGIL/ annotation to explicitly retain the GIL when calling a
+    particular function in the wrapped library.
+  - Added sipFindClass() and sipFindNamedEnum() to the public API.
+  - /TransferThis/ may be specified more than once.
+  - Added support for __truediv__ and __itruediv__.
+  - The SIP code generator and module may be built as universal binaries under
+    MacOS/X using the -n command line option to configure.py.
+
+v4.5.2 9th December 2006
+  - A bug fix release.
+
+v4.5.1 9th December 2006
+  - Added the SIP_SSIZE_T type to help write PEP 353 compliant handwritten
+    code.
+
+v4.5 4th November 2006
+  - Added support for Python v2.5.
+  - Added sip_config_args to sipconfig.py.
+  - sip.voidptr now implements __hex__().
+  - Added sip.delete() to call a C++ instance's destructor, or return a C
+    structure to the heap.
+  - Added sip.isdeleted() to check if a C++ instance or C structure has been
+    destroyed or returned to the heap.
+  - Added sip.setdeleted() to mark that a C++ instance or C structure has been
+    destroyed or returned to the heap.
+  - Added support for pure virtual destructors.
+  - Added the __dtor__() method to allow Python code to be called from a C++
+    destructor.
+  - Added the /NoDefaultCtors/ class annotation.
+  - The generated API files are now more complete and use Python types rather
+    than C/C++ types.
+  - Added support for embedding manifests for MSVC 2005.
+
+v4.4.5 10th June 2006
+  - A bug fix release.
+
+v4.4.4 8th June 2006
+  - Added %ExportedHeaderCode and %UnitCode.
+  - Added sipExportSymbol() and sipImportSymbol() to the public API.
+
+v4.4.3 27th April 2006
+  - A bug fix release.
+
+v4.4.2 23rd April 2006
+  - A bug fix release.
+
+v4.4.1 3rd April 2006
+  - A bug fix release.
+
+v4.4 24th March 2006
+  - The major number of the internal API has changed so it will be necessary
+    to regenerate all modules.
+  - This release introduces small incompatibilities that may affect handwritten
+    code.  See the documentation for the details.
+  - Module names specified with %Module and %CModule can now include periods to
+    denote a Python package structure.
+  - Namespaces can be split across multiple Python modules.
+  - Class templates are now supported and instantiated using "typedef".
+  - Mapped type templates are now supported and instantiated automatically.
+  - Global operators are now supported.
+  - Operator casts in classes are now supported.
+  - C/C++ signed char type is now treated as a separate type to char.
+  - C/C++ long and unsigned long types are now wrapped as Python long objects
+    rather than Python integer objects.
+  - C/C++ long long and unsigned long long types are now supported.
+  - unsigned short and unsigned int are now implemented as long objects instead
+    of integer objects.
+  - Classes can now be declared using the /External/ annotation and be defined
+    in another, unspecified, module.
+  - /TransferThis/ can now be used in non-factory methods to change the
+    ownership to a different C++ instance or to change it to Python.
+  - /Constrained/ can now be used with booleans.
+  - Added support for Python's buffer interface, %BIGetCharBufferCode,
+    %BIGetReadBufferCode, %BIGetSegCountCode and %BIGetWriteBufferCode.
+  - The "user" member has been added to the sipWrapper structure and can be
+    used for any purpose by handwritten code.
+  - Function argument names are now parsed, but otherwise ignored.
+  - The "explicit" keyword is now parsed, but otherwise ignored.
+  - Added the /DelayDtor/ class annotation which given more control over the
+    order in which instances are deleted when an application terminates.
+  - Added support for the SIP_PYTYPE pseudo-type that represents a Python
+    type object.
+  - Added support for ellipsis (ie. "...") in function arguments.  Any
+    remaining arguments will be gathered as a Python tuple.
+  - Add support for the /NoDerived/ annotation for Python class constructors
+    that have no C/C++ equivalent.
+  - The sipSelfWasArg boolean is now available to the %MethodCode of
+    non-abstract, virtual methods to indicate whether the class implementation
+    of the method rather than the virtual implementation should be called.
+    %MethodCode for non-abstract, virtual, protected methods must now call the
+    sipProtectVirt wrapper (rather than sipProtect).
+  - sipCanConvertToInstance(), sipConvertToInstance(),
+    sipForceConvertToInstance(), sipReleaseInstance(),
+    sipConvertFromInstance(), sipConvertFromNewInstance(),
+    sipCanConvertToMappedType(), sipConvertToMappedType(),
+    sipForceConvertToMappedType(), sipReleaseMappedType(),
+    sipConvertFromMappedType() and sipFindMappedType() have been added to the
+    SIP API.
+  - sipLong_AsUnsignedLong() has been added, primarily as a workaround for a
+    bug in Python v2.3.x and earlier.
+  - Added the 't', 'u', 'C' and 'D' format characters to sipParseResult().
+  - Added the 't', 'u', 'B', 'C' and 'D' format characters to sipBuildResult().
+  - Responsibility for interpreting and implementing the /Transfer/ and
+    /TransferBack/ annotations has been pushed down to %ConvertToTypeCode and
+    %ConvertFromTypeCode.  The generated type convertors sipForceConvertTo_*()
+    and sipConvertFrom_*() have been deprecated.
+  - Added the %SIPNoEmitters directive for PyQt4.
+  - Added support for the __hash__ Python special method.
+  - The __getitem__ Python special method no longer requires %MethodCode.
+  - All of the calls to Qt have been moved out of the sip module and into PyQt.
+    The generated sipconfig.py file no longer contains any Qt specific
+    information.  These changes mean that SIP can support PyQt v3 and v4 at the
+    same time.
+  - Static methods can now be defined as Qt slots.
+  - Removed SIP_BUILD from sip.h.
+  - The -c, -l, -q and -x flags to configure.py have been removed.
+  - Added the PythonModuleMakefile class to the build system for installing
+    pure Python modules.
+  - Added the create_wrapper() function to the build system for creating
+    platform dependent executable wrappers for Python scripts.
+  - Added Configuration.platform to the build system.
+
+v4.3.2 14th November 2005
+  - The sipdistutils.py script has contributed by Giovanni Bajo that enables
+    SIP extension modules to be built with distutils.
+
+v4.3.1 10th September 2005
+  - A bug fix release.
+
+v4.3 30th August 2005
+  - The major number of the internal API has changed so it will be necessary
+    to regenerate all modules.
+  - C structures can now have constructors and a destructor defined so that
+    they can be made to behave more Pythonically.
+  - %TypeHeaderCode can now be used in namespaces.
+  - Added sip.SIP_VERSION_STR.
+  - Added support for Python's cyclic garbage collector, %GCTraverseCode and
+    %GCClearCode.
+  - Deprecated sipTransfer() and sip.transfer().
+  - Added sipTransferTo, sipTransferBack(), sip.transferto() and
+    sip.transferback().
+  - Added support for sipCppRet in %ConvertSubClassCode.
+  - Added support for %GetCode and %SetCode for instance variables and
+    structure members.
+  - Added support for %Exception and %RaiseCode.
+  - Added support for __pos__ and __abs__.
+  - sip.voidptr instances can now be created from Python.
+  - The ascobject() method has been added to sip.voidptr.
+  - Added the -c flag to configure.py to explicitly specify the location of
+    the qconfig.h file.
+
+v4.2.1 6th March 2005
+  - Restored the pre-4.2 behaviour of Python exceptions raised in virtual
+    re-implementations.
+  - %Timeline can now be used more than once in a module.
+
+v4.2 19th February 2005
+  - The /PyName/ annotation can now be applied to classes, namespaces,
+    enums, enum members and variables.
+  - Added the %PreInitialisationCode directive and is subject to version
+    control.  %PostInitialisationCode is now subject to version control.
+  - Named enums now have distinct types and so can be differentiated from
+    integers in function signatures.
+  - The handling of Qt signals has changed so that "foreign" signals (ie.
+    those raised by ActiveX controls) can be handled.
+  - The voidptr, wrapper and wrappertype types are now exposed in the sip
+    module.
+  - Virtual and abstract operators are now supported.
+  - The __call__ slot no longer requires %MethodCode.
+  - Any Python exceptions raised in virtual re-implementations are now
+    detected when they occur.
+  - sip.cast() can now cast downwards as well as upwards.
+  - Added sip.SIP_VERSION.
+  - The -k flag to configure.py can now be used to build modules as builtins
+    to custom interpreters.
+  - The build system now strips modules and only exports the module
+    initialisation function by default (when supported by the platform).
+
+v4.1.1 24th September 2004
+  - A bug fix release.
+
+v4.1 20th September 2004
+  - Added the cast() method to the sip module.
+  - Added limited support for protected classes.
+  - Added the /Abstract/ class annotation.
+  - Added support for typedefs that define pointers to functions.
+  - The SIP_PYCALLABLE type now supports the /AllowNone/ annotation.
+  - Added support for MSVC.NET to the build system.
+
+v4.0.1 6th July 2004
+  - A bug fix release.
+
+v4.0 23rd June 2004
+  - The release of SIP v4.

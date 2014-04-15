@@ -5,4 +5,4 @@ QGraphicsAnchorLayout
 
 .. class:: QGraphicsAnchorLayout
 
-    `C++ documentation <http://qt-project.org/doc/qt-5.1/qtwidgets/qgraphicsanchorlayout.html>`_
+    `C++ documentation <http://qt-project.org/doc/qt-5.2/qgraphicsanchorlayout.html>`_

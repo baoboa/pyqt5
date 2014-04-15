@@ -5,4 +5,4 @@ QSensorFilter
 
 .. class:: QSensorFilter
 
-    `C++ documentation <http://qt-project.org/doc/qt-5.1/qtsensors/qsensorfilter.html>`_
+    `C++ documentation <http://qt-project.org/doc/qt-5.2/qsensorfilter.html>`_

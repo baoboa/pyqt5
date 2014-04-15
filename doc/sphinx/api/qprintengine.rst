@@ -5,4 +5,4 @@ QPrintEngine
 
 .. class:: QPrintEngine
 
-    `C++ documentation <http://qt-project.org/doc/qt-5.1/qtprintsupport/qprintengine.html>`_
+    `C++ documentation <http://qt-project.org/doc/qt-5.2/qprintengine.html>`_

@@ -5,4 +5,4 @@ QPalette
 
 .. class:: QPalette
 
-    `C++ documentation <http://qt-project.org/doc/qt-5.1/qtgui/qpalette.html>`_
+    `C++ documentation <http://qt-project.org/doc/qt-5.2/qpalette.html>`_

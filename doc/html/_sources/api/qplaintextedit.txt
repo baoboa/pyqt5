@@ -5,4 +5,4 @@ QPlainTextEdit
 
 .. class:: QPlainTextEdit
 
-    `C++ documentation <http://qt-project.org/doc/qt-5.1/qtwidgets/qplaintextedit.html>`_
+    `C++ documentation <http://qt-project.org/doc/qt-5.2/qplaintextedit.html>`_

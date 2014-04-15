@@ -1,6 +1,6 @@
 // This implements the helper for QObject.pyqtConfigure().
 //
-// Copyright (c) 2013 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2014 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -25,9 +25,11 @@
 #include <QObject>
 #include <QVariant>
 
+#include "qpycore_api.h"
 #include "qpycore_chimera.h"
 #include "qpycore_pyqtboundsignal.h"
-#include "qpycore_sip.h"
+
+#include "sipAPIQtCore.h"
 
 
 // The result of handling a keyword argument.

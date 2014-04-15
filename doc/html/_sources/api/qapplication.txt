@@ -5,4 +5,4 @@ QApplication
 
 .. class:: QApplication
 
-    `C++ documentation <http://qt-project.org/doc/qt-5.1/qtwidgets/qapplication.html>`_
+    `C++ documentation <http://qt-project.org/doc/qt-5.2/qapplication.html>`_

@@ -1,0 +1,1196 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>The Build System &mdash; SIP 4.15.3-snapshot-5dc8c370157e Reference Guide</title>
+    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '#',
+        VERSION:     '4.15.3-snapshot-5dc8c370157e',
+        COLLAPSE_MODINDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="shortcut icon" href="_static/logo_tn.ico"/>
+    <link rel="top" title="SIP 4.15.3-snapshot-5dc8c370157e Reference Guide" href="index.html" />
+    <link rel="next" title="Building Your Extension with distutils" href="distutils.html" />
+    <link rel="prev" title="Python API for Applications" href="python_api.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="modindex.html" title="Global Module Index"
+             accesskey="M">modules</a> |</li>
+        <li class="right" >
+          <a href="distutils.html" title="Building Your Extension with distutils"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="python_api.html" title="Python API for Applications"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">SIP 4.15.3-snapshot-5dc8c370157e Reference Guide</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="module-sipconfig">
+<span id="ref-build-system"></span><h1>The Build System<a class="headerlink" href="#module-sipconfig" title="Permalink to this headline">¶</a></h1>
+<p>The purpose of the build system is to make it easy for you to write
+configuration scripts in Python for your own bindings.  The build system takes
+care of the details of particular combinations of platform and compiler.  It
+supports over 50 different platform/compiler combinations.</p>
+<p>The build system is implemented as a pure Python module called <tt class="xref docutils literal"><span class="pre">sipconfig</span></tt>
+that contains a number of classes and functions.  Using this module you can
+write bespoke configuration scripts (e.g. PyQt&#8217;s <tt class="docutils literal"><span class="pre">configure.py</span></tt>) or use it
+with other Python based build systems (e.g.
+<a class="reference external" href="http://www.python.org/sigs/distutils-sig/distutils.html">Distutils</a> and
+<a class="reference external" href="http://www.scons.org">SCons</a>).</p>
+<p>An important feature of SIP is the ability to generate bindings that are built
+on top of existing bindings.  For example, both
+<a class="reference external" href="http://www.riverbankcomputing.com/software/pykde/">PyKDE</a> and
+<a class="reference external" href="http://pyqwt.sourceforge.net/">PyQwt</a> are built on top of PyQt but all three
+packages are maintained by different developers.  To make this easier PyQt
+includes its own configuration module, <tt class="docutils literal"><span class="pre">pyqtconfig</span></tt>, that contains additional
+classes intended to be used by the configuration scripts of bindings built on
+top of PyQt.  The SIP build system includes facilities that do a lot of the
+work of creating these additional configuration modules.</p>
+<dl class="function">
+<dt id="sipconfig.create_config_module">
+<tt class="descclassname">sipconfig.</tt><tt class="descname">create_config_module</tt><big>(</big><em>module</em>, <em>template</em>, <em>content</em><span class="optional">[</span>, <em>macros=None</em><span class="optional">]</span><big>)</big><a class="headerlink" href="#sipconfig.create_config_module" title="Permalink to this definition">¶</a></dt>
+<dd><p>This creates a configuration module (e.g. <tt class="docutils literal"><span class="pre">pyqtconfig</span></tt>) from a template
+file and a string.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><em>module</em> &#8211; the name of the configuration module file to create.</li>
+<li><em>template</em> &#8211; the name of the template file.</li>
+<li><em>content</em> &#8211; a string which replaces every occurence of the pattern
+<tt class="docutils literal"><span class="pre">&#64;SIP_CONFIGURATION&#64;</span></tt> in the template file.  The content string is
+usually created from a Python dictionary using
+<a title="sipconfig.create_content" class="reference internal" href="#sipconfig.create_content"><tt class="xref docutils literal"><span class="pre">sipconfig.create_content()</span></tt></a>.  <em>content</em> may also be a
+dictionary, in which case <a title="sipconfig.create_content" class="reference internal" href="#sipconfig.create_content"><tt class="xref docutils literal"><span class="pre">sipconfig.create_content()</span></tt></a> is
+automatically called to convert it to a string.</li>
+<li><em>macros</em> &#8211; an optional dictionary of platform specific build macros.  It is only
+used if <a title="sipconfig.create_content" class="reference internal" href="#sipconfig.create_content"><tt class="xref docutils literal"><span class="pre">sipconfig.create_content()</span></tt></a> is called automatically to
+convert a <em>content</em> dictionary to a string.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="sipconfig.create_content">
+<tt class="descclassname">sipconfig.</tt><tt class="descname">create_content</tt><big>(</big><em>dict</em><span class="optional">[</span>, <em>macros=None</em><span class="optional">]</span><big>)</big> &rarr; string<a class="headerlink" href="#sipconfig.create_content" title="Permalink to this definition">¶</a></dt>
+<dd><p>This converts a Python dictionary to a string that can be parsed by the
+Python interpreter and converted back to an equivalent dictionary.  It is
+typically used to generate the content string for
+<a title="sipconfig.create_config_module" class="reference internal" href="#sipconfig.create_config_module"><tt class="xref docutils literal"><span class="pre">sipconfig.create_config_module()</span></tt></a>.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><em>dict</em> &#8211; the Python dictionary to convert.</li>
+<li><em>macros</em> &#8211; the optional dictionary of platform specific build macros.</li>
+</ul>
+</td>
+</tr>
+<tr class="field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">the string representation of the dictionary.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="sipconfig.create_wrapper">
+<tt class="descclassname">sipconfig.</tt><tt class="descname">create_wrapper</tt><big>(</big><em>script</em>, <em>wrapper</em><span class="optional">[</span>, <em>gui=0</em><span class="optional">[</span>, <em>use_arch=''</em><span class="optional">]</span><span class="optional">]</span><big>)</big> &rarr; string<a class="headerlink" href="#sipconfig.create_wrapper" title="Permalink to this definition">¶</a></dt>
+<dd><p>This creates a platform dependent executable wrapper around a Python
+script.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><em>script</em> &#8211; the full pathname of the script.</li>
+<li><em>wrapper</em> &#8211; the full pathname of the wrapper to create, excluding any platform
+specific extension.</li>
+<li><em>gui</em> &#8211; is non-zero if a GUI enabled version of the interpreter should be used
+on platforms that require it.</li>
+<li><em>use_arch</em> &#8211; is the MacOS/X architecture to invoke python with.</li>
+</ul>
+</td>
+</tr>
+<tr class="field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">the platform specific name of the wrapper.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="sipconfig.error">
+<tt class="descclassname">sipconfig.</tt><tt class="descname">error</tt><big>(</big><em>msg</em><big>)</big><a class="headerlink" href="#sipconfig.error" title="Permalink to this definition">¶</a></dt>
+<dd><p>This displays an error message on <tt class="docutils literal"><span class="pre">stderr</span></tt> and calls <tt class="docutils literal"><span class="pre">sys.exit(1)</span></tt>.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameter:</th><td class="field-body"><em>msg</em> &#8211; the text of the message and should not include any newline characters.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="sipconfig.format">
+<tt class="descclassname">sipconfig.</tt><tt class="descname">format</tt><big>(</big><em>msg</em><span class="optional">[</span>, <em>leftmargin=0</em><span class="optional">[</span>, <em>rightmargin=78</em><span class="optional">]</span><span class="optional">]</span><big>)</big> &rarr; string<a class="headerlink" href="#sipconfig.format" title="Permalink to this definition">¶</a></dt>
+<dd><p>This formats a message by inserting newline characters at appropriate
+places.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><em>msg</em> &#8211; the text of the message and should not include any newline characters.</li>
+<li><em>leftmargin</em> &#8211; the optional position of the left margin.</li>
+<li><em>rightmargin</em> &#8211; the optional position of the right margin.</li>
+</ul>
+</td>
+</tr>
+<tr class="field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">the formatted message.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="sipconfig.inform">
+<tt class="descclassname">sipconfig.</tt><tt class="descname">inform</tt><big>(</big><em>msg</em><big>)</big><a class="headerlink" href="#sipconfig.inform" title="Permalink to this definition">¶</a></dt>
+<dd><p>This displays an information message on <tt class="docutils literal"><span class="pre">stdout</span></tt>.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameter:</th><td class="field-body"><em>msg</em> &#8211; the text of the message and should not include any newline characters.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="sipconfig.parse_build_macros">
+<tt class="descclassname">sipconfig.</tt><tt class="descname">parse_build_macros</tt><big>(</big><em>filename</em>, <em>names</em><span class="optional">[</span>, <em>overrides=None</em><span class="optional">[</span>, <em>properties=None</em><span class="optional">]</span><span class="optional">]</span><big>)</big> &rarr; dict<a class="headerlink" href="#sipconfig.parse_build_macros" title="Permalink to this definition">¶</a></dt>
+<dd><p>This parses a <tt class="docutils literal"><span class="pre">qmake</span></tt> compatible file of build system macros and converts
+it to a dictionary.  A macro is a name/value pair.  Individual macros may
+be augmented or replaced.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><em>filename</em> &#8211; the name of the file to parse.</li>
+<li><em>names</em> &#8211; the list of the macro names to extract from the file.</li>
+<li><em>overrides</em> &#8211; the optional list of macro names and values that modify those found in
+the file.  They are of the form <tt class="docutils literal"><span class="pre">name=value</span></tt> (in which case the value
+replaces the value found in the file) or <tt class="docutils literal"><span class="pre">name+=value</span></tt> (in which case
+the value is appended to the value found in the file).</li>
+<li><em>properties</em> &#8211; the optional dictionary of property name and values that are used to
+resolve any expressions of the form <tt class="docutils literal"><span class="pre">$[name]</span></tt> in the file.</li>
+</ul>
+</td>
+</tr>
+<tr class="field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">the dictionary of parsed macros or <tt class="xref docutils literal"><span class="pre">None</span></tt> if any of the overrides
+were invalid.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="sipconfig.read_version">
+<tt class="descclassname">sipconfig.</tt><tt class="descname">read_version</tt><big>(</big><em>filename</em>, <em>description</em><span class="optional">[</span>, <em>numdefine=None</em><span class="optional">[</span>, <em>strdefine=None</em><span class="optional">]</span><span class="optional">]</span><big>)</big> &rarr; integer, string<a class="headerlink" href="#sipconfig.read_version" title="Permalink to this definition">¶</a></dt>
+<dd><p>This extracts version information for a package from a file, usually a C or
+C++ header file.  The version information must each be specified as a
+<tt class="docutils literal"><span class="pre">#define</span></tt> of a numeric (hexadecimal or decimal) value and/or a string
+value.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><em>filename</em> &#8211; the name of the file to read.</li>
+<li><em>description</em> &#8211; a descriptive name of the package used in error messages.</li>
+<li><em>numdefine</em> &#8211; the optional name of the <tt class="docutils literal"><span class="pre">#define</span></tt> of the version as a number.  If it
+is <tt class="xref docutils literal"><span class="pre">None</span></tt> then the numeric version is ignored.</li>
+<li><em>strdefine</em> &#8211; the optional name of the <tt class="docutils literal"><span class="pre">#define</span></tt> of the version as a string.  If it
+is <tt class="xref docutils literal"><span class="pre">None</span></tt> then the string version is ignored.</li>
+</ul>
+</td>
+</tr>
+<tr class="field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">a tuple of the numeric and string versions.  <a title="sipconfig.error" class="reference internal" href="#sipconfig.error"><tt class="xref docutils literal"><span class="pre">sipconfig.error()</span></tt></a>
+is called if either were required but could not be found.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="sipconfig.version_to_sip_tag">
+<tt class="descclassname">sipconfig.</tt><tt class="descname">version_to_sip_tag</tt><big>(</big><em>version</em>, <em>tags</em>, <em>description</em><big>)</big> &rarr; string<a class="headerlink" href="#sipconfig.version_to_sip_tag" title="Permalink to this definition">¶</a></dt>
+<dd><p>This converts a version number to a SIP version tag.  SIP uses the
+<a class="reference external" href="directives.html#directive-%Timeline"><tt class="xref docutils literal"><span class="pre">%Timeline</span></tt></a> directive to define the chronology of the different
+versions of the C/C++ library being wrapped.  Typically it is not necessary
+to define a version tag for every version of the library, but only for
+those versions that affect the library&#8217;s API as SIP sees it.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><em>version</em> &#8211; the numeric version number of the C/C++ library being wrapped.  If it
+is negative then the latest version is assumed.  (This is typically
+useful if a snapshot is indicated by a negative version number.)</li>
+<li><em>tags</em> &#8211; the dictionary of SIP version tags keyed by the corresponding C/C++
+library version number.  The tag used is the one with the smallest key
+(i.e. earliest version) that is greater than <em>version</em>.</li>
+<li><em>description</em> &#8211; a descriptive name of the C/C++ library used in error messages.</li>
+</ul>
+</td>
+</tr>
+<tr class="field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">the SIP version tag.  <a title="sipconfig.error" class="reference internal" href="#sipconfig.error"><tt class="xref docutils literal"><span class="pre">sipconfig.error()</span></tt></a> is called if the C/C++
+library version number did not correspond to a SIP version tag.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="sipconfig.version_to_string">
+<tt class="descclassname">sipconfig.</tt><tt class="descname">version_to_string</tt><big>(</big><em>v</em><big>)</big> &rarr; string<a class="headerlink" href="#sipconfig.version_to_string" title="Permalink to this definition">¶</a></dt>
+<dd><p>This converts a 3 part version number encoded as a hexadecimal value to a
+string.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameter:</th><td class="field-body"><em>v</em> &#8211; the version number.</td>
+</tr>
+<tr class="field"><th class="field-name">Returns:</th><td class="field-body">a string.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="class">
+<dt id="sipconfig.Configuration">
+<em class="property">class </em><tt class="descclassname">sipconfig.</tt><tt class="descname">Configuration</tt><a class="headerlink" href="#sipconfig.Configuration" title="Permalink to this definition">¶</a></dt>
+<dd><p>This class encapsulates configuration values that can be accessed as
+instance objects.  A sub-class may provide a dictionary of additional
+configuration values in its constructor the elements of which will have
+precedence over the super-class&#8217;s values.</p>
+<p>The following configuration values are provided:</p>
+<dl class="attribute">
+<dt id="sipconfig.Configuration.default_bin_dir">
+<tt class="descname">default_bin_dir</tt><a class="headerlink" href="#sipconfig.Configuration.default_bin_dir" title="Permalink to this definition">¶</a></dt>
+<dd>The name of the directory where executables should be installed by
+default.</dd></dl>
+
+<dl class="attribute">
+<dt id="sipconfig.Configuration.default_mod_dir">
+<tt class="descname">default_mod_dir</tt><a class="headerlink" href="#sipconfig.Configuration.default_mod_dir" title="Permalink to this definition">¶</a></dt>
+<dd>The name of the directory where SIP generated modules should be
+installed by default.</dd></dl>
+
+<dl class="attribute">
+<dt id="sipconfig.Configuration.default_sip_dir">
+<tt class="descname">default_sip_dir</tt><a class="headerlink" href="#sipconfig.Configuration.default_sip_dir" title="Permalink to this definition">¶</a></dt>
+<dd>The name of the base directory where the <tt class="docutils literal"><span class="pre">.sip</span></tt> files for SIP
+generated modules should be installed by default.  A sub-directory with
+the same name as the module should be created and its <tt class="docutils literal"><span class="pre">.sip</span></tt> files
+should be installed in the sub-directory.  The <tt class="docutils literal"><span class="pre">.sip</span></tt> files only need
+to be installed if you might want to build other bindings based on
+them.</dd></dl>
+
+<dl class="attribute">
+<dt id="sipconfig.Configuration.platform">
+<tt class="descname">platform</tt><a class="headerlink" href="#sipconfig.Configuration.platform" title="Permalink to this definition">¶</a></dt>
+<dd>The name of the platform/compiler for which the build system has been
+configured for.</dd></dl>
+
+<dl class="attribute">
+<dt id="sipconfig.Configuration.py_conf_inc_dir">
+<tt class="descname">py_conf_inc_dir</tt><a class="headerlink" href="#sipconfig.Configuration.py_conf_inc_dir" title="Permalink to this definition">¶</a></dt>
+<dd>The name of the directory containing the <tt class="docutils literal"><span class="pre">pyconfig.h</span></tt> header file.</dd></dl>
+
+<dl class="attribute">
+<dt id="sipconfig.Configuration.py_inc_dir">
+<tt class="descname">py_inc_dir</tt><a class="headerlink" href="#sipconfig.Configuration.py_inc_dir" title="Permalink to this definition">¶</a></dt>
+<dd>The name of the directory containing the <tt class="docutils literal"><span class="pre">Python.h</span></tt> header file.</dd></dl>
+
+<dl class="attribute">
+<dt id="sipconfig.Configuration.py_lib_dir">
+<tt class="descname">py_lib_dir</tt><a class="headerlink" href="#sipconfig.Configuration.py_lib_dir" title="Permalink to this definition">¶</a></dt>
+<dd>The name of the directory containing the Python interpreter library.</dd></dl>
+
+<dl class="attribute">
+<dt id="sipconfig.Configuration.py_version">
+<tt class="descname">py_version</tt><a class="headerlink" href="#sipconfig.Configuration.py_version" title="Permalink to this definition">¶</a></dt>
+<dd>The Python version as a 3 part hexadecimal number (e.g. v2.3.3 is
+represented as <tt class="docutils literal"><span class="pre">0x020303</span></tt>).</dd></dl>
+
+<dl class="attribute">
+<dt id="sipconfig.Configuration.sip_bin">
+<tt class="descname">sip_bin</tt><a class="headerlink" href="#sipconfig.Configuration.sip_bin" title="Permalink to this definition">¶</a></dt>
+<dd>The full pathname of the SIP executable.</dd></dl>
+
+<dl class="attribute">
+<dt id="sipconfig.Configuration.sip_config_args">
+<tt class="descname">sip_config_args</tt><a class="headerlink" href="#sipconfig.Configuration.sip_config_args" title="Permalink to this definition">¶</a></dt>
+<dd>The command line passed to <tt class="docutils literal"><span class="pre">configure.py</span></tt> when SIP was configured.</dd></dl>
+
+<dl class="attribute">
+<dt id="sipconfig.Configuration.sip_inc_dir">
+<tt class="descname">sip_inc_dir</tt><a class="headerlink" href="#sipconfig.Configuration.sip_inc_dir" title="Permalink to this definition">¶</a></dt>
+<dd>The name of the directory containing the <tt class="docutils literal"><span class="pre">sip.h</span></tt> header file.</dd></dl>
+
+<dl class="attribute">
+<dt id="sipconfig.Configuration.sip_mod_dir">
+<tt class="descname">sip_mod_dir</tt><a class="headerlink" href="#sipconfig.Configuration.sip_mod_dir" title="Permalink to this definition">¶</a></dt>
+<dd>The name of the directory containing the SIP module.</dd></dl>
+
+<dl class="attribute">
+<dt id="sipconfig.Configuration.sip_version">
+<tt class="descname">sip_version</tt><a class="headerlink" href="#sipconfig.Configuration.sip_version" title="Permalink to this definition">¶</a></dt>
+<dd>The SIP version as a 3 part hexadecimal number (e.g. v4.0.0 is
+represented as <tt class="docutils literal"><span class="pre">0x040000</span></tt>).</dd></dl>
+
+<dl class="attribute">
+<dt id="sipconfig.Configuration.sip_version_str">
+<tt class="descname">sip_version_str</tt><a class="headerlink" href="#sipconfig.Configuration.sip_version_str" title="Permalink to this definition">¶</a></dt>
+<dd>The SIP version as a string.  For development snapshots it will start
+with <tt class="docutils literal"><span class="pre">snapshot-</span></tt>.</dd></dl>
+
+<dl class="attribute">
+<dt id="sipconfig.Configuration.universal">
+<tt class="descname">universal</tt><a class="headerlink" href="#sipconfig.Configuration.universal" title="Permalink to this definition">¶</a></dt>
+<dd>The name of the MacOS/X SDK used when creating universal binaries.</dd></dl>
+
+<dl class="attribute">
+<dt id="sipconfig.Configuration.arch">
+<tt class="descname">arch</tt><a class="headerlink" href="#sipconfig.Configuration.arch" title="Permalink to this definition">¶</a></dt>
+<dd>The space separated MacOS/X architectures to build.</dd></dl>
+
+<dl class="attribute">
+<dt id="sipconfig.Configuration.deployment_target">
+<tt class="descname">deployment_target</tt><a class="headerlink" href="#sipconfig.Configuration.deployment_target" title="Permalink to this definition">¶</a></dt>
+<dd>The MacOS/X deployment target.</dd></dl>
+
+<dl class="method">
+<dt id="sipconfig.Configuration.__init__">
+<tt class="descname">__init__</tt><big>(</big><span class="optional">[</span><em>sub_cfg=None</em><span class="optional">]</span><big>)</big><a class="headerlink" href="#sipconfig.Configuration.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameter:</th><td class="field-body"><em>sub_cfg</em> &#8211; an optional list of sub-class configurations.  It should only be
+used by the <tt class="docutils literal"><span class="pre">__init__()</span></tt> method of a sub-class to append its own
+dictionary of configuration values before passing the list to its
+super-class.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="sipconfig.Configuration.build_macros">
+<tt class="descname">build_macros</tt><big>(</big><big>)</big> &rarr; dict<a class="headerlink" href="#sipconfig.Configuration.build_macros" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the dictionary of platform specific build macros.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Returns:</th><td class="field-body">the macros dictionary.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="sipconfig.Configuration.set_build_macros">
+<tt class="descname">set_build_macros</tt><big>(</big><em>macros</em><big>)</big><a class="headerlink" href="#sipconfig.Configuration.set_build_macros" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set the dictionary of platform specific build macros to be used when
+generating Makefiles.  Normally there is no need to change the default
+macros.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameter:</th><td class="field-body"><em>macros</em> &#8211; the macros dictionary.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="sipconfig.Makefile">
+<em class="property">class </em><tt class="descclassname">sipconfig.</tt><tt class="descname">Makefile</tt><a class="headerlink" href="#sipconfig.Makefile" title="Permalink to this definition">¶</a></dt>
+<dd><p>This class encapsulates a Makefile.  It is intended to be sub-classed to
+generate Makefiles for particular purposes.  It handles all platform and
+compiler specific flags, but allows them to be adjusted to suit the
+requirements of a particular module or program.  These are defined using a
+number of macros which can be accessed as instance attributes.</p>
+<p>The following instance attributes are provided to help in fine tuning the
+generated Makefile:</p>
+<dl class="attribute">
+<dt id="sipconfig.Makefile.chkdir">
+<tt class="descname">chkdir</tt><a class="headerlink" href="#sipconfig.Makefile.chkdir" title="Permalink to this definition">¶</a></dt>
+<dd>A string that will check for the existence of a directory.</dd></dl>
+
+<dl class="attribute">
+<dt id="sipconfig.Makefile.config">
+<tt class="descname">config</tt><a class="headerlink" href="#sipconfig.Makefile.config" title="Permalink to this definition">¶</a></dt>
+<dd>A reference to the <em>configuration</em> argument that was passed to
+<a title="sipconfig.Makefile.__init__" class="reference internal" href="#sipconfig.Makefile.__init__"><tt class="xref docutils literal"><span class="pre">Makefile.__init__()</span></tt></a>.</dd></dl>
+
+<dl class="attribute">
+<dt id="sipconfig.Makefile.console">
+<tt class="descname">console</tt><a class="headerlink" href="#sipconfig.Makefile.console" title="Permalink to this definition">¶</a></dt>
+<dd>A reference to the <em>console</em> argument that was passed to the
+<a title="sipconfig.Makefile.__init__" class="reference internal" href="#sipconfig.Makefile.__init__"><tt class="xref docutils literal"><span class="pre">Makefile.__init__()</span></tt></a>.</dd></dl>
+
+<dl class="attribute">
+<dt id="sipconfig.Makefile.copy">
+<tt class="descname">copy</tt><a class="headerlink" href="#sipconfig.Makefile.copy" title="Permalink to this definition">¶</a></dt>
+<dd>A string that will copy a file.</dd></dl>
+
+<dl class="attribute">
+<dt id="sipconfig.Makefile.extra_cflags">
+<tt class="descname">extra_cflags</tt><a class="headerlink" href="#sipconfig.Makefile.extra_cflags" title="Permalink to this definition">¶</a></dt>
+<dd>A list of additional flags passed to the C compiler.</dd></dl>
+
+<dl class="attribute">
+<dt id="sipconfig.Makefile.extra_cxxflags">
+<tt class="descname">extra_cxxflags</tt><a class="headerlink" href="#sipconfig.Makefile.extra_cxxflags" title="Permalink to this definition">¶</a></dt>
+<dd>A list of additional flags passed to the C++ compiler.</dd></dl>
+
+<dl class="attribute">
+<dt id="sipconfig.Makefile.extra_defines">
+<tt class="descname">extra_defines</tt><a class="headerlink" href="#sipconfig.Makefile.extra_defines" title="Permalink to this definition">¶</a></dt>
+<dd>A list of additional macro names passed to the C/C++ preprocessor.</dd></dl>
+
+<dl class="attribute">
+<dt id="sipconfig.Makefile.extra_include_dirs">
+<tt class="descname">extra_include_dirs</tt><a class="headerlink" href="#sipconfig.Makefile.extra_include_dirs" title="Permalink to this definition">¶</a></dt>
+<dd>A list of additional include directories passed to the C/C++
+preprocessor.</dd></dl>
+
+<dl class="attribute">
+<dt id="sipconfig.Makefile.extra_lflags">
+<tt class="descname">extra_lflags</tt><a class="headerlink" href="#sipconfig.Makefile.extra_lflags" title="Permalink to this definition">¶</a></dt>
+<dd>A list of additional flags passed to the linker.</dd></dl>
+
+<dl class="attribute">
+<dt id="sipconfig.Makefile.extra_lib_dirs">
+<tt class="descname">extra_lib_dirs</tt><a class="headerlink" href="#sipconfig.Makefile.extra_lib_dirs" title="Permalink to this definition">¶</a></dt>
+<dd>A list of additional library directories passed to the linker.</dd></dl>
+
+<dl class="attribute">
+<dt id="sipconfig.Makefile.extra_libs">
+<tt class="descname">extra_libs</tt><a class="headerlink" href="#sipconfig.Makefile.extra_libs" title="Permalink to this definition">¶</a></dt>
+<dd>A list of additional libraries passed to the linker.  The names of the
+libraries must be in platform neutral form (i.e. without any platform
+specific prefixes, version numbers or extensions).</dd></dl>
+
+<dl class="attribute">
+<dt id="sipconfig.Makefile.generator">
+<tt class="descname">generator</tt><a class="headerlink" href="#sipconfig.Makefile.generator" title="Permalink to this definition">¶</a></dt>
+<dd>A string that defines the platform specific style of Makefile.  The
+only supported values are <tt class="docutils literal"><span class="pre">UNIX</span></tt>, <tt class="docutils literal"><span class="pre">MSVC</span></tt>, <tt class="docutils literal"><span class="pre">MSVC.NET</span></tt>, <tt class="docutils literal"><span class="pre">MINGW</span></tt>
+and <tt class="docutils literal"><span class="pre">BMAKE</span></tt>.</dd></dl>
+
+<dl class="attribute">
+<dt id="sipconfig.Makefile.mkdir">
+<tt class="descname">mkdir</tt><a class="headerlink" href="#sipconfig.Makefile.mkdir" title="Permalink to this definition">¶</a></dt>
+<dd>A string that will create a directory.</dd></dl>
+
+<dl class="attribute">
+<dt id="sipconfig.Makefile.rm">
+<tt class="descname">rm</tt><a class="headerlink" href="#sipconfig.Makefile.rm" title="Permalink to this definition">¶</a></dt>
+<dd>A string that will remove a file.</dd></dl>
+
+<dl class="method">
+<dt id="sipconfig.Makefile.__init__">
+<tt class="descname">__init__</tt><big>(</big><em>configuration</em><span class="optional">[</span>, <em>console=0</em><span class="optional">[</span>, <em>qt=0</em><span class="optional">[</span>, <em>opengl=0</em><span class="optional">[</span>, <em>python=0</em><span class="optional">[</span>, <em>threaded=0</em><span class="optional">[</span>, <em>warnings=None</em><span class="optional">[</span>, <em>debug=0</em><span class="optional">[</span>, <em>dir=None</em><span class="optional">[</span>, <em>makefile=&quot;Makefile&quot;</em><span class="optional">[</span>, <em>installs=None</em><span class="optional">[</span>, <em>universal=None</em><span class="optional">[</span>, <em>arch=None</em><span class="optional">[</span>, <em>deployment_target=None</em><span class="optional">]</span><span class="optional">]</span><span class="optional">]</span><span class="optional">]</span><span class="optional">]</span><span class="optional">]</span><span class="optional">]</span><span class="optional">]</span><span class="optional">]</span><span class="optional">]</span><span class="optional">]</span><span class="optional">]</span><span class="optional">]</span><big>)</big><a class="headerlink" href="#sipconfig.Makefile.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><em>configuration</em> &#8211; the current configuration and is an instance of the
+<a title="sipconfig.Configuration" class="reference internal" href="#sipconfig.Configuration"><tt class="xref docutils literal"><span class="pre">Configuration</span></tt></a> class or a sub-class.</li>
+<li><em>console</em> &#8211; is set if the target is a console (rather than GUI) target.  This
+only affects Windows and is ignored on other platforms.</li>
+<li><em>qt</em> &#8211; is set if the target uses Qt.  For Qt v4 a list of Qt libraries may
+be specified and a simple non-zero value implies QtCore and QtGui.</li>
+<li><em>opengl</em> &#8211; is set if the target uses OpenGL.</li>
+<li><em>python</em> &#8211; is set if the target uses Python.h.</li>
+<li><em>threaded</em> &#8211; is set if the target requires thread support.  It is set
+automatically if the target uses Qt and Qt has thread support
+enabled.</li>
+<li><em>warnings</em> &#8211; is set if compiler warning messages should be enabled.  The default
+of <tt class="xref docutils literal"><span class="pre">None</span></tt> means that warnings are enabled for SIP v4.x and
+disabled for SIP v3.x.</li>
+<li><em>debug</em> &#8211; is set if debugging symbols should be generated.</li>
+<li><em>dir</em> &#8211; the name of the directory where build files are read from (if they
+are not absolute file names) and Makefiles are written to.  The
+default of <tt class="xref docutils literal"><span class="pre">None</span></tt> means the current directory is used.</li>
+<li><em>makefile</em> &#8211; the name of the generated Makefile.</li>
+<li><em>installs</em> &#8211; the list of extra install targets.  Each element is a two part
+list, the first of which is the source and the second is the
+destination.  If the source is another list then it is a list of
+source files and the destination is a directory.</li>
+<li><em>universal</em> &#8211; the name of the SDK if universal binaries are to be created under
+MacOS/X.  If it is <tt class="xref docutils literal"><span class="pre">None</span></tt> then the value is taken from the
+configuration.</li>
+<li><em>arch</em> &#8211; the space separated MacOS/X architectures to build.  If it is
+<tt class="xref docutils literal"><span class="pre">None</span></tt> then the value is taken from the configuration.</li>
+<li><em>deployment_target</em> &#8211; the MacOS/X deployment target.  If it is <tt class="xref docutils literal"><span class="pre">None</span></tt> then the value is
+taken from the configuration.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="sipconfig.Makefile.clean_build_file_objects">
+<tt class="descname">clean_build_file_objects</tt><big>(</big><em>mfile</em>, <em>build</em><big>)</big><a class="headerlink" href="#sipconfig.Makefile.clean_build_file_objects" title="Permalink to this definition">¶</a></dt>
+<dd><p>This generates the Makefile commands that will remove any files
+generated during the build of the default target.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><em>mfile</em> &#8211; the Python file object of the Makefile.</li>
+<li><em>build</em> &#8211; the dictionary created from parsing the build file.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="sipconfig.Makefile.finalise">
+<tt class="descname">finalise</tt><big>(</big><big>)</big><a class="headerlink" href="#sipconfig.Makefile.finalise" title="Permalink to this definition">¶</a></dt>
+<dd>This is called just before the Makefile is generated to ensure that it
+is fully configured.  It must be reimplemented by a sub-class.</dd></dl>
+
+<dl class="method">
+<dt id="sipconfig.Makefile.generate">
+<tt class="descname">generate</tt><big>(</big><big>)</big><a class="headerlink" href="#sipconfig.Makefile.generate" title="Permalink to this definition">¶</a></dt>
+<dd>This generates the Makefile.</dd></dl>
+
+<dl class="method">
+<dt id="sipconfig.Makefile.generate_macros_and_rules">
+<tt class="descname">generate_macros_and_rules</tt><big>(</big><em>mfile</em><big>)</big><a class="headerlink" href="#sipconfig.Makefile.generate_macros_and_rules" title="Permalink to this definition">¶</a></dt>
+<dd><p>This is the default implementation of the Makefile macros and rules
+generation.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameter:</th><td class="field-body"><em>mfile</em> &#8211; the Python file object of the Makefile.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="sipconfig.Makefile.generate_target_clean">
+<tt class="descname">generate_target_clean</tt><big>(</big><em>mfile</em><big>)</big><a class="headerlink" href="#sipconfig.Makefile.generate_target_clean" title="Permalink to this definition">¶</a></dt>
+<dd><p>This is the default implementation of the Makefile clean target
+generation.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameter:</th><td class="field-body"><em>mfile</em> &#8211; the Python file object of the Makefile.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="sipconfig.Makefile.generate_target_default">
+<tt class="descname">generate_target_default</tt><big>(</big><em>mfile</em><big>)</big><a class="headerlink" href="#sipconfig.Makefile.generate_target_default" title="Permalink to this definition">¶</a></dt>
+<dd><p>This is the default implementation of the Makefile default target
+generation.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameter:</th><td class="field-body"><em>mfile</em> &#8211; the Python file object of the Makefile.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="sipconfig.Makefile.generate_target_install">
+<tt class="descname">generate_target_install</tt><big>(</big><em>mfile</em><big>)</big><a class="headerlink" href="#sipconfig.Makefile.generate_target_install" title="Permalink to this definition">¶</a></dt>
+<dd><p>This is the default implementation of the Makefile install target
+generation.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameter:</th><td class="field-body"><em>mfile</em> &#8211; the Python file object of the Makefile.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="sipconfig.Makefile.install_file">
+<tt class="descname">install_file</tt><big>(</big><em>mfile</em>, <em>src</em>, <em>dst</em><span class="optional">[</span>, <em>strip=0</em><span class="optional">]</span><big>)</big><a class="headerlink" href="#sipconfig.Makefile.install_file" title="Permalink to this definition">¶</a></dt>
+<dd><p>This generates the Makefile commands to install one or more files to a
+directory.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><em>mfile</em> &#8211; the Python file object of the Makefile.</li>
+<li><em>src</em> &#8211; the name of a single file to install or a list of a number of files
+to install.</li>
+<li><em>dst</em> &#8211; the name of the destination directory.</li>
+<li><em>strip</em> &#8211; is set if the files should be stripped of unneeded symbols after
+having been installed.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="sipconfig.Makefile.optional_list">
+<tt class="descname">optional_list</tt><big>(</big><em>name</em><big>)</big> &rarr; list<a class="headerlink" href="#sipconfig.Makefile.optional_list" title="Permalink to this definition">¶</a></dt>
+<dd><p>This returns an optional Makefile macro as a list.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameter:</th><td class="field-body"><em>name</em> &#8211; the name of the macro.</td>
+</tr>
+<tr class="field"><th class="field-name">Returns:</th><td class="field-body">the macro as a list.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="sipconfig.Makefile.optional_string">
+<tt class="descname">optional_string</tt><big>(</big><em>name</em><span class="optional">[</span>, <em>default=&quot;&quot;</em><span class="optional">]</span><big>)</big><a class="headerlink" href="#sipconfig.Makefile.optional_string" title="Permalink to this definition">¶</a></dt>
+<dd><p>This returns an optional Makefile macro as a string.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><em>name</em> &#8211; the name of the macro.</li>
+<li><em>default</em> &#8211; the optional default value of the macro.</li>
+</ul>
+</td>
+</tr>
+<tr class="field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">the macro as a string.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="sipconfig.Makefile.parse_build_file">
+<tt class="descname">parse_build_file</tt><big>(</big><em>filename</em><big>)</big> &rarr; dict<a class="headerlink" href="#sipconfig.Makefile.parse_build_file" title="Permalink to this definition">¶</a></dt>
+<dd><p>This parses a build file (created with the <a class="reference external" href="command_line.html#cmdoption-sip-b"><em class="xref">-b</em></a> SIP
+command line option) and converts it to a dictionary.  It can also
+validate an existing dictionary created through other means.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameter:</th><td class="field-body"><em>filename</em> &#8211; is the name of the build file, or is a dictionary to
+be validated.  A valid dictionary will contain the name of the
+target to build (excluding any platform specific extension) keyed
+by <tt class="docutils literal"><span class="pre">target</span></tt>; the names of all source files keyed by <tt class="docutils literal"><span class="pre">sources</span></tt>;
+and, optionally, the names of all header files keyed by
+<tt class="docutils literal"><span class="pre">headers</span></tt>.</td>
+</tr>
+<tr class="field"><th class="field-name">Returns:</th><td class="field-body">a dictionary corresponding to the parsed build file.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="sipconfig.Makefile.platform_lib">
+<tt class="descname">platform_lib</tt><big>(</big><em>clib</em><span class="optional">[</span>, <em>framework=0</em><span class="optional">]</span><big>)</big> &rarr; string<a class="headerlink" href="#sipconfig.Makefile.platform_lib" title="Permalink to this definition">¶</a></dt>
+<dd><p>This converts a library name to a platform specific form.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><em>clib</em> &#8211; the name of the library in cannonical form.</li>
+<li><em>framework</em> &#8211; is set if the library is implemented as a MacOS framework.</li>
+</ul>
+</td>
+</tr>
+<tr class="field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">the platform specific name.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="sipconfig.Makefile.ready">
+<tt class="descname">ready</tt><big>(</big><big>)</big><a class="headerlink" href="#sipconfig.Makefile.ready" title="Permalink to this definition">¶</a></dt>
+<dd>This is called to ensure that the Makefile is fully configured.  It is
+normally called automatically when needed.</dd></dl>
+
+<dl class="method">
+<dt id="sipconfig.Makefile.required_string">
+<tt class="descname">required_string</tt><big>(</big><em>name</em><big>)</big> &rarr; string<a class="headerlink" href="#sipconfig.Makefile.required_string" title="Permalink to this definition">¶</a></dt>
+<dd><p>This returns a required Makefile macro as a string.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameter:</th><td class="field-body"><em>name</em> &#8211; the name of the macro.</td>
+</tr>
+<tr class="field"><th class="field-name">Returns:</th><td class="field-body">the macro as a string.  An exception is raised if the macro does
+not exist or has an empty value.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="sipconfig.ModuleMakefile">
+<em class="property">class </em><tt class="descclassname">sipconfig.</tt><tt class="descname">ModuleMakefile</tt><a class="headerlink" href="#sipconfig.ModuleMakefile" title="Permalink to this definition">¶</a></dt>
+<dd><p>This class is derived from <a title="sipconfig.Makefile" class="reference internal" href="#sipconfig.Makefile"><tt class="xref docutils literal"><span class="pre">sipconfig.Makefile</span></tt></a>.</p>
+<p>This class encapsulates a Makefile to build a generic Python extension
+module.</p>
+<dl class="method">
+<dt id="sipconfig.ModuleMakefile.__init__">
+<tt class="descname">__init__</tt><big>(</big><em>self</em>, <em>configuration</em>, <em>build_file</em><span class="optional">[</span>, <em>install_dir=None</em><span class="optional">[</span>, <em>static=0</em><span class="optional">[</span>, <em>console=0</em><span class="optional">[</span>, <em>opengl=0</em><span class="optional">[</span>, <em>threaded=0</em><span class="optional">[</span>, <em>warnings=None</em><span class="optional">[</span>, <em>debug=0</em><span class="optional">[</span>, <em>dir=None</em><span class="optional">[</span>, <em>makefile=&quot;Makefile&quot;</em><span class="optional">[</span>, <em>installs=None</em><span class="optional">[</span>, <em>strip=1</em><span class="optional">[</span>, <em>export_all=0</em><span class="optional">[</span>, <em>universal=None</em><span class="optional">[</span>, <em>arch=None</em><span class="optional">[</span>, <em>deployment_target=None</em><span class="optional">]</span><span class="optional">]</span><span class="optional">]</span><span class="optional">]</span><span class="optional">]</span><span class="optional">]</span><span class="optional">]</span><span class="optional">]</span><span class="optional">]</span><span class="optional">]</span><span class="optional">]</span><span class="optional">]</span><span class="optional">]</span><span class="optional">]</span><span class="optional">]</span><big>)</big><a class="headerlink" href="#sipconfig.ModuleMakefile.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><em>configuration</em> &#8211; see <a title="sipconfig.Makefile.__init__" class="reference internal" href="#sipconfig.Makefile.__init__"><tt class="xref docutils literal"><span class="pre">sipconfig.Makefile.__init__()</span></tt></a>.</li>
+<li><em>build_file</em> &#8211; the name of the build file.  Build files are generated using the
+<a class="reference external" href="command_line.html#cmdoption-sip-b"><em class="xref">-b</em></a> SIP command line option.</li>
+<li><em>install_dir</em> &#8211; the name of the directory where the module will be optionally
+installed.</li>
+<li><em>static</em> &#8211; is set if the module should be built as a static library (see
+<a class="reference external" href="builtin.html#ref-builtin"><em>Builtin Modules and Custom Interpreters</em></a>).</li>
+<li><em>console</em> &#8211; see <a title="sipconfig.Makefile.__init__" class="reference internal" href="#sipconfig.Makefile.__init__"><tt class="xref docutils literal"><span class="pre">sipconfig.Makefile.__init__()</span></tt></a>.</li>
+<li><em>qt</em> &#8211; see <a title="sipconfig.Makefile.__init__" class="reference internal" href="#sipconfig.Makefile.__init__"><tt class="xref docutils literal"><span class="pre">sipconfig.Makefile.__init__()</span></tt></a>.</li>
+<li><em>opengl</em> &#8211; see <a title="sipconfig.Makefile.__init__" class="reference internal" href="#sipconfig.Makefile.__init__"><tt class="xref docutils literal"><span class="pre">sipconfig.Makefile.__init__()</span></tt></a>.</li>
+<li><em>threaded</em> &#8211; see <a title="sipconfig.Makefile.__init__" class="reference internal" href="#sipconfig.Makefile.__init__"><tt class="xref docutils literal"><span class="pre">sipconfig.Makefile.__init__()</span></tt></a>.</li>
+<li><em>warnings</em> &#8211; see <a title="sipconfig.Makefile.__init__" class="reference internal" href="#sipconfig.Makefile.__init__"><tt class="xref docutils literal"><span class="pre">sipconfig.Makefile.__init__()</span></tt></a>.</li>
+<li><em>debug</em> &#8211; see <a title="sipconfig.Makefile.__init__" class="reference internal" href="#sipconfig.Makefile.__init__"><tt class="xref docutils literal"><span class="pre">sipconfig.Makefile.__init__()</span></tt></a>.</li>
+<li><em>dir</em> &#8211; see <a title="sipconfig.Makefile.__init__" class="reference internal" href="#sipconfig.Makefile.__init__"><tt class="xref docutils literal"><span class="pre">sipconfig.Makefile.__init__()</span></tt></a>.</li>
+<li><em>makefile</em> &#8211; see <a title="sipconfig.Makefile.__init__" class="reference internal" href="#sipconfig.Makefile.__init__"><tt class="xref docutils literal"><span class="pre">sipconfig.Makefile.__init__()</span></tt></a>.</li>
+<li><em>installs</em> &#8211; see <a title="sipconfig.Makefile.__init__" class="reference internal" href="#sipconfig.Makefile.__init__"><tt class="xref docutils literal"><span class="pre">sipconfig.Makefile.__init__()</span></tt></a>.</li>
+<li><em>strip</em> &#8211; is set if the module should be stripped of unneeded symbols after
+installation.  It is ignored if either <em>debug</em> or <em>static</em> is set,
+or if the platform doesn&#8217;t support it.</li>
+<li><em>export_all</em> &#8211; is set if all of the module&#8217;s symbols should be exported rather
+than just the module&#8217;s initialisation function.  Exporting all
+symbols increases the size of the module and slows down module load
+times but may avoid problems with modules that use C++ exceptions.
+All symbols are exported if either <em>debug</em> or <em>static</em> is set, or
+if the platform doesn&#8217;t support it.</li>
+<li><em>universal</em> &#8211; see <a title="sipconfig.Makefile.__init__" class="reference internal" href="#sipconfig.Makefile.__init__"><tt class="xref docutils literal"><span class="pre">sipconfig.Makefile.__init__()</span></tt></a>.</li>
+<li><em>arch</em> &#8211; see <a title="sipconfig.Makefile.__init__" class="reference internal" href="#sipconfig.Makefile.__init__"><tt class="xref docutils literal"><span class="pre">sipconfig.Makefile.__init__()</span></tt></a>.</li>
+<li><em>deployment_target</em> &#8211; see <a title="sipconfig.Makefile.__init__" class="reference internal" href="#sipconfig.Makefile.__init__"><tt class="xref docutils literal"><span class="pre">sipconfig.Makefile.__init__()</span></tt></a>.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="sipconfig.ModuleMakefile.finalise">
+<tt class="descname">finalise</tt><big>(</big><big>)</big><a class="headerlink" href="#sipconfig.ModuleMakefile.finalise" title="Permalink to this definition">¶</a></dt>
+<dd>This is a reimplementation of <a title="sipconfig.Makefile.finalise" class="reference internal" href="#sipconfig.Makefile.finalise"><tt class="xref docutils literal"><span class="pre">sipconfig.Makefile.finalise()</span></tt></a>.</dd></dl>
+
+<dl class="method">
+<dt id="sipconfig.ModuleMakefile.generate_macros_and_rules">
+<tt class="descname">generate_macros_and_rules</tt><big>(</big><em>mfile</em><big>)</big><a class="headerlink" href="#sipconfig.ModuleMakefile.generate_macros_and_rules" title="Permalink to this definition">¶</a></dt>
+<dd>This is a reimplementation of
+<a title="sipconfig.Makefile.generate_macros_and_rules" class="reference internal" href="#sipconfig.Makefile.generate_macros_and_rules"><tt class="xref docutils literal"><span class="pre">sipconfig.Makefile.generate_macros_and_rules()</span></tt></a>.</dd></dl>
+
+<dl class="method">
+<dt id="sipconfig.ModuleMakefile.generate_target_clean">
+<tt class="descname">generate_target_clean</tt><big>(</big><em>mfile</em><big>)</big><a class="headerlink" href="#sipconfig.ModuleMakefile.generate_target_clean" title="Permalink to this definition">¶</a></dt>
+<dd>This is a reimplementation of
+<a title="sipconfig.Makefile.generate_target_clean" class="reference internal" href="#sipconfig.Makefile.generate_target_clean"><tt class="xref docutils literal"><span class="pre">sipconfig.Makefile.generate_target_clean()</span></tt></a>.</dd></dl>
+
+<dl class="method">
+<dt id="sipconfig.ModuleMakefile.generate_target_default">
+<tt class="descname">generate_target_default</tt><big>(</big><em>mfile</em><big>)</big><a class="headerlink" href="#sipconfig.ModuleMakefile.generate_target_default" title="Permalink to this definition">¶</a></dt>
+<dd>This is a reimplementation of
+<a title="sipconfig.Makefile.generate_target_default" class="reference internal" href="#sipconfig.Makefile.generate_target_default"><tt class="xref docutils literal"><span class="pre">sipconfig.Makefile.generate_target_default()</span></tt></a>.</dd></dl>
+
+<dl class="method">
+<dt id="sipconfig.ModuleMakefile.generate_target_install">
+<tt class="descname">generate_target_install</tt><big>(</big><em>mfile</em><big>)</big><a class="headerlink" href="#sipconfig.ModuleMakefile.generate_target_install" title="Permalink to this definition">¶</a></dt>
+<dd>This is a reimplementation of
+<a title="sipconfig.Makefile.generate_target_install" class="reference internal" href="#sipconfig.Makefile.generate_target_install"><tt class="xref docutils literal"><span class="pre">sipconfig.Makefile.generate_target_install()</span></tt></a>.</dd></dl>
+
+<dl class="method">
+<dt id="sipconfig.ModuleMakefile.module_as_lib">
+<tt class="descname">module_as_lib</tt><big>(</big><em>mname</em><big>)</big> &rarr; string<a class="headerlink" href="#sipconfig.ModuleMakefile.module_as_lib" title="Permalink to this definition">¶</a></dt>
+<dd><p>This gets the name of a SIP v3.x module for when it is used as a
+library to be linked against.  An exception will be raised if it is
+used with SIP v4.x modules.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameter:</th><td class="field-body"><em>mname</em> &#8211; the name of the module.</td>
+</tr>
+<tr class="field"><th class="field-name">Returns:</th><td class="field-body">the corresponding library name.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="sipconfig.ParentMakefile">
+<em class="property">class </em><tt class="descclassname">sipconfig.</tt><tt class="descname">ParentMakefile</tt><a class="headerlink" href="#sipconfig.ParentMakefile" title="Permalink to this definition">¶</a></dt>
+<dd><p>This class is derived from <a title="sipconfig.Makefile" class="reference internal" href="#sipconfig.Makefile"><tt class="xref docutils literal"><span class="pre">sipconfig.Makefile</span></tt></a>.</p>
+<p>This class encapsulates a Makefile that sits above a number of other
+Makefiles in sub-directories.</p>
+<dl class="method">
+<dt id="sipconfig.ParentMakefile.__init__">
+<tt class="descname">__init__</tt><big>(</big><em>self</em>, <em>configuration</em>, <em>subdirs</em><span class="optional">[</span>, <em>dir=None</em><span class="optional">[</span>, <em>makefile</em><span class="optional">[</span>, <em>=&quot;Makefile&quot;</em><span class="optional">[</span>, <em>installs=None</em><span class="optional">]</span><span class="optional">]</span><span class="optional">]</span><span class="optional">]</span><big>)</big><a class="headerlink" href="#sipconfig.ParentMakefile.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><em>configuration</em> &#8211; see <a title="sipconfig.Makefile.__init__" class="reference internal" href="#sipconfig.Makefile.__init__"><tt class="xref docutils literal"><span class="pre">sipconfig.Makefile.__init__()</span></tt></a>.</li>
+<li><em>subdirs</em> &#8211; the sequence of sub-directories.</li>
+<li><em>dir</em> &#8211; see <a title="sipconfig.Makefile.__init__" class="reference internal" href="#sipconfig.Makefile.__init__"><tt class="xref docutils literal"><span class="pre">sipconfig.Makefile.__init__()</span></tt></a>.</li>
+<li><em>makefile</em> &#8211; see <a title="sipconfig.Makefile.__init__" class="reference internal" href="#sipconfig.Makefile.__init__"><tt class="xref docutils literal"><span class="pre">sipconfig.Makefile.__init__()</span></tt></a>.</li>
+<li><em>installs</em> &#8211; see <a title="sipconfig.Makefile.__init__" class="reference internal" href="#sipconfig.Makefile.__init__"><tt class="xref docutils literal"><span class="pre">sipconfig.Makefile.__init__()</span></tt></a>.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="sipconfig.ParentMakefile.generate_macros_and_rules">
+<tt class="descname">generate_macros_and_rules</tt><big>(</big><em>mfile</em><big>)</big><a class="headerlink" href="#sipconfig.ParentMakefile.generate_macros_and_rules" title="Permalink to this definition">¶</a></dt>
+<dd>This is a reimplementation of
+<a title="sipconfig.Makefile.generate_macros_and_rules" class="reference internal" href="#sipconfig.Makefile.generate_macros_and_rules"><tt class="xref docutils literal"><span class="pre">sipconfig.Makefile.generate_macros_and_rules()</span></tt></a>.</dd></dl>
+
+<dl class="method">
+<dt id="sipconfig.ParentMakefile.generate_target_clean">
+<tt class="descname">generate_target_clean</tt><big>(</big><em>mfile</em><big>)</big><a class="headerlink" href="#sipconfig.ParentMakefile.generate_target_clean" title="Permalink to this definition">¶</a></dt>
+<dd>This is a reimplementation of
+<a title="sipconfig.Makefile.generate_target_clean" class="reference internal" href="#sipconfig.Makefile.generate_target_clean"><tt class="xref docutils literal"><span class="pre">sipconfig.Makefile.generate_target_clean()</span></tt></a>.</dd></dl>
+
+<dl class="method">
+<dt id="sipconfig.ParentMakefile.generate_target_default">
+<tt class="descname">generate_target_default</tt><big>(</big><em>mfile</em><big>)</big><a class="headerlink" href="#sipconfig.ParentMakefile.generate_target_default" title="Permalink to this definition">¶</a></dt>
+<dd>This is a reimplementation of
+<a title="sipconfig.Makefile.generate_target_default" class="reference internal" href="#sipconfig.Makefile.generate_target_default"><tt class="xref docutils literal"><span class="pre">sipconfig.Makefile.generate_target_default()</span></tt></a>.</dd></dl>
+
+<dl class="method">
+<dt id="sipconfig.ParentMakefile.generate_target_install">
+<tt class="descname">generate_target_install</tt><big>(</big><em>mfile</em><big>)</big><a class="headerlink" href="#sipconfig.ParentMakefile.generate_target_install" title="Permalink to this definition">¶</a></dt>
+<dd>This is a reimplementation of
+<a title="sipconfig.Makefile.generate_target_install" class="reference internal" href="#sipconfig.Makefile.generate_target_install"><tt class="xref docutils literal"><span class="pre">sipconfig.Makefile.generate_target_install()</span></tt></a>.</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="sipconfig.ProgramMakefile">
+<em class="property">class </em><tt class="descclassname">sipconfig.</tt><tt class="descname">ProgramMakefile</tt><a class="headerlink" href="#sipconfig.ProgramMakefile" title="Permalink to this definition">¶</a></dt>
+<dd><p>This class is derived from <a title="sipconfig.Makefile" class="reference internal" href="#sipconfig.Makefile"><tt class="xref docutils literal"><span class="pre">sipconfig.Makefile</span></tt></a>.</p>
+<p>This class encapsulates a Makefile to build an executable program.</p>
+<dl class="method">
+<dt id="sipconfig.ProgramMakefile.__init__">
+<tt class="descname">__init__</tt><big>(</big><em>configuration</em><span class="optional">[</span>, <em>build_file=None</em><span class="optional">[</span>, <em>install_dir=None</em><span class="optional">[</span>, <em>console=0</em><span class="optional">[</span>, <em>qt=0</em><span class="optional">[</span>, <em>opengl=0</em><span class="optional">[</span>, <em>python=0</em><span class="optional">[</span>, <em>threaded=0</em><span class="optional">[</span>, <em>warnings=None</em><span class="optional">[</span>, <em>debug=0</em><span class="optional">[</span>, <em>dir=None</em><span class="optional">[</span>, <em>makefile=&quot;Makefile&quot;</em><span class="optional">[</span>, <em>installs=None</em><span class="optional">[</span>, <em>universal=None</em><span class="optional">[</span>, <em>arch=None</em><span class="optional">[</span>, <em>deployment_target=None</em><span class="optional">]</span><span class="optional">]</span><span class="optional">]</span><span class="optional">]</span><span class="optional">]</span><span class="optional">]</span><span class="optional">]</span><span class="optional">]</span><span class="optional">]</span><span class="optional">]</span><span class="optional">]</span><span class="optional">]</span><span class="optional">]</span><span class="optional">]</span><span class="optional">]</span><big>)</big><a class="headerlink" href="#sipconfig.ProgramMakefile.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><em>configuration</em> &#8211; see <a title="sipconfig.Makefile.__init__" class="reference internal" href="#sipconfig.Makefile.__init__"><tt class="xref docutils literal"><span class="pre">sipconfig.Makefile.__init__()</span></tt></a>.</li>
+<li><em>build_file</em> &#8211; the name of the optional build file.  Build files are generated
+using the <a class="reference external" href="command_line.html#cmdoption-sip-b"><em class="xref">-b</em></a> SIP command line option.</li>
+<li><em>install_dir</em> &#8211; the name of the directory where the executable program will be
+optionally installed.</li>
+<li><em>console</em> &#8211; see <a title="sipconfig.Makefile.__init__" class="reference internal" href="#sipconfig.Makefile.__init__"><tt class="xref docutils literal"><span class="pre">sipconfig.Makefile.__init__()</span></tt></a>.</li>
+<li><em>qt</em> &#8211; see <a title="sipconfig.Makefile.__init__" class="reference internal" href="#sipconfig.Makefile.__init__"><tt class="xref docutils literal"><span class="pre">sipconfig.Makefile.__init__()</span></tt></a>.</li>
+<li><em>opengl</em> &#8211; see <a title="sipconfig.Makefile.__init__" class="reference internal" href="#sipconfig.Makefile.__init__"><tt class="xref docutils literal"><span class="pre">sipconfig.Makefile.__init__()</span></tt></a>.</li>
+<li><em>python</em> &#8211; see <a title="sipconfig.Makefile.__init__" class="reference internal" href="#sipconfig.Makefile.__init__"><tt class="xref docutils literal"><span class="pre">sipconfig.Makefile.__init__()</span></tt></a>.</li>
+<li><em>threaded</em> &#8211; see <a title="sipconfig.Makefile.__init__" class="reference internal" href="#sipconfig.Makefile.__init__"><tt class="xref docutils literal"><span class="pre">sipconfig.Makefile.__init__()</span></tt></a>.</li>
+<li><em>warnings</em> &#8211; see <a title="sipconfig.Makefile.__init__" class="reference internal" href="#sipconfig.Makefile.__init__"><tt class="xref docutils literal"><span class="pre">sipconfig.Makefile.__init__()</span></tt></a>.</li>
+<li><em>debug</em> &#8211; see <a title="sipconfig.Makefile.__init__" class="reference internal" href="#sipconfig.Makefile.__init__"><tt class="xref docutils literal"><span class="pre">sipconfig.Makefile.__init__()</span></tt></a>.</li>
+<li><em>dir</em> &#8211; see <a title="sipconfig.Makefile.__init__" class="reference internal" href="#sipconfig.Makefile.__init__"><tt class="xref docutils literal"><span class="pre">sipconfig.Makefile.__init__()</span></tt></a>.</li>
+<li><em>makefile</em> &#8211; see <a title="sipconfig.Makefile.__init__" class="reference internal" href="#sipconfig.Makefile.__init__"><tt class="xref docutils literal"><span class="pre">sipconfig.Makefile.__init__()</span></tt></a>.</li>
+<li><em>installs</em> &#8211; see <a title="sipconfig.Makefile.__init__" class="reference internal" href="#sipconfig.Makefile.__init__"><tt class="xref docutils literal"><span class="pre">sipconfig.Makefile.__init__()</span></tt></a>.</li>
+<li><em>universal</em> &#8211; see <a title="sipconfig.Makefile.__init__" class="reference internal" href="#sipconfig.Makefile.__init__"><tt class="xref docutils literal"><span class="pre">sipconfig.Makefile.__init__()</span></tt></a>.</li>
+<li><em>arch</em> &#8211; see <a title="sipconfig.Makefile.__init__" class="reference internal" href="#sipconfig.Makefile.__init__"><tt class="xref docutils literal"><span class="pre">sipconfig.Makefile.__init__()</span></tt></a>.</li>
+<li><em>deployment_target</em> &#8211; see <a title="sipconfig.Makefile.__init__" class="reference internal" href="#sipconfig.Makefile.__init__"><tt class="xref docutils literal"><span class="pre">sipconfig.Makefile.__init__()</span></tt></a>.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="sipconfig.ProgramMakefile.build_command">
+<tt class="descname">build_command</tt><big>(</big><em>source</em><big>)</big> &rarr; string, string<a class="headerlink" href="#sipconfig.ProgramMakefile.build_command" title="Permalink to this definition">¶</a></dt>
+<dd><p>This creates a single command line that will create an executable
+program from a single source file.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameter:</th><td class="field-body"><em>source</em> &#8211; the name of the source file.</td>
+</tr>
+<tr class="field"><th class="field-name">Returns:</th><td class="field-body">a tuple of the name of the executable that will be created and the
+command line.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="sipconfig.ProgramMakefile.finalise">
+<tt class="descname">finalise</tt><big>(</big><big>)</big><a class="headerlink" href="#sipconfig.ProgramMakefile.finalise" title="Permalink to this definition">¶</a></dt>
+<dd>This is a reimplementation of <a title="sipconfig.Makefile.finalise" class="reference internal" href="#sipconfig.Makefile.finalise"><tt class="xref docutils literal"><span class="pre">sipconfig.Makefile.finalise()</span></tt></a>.</dd></dl>
+
+<dl class="method">
+<dt id="sipconfig.ProgramMakefile.generate_macros_and_rules">
+<tt class="descname">generate_macros_and_rules</tt><big>(</big><em>mfile</em><big>)</big><a class="headerlink" href="#sipconfig.ProgramMakefile.generate_macros_and_rules" title="Permalink to this definition">¶</a></dt>
+<dd>This is a reimplementation of
+<a title="sipconfig.Makefile.generate_macros_and_rules" class="reference internal" href="#sipconfig.Makefile.generate_macros_and_rules"><tt class="xref docutils literal"><span class="pre">sipconfig.Makefile.generate_macros_and_rules()</span></tt></a>.</dd></dl>
+
+<dl class="method">
+<dt id="sipconfig.ProgramMakefile.generate_target_clean">
+<tt class="descname">generate_target_clean</tt><big>(</big><em>mfile</em><big>)</big><a class="headerlink" href="#sipconfig.ProgramMakefile.generate_target_clean" title="Permalink to this definition">¶</a></dt>
+<dd>This is a reimplementation of
+<a title="sipconfig.Makefile.generate_target_clean" class="reference internal" href="#sipconfig.Makefile.generate_target_clean"><tt class="xref docutils literal"><span class="pre">sipconfig.Makefile.generate_target_clean()</span></tt></a>.</dd></dl>
+
+<dl class="method">
+<dt id="sipconfig.ProgramMakefile.generate_target_default">
+<tt class="descname">generate_target_default</tt><big>(</big><em>mfile</em><big>)</big><a class="headerlink" href="#sipconfig.ProgramMakefile.generate_target_default" title="Permalink to this definition">¶</a></dt>
+<dd>This is a reimplementation of
+<a title="sipconfig.Makefile.generate_target_default" class="reference internal" href="#sipconfig.Makefile.generate_target_default"><tt class="xref docutils literal"><span class="pre">sipconfig.Makefile.generate_target_default()</span></tt></a>.</dd></dl>
+
+<dl class="method">
+<dt id="sipconfig.ProgramMakefile.generate_target_install">
+<tt class="descname">generate_target_install</tt><big>(</big><em>mfile</em><big>)</big><a class="headerlink" href="#sipconfig.ProgramMakefile.generate_target_install" title="Permalink to this definition">¶</a></dt>
+<dd>This is a reimplementation of
+<a title="sipconfig.Makefile.generate_target_install" class="reference internal" href="#sipconfig.Makefile.generate_target_install"><tt class="xref docutils literal"><span class="pre">sipconfig.Makefile.generate_target_install()</span></tt></a>.</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="sipconfig.PythonModuleMakefile">
+<em class="property">class </em><tt class="descclassname">sipconfig.</tt><tt class="descname">PythonModuleMakefile</tt><a class="headerlink" href="#sipconfig.PythonModuleMakefile" title="Permalink to this definition">¶</a></dt>
+<dd><p>This class is derived from <a title="sipconfig.Makefile" class="reference internal" href="#sipconfig.Makefile"><tt class="xref docutils literal"><span class="pre">sipconfig.Makefile</span></tt></a>.</p>
+<p>This class encapsulates a Makefile that installs a pure Python module.</p>
+<dl class="method">
+<dt id="sipconfig.PythonModuleMakefile.__init__">
+<tt class="descname">__init__</tt><big>(</big><em>self</em>, <em>configuration</em>, <em>dstdir</em><span class="optional">[</span>, <em>srcdir=None</em><span class="optional">[</span>, <em>dir=None</em><span class="optional">[</span>, <em>makefile=&quot;Makefile&quot;</em><span class="optional">[</span>, <em>installs=None</em><span class="optional">]</span><span class="optional">]</span><span class="optional">]</span><span class="optional">]</span><big>)</big><a class="headerlink" href="#sipconfig.PythonModuleMakefile.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><em>configuration</em> &#8211; see <a title="sipconfig.Makefile.__init__" class="reference internal" href="#sipconfig.Makefile.__init__"><tt class="xref docutils literal"><span class="pre">sipconfig.Makefile.__init__()</span></tt></a>.</li>
+<li><em>dstdir</em> &#8211; the name of the directory in which the module&#8217;s Python code will be
+installed.</li>
+<li><em>srcdir</em> &#8211; the name of the directory (relative to <em>dir</em>) containing the
+module&#8217;s Python code.  It defaults to the same directory.</li>
+<li><em>dir</em> &#8211; see <a title="sipconfig.Makefile.__init__" class="reference internal" href="#sipconfig.Makefile.__init__"><tt class="xref docutils literal"><span class="pre">sipconfig.Makefile.__init__()</span></tt></a>.</li>
+<li><em>makefile</em> &#8211; see <a title="sipconfig.Makefile.__init__" class="reference internal" href="#sipconfig.Makefile.__init__"><tt class="xref docutils literal"><span class="pre">sipconfig.Makefile.__init__()</span></tt></a>.</li>
+<li><em>installs</em> &#8211; see <a title="sipconfig.Makefile.__init__" class="reference internal" href="#sipconfig.Makefile.__init__"><tt class="xref docutils literal"><span class="pre">sipconfig.Makefile.__init__()</span></tt></a>.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="sipconfig.PythonModuleMakefile.generate_macros_and_rules">
+<tt class="descname">generate_macros_and_rules</tt><big>(</big><em>mfile</em><big>)</big><a class="headerlink" href="#sipconfig.PythonModuleMakefile.generate_macros_and_rules" title="Permalink to this definition">¶</a></dt>
+<dd>This is a reimplementation of
+<a title="sipconfig.Makefile.generate_macros_and_rules" class="reference internal" href="#sipconfig.Makefile.generate_macros_and_rules"><tt class="xref docutils literal"><span class="pre">sipconfig.Makefile.generate_macros_and_rules()</span></tt></a>.</dd></dl>
+
+<dl class="method">
+<dt id="sipconfig.PythonModuleMakefile.generate_target_install">
+<tt class="descname">generate_target_install</tt><big>(</big><em>mfile</em><big>)</big><a class="headerlink" href="#sipconfig.PythonModuleMakefile.generate_target_install" title="Permalink to this definition">¶</a></dt>
+<dd>This is a reimplementation of
+<a title="sipconfig.Makefile.generate_target_install" class="reference internal" href="#sipconfig.Makefile.generate_target_install"><tt class="xref docutils literal"><span class="pre">sipconfig.Makefile.generate_target_install()</span></tt></a>.</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="sipconfig.SIPModuleMakefile">
+<em class="property">class </em><tt class="descclassname">sipconfig.</tt><tt class="descname">SIPModuleMakefile</tt><a class="headerlink" href="#sipconfig.SIPModuleMakefile" title="Permalink to this definition">¶</a></dt>
+<dd><p>This class is derived from <a title="sipconfig.ModuleMakefile" class="reference internal" href="#sipconfig.ModuleMakefile"><tt class="xref docutils literal"><span class="pre">sipconfig.ModuleMakefile</span></tt></a>.</p>
+<p>This class encapsulates a Makefile to build a SIP generated Python
+extension module.</p>
+<dl class="method">
+<dt id="sipconfig.SIPModuleMakefile.__init__">
+<tt class="descname">__init__</tt><big>(</big><em>self</em>, <em>configuration</em>, <em>build_file</em><span class="optional">[</span>, <em>install_dir=None</em><span class="optional">[</span>, <em>static=0</em><span class="optional">[</span>, <em>console=0</em><span class="optional">[</span>, <em>opengl=0</em><span class="optional">[</span>, <em>threaded=0</em><span class="optional">[</span>, <em>warnings=None</em><span class="optional">[</span>, <em>debug=0</em><span class="optional">[</span>, <em>dir=None</em><span class="optional">[</span>, <em>makefile=&quot;Makefile&quot;</em><span class="optional">[</span>, <em>installs=None</em><span class="optional">[</span>, <em>strip=1</em><span class="optional">[</span>, <em>export_all=0</em><span class="optional">[</span>, <em>universal=None</em><span class="optional">[</span>, <em>arch=None</em><span class="optional">[</span>, <em>prot_is_public=0</em><span class="optional">[</span>, <em>deployment_target=None</em><span class="optional">]</span><span class="optional">]</span><span class="optional">]</span><span class="optional">]</span><span class="optional">]</span><span class="optional">]</span><span class="optional">]</span><span class="optional">]</span><span class="optional">]</span><span class="optional">]</span><span class="optional">]</span><span class="optional">]</span><span class="optional">]</span><span class="optional">]</span><span class="optional">]</span><span class="optional">]</span><big>)</big><a class="headerlink" href="#sipconfig.SIPModuleMakefile.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><em>configuration</em> &#8211; see <a title="sipconfig.Makefile.__init__" class="reference internal" href="#sipconfig.Makefile.__init__"><tt class="xref docutils literal"><span class="pre">sipconfig.Makefile.__init__()</span></tt></a>.</li>
+<li><em>build_file</em> &#8211; see <a title="sipconfig.ModuleMakefile.__init__" class="reference internal" href="#sipconfig.ModuleMakefile.__init__"><tt class="xref docutils literal"><span class="pre">sipconfig.ModuleMakefile.__init__()</span></tt></a>.</li>
+<li><em>install_dir</em> &#8211; see <a title="sipconfig.ModuleMakefile.__init__" class="reference internal" href="#sipconfig.ModuleMakefile.__init__"><tt class="xref docutils literal"><span class="pre">sipconfig.ModuleMakefile.__init__()</span></tt></a>.</li>
+<li><em>static</em> &#8211; see <a title="sipconfig.ModuleMakefile.__init__" class="reference internal" href="#sipconfig.ModuleMakefile.__init__"><tt class="xref docutils literal"><span class="pre">sipconfig.ModuleMakefile.__init__()</span></tt></a>.</li>
+<li><em>console</em> &#8211; see <a title="sipconfig.Makefile.__init__" class="reference internal" href="#sipconfig.Makefile.__init__"><tt class="xref docutils literal"><span class="pre">sipconfig.Makefile.__init__()</span></tt></a>.</li>
+<li><em>qt</em> &#8211; see <a title="sipconfig.Makefile.__init__" class="reference internal" href="#sipconfig.Makefile.__init__"><tt class="xref docutils literal"><span class="pre">sipconfig.Makefile.__init__()</span></tt></a>.</li>
+<li><em>opengl</em> &#8211; see <a title="sipconfig.Makefile.__init__" class="reference internal" href="#sipconfig.Makefile.__init__"><tt class="xref docutils literal"><span class="pre">sipconfig.Makefile.__init__()</span></tt></a>.</li>
+<li><em>threaded</em> &#8211; see <a title="sipconfig.Makefile.__init__" class="reference internal" href="#sipconfig.Makefile.__init__"><tt class="xref docutils literal"><span class="pre">sipconfig.Makefile.__init__()</span></tt></a>.</li>
+<li><em>warnings</em> &#8211; see <a title="sipconfig.Makefile.__init__" class="reference internal" href="#sipconfig.Makefile.__init__"><tt class="xref docutils literal"><span class="pre">sipconfig.Makefile.__init__()</span></tt></a>.</li>
+<li><em>debug</em> &#8211; see <a title="sipconfig.Makefile.__init__" class="reference internal" href="#sipconfig.Makefile.__init__"><tt class="xref docutils literal"><span class="pre">sipconfig.Makefile.__init__()</span></tt></a>.</li>
+<li><em>dir</em> &#8211; see <a title="sipconfig.Makefile.__init__" class="reference internal" href="#sipconfig.Makefile.__init__"><tt class="xref docutils literal"><span class="pre">sipconfig.Makefile.__init__()</span></tt></a>.</li>
+<li><em>makefile</em> &#8211; see <a title="sipconfig.Makefile.__init__" class="reference internal" href="#sipconfig.Makefile.__init__"><tt class="xref docutils literal"><span class="pre">sipconfig.Makefile.__init__()</span></tt></a>.</li>
+<li><em>installs</em> &#8211; see <a title="sipconfig.Makefile.__init__" class="reference internal" href="#sipconfig.Makefile.__init__"><tt class="xref docutils literal"><span class="pre">sipconfig.Makefile.__init__()</span></tt></a>.</li>
+<li><em>strip</em> &#8211; see <a title="sipconfig.ModuleMakefile.__init__" class="reference internal" href="#sipconfig.ModuleMakefile.__init__"><tt class="xref docutils literal"><span class="pre">sipconfig.ModuleMakefile.__init__()</span></tt></a>.</li>
+<li><em>export_all</em> &#8211; see <a title="sipconfig.ModuleMakefile.__init__" class="reference internal" href="#sipconfig.ModuleMakefile.__init__"><tt class="xref docutils literal"><span class="pre">sipconfig.ModuleMakefile.__init__()</span></tt></a>.</li>
+<li><em>universal</em> &#8211; see <a title="sipconfig.Makefile.__init__" class="reference internal" href="#sipconfig.Makefile.__init__"><tt class="xref docutils literal"><span class="pre">sipconfig.Makefile.__init__()</span></tt></a>.</li>
+<li><em>arch</em> &#8211; see <a title="sipconfig.Makefile.__init__" class="reference internal" href="#sipconfig.Makefile.__init__"><tt class="xref docutils literal"><span class="pre">sipconfig.Makefile.__init__()</span></tt></a>.</li>
+<li><em>prot_is_public</em> &#8211; is set if <tt class="docutils literal"><span class="pre">protected</span></tt> should be redefined as <tt class="docutils literal"><span class="pre">public</span></tt> when
+compiling the generated module.</li>
+<li><em>deployment_target</em> &#8211; see <a title="sipconfig.Makefile.__init__" class="reference internal" href="#sipconfig.Makefile.__init__"><tt class="xref docutils literal"><span class="pre">sipconfig.Makefile.__init__()</span></tt></a>.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="sipconfig.SIPModuleMakefile.finalise">
+<tt class="descname">finalise</tt><big>(</big><big>)</big><a class="headerlink" href="#sipconfig.SIPModuleMakefile.finalise" title="Permalink to this definition">¶</a></dt>
+<dd>This is a reimplementation of <a title="sipconfig.Makefile.finalise" class="reference internal" href="#sipconfig.Makefile.finalise"><tt class="xref docutils literal"><span class="pre">sipconfig.Makefile.finalise()</span></tt></a>.</dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="index.html">
+              <img class="logo" src="_static/logo.png" alt="Logo"/>
+            </a></p>
+            <h4>Previous topic</h4>
+            <p class="topless"><a href="python_api.html"
+                                  title="previous chapter">Python API for Applications</a></p>
+            <h4>Next topic</h4>
+            <p class="topless"><a href="distutils.html"
+                                  title="next chapter">Building Your Extension with distutils</a></p>
+          <div id="searchbox" style="display: none">
+            <h3>Quick search</h3>
+              <form class="search" action="search.html" method="get">
+                <input type="text" name="q" size="18" />
+                <input type="submit" value="Go" />
+                <input type="hidden" name="check_keywords" value="yes" />
+                <input type="hidden" name="area" value="default" />
+              </form>
+              <p class="searchtip" style="font-size: 90%">
+              Enter search terms or a module, class or function name.
+              </p>
+          </div>
+          <script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="modindex.html" title="Global Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="distutils.html" title="Building Your Extension with distutils"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="python_api.html" title="Python API for Applications"
+             >previous</a> |</li>
+        <li><a href="index.html">SIP 4.15.3-snapshot-5dc8c370157e Reference Guide</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+      &copy; Copyright 2013 Riverbank Computing Limited.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 0.6.4.
+    </div>
+  </body>
+</html>

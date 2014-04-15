@@ -5,4 +5,4 @@ QAudioProbe
 
 .. class:: QAudioProbe
 
-    `C++ documentation <http://qt-project.org/doc/qt-5.1/qtmultimedia/qaudioprobe.html>`_
+    `C++ documentation <http://qt-project.org/doc/qt-5.2/qaudioprobe.html>`_

@@ -1,6 +1,6 @@
 // This implements the public API provided by PyQt to external packages.
 //
-// Copyright (c) 2013 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2014 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -22,6 +22,7 @@
 #include <QHash>
 
 #include "qpycore_chimera.h"
+#include "qpycore_objectified_strings.h"
 #include "qpycore_public_api.h"
 #include "qpycore_pyqtboundsignal.h"
 #include "qpycore_pyqtsignal.h"
@@ -99,7 +100,7 @@ sipErrorState pyqt5_get_pyqtsignal_parts(PyObject *signal,
         qpycore_pyqtBoundSignal *bs = (qpycore_pyqtBoundSignal *)signal;
 
         *transmitter = bs->bound_qobject;
-        signal_signature = bs->unbound_signal->signature->signature;
+        signal_signature = bs->unbound_signal->parsed_signature->signature;
 
         return sipErrorNone;
     }
@@ -130,7 +131,8 @@ sipErrorState pyqt5_get_pyqtslot_parts(PyObject *slot, QObject **receiver,
     *receiver = reinterpret_cast<QObject *>(qobj);
 
     // Get the decoration.
-    PyObject *decorations = PyObject_GetAttr(slot, qpycore_signature_attr_name);
+    PyObject *decorations = PyObject_GetAttr(slot,
+            qpycore_dunder_pyqtsignature);
 
     if (!decorations)
         return sipErrorContinue;
@@ -175,7 +177,7 @@ sipErrorState pyqt5_get_signal_signature(PyObject *signal,
         return sipErrorContinue;
     }
 
-    signal_signature = ps->signature->signature;
+    signal_signature = ps->parsed_signature->signature;
 
     return sipErrorNone;
 }

@@ -5,4 +5,4 @@ QPolygonF
 
 .. class:: QPolygonF
 
-    `C++ documentation <http://qt-project.org/doc/qt-5.1/qtgui/qpolygonf.html>`_
+    `C++ documentation <http://qt-project.org/doc/qt-5.2/qpolygonf.html>`_

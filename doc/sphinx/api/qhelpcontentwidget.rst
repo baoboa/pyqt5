@@ -5,4 +5,4 @@ QHelpContentWidget
 
 .. class:: QHelpContentWidget
 
-    `C++ documentation <http://qt-project.org/doc/qt-5.1/qthelp/qhelpcontentwidget.html>`_
+    `C++ documentation <http://qt-project.org/doc/qt-5.2/qhelpcontentwidget.html>`_

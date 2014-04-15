@@ -1,26 +1,30 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
+
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Deploying Commercial PyQt5 Applications &mdash; PyQt 5.1.1-snapshot-3c895ca14f00 Reference Guide</title>
+    <title>Deploying Commercial PyQt5 Applications &mdash; PyQt 5.2.1 Reference Guide</title>
+    
     <link rel="stylesheet" href="_static/default.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    '#',
-        VERSION:     '5.1.1-snapshot-3c895ca14f00',
-        COLLAPSE_MODINDEX: false,
+        URL_ROOT:    './',
+        VERSION:     '5.2.1',
+        COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
       };
     </script>
     <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
     <link rel="shortcut icon" href="_static/logo_tn.ico"/>
-    <link rel="top" title="PyQt 5.1.1-snapshot-3c895ca14f00 Reference Guide" href="index.html" />
+    <link rel="top" title="PyQt 5.2.1 Reference Guide" href="index.html" />
     <link rel="next" title="The PyQt5 Extension API" href="extension_api.html" />
     <link rel="prev" title="DBus Support" href="dbus.html" /> 
   </head>
@@ -32,15 +36,15 @@
           <a href="genindex.html" title="General Index"
              accesskey="I">index</a></li>
         <li class="right" >
-          <a href="modindex.html" title="Global Module Index"
-             accesskey="M">modules</a> |</li>
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
         <li class="right" >
           <a href="extension_api.html" title="The PyQt5 Extension API"
              accesskey="N">next</a> |</li>
         <li class="right" >
           <a href="dbus.html" title="DBus Support"
              accesskey="P">previous</a> |</li>
-        <li><a href="index.html">PyQt 5.1.1-snapshot-3c895ca14f00 Reference Guide</a> &raquo;</li> 
+        <li><a href="index.html">PyQt 5.2.1 Reference Guide</a> &raquo;</li> 
       </ul>
     </div>  
 
@@ -64,8 +68,8 @@ interpreter that can only run your application, and PyQt5 modules that can only
 be imported by that interpreter.  You can use the package to similarly restrict
 access to any extension module.</p>
 <p>In order to build PyQt5 with support for the VendorID package, pass the
-<a class="reference external" href="installation.html#cmdoption-configure.py--vendorid"><em class="xref">--vendorid</em></a> command line option to
-<strong>configure.py</strong>.</p>
+<a class="reference internal" href="installation.html#cmdoption-configure.py--vendorid"><em class="xref std std-option">--vendorid</em></a> command line option to
+<strong class="program">configure.py</strong>.</p>
 </div>
 
 
@@ -77,25 +81,25 @@ access to any extension module.</p>
             <p class="logo"><a href="index.html">
               <img class="logo" src="_static/logo.png" alt="Logo"/>
             </a></p>
-            <h4>Previous topic</h4>
-            <p class="topless"><a href="dbus.html"
-                                  title="previous chapter">DBus Support</a></p>
-            <h4>Next topic</h4>
-            <p class="topless"><a href="extension_api.html"
-                                  title="next chapter">The PyQt5 Extension API</a></p>
-          <div id="searchbox" style="display: none">
-            <h3>Quick search</h3>
-              <form class="search" action="search.html" method="get">
-                <input type="text" name="q" size="18" />
-                <input type="submit" value="Go" />
-                <input type="hidden" name="check_keywords" value="yes" />
-                <input type="hidden" name="area" value="default" />
-              </form>
-              <p class="searchtip" style="font-size: 90%">
-              Enter search terms or a module, class or function name.
-              </p>
-          </div>
-          <script type="text/javascript">$('#searchbox').show(0);</script>
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="dbus.html"
+                        title="previous chapter">DBus Support</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="extension_api.html"
+                        title="next chapter">The PyQt5 Extension API</a></p>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
         </div>
       </div>
       <div class="clearer"></div>
@@ -107,7 +111,7 @@ access to any extension module.</p>
           <a href="genindex.html" title="General Index"
              >index</a></li>
         <li class="right" >
-          <a href="modindex.html" title="Global Module Index"
+          <a href="py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
         <li class="right" >
           <a href="extension_api.html" title="The PyQt5 Extension API"
@@ -115,12 +119,12 @@ access to any extension module.</p>
         <li class="right" >
           <a href="dbus.html" title="DBus Support"
              >previous</a> |</li>
-        <li><a href="index.html">PyQt 5.1.1-snapshot-3c895ca14f00 Reference Guide</a> &raquo;</li> 
+        <li><a href="index.html">PyQt 5.2.1 Reference Guide</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer">
-      &copy; Copyright 2013 Riverbank Computing Limited.
-      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 0.6.4.
+        &copy; Copyright 2014 Riverbank Computing Limited.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
     </div>
   </body>
 </html>

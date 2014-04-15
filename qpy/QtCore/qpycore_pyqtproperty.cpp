@@ -1,6 +1,6 @@
 // This is the implementation of pyqtProperty.
 //
-// Copyright (c) 2013 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2014 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -155,7 +155,10 @@ PyTypeObject qpycore_pyqtProperty_Type = {
     0,
     0,
     0,
-    0
+    0,
+#if PY_VERSION_HEX >= 0x03040000
+    0,
+#endif
 };
 
 

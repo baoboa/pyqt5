@@ -5,4 +5,4 @@ QTextListFormat
 
 .. class:: QTextListFormat
 
-    `C++ documentation <http://qt-project.org/doc/qt-5.1/qtgui/qtextlistformat.html>`_
+    `C++ documentation <http://qt-project.org/doc/qt-5.2/qtextlistformat.html>`_

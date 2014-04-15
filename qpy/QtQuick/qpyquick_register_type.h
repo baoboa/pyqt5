@@ -1,6 +1,6 @@
 // This is the declaration of the qml_register_type() helper.
 //
-// Copyright (c) 2013 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2014 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -18,8 +18,8 @@
 // WARRANTY OF DESIGN, MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE.
 
 
-#ifndef _QPYQUICKREGISTERTYPE_H
-#define _QPYQUICKREGISTERTYPE_H
+#ifndef _QPYQUICK_REGISTERTYPE_H
+#define _QPYQUICK_REGISTERTYPE_H
 
 
 #include <Python.h>

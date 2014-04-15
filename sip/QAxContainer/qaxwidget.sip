@@ -1,6 +1,6 @@
 // This is the SIP interface definition for QAxWidget.
 //
-// Copyright (c) 2013 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2014 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -18,9 +18,7 @@
 // WARRANTY OF DESIGN, MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE.
 
 
-%If (WS_WIN)
-
-class QAxWidget : QWidget, QAxBase /PyQt4NoQMetaObject/
+class QAxWidget : QWidget, QAxBase /PyQtNoQMetaObject/
 {
 %TypeHeaderCode
 #include <qaxwidget.h>
@@ -52,5 +50,3 @@ protected:
 
     void connectNotify(const QMetaMethod &);
 };
-
-%End

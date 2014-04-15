@@ -5,4 +5,4 @@ QFileDevice
 
 .. class:: QFileDevice
 
-    `C++ documentation <http://qt-project.org/doc/qt-5.1/qtcore/qfiledevice.html>`_
+    `C++ documentation <http://qt-project.org/doc/qt-5.2/qfiledevice.html>`_

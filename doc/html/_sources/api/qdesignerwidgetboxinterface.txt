@@ -5,4 +5,4 @@ QDesignerWidgetBoxInterface
 
 .. class:: QDesignerWidgetBoxInterface
 
-    `C++ documentation <http://qt-project.org/doc/qt-5.1/qtdesigner/qdesignerwidgetboxinterface.html>`_
+    `C++ documentation <http://qt-project.org/doc/qt-5.2/qdesignerwidgetboxinterface.html>`_

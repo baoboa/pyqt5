@@ -5,4 +5,4 @@ QAudioFormat
 
 .. class:: QAudioFormat
 
-    `C++ documentation <http://qt-project.org/doc/qt-5.1/qtmultimedia/qaudioformat.html>`_
+    `C++ documentation <http://qt-project.org/doc/qt-5.2/qaudioformat.html>`_

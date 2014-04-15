@@ -43,8 +43,9 @@
 
 
 from PyQt5.QtCore import (pyqtSignal, pyqtSlot, Q_ARG, QAbstractItemModel,
-        QFileInfo, QMetaObject, QModelIndex, QObject, Qt, QThread, QTime, QUrl)
-from PyQt5.QtGui import QColor, QImage, QPainter, QPalette
+        QFileInfo, qFuzzyCompare, QMetaObject, QModelIndex, QObject, Qt,
+        QThread, QTime, QUrl)
+from PyQt5.QtGui import QColor, qGray, QImage, QPainter, QPalette
 from PyQt5.QtMultimedia import (QAbstractVideoBuffer, QMediaContent,
         QMediaMetaData, QMediaPlayer, QMediaPlaylist, QVideoFrame, QVideoProbe)
 from PyQt5.QtMultimediaWidgets import QVideoWidget
@@ -281,7 +282,6 @@ class FrameProcessor(QObject):
 
     @pyqtSlot(QVideoFrame, int)
     def processFrame(self, frame, levels):
-        print("In processor processFrame()")
         histogram = [0.0] * levels
 
         if levels and frame.map(QAbstractVideoBuffer.ReadOnly):
@@ -341,12 +341,10 @@ class HistogramWidget(QWidget):
         self.m_levels = levels
 
     def processFrame(self, frame):
-        print("In processFrame()")
         if self.m_isBusy:
             return
 
         self.m_isBusy = True
-        print("Invoking method")
         QMetaObject.invokeMethod(self.m_processor, 'processFrame',
                 Qt.QueuedConnection, Q_ARG(QVideoFrame, frame),
                 Q_ARG(int, self.m_levels))
@@ -368,13 +366,13 @@ class HistogramWidget(QWidget):
         barWidth = self.width() / float(len(self.m_histogram))
 
         for i, value in enumerate(self.m_histogram):
-            h = value * height()
+            h = value * self.height()
             # Draw the level.
-            painter.fillRect(barWidth * i, height() - h, barWidth * (i + 1),
-                    height(), Qt.red)
+            painter.fillRect(barWidth * i, self.height() - h,
+                    barWidth * (i + 1), self.height(), Qt.red)
             # Clear the rest of the control.
-            painter.fillRect(barWidth * i, 0, barWidth * (i + 1), height() - h,
-                    Qt.black)
+            painter.fillRect(barWidth * i, 0, barWidth * (i + 1),
+                    self.height() - h, Qt.black)
 
 
 class Player(QWidget):

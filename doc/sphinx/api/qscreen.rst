@@ -5,4 +5,4 @@ QScreen
 
 .. class:: QScreen
 
-    `C++ documentation <http://qt-project.org/doc/qt-5.1/qtgui/qscreen.html>`_
+    `C++ documentation <http://qt-project.org/doc/qt-5.2/qscreen.html>`_

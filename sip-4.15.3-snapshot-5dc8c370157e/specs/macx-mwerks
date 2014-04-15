@@ -1,0 +1,25 @@
+#
+# qmake configuration for macx-mwerks
+#
+# Mac OS X + Metrowerks compiler
+#
+
+MAKEFILE_GENERATOR	= METROWERKS
+TEMPLATE		= app
+QT			+= core gui
+CONFIG			+= qt release warn_off separate_volume link_prl 
+
+DEFINES			+= QT_NO_STL __MACOSX__ __CF_USE_FRAMEWORK_INCLUDES__
+
+CODEWARRIOR_LINKER	= Mach-O PPC Linker
+QMAKE_EXTENSION_SHLIB	= dylib
+QMAKE_VOLUMENAME	= OS X Volume
+FRAMEWORKPATH		= {System}/Library/Frameworks/
+QMAKE_CRT_OBJECTS	= crt1.o
+QMAKE_INCDIR_QT		= $$[QT_INSTALL_HEADERS]
+QMAKE_LIBS		= -framework System
+QMAKE_INCDIR_OPENGL	= /System/Library/Frameworks/OpenGL.framework/Headers \
+	/System/Library/Frameworks/AGL.framework/Headers/
+QMAKE_LIBS_OPENGL	= -framework OpenGL -framework AGL
+QMAKE_LIBS_OPENGL_QT	= $$QMAKE_LIBS_OPENGL
+load(qt_config)

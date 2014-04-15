@@ -5,4 +5,4 @@ QCameraFocusZone
 
 .. class:: QCameraFocusZone
 
-    `C++ documentation <http://qt-project.org/doc/qt-5.1/qtmultimedia/qcamerafocuszone.html>`_
+    `C++ documentation <http://qt-project.org/doc/qt-5.2/qcamerafocuszone.html>`_

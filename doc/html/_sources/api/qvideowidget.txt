@@ -5,4 +5,4 @@ QVideoWidget
 
 .. class:: QVideoWidget
 
-    `C++ documentation <http://qt-project.org/doc/qt-5.1/qtmultimediawidgets/qvideowidget.html>`_
+    `C++ documentation <http://qt-project.org/doc/qt-5.2/qvideowidget.html>`_

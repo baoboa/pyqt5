@@ -5,4 +5,4 @@ QLocalSocket
 
 .. class:: QLocalSocket
 
-    `C++ documentation <http://qt-project.org/doc/qt-5.1/qtnetwork/qlocalsocket.html>`_
+    `C++ documentation <http://qt-project.org/doc/qt-5.2/qlocalsocket.html>`_

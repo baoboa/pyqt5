@@ -5,4 +5,4 @@ QPressureFilter
 
 .. class:: QPressureFilter
 
-    `C++ documentation <http://qt-project.org/doc/qt-5.1/qtsensors/qpressurefilter.html>`_
+    `C++ documentation <http://qt-project.org/doc/qt-5.2/qpressurefilter.html>`_

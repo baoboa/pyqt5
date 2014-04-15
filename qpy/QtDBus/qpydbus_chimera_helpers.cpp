@@ -1,6 +1,6 @@
 // This is the implementation of the various Chimera helpers.
 //
-// Copyright (c) 2013 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2014 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -18,15 +18,17 @@
 // WARRANTY OF DESIGN, MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE.
 
 
-#include "sipAPIQtDBus.h"
-
-#include "qpydbus_chimera_helpers.h"
+#include <Python.h>
 
 #include <QDBusArgument>
 #include <QDBusObjectPath>
 #include <QDBusSignature>
 #include <QDBusVariant>
 #include <QMetaType>
+
+#include "qpydbus_chimera_helpers.h"
+
+#include "sipAPIQtDBus.h"
 
 
 // Forward declarations.

@@ -5,4 +5,4 @@ QDesignerCustomWidgetInterface
 
 .. class:: QDesignerCustomWidgetInterface
 
-    `C++ documentation <http://qt-project.org/doc/qt-5.1/qtdesigner/qdesignercustomwidgetinterface.html>`_
+    `C++ documentation <http://qt-project.org/doc/qt-5.2/qdesignercustomwidgetinterface.html>`_

@@ -5,4 +5,4 @@ QItemEditorFactory
 
 .. class:: QItemEditorFactory
 
-    `C++ documentation <http://qt-project.org/doc/qt-5.1/qtwidgets/qitemeditorfactory.html>`_
+    `C++ documentation <http://qt-project.org/doc/qt-5.2/qitemeditorfactory.html>`_

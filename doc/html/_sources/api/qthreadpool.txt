@@ -5,4 +5,4 @@ QThreadPool
 
 .. class:: QThreadPool
 
-    `C++ documentation <http://qt-project.org/doc/qt-5.1/qtcore/qthreadpool.html>`_
+    `C++ documentation <http://qt-project.org/doc/qt-5.2/qthreadpool.html>`_

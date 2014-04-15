@@ -3,7 +3,7 @@
 
 #############################################################################
 ##
-## Copyright (C) 2013 Riverbank Computing Limited.
+## Copyright (C) 2014 Riverbank Computing Limited.
 ## Copyright (C) 2010 Nokia Corporation and/or its subsidiary(-ies).
 ## All rights reserved.
 ##
@@ -42,6 +42,7 @@
 #############################################################################
 
 
+import copy
 import random
 
 from PyQt5.QtCore import pyqtSignal, QBasicTimer, QSize, Qt
@@ -329,7 +330,7 @@ class TetrixBoard(QFrame):
             self.update()
 
     def newPiece(self):
-        self.curPiece = self.nextPiece
+        self.curPiece = copy.deepcopy(self.nextPiece)
         self.nextPiece.setRandomShape()
         self.showNextPiece()
         self.curX = TetrixBoard.BoardWidth // 2 + 1
@@ -341,7 +342,7 @@ class TetrixBoard(QFrame):
             self.isStarted = False
 
     def showNextPiece(self):
-        if self.nextPieceLabel is not None:
+        if self.nextPieceLabel is None:
             return
 
         dx = self.nextPiece.maxX() - self.nextPiece.minX() + 1
@@ -349,13 +350,15 @@ class TetrixBoard(QFrame):
 
         pixmap = QPixmap(dx * self.squareWidth(), dy * self.squareHeight())
         painter = QPainter(pixmap)
-        painter.fillRect(pixmap.rect(), self.nextPieceLabel.palette().background())
+        painter.fillRect(pixmap.rect(), self.nextPieceLabel.palette().window())
 
-        for int in range(4):
+        for i in range(4):
             x = self.nextPiece.x(i) - self.nextPiece.minX()
             y = self.nextPiece.y(i) - self.nextPiece.minY()
             self.drawSquare(painter, x * self.squareWidth(),
                     y * self.squareHeight(), self.nextPiece.shape())
+
+        painter.end()
 
         self.nextPieceLabel.setPixmap(pixmap)
 
@@ -406,7 +409,7 @@ class TetrixPiece(object):
     )
 
     def __init__(self):
-        self.coords = [[0,0] for _ in range(4)]
+        self.coords = [[0, 0] for _ in range(4)]
         self.pieceShape = NoShape
 
         self.setShape(NoShape)

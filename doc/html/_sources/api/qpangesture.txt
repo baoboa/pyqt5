@@ -5,4 +5,4 @@ QPanGesture
 
 .. class:: QPanGesture
 
-    `C++ documentation <http://qt-project.org/doc/qt-5.1/qtwidgets/qpangesture.html>`_
+    `C++ documentation <http://qt-project.org/doc/qt-5.2/qpangesture.html>`_

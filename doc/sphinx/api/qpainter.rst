@@ -5,4 +5,4 @@ QPainter
 
 .. class:: QPainter
 
-    `C++ documentation <http://qt-project.org/doc/qt-5.1/qtgui/qpainter.html>`_
+    `C++ documentation <http://qt-project.org/doc/qt-5.2/qpainter.html>`_

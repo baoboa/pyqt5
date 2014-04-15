@@ -5,4 +5,4 @@ QColorDialog
 
 .. class:: QColorDialog
 
-    `C++ documentation <http://qt-project.org/doc/qt-5.1/qtwidgets/qcolordialog.html>`_
+    `C++ documentation <http://qt-project.org/doc/qt-5.2/qcolordialog.html>`_

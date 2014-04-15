@@ -5,4 +5,4 @@ QOpenGLShader
 
 .. class:: QOpenGLShader
 
-    `C++ documentation <http://qt-project.org/doc/qt-5.1/qtgui/qopenglshader.html>`_
+    `C++ documentation <http://qt-project.org/doc/qt-5.2/qopenglshader.html>`_

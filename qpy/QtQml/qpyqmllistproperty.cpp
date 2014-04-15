@@ -1,6 +1,6 @@
 // This is the implementation of the QQmlListProperty class.
 //
-// Copyright (c) 2013 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2014 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -18,13 +18,15 @@
 // WARRANTY OF DESIGN, MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE.
 
 
+#include <Python.h>
+
 #include <QObject>
 #include <QQmlListProperty>
 
-#include "sipAPIQtQml.h"
-
 #include "qpyqmllistproperty.h"
 #include "qpyqml_listdata.h"
+
+#include "sipAPIQtQml.h"
 
 
 // Forward declarations.
@@ -101,6 +103,9 @@ PyTypeObject qpyqml_QQmlListProperty_Type = {
     0,
     0,
     0,
+#if PY_VERSION_HEX >= 0x03040000
+    0,
+#endif
 };
 
 

@@ -5,4 +5,4 @@ QWizardPage
 
 .. class:: QWizardPage
 
-    `C++ documentation <http://qt-project.org/doc/qt-5.1/qtwidgets/qwizardpage.html>`_
+    `C++ documentation <http://qt-project.org/doc/qt-5.2/qwizardpage.html>`_

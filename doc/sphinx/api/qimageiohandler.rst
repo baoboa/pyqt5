@@ -5,4 +5,4 @@ QImageIOHandler
 
 .. class:: QImageIOHandler
 
-    `C++ documentation <http://qt-project.org/doc/qt-5.1/qtgui/qimageiohandler.html>`_
+    `C++ documentation <http://qt-project.org/doc/qt-5.2/qimageiohandler.html>`_

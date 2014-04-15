@@ -5,4 +5,4 @@ QMediaContent
 
 .. class:: QMediaContent
 
-    `C++ documentation <http://qt-project.org/doc/qt-5.1/qtmultimedia/qmediacontent.html>`_
+    `C++ documentation <http://qt-project.org/doc/qt-5.2/qmediacontent.html>`_

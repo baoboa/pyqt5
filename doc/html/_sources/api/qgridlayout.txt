@@ -5,4 +5,4 @@ QGridLayout
 
 .. class:: QGridLayout
 
-    `C++ documentation <http://qt-project.org/doc/qt-5.1/qtwidgets/qgridlayout.html>`_
+    `C++ documentation <http://qt-project.org/doc/qt-5.2/qgridlayout.html>`_

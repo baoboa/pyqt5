@@ -1,28 +1,32 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
+
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Support for OpenGL &mdash; PyQt 5.1.1-snapshot-3c895ca14f00 Reference Guide</title>
+    <title>Support for OpenGL &mdash; PyQt 5.2.1 Reference Guide</title>
+    
     <link rel="stylesheet" href="_static/default.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    '#',
-        VERSION:     '5.1.1-snapshot-3c895ca14f00',
-        COLLAPSE_MODINDEX: false,
+        URL_ROOT:    './',
+        VERSION:     '5.2.1',
+        COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
       };
     </script>
     <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
     <link rel="shortcut icon" href="_static/logo_tn.ico"/>
-    <link rel="top" title="PyQt 5.1.1-snapshot-3c895ca14f00 Reference Guide" href="index.html" />
+    <link rel="top" title="PyQt 5.2.1 Reference Guide" href="index.html" />
     <link rel="next" title="Support for Qt Interfaces" href="qt_interfaces.html" />
-    <link rel="prev" title="Support for Qt Properties" href="qt_properties.html" /> 
+    <link rel="prev" title="Other Support for Dynamic Meta-objects" href="metaobjects.html" /> 
   </head>
   <body>
     <div class="related">
@@ -32,15 +36,15 @@
           <a href="genindex.html" title="General Index"
              accesskey="I">index</a></li>
         <li class="right" >
-          <a href="modindex.html" title="Global Module Index"
-             accesskey="M">modules</a> |</li>
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
         <li class="right" >
           <a href="qt_interfaces.html" title="Support for Qt Interfaces"
              accesskey="N">next</a> |</li>
         <li class="right" >
-          <a href="qt_properties.html" title="Support for Qt Properties"
+          <a href="metaobjects.html" title="Other Support for Dynamic Meta-objects"
              accesskey="P">previous</a> |</li>
-        <li><a href="index.html">PyQt 5.1.1-snapshot-3c895ca14f00 Reference Guide</a> &raquo;</li> 
+        <li><a href="index.html">PyQt 5.2.1 Reference Guide</a> &raquo;</li> 
       </ul>
     </div>  
 
@@ -54,14 +58,14 @@
 <p>When compiled against Qt v5.1 or later, PyQt5 implements a set of either
 desktop QOpenGL bindings or OpenGL ES v2 bindings depending on how Qt was
 configured.  This removes the dependency on any third-party OpenGL bindings
-such as <tt class="xref docutils literal"><span class="pre">PyOpenGL</span></tt>.</p>
+such as <tt class="xref py py-mod docutils literal"><span class="pre">PyOpenGL</span></tt>.</p>
 <p>At the moment the desktop bindings are for OpenGL v2.0 and are mostly complete.
 Other versions will be added in later releases.  If there are calls which you
 need, but are currently unsupported, then please ask for the support to be
 added.</p>
 <p>Obtaining an object that implements the bindings for a particular OpenGL
 version and profile is done in the same way as it is done from C++, i.e. by
-calling <tt class="xref docutils literal"><span class="pre">versionFunctions()</span></tt>.  In addition, the
+calling <tt class="xref py py-meth docutils literal"><span class="pre">versionFunctions()</span></tt>.  In addition, the
 bindings object also contains attributes corresponding to all of the OpenGL
 constants.</p>
 </div>
@@ -75,25 +79,25 @@ constants.</p>
             <p class="logo"><a href="index.html">
               <img class="logo" src="_static/logo.png" alt="Logo"/>
             </a></p>
-            <h4>Previous topic</h4>
-            <p class="topless"><a href="qt_properties.html"
-                                  title="previous chapter">Support for Qt Properties</a></p>
-            <h4>Next topic</h4>
-            <p class="topless"><a href="qt_interfaces.html"
-                                  title="next chapter">Support for Qt Interfaces</a></p>
-          <div id="searchbox" style="display: none">
-            <h3>Quick search</h3>
-              <form class="search" action="search.html" method="get">
-                <input type="text" name="q" size="18" />
-                <input type="submit" value="Go" />
-                <input type="hidden" name="check_keywords" value="yes" />
-                <input type="hidden" name="area" value="default" />
-              </form>
-              <p class="searchtip" style="font-size: 90%">
-              Enter search terms or a module, class or function name.
-              </p>
-          </div>
-          <script type="text/javascript">$('#searchbox').show(0);</script>
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="metaobjects.html"
+                        title="previous chapter">Other Support for Dynamic Meta-objects</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="qt_interfaces.html"
+                        title="next chapter">Support for Qt Interfaces</a></p>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
         </div>
       </div>
       <div class="clearer"></div>
@@ -105,20 +109,20 @@ constants.</p>
           <a href="genindex.html" title="General Index"
              >index</a></li>
         <li class="right" >
-          <a href="modindex.html" title="Global Module Index"
+          <a href="py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
         <li class="right" >
           <a href="qt_interfaces.html" title="Support for Qt Interfaces"
              >next</a> |</li>
         <li class="right" >
-          <a href="qt_properties.html" title="Support for Qt Properties"
+          <a href="metaobjects.html" title="Other Support for Dynamic Meta-objects"
              >previous</a> |</li>
-        <li><a href="index.html">PyQt 5.1.1-snapshot-3c895ca14f00 Reference Guide</a> &raquo;</li> 
+        <li><a href="index.html">PyQt 5.2.1 Reference Guide</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer">
-      &copy; Copyright 2013 Riverbank Computing Limited.
-      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 0.6.4.
+        &copy; Copyright 2014 Riverbank Computing Limited.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
     </div>
   </body>
 </html>

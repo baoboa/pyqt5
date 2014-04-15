@@ -1,6 +1,6 @@
 // This contains the support for QOpenGL value arrays.
 //
-// Copyright (c) 2013 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2014 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -21,6 +21,12 @@
 #include <Python.h>
 
 #include "sipAPIQtGui.h"
+
+#if defined(SIP_FEATURE_PyQt_OpenGL)
+
+#include <QtGlobal>
+
+#if QT_VERSION >= 0x050100
 
 #include "qpyopengl_api.h"
 #include "qpyopengl_data_cache.h"
@@ -415,3 +421,8 @@ static void convert_double(PyObject *itm, void *array, SIP_SSIZE_T i)
 {
     reinterpret_cast<GLdouble *>(array)[i] = PyFloat_AsDouble(itm);
 }
+
+#endif
+
+
+#endif

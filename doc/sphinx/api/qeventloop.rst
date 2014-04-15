@@ -5,4 +5,4 @@ QEventLoop
 
 .. class:: QEventLoop
 
-    `C++ documentation <http://qt-project.org/doc/qt-5.1/qtcore/qeventloop.html>`_
+    `C++ documentation <http://qt-project.org/doc/qt-5.2/qeventloop.html>`_

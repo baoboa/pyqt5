@@ -5,4 +5,4 @@ QHostInfo
 
 .. class:: QHostInfo
 
-    `C++ documentation <http://qt-project.org/doc/qt-5.1/qtnetwork/qhostinfo.html>`_
+    `C++ documentation <http://qt-project.org/doc/qt-5.2/qhostinfo.html>`_

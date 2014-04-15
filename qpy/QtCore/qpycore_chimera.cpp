@@ -1,6 +1,6 @@
 // This is the implementation of the Chimera class.
 //
-// Copyright (c) 2013 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2014 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -27,12 +27,13 @@
 #include "qpycore_chimera.h"
 #include "qpycore_misc.h"
 #include "qpycore_pyqtpyobject.h"
-#include "qpycore_sip.h"
 #include "qpycore_types.h"
+
+#include "sipAPIQtCore.h"
 
 
 // The registered int types.
-QList<QByteArray> Chimera::_registered_int_types;
+QList<PyObject *> Chimera::_registered_int_types;
 
 // The cache of previously parsed argument type lists.
 QHash<QByteArray, QList<const Chimera *> > Chimera::_previously_parsed;
@@ -78,13 +79,14 @@ Chimera::~Chimera()
 }
 
 
-// Register the name of an int type.
-void Chimera::registerIntType(const char *name)
+// Register the type of an int type.
+void Chimera::registerIntType(PyObject *int_type)
 {
-    QByteArray name_ba(name);
-
-    if (!_registered_int_types.contains(name_ba))
-        _registered_int_types.append(name_ba);
+    if (!_registered_int_types.contains(int_type))
+    {
+        Py_INCREF(int_type);
+        _registered_int_types.append(int_type);
+    }
 }
 
 
@@ -430,6 +432,10 @@ bool Chimera::parse_py_type(PyTypeObject *type_obj)
             }
         }
     }
+    else if (_registered_int_types.contains((PyObject *)type_obj))
+    {
+        _metatype = QMetaType::Int;
+    }
 #if PY_MAJOR_VERSION >= 3
     else if (type_obj == &PyUnicode_Type)
     {
@@ -493,12 +499,12 @@ bool Chimera::parse_py_type(PyTypeObject *type_obj)
 // Set the internal flag flag.
 void Chimera::set_flag()
 {
-    if (qpycore_is_pyqt4_class(_type))
-        _is_flag = ((pyqt4ClassTypeDef *)_type)->qt4_flags & 0x01;
+    if (qpycore_is_pyqt_class(_type))
+        _is_flag = ((pyqt5ClassTypeDef *)_type)->flags & 0x01;
 }
 
 
-// Update a C++ type so that any typedefs and registered ints are resolved.
+// Update a C++ type so that any typedefs are resolved.
 QByteArray Chimera::resolve_types(const QByteArray &type)
 {
     // Split into a base type and a possible list of template arguments.
@@ -585,10 +591,6 @@ QByteArray Chimera::resolve_types(const QByteArray &type)
 
     if (base_type)
         raw_type = base_type;
-
-    // Do the same for any registered int types.
-    if (_registered_int_types.contains(raw_type))
-        raw_type = "int";
 
     // Add any (now resolved) template arguments.
     if (args.count() > 0)

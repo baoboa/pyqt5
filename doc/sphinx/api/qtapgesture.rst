@@ -5,4 +5,4 @@ QTapGesture
 
 .. class:: QTapGesture
 
-    `C++ documentation <http://qt-project.org/doc/qt-5.1/qtwidgets/qtapgesture.html>`_
+    `C++ documentation <http://qt-project.org/doc/qt-5.2/qtapgesture.html>`_

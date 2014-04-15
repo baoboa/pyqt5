@@ -5,4 +5,4 @@ QNetworkProxyFactory
 
 .. class:: QNetworkProxyFactory
 
-    `C++ documentation <http://qt-project.org/doc/qt-5.1/qtnetwork/qnetworkproxyfactory.html>`_
+    `C++ documentation <http://qt-project.org/doc/qt-5.2/qnetworkproxyfactory.html>`_

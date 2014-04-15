@@ -5,4 +5,4 @@ QInputDialog
 
 .. class:: QInputDialog
 
-    `C++ documentation <http://qt-project.org/doc/qt-5.1/qtwidgets/qinputdialog.html>`_
+    `C++ documentation <http://qt-project.org/doc/qt-5.2/qinputdialog.html>`_

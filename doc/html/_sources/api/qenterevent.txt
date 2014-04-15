@@ -5,4 +5,4 @@ QEnterEvent
 
 .. class:: QEnterEvent
 
-    `C++ documentation <http://qt-project.org/doc/qt-5.1/qtgui/qenterevent.html>`_
+    `C++ documentation <http://qt-project.org/doc/qt-5.2/qenterevent.html>`_

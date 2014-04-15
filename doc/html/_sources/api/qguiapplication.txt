@@ -5,4 +5,4 @@ QGuiApplication
 
 .. class:: QGuiApplication
 
-    `C++ documentation <http://qt-project.org/doc/qt-5.1/qtgui/qguiapplication.html>`_
+    `C++ documentation <http://qt-project.org/doc/qt-5.2/qguiapplication.html>`_

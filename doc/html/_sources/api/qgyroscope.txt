@@ -5,4 +5,4 @@ QGyroscope
 
 .. class:: QGyroscope
 
-    `C++ documentation <http://qt-project.org/doc/qt-5.1/qtsensors/qgyroscope.html>`_
+    `C++ documentation <http://qt-project.org/doc/qt-5.2/qgyroscope.html>`_

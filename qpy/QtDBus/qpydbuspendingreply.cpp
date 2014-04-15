@@ -1,6 +1,6 @@
 // This is the implementation of the QPyDBusPendingReply class.
 //
-// Copyright (c) 2013 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2014 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -20,9 +20,9 @@
 
 #include <Python.h>
 
-#include "sipAPIQtDBus.h"
-
 #include "qpydbuspendingreply.h"
+
+#include "sipAPIQtDBus.h"
 
 
 // Default ctor.

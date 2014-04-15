@@ -1,6 +1,6 @@
 // This defines the OpenGL related API provided by this library.
 //
-// Copyright (c) 2013 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2014 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -23,10 +23,16 @@
 
 
 #include <Python.h>
-#include <sip.h>
+
+#include "sipAPIQtGui.h"
+
+#if defined(SIP_FEATURE_PyQt_OpenGL)
 
 #include <QOpenGLContext>
+
+#if QT_VERSION >= 0x050100
 #include <QOpenGLVersionProfile>
+#endif
 
 
 // Initialisation.
@@ -39,10 +45,13 @@ const void *qpyopengl_uniform_value_array(PyObject *values, PyObject *shader,
         PyObject *key, const sipTypeDef **array_type, int *array_len,
         int *tsize, sipErrorState *estate);
 
+#if QT_VERSION >= 0x050100
 // Support for QOpenGLContext.versionFunctions().
 PyObject *qpyopengl_version_functions(const QOpenGLContext *context,
         PyObject *py_context, const QOpenGLVersionProfile *version_profile);
+#endif
 
+#if QT_VERSION >= 0x050100
 // Support for the OpenGL bindings.
 const GLvoid *qpyopengl_value_array(sipErrorState *estate, PyObject *values,
         GLenum gl_type, PyObject *bindings);
@@ -59,5 +68,10 @@ PyObject *qpyopengl_from_GLfloat(int *eflag, const GLfloat *array,
         SIP_SSIZE_T len);
 PyObject *qpyopengl_from_GLdouble(int *eflag, const GLdouble *array,
         SIP_SSIZE_T len);
+#endif
+
+
+#endif
+
 
 #endif

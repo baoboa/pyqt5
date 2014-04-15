@@ -1,6 +1,6 @@
 // This is the initialisation support code for the QtGui module.
 //
-// Copyright (c) 2013 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2014 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -22,6 +22,8 @@
 
 #include "sipAPIQtGui.h"
 
+#if defined(SIP_FEATURE_PyQt_OpenGL)
+
 #include "qpyopengl_api.h"
 #include "qpyopengl_data_cache.h"
 
@@ -35,6 +37,7 @@ void qpyopengl_init()
 
     // Export the private helpers, ie. those that should not be used by
     // external handwritten code.
+#if QT_VERSION >= 0x050100
     sipExportSymbol("qpyopengl_value_array", (void *)qpyopengl_value_array);
     sipExportSymbol("qpyopengl_value_array_cached",
             (void *)qpyopengl_value_array_cached);
@@ -45,4 +48,8 @@ void qpyopengl_init()
     sipExportSymbol("qpyopengl_from_GLfloat", (void *)qpyopengl_from_GLfloat);
     sipExportSymbol("qpyopengl_from_GLdouble",
             (void *)qpyopengl_from_GLdouble);
+#endif
 }
+
+
+#endif

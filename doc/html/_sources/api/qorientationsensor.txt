@@ -5,4 +5,4 @@ QOrientationSensor
 
 .. class:: QOrientationSensor
 
-    `C++ documentation <http://qt-project.org/doc/qt-5.1/qtsensors/qorientationsensor.html>`_
+    `C++ documentation <http://qt-project.org/doc/qt-5.2/qorientationsensor.html>`_

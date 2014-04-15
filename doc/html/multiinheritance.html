@@ -1,26 +1,30 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
+
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Support for Cooperative Multi-inheritance &mdash; PyQt 5.1.1-snapshot-3c895ca14f00 Reference Guide</title>
+    <title>Support for Cooperative Multi-inheritance &mdash; PyQt 5.2.1 Reference Guide</title>
+    
     <link rel="stylesheet" href="_static/default.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    '#',
-        VERSION:     '5.1.1-snapshot-3c895ca14f00',
-        COLLAPSE_MODINDEX: false,
+        URL_ROOT:    './',
+        VERSION:     '5.2.1',
+        COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
       };
     </script>
     <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
     <link rel="shortcut icon" href="_static/logo_tn.ico"/>
-    <link rel="top" title="PyQt 5.1.1-snapshot-3c895ca14f00 Reference Guide" href="index.html" />
+    <link rel="top" title="PyQt 5.2.1 Reference Guide" href="index.html" />
     <link rel="next" title="Things to be Aware Of" href="gotchas.html" />
     <link rel="prev" title="Integrating Python and QML" href="qml.html" /> 
   </head>
@@ -32,15 +36,15 @@
           <a href="genindex.html" title="General Index"
              accesskey="I">index</a></li>
         <li class="right" >
-          <a href="modindex.html" title="Global Module Index"
-             accesskey="M">modules</a> |</li>
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
         <li class="right" >
           <a href="gotchas.html" title="Things to be Aware Of"
              accesskey="N">next</a> |</li>
         <li class="right" >
           <a href="qml.html" title="Integrating Python and QML"
              accesskey="P">previous</a> |</li>
-        <li><a href="index.html">PyQt 5.1.1-snapshot-3c895ca14f00 Reference Guide</a> &raquo;</li> 
+        <li><a href="index.html">PyQt 5.2.1 Reference Guide</a> &raquo;</li> 
       </ul>
     </div>  
 
@@ -69,11 +73,12 @@ use <tt class="docutils literal"><span class="pre">super()</span></tt> to invoke
 post for some more background on the subject.</p>
 <p>As an example, let&#8217;s say we have a class that represents a person, and that a
 person has a name.  The following might be an initial implementation:</p>
-<div class="highlight-python"><pre>class Person(QObject):
+<div class="highlight-python"><div class="highlight"><pre>class Person(QObject):
     def __init__(self, name, parent=None)
         QObject.__init__(self, parent)
 
-        self.name = name</pre>
+        self.name = name
+</pre></div>
 </div>
 <p>An instance would normally be created in one of the following ways:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="n">person</span> <span class="o">=</span> <span class="n">Person</span><span class="p">(</span><span class="s">&quot;Joe&quot;</span><span class="p">)</span>
@@ -82,7 +87,7 @@ person has a name.  The following might be an initial implementation:</p>
 </div>
 <p>This approach has some limitations:</p>
 <ul class="simple">
-<li>Only a sub-set of the <a title="PyQt5.QtCore.QObject" class="reference external" href="api/qobject.html#PyQt5.QtCore.QObject"><tt class="xref docutils literal"><span class="pre">QObject</span></tt></a> API is exposed.  For
+<li>Only a sub-set of the <a class="reference internal" href="api/qobject.html#PyQt5.QtCore.QObject" title="PyQt5.QtCore.QObject"><tt class="xref py py-class docutils literal"><span class="pre">QObject</span></tt></a> API is exposed.  For
 example you cannot set the value of a Qt property or connect a signal by
 passing appropriate keyword arguments to <tt class="docutils literal"><span class="pre">Person.__init__</span></tt>.</li>
 <li>Adding another class to <tt class="docutils literal"><span class="pre">Person</span></tt>&#8216;s list of super-classes means that its
@@ -157,25 +162,25 @@ more typing, it significantly increases the readability of application code.</p>
             <p class="logo"><a href="index.html">
               <img class="logo" src="_static/logo.png" alt="Logo"/>
             </a></p>
-            <h4>Previous topic</h4>
-            <p class="topless"><a href="qml.html"
-                                  title="previous chapter">Integrating Python and QML</a></p>
-            <h4>Next topic</h4>
-            <p class="topless"><a href="gotchas.html"
-                                  title="next chapter">Things to be Aware Of</a></p>
-          <div id="searchbox" style="display: none">
-            <h3>Quick search</h3>
-              <form class="search" action="search.html" method="get">
-                <input type="text" name="q" size="18" />
-                <input type="submit" value="Go" />
-                <input type="hidden" name="check_keywords" value="yes" />
-                <input type="hidden" name="area" value="default" />
-              </form>
-              <p class="searchtip" style="font-size: 90%">
-              Enter search terms or a module, class or function name.
-              </p>
-          </div>
-          <script type="text/javascript">$('#searchbox').show(0);</script>
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="qml.html"
+                        title="previous chapter">Integrating Python and QML</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="gotchas.html"
+                        title="next chapter">Things to be Aware Of</a></p>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
         </div>
       </div>
       <div class="clearer"></div>
@@ -187,7 +192,7 @@ more typing, it significantly increases the readability of application code.</p>
           <a href="genindex.html" title="General Index"
              >index</a></li>
         <li class="right" >
-          <a href="modindex.html" title="Global Module Index"
+          <a href="py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
         <li class="right" >
           <a href="gotchas.html" title="Things to be Aware Of"
@@ -195,12 +200,12 @@ more typing, it significantly increases the readability of application code.</p>
         <li class="right" >
           <a href="qml.html" title="Integrating Python and QML"
              >previous</a> |</li>
-        <li><a href="index.html">PyQt 5.1.1-snapshot-3c895ca14f00 Reference Guide</a> &raquo;</li> 
+        <li><a href="index.html">PyQt 5.2.1 Reference Guide</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer">
-      &copy; Copyright 2013 Riverbank Computing Limited.
-      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 0.6.4.
+        &copy; Copyright 2014 Riverbank Computing Limited.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
     </div>
   </body>
 </html>

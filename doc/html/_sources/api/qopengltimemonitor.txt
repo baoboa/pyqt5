@@ -5,4 +5,4 @@ QOpenGLTimeMonitor
 
 .. class:: QOpenGLTimeMonitor
 
-    `C++ documentation <http://qt-project.org/doc/qt-5.1/qtgui/qopengltimemonitor.html>`_
+    `C++ documentation <http://qt-project.org/doc/qt-5.2/qopengltimemonitor.html>`_

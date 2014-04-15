@@ -1,26 +1,30 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
+
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>The PyQt5 Extension API &mdash; PyQt 5.1.1-snapshot-3c895ca14f00 Reference Guide</title>
+    <title>The PyQt5 Extension API &mdash; PyQt 5.2.1 Reference Guide</title>
+    
     <link rel="stylesheet" href="_static/default.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    '#',
-        VERSION:     '5.1.1-snapshot-3c895ca14f00',
-        COLLAPSE_MODINDEX: false,
+        URL_ROOT:    './',
+        VERSION:     '5.2.1',
+        COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
       };
     </script>
     <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
     <link rel="shortcut icon" href="_static/logo_tn.ico"/>
-    <link rel="top" title="PyQt 5.1.1-snapshot-3c895ca14f00 Reference Guide" href="index.html" />
+    <link rel="top" title="PyQt 5.2.1 Reference Guide" href="index.html" />
     <link rel="prev" title="Deploying Commercial PyQt5 Applications" href="deploy_commercial.html" /> 
   </head>
   <body>
@@ -31,12 +35,12 @@
           <a href="genindex.html" title="General Index"
              accesskey="I">index</a></li>
         <li class="right" >
-          <a href="modindex.html" title="Global Module Index"
-             accesskey="M">modules</a> |</li>
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
         <li class="right" >
           <a href="deploy_commercial.html" title="Deploying Commercial PyQt5 Applications"
              accesskey="P">previous</a> |</li>
-        <li><a href="index.html">PyQt 5.1.1-snapshot-3c895ca14f00 Reference Guide</a> &raquo;</li> 
+        <li><a href="index.html">PyQt 5.2.1 Reference Guide</a> &raquo;</li> 
       </ul>
     </div>  
 
@@ -56,28 +60,279 @@ the advantage of sharing code and also enforcing consistent behaviour.  Part of
 the API is accessable from Python and part from C++.</p>
 <div class="section" id="python-api">
 <h2>Python API<a class="headerlink" href="#python-api" title="Permalink to this headline">¶</a></h2>
-<p>The Python part of the API is accessible via the <a title="" class="reference external" href="introduction.html#module-PyQt5.QtCore"><tt class="xref docutils literal"><span class="pre">QtCore</span></tt></a> module
+<p>The Python part of the API is accessible via the <a class="reference internal" href="introduction.html#module-PyQt5.QtCore" title="PyQt5.QtCore"><tt class="xref py py-mod docutils literal"><span class="pre">QtCore</span></tt></a> module
 and is typically used by an extension module&#8217;s equivalent of PyQt5&#8217;s
-<strong>configure.py</strong>.</p>
-<p>The API consists of <tt class="xref docutils literal"><span class="pre">PyQt5.QtCore.PYQT_CONFIGURATION</span></tt> which is a dict
+<strong class="program">configure.py</strong>.</p>
+<p>The API consists of <tt class="xref py py-attr docutils literal"><span class="pre">PyQt5.QtCore.PYQT_CONFIGURATION</span></tt> which is a dict
 that describes how PyQt5 was configured.  At the moment it contains a single
 value called <tt class="docutils literal"><span class="pre">sip_flags</span></tt> which is a string containing the <tt class="docutils literal"><span class="pre">-t</span></tt> and <tt class="docutils literal"><span class="pre">-x</span></tt>
-flags that were passed to the <strong>sip</strong> executable by
-<strong>configure.py</strong>.  Other extension modules must use the same flags in
+flags that were passed to the <strong class="program">sip</strong> executable by
+<strong class="program">configure.py</strong>.  Other extension modules must use the same flags in
 their configuration.</p>
-<p>This information is also provided by SIP v4&#8217;s <tt class="xref docutils literal"><span class="pre">sipconfig</span></tt> module.
+<p>This information is also provided by SIP v4&#8217;s <tt class="xref py py-mod docutils literal"><span class="pre">sipconfig</span></tt> module.
 However this module will not be implemented by SIP v5.</p>
 </div>
 <div class="section" id="c-api">
 <h2>C++ API<a class="headerlink" href="#c-api" title="Permalink to this headline">¶</a></h2>
 <p>The C++ API is a set of functions.  The addresses of each function is obtained
-by calling SIP&#8217;s <a href="#id1"><span class="problematic" id="id2">:c:func:`sipImportSymbol`</span></a> function with the name of the
+by calling SIP&#8217;s <tt class="xref c c-func docutils literal"><span class="pre">sipImportSymbol()</span></tt> function with the name of the
 function required.</p>
 <p>Several of the functions are provided as a replacement for SIP v4 features
 (i.e. <tt class="docutils literal"><span class="pre">SIP_ANYSLOT</span></tt>, <tt class="docutils literal"><span class="pre">SIP_QOBJECT</span></tt>, <tt class="docutils literal"><span class="pre">SIP_RXOBJ_CON</span></tt>, <tt class="docutils literal"><span class="pre">SIP_RXOBJ_DIS</span></tt>,
 <tt class="docutils literal"><span class="pre">SIP_SIGNAL</span></tt>, <tt class="docutils literal"><span class="pre">SIP_SLOT</span></tt>, <tt class="docutils literal"><span class="pre">SIP_SLOT_CON</span></tt> and <tt class="docutils literal"><span class="pre">SIP_SLOT_DIS</span></tt>) that will
 not be supported by SIP v5.</p>
 <p>The functions exported by PyQt5 are as follows:</p>
+<dl class="function">
+<dt id="pyqt5_from_argv_list__PyObjectP.iR">
+char** <tt class="descname">pyqt5_from_argv_list</tt><big>(</big>PyObject* <em>argv_list</em>, int&amp; <em>argc</em><big>)</big><a class="headerlink" href="#pyqt5_from_argv_list__PyObjectP.iR" title="Permalink to this definition">¶</a></dt>
+<dd><p>Convert a Python list to a standard C array of command line arguments and
+an argument count.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>argv_list</strong> &#8211; is the Python list of arguments.</li>
+<li><strong>argc</strong> &#8211; is updated with the number of arguments in the list.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">an array of pointers to the arguments on the heap.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="pyqt5_from_qvariant_by_type__QVariantR.PyObjectP">
+PyObject* <tt class="descname">pyqt5_from_qvariant_by_type</tt><big>(</big>QVariant&amp; <em>value</em>, PyObject* <em>type</em><big>)</big><a class="headerlink" href="#pyqt5_from_qvariant_by_type__QVariantR.PyObjectP" title="Permalink to this definition">¶</a></dt>
+<dd><p>Convert a <a class="reference internal" href="api/qvariant.html#PyQt5.QtCore.QVariant" title="PyQt5.QtCore.QVariant"><tt class="xref py py-class docutils literal"><span class="pre">QVariant</span></tt></a> to a Python object according to
+an optional Python type.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>value</strong> &#8211; is the value to convert.</li>
+<li><strong>type</strong> &#8211; is the Python type.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">the converted value.  If it is <tt class="docutils literal"><span class="pre">0</span></tt> then a Python exception will have
+been raised.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="pyqt5_get_connection_parts__PyObjectP.QObjectP.cCP.b.QObjectPP.QByteArrayR">
+sipErrorState <tt class="descname">pyqt5_get_connection_parts</tt><big>(</big>PyObject* <em>slot</em>, QObject* <em>transmitter</em>, const char* <em>signal_signature</em>, bool <em>single_shot</em>, QObject** <em>receiver</em>, QByteArray&amp; <em>slot_signature</em><big>)</big><a class="headerlink" href="#pyqt5_get_connection_parts__PyObjectP.QObjectP.cCP.b.QObjectPP.QByteArrayR" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the receiver object and slot signature to allow a signal to be
+connected to an optional transmitter.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>slot</strong> &#8211; is the slot and should be a callable or a bound signal.</li>
+<li><strong>transmitter</strong> &#8211; is the optional <a class="reference internal" href="api/qobject.html#PyQt5.QtCore.QObject" title="PyQt5.QtCore.QObject"><tt class="xref py py-class docutils literal"><span class="pre">QObject</span></tt></a> transmitter.</li>
+<li><strong>signal_signature</strong> &#8211; is the signature of the signal to be connected.</li>
+<li><strong>single_shot</strong> &#8211; is <tt class="docutils literal"><span class="pre">true</span></tt> if the signal will only ever be emitted once.</li>
+<li><strong>receiver</strong> &#8211; is updated with the <a class="reference internal" href="api/qobject.html#PyQt5.QtCore.QObject" title="PyQt5.QtCore.QObject"><tt class="xref py py-class docutils literal"><span class="pre">QObject</span></tt></a> receiver.  This may
+be a proxy if the slot requires it.</li>
+<li><strong>slot_signature</strong> &#8211; is updated with the signature of the slot.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">the error state.  If this is <tt class="xref c c-data docutils literal"><span class="pre">sipErrorFail</span></tt> then a Python
+exception will have been raised.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="pyqt5_get_qmetaobject__PyTypeObjectP">
+const QMetaObject* <tt class="descname">pyqt5_get_qmetaobject</tt><big>(</big>PyTypeObject* <em>type</em><big>)</big><a class="headerlink" href="#pyqt5_get_qmetaobject__PyTypeObjectP" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the QMetaObject instance for a Python type.  The Python type must be a
+sub-type of <a class="reference internal" href="api/qobject.html#PyQt5.QtCore.QObject" title="PyQt5.QtCore.QObject"><tt class="xref py py-class docutils literal"><span class="pre">QObject</span></tt></a>&#8216;s Python type.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">Parameters type:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">is the Python type object.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">the <a class="reference internal" href="api/qmetaobject.html#PyQt5.QtCore.QMetaObject" title="PyQt5.QtCore.QMetaObject"><tt class="xref py py-class docutils literal"><span class="pre">QMetaObject</span></tt></a>.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="pyqt5_get_pyqtsignal_parts__PyObjectP.QObjectPP.QByteArrayR">
+sipErrorState <tt class="descname">pyqt5_get_pyqtsignal_parts</tt><big>(</big>PyObject* <em>signal</em>, QObject** <em>transmitter</em>, QByteArray&amp; <em>signal_signature</em><big>)</big><a class="headerlink" href="#pyqt5_get_pyqtsignal_parts__PyObjectP.QObjectPP.QByteArrayR" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the transmitter object and signal signature from a bound signal.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>signal</strong> &#8211; is the bound signal.</li>
+<li><strong>transmitter</strong> &#8211; is updated with the <a class="reference internal" href="api/qobject.html#PyQt5.QtCore.QObject" title="PyQt5.QtCore.QObject"><tt class="xref py py-class docutils literal"><span class="pre">QObject</span></tt></a> transmitter.</li>
+<li><strong>signal_signature</strong> &#8211; is updated with the signature of the signal.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">the error state.  If this is <tt class="xref c c-data docutils literal"><span class="pre">sipErrorFail</span></tt> then a Python
+exception will have been raised.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="pyqt5_get_pyqtslot_parts__PyObjectP.QObjectPP.QByteArrayR">
+sipErrorState <tt class="descname">pyqt5_get_pyqtslot_parts</tt><big>(</big>PyObject* <em>slot</em>, QObject** <em>receiver</em>, QByteArray&amp; <em>slot_signature</em><big>)</big><a class="headerlink" href="#pyqt5_get_pyqtslot_parts__PyObjectP.QObjectPP.QByteArrayR" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the receiver object and slot signature from a callable decorated with
+<a class="reference internal" href="signals_slots.html#PyQt5.QtCore.pyqtSlot" title="PyQt5.QtCore.pyqtSlot"><tt class="xref py py-func docutils literal"><span class="pre">pyqtSlot()</span></tt></a>.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>slot</strong> &#8211; is the callable slot.</li>
+<li><strong>receiver</strong> &#8211; is updated with the <a class="reference internal" href="api/qobject.html#PyQt5.QtCore.QObject" title="PyQt5.QtCore.QObject"><tt class="xref py py-class docutils literal"><span class="pre">QObject</span></tt></a> receiver.</li>
+<li><strong>slot_signature</strong> &#8211; is updated with the signature of the slot.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">the error state.  If this is <tt class="xref c c-data docutils literal"><span class="pre">sipErrorFail</span></tt> then a Python
+exception will have been raised.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="pyqt5_get_signal_signature__PyObjectP.QObjectCP.QByteArrayR">
+sipErrorState <tt class="descname">pyqt5_get_signal_signature</tt><big>(</big>PyObject* <em>signal</em>, const QObject* <em>transmitter</em>, QByteArray&amp; <em>signal_signature</em><big>)</big><a class="headerlink" href="#pyqt5_get_signal_signature__PyObjectP.QObjectCP.QByteArrayR" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the signature string for a bound or unbound signal.  If the signal is
+bound then it must be bound to the given transmitter.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>signal</strong> &#8211; is the signal.</li>
+<li><strong>transmitter</strong> &#8211; is the <a class="reference internal" href="api/qobject.html#PyQt5.QtCore.QObject" title="PyQt5.QtCore.QObject"><tt class="xref py py-class docutils literal"><span class="pre">QObject</span></tt></a> transmitter.</li>
+<li><strong>signal_signature</strong> &#8211; is updated with the signature of the signal.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">the error state.  If this is <tt class="xref c c-data docutils literal"><span class="pre">sipErrorFail</span></tt> then a Python
+exception will have been raised.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt>
+<tt class="descname">void pyqt5_register_from_qvariant_convertor(bool (*convertor)(const QVariant &amp;, PyObject **))</tt></dt>
+<dd><p>Register a convertor function that converts a
+<a class="reference internal" href="api/qvariant.html#PyQt5.QtCore.QVariant" title="PyQt5.QtCore.QVariant"><tt class="xref py py-class docutils literal"><span class="pre">QVariant</span></tt></a> value to a Python object.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">Parameters convertor:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">is the convertor function.  This takes two arguments.  The first
+argument is the <a class="reference internal" href="api/qvariant.html#PyQt5.QtCore.QVariant" title="PyQt5.QtCore.QVariant"><tt class="xref py py-class docutils literal"><span class="pre">QVariant</span></tt></a> value to be converted.
+The second argument is updated with a reference to the result of the
+conversion and it will be <tt class="docutils literal"><span class="pre">0</span></tt>, and a Python exception raised, if
+there was an error.  The convertor will return <tt class="docutils literal"><span class="pre">true</span></tt> if the value
+was handled so that no other convertor will be tried.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt>
+<tt class="descname">void pyqt5_register_to_qvariant_convertor(bool (*convertor)(PyObject *, QVariant &amp;, bool *))</tt></dt>
+<dd><p>Register a convertor function that converts a Python object to a
+<a class="reference internal" href="api/qvariant.html#PyQt5.QtCore.QVariant" title="PyQt5.QtCore.QVariant"><tt class="xref py py-class docutils literal"><span class="pre">QVariant</span></tt></a> value.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">Parameters convertor:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">is the convertor function.  This takes three arguments.  The first
+argument is the Python object to be converted. The second argument is a
+pointer to <a class="reference internal" href="api/qvariant.html#PyQt5.QtCore.QVariant" title="PyQt5.QtCore.QVariant"><tt class="xref py py-class docutils literal"><span class="pre">QVariant</span></tt></a> value that is updated with
+the result of the conversion.  The third argument is updated with an
+error flag which will be <tt class="docutils literal"><span class="pre">false</span></tt>, and a Python exception raised, if
+there was an error.  The convertor will return <tt class="docutils literal"><span class="pre">true</span></tt> if the value
+was handled so that no other convertor will be tried.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt>
+<tt class="descname">void pyqt5_register_to_qvariant_data_convertor(bool (*convertor)(PyObject *, void *, int, bool *))</tt></dt>
+<dd><p>Register a convertor function that converts a Python object to the
+pre-allocated data of a <a class="reference internal" href="api/qvariant.html#PyQt5.QtCore.QVariant" title="PyQt5.QtCore.QVariant"><tt class="xref py py-class docutils literal"><span class="pre">QVariant</span></tt></a> value.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">Parameters convertor:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">is the convertor function.  This takes four arguments.  The first
+argument is the Python object to be converted. The second argument is a
+pointer to the pre-allocated data of a <a class="reference internal" href="api/qvariant.html#PyQt5.QtCore.QVariant" title="PyQt5.QtCore.QVariant"><tt class="xref py py-class docutils literal"><span class="pre">QVariant</span></tt></a>
+value that is updated with the result of the conversion.  The third
+argument is the meta-type of the value.  The fourth argument is updated
+with an error flag which will be <tt class="docutils literal"><span class="pre">false</span></tt>, and a Python exception
+raised, if there was an error.  The convertor will return <tt class="docutils literal"><span class="pre">true</span></tt> if
+the value was handled so that no other convertor will be tried.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="pyqt5_update_argv_list__PyObjectP.i.cPP">
+void <tt class="descname">pyqt5_update_argv_list</tt><big>(</big>PyObject* <em>argv_list</em>, int <em>argc</em>, char** <em>argv</em><big>)</big><a class="headerlink" href="#pyqt5_update_argv_list__PyObjectP.i.cPP" title="Permalink to this definition">¶</a></dt>
+<dd><p>Update a Python list from a standard C array of command line arguments and
+an argument count.  This is used in conjunction with
+<a class="reference internal" href="#pyqt5_from_argv_list__PyObjectP.iR" title="pyqt5_from_argv_list"><tt class="xref cpp cpp-func docutils literal"><span class="pre">pyqt5_from_argv_list()</span></tt></a> to handle the updating of argument lists
+after calling constructors of classes such as
+<a class="reference internal" href="api/qcoreapplication.html#PyQt5.QtCore.QCoreApplication" title="PyQt5.QtCore.QCoreApplication"><tt class="xref py py-class docutils literal"><span class="pre">QCoreApplication</span></tt></a>.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>argv_list</strong> &#8211; is the Python list of arguments that will be updated.</li>
+<li><strong>argc</strong> &#8211; is the number of command line arguments.</li>
+<li><strong>argv</strong> &#8211; is the array of pointers to the arguments on the heap.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
 </div>
 </div>
 
@@ -90,31 +345,31 @@ not be supported by SIP v5.</p>
             <p class="logo"><a href="index.html">
               <img class="logo" src="_static/logo.png" alt="Logo"/>
             </a></p>
-            <h3><a href="index.html">Table Of Contents</a></h3>
-            <ul>
-<li><a class="reference external" href="#">The PyQt5 Extension API</a><ul>
-<li><a class="reference external" href="#python-api">Python API</a></li>
-<li><a class="reference external" href="#c-api">C++ API</a></li>
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">The PyQt5 Extension API</a><ul>
+<li><a class="reference internal" href="#python-api">Python API</a></li>
+<li><a class="reference internal" href="#c-api">C++ API</a></li>
 </ul>
 </li>
 </ul>
 
-            <h4>Previous topic</h4>
-            <p class="topless"><a href="deploy_commercial.html"
-                                  title="previous chapter">Deploying Commercial PyQt5 Applications</a></p>
-          <div id="searchbox" style="display: none">
-            <h3>Quick search</h3>
-              <form class="search" action="search.html" method="get">
-                <input type="text" name="q" size="18" />
-                <input type="submit" value="Go" />
-                <input type="hidden" name="check_keywords" value="yes" />
-                <input type="hidden" name="area" value="default" />
-              </form>
-              <p class="searchtip" style="font-size: 90%">
-              Enter search terms or a module, class or function name.
-              </p>
-          </div>
-          <script type="text/javascript">$('#searchbox').show(0);</script>
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="deploy_commercial.html"
+                        title="previous chapter">Deploying Commercial PyQt5 Applications</a></p>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
         </div>
       </div>
       <div class="clearer"></div>
@@ -126,17 +381,17 @@ not be supported by SIP v5.</p>
           <a href="genindex.html" title="General Index"
              >index</a></li>
         <li class="right" >
-          <a href="modindex.html" title="Global Module Index"
+          <a href="py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
         <li class="right" >
           <a href="deploy_commercial.html" title="Deploying Commercial PyQt5 Applications"
              >previous</a> |</li>
-        <li><a href="index.html">PyQt 5.1.1-snapshot-3c895ca14f00 Reference Guide</a> &raquo;</li> 
+        <li><a href="index.html">PyQt 5.2.1 Reference Guide</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer">
-      &copy; Copyright 2013 Riverbank Computing Limited.
-      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 0.6.4.
+        &copy; Copyright 2014 Riverbank Computing Limited.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
     </div>
   </body>
 </html>

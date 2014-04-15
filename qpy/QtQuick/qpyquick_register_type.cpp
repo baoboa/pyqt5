@@ -1,6 +1,6 @@
 // This is the implementation of the qml_register_type() helper.
 //
-// Copyright (c) 2013 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2014 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -21,6 +21,8 @@
 #include "qpyquick_register_type.h"
 #include "qpyquickitem.h"
 #include "qpyquickpainteditem.h"
+
+#include "sipAPIQtQuick.h"
 
 
 sipErrorState qpyquick_register_type(PyTypeObject *py_type,

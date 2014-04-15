@@ -5,4 +5,4 @@ QTextList
 
 .. class:: QTextList
 
-    `C++ documentation <http://qt-project.org/doc/qt-5.1/qtgui/qtextlist.html>`_
+    `C++ documentation <http://qt-project.org/doc/qt-5.2/qtextlist.html>`_

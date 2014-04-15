@@ -5,4 +5,4 @@ QSGSimpleTextureNode
 
 .. class:: QSGSimpleTextureNode
 
-    `C++ documentation <http://qt-project.org/doc/qt-5.1/qtquick/qsgsimpletexturenode.html>`_
+    `C++ documentation <http://qt-project.org/doc/qt-5.2/qsgsimpletexturenode.html>`_

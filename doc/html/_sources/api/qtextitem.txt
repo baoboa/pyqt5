@@ -5,4 +5,4 @@ QTextItem
 
 .. class:: QTextItem
 
-    `C++ documentation <http://qt-project.org/doc/qt-5.1/qtgui/qtextitem.html>`_
+    `C++ documentation <http://qt-project.org/doc/qt-5.2/qtextitem.html>`_

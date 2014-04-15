@@ -5,4 +5,4 @@ QHelpIndexWidget
 
 .. class:: QHelpIndexWidget
 
-    `C++ documentation <http://qt-project.org/doc/qt-5.1/qthelp/qhelpindexwidget.html>`_
+    `C++ documentation <http://qt-project.org/doc/qt-5.2/qhelpindexwidget.html>`_

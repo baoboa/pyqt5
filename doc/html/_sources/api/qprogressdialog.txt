@@ -5,4 +5,4 @@ QProgressDialog
 
 .. class:: QProgressDialog
 
-    `C++ documentation <http://qt-project.org/doc/qt-5.1/qtwidgets/qprogressdialog.html>`_
+    `C++ documentation <http://qt-project.org/doc/qt-5.2/qprogressdialog.html>`_

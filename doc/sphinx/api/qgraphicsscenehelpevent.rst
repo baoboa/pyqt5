@@ -5,4 +5,4 @@ QGraphicsSceneHelpEvent
 
 .. class:: QGraphicsSceneHelpEvent
 
-    `C++ documentation <http://qt-project.org/doc/qt-5.1/qtwidgets/qgraphicsscenehelpevent.html>`_
+    `C++ documentation <http://qt-project.org/doc/qt-5.2/qgraphicsscenehelpevent.html>`_

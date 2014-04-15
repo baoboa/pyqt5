@@ -5,4 +5,4 @@ QSqlRelation
 
 .. class:: QSqlRelation
 
-    `C++ documentation <http://qt-project.org/doc/qt-5.1/qtsql/qsqlrelation.html>`_
+    `C++ documentation <http://qt-project.org/doc/qt-5.2/qsqlrelation.html>`_

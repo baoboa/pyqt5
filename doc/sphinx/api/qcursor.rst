@@ -5,4 +5,4 @@ QCursor
 
 .. class:: QCursor
 
-    `C++ documentation <http://qt-project.org/doc/qt-5.1/qtgui/qcursor.html>`_
+    `C++ documentation <http://qt-project.org/doc/qt-5.2/qcursor.html>`_

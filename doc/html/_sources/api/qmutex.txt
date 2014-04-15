@@ -5,4 +5,4 @@ QMutex
 
 .. class:: QMutex
 
-    `C++ documentation <http://qt-project.org/doc/qt-5.1/qtcore/qmutex.html>`_
+    `C++ documentation <http://qt-project.org/doc/qt-5.2/qmutex.html>`_

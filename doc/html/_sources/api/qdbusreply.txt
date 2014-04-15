@@ -5,4 +5,4 @@ QDBusReply
 
 .. class:: QDBusReply
 
-    `C++ documentation <http://qt-project.org/doc/qt-5.1/qtdbus/qdbusreply.html>`_
+    `C++ documentation <http://qt-project.org/doc/qt-5.2/qdbusreply.html>`_

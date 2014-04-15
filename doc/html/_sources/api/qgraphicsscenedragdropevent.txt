@@ -5,4 +5,4 @@ QGraphicsSceneDragDropEvent
 
 .. class:: QGraphicsSceneDragDropEvent
 
-    `C++ documentation <http://qt-project.org/doc/qt-5.1/qtwidgets/qgraphicsscenedragdropevent.html>`_
+    `C++ documentation <http://qt-project.org/doc/qt-5.2/qgraphicsscenedragdropevent.html>`_

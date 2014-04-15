@@ -5,4 +5,4 @@ QJSValueIterator
 
 .. class:: QJSValueIterator
 
-    `C++ documentation <http://qt-project.org/doc/qt-5.1/qtqml/qjsvalueiterator.html>`_
+    `C++ documentation <http://qt-project.org/doc/qt-5.2/qjsvalueiterator.html>`_

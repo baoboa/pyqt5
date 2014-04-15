@@ -5,4 +5,4 @@ QTextFrameFormat
 
 .. class:: QTextFrameFormat
 
-    `C++ documentation <http://qt-project.org/doc/qt-5.1/qtgui/qtextframeformat.html>`_
+    `C++ documentation <http://qt-project.org/doc/qt-5.2/qtextframeformat.html>`_

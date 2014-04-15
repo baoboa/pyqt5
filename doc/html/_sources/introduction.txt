@@ -1,7 +1,7 @@
 Introduction
 ============
 
-This is the reference guide for PyQt5 5.1.1-snapshot-3c895ca14f00.  PyQt5 is a set of
+This is the reference guide for PyQt5 5.2.1.  PyQt5 is a set of
 `Python <http://www.python.org>`__ bindings for v5 of the Qt application
 framework from `Digia <http://qt.digia.com>`__.
 
@@ -11,7 +11,7 @@ regular expressions, SQL databases, SVG, OpenGL, XML, and user and application
 settings.  PyQt5 implements over 620 of these classes as a set of Python
 modules.
 
-PyQt5 supports the Windows, Linux, UNIX and MacOS/X platforms.
+PyQt5 supports the Windows, Linux, UNIX, Android, OS X and iOS platforms.
 
 PyQt5 does not include Qt itself - you must obtain it separately.
 
@@ -55,6 +55,11 @@ number of Python extension modules.  These are all installed in the
   controls and COM objects.  It does not support the ability to write ActiveX
   servers in Python.  It is only available under Windows.
 
+.. module:: PyQt5.QtBluetooth
+
+- :mod:`~PyQt5.QtBluetooth` contains classes that enables an application to
+  scan for devices and connect and interact with them.
+
 .. module:: PyQt5.QtCore
 
 - :mod:`~PyQt5.QtCore` contains the core classes, including the event loop and
@@ -87,6 +92,12 @@ number of Python extension modules.  These are all installed in the
 - :mod:`~PyQt5.QtHelp` contains classes for creating and viewing searchable
   documentation.
 
+.. module:: PyQt5.QtMacExtras
+    :platform:  OS X, iOS
+
+- :mod:`~PyQt5.QtMacExtras` contains additional classes that are specific to
+  OS X and iOS.
+
 .. module:: PyQt5.QtMultimedia
 
 - :mod:`~PyQt5.QtMultimedia` contains classes to handle multimedia content and
@@ -107,6 +118,14 @@ number of Python extension modules.  These are all installed in the
 
 - :mod:`~PyQt5.QtOpenGL` contains classes that allow the use of OpenGL in
   rendering 3D graphics in :mod:`~PyQt5.QtWidgets` based applications.
+
+.. module:: PyQt5.QtPositioning
+
+- :mod:`~PyQt5.QtPositioning` contains classes to determine a position by using
+  a variety of possible sources, including satellite, or Wi-Fi, or a text file,
+  and so on.  That information can then be used to, for example, determine a
+  position on a map.  In addition satellite information can be retrieved and
+  area based monitoring can be performed.
 
 .. module:: PyQt5.QtPrintSupport
 
@@ -174,6 +193,19 @@ number of Python extension modules.  These are all installed in the
 
 - :mod:`~PyQt5.QtWidgets` contains classes that provide a set of UI elements to
   create classic desktop-style user interfaces.
+
+.. module:: PyQt5.QtWinExtras
+    :platform:  Windows
+
+- :mod:`~PyQt5.QtWinExtras` contains additional classes that are specific to
+  Windows, for example providing access to Jump Lists, a progress indicator on
+  a taskbar button, and a thumbnail toolbar.
+
+.. module:: PyQt5.QtX11Extras
+    :platform:  X11
+
+- :mod:`~PyQt5.QtX11Extras` contains additional classes that are specific to
+  X11.
 
 .. module:: PyQt5.QtXmlPatterns
 

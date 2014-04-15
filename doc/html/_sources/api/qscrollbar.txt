@@ -5,4 +5,4 @@ QScrollBar
 
 .. class:: QScrollBar
 
-    `C++ documentation <http://qt-project.org/doc/qt-5.1/qtwidgets/qscrollbar.html>`_
+    `C++ documentation <http://qt-project.org/doc/qt-5.2/qscrollbar.html>`_

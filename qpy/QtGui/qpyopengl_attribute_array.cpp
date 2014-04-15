@@ -1,6 +1,6 @@
 // This contains the support for shader program attribute arrays.
 //
-// Copyright (c) 2013 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2014 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -20,12 +20,14 @@
 
 #include <Python.h>
 
+#include "sipAPIQtGui.h"
+
+#if defined(SIP_FEATURE_PyQt_OpenGL)
+
 #include <QOpenGLShaderProgram>
 #include <QVector2D>
 #include <QVector3D>
 #include <QVector4D>
-
-#include "sipAPIQtGui.h"
 
 #include "qpyopengl_api.h"
 
@@ -287,4 +289,7 @@ static void array_dtor(void *array)
 {
     delete[] reinterpret_cast<GLfloat *>(array);
 }
+#endif
+
+
 #endif

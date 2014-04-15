@@ -1,6 +1,6 @@
 // This is the initialisation support code for the QtDBus module.
 //
-// Copyright (c) 2013 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2014 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -20,9 +20,10 @@
 
 #include <Python.h>
 
-#include "sipAPIQtDBus.h"
-
+#include "qpydbus_api.h"
 #include "qpydbus_chimera_helpers.h"
+
+#include "sipAPIQtDBus.h"
 
 
 // Perform any required initialisation.

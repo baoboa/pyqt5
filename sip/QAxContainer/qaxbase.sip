@@ -1,6 +1,6 @@
 // This is the SIP interface definition for QAxBase.
 //
-// Copyright (c) 2013 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2014 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -18,9 +18,7 @@
 // WARRANTY OF DESIGN, MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE.
 
 
-%If (WS_WIN)
-
-class QAxBase /Abstract, PyQt4NoQMetaObject/
+class QAxBase /Abstract, PyQtNoQMetaObject/
 {
 %TypeHeaderCode
 #include <qaxbase.h>
@@ -153,5 +151,3 @@ protected:
     //bool initializeActive(IUnknown** ptr);
     //bool initializeFromFile(IUnknown** ptr);
 };
-
-%End

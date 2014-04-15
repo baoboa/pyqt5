@@ -5,4 +5,4 @@ QSslCipher
 
 .. class:: QSslCipher
 
-    `C++ documentation <http://qt-project.org/doc/qt-5.1/qtnetwork/qsslcipher.html>`_
+    `C++ documentation <http://qt-project.org/doc/qt-5.2/qsslcipher.html>`_

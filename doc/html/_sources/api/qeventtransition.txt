@@ -5,4 +5,4 @@ QEventTransition
 
 .. class:: QEventTransition
 
-    `C++ documentation <http://qt-project.org/doc/qt-5.1/qtcore/qeventtransition.html>`_
+    `C++ documentation <http://qt-project.org/doc/qt-5.2/qeventtransition.html>`_

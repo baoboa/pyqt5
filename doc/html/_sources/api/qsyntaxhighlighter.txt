@@ -5,4 +5,4 @@ QSyntaxHighlighter
 
 .. class:: QSyntaxHighlighter
 
-    `C++ documentation <http://qt-project.org/doc/qt-5.1/qtgui/qsyntaxhighlighter.html>`_
+    `C++ documentation <http://qt-project.org/doc/qt-5.2/qsyntaxhighlighter.html>`_

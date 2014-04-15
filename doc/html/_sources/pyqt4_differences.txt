@@ -55,6 +55,21 @@ In addition the following methods have differences:
   all connections to the :class:`~PyQt5.QtCore.QObject` instance.
 
 
+New-style Signals and Slots
+---------------------------
+
+Qt implements signals with an optional argument as two separate signals, one
+with the argument and one without it.  PyQt4 exposed both of these allowing you
+to connect to each of them.  However, when emitting the signal, you had to use
+the signal appropriate to the number of arguments being emitted.
+
+PyQt5 exposes only the signal where all arguments are specified.  However it
+allows any optional arguments to be omitted when emitting the signal.
+
+Unlike PyQt4, PyQt5 supports the definition of properties, signals and slots in
+classes not sub-classed from :class:`~PyQt5.QtCore.QObject` (i.e. in mixins).
+
+
 ``QtDeclarative``, ``QtScript`` and ``QtScriptTools`` Modules
 -------------------------------------------------------------
 

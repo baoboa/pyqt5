@@ -1,26 +1,30 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
+
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Using Qt Designer &mdash; PyQt 5.1.1-snapshot-3c895ca14f00 Reference Guide</title>
+    <title>Using Qt Designer &mdash; PyQt 5.2.1 Reference Guide</title>
+    
     <link rel="stylesheet" href="_static/default.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    '#',
-        VERSION:     '5.1.1-snapshot-3c895ca14f00',
-        COLLAPSE_MODINDEX: false,
+        URL_ROOT:    './',
+        VERSION:     '5.2.1',
+        COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
       };
     </script>
     <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
     <link rel="shortcut icon" href="_static/logo_tn.ico"/>
-    <link rel="top" title="PyQt 5.1.1-snapshot-3c895ca14f00 Reference Guide" href="index.html" />
+    <link rel="top" title="PyQt 5.2.1 Reference Guide" href="index.html" />
     <link rel="next" title="The PyQt5 Resource System" href="resources.html" />
     <link rel="prev" title="Things to be Aware Of" href="gotchas.html" /> 
   </head>
@@ -32,15 +36,15 @@
           <a href="genindex.html" title="General Index"
              accesskey="I">index</a></li>
         <li class="right" >
-          <a href="modindex.html" title="Global Module Index"
-             accesskey="M">modules</a> |</li>
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
         <li class="right" >
           <a href="resources.html" title="The PyQt5 Resource System"
              accesskey="N">next</a> |</li>
         <li class="right" >
           <a href="gotchas.html" title="Things to be Aware Of"
              accesskey="P">previous</a> |</li>
-        <li><a href="index.html">PyQt 5.1.1-snapshot-3c895ca14f00 Reference Guide</a> &raquo;</li> 
+        <li><a href="index.html">PyQt 5.2.1 Reference Guide</a> &raquo;</li> 
       </ul>
     </div>  
 
@@ -62,11 +66,11 @@ creates the user interface.  Qt also includes the <tt class="docutils literal"><
 allows an application to load a <tt class="docutils literal"><span class="pre">.ui</span></tt> file and to create the corresponding
 user interface dynamically.</p>
 <p>PyQt5 does not wrap the <tt class="docutils literal"><span class="pre">QUiLoader</span></tt> class but instead includes the
-<a title="" class="reference external" href="introduction.html#module-PyQt5.uic"><tt class="xref docutils literal"><span class="pre">uic</span></tt></a> Python module.  Like <tt class="docutils literal"><span class="pre">QUiLoader</span></tt> this module can load
-<tt class="docutils literal"><span class="pre">.ui</span></tt> files to create a user interface dynamically.  Like the <strong>uic</strong>
+<a class="reference internal" href="introduction.html#module-PyQt5.uic" title="PyQt5.uic"><tt class="xref py py-mod docutils literal"><span class="pre">uic</span></tt></a> Python module.  Like <tt class="docutils literal"><span class="pre">QUiLoader</span></tt> this module can load
+<tt class="docutils literal"><span class="pre">.ui</span></tt> files to create a user interface dynamically.  Like the <strong class="program">uic</strong>
 utility it can also generate the Python code that will create the user
-interface.  PyQt5&#8217;s <strong>pyuic5</strong> utility is a command line interface to
-the <a title="" class="reference external" href="introduction.html#module-PyQt5.uic"><tt class="xref docutils literal"><span class="pre">uic</span></tt></a> module.  Both are described in detail in the following
+interface.  PyQt5&#8217;s <strong class="program">pyuic5</strong> utility is a command line interface to
+the <a class="reference internal" href="introduction.html#module-PyQt5.uic" title="PyQt5.uic"><tt class="xref py py-mod docutils literal"><span class="pre">uic</span></tt></a> module.  Both are described in detail in the following
 sections.</p>
 <div class="section" id="using-the-generated-code">
 <h2>Using the Generated Code<a class="headerlink" href="#using-the-generated-code" title="Permalink to this headline">¶</a></h2>
@@ -78,13 +82,13 @@ in Designer with <tt class="docutils literal"><span class="pre">Ui_</span></tt> 
 in the <tt class="docutils literal"><span class="pre">Ui</span></tt> namespace.)  We refer to this class as the <em>form class</em>.</p>
 <p>The class contains a method called <tt class="docutils literal"><span class="pre">setupUi()</span></tt>.  This takes a single argument
 which is the widget in which the user interface is created.  The type of this
-argument (typically <a title="PyQt5.QtWidgets.QDialog" class="reference external" href="api/qdialog.html#PyQt5.QtWidgets.QDialog"><tt class="xref docutils literal"><span class="pre">QDialog</span></tt></a>,
-<a title="PyQt5.QtWidgets.QWidget" class="reference external" href="api/qwidget.html#PyQt5.QtWidgets.QWidget"><tt class="xref docutils literal"><span class="pre">QWidget</span></tt></a> or <a title="PyQt5.QtWidgets.QMainWindow" class="reference external" href="api/qmainwindow.html#PyQt5.QtWidgets.QMainWindow"><tt class="xref docutils literal"><span class="pre">QMainWindow</span></tt></a>) is
+argument (typically <a class="reference internal" href="api/qdialog.html#PyQt5.QtWidgets.QDialog" title="PyQt5.QtWidgets.QDialog"><tt class="xref py py-class docutils literal"><span class="pre">QDialog</span></tt></a>,
+<a class="reference internal" href="api/qwidget.html#PyQt5.QtWidgets.QWidget" title="PyQt5.QtWidgets.QWidget"><tt class="xref py py-class docutils literal"><span class="pre">QWidget</span></tt></a> or <a class="reference internal" href="api/qmainwindow.html#PyQt5.QtWidgets.QMainWindow" title="PyQt5.QtWidgets.QMainWindow"><tt class="xref py py-class docutils literal"><span class="pre">QMainWindow</span></tt></a>) is
 set in Designer.  We refer to this type as the <em>Qt base class</em>.</p>
 <p>In the following examples we assume that a <tt class="docutils literal"><span class="pre">.ui</span></tt> file has been created
-containing a dialog and the name of the <a title="PyQt5.QtWidgets.QDialog" class="reference external" href="api/qdialog.html#PyQt5.QtWidgets.QDialog"><tt class="xref docutils literal"><span class="pre">QDialog</span></tt></a>
+containing a dialog and the name of the <a class="reference internal" href="api/qdialog.html#PyQt5.QtWidgets.QDialog" title="PyQt5.QtWidgets.QDialog"><tt class="xref py py-class docutils literal"><span class="pre">QDialog</span></tt></a>
 object is <tt class="docutils literal"><span class="pre">ImageDialog</span></tt>.  We also assume that the name of the file containing
-the generated Python code is <tt class="docutils literal"><span class="pre">ui_imagedialog.py</span></tt>.  The generated code can
+the generated Python code is <tt class="file docutils literal"><span class="pre">ui_imagedialog.py</span></tt>.  The generated code can
 then be used in a number of ways.</p>
 <p>The first example shows the direct approach where we simply create a simple
 application to create the dialog:</p>
@@ -102,7 +106,7 @@ application to create the dialog:</p>
 </pre></div>
 </div>
 <p>The second example shows the single inheritance approach where we sub-class
-<a title="PyQt5.QtWidgets.QDialog" class="reference external" href="api/qdialog.html#PyQt5.QtWidgets.QDialog"><tt class="xref docutils literal"><span class="pre">QDialog</span></tt></a> and set up the user interface in the
+<a class="reference internal" href="api/qdialog.html#PyQt5.QtWidgets.QDialog" title="PyQt5.QtWidgets.QDialog"><tt class="xref py py-class docutils literal"><span class="pre">QDialog</span></tt></a> and set up the user interface in the
 <tt class="docutils literal"><span class="pre">__init__()</span></tt> method:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">PyQt5.QtWidgets</span> <span class="kn">import</span> <span class="n">QDialog</span>
 <span class="kn">from</span> <span class="nn">ui_imagedialog</span> <span class="kn">import</span> <span class="n">Ui_ImageDialog</span>
@@ -161,14 +165,15 @@ the final example:</p>
 <p>For a full description see the Qt Designer Manual in the Qt Documentation.</p>
 </div>
 <div class="section" id="the-uic-module">
-<h2>The <a title="" class="reference external" href="introduction.html#module-PyQt5.uic"><tt class="xref docutils literal"><span class="pre">uic</span></tt></a> Module<a class="headerlink" href="#the-uic-module" title="Permalink to this headline">¶</a></h2>
-<p>The <a title="" class="reference external" href="introduction.html#module-PyQt5.uic"><tt class="xref docutils literal"><span class="pre">uic</span></tt></a> module contains the following functions and objects.</p>
+<h2>The <a class="reference internal" href="introduction.html#module-PyQt5.uic" title="PyQt5.uic"><tt class="xref py py-mod docutils literal"><span class="pre">uic</span></tt></a> Module<a class="headerlink" href="#the-uic-module" title="Permalink to this headline">¶</a></h2>
+<p>The <a class="reference internal" href="introduction.html#module-PyQt5.uic" title="PyQt5.uic"><tt class="xref py py-mod docutils literal"><span class="pre">uic</span></tt></a> module contains the following functions and objects.</p>
 <dl class="data">
 <dt id="PyQt5.uic.widgetPluginPath">
 <tt class="descclassname">PyQt5.uic.</tt><tt class="descname">widgetPluginPath</tt><a class="headerlink" href="#PyQt5.uic.widgetPluginPath" title="Permalink to this definition">¶</a></dt>
-<dd>The list of the directories that are searched for widget plugins.
+<dd><p>The list of the directories that are searched for widget plugins.
 Initially it contains the name of the directory that contains the widget
-plugins included with PyQt5.</dd></dl>
+plugins included with PyQt5.</p>
+</dd></dl>
 
 <dl class="function">
 <dt id="PyQt5.uic.compileUi">
@@ -179,23 +184,23 @@ Designer <tt class="docutils literal"><span class="pre">.ui</span></tt> file.</p
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><em>uifile</em> &#8211; the file name or file-like object containing the <tt class="docutils literal"><span class="pre">.ui</span></tt> file.</li>
-<li><em>pyfile</em> &#8211; the file-like object to which the generated Python code will be written
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>uifile</strong> &#8211; the file name or file-like object containing the <tt class="docutils literal"><span class="pre">.ui</span></tt> file.</li>
+<li><strong>pyfile</strong> &#8211; the file-like object to which the generated Python code will be written
 to.</li>
-<li><em>execute</em> &#8211; is optionally set if a small amount of additional code is to be
+<li><strong>execute</strong> &#8211; is optionally set if a small amount of additional code is to be
 generated that will display the user interface if the code is run as a
 standalone application.</li>
-<li><em>indent</em> &#8211; the optional number of spaces used for indentation in the generated
+<li><strong>indent</strong> &#8211; the optional number of spaces used for indentation in the generated
 code.  If it is zero then a tab character is used instead.</li>
-<li><em>from_imports</em> &#8211; is optionally set to generate import statements that are relative to
+<li><strong>from_imports</strong> &#8211; is optionally set to generate import statements that are relative to
 <tt class="docutils literal"><span class="pre">'.'</span></tt>.  At the moment this only applies to the import of resource
 modules.</li>
 </ul>
 </td>
 </tr>
-<tr class="field"><th class="field-name" colspan="2">Resource_suffix:</th></tr>
-<tr><td>&nbsp;</td><td class="field-body"><p class="first last">is the suffix appended to the basename of any resource file specified
+<tr class="field-even field"><th class="field-name" colspan="2">Resource_suffix:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body"><p class="first last">is the suffix appended to the basename of any resource file specified
 in the <tt class="docutils literal"><span class="pre">.ui</span></tt> file to create the name of the Python module generated
 from the resource file by <tt class="docutils literal"><span class="pre">pyrcc5</span></tt>.  The default is <tt class="docutils literal"><span class="pre">'_rc'</span></tt>, i.e.
 if the <tt class="docutils literal"><span class="pre">.ui</span></tt> file specified a resource file called <tt class="docutils literal"><span class="pre">foo.qrc</span></tt> then
@@ -215,18 +220,18 @@ directory tree.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><em>dir</em> &#8211; the name of the directory to scan for files whose name ends with
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>dir</strong> &#8211; the name of the directory to scan for files whose name ends with
 <tt class="docutils literal"><span class="pre">.ui</span></tt>.  By default the generated Python module is created in the same
 directory ending with <tt class="docutils literal"><span class="pre">.py</span></tt>.</li>
-<li><em>recurse</em> &#8211; is optionally set if any sub-directories should be scanned.</li>
-<li><em>map</em> &#8211; an optional callable that is passed the name of the directory
+<li><strong>recurse</strong> &#8211; is optionally set if any sub-directories should be scanned.</li>
+<li><strong>map</strong> &#8211; an optional callable that is passed the name of the directory
 containing the <tt class="docutils literal"><span class="pre">.ui</span></tt> file and the name of the Python module that will
 be created.  The callable should return a tuple of the name of the
 directory in which the Python module will be created and the (possibly
 modified) name of the module.</li>
-<li><em>compileUi_args</em> &#8211; are any additional keyword arguments that are passed to
-<a title="PyQt5.uic.compileUi" class="reference internal" href="#PyQt5.uic.compileUi"><tt class="xref docutils literal"><span class="pre">compileUi()</span></tt></a> that is called to create each Python
+<li><strong>compileUi_args</strong> &#8211; are any additional keyword arguments that are passed to
+<a class="reference internal" href="#PyQt5.uic.compileUi" title="PyQt5.uic.compileUi"><tt class="xref py py-func docutils literal"><span class="pre">compileUi()</span></tt></a> that is called to create each Python
 module.</li>
 </ul>
 </td>
@@ -246,23 +251,23 @@ parse the <tt class="docutils literal"><span class="pre">.ui</span></tt> file mo
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><em>uifile</em> &#8211; the file name or file-like object containing the <tt class="docutils literal"><span class="pre">.ui</span></tt> file.</li>
-<li><em>from_imports</em> &#8211; is optionally set to use import statements that are relative to
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>uifile</strong> &#8211; the file name or file-like object containing the <tt class="docutils literal"><span class="pre">.ui</span></tt> file.</li>
+<li><strong>from_imports</strong> &#8211; is optionally set to use import statements that are relative to
 <tt class="docutils literal"><span class="pre">'.'</span></tt>.  At the moment this only applies to the import of resource
 modules.</li>
 </ul>
 </td>
 </tr>
-<tr class="field"><th class="field-name" colspan="2">Resource_suffix:</th></tr>
-<tr><td>&nbsp;</td><td class="field-body"><p class="first">is the suffix appended to the basename of any resource file specified
+<tr class="field-even field"><th class="field-name" colspan="2">Resource_suffix:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body"><p class="first">is the suffix appended to the basename of any resource file specified
 in the <tt class="docutils literal"><span class="pre">.ui</span></tt> file to create the name of the Python module generated
 from the resource file by <tt class="docutils literal"><span class="pre">pyrcc5</span></tt>.  The default is <tt class="docutils literal"><span class="pre">'_rc'</span></tt>, i.e.
 if the <tt class="docutils literal"><span class="pre">.ui</span></tt> file specified a resource file called <tt class="docutils literal"><span class="pre">foo.qrc</span></tt> then
 the corresponding Python module is <tt class="docutils literal"><span class="pre">foo_rc</span></tt>.</p>
 </td>
 </tr>
-<tr class="field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">the <em>form class</em> and the <em>Qt base class</em>.</p>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">the <em>form class</em> and the <em>Qt base class</em>.</p>
 </td>
 </tr>
 </tbody>
@@ -278,25 +283,25 @@ interface.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><em>uifile</em> &#8211; the file name or file-like object containing the <tt class="docutils literal"><span class="pre">.ui</span></tt> file.</li>
-<li><em>baseinstance</em> &#8211; the optional instance of the <em>Qt base class</em>.  If specified then the
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>uifile</strong> &#8211; the file name or file-like object containing the <tt class="docutils literal"><span class="pre">.ui</span></tt> file.</li>
+<li><strong>baseinstance</strong> &#8211; the optional instance of the <em>Qt base class</em>.  If specified then the
 user interface is created in it.  Otherwise a new instance of the base
 class is automatically created.</li>
-<li><em>package</em> &#8211; the optional package that is the base package for any relative imports
+<li><strong>package</strong> &#8211; the optional package that is the base package for any relative imports
 of custom widgets.</li>
 </ul>
 </td>
 </tr>
-<tr class="field"><th class="field-name" colspan="2">Resource_suffix:</th></tr>
-<tr><td>&nbsp;</td><td class="field-body"><p class="first">is the suffix appended to the basename of any resource file specified
+<tr class="field-even field"><th class="field-name" colspan="2">Resource_suffix:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body"><p class="first">is the suffix appended to the basename of any resource file specified
 in the <tt class="docutils literal"><span class="pre">.ui</span></tt> file to create the name of the Python module generated
 from the resource file by <tt class="docutils literal"><span class="pre">pyrcc5</span></tt>.  The default is <tt class="docutils literal"><span class="pre">'_rc'</span></tt>, i.e.
 if the <tt class="docutils literal"><span class="pre">.ui</span></tt> file specified a resource file called <tt class="docutils literal"><span class="pre">foo.qrc</span></tt> then
 the corresponding Python module is <tt class="docutils literal"><span class="pre">foo_rc</span></tt>.</p>
 </td>
 </tr>
-<tr class="field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">the <tt class="docutils literal"><span class="pre">QWidget</span></tt> sub-class that implements the user interface.</p>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">the <tt class="docutils literal"><span class="pre">QWidget</span></tt> sub-class that implements the user interface.</p>
 </td>
 </tr>
 </tbody>
@@ -305,66 +310,74 @@ the corresponding Python module is <tt class="docutils literal"><span class="pre
 
 </div>
 <div class="section" id="pyuic5">
-<h2><strong>pyuic5</strong><a class="headerlink" href="#pyuic5" title="Permalink to this headline">¶</a></h2>
-<p>The <strong>pyuic5</strong> utility is a command line interface to the
-<a title="" class="reference external" href="introduction.html#module-PyQt5.uic"><tt class="xref docutils literal"><span class="pre">uic</span></tt></a> module.  The command has the following syntax:</p>
+<h2><strong class="program">pyuic5</strong><a class="headerlink" href="#pyuic5" title="Permalink to this headline">¶</a></h2>
+<p>The <strong class="program">pyuic5</strong> utility is a command line interface to the
+<a class="reference internal" href="introduction.html#module-PyQt5.uic" title="PyQt5.uic"><tt class="xref py py-mod docutils literal"><span class="pre">uic</span></tt></a> module.  The command has the following syntax:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="n">pyuic5</span> <span class="p">[</span><span class="n">options</span><span class="p">]</span> <span class="o">.</span><span class="n">ui</span><span class="o">-</span><span class="nb">file</span>
 </pre></div>
 </div>
 <p>The full set of command line options is:</p>
 <dl class="cmdoption">
 <dt id="cmdoption-pyuic5-h">
-<tt class="descname">-h</tt><tt class="descclassname"></tt><tt class="descclassname">, </tt><tt class="descname">--help</tt><tt class="descclassname"></tt><a class="headerlink" href="#cmdoption-pyuic5-h" title="Permalink to this definition">¶</a></dt>
-<dd>A help message is written to <tt class="docutils literal"><span class="pre">stdout</span></tt>.</dd></dl>
+<span id="cmdoption-pyuic5--help"></span><tt class="descname">-h</tt><tt class="descclassname"></tt><tt class="descclassname">, </tt><tt class="descname">--help</tt><tt class="descclassname"></tt><a class="headerlink" href="#cmdoption-pyuic5-h" title="Permalink to this definition">¶</a></dt>
+<dd><p>A help message is written to <tt class="docutils literal"><span class="pre">stdout</span></tt>.</p>
+</dd></dl>
 
 <dl class="cmdoption">
 <dt id="cmdoption-pyuic5--version">
 <tt class="descname">--version</tt><tt class="descclassname"></tt><a class="headerlink" href="#cmdoption-pyuic5--version" title="Permalink to this definition">¶</a></dt>
-<dd>The version number is written to <tt class="docutils literal"><span class="pre">stdout</span></tt>.</dd></dl>
+<dd><p>The version number is written to <tt class="docutils literal"><span class="pre">stdout</span></tt>.</p>
+</dd></dl>
 
 <dl class="cmdoption">
 <dt id="cmdoption-pyuic5-i">
-<tt class="descname">-i</tt><tt class="descclassname"> &lt;N&gt;</tt><tt class="descclassname">, </tt><tt class="descname">--indent</tt><tt class="descclassname"> &lt;N&gt;</tt><a class="headerlink" href="#cmdoption-pyuic5-i" title="Permalink to this definition">¶</a></dt>
-<dd>The Python code is generated using an indentation of <tt class="docutils literal"><span class="pre">&lt;N&gt;</span></tt> spaces.  If
-<tt class="docutils literal"><span class="pre">&lt;N&gt;</span></tt> is 0 then a tab is used.  The default is 4.</dd></dl>
+<span id="cmdoption-pyuic5--indent"></span><tt class="descname">-i</tt><tt class="descclassname"> &lt;N&gt;</tt><tt class="descclassname">, </tt><tt class="descname">--indent</tt><tt class="descclassname"> &lt;N&gt;</tt><a class="headerlink" href="#cmdoption-pyuic5-i" title="Permalink to this definition">¶</a></dt>
+<dd><p>The Python code is generated using an indentation of <tt class="docutils literal"><span class="pre">&lt;N&gt;</span></tt> spaces.  If
+<tt class="docutils literal"><span class="pre">&lt;N&gt;</span></tt> is 0 then a tab is used.  The default is 4.</p>
+</dd></dl>
 
 <dl class="cmdoption">
 <dt id="cmdoption-pyuic5-o">
-<tt class="descname">-o</tt><tt class="descclassname"> &lt;FILE&gt;</tt><tt class="descclassname">, </tt><tt class="descname">--output</tt><tt class="descclassname"> &lt;FILE&gt;</tt><a class="headerlink" href="#cmdoption-pyuic5-o" title="Permalink to this definition">¶</a></dt>
-<dd>The Python code generated is written to the file <tt class="docutils literal"><span class="pre">&lt;FILE&gt;</span></tt>.</dd></dl>
+<span id="cmdoption-pyuic5--output"></span><tt class="descname">-o</tt><tt class="descclassname"> &lt;FILE&gt;</tt><tt class="descclassname">, </tt><tt class="descname">--output</tt><tt class="descclassname"> &lt;FILE&gt;</tt><a class="headerlink" href="#cmdoption-pyuic5-o" title="Permalink to this definition">¶</a></dt>
+<dd><p>The Python code generated is written to the file <tt class="docutils literal"><span class="pre">&lt;FILE&gt;</span></tt>.</p>
+</dd></dl>
 
 <dl class="cmdoption">
 <dt id="cmdoption-pyuic5-p">
-<tt class="descname">-p</tt><tt class="descclassname"></tt><tt class="descclassname">, </tt><tt class="descname">--preview</tt><tt class="descclassname"></tt><a class="headerlink" href="#cmdoption-pyuic5-p" title="Permalink to this definition">¶</a></dt>
-<dd>The GUI is created dynamically and displayed.  No Python code is generated.</dd></dl>
+<span id="cmdoption-pyuic5--preview"></span><tt class="descname">-p</tt><tt class="descclassname"></tt><tt class="descclassname">, </tt><tt class="descname">--preview</tt><tt class="descclassname"></tt><a class="headerlink" href="#cmdoption-pyuic5-p" title="Permalink to this definition">¶</a></dt>
+<dd><p>The GUI is created dynamically and displayed.  No Python code is generated.</p>
+</dd></dl>
 
 <dl class="cmdoption">
 <dt id="cmdoption-pyuic5-x">
-<tt class="descname">-x</tt><tt class="descclassname"></tt><tt class="descclassname">, </tt><tt class="descname">--execute</tt><tt class="descclassname"></tt><a class="headerlink" href="#cmdoption-pyuic5-x" title="Permalink to this definition">¶</a></dt>
-<dd>The generated Python code includes a small amount of additional code that
+<span id="cmdoption-pyuic5--execute"></span><tt class="descname">-x</tt><tt class="descclassname"></tt><tt class="descclassname">, </tt><tt class="descname">--execute</tt><tt class="descclassname"></tt><a class="headerlink" href="#cmdoption-pyuic5-x" title="Permalink to this definition">¶</a></dt>
+<dd><p>The generated Python code includes a small amount of additional code that
 creates and displays the GUI when it is executes as a standalone
-application.</dd></dl>
+application.</p>
+</dd></dl>
 
 <dl class="cmdoption">
 <dt id="cmdoption-pyuic5--from-imports">
 <tt class="descname">--from-imports</tt><tt class="descclassname"></tt><a class="headerlink" href="#cmdoption-pyuic5--from-imports" title="Permalink to this definition">¶</a></dt>
-<dd>Resource modules are imported using <tt class="docutils literal"><span class="pre">from</span> <span class="pre">.</span> <span class="pre">import</span></tt> rather than a simple
-<tt class="docutils literal"><span class="pre">import</span></tt>.</dd></dl>
+<dd><p>Resource modules are imported using <tt class="docutils literal"><span class="pre">from</span> <span class="pre">.</span> <span class="pre">import</span></tt> rather than a simple
+<tt class="docutils literal"><span class="pre">import</span></tt>.</p>
+</dd></dl>
 
 <dl class="cmdoption">
 <dt id="cmdoption-pyuic5--resource-suffix">
 <tt class="descname">--resource-suffix</tt><tt class="descclassname"> &lt;SUFFIX&gt;</tt><a class="headerlink" href="#cmdoption-pyuic5--resource-suffix" title="Permalink to this definition">¶</a></dt>
-<dd>The suffix <tt class="docutils literal"><span class="pre">&lt;SUFFIX&gt;</span></tt> is appended to the basename of any resource file
+<dd><p>The suffix <tt class="docutils literal"><span class="pre">&lt;SUFFIX&gt;</span></tt> is appended to the basename of any resource file
 specified in the <tt class="docutils literal"><span class="pre">.ui</span></tt> file to create the name of the Python module
-generated from the resource file by <strong>pyrcc5</strong>.  The default is
+generated from the resource file by <strong class="program">pyrcc5</strong>.  The default is
 <tt class="docutils literal"><span class="pre">_rc</span></tt>.  For example if the <tt class="docutils literal"><span class="pre">.ui</span></tt> file specified a resource file called
-<tt class="docutils literal"><span class="pre">foo.qrc</span></tt> then the corresponding Python module is <tt class="docutils literal"><span class="pre">foo_rc</span></tt>.</dd></dl>
+<tt class="docutils literal"><span class="pre">foo.qrc</span></tt> then the corresponding Python module is <tt class="docutils literal"><span class="pre">foo_rc</span></tt>.</p>
+</dd></dl>
 
-<p>Note that code generated by <strong>pyuic5</strong> is not guaranteed to be
+<p>Note that code generated by <strong class="program">pyuic5</strong> is not guaranteed to be
 compatible with earlier versions of PyQt5.  However, it is guaranteed to be
 compatible with later versions.  If you have no control over the version of
 PyQt5 the users of your application are using then you should run
-<strong>pyuic5</strong>, or call <a title="PyQt5.uic.compileUi" class="reference internal" href="#PyQt5.uic.compileUi"><tt class="xref docutils literal"><span class="pre">compileUi()</span></tt></a>, as part of your
+<strong class="program">pyuic5</strong>, or call <a class="reference internal" href="#PyQt5.uic.compileUi" title="PyQt5.uic.compileUi"><tt class="xref py py-func docutils literal"><span class="pre">compileUi()</span></tt></a>, as part of your
 installation process.  Another alternative would be to distribute the <tt class="docutils literal"><span class="pre">.ui</span></tt>
 files (perhaps as part of a resource file) and have your application load them
 dynamically.</p>
@@ -387,7 +400,7 @@ issues that have to be addressed.</p>
 the <tt class="docutils literal"><span class="pre">QDesignerCustomWidgetInterface</span></tt> class.  (If the plugin exposes more
 than one custom widget then it must conform to the interface defined by the
 <tt class="docutils literal"><span class="pre">QDesignerCustomWidgetCollectionInterface</span></tt> class.)  In addition the plugin
-class must sub-class <a title="PyQt5.QtCore.QObject" class="reference external" href="api/qobject.html#PyQt5.QtCore.QObject"><tt class="xref docutils literal"><span class="pre">QObject</span></tt></a> as well as the interface
+class must sub-class <a class="reference internal" href="api/qobject.html#PyQt5.QtCore.QObject" title="PyQt5.QtCore.QObject"><tt class="xref py py-class docutils literal"><span class="pre">QObject</span></tt></a> as well as the interface
 class.  PyQt5 does not allow Python classes to be sub-classed from more than
 one Qt class.</li>
 <li>Designer can only connect Qt signals and slots.  It has no understanding of
@@ -402,35 +415,35 @@ simply as possible.</p>
 <tt class="docutils literal"><span class="pre">QPy</span></tt> prefix) that are already sub-classed from the necessary Qt classes.
 This avoids the need to sub-class from more than one Qt class in Python.  For
 example, where a C++ custom widget plugin would sub-class from
-<a title="PyQt5.QtCore.QObject" class="reference external" href="api/qobject.html#PyQt5.QtCore.QObject"><tt class="xref docutils literal"><span class="pre">QObject</span></tt></a> and <tt class="docutils literal"><span class="pre">QDesignerCustomWidgetInterface</span></tt>, a
+<a class="reference internal" href="api/qobject.html#PyQt5.QtCore.QObject" title="PyQt5.QtCore.QObject"><tt class="xref py py-class docutils literal"><span class="pre">QObject</span></tt></a> and <tt class="docutils literal"><span class="pre">QDesignerCustomWidgetInterface</span></tt>, a
 Python custom widget plugin would instead sub-class from
-<tt class="xref docutils literal"><span class="pre">QPyDesignerCustomWidgetPlugin</span></tt>.</p>
+<tt class="xref py py-class docutils literal"><span class="pre">QPyDesignerCustomWidgetPlugin</span></tt>.</p>
 </li>
 <li><p class="first">PyQt5 installs a C++ plugin in Designer&#8217;s plugin directory.  It conforms to
 the interface defined by the <tt class="docutils literal"><span class="pre">QDesignerCustomWidgetCollectionInterface</span></tt>
 class.  It searches a configurable set of directories looking for Python
 plugins that implement a class sub-classed from
-<tt class="xref docutils literal"><span class="pre">QPyDesignerCustomWidgetPlugin</span></tt>.  Each class that is
+<tt class="xref py py-class docutils literal"><span class="pre">QPyDesignerCustomWidgetPlugin</span></tt>.  Each class that is
 found is instantiated and the instance created is added to the custom widget
 collection.</p>
-<p>The <span class="target" id="index-0"></span><strong class="xref">PYQTDESIGNERPATH</strong> environment variable specifies the set of
+<p>The <span class="target" id="index-0"></span><tt class="xref std std-envvar docutils literal"><span class="pre">PYQTDESIGNERPATH</span></tt> environment variable specifies the set of
 directories to search for plugins.  Directory names are separated by a path
 separator (a semi-colon on Windows and a colon on other platforms).  If a
 directory name is empty (ie. there are consecutive path separators or a
 leading or trailing path separator) then a set of default directories is
 automatically inserted at that point.  The default directories are the
-<tt class="docutils literal"><span class="pre">python</span></tt> subdirectory of each directory that Designer searches for its
+<tt class="file docutils literal"><span class="pre">python</span></tt> subdirectory of each directory that Designer searches for its
 own plugins.  If the environment variable is not set then only the default
 directories are searched.  If a file&#8217;s basename does not end with <tt class="docutils literal"><span class="pre">plugin</span></tt>
 then it is ignored.</p>
 </li>
 <li><p class="first">A Python custom widget may define new Qt signals using
-<a title="PyQt5.QtCore.pyqtSignal" class="reference external" href="signals_slots.html#PyQt5.QtCore.pyqtSignal"><tt class="xref docutils literal"><span class="pre">pyqtSignal()</span></tt></a>.</p>
+<a class="reference internal" href="signals_slots.html#PyQt5.QtCore.pyqtSignal" title="PyQt5.QtCore.pyqtSignal"><tt class="xref py py-func docutils literal"><span class="pre">pyqtSignal()</span></tt></a>.</p>
 </li>
 <li><p class="first">A Python method may be defined as a new Qt slot by using the
-<a title="PyQt5.QtCore.pyqtSlot" class="reference external" href="signals_slots.html#PyQt5.QtCore.pyqtSlot"><tt class="xref docutils literal"><span class="pre">pyqtSlot()</span></tt></a> decorator.</p>
+<a class="reference internal" href="signals_slots.html#PyQt5.QtCore.pyqtSlot" title="PyQt5.QtCore.pyqtSlot"><tt class="xref py py-func docutils literal"><span class="pre">pyqtSlot()</span></tt></a> decorator.</p>
 </li>
-<li><p class="first">A new Qt property may be defined using the <a title="PyQt5.QtCore.pyqtProperty" class="reference external" href="qt_properties.html#PyQt5.QtCore.pyqtProperty"><tt class="xref docutils literal"><span class="pre">pyqtProperty()</span></tt></a>
+<li><p class="first">A new Qt property may be defined using the <a class="reference internal" href="qt_properties.html#PyQt5.QtCore.pyqtProperty" title="PyQt5.QtCore.pyqtProperty"><tt class="xref py py-func docutils literal"><span class="pre">pyqtProperty()</span></tt></a>
 function.</p>
 </li>
 </ul>
@@ -439,9 +452,9 @@ Python is potentially useful to plugins conforming to any plugin interface and
 not just that used by Designer.</p>
 <p>For a simple but complete and fully documented example of a custom widget that
 defines new Qt signals, slots and properties, and its plugin, look in the
-<tt class="docutils literal"><span class="pre">examples/designer/plugins</span></tt> directory of the PyQt5 source package.  The
-<tt class="docutils literal"><span class="pre">widgets</span></tt> subdirectory contains the <tt class="docutils literal"><span class="pre">pydemo.py</span></tt> custom widget and
-the <tt class="docutils literal"><span class="pre">python</span></tt> subdirectory contains its <tt class="docutils literal"><span class="pre">pydemoplugin.py</span></tt> plugin.</p>
+<tt class="file docutils literal"><span class="pre">examples/designer/plugins</span></tt> directory of the PyQt5 source package.  The
+<tt class="file docutils literal"><span class="pre">widgets</span></tt> subdirectory contains the <tt class="file docutils literal"><span class="pre">pydemo.py</span></tt> custom widget and
+the <tt class="file docutils literal"><span class="pre">python</span></tt> subdirectory contains its <tt class="file docutils literal"><span class="pre">pydemoplugin.py</span></tt> plugin.</p>
 </div>
 </div>
 
@@ -454,36 +467,36 @@ the <tt class="docutils literal"><span class="pre">python</span></tt> subdirecto
             <p class="logo"><a href="index.html">
               <img class="logo" src="_static/logo.png" alt="Logo"/>
             </a></p>
-            <h3><a href="index.html">Table Of Contents</a></h3>
-            <ul>
-<li><a class="reference external" href="#">Using Qt Designer</a><ul>
-<li><a class="reference external" href="#using-the-generated-code">Using the Generated Code</a></li>
-<li><a class="reference external" href="#the-uic-module">The <tt class="docutils literal"><span class="pre">uic</span></tt> Module</a></li>
-<li><a class="reference external" href="#pyuic5"><strong>pyuic5</strong></a></li>
-<li><a class="reference external" href="#writing-qt-designer-plugins">Writing Qt Designer Plugins</a></li>
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Using Qt Designer</a><ul>
+<li><a class="reference internal" href="#using-the-generated-code">Using the Generated Code</a></li>
+<li><a class="reference internal" href="#the-uic-module">The <tt class="docutils literal"><span class="pre">uic</span></tt> Module</a></li>
+<li><a class="reference internal" href="#pyuic5"><strong class="program">pyuic5</strong></a></li>
+<li><a class="reference internal" href="#writing-qt-designer-plugins">Writing Qt Designer Plugins</a></li>
 </ul>
 </li>
 </ul>
 
-            <h4>Previous topic</h4>
-            <p class="topless"><a href="gotchas.html"
-                                  title="previous chapter">Things to be Aware Of</a></p>
-            <h4>Next topic</h4>
-            <p class="topless"><a href="resources.html"
-                                  title="next chapter">The PyQt5 Resource System</a></p>
-          <div id="searchbox" style="display: none">
-            <h3>Quick search</h3>
-              <form class="search" action="search.html" method="get">
-                <input type="text" name="q" size="18" />
-                <input type="submit" value="Go" />
-                <input type="hidden" name="check_keywords" value="yes" />
-                <input type="hidden" name="area" value="default" />
-              </form>
-              <p class="searchtip" style="font-size: 90%">
-              Enter search terms or a module, class or function name.
-              </p>
-          </div>
-          <script type="text/javascript">$('#searchbox').show(0);</script>
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="gotchas.html"
+                        title="previous chapter">Things to be Aware Of</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="resources.html"
+                        title="next chapter">The PyQt5 Resource System</a></p>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
         </div>
       </div>
       <div class="clearer"></div>
@@ -495,7 +508,7 @@ the <tt class="docutils literal"><span class="pre">python</span></tt> subdirecto
           <a href="genindex.html" title="General Index"
              >index</a></li>
         <li class="right" >
-          <a href="modindex.html" title="Global Module Index"
+          <a href="py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
         <li class="right" >
           <a href="resources.html" title="The PyQt5 Resource System"
@@ -503,12 +516,12 @@ the <tt class="docutils literal"><span class="pre">python</span></tt> subdirecto
         <li class="right" >
           <a href="gotchas.html" title="Things to be Aware Of"
              >previous</a> |</li>
-        <li><a href="index.html">PyQt 5.1.1-snapshot-3c895ca14f00 Reference Guide</a> &raquo;</li> 
+        <li><a href="index.html">PyQt 5.2.1 Reference Guide</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer">
-      &copy; Copyright 2013 Riverbank Computing Limited.
-      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 0.6.4.
+        &copy; Copyright 2014 Riverbank Computing Limited.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
     </div>
   </body>
 </html>

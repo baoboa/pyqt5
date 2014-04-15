@@ -5,4 +5,4 @@ QTranslator
 
 .. class:: QTranslator
 
-    `C++ documentation <http://qt-project.org/doc/qt-5.1/qtcore/qtranslator.html>`_
+    `C++ documentation <http://qt-project.org/doc/qt-5.2/qtranslator.html>`_

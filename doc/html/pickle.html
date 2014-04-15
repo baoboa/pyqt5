@@ -1,26 +1,30 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
+
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Support for Pickling &mdash; PyQt 5.1.1-snapshot-3c895ca14f00 Reference Guide</title>
+    <title>Support for Pickling &mdash; PyQt 5.2.1 Reference Guide</title>
+    
     <link rel="stylesheet" href="_static/default.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    '#',
-        VERSION:     '5.1.1-snapshot-3c895ca14f00',
-        COLLAPSE_MODINDEX: false,
+        URL_ROOT:    './',
+        VERSION:     '5.2.1',
+        COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
       };
     </script>
     <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
     <link rel="shortcut icon" href="_static/logo_tn.ico"/>
-    <link rel="top" title="PyQt 5.1.1-snapshot-3c895ca14f00 Reference Guide" href="index.html" />
+    <link rel="top" title="PyQt 5.2.1 Reference Guide" href="index.html" />
     <link rel="next" title="Using PyQt5 from the Python Shell" href="python_shell.html" />
     <link rel="prev" title="The PyQt5 Resource System" href="resources.html" /> 
   </head>
@@ -32,15 +36,15 @@
           <a href="genindex.html" title="General Index"
              accesskey="I">index</a></li>
         <li class="right" >
-          <a href="modindex.html" title="Global Module Index"
-             accesskey="M">modules</a> |</li>
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
         <li class="right" >
           <a href="python_shell.html" title="Using PyQt5 from the Python Shell"
              accesskey="N">next</a> |</li>
         <li class="right" >
           <a href="resources.html" title="The PyQt5 Resource System"
              accesskey="P">previous</a> |</li>
-        <li><a href="index.html">PyQt 5.1.1-snapshot-3c895ca14f00 Reference Guide</a> &raquo;</li> 
+        <li><a href="index.html">PyQt 5.2.1 Reference Guide</a> &raquo;</li> 
       </ul>
     </div>  
 
@@ -53,23 +57,23 @@
 <h1>Support for Pickling<a class="headerlink" href="#support-for-pickling" title="Permalink to this headline">¶</a></h1>
 <p>The following PyQt5 classes may be pickled.</p>
 <ul class="simple">
-<li><a title="PyQt5.QtCore.QByteArray" class="reference external" href="api/qbytearray.html#PyQt5.QtCore.QByteArray"><tt class="xref docutils literal"><span class="pre">QByteArray</span></tt></a></li>
-<li><a title="PyQt5.QtGui.QColor" class="reference external" href="api/qcolor.html#PyQt5.QtGui.QColor"><tt class="xref docutils literal"><span class="pre">QColor</span></tt></a></li>
-<li><a title="PyQt5.QtCore.QDate" class="reference external" href="api/qdate.html#PyQt5.QtCore.QDate"><tt class="xref docutils literal"><span class="pre">QDate</span></tt></a></li>
-<li><a title="PyQt5.QtCore.QDateTime" class="reference external" href="api/qdatetime.html#PyQt5.QtCore.QDateTime"><tt class="xref docutils literal"><span class="pre">QDateTime</span></tt></a></li>
-<li><a title="PyQt5.QtGui.QKeySequence" class="reference external" href="api/qkeysequence.html#PyQt5.QtGui.QKeySequence"><tt class="xref docutils literal"><span class="pre">QKeySequence</span></tt></a></li>
-<li><a title="PyQt5.QtCore.QLine" class="reference external" href="api/qline.html#PyQt5.QtCore.QLine"><tt class="xref docutils literal"><span class="pre">QLine</span></tt></a></li>
-<li><a title="PyQt5.QtCore.QLineF" class="reference external" href="api/qlinef.html#PyQt5.QtCore.QLineF"><tt class="xref docutils literal"><span class="pre">QLineF</span></tt></a></li>
-<li><a title="PyQt5.QtCore.QPoint" class="reference external" href="api/qpoint.html#PyQt5.QtCore.QPoint"><tt class="xref docutils literal"><span class="pre">QPoint</span></tt></a></li>
-<li><a title="PyQt5.QtCore.QPointF" class="reference external" href="api/qpointf.html#PyQt5.QtCore.QPointF"><tt class="xref docutils literal"><span class="pre">QPointF</span></tt></a></li>
-<li><a title="PyQt5.QtGui.QPolygon" class="reference external" href="api/qpolygon.html#PyQt5.QtGui.QPolygon"><tt class="xref docutils literal"><span class="pre">QPolygon</span></tt></a></li>
-<li><a title="PyQt5.QtCore.QRect" class="reference external" href="api/qrect.html#PyQt5.QtCore.QRect"><tt class="xref docutils literal"><span class="pre">QRect</span></tt></a></li>
-<li><a title="PyQt5.QtCore.QRectF" class="reference external" href="api/qrectf.html#PyQt5.QtCore.QRectF"><tt class="xref docutils literal"><span class="pre">QRectF</span></tt></a></li>
-<li><a title="PyQt5.QtCore.QSize" class="reference external" href="api/qsize.html#PyQt5.QtCore.QSize"><tt class="xref docutils literal"><span class="pre">QSize</span></tt></a></li>
-<li><a title="PyQt5.QtCore.QSizeF" class="reference external" href="api/qsizef.html#PyQt5.QtCore.QSizeF"><tt class="xref docutils literal"><span class="pre">QSizeF</span></tt></a></li>
-<li><a title="PyQt5.QtCore.QTime" class="reference external" href="api/qtime.html#PyQt5.QtCore.QTime"><tt class="xref docutils literal"><span class="pre">QTime</span></tt></a></li>
+<li><a class="reference internal" href="api/qbytearray.html#PyQt5.QtCore.QByteArray" title="PyQt5.QtCore.QByteArray"><tt class="xref py py-class docutils literal"><span class="pre">QByteArray</span></tt></a></li>
+<li><a class="reference internal" href="api/qcolor.html#PyQt5.QtGui.QColor" title="PyQt5.QtGui.QColor"><tt class="xref py py-class docutils literal"><span class="pre">QColor</span></tt></a></li>
+<li><a class="reference internal" href="api/qdate.html#PyQt5.QtCore.QDate" title="PyQt5.QtCore.QDate"><tt class="xref py py-class docutils literal"><span class="pre">QDate</span></tt></a></li>
+<li><a class="reference internal" href="api/qdatetime.html#PyQt5.QtCore.QDateTime" title="PyQt5.QtCore.QDateTime"><tt class="xref py py-class docutils literal"><span class="pre">QDateTime</span></tt></a></li>
+<li><a class="reference internal" href="api/qkeysequence.html#PyQt5.QtGui.QKeySequence" title="PyQt5.QtGui.QKeySequence"><tt class="xref py py-class docutils literal"><span class="pre">QKeySequence</span></tt></a></li>
+<li><a class="reference internal" href="api/qline.html#PyQt5.QtCore.QLine" title="PyQt5.QtCore.QLine"><tt class="xref py py-class docutils literal"><span class="pre">QLine</span></tt></a></li>
+<li><a class="reference internal" href="api/qlinef.html#PyQt5.QtCore.QLineF" title="PyQt5.QtCore.QLineF"><tt class="xref py py-class docutils literal"><span class="pre">QLineF</span></tt></a></li>
+<li><a class="reference internal" href="api/qpoint.html#PyQt5.QtCore.QPoint" title="PyQt5.QtCore.QPoint"><tt class="xref py py-class docutils literal"><span class="pre">QPoint</span></tt></a></li>
+<li><a class="reference internal" href="api/qpointf.html#PyQt5.QtCore.QPointF" title="PyQt5.QtCore.QPointF"><tt class="xref py py-class docutils literal"><span class="pre">QPointF</span></tt></a></li>
+<li><a class="reference internal" href="api/qpolygon.html#PyQt5.QtGui.QPolygon" title="PyQt5.QtGui.QPolygon"><tt class="xref py py-class docutils literal"><span class="pre">QPolygon</span></tt></a></li>
+<li><a class="reference internal" href="api/qrect.html#PyQt5.QtCore.QRect" title="PyQt5.QtCore.QRect"><tt class="xref py py-class docutils literal"><span class="pre">QRect</span></tt></a></li>
+<li><a class="reference internal" href="api/qrectf.html#PyQt5.QtCore.QRectF" title="PyQt5.QtCore.QRectF"><tt class="xref py py-class docutils literal"><span class="pre">QRectF</span></tt></a></li>
+<li><a class="reference internal" href="api/qsize.html#PyQt5.QtCore.QSize" title="PyQt5.QtCore.QSize"><tt class="xref py py-class docutils literal"><span class="pre">QSize</span></tt></a></li>
+<li><a class="reference internal" href="api/qsizef.html#PyQt5.QtCore.QSizeF" title="PyQt5.QtCore.QSizeF"><tt class="xref py py-class docutils literal"><span class="pre">QSizeF</span></tt></a></li>
+<li><a class="reference internal" href="api/qtime.html#PyQt5.QtCore.QTime" title="PyQt5.QtCore.QTime"><tt class="xref py py-class docutils literal"><span class="pre">QTime</span></tt></a></li>
 </ul>
-<p>Also all named enums (<tt class="xref docutils literal"><span class="pre">PyQt5.QtCore.Qt.Key</span></tt> for example) may be pickled.</p>
+<p>Also all named enums (<tt class="xref py py-attr docutils literal"><span class="pre">PyQt5.QtCore.Qt.Key</span></tt> for example) may be pickled.</p>
 </div>
 
 
@@ -81,25 +85,25 @@
             <p class="logo"><a href="index.html">
               <img class="logo" src="_static/logo.png" alt="Logo"/>
             </a></p>
-            <h4>Previous topic</h4>
-            <p class="topless"><a href="resources.html"
-                                  title="previous chapter">The PyQt5 Resource System</a></p>
-            <h4>Next topic</h4>
-            <p class="topless"><a href="python_shell.html"
-                                  title="next chapter">Using PyQt5 from the Python Shell</a></p>
-          <div id="searchbox" style="display: none">
-            <h3>Quick search</h3>
-              <form class="search" action="search.html" method="get">
-                <input type="text" name="q" size="18" />
-                <input type="submit" value="Go" />
-                <input type="hidden" name="check_keywords" value="yes" />
-                <input type="hidden" name="area" value="default" />
-              </form>
-              <p class="searchtip" style="font-size: 90%">
-              Enter search terms or a module, class or function name.
-              </p>
-          </div>
-          <script type="text/javascript">$('#searchbox').show(0);</script>
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="resources.html"
+                        title="previous chapter">The PyQt5 Resource System</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="python_shell.html"
+                        title="next chapter">Using PyQt5 from the Python Shell</a></p>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
         </div>
       </div>
       <div class="clearer"></div>
@@ -111,7 +115,7 @@
           <a href="genindex.html" title="General Index"
              >index</a></li>
         <li class="right" >
-          <a href="modindex.html" title="Global Module Index"
+          <a href="py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
         <li class="right" >
           <a href="python_shell.html" title="Using PyQt5 from the Python Shell"
@@ -119,12 +123,12 @@
         <li class="right" >
           <a href="resources.html" title="The PyQt5 Resource System"
              >previous</a> |</li>
-        <li><a href="index.html">PyQt 5.1.1-snapshot-3c895ca14f00 Reference Guide</a> &raquo;</li> 
+        <li><a href="index.html">PyQt 5.2.1 Reference Guide</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer">
-      &copy; Copyright 2013 Riverbank Computing Limited.
-      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 0.6.4.
+        &copy; Copyright 2014 Riverbank Computing Limited.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
     </div>
   </body>
 </html>

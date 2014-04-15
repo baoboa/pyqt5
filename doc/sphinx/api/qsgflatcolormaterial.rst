@@ -5,4 +5,4 @@ QSGFlatColorMaterial
 
 .. class:: QSGFlatColorMaterial
 
-    `C++ documentation <http://qt-project.org/doc/qt-5.1/qtquick/qsgflatcolormaterial.html>`_
+    `C++ documentation <http://qt-project.org/doc/qt-5.2/qsgflatcolormaterial.html>`_

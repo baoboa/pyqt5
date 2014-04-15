@@ -1,26 +1,30 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
+
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>The PyQt5 Resource System &mdash; PyQt 5.1.1-snapshot-3c895ca14f00 Reference Guide</title>
+    <title>The PyQt5 Resource System &mdash; PyQt 5.2.1 Reference Guide</title>
+    
     <link rel="stylesheet" href="_static/default.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    '#',
-        VERSION:     '5.1.1-snapshot-3c895ca14f00',
-        COLLAPSE_MODINDEX: false,
+        URL_ROOT:    './',
+        VERSION:     '5.2.1',
+        COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
       };
     </script>
     <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
     <link rel="shortcut icon" href="_static/logo_tn.ico"/>
-    <link rel="top" title="PyQt 5.1.1-snapshot-3c895ca14f00 Reference Guide" href="index.html" />
+    <link rel="top" title="PyQt 5.2.1 Reference Guide" href="index.html" />
     <link rel="next" title="Support for Pickling" href="pickle.html" />
     <link rel="prev" title="Using Qt Designer" href="designer.html" /> 
   </head>
@@ -32,15 +36,15 @@
           <a href="genindex.html" title="General Index"
              accesskey="I">index</a></li>
         <li class="right" >
-          <a href="modindex.html" title="Global Module Index"
-             accesskey="M">modules</a> |</li>
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
         <li class="right" >
           <a href="pickle.html" title="Support for Pickling"
              accesskey="N">next</a> |</li>
         <li class="right" >
           <a href="designer.html" title="Using Qt Designer"
              accesskey="P">previous</a> |</li>
-        <li><a href="index.html">PyQt 5.1.1-snapshot-3c895ca14f00 Reference Guide</a> &raquo;</li> 
+        <li><a href="index.html">PyQt 5.2.1 Reference Guide</a> &raquo;</li> 
       </ul>
     </div>  
 
@@ -60,9 +64,9 @@ files by their original names but preceded by a colon.</p>
 <p>For a full description, including the format of the <tt class="docutils literal"><span class="pre">.qrc</span></tt> files, see the Qt
 Resource System in the Qt documentation.</p>
 <div class="section" id="pyrcc5">
-<h2><strong>pyrcc5</strong><a class="headerlink" href="#pyrcc5" title="Permalink to this headline">¶</a></h2>
-<p><strong>pyrcc5</strong> is PyQt5&#8217;s equivalent to Qt&#8217;s <strong>rcc</strong> utility and is
-used in exactly the same way.  <strong>pyrcc5</strong> reads the <tt class="docutils literal"><span class="pre">.qrc</span></tt> file, and
+<h2><strong class="program">pyrcc5</strong><a class="headerlink" href="#pyrcc5" title="Permalink to this headline">¶</a></h2>
+<p><strong class="program">pyrcc5</strong> is PyQt5&#8217;s equivalent to Qt&#8217;s <strong class="program">rcc</strong> utility and is
+used in exactly the same way.  <strong class="program">pyrcc5</strong> reads the <tt class="docutils literal"><span class="pre">.qrc</span></tt> file, and
 the resource files, and generates a Python module that only needs to be
 <tt class="docutils literal"><span class="pre">import</span></tt>ed by the application in order for those resources to be made
 available just as if they were the original files.</p>
@@ -78,33 +82,33 @@ available just as if they were the original files.</p>
             <p class="logo"><a href="index.html">
               <img class="logo" src="_static/logo.png" alt="Logo"/>
             </a></p>
-            <h3><a href="index.html">Table Of Contents</a></h3>
-            <ul>
-<li><a class="reference external" href="#">The PyQt5 Resource System</a><ul>
-<li><a class="reference external" href="#pyrcc5"><strong>pyrcc5</strong></a></li>
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">The PyQt5 Resource System</a><ul>
+<li><a class="reference internal" href="#pyrcc5"><strong class="program">pyrcc5</strong></a></li>
 </ul>
 </li>
 </ul>
 
-            <h4>Previous topic</h4>
-            <p class="topless"><a href="designer.html"
-                                  title="previous chapter">Using Qt Designer</a></p>
-            <h4>Next topic</h4>
-            <p class="topless"><a href="pickle.html"
-                                  title="next chapter">Support for Pickling</a></p>
-          <div id="searchbox" style="display: none">
-            <h3>Quick search</h3>
-              <form class="search" action="search.html" method="get">
-                <input type="text" name="q" size="18" />
-                <input type="submit" value="Go" />
-                <input type="hidden" name="check_keywords" value="yes" />
-                <input type="hidden" name="area" value="default" />
-              </form>
-              <p class="searchtip" style="font-size: 90%">
-              Enter search terms or a module, class or function name.
-              </p>
-          </div>
-          <script type="text/javascript">$('#searchbox').show(0);</script>
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="designer.html"
+                        title="previous chapter">Using Qt Designer</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="pickle.html"
+                        title="next chapter">Support for Pickling</a></p>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
         </div>
       </div>
       <div class="clearer"></div>
@@ -116,7 +120,7 @@ available just as if they were the original files.</p>
           <a href="genindex.html" title="General Index"
              >index</a></li>
         <li class="right" >
-          <a href="modindex.html" title="Global Module Index"
+          <a href="py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
         <li class="right" >
           <a href="pickle.html" title="Support for Pickling"
@@ -124,12 +128,12 @@ available just as if they were the original files.</p>
         <li class="right" >
           <a href="designer.html" title="Using Qt Designer"
              >previous</a> |</li>
-        <li><a href="index.html">PyQt 5.1.1-snapshot-3c895ca14f00 Reference Guide</a> &raquo;</li> 
+        <li><a href="index.html">PyQt 5.2.1 Reference Guide</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer">
-      &copy; Copyright 2013 Riverbank Computing Limited.
-      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 0.6.4.
+        &copy; Copyright 2014 Riverbank Computing Limited.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
     </div>
   </body>
 </html>

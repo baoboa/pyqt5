@@ -5,4 +5,4 @@ QDoubleValidator
 
 .. class:: QDoubleValidator
 
-    `C++ documentation <http://qt-project.org/doc/qt-5.1/qtgui/qdoublevalidator.html>`_
+    `C++ documentation <http://qt-project.org/doc/qt-5.2/qdoublevalidator.html>`_

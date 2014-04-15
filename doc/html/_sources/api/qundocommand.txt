@@ -5,4 +5,4 @@ QUndoCommand
 
 .. class:: QUndoCommand
 
-    `C++ documentation <http://qt-project.org/doc/qt-5.1/qtwidgets/qundocommand.html>`_
+    `C++ documentation <http://qt-project.org/doc/qt-5.2/qundocommand.html>`_

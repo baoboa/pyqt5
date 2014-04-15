@@ -5,4 +5,4 @@ QQuickPaintedItem
 
 .. class:: QQuickPaintedItem
 
-    `C++ documentation <http://qt-project.org/doc/qt-5.1/qtquick/qquickpainteditem.html>`_
+    `C++ documentation <http://qt-project.org/doc/qt-5.2/qquickpainteditem.html>`_

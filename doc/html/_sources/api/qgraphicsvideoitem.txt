@@ -5,4 +5,4 @@ QGraphicsVideoItem
 
 .. class:: QGraphicsVideoItem
 
-    `C++ documentation <http://qt-project.org/doc/qt-5.1/qtmultimediawidgets/qgraphicsvideoitem.html>`_
+    `C++ documentation <http://qt-project.org/doc/qt-5.2/qgraphicsvideoitem.html>`_

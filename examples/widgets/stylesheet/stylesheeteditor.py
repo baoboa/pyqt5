@@ -39,7 +39,7 @@
 ###########################################################################
 
 
-from PyQt5.QtCore import QFile, QRegExp, Qt, QTextStream
+from PyQt5.QtCore import pyqtSlot, QFile, QRegExp, Qt, QTextStream
 from PyQt5.QtWidgets import (QApplication, QDialog, QFileDialog, QMessageBox,
         QStyleFactory)
 
@@ -67,10 +67,12 @@ class StyleSheetEditor(QDialog):
 
         self.loadStyleSheet('Coffee')
 
+    @pyqtSlot(str)
     def on_styleCombo_activated(self, styleName):
         QApplication.setStyle(styleName)
         self.ui.applyButton.setEnabled(False)
 
+    @pyqtSlot(str)
     def on_styleSheetCombo_activated(self, sheetName):
         self.loadStyleSheet(sheetName)
 

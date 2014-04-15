@@ -1,6 +1,6 @@
 // This contains the implementation of the pyqtBoundSignal type.
 //
-// Copyright (c) 2013 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2014 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -24,13 +24,16 @@
 #include <QByteArray>
 #include <QMetaObject>
 
+#include "qpycore_api.h"
 #include "qpycore_chimera.h"
 #include "qpycore_misc.h"
+#include "qpycore_objectified_strings.h"
 #include "qpycore_pyqtboundsignal.h"
 #include "qpycore_pyqtpyobject.h"
 #include "qpycore_pyqtsignal.h"
 #include "qpycore_pyqtslotproxy.h"
-#include "qpycore_sip.h"
+
+#include "sipAPIQtCore.h"
 
 
 // Forward declarations.
@@ -169,6 +172,9 @@ PyTypeObject qpycore_pyqtBoundSignal_Type = {
     0,                      /* tp_weaklist */
     0,                      /* tp_del */
     0,                      /* tp_version_tag */
+#if PY_VERSION_HEX >= 0x03040000
+    0,                      /* tp_finalize */
+#endif
 };
 
 
@@ -209,7 +215,7 @@ static PyObject *pyqtBoundSignal_get_signal(PyObject *self, void *)
 #else
         PyString_FromString
 #endif
-            (bs->unbound_signal->signature->signature.constData());
+            (bs->unbound_signal->parsed_signature->signature.constData());
 }
 
 
@@ -218,7 +224,7 @@ static PyObject *pyqtBoundSignal_repr(PyObject *self)
 {
     qpycore_pyqtBoundSignal *bs = (qpycore_pyqtBoundSignal *)self;
 
-    QByteArray name = bs->unbound_signal->signature->name();
+    QByteArray name = bs->unbound_signal->parsed_signature->name();
 
     return
 #if PY_MAJOR_VERSION >= 3
@@ -325,7 +331,7 @@ static PyObject *pyqtBoundSignal_connect(PyObject *self, PyObject *args,
     }
 
     QObject *q_tx = bs->bound_qobject, *q_rx;
-    Chimera::Signature *signal_signature = bs->unbound_signal->signature;
+    Chimera::Signature *signal_signature = bs->unbound_signal->parsed_signature;
     QByteArray slot_signature;
 
     sipErrorState estate = qpycore_get_receiver_slot_signature(py_slot, q_tx,
@@ -375,7 +381,7 @@ sipErrorState qpycore_get_receiver_slot_signature(PyObject *slot,
         qpycore_pyqtBoundSignal *bs = (qpycore_pyqtBoundSignal *)slot;
 
         *receiver = bs->bound_qobject;
-        slot_signature = bs->unbound_signal->signature->signature;
+        slot_signature = bs->unbound_signal->parsed_signature->signature;
 
         return sipErrorNone;
     }
@@ -457,7 +463,7 @@ static PyObject *pyqtBoundSignal_disconnect(PyObject *self, PyObject *args)
     qpycore_pyqtBoundSignal *bs = (qpycore_pyqtBoundSignal *)self;
 
     PyObject *py_slot = 0, *res_obj;
-    Chimera::Signature *signal_signature = bs->unbound_signal->signature;
+    Chimera::Signature *signal_signature = bs->unbound_signal->parsed_signature;
 
     if (!PyArg_ParseTuple(args, "|O:disconnect", &py_slot))
         return 0;
@@ -479,7 +485,7 @@ static PyObject *pyqtBoundSignal_disconnect(PyObject *self, PyObject *args)
         qpycore_pyqtBoundSignal *slot_bs = (qpycore_pyqtBoundSignal *)py_slot;
 
         return disconnect(bs, slot_bs->bound_qobject,
-                slot_bs->unbound_signal->signature->signature.constData());
+                slot_bs->unbound_signal->parsed_signature->signature.constData());
     }
 
     if (!PyCallable_Check(py_slot))
@@ -523,7 +529,7 @@ static PyObject *pyqtBoundSignal_disconnect(PyObject *self, PyObject *args)
 static PyObject *disconnect(qpycore_pyqtBoundSignal *bs, QObject *qrx,
         const char *slot)
 {
-    Chimera::Signature *signature = bs->unbound_signal->signature;
+    Chimera::Signature *signature = bs->unbound_signal->parsed_signature;
     bool ok;
 
     Py_BEGIN_ALLOW_THREADS
@@ -565,32 +571,46 @@ static PyObject *pyqtBoundSignal_emit(PyObject *self, PyObject *args)
 
     if (!bs->bound_qobject->signalsBlocked())
     {
-        Chimera::Signature *signature = bs->unbound_signal->signature;
-        int mo_index = bs->bound_qobject->metaObject()->indexOfSignal(signature->signature.constData() + 1);
+        Q_ASSERT(PyTuple_Check(args));
 
-        if (mo_index < 0)
+        qpycore_pyqtSignal *ps = bs->unbound_signal;
+
+        // Use the emitter if there is one.
+        if (ps->emitter)
         {
-            PyErr_Format(PyExc_AttributeError,
-                    "signal was not defined in the first super-class of class '%s'",
-                    Py_TYPE(bs->bound_pyobject)->tp_name);
-            return 0;
-        }
-
-        // Use the docstring if there is one and it is auto-generated.
-        const char *docstring = bs->unbound_signal->docstring;
-
-        if (!docstring || *docstring != '\1')
-        {
-            docstring = signature->py_signature.constData();
+            if (ps->emitter(bs->bound_qobject, args) < 0)
+                return 0;
         }
         else
         {
-            // Skip the auto-generated marker.
-            ++docstring;
-        }
+            Chimera::Signature *signature = ps->parsed_signature;
+            int mo_index = bs->bound_qobject->metaObject()->indexOfSignal(
+                    signature->signature.constData() + 1);
 
-        if (!do_emit(bs->bound_qobject, mo_index, signature, docstring, args))
-            return 0;
+            if (mo_index < 0)
+            {
+                PyErr_Format(PyExc_AttributeError,
+                        "signal was not defined in the first super-class of class '%s'",
+                        Py_TYPE(bs->bound_pyobject)->tp_name);
+                return 0;
+            }
+
+            // Use the docstring if there is one and it is auto-generated.
+            const char *docstring = bs->unbound_signal->docstring;
+
+            if (!docstring || *docstring != '\1')
+            {
+                docstring = signature->py_signature.constData();
+            }
+            else
+            {
+                // Skip the auto-generated marker.
+                ++docstring;
+            }
+
+            if (!do_emit(bs->bound_qobject, mo_index, signature, docstring, args))
+                return 0;
+        }
     }
 
     Py_INCREF(Py_None);
@@ -685,7 +705,7 @@ static bool get_receiver(PyObject *slot,
         Py_DECREF(f_name_obj);
 
         // See if this has been decorated.
-        decorations = PyObject_GetAttr(f, qpycore_signature_attr_name);
+        decorations = PyObject_GetAttr(f, qpycore_dunder_pyqtsignature);
 
         if (decorations)
         {

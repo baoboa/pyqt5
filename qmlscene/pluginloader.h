@@ -1,7 +1,7 @@
 /*
  * This is the interface of the qmlscene plugin.
  *
- * Copyright (c) 2013 Riverbank Computing Limited <info@riverbankcomputing.com>
+ * Copyright (c) 2014 Riverbank Computing Limited <info@riverbankcomputing.com>
  * 
  * This file is part of PyQt5.
  * 

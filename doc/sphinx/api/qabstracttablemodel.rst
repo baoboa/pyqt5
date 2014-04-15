@@ -5,4 +5,4 @@ QAbstractTableModel
 
 .. class:: QAbstractTableModel
 
-    `C++ documentation <http://qt-project.org/doc/qt-5.1/qtcore/qabstracttablemodel.html>`_
+    `C++ documentation <http://qt-project.org/doc/qt-5.2/qabstracttablemodel.html>`_

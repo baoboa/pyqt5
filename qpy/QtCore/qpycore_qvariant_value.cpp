@@ -1,7 +1,7 @@
 // This implements the conversion of a QVariant to a Python object and is part
 // of the public API.
 //
-// Copyright (c) 2013 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2014 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -24,7 +24,8 @@
 #include <QVariant>
 
 #include "qpycore_chimera.h"
-#include "qpycore_sip.h"
+
+#include "sipAPIQtCore.h"
 
 
 // Forward declarations.

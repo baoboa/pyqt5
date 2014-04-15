@@ -5,4 +5,4 @@ QSGVertexColorMaterial
 
 .. class:: QSGVertexColorMaterial
 
-    `C++ documentation <http://qt-project.org/doc/qt-5.1/qtquick/qsgvertexcolormaterial.html>`_
+    `C++ documentation <http://qt-project.org/doc/qt-5.2/qsgvertexcolormaterial.html>`_

@@ -5,4 +5,4 @@ QCameraExposure
 
 .. class:: QCameraExposure
 
-    `C++ documentation <http://qt-project.org/doc/qt-5.1/qtmultimedia/qcameraexposure.html>`_
+    `C++ documentation <http://qt-project.org/doc/qt-5.2/qcameraexposure.html>`_

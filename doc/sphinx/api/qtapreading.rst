@@ -5,4 +5,4 @@ QTapReading
 
 .. class:: QTapReading
 
-    `C++ documentation <http://qt-project.org/doc/qt-5.1/qtsensors/qtapreading.html>`_
+    `C++ documentation <http://qt-project.org/doc/qt-5.2/qtapreading.html>`_

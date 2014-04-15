@@ -5,4 +5,4 @@ QDesktopServices
 
 .. class:: QDesktopServices
 
-    `C++ documentation <http://qt-project.org/doc/qt-5.1/qtgui/qdesktopservices.html>`_
+    `C++ documentation <http://qt-project.org/doc/qt-5.2/qdesktopservices.html>`_

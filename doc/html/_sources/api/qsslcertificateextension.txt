@@ -5,4 +5,4 @@ QSslCertificateExtension
 
 .. class:: QSslCertificateExtension
 
-    `C++ documentation <http://qt-project.org/doc/qt-5.1/qtnetwork/qsslcertificateextension.html>`_
+    `C++ documentation <http://qt-project.org/doc/qt-5.2/qsslcertificateextension.html>`_

@@ -510,7 +510,7 @@ class TextEdit(QMainWindow):
 
             printer = QPrinter(QPrinter.HighResolution)
             printer.setOutputFormat(QPrinter.PdfFormat)
-            printer.setOutputFileName(fileName)
+            printer.setOutputFileName(fn)
             self.textEdit.document().print_(printer)
 
     def textBold(self):

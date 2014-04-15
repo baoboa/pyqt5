@@ -5,4 +5,4 @@ QGraphicsSceneResizeEvent
 
 .. class:: QGraphicsSceneResizeEvent
 
-    `C++ documentation <http://qt-project.org/doc/qt-5.1/qtwidgets/qgraphicssceneresizeevent.html>`_
+    `C++ documentation <http://qt-project.org/doc/qt-5.2/qgraphicssceneresizeevent.html>`_

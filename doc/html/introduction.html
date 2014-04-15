@@ -1,26 +1,30 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
+
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Introduction &mdash; PyQt 5.1.1-snapshot-3c895ca14f00 Reference Guide</title>
+    <title>Introduction &mdash; PyQt 5.2.1 Reference Guide</title>
+    
     <link rel="stylesheet" href="_static/default.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    '#',
-        VERSION:     '5.1.1-snapshot-3c895ca14f00',
-        COLLAPSE_MODINDEX: false,
+        URL_ROOT:    './',
+        VERSION:     '5.2.1',
+        COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
       };
     </script>
     <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
     <link rel="shortcut icon" href="_static/logo_tn.ico"/>
-    <link rel="top" title="PyQt 5.1.1-snapshot-3c895ca14f00 Reference Guide" href="index.html" />
+    <link rel="top" title="PyQt 5.2.1 Reference Guide" href="index.html" />
     <link rel="next" title="Installing PyQt5" href="installation.html" />
     <link rel="prev" title="PyQt5 Reference Guide" href="index.html" /> 
   </head>
@@ -32,15 +36,15 @@
           <a href="genindex.html" title="General Index"
              accesskey="I">index</a></li>
         <li class="right" >
-          <a href="modindex.html" title="Global Module Index"
-             accesskey="M">modules</a> |</li>
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
         <li class="right" >
           <a href="installation.html" title="Installing PyQt5"
              accesskey="N">next</a> |</li>
         <li class="right" >
           <a href="index.html" title="PyQt5 Reference Guide"
              accesskey="P">previous</a> |</li>
-        <li><a href="index.html">PyQt 5.1.1-snapshot-3c895ca14f00 Reference Guide</a> &raquo;</li> 
+        <li><a href="index.html">PyQt 5.2.1 Reference Guide</a> &raquo;</li> 
       </ul>
     </div>  
 
@@ -51,7 +55,7 @@
             
   <div class="section" id="introduction">
 <h1>Introduction<a class="headerlink" href="#introduction" title="Permalink to this headline">¶</a></h1>
-<p>This is the reference guide for PyQt5 5.1.1-snapshot-3c895ca14f00.  PyQt5 is a set of
+<p>This is the reference guide for PyQt5 5.2.1.  PyQt5 is a set of
 <a class="reference external" href="http://www.python.org">Python</a> bindings for v5 of the Qt application
 framework from <a class="reference external" href="http://qt.digia.com">Digia</a>.</p>
 <p>Qt is a set of C++ libraries and development tools that includes platform
@@ -59,7 +63,7 @@ independent abstractions for graphical user interfaces, networking, threads,
 regular expressions, SQL databases, SVG, OpenGL, XML, and user and application
 settings.  PyQt5 implements over 620 of these classes as a set of Python
 modules.</p>
-<p>PyQt5 supports the Windows, Linux, UNIX and MacOS/X platforms.</p>
+<p>PyQt5 supports the Windows, Linux, UNIX, Android, OS X and iOS platforms.</p>
 <p>PyQt5 does not include Qt itself - you must obtain it separately.</p>
 <p>The homepage for PyQt5 is <a class="reference external" href="http://www.riverbankcomputing.com/software/pyqt/">http://www.riverbankcomputing.com/software/pyqt/</a>.
 Here you will always find the latest stable version, current development
@@ -75,123 +79,145 @@ version then your own code must also use a compatible license.</p>
 <p>PyQt5, unlike Qt, is not available under the LGPL.</p>
 <p>You can purchase a commercial PyQt5 license <a class="reference external" href="http://www.riverbankcomputing.com/commercial/buy">here</a>.</p>
 </div>
-<div class="section" id="module-PyQt5.uic">
-<h2>PyQt5 Components<a class="headerlink" href="#module-PyQt5.uic" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="module-PyQt5">
+<span id="pyqt5-components"></span><h2>PyQt5 Components<a class="headerlink" href="#module-PyQt5" title="Permalink to this headline">¶</a></h2>
 <p>PyQt5 comprises a number of different components.  First of all there are a
 number of Python extension modules.  These are all installed in the
-<tt class="xref docutils literal"><span class="pre">PyQt5</span></tt> Python package.</p>
-<p><em>Platforms: </em>Windows</p>
-<ul class="simple">
-<li><tt class="xref docutils literal"><span class="pre">QAxContainer</span></tt> contains classes that allow access to ActiveX
+<a class="reference internal" href="#module-PyQt5" title="PyQt5"><tt class="xref py py-mod docutils literal"><span class="pre">PyQt5</span></tt></a> Python package.</p>
+<span class="target" id="module-PyQt5.QAxContainer"></span><ul class="simple">
+<li><a class="reference internal" href="#module-PyQt5.QAxContainer" title="PyQt5.QAxContainer (Windows)"><tt class="xref py py-mod docutils literal"><span class="pre">QAxContainer</span></tt></a> contains classes that allow access to ActiveX
 controls and COM objects.  It does not support the ability to write ActiveX
 servers in Python.  It is only available under Windows.</li>
 </ul>
-<ul class="simple">
-<li><tt class="xref docutils literal"><span class="pre">QtCore</span></tt> contains the core classes, including the event loop and
+<span class="target" id="module-PyQt5.QtBluetooth"></span><ul class="simple">
+<li><a class="reference internal" href="#module-PyQt5.QtBluetooth" title="PyQt5.QtBluetooth"><tt class="xref py py-mod docutils literal"><span class="pre">QtBluetooth</span></tt></a> contains classes that enables an application to
+scan for devices and connect and interact with them.</li>
+</ul>
+<span class="target" id="module-PyQt5.QtCore"></span><ul class="simple">
+<li><a class="reference internal" href="#module-PyQt5.QtCore" title="PyQt5.QtCore"><tt class="xref py py-mod docutils literal"><span class="pre">QtCore</span></tt></a> contains the core classes, including the event loop and
 Qt&#8217;s signal and slot mechanism.  It also includes platform independent
 abstractions for animations, state machines, threads, mapped files, shared
 memory, regular expressions, and user and application settings.</li>
 </ul>
-<p><em>Platforms: </em>UNIX</p>
-<ul class="simple">
-<li><tt class="xref docutils literal"><span class="pre">QtDBus</span></tt> contains classes that support Inter-Process
+<span class="target" id="module-PyQt5.QtDBus"></span><ul class="simple">
+<li><a class="reference internal" href="#module-PyQt5.QtDBus" title="PyQt5.QtDBus (UNIX)"><tt class="xref py py-mod docutils literal"><span class="pre">QtDBus</span></tt></a> contains classes that support Inter-Process
 Communication using the D-Bus protocol.  It is not available under Windows.</li>
 </ul>
-<ul class="simple">
-<li><tt class="xref docutils literal"><span class="pre">QtDesigner</span></tt> contains classes that allow Qt Designer to be
-extended using PyQt5.  See <a class="reference external" href="designer.html#ref-designer-plugins"><em>Writing Qt Designer Plugins</em></a> for a full description
+<span class="target" id="module-PyQt5.QtDesigner"></span><ul class="simple">
+<li><a class="reference internal" href="#module-PyQt5.QtDesigner" title="PyQt5.QtDesigner"><tt class="xref py py-mod docutils literal"><span class="pre">QtDesigner</span></tt></a> contains classes that allow Qt Designer to be
+extended using PyQt5.  See <a class="reference internal" href="designer.html#ref-designer-plugins"><em>Writing Qt Designer Plugins</em></a> for a full description
 of how to do this.</li>
 </ul>
-<ul class="simple">
-<li><tt class="xref docutils literal"><span class="pre">QtGui</span></tt> contains classes for windowing system integration, event
+<span class="target" id="module-PyQt5.QtGui"></span><ul class="simple">
+<li><a class="reference internal" href="#module-PyQt5.QtGui" title="PyQt5.QtGui"><tt class="xref py py-mod docutils literal"><span class="pre">QtGui</span></tt></a> contains classes for windowing system integration, event
 handling, 2D graphics, basic imaging, fonts and text.  It also containes a
-complete set of OpenGL and OpenGL ES bindings (see <a class="reference external" href="opengl.html#ref-opengl"><em>Support for OpenGL</em></a>).
+complete set of OpenGL and OpenGL ES bindings (see <a class="reference internal" href="opengl.html#ref-opengl"><em>Support for OpenGL</em></a>).
 Application developers would normally use this with higher level APIs such as
-those contained in the <tt class="xref docutils literal"><span class="pre">QtWidgets</span></tt> module.</li>
+those contained in the <a class="reference internal" href="#module-PyQt5.QtWidgets" title="PyQt5.QtWidgets"><tt class="xref py py-mod docutils literal"><span class="pre">QtWidgets</span></tt></a> module.</li>
 </ul>
-<ul class="simple">
-<li><tt class="xref docutils literal"><span class="pre">QtHelp</span></tt> contains classes for creating and viewing searchable
+<span class="target" id="module-PyQt5.QtHelp"></span><ul class="simple">
+<li><a class="reference internal" href="#module-PyQt5.QtHelp" title="PyQt5.QtHelp"><tt class="xref py py-mod docutils literal"><span class="pre">QtHelp</span></tt></a> contains classes for creating and viewing searchable
 documentation.</li>
 </ul>
-<ul class="simple">
-<li><tt class="xref docutils literal"><span class="pre">QtMultimedia</span></tt> contains classes to handle multimedia content and
+<span class="target" id="module-PyQt5.QtMacExtras"></span><ul class="simple">
+<li><a class="reference internal" href="#module-PyQt5.QtMacExtras" title="PyQt5.QtMacExtras (OS X, iOS)"><tt class="xref py py-mod docutils literal"><span class="pre">QtMacExtras</span></tt></a> contains additional classes that are specific to
+OS X and iOS.</li>
+</ul>
+<span class="target" id="module-PyQt5.QtMultimedia"></span><ul class="simple">
+<li><a class="reference internal" href="#module-PyQt5.QtMultimedia" title="PyQt5.QtMultimedia"><tt class="xref py py-mod docutils literal"><span class="pre">QtMultimedia</span></tt></a> contains classes to handle multimedia content and
 APIs to access camera and radio functionality.</li>
 </ul>
-<ul class="simple">
-<li><tt class="xref docutils literal"><span class="pre">QtMultimediaWidgets</span></tt> contains classes to handle multimedia
-content in <tt class="xref docutils literal"><span class="pre">QtWidgets</span></tt> based applications.</li>
+<span class="target" id="module-PyQt5.QtMultimediaWidgets"></span><ul class="simple">
+<li><a class="reference internal" href="#module-PyQt5.QtMultimediaWidgets" title="PyQt5.QtMultimediaWidgets"><tt class="xref py py-mod docutils literal"><span class="pre">QtMultimediaWidgets</span></tt></a> contains classes to handle multimedia
+content in <a class="reference internal" href="#module-PyQt5.QtWidgets" title="PyQt5.QtWidgets"><tt class="xref py py-mod docutils literal"><span class="pre">QtWidgets</span></tt></a> based applications.</li>
 </ul>
-<ul class="simple">
-<li><tt class="xref docutils literal"><span class="pre">QtNetwork</span></tt> contains classes for writing UDP and TCP clients and
+<span class="target" id="module-PyQt5.QtNetwork"></span><ul class="simple">
+<li><a class="reference internal" href="#module-PyQt5.QtNetwork" title="PyQt5.QtNetwork"><tt class="xref py py-mod docutils literal"><span class="pre">QtNetwork</span></tt></a> contains classes for writing UDP and TCP clients and
 servers.  It includes classes that implement HTTP clients and support DNS
 lookups.</li>
 </ul>
-<ul class="simple">
-<li><tt class="xref docutils literal"><span class="pre">QtOpenGL</span></tt> contains classes that allow the use of OpenGL in
-rendering 3D graphics in <tt class="xref docutils literal"><span class="pre">QtWidgets</span></tt> based applications.</li>
+<span class="target" id="module-PyQt5.QtOpenGL"></span><ul class="simple">
+<li><a class="reference internal" href="#module-PyQt5.QtOpenGL" title="PyQt5.QtOpenGL"><tt class="xref py py-mod docutils literal"><span class="pre">QtOpenGL</span></tt></a> contains classes that allow the use of OpenGL in
+rendering 3D graphics in <a class="reference internal" href="#module-PyQt5.QtWidgets" title="PyQt5.QtWidgets"><tt class="xref py py-mod docutils literal"><span class="pre">QtWidgets</span></tt></a> based applications.</li>
 </ul>
-<ul class="simple">
-<li><tt class="xref docutils literal"><span class="pre">QtPrintSupport</span></tt> contains classes to allow applications to print
+<span class="target" id="module-PyQt5.QtPositioning"></span><ul class="simple">
+<li><a class="reference internal" href="#module-PyQt5.QtPositioning" title="PyQt5.QtPositioning"><tt class="xref py py-mod docutils literal"><span class="pre">QtPositioning</span></tt></a> contains classes to determine a position by using
+a variety of possible sources, including satellite, or Wi-Fi, or a text file,
+and so on.  That information can then be used to, for example, determine a
+position on a map.  In addition satellite information can be retrieved and
+area based monitoring can be performed.</li>
+</ul>
+<span class="target" id="module-PyQt5.QtPrintSupport"></span><ul class="simple">
+<li><a class="reference internal" href="#module-PyQt5.QtPrintSupport" title="PyQt5.QtPrintSupport"><tt class="xref py py-mod docutils literal"><span class="pre">QtPrintSupport</span></tt></a> contains classes to allow applications to print
 to locally attached and remote printers.  It also enables the generation of
 PostScript and PDF files.</li>
 </ul>
-<ul class="simple">
-<li><tt class="xref docutils literal"><span class="pre">QtQml</span></tt> contains classes to allow applications to integrate
+<span class="target" id="module-PyQt5.QtQml"></span><ul class="simple">
+<li><a class="reference internal" href="#module-PyQt5.QtQml" title="PyQt5.QtQml"><tt class="xref py py-mod docutils literal"><span class="pre">QtQml</span></tt></a> contains classes to allow applications to integrate
 support for QML and JavaScript.  Python objects can be exported to QML or be
 created from QML in the same way that Qt allows the same with C++ instances.
-See <a class="reference external" href="qml.html#ref-integrating-qml"><em>Integrating Python and QML</em></a> for a fuller description of how to do this.</li>
+See <a class="reference internal" href="qml.html#ref-integrating-qml"><em>Integrating Python and QML</em></a> for a fuller description of how to do this.</li>
 </ul>
-<ul class="simple">
-<li><tt class="xref docutils literal"><span class="pre">QtQuick</span></tt> contains classes that provide the basic elements
+<span class="target" id="module-PyQt5.QtQuick"></span><ul class="simple">
+<li><a class="reference internal" href="#module-PyQt5.QtQuick" title="PyQt5.QtQuick"><tt class="xref py py-mod docutils literal"><span class="pre">QtQuick</span></tt></a> contains classes that provide the basic elements
 necessary for creating user interfaces with QML.</li>
 </ul>
-<ul class="simple">
-<li><tt class="xref docutils literal"><span class="pre">QtSensors</span></tt> contains classes that provide access to a system&#8217;s
+<span class="target" id="module-PyQt5.QtSensors"></span><ul class="simple">
+<li><a class="reference internal" href="#module-PyQt5.QtSensors" title="PyQt5.QtSensors"><tt class="xref py py-mod docutils literal"><span class="pre">QtSensors</span></tt></a> contains classes that provide access to a system&#8217;s
 hardware sensors including accelerometers, altimeters, ambient light and
 temperature sensors, gyroscopes and magnetometers.  Note that sensor gestures
 are not currently supported.</li>
 </ul>
-<ul class="simple">
-<li><tt class="xref docutils literal"><span class="pre">QtSerialPort</span></tt> contains classes that provide access to a system&#8217;s
+<span class="target" id="module-PyQt5.QtSerialPort"></span><ul class="simple">
+<li><a class="reference internal" href="#module-PyQt5.QtSerialPort" title="PyQt5.QtSerialPort"><tt class="xref py py-mod docutils literal"><span class="pre">QtSerialPort</span></tt></a> contains classes that provide access to a system&#8217;s
 serial ports.</li>
 </ul>
-<ul class="simple">
-<li><tt class="xref docutils literal"><span class="pre">QtSql</span></tt> contains classes that integrate with SQL databases.  It
+<span class="target" id="module-PyQt5.QtSql"></span><ul class="simple">
+<li><a class="reference internal" href="#module-PyQt5.QtSql" title="PyQt5.QtSql"><tt class="xref py py-mod docutils literal"><span class="pre">QtSql</span></tt></a> contains classes that integrate with SQL databases.  It
 includes editable data models for database tables that can be used with GUI
 classes.  It also includes an implementation of
 <a class="reference external" href="http://www.sqlite.org">SQLite</a>.</li>
 </ul>
-<ul class="simple">
-<li><tt class="xref docutils literal"><span class="pre">QtSvg</span></tt> contains classes for displaying the contents of SVG
+<span class="target" id="module-PyQt5.QtSvg"></span><ul class="simple">
+<li><a class="reference internal" href="#module-PyQt5.QtSvg" title="PyQt5.QtSvg"><tt class="xref py py-mod docutils literal"><span class="pre">QtSvg</span></tt></a> contains classes for displaying the contents of SVG
 files.</li>
 </ul>
-<ul class="simple">
-<li><tt class="xref docutils literal"><span class="pre">QtTest</span></tt> contains functions that enable unit testing of PyQt5
+<span class="target" id="module-PyQt5.QtTest"></span><ul class="simple">
+<li><a class="reference internal" href="#module-PyQt5.QtTest" title="PyQt5.QtTest"><tt class="xref py py-mod docutils literal"><span class="pre">QtTest</span></tt></a> contains functions that enable unit testing of PyQt5
 applications.  (PyQt5 does not implement the complete Qt unit test framework.
 Instead it assumes that the standard Python unit test framework will be used
 and implements those functions that simulate a user interacting with a GUI.)
-In addition the <a title="PyQt5.QtTest.QSignalSpy" class="reference external" href="api/qsignalspy.html#PyQt5.QtTest.QSignalSpy"><tt class="xref docutils literal"><span class="pre">QSignalSpy</span></tt></a> class provides easy
+In addition the <a class="reference internal" href="api/qsignalspy.html#PyQt5.QtTest.QSignalSpy" title="PyQt5.QtTest.QSignalSpy"><tt class="xref py py-class docutils literal"><span class="pre">QSignalSpy</span></tt></a> class provides easy
 introspection of Qt&#8217;s signals and slots.</li>
 </ul>
-<ul class="simple">
-<li><tt class="xref docutils literal"><span class="pre">QtWebKit</span></tt> contains classes for a WebKit2 based implementation of
+<span class="target" id="module-PyQt5.QtWebKit"></span><ul class="simple">
+<li><a class="reference internal" href="#module-PyQt5.QtWebKit" title="PyQt5.QtWebKit"><tt class="xref py py-mod docutils literal"><span class="pre">QtWebKit</span></tt></a> contains classes for a WebKit2 based implementation of
 a web browser.</li>
 </ul>
-<ul class="simple">
-<li><tt class="xref docutils literal"><span class="pre">QtWebKitWidgets</span></tt> contains classes for a WebKit1 based
-implementation of a web browser for use in <tt class="xref docutils literal"><span class="pre">QtWidgets</span></tt> based
+<span class="target" id="module-PyQt5.QtWebKitWidgets"></span><ul class="simple">
+<li><a class="reference internal" href="#module-PyQt5.QtWebKitWidgets" title="PyQt5.QtWebKitWidgets"><tt class="xref py py-mod docutils literal"><span class="pre">QtWebKitWidgets</span></tt></a> contains classes for a WebKit1 based
+implementation of a web browser for use in <a class="reference internal" href="#module-PyQt5.QtWidgets" title="PyQt5.QtWidgets"><tt class="xref py py-mod docutils literal"><span class="pre">QtWidgets</span></tt></a> based
 applications.</li>
 </ul>
-<ul class="simple">
-<li><tt class="xref docutils literal"><span class="pre">QtWidgets</span></tt> contains classes that provide a set of UI elements to
+<span class="target" id="module-PyQt5.QtWidgets"></span><ul class="simple">
+<li><a class="reference internal" href="#module-PyQt5.QtWidgets" title="PyQt5.QtWidgets"><tt class="xref py py-mod docutils literal"><span class="pre">QtWidgets</span></tt></a> contains classes that provide a set of UI elements to
 create classic desktop-style user interfaces.</li>
 </ul>
-<ul class="simple">
-<li><tt class="xref docutils literal"><span class="pre">QtXmlPatterns</span></tt> contains classes that provide support for XPath,
+<span class="target" id="module-PyQt5.QtWinExtras"></span><ul class="simple">
+<li><a class="reference internal" href="#module-PyQt5.QtWinExtras" title="PyQt5.QtWinExtras (Windows)"><tt class="xref py py-mod docutils literal"><span class="pre">QtWinExtras</span></tt></a> contains additional classes that are specific to
+Windows, for example providing access to Jump Lists, a progress indicator on
+a taskbar button, and a thumbnail toolbar.</li>
+</ul>
+<span class="target" id="module-PyQt5.QtX11Extras"></span><ul class="simple">
+<li><a class="reference internal" href="#module-PyQt5.QtX11Extras" title="PyQt5.QtX11Extras (X11)"><tt class="xref py py-mod docutils literal"><span class="pre">QtX11Extras</span></tt></a> contains additional classes that are specific to
+X11.</li>
+</ul>
+<span class="target" id="module-PyQt5.QtXmlPatterns"></span><ul class="simple">
+<li><a class="reference internal" href="#module-PyQt5.QtXmlPatterns" title="PyQt5.QtXmlPatterns"><tt class="xref py py-mod docutils literal"><span class="pre">QtXmlPatterns</span></tt></a> contains classes that provide support for XPath,
 XQuery, XSLT and XML Schema validation.</li>
 </ul>
-<ul class="simple">
-<li><tt class="xref docutils literal"><span class="pre">Qt</span></tt> consolidates the classes contained in all of the modules
+<span class="target" id="module-PyQt5.Qt"></span><ul class="simple">
+<li><a class="reference internal" href="#module-PyQt5.Qt" title="PyQt5.Qt"><tt class="xref py py-mod docutils literal"><span class="pre">Qt</span></tt></a> consolidates the classes contained in all of the modules
 described above into a single module.  This has the advantage that you don&#8217;t
 have to worry about which underlying module contains a particular class.  It
 has the disadvantage that it loads the whole of the Qt framework, thereby
@@ -199,36 +225,36 @@ increasing the memory footprint of an application.  Whether you use this
 consolidated module, or the individual component modules is down to personal
 taste.</li>
 </ul>
-<ul class="simple">
-<li><tt class="xref docutils literal"><span class="pre">uic</span></tt> contains classes for handling the <tt class="docutils literal"><span class="pre">.ui</span></tt> files created by
+<span class="target" id="module-PyQt5.uic"></span><ul class="simple">
+<li><a class="reference internal" href="#module-PyQt5.uic" title="PyQt5.uic"><tt class="xref py py-mod docutils literal"><span class="pre">uic</span></tt></a> contains classes for handling the <tt class="docutils literal"><span class="pre">.ui</span></tt> files created by
 Qt Designer that describe the whole or part of a graphical user interface.
 It includes classes that load a <tt class="docutils literal"><span class="pre">.ui</span></tt> file and render it directly, and
 classes that generate Python code from a <tt class="docutils literal"><span class="pre">.ui</span></tt> file for later execution.</li>
 </ul>
-<p>PyQt5 contains plugins that enable Qt Designer and <strong>qmlscene</strong> to be
-extended using Python code.  See <a class="reference external" href="designer.html#ref-designer-plugins"><em>Writing Qt Designer Plugins</em></a> and
-<a class="reference external" href="qml.html#ref-integrating-qml"><em>Integrating Python and QML</em></a> respectively for the details.</p>
+<p>PyQt5 contains plugins that enable Qt Designer and <strong class="program">qmlscene</strong> to be
+extended using Python code.  See <a class="reference internal" href="designer.html#ref-designer-plugins"><em>Writing Qt Designer Plugins</em></a> and
+<a class="reference internal" href="qml.html#ref-integrating-qml"><em>Integrating Python and QML</em></a> respectively for the details.</p>
 <p>PyQt5 also contains a number of utility programs.</p>
 <ul class="simple">
-<li><strong>pyuic5</strong> corresponds to the Qt <strong>uic</strong> utility.  It converts
-<tt class="xref docutils literal"><span class="pre">QtWidgets</span></tt> based GUIs created using Qt Designer to Python code.</li>
-<li><strong>pyrcc5</strong> corresponds to the Qt <strong>rcc</strong> utility.  It embeds
+<li><strong class="program">pyuic5</strong> corresponds to the Qt <strong class="program">uic</strong> utility.  It converts
+<a class="reference internal" href="#module-PyQt5.QtWidgets" title="PyQt5.QtWidgets"><tt class="xref py py-mod docutils literal"><span class="pre">QtWidgets</span></tt></a> based GUIs created using Qt Designer to Python code.</li>
+<li><strong class="program">pyrcc5</strong> corresponds to the Qt <strong class="program">rcc</strong> utility.  It embeds
 arbitrary resources (eg. icons, images, translation files) described by a
 resource collection file in a Python module.</li>
-<li><strong>pylupdate5</strong> corresponds to the Qt <strong>lupdate</strong> utility.  It
+<li><strong class="program">pylupdate5</strong> corresponds to the Qt <strong class="program">lupdate</strong> utility.  It
 extracts all of the translatable strings from Python code and creates or
 updates <tt class="docutils literal"><span class="pre">.ts</span></tt> translation files.  These are then used by Qt Linguist to
 manage the translation of those strings.</li>
 </ul>
 <p>The <a class="reference external" href="http://www.freedesktop.org/wiki/Software/DBusBindings">DBus</a> support
-module is installed as <tt class="xref docutils literal"><span class="pre">dbus.mainloop.pyqt5</span></tt>.  This module provides
+module is installed as <tt class="xref py py-mod docutils literal"><span class="pre">dbus.mainloop.pyqt5</span></tt>.  This module provides
 support for the Qt event loop in the same way that the
-<tt class="xref docutils literal"><span class="pre">dbus.mainloop.glib</span></tt> included with the standard <tt class="docutils literal"><span class="pre">dbus-python</span></tt> bindings
+<tt class="xref py py-mod docutils literal"><span class="pre">dbus.mainloop.glib</span></tt> included with the standard <tt class="docutils literal"><span class="pre">dbus-python</span></tt> bindings
 package provides support for the GLib event loop.  The API is described in
-<a class="reference external" href="dbus.html#ref-dbus"><em>DBus Support</em></a>.  It is only available if the <tt class="docutils literal"><span class="pre">dbus-python</span></tt> v0.80 (or later)
-bindings package is installed.  The <tt class="xref docutils literal"><span class="pre">QtDBus</span></tt> module provides a more
+<a class="reference internal" href="dbus.html#ref-dbus"><em>DBus Support</em></a>.  It is only available if the <tt class="docutils literal"><span class="pre">dbus-python</span></tt> v0.80 (or later)
+bindings package is installed.  The <a class="reference internal" href="#module-PyQt5.QtDBus" title="PyQt5.QtDBus (UNIX)"><tt class="xref py py-mod docutils literal"><span class="pre">QtDBus</span></tt></a> module provides a more
 Qt-like interface to DBus.</p>
-<p>When PyQt5 is configured a file called <tt class="docutils literal"><span class="pre">PyQt5.api</span></tt> is generated.  This
+<p>When PyQt5 is configured a file called <tt class="file docutils literal"><span class="pre">PyQt5.api</span></tt> is generated.  This
 can be used by the
 <a class="reference external" href="http://www.riverbankcomputing.com/software/qscintilla/">QScintilla</a>
 editor component to enable the use of auto-completion and call tips when
@@ -237,7 +263,7 @@ editing PyQt5 code.  The API file is installed automatically if
 is already installed.</p>
 <p>PyQt5 includes a large number of examples.  These are ports to Python of many
 of the C++ examples provided with Qt.  They can be found in the
-<tt class="docutils literal"><span class="pre">examples</span></tt> directory.</p>
+<tt class="file docutils literal"><span class="pre">examples</span></tt> directory.</p>
 <p>Finally, PyQt5 contains the <tt class="docutils literal"><span class="pre">.sip</span></tt> files used by SIP to generate PyQt5
 itself.  These can be used by developers of bindings of other Qt based class
 libraries.</p>
@@ -287,35 +313,35 @@ version of PyQt5 no matter what version of Qt v5 you are using.</p>
             <p class="logo"><a href="index.html">
               <img class="logo" src="_static/logo.png" alt="Logo"/>
             </a></p>
-            <h3><a href="index.html">Table Of Contents</a></h3>
-            <ul>
-<li><a class="reference external" href="#">Introduction</a><ul>
-<li><a class="reference external" href="#license">License</a></li>
-<li><a class="reference external" href="#module-PyQt5.uic">PyQt5 Components</a></li>
-<li><a class="reference external" href="#an-explanation-of-version-numbers">An Explanation of Version Numbers</a></li>
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Introduction</a><ul>
+<li><a class="reference internal" href="#license">License</a></li>
+<li><a class="reference internal" href="#module-PyQt5">PyQt5 Components</a></li>
+<li><a class="reference internal" href="#an-explanation-of-version-numbers">An Explanation of Version Numbers</a></li>
 </ul>
 </li>
 </ul>
 
-            <h4>Previous topic</h4>
-            <p class="topless"><a href="index.html"
-                                  title="previous chapter">PyQt5 Reference Guide</a></p>
-            <h4>Next topic</h4>
-            <p class="topless"><a href="installation.html"
-                                  title="next chapter">Installing PyQt5</a></p>
-          <div id="searchbox" style="display: none">
-            <h3>Quick search</h3>
-              <form class="search" action="search.html" method="get">
-                <input type="text" name="q" size="18" />
-                <input type="submit" value="Go" />
-                <input type="hidden" name="check_keywords" value="yes" />
-                <input type="hidden" name="area" value="default" />
-              </form>
-              <p class="searchtip" style="font-size: 90%">
-              Enter search terms or a module, class or function name.
-              </p>
-          </div>
-          <script type="text/javascript">$('#searchbox').show(0);</script>
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="index.html"
+                        title="previous chapter">PyQt5 Reference Guide</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="installation.html"
+                        title="next chapter">Installing PyQt5</a></p>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
         </div>
       </div>
       <div class="clearer"></div>
@@ -327,7 +353,7 @@ version of PyQt5 no matter what version of Qt v5 you are using.</p>
           <a href="genindex.html" title="General Index"
              >index</a></li>
         <li class="right" >
-          <a href="modindex.html" title="Global Module Index"
+          <a href="py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
         <li class="right" >
           <a href="installation.html" title="Installing PyQt5"
@@ -335,12 +361,12 @@ version of PyQt5 no matter what version of Qt v5 you are using.</p>
         <li class="right" >
           <a href="index.html" title="PyQt5 Reference Guide"
              >previous</a> |</li>
-        <li><a href="index.html">PyQt 5.1.1-snapshot-3c895ca14f00 Reference Guide</a> &raquo;</li> 
+        <li><a href="index.html">PyQt 5.2.1 Reference Guide</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer">
-      &copy; Copyright 2013 Riverbank Computing Limited.
-      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 0.6.4.
+        &copy; Copyright 2014 Riverbank Computing Limited.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
     </div>
   </body>
 </html>

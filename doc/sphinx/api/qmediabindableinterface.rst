@@ -5,4 +5,4 @@ QMediaBindableInterface
 
 .. class:: QMediaBindableInterface
 
-    `C++ documentation <http://qt-project.org/doc/qt-5.1/qtmultimedia/qmediabindableinterface.html>`_
+    `C++ documentation <http://qt-project.org/doc/qt-5.2/qmediabindableinterface.html>`_

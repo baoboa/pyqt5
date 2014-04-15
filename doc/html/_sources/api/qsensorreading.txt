@@ -5,4 +5,4 @@ QSensorReading
 
 .. class:: QSensorReading
 
-    `C++ documentation <http://qt-project.org/doc/qt-5.1/qtsensors/qsensorreading.html>`_
+    `C++ documentation <http://qt-project.org/doc/qt-5.2/qsensorreading.html>`_

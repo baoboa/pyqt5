@@ -5,4 +5,4 @@ QWebPage
 
 .. class:: QWebPage
 
-    `C++ documentation <http://qt-project.org/doc/qt-5.1/qtwebkit/qwebpage.html>`_
+    `C++ documentation <http://qt-project.org/doc/qt-5.2/qwebpage.html>`_

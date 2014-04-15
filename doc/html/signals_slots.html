@@ -1,26 +1,30 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
+
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Support for Signals and Slots &mdash; PyQt 5.1.1-snapshot-3c895ca14f00 Reference Guide</title>
+    <title>Support for Signals and Slots &mdash; PyQt 5.2.1 Reference Guide</title>
+    
     <link rel="stylesheet" href="_static/default.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    '#',
-        VERSION:     '5.1.1-snapshot-3c895ca14f00',
-        COLLAPSE_MODINDEX: false,
+        URL_ROOT:    './',
+        VERSION:     '5.2.1',
+        COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
       };
     </script>
     <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
     <link rel="shortcut icon" href="_static/logo_tn.ico"/>
-    <link rel="top" title="PyQt 5.1.1-snapshot-3c895ca14f00 Reference Guide" href="index.html" />
+    <link rel="top" title="PyQt 5.2.1 Reference Guide" href="index.html" />
     <link rel="next" title="Support for Qt Properties" href="qt_properties.html" />
     <link rel="prev" title="QXmlStreamWriter" href="api/qxmlstreamwriter.html" /> 
   </head>
@@ -32,15 +36,15 @@
           <a href="genindex.html" title="General Index"
              accesskey="I">index</a></li>
         <li class="right" >
-          <a href="modindex.html" title="Global Module Index"
-             accesskey="M">modules</a> |</li>
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
         <li class="right" >
           <a href="qt_properties.html" title="Support for Qt Properties"
              accesskey="N">next</a> |</li>
         <li class="right" >
           <a href="api/qxmlstreamwriter.html" title="QXmlStreamWriter"
              accesskey="P">previous</a> |</li>
-        <li><a href="index.html">PyQt 5.1.1-snapshot-3c895ca14f00 Reference Guide</a> &raquo;</li> 
+        <li><a href="index.html">PyQt 5.2.1 Reference Guide</a> &raquo;</li> 
       </ul>
     </div>  
 
@@ -70,11 +74,11 @@ signal is being used.</p>
 </ul>
 <div class="section" id="unbound-and-bound-signals">
 <h2>Unbound and Bound Signals<a class="headerlink" href="#unbound-and-bound-signals" title="Permalink to this headline">¶</a></h2>
-<p>A signal (specifically an unbound signal) is an attribute of a class that is a
-sub-class of <a title="PyQt5.QtCore.QObject" class="reference external" href="api/qobject.html#PyQt5.QtCore.QObject"><tt class="xref docutils literal"><span class="pre">QObject</span></tt></a>.  When a signal is referenced as an
-attribute of an instance of the class then PyQt5 automatically binds the
-instance to the signal in order to create a <em>bound signal</em>.  This is the same
-mechanism that Python itself uses to create bound methods from class functions.</p>
+<p>A signal (specifically an unbound signal) is a class attribute.  When a signal
+is referenced as an attribute of an instance of the class then PyQt5
+automatically binds the instance to the signal in order to create a <em>bound
+signal</em>.  This is the same mechanism that Python itself uses to create bound
+methods from class functions.</p>
 <p>A bound signal has <tt class="docutils literal"><span class="pre">connect()</span></tt>, <tt class="docutils literal"><span class="pre">disconnect()</span></tt> and <tt class="docutils literal"><span class="pre">emit()</span></tt> methods that
 implement the associated functionality.  It also has a <tt class="docutils literal"><span class="pre">signal</span></tt> attribute
 that is the signature of the signal that would be returned by Qt&#8217;s <tt class="docutils literal"><span class="pre">SIGNAL()</span></tt>
@@ -93,34 +97,34 @@ wrapped in a special C++ type that allows it to be passed around Qt&#8217;s meta
 system while ensuring that its reference count is properly maintained.</p>
 </div>
 <div class="section" id="defining-new-signals-with-pyqtsignal">
-<h2>Defining New Signals with <a title="PyQt5.QtCore.pyqtSignal" class="reference internal" href="#PyQt5.QtCore.pyqtSignal"><tt class="xref docutils literal"><span class="pre">pyqtSignal()</span></tt></a><a class="headerlink" href="#defining-new-signals-with-pyqtsignal" title="Permalink to this headline">¶</a></h2>
+<h2>Defining New Signals with <a class="reference internal" href="#PyQt5.QtCore.pyqtSignal" title="PyQt5.QtCore.pyqtSignal"><tt class="xref py py-func docutils literal"><span class="pre">pyqtSignal()</span></tt></a><a class="headerlink" href="#defining-new-signals-with-pyqtsignal" title="Permalink to this headline">¶</a></h2>
 <p>PyQt5 automatically defines signals for all Qt&#8217;s built-in signals.  New signals
-can be defined as class attributes using the <a title="PyQt5.QtCore.pyqtSignal" class="reference internal" href="#PyQt5.QtCore.pyqtSignal"><tt class="xref docutils literal"><span class="pre">pyqtSignal()</span></tt></a>
+can be defined as class attributes using the <a class="reference internal" href="#PyQt5.QtCore.pyqtSignal" title="PyQt5.QtCore.pyqtSignal"><tt class="xref py py-func docutils literal"><span class="pre">pyqtSignal()</span></tt></a>
 factory.</p>
 <dl class="function">
 <dt id="PyQt5.QtCore.pyqtSignal">
-<tt class="descclassname">PyQt5.QtCore.</tt><tt class="descname">pyqtSignal</tt><big>(</big><em>types</em><span class="optional">[</span>, <em>name</em><span class="optional">]</span><span class="optional">[</span>, <em>revision=0</em><span class="optional">]</span><span class="optional">[</span>, <em>arguments=</em><span class="optional">[</span><span class="optional">]</span><span class="optional">]</span><big>)</big><a class="headerlink" href="#PyQt5.QtCore.pyqtSignal" title="Permalink to this definition">¶</a></dt>
+<tt class="descclassname">PyQt5.QtCore.</tt><tt class="descname">pyqtSignal</tt><big>(</big><em>types[, name][, revision=0][, arguments=[]]</em><big>)</big><a class="headerlink" href="#PyQt5.QtCore.pyqtSignal" title="Permalink to this definition">¶</a></dt>
 <dd><p>Create one or more overloaded unbound signals as a class attribute.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><em>types</em> &#8211; the types that define the C++ signature of the signal.  Each type may
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>types</strong> &#8211; the types that define the C++ signature of the signal.  Each type may
 be a Python type object or a string that is the name of a C++ type.
 Alternatively each may be a sequence of type arguments.  In this case
 each sequence defines the signature of a different signal overload.
 The first overload will be the default.</li>
-<li><em>name</em> &#8211; the name of the signal.  If it is omitted then the name of the class
+<li><strong>name</strong> &#8211; the name of the signal.  If it is omitted then the name of the class
 attribute is used.  This may only be given as a keyword argument.</li>
-<li><em>revision</em> &#8211; the revision of the signal that is exported to QML.  This may only be
+<li><strong>revision</strong> &#8211; the revision of the signal that is exported to QML.  This may only be
 given as a keyword argument.</li>
-<li><em>arguments</em> &#8211; the sequence of the names of the signal&#8217;s arguments that is exported to
+<li><strong>arguments</strong> &#8211; the sequence of the names of the signal&#8217;s arguments that is exported to
 QML.  This may only be given as a keyword argument.</li>
 </ul>
 </td>
 </tr>
-<tr class="field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">an unbound signal</p>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">an unbound signal</p>
 </td>
 </tr>
 </tbody>
@@ -146,11 +150,9 @@ QML.  This may only be given as a keyword argument.</li>
     <span class="n">valueChanged</span> <span class="o">=</span> <span class="n">pyqtSignal</span><span class="p">([</span><span class="nb">int</span><span class="p">],</span> <span class="p">[</span><span class="s">&#39;QString&#39;</span><span class="p">])</span>
 </pre></div>
 </div>
-<p>New signals should only be defined in sub-classes of
-<a title="PyQt5.QtCore.QObject" class="reference external" href="api/qobject.html#PyQt5.QtCore.QObject"><tt class="xref docutils literal"><span class="pre">QObject</span></tt></a>.</p>
 <p>New signals defined in this way will be automatically added to the class&#8217;s
-<a title="PyQt5.QtCore.QMetaObject" class="reference external" href="api/qmetaobject.html#PyQt5.QtCore.QMetaObject"><tt class="xref docutils literal"><span class="pre">QMetaObject</span></tt></a>.  This means that they will appear in Qt
-Designer and can be introspected using the <a title="PyQt5.QtCore.QMetaObject" class="reference external" href="api/qmetaobject.html#PyQt5.QtCore.QMetaObject"><tt class="xref docutils literal"><span class="pre">QMetaObject</span></tt></a>
+<a class="reference internal" href="api/qmetaobject.html#PyQt5.QtCore.QMetaObject" title="PyQt5.QtCore.QMetaObject"><tt class="xref py py-class docutils literal"><span class="pre">QMetaObject</span></tt></a>.  This means that they will appear in Qt
+Designer and can be introspected using the <a class="reference internal" href="api/qmetaobject.html#PyQt5.QtCore.QMetaObject" title="PyQt5.QtCore.QMetaObject"><tt class="xref py py-class docutils literal"><span class="pre">QMetaObject</span></tt></a>
 API.</p>
 <p>Overloaded signals should be used with care when an argument has a Python type
 that has no corresponding C++ type.  PyQt5 uses the same internal C++ class to
@@ -166,7 +168,7 @@ with unexpected results.  The following is an example of this:</p>
 </div>
 <div class="section" id="connecting-disconnecting-and-emitting-signals">
 <h2>Connecting, Disconnecting and Emitting Signals<a class="headerlink" href="#connecting-disconnecting-and-emitting-signals" title="Permalink to this headline">¶</a></h2>
-<p>Signals are connected to slots using the <a title="connect" class="reference internal" href="#connect"><tt class="xref docutils literal"><span class="pre">connect()</span></tt></a> method of a bound
+<p>Signals are connected to slots using the <a class="reference internal" href="#connect" title="connect"><tt class="xref py py-meth docutils literal"><span class="pre">connect()</span></tt></a> method of a bound
 signal.</p>
 <dl class="method">
 <dt id="connect">
@@ -177,10 +179,10 @@ failed.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><em>slot</em> &#8211; the slot to connect to, either a Python callable or another bound
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>slot</strong> &#8211; the slot to connect to, either a Python callable or another bound
 signal.</li>
-<li><em>type</em> &#8211; the type of the connection to make.</li>
+<li><strong>type</strong> &#8211; the type of the connection to make.</li>
 </ul>
 </td>
 </tr>
@@ -188,7 +190,7 @@ signal.</li>
 </table>
 </dd></dl>
 
-<p>Signals are disconnected from slots using the <a title="disconnect" class="reference internal" href="#disconnect"><tt class="xref docutils literal"><span class="pre">disconnect()</span></tt></a> method of a
+<p>Signals are disconnected from slots using the <a class="reference internal" href="#disconnect" title="disconnect"><tt class="xref py py-meth docutils literal"><span class="pre">disconnect()</span></tt></a> method of a
 bound signal.</p>
 <dl class="method">
 <dt id="disconnect">
@@ -200,7 +202,7 @@ at all.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field"><th class="field-name">Parameter:</th><td class="field-body"><em>slot</em> &#8211; the optional slot to disconnect from, either a Python callable or
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>slot</strong> &#8211; the optional slot to disconnect from, either a Python callable or
 another bound signal.  If it is omitted then all slots connected to the
 signal are disconnected.</td>
 </tr>
@@ -208,7 +210,7 @@ signal are disconnected.</td>
 </table>
 </dd></dl>
 
-<p>Signals are emitted from using the <a title="emit" class="reference internal" href="#emit"><tt class="xref docutils literal"><span class="pre">emit()</span></tt></a> method of a bound signal.</p>
+<p>Signals are emitted from using the <a class="reference internal" href="#emit" title="emit"><tt class="xref py py-meth docutils literal"><span class="pre">emit()</span></tt></a> method of a bound signal.</p>
 <dl class="method">
 <dt id="emit">
 <tt class="descname">emit</tt><big>(</big><em>*args</em><big>)</big><a class="headerlink" href="#emit" title="Permalink to this definition">¶</a></dt>
@@ -217,7 +219,7 @@ signal are disconnected.</td>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field"><th class="field-name">Parameter:</th><td class="field-body"><em>args</em> &#8211; the optional sequence of arguments to pass to any connected slots.</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>args</strong> &#8211; the optional sequence of arguments to pass to any connected slots.</td>
 </tr>
 </tbody>
 </table>
@@ -273,7 +275,7 @@ signal without arguments:</p>
 <h2>Connecting Signals Using Keyword Arguments<a class="headerlink" href="#connecting-signals-using-keyword-arguments" title="Permalink to this headline">¶</a></h2>
 <p>It is also possible to connect signals by passing a slot as a keyword argument
 corresponding to the name of the signal when creating an object, or using the
-<tt class="xref docutils literal"><span class="pre">pyqtConfigure()</span></tt> method.  For example the following
+<tt class="xref py py-meth docutils literal"><span class="pre">pyqtConfigure()</span></tt> method.  For example the following
 three fragments are equivalent:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="n">act</span> <span class="o">=</span> <span class="n">QAction</span><span class="p">(</span><span class="s">&quot;Action&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span>
 <span class="n">act</span><span class="o">.</span><span class="n">triggered</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">on_triggered</span><span class="p">)</span>
@@ -286,28 +288,28 @@ three fragments are equivalent:</p>
 </div>
 </div>
 <div class="section" id="the-pyqtslot-decorator">
-<h2>The <a title="PyQt5.QtCore.pyqtSlot" class="reference internal" href="#PyQt5.QtCore.pyqtSlot"><tt class="xref docutils literal"><span class="pre">pyqtSlot()</span></tt></a> Decorator<a class="headerlink" href="#the-pyqtslot-decorator" title="Permalink to this headline">¶</a></h2>
+<h2>The <a class="reference internal" href="#PyQt5.QtCore.pyqtSlot" title="PyQt5.QtCore.pyqtSlot"><tt class="xref py py-func docutils literal"><span class="pre">pyqtSlot()</span></tt></a> Decorator<a class="headerlink" href="#the-pyqtslot-decorator" title="Permalink to this headline">¶</a></h2>
 <p>Although PyQt5 allows any Python callable to be used as a slot when connecting
 signals, it is sometimes necessary to explicitly mark a Python method as being
 a Qt slot and to provide a C++ signature for it.  PyQt5 provides the
-<a title="PyQt5.QtCore.pyqtSlot" class="reference internal" href="#PyQt5.QtCore.pyqtSlot"><tt class="xref docutils literal"><span class="pre">pyqtSlot()</span></tt></a> function decorator to do this.</p>
+<a class="reference internal" href="#PyQt5.QtCore.pyqtSlot" title="PyQt5.QtCore.pyqtSlot"><tt class="xref py py-func docutils literal"><span class="pre">pyqtSlot()</span></tt></a> function decorator to do this.</p>
 <dl class="function">
 <dt id="PyQt5.QtCore.pyqtSlot">
-<tt class="descclassname">PyQt5.QtCore.</tt><tt class="descname">pyqtSlot</tt><big>(</big><em>types</em><span class="optional">[</span>, <em>name</em><span class="optional">]</span><span class="optional">[</span>, <em>result</em><span class="optional">]</span><span class="optional">[</span>, <em>revision=0</em><span class="optional">]</span><big>)</big><a class="headerlink" href="#PyQt5.QtCore.pyqtSlot" title="Permalink to this definition">¶</a></dt>
+<tt class="descclassname">PyQt5.QtCore.</tt><tt class="descname">pyqtSlot</tt><big>(</big><em>types[, name][, result][, revision=0]</em><big>)</big><a class="headerlink" href="#PyQt5.QtCore.pyqtSlot" title="Permalink to this definition">¶</a></dt>
 <dd><p>Decorate a Python method to create a Qt slot.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><em>types</em> &#8211; the types that define the C++ signature of the slot.  Each type may be
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>types</strong> &#8211; the types that define the C++ signature of the slot.  Each type may be
 a Python type object or a string that is the name of a C++ type.</li>
-<li><em>name</em> &#8211; the name of the slot that will be seen by C++.  If omitted the name of
+<li><strong>name</strong> &#8211; the name of the slot that will be seen by C++.  If omitted the name of
 the Python method being decorated will be used.  This may only be given
 as a keyword argument.</li>
-<li><em>revision</em> &#8211; the revision of the slot that is exported to QML.  This may only be
+<li><strong>revision</strong> &#8211; the revision of the slot that is exported to QML.  This may only be
 given as a keyword argument.</li>
-<li><em>result</em> &#8211; the type of the result and may be a Python type object or a string that
+<li><strong>result</strong> &#8211; the type of the result and may be a Python type object or a string that
 specifies a C++ type.  This may only be given as a keyword argument.</li>
 </ul>
 </td>
@@ -359,33 +361,25 @@ several times with different signatures.  For example:</p>
 </div>
 <div class="section" id="connecting-slots-by-name">
 <h2>Connecting Slots By Name<a class="headerlink" href="#connecting-slots-by-name" title="Permalink to this headline">¶</a></h2>
-<p>PyQt5 supports the <tt class="xref docutils literal"><span class="pre">connectSlotsByName()</span></tt> function
-that is most commonly used by <strong>pyuic5</strong> generated Python code to
+<p>PyQt5 supports the <tt class="xref py py-meth docutils literal"><span class="pre">connectSlotsByName()</span></tt> function
+that is most commonly used by <strong class="program">pyuic5</strong> generated Python code to
 automatically connect signals to slots that conform to a simple naming
 convention.  However, where a class has overloaded Qt signals (ie. with the
 same name but with different arguments) PyQt5 needs additional information in
 order to automatically connect the correct signal.</p>
-<p>For example the <a title="PyQt5.QtWidgets.QSpinBox" class="reference external" href="api/qspinbox.html#PyQt5.QtWidgets.QSpinBox"><tt class="xref docutils literal"><span class="pre">QSpinBox</span></tt></a> class has the following
+<p>For example the <a class="reference internal" href="api/qspinbox.html#PyQt5.QtWidgets.QSpinBox" title="PyQt5.QtWidgets.QSpinBox"><tt class="xref py py-class docutils literal"><span class="pre">QSpinBox</span></tt></a> class has the following
 signals:</p>
-<div class="highlight-python"><pre>void valueChanged(int i);
-void valueChanged(const QString &amp;text);</pre>
+<div class="highlight-python"><div class="highlight"><pre>void valueChanged(int i);
+void valueChanged(const QString &amp;text);
+</pre></div>
 </div>
 <p>When the value of the spin box changes both of these signals will be emitted.
 If you have implemented a slot called <tt class="docutils literal"><span class="pre">on_spinbox_valueChanged</span></tt> (which
-assumes that you have given the <tt class="xref docutils literal"><span class="pre">QSpinBox</span></tt> instance the
+assumes that you have given the <tt class="xref py py-class docutils literal"><span class="pre">QSpinBox</span></tt> instance the
 name <tt class="docutils literal"><span class="pre">spinbox</span></tt>) then it will be connected to both variations of the signal.
 Therefore, when the user changes the value, your slot will be called twice -
 once with an integer argument, and once with a string argument.</p>
-<p>This also happens with signals that take optional arguments.  Qt implements
-this using multiple signals.  For example,
-<a title="PyQt5.QtWidgets.QAbstractButton" class="reference external" href="api/qabstractbutton.html#PyQt5.QtWidgets.QAbstractButton"><tt class="xref docutils literal"><span class="pre">QAbstractButton</span></tt></a> has the following signal:</p>
-<div class="highlight-python"><pre>void clicked(bool checked = false);</pre>
-</div>
-<p>Qt implements this as the following:</p>
-<div class="highlight-python"><pre>void clicked();
-void clicked(bool checked);</pre>
-</div>
-<p>The <a title="PyQt5.QtCore.pyqtSlot" class="reference internal" href="#PyQt5.QtCore.pyqtSlot"><tt class="xref docutils literal"><span class="pre">pyqtSlot()</span></tt></a> decorator can be used to specify which of
+<p>The <a class="reference internal" href="#PyQt5.QtCore.pyqtSlot" title="PyQt5.QtCore.pyqtSlot"><tt class="xref py py-func docutils literal"><span class="pre">pyqtSlot()</span></tt></a> decorator can be used to specify which of
 the signals should be connected to the slot.</p>
 <p>For example, if you were only interested in the integer variant of the signal
 then your slot definition would look like the following:</p>
@@ -408,13 +402,6 @@ methods, then your slot definitions might look like the following:</p>
     <span class="k">pass</span>
 </pre></div>
 </div>
-<p>The following shows an example using a button when you are not interested in
-the optional argument:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="nd">@pyqtSlot</span><span class="p">()</span>
-<span class="k">def</span> <span class="nf">on_button_clicked</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-    <span class="k">pass</span>
-</pre></div>
-</div>
 </div>
 </div>
 
@@ -427,38 +414,38 @@ the optional argument:</p>
             <p class="logo"><a href="index.html">
               <img class="logo" src="_static/logo.png" alt="Logo"/>
             </a></p>
-            <h3><a href="index.html">Table Of Contents</a></h3>
-            <ul>
-<li><a class="reference external" href="#">Support for Signals and Slots</a><ul>
-<li><a class="reference external" href="#unbound-and-bound-signals">Unbound and Bound Signals</a></li>
-<li><a class="reference external" href="#defining-new-signals-with-pyqtsignal">Defining New Signals with <tt class="docutils literal"><span class="pre">pyqtSignal()</span></tt></a></li>
-<li><a class="reference external" href="#connecting-disconnecting-and-emitting-signals">Connecting, Disconnecting and Emitting Signals</a></li>
-<li><a class="reference external" href="#connecting-signals-using-keyword-arguments">Connecting Signals Using Keyword Arguments</a></li>
-<li><a class="reference external" href="#the-pyqtslot-decorator">The <tt class="docutils literal"><span class="pre">pyqtSlot()</span></tt> Decorator</a></li>
-<li><a class="reference external" href="#connecting-slots-by-name">Connecting Slots By Name</a></li>
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Support for Signals and Slots</a><ul>
+<li><a class="reference internal" href="#unbound-and-bound-signals">Unbound and Bound Signals</a></li>
+<li><a class="reference internal" href="#defining-new-signals-with-pyqtsignal">Defining New Signals with <tt class="docutils literal"><span class="pre">pyqtSignal()</span></tt></a></li>
+<li><a class="reference internal" href="#connecting-disconnecting-and-emitting-signals">Connecting, Disconnecting and Emitting Signals</a></li>
+<li><a class="reference internal" href="#connecting-signals-using-keyword-arguments">Connecting Signals Using Keyword Arguments</a></li>
+<li><a class="reference internal" href="#the-pyqtslot-decorator">The <tt class="docutils literal"><span class="pre">pyqtSlot()</span></tt> Decorator</a></li>
+<li><a class="reference internal" href="#connecting-slots-by-name">Connecting Slots By Name</a></li>
 </ul>
 </li>
 </ul>
 
-            <h4>Previous topic</h4>
-            <p class="topless"><a href="api/qxmlstreamwriter.html"
-                                  title="previous chapter">QXmlStreamWriter</a></p>
-            <h4>Next topic</h4>
-            <p class="topless"><a href="qt_properties.html"
-                                  title="next chapter">Support for Qt Properties</a></p>
-          <div id="searchbox" style="display: none">
-            <h3>Quick search</h3>
-              <form class="search" action="search.html" method="get">
-                <input type="text" name="q" size="18" />
-                <input type="submit" value="Go" />
-                <input type="hidden" name="check_keywords" value="yes" />
-                <input type="hidden" name="area" value="default" />
-              </form>
-              <p class="searchtip" style="font-size: 90%">
-              Enter search terms or a module, class or function name.
-              </p>
-          </div>
-          <script type="text/javascript">$('#searchbox').show(0);</script>
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="api/qxmlstreamwriter.html"
+                        title="previous chapter">QXmlStreamWriter</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="qt_properties.html"
+                        title="next chapter">Support for Qt Properties</a></p>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
         </div>
       </div>
       <div class="clearer"></div>
@@ -470,7 +457,7 @@ the optional argument:</p>
           <a href="genindex.html" title="General Index"
              >index</a></li>
         <li class="right" >
-          <a href="modindex.html" title="Global Module Index"
+          <a href="py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
         <li class="right" >
           <a href="qt_properties.html" title="Support for Qt Properties"
@@ -478,12 +465,12 @@ the optional argument:</p>
         <li class="right" >
           <a href="api/qxmlstreamwriter.html" title="QXmlStreamWriter"
              >previous</a> |</li>
-        <li><a href="index.html">PyQt 5.1.1-snapshot-3c895ca14f00 Reference Guide</a> &raquo;</li> 
+        <li><a href="index.html">PyQt 5.2.1 Reference Guide</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer">
-      &copy; Copyright 2013 Riverbank Computing Limited.
-      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 0.6.4.
+        &copy; Copyright 2014 Riverbank Computing Limited.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
     </div>
   </body>
 </html>

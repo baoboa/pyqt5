@@ -1,7 +1,6 @@
-// This defines the API provided by this library.  It must not be explicitly
-// included by the library itself.
+// This defines the API provided by this library.
 //
-// Copyright (c) 2013 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2014 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -51,20 +50,14 @@ int qpycore_qobject_finalisation(PyObject *self, QObject *qobj, PyObject *kwds,
 PyObject *qpycore_PyObject_FromQString(const QString &qstr);
 QString qpycore_PyObject_AsQString(PyObject *obj);
 
-// Support for converting between PyObject and QStringList.
-PyObject *qpycore_PyObject_FromQStringList(const QStringList &qstrlst);
-QStringList qpycore_PySequence_AsQStringList(PyObject *obj);
-int qpycore_PySequence_Check_QStringList(PyObject *obj);
-
 // Support for converting between PyObject and QVariant.
 PyObject *qpycore_PyObject_FromQVariant(const QVariant &qvar);
 QVariant qpycore_PyObject_AsQVariant(PyObject *obj, int *is_err);
 
-// Support for Q_CLASSINFO().
+// Support for Q_CLASSINFO(), Q_ENUMS() and Q_FLAGS().
 PyObject *qpycore_ClassInfo(const char *name, const char *value);
-
-// Support for Q_FLAGS and Q_ENUMS.
-PyObject *qpycore_register_int_types(PyObject *type_names);
+PyObject *qpycore_Enums(PyObject *args);
+PyObject *qpycore_Flags(PyObject *args);
 
 // Support for creating QGenericArgument and QGenericReturnArgument instances.
 PyObject *qpycore_ArgumentFactory(PyObject *type, PyObject *data);
@@ -77,9 +70,6 @@ PyObject *qpycore_qobject_getattr(const QObject *qobj, PyObject *py_qobj,
 
 // Support for QObject.staticMetaObject %GetCode.
 PyObject *qpycore_qobject_staticmetaobject(PyObject *type_obj);
-
-// Support for emitting signals.
-bool qpycore_qobject_emit(QObject *qtx, const char *sig, PyObject *sigargs);
 
 // Support for QMetaObject.connectSlotsByName().
 void qpycore_qmetaobject_connectslotsbyname(QObject *qobj,

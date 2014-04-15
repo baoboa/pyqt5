@@ -1,0 +1,323 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Potential Incompatibilities with Earlier Versions &mdash; SIP 4.15.3-snapshot-5dc8c370157e Reference Guide</title>
+    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '#',
+        VERSION:     '4.15.3-snapshot-5dc8c370157e',
+        COLLAPSE_MODINDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="shortcut icon" href="_static/logo_tn.ico"/>
+    <link rel="top" title="SIP 4.15.3-snapshot-5dc8c370157e Reference Guide" href="index.html" />
+    <link rel="next" title="Installation" href="installation.html" />
+    <link rel="prev" title="Introduction" href="introduction.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="modindex.html" title="Global Module Index"
+             accesskey="M">modules</a> |</li>
+        <li class="right" >
+          <a href="installation.html" title="Installation"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="introduction.html" title="Introduction"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">SIP 4.15.3-snapshot-5dc8c370157e Reference Guide</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="potential-incompatibilities-with-earlier-versions">
+<h1>Potential Incompatibilities with Earlier Versions<a class="headerlink" href="#potential-incompatibilities-with-earlier-versions" title="Permalink to this headline">¶</a></h1>
+<p>This section describes incompatibilities introduced by particular versions of
+SIP.  Normally these are the removal of previously deprecated features.</p>
+<div class="section" id="sip-v4-14-4">
+<h2>SIP v4.14.4<a class="headerlink" href="#sip-v4-14-4" title="Permalink to this headline">¶</a></h2>
+<p>Prior to this version, the handwritten code defined by the
+<a class="reference external" href="directives.html#directive-%VirtualErrorHandler"><tt class="xref docutils literal"><span class="pre">%VirtualErrorHandler</span></tt></a> directive was called without the Python
+Global Interpreter Lock (GIL) being held and from an arbitrary thread.</p>
+<p>Starting with this version the code is called with the GIL being held and from
+the thread that raised the error.  In addition the code is provided a value
+called <tt class="docutils literal"><span class="pre">sipGILState</span></tt> that may be passed to <a href="#id1"><span class="problematic" id="id2">:c:func:`SIP_RELEASE_GIL`</span></a> in order
+to release the GIL.  This must be done if the code changes the execution path
+(e.g. by throwing a C++ exception).</p>
+</div>
+<div class="section" id="sip-v4-12-3">
+<h2>SIP v4.12.3<a class="headerlink" href="#sip-v4-12-3" title="Permalink to this headline">¶</a></h2>
+<p>Prior to this version, when SIP searches a class hierachy to see if there is a
+Python reimplementation of a virtual C++ method, it ignored any objects that
+were not Python functions or methods.</p>
+<p>Starting with this version such an object is not ignored and will be called.
+If it is not callable then a Python exception will be raised.  For example,
+the following code will now raise an excepton because the <tt class="docutils literal"><span class="pre">Mixin.event</span></tt>
+attribute will now be called as it is assumed to be a valid reimplementation of
+<tt class="docutils literal"><span class="pre">QObject.event()</span></tt>:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">class</span> <span class="nc">Mixin</span><span class="p">:</span>
+    <span class="n">event</span> <span class="o">=</span> <span class="bp">False</span>
+
+<span class="k">class</span> <span class="nc">MyObject</span><span class="p">(</span><span class="n">QObject</span><span class="p">,</span> <span class="n">Mixin</span><span class="p">):</span>
+    <span class="k">pass</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="sip-v4-12">
+<h2>SIP v4.12<a class="headerlink" href="#sip-v4-12" title="Permalink to this headline">¶</a></h2>
+<p>Prior to this version several directives ignored any enclosing <a class="reference external" href="directives.html#directive-%If"><tt class="xref docutils literal"><span class="pre">%If</span></tt></a>
+directive.  Starting with this version all directives are affected by the
+<a class="reference external" href="directives.html#directive-%If"><tt class="xref docutils literal"><span class="pre">%If</span></tt></a> directive.</p>
+</div>
+<div class="section" id="sip-v4-10-1">
+<h2>SIP v4.10.1<a class="headerlink" href="#sip-v4-10-1" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="newly-deprecated-features">
+<h3>Newly Deprecated Features<a class="headerlink" href="#newly-deprecated-features" title="Permalink to this headline">¶</a></h3>
+<p>The following parts of the <a class="reference external" href="c_api.html#ref-c-api"><em>C API</em></a> are now deprecated (but
+still supported).</p>
+<ul class="simple">
+<li>The <tt class="docutils literal"><span class="pre">D</span></tt> format character of <a href="#id3"><span class="problematic" id="id4">:c:func:`sipParseResult()`</span></a>.</li>
+</ul>
+</div>
+</div>
+<div class="section" id="sip-v4-8">
+<h2>SIP v4.8<a class="headerlink" href="#sip-v4-8" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="truediv">
+<h3>__truediv__<a class="headerlink" href="#truediv" title="Permalink to this headline">¶</a></h3>
+<p>Prior to this version the <tt class="xref docutils literal"><span class="pre">__div__()</span></tt> special method implicitly defined the
+<tt class="xref docutils literal"><span class="pre">__truediv__()</span></tt> special method.  From this version the <tt class="xref docutils literal"><span class="pre">__truediv__()</span></tt>
+special method must be explicitly defined.</p>
+</div>
+<div class="section" id="sipwrapper-user-member">
+<h3>sipWrapper user Member<a class="headerlink" href="#sipwrapper-user-member" title="Permalink to this headline">¶</a></h3>
+<p>Prior to this version the <a href="#id5"><span class="problematic" id="id6">:c:type:`sipWrapper`</span></a> structure had a member called
+<a href="#id7"><span class="problematic" id="id8">:c:type:`user`</span></a> which is available for handwritten code to use.  From this
+version <a href="#id9"><span class="problematic" id="id10">:c:type:`user`</span></a> is a member of the <a href="#id11"><span class="problematic" id="id12">:c:type:`sipSimpleWrapper`</span></a> structure.</p>
+<p><a href="#id13"><span class="problematic" id="id14">:c:type:`sipWrapper`</span></a> pointers can be safely cast to <a href="#id15"><span class="problematic" id="id16">:c:type:`sipSimpleWrapper`</span></a>
+pointers, so if your code does something like:</p>
+<div class="highlight-python"><pre>((sipWrapper *)obj)-&gt;user = an_object_reference;</pre>
+</div>
+<p>then you just need to change it to:</p>
+<div class="highlight-python"><pre>((sipSimpleWrapper *)obj)-&gt;user = an_object_reference;</pre>
+</div>
+</div>
+<div class="section" id="removal-of-previously-deprecated-features">
+<h3>Removal of Previously Deprecated Features<a class="headerlink" href="#removal-of-previously-deprecated-features" title="Permalink to this headline">¶</a></h3>
+<p>The following parts of the <a class="reference external" href="c_api.html#ref-c-api"><em>C API</em></a> have been removed.</p>
+<ul class="simple">
+<li>The <tt class="docutils literal"><span class="pre">a</span></tt>, <tt class="docutils literal"><span class="pre">A</span></tt>, <tt class="docutils literal"><span class="pre">M</span></tt>, <tt class="docutils literal"><span class="pre">N</span></tt>, <tt class="docutils literal"><span class="pre">O</span></tt>, <tt class="docutils literal"><span class="pre">P</span></tt> and <tt class="docutils literal"><span class="pre">T</span></tt> format characters
+from <a href="#id17"><span class="problematic" id="id18">:c:func:`sipBuildResult()`</span></a> and <a href="#id19"><span class="problematic" id="id20">:c:func:`sipCallMethod()`</span></a>.</li>
+<li>The <tt class="docutils literal"><span class="pre">a</span></tt>, <tt class="docutils literal"><span class="pre">A</span></tt>, <tt class="docutils literal"><span class="pre">L</span></tt> and <tt class="docutils literal"><span class="pre">M</span></tt> format characters from
+<a href="#id21"><span class="problematic" id="id22">:c:func:`sipParseResult()`</span></a>.</li>
+<li><a href="#id23"><span class="problematic" id="id24">:c:func:`sipConvertToCpp()`</span></a></li>
+<li><a href="#id25"><span class="problematic" id="id26">:c:func:`sipIsSubClassInstance()`</span></a></li>
+<li><a href="#id27"><span class="problematic" id="id28">:c:func:`sipTransfer()`</span></a></li>
+<li>The <tt class="xref docutils literal"><span class="pre">transfer()</span></tt> function of the <a title="" class="reference external" href="python_api.html#module-sip"><tt class="xref docutils literal"><span class="pre">sip</span></tt></a> module.</li>
+<li>The old-style generated type convertors.</li>
+</ul>
+<p>In addition the <a class="reference external" href="command_line.html#cmdoption-sip-a"><em class="xref">-a</em></a> command line option to <tt class="docutils literal"><span class="pre">configure.py</span></tt> has
+been removed.</p>
+</div>
+<div class="section" id="removal-of-pyqt-specific-features">
+<h3>Removal of PyQt-specific Features<a class="headerlink" href="#removal-of-pyqt-specific-features" title="Permalink to this headline">¶</a></h3>
+<p>The following PyQt-specific support functions have been removed.</p>
+<ul class="simple">
+<li><a href="#id29"><span class="problematic" id="id30">:c:func:`sipConnectRx()`</span></a></li>
+<li><a href="#id31"><span class="problematic" id="id32">:c:func:`sipDisconnectRx()`</span></a></li>
+<li><a href="#id33"><span class="problematic" id="id34">:c:func:`sipEmitSlot()`</span></a></li>
+<li><a href="#id35"><span class="problematic" id="id36">:c:func:`sipGetSender()`</span></a></li>
+</ul>
+</div>
+<div class="section" id="id37">
+<h3>Newly Deprecated Features<a class="headerlink" href="#id37" title="Permalink to this headline">¶</a></h3>
+<p>The following parts of the <a class="reference external" href="c_api.html#ref-c-api"><em>C API</em></a> are now deprecated (but
+still supported).</p>
+<ul class="simple">
+<li>The <a class="reference external" href="c_api.html#ref-type-objects"><em>Generated Type Objects</em></a>.</li>
+<li>The <a class="reference external" href="c_api.html#ref-enum-type-objects"><em>Generated Named Enum Type Objects</em></a>.</li>
+<li><a href="#id38"><span class="problematic" id="id39">:c:func:`sipConvertFromInstance()`</span></a></li>
+<li><a href="#id40"><span class="problematic" id="id41">:c:func:`sipConvertFromMappedType()`</span></a></li>
+<li><a href="#id42"><span class="problematic" id="id43">:c:func:`sipConvertFromNamedEnum()`</span></a></li>
+<li><a href="#id44"><span class="problematic" id="id45">:c:func:`sipConvertFromNewInstance()`</span></a></li>
+<li><a href="#id46"><span class="problematic" id="id47">:c:func:`sipCanConvertToInstance()`</span></a></li>
+<li><a href="#id48"><span class="problematic" id="id49">:c:func:`sipCanConvertToMappedType()`</span></a></li>
+<li><a href="#id50"><span class="problematic" id="id51">:c:func:`sipConvertToInstance()`</span></a></li>
+<li><a href="#id52"><span class="problematic" id="id53">:c:func:`sipConvertToMappedType()`</span></a></li>
+<li><a href="#id54"><span class="problematic" id="id55">:c:func:`sipForceConvertToInstance()`</span></a></li>
+<li><a href="#id56"><span class="problematic" id="id57">:c:func:`sipForceConvertToMappedType()`</span></a></li>
+<li><a href="#id58"><span class="problematic" id="id59">:c:func:`sipClassName()`</span></a></li>
+<li><a href="#id60"><span class="problematic" id="id61">:c:func:`sipFindClass()`</span></a></li>
+<li><a href="#id62"><span class="problematic" id="id63">:c:func:`sipFindNamedEnum()`</span></a></li>
+<li><a href="#id64"><span class="problematic" id="id65">:c:func:`sipFindMappedType()`</span></a></li>
+<li><a href="#id66"><span class="problematic" id="id67">:c:func:`sipGetWrapper()`</span></a></li>
+<li><a href="#id68"><span class="problematic" id="id69">:c:func:`sipReleaseInstance()`</span></a></li>
+<li><a href="#id70"><span class="problematic" id="id71">:c:func:`sipReleaseMappedType()`</span></a></li>
+<li><a href="#id72"><span class="problematic" id="id73">:c:func:`sipWrapper_Check()`</span></a></li>
+<li>The <tt class="docutils literal"><span class="pre">B</span></tt>, <tt class="docutils literal"><span class="pre">C</span></tt> and <tt class="docutils literal"><span class="pre">E</span></tt> format characters of <a href="#id74"><span class="problematic" id="id75">:c:func:`sipBuildResult()`</span></a>
+and <a href="#id76"><span class="problematic" id="id77">:c:func:`sipCallMethod()`</span></a>.</li>
+<li>The <tt class="docutils literal"><span class="pre">s</span></tt>, <tt class="docutils literal"><span class="pre">C</span></tt> and <tt class="docutils literal"><span class="pre">E</span></tt> format characters of <a href="#id78"><span class="problematic" id="id79">:c:func:`sipParseResult()`</span></a>.</li>
+</ul>
+</div>
+</div>
+<div class="section" id="sip-v4-7-8">
+<h2>SIP v4.7.8<a class="headerlink" href="#sip-v4-7-8" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="automatic-int-to-enum-conversions">
+<h3>Automatic int to Enum Conversions<a class="headerlink" href="#automatic-int-to-enum-conversions" title="Permalink to this headline">¶</a></h3>
+<p>This version allows a Python <tt class="docutils literal"><span class="pre">int</span></tt> object to be passed whenever an enum is
+expected.  This can mean that two signatures that were different with prior
+versions are now the same as far as Python is concerned.</p>
+<p>The <a class="reference external" href="annotations.html#aanno-Constrained"><tt class="xref docutils literal"><span class="pre">Constrained</span></tt></a> argument annotation can now be applied to an enum
+argument to revert to the earlier behaviour.</p>
+</div>
+</div>
+<div class="section" id="sip-v4-7-3">
+<h2>SIP v4.7.3<a class="headerlink" href="#sip-v4-7-3" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="complementary-comparison-operators">
+<h3>Complementary Comparison Operators<a class="headerlink" href="#complementary-comparison-operators" title="Permalink to this headline">¶</a></h3>
+<p>Prior to this version SIP did not automatically generate missing complementary
+comparison operators.  Typically this was worked around by adding them
+explicitly to the .sip files, even though they weren&#8217;t implemented in C++ and
+relied on the C++ compiler calling the complementary operator that was
+implemented.</p>
+<p>A necessary change to the code generator meant that this not longer worked and
+so SIP was changed to automatically generate any missing complementary
+operators.  If you have added such operators explicitly then you should remove
+them or make them dependent on the particular version of SIP.</p>
+</div>
+</div>
+<div class="section" id="sip-v4-4">
+<h2>SIP v4.4<a class="headerlink" href="#sip-v4-4" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="convertfromtypecode-and-converttotypecode">
+<h3>%ConvertFromTypeCode and %ConvertToTypeCode<a class="headerlink" href="#convertfromtypecode-and-converttotypecode" title="Permalink to this headline">¶</a></h3>
+<p>Handwritten <a class="reference external" href="directives.html#directive-%ConvertFromTypeCode"><tt class="xref docutils literal"><span class="pre">%ConvertFromTypeCode</span></tt></a> and
+<a class="reference external" href="directives.html#directive-%ConvertToTypeCode"><tt class="xref docutils literal"><span class="pre">%ConvertToTypeCode</span></tt></a> now have the responsibility for implementing
+the <a class="reference external" href="annotations.html#aanno-Transfer"><tt class="xref docutils literal"><span class="pre">Transfer</span></tt></a> and <a class="reference external" href="annotations.html#aanno-TransferBack"><tt class="xref docutils literal"><span class="pre">TransferBack</span></tt></a> annotations.</p>
+</div>
+<div class="section" id="sip-build">
+<h3>SIP_BUILD<a class="headerlink" href="#sip-build" title="Permalink to this headline">¶</a></h3>
+<p>The <a href="#id80"><span class="problematic" id="id81">:c:macro:`SIP_BUILD`</span></a> C preprocessor symbol has been removed.</p>
+</div>
+<div class="section" id="id82">
+<h3>Newly Deprecated Features<a class="headerlink" href="#id82" title="Permalink to this headline">¶</a></h3>
+<p>The following parts of the <a class="reference external" href="c_api.html#ref-c-api"><em>C API</em></a> are now deprecated (but
+still supported).</p>
+<ul class="simple">
+<li>The old-style generated type convertors.</li>
+<li><a href="#id83"><span class="problematic" id="id84">:c:func:`sipConvertToCpp()`</span></a></li>
+<li><a href="#id85"><span class="problematic" id="id86">:c:func:`sipIsSubClassInstance()`</span></a></li>
+</ul>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="index.html">
+              <img class="logo" src="_static/logo.png" alt="Logo"/>
+            </a></p>
+            <h3><a href="index.html">Table Of Contents</a></h3>
+            <ul>
+<li><a class="reference external" href="#">Potential Incompatibilities with Earlier Versions</a><ul>
+<li><a class="reference external" href="#sip-v4-14-4">SIP v4.14.4</a></li>
+<li><a class="reference external" href="#sip-v4-12-3">SIP v4.12.3</a></li>
+<li><a class="reference external" href="#sip-v4-12">SIP v4.12</a></li>
+<li><a class="reference external" href="#sip-v4-10-1">SIP v4.10.1</a><ul>
+<li><a class="reference external" href="#newly-deprecated-features">Newly Deprecated Features</a></li>
+</ul>
+</li>
+<li><a class="reference external" href="#sip-v4-8">SIP v4.8</a><ul>
+<li><a class="reference external" href="#truediv">__truediv__</a></li>
+<li><a class="reference external" href="#sipwrapper-user-member">sipWrapper user Member</a></li>
+<li><a class="reference external" href="#removal-of-previously-deprecated-features">Removal of Previously Deprecated Features</a></li>
+<li><a class="reference external" href="#removal-of-pyqt-specific-features">Removal of PyQt-specific Features</a></li>
+<li><a class="reference external" href="#id37">Newly Deprecated Features</a></li>
+</ul>
+</li>
+<li><a class="reference external" href="#sip-v4-7-8">SIP v4.7.8</a><ul>
+<li><a class="reference external" href="#automatic-int-to-enum-conversions">Automatic int to Enum Conversions</a></li>
+</ul>
+</li>
+<li><a class="reference external" href="#sip-v4-7-3">SIP v4.7.3</a><ul>
+<li><a class="reference external" href="#complementary-comparison-operators">Complementary Comparison Operators</a></li>
+</ul>
+</li>
+<li><a class="reference external" href="#sip-v4-4">SIP v4.4</a><ul>
+<li><a class="reference external" href="#convertfromtypecode-and-converttotypecode">%ConvertFromTypeCode and %ConvertToTypeCode</a></li>
+<li><a class="reference external" href="#sip-build">SIP_BUILD</a></li>
+<li><a class="reference external" href="#id82">Newly Deprecated Features</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+            <h4>Previous topic</h4>
+            <p class="topless"><a href="introduction.html"
+                                  title="previous chapter">Introduction</a></p>
+            <h4>Next topic</h4>
+            <p class="topless"><a href="installation.html"
+                                  title="next chapter">Installation</a></p>
+          <div id="searchbox" style="display: none">
+            <h3>Quick search</h3>
+              <form class="search" action="search.html" method="get">
+                <input type="text" name="q" size="18" />
+                <input type="submit" value="Go" />
+                <input type="hidden" name="check_keywords" value="yes" />
+                <input type="hidden" name="area" value="default" />
+              </form>
+              <p class="searchtip" style="font-size: 90%">
+              Enter search terms or a module, class or function name.
+              </p>
+          </div>
+          <script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="modindex.html" title="Global Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="installation.html" title="Installation"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="introduction.html" title="Introduction"
+             >previous</a> |</li>
+        <li><a href="index.html">SIP 4.15.3-snapshot-5dc8c370157e Reference Guide</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+      &copy; Copyright 2013 Riverbank Computing Limited.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 0.6.4.
+    </div>
+  </body>
+</html>

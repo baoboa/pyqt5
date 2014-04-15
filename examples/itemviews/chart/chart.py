@@ -257,11 +257,11 @@ class PieView(QAbstractItemView):
 
         elif cursorAction in (QAbstractItemView.MoveRight, QAbstractItemView.MoveDown):
 
-            if current.row() < rows(current) - 1:
+            if current.row() < self.rows(current) - 1:
                 current = self.model().index(current.row() + 1,
                         current.column(), self.rootIndex())
             else:
-                current = self.model().index(rows(current) - 1,
+                current = self.model().index(self.rows(current) - 1,
                         current.column(), self.rootIndex())
 
         self.viewport().update()

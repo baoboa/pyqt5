@@ -1,6 +1,6 @@
 // This implements the helper for QObject.__getattr__().
 //
-// Copyright (c) 2013 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2014 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -25,6 +25,7 @@
 #include <QMetaMethod>
 #include <QObject>
 
+#include "qpycore_api.h"
 #include "qpycore_pyqtboundsignal.h"
 #include "qpycore_pyqtmethodproxy.h"
 #include "qpycore_pyqtsignal.h"
@@ -95,7 +96,9 @@ PyObject *qpycore_qobject_getattr(const QObject *qobj, PyObject *py_qobj,
             sig_hash = new SignalHash;
 
         PyObject *sig_obj;
-        QByteArray sig_str(method.methodSignature());
+
+        QByteArray sig_str = method.methodSignature();
+
         SignalHash::const_iterator it = sig_hash->find(sig_str);
 
         if (it == sig_hash->end())

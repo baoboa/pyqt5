@@ -1,6 +1,6 @@
 // This is the implementation of the QPyQmlObject classes.
 //
-// Copyright (c) 2013 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2014 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -108,7 +108,7 @@ int QPyQmlObjectProxy::qt_metacall(QMetaObject::Call call, int idx, void **args)
         return idx;
 
     // If the sender is the proxied object then it has emitted a signal.
-    if (sender() == proxied)
+    if (call == QMetaObject::InvokeMetaMethod && sender() == proxied)
     {
         const QMetaObject *proxied_mo = proxied->metaObject();
 
@@ -402,3 +402,43 @@ QPYQML_PROXY_IMPL(16);
 QPYQML_PROXY_IMPL(17);
 QPYQML_PROXY_IMPL(18);
 QPYQML_PROXY_IMPL(19);
+QPYQML_PROXY_IMPL(20);
+QPYQML_PROXY_IMPL(21);
+QPYQML_PROXY_IMPL(22);
+QPYQML_PROXY_IMPL(23);
+QPYQML_PROXY_IMPL(24);
+QPYQML_PROXY_IMPL(25);
+QPYQML_PROXY_IMPL(26);
+QPYQML_PROXY_IMPL(27);
+QPYQML_PROXY_IMPL(28);
+QPYQML_PROXY_IMPL(29);
+QPYQML_PROXY_IMPL(30);
+QPYQML_PROXY_IMPL(31);
+QPYQML_PROXY_IMPL(32);
+QPYQML_PROXY_IMPL(33);
+QPYQML_PROXY_IMPL(34);
+QPYQML_PROXY_IMPL(35);
+QPYQML_PROXY_IMPL(36);
+QPYQML_PROXY_IMPL(37);
+QPYQML_PROXY_IMPL(38);
+QPYQML_PROXY_IMPL(39);
+QPYQML_PROXY_IMPL(40);
+QPYQML_PROXY_IMPL(41);
+QPYQML_PROXY_IMPL(42);
+QPYQML_PROXY_IMPL(43);
+QPYQML_PROXY_IMPL(44);
+QPYQML_PROXY_IMPL(45);
+QPYQML_PROXY_IMPL(46);
+QPYQML_PROXY_IMPL(47);
+QPYQML_PROXY_IMPL(48);
+QPYQML_PROXY_IMPL(49);
+QPYQML_PROXY_IMPL(50);
+QPYQML_PROXY_IMPL(51);
+QPYQML_PROXY_IMPL(52);
+QPYQML_PROXY_IMPL(53);
+QPYQML_PROXY_IMPL(54);
+QPYQML_PROXY_IMPL(55);
+QPYQML_PROXY_IMPL(56);
+QPYQML_PROXY_IMPL(57);
+QPYQML_PROXY_IMPL(58);
+QPYQML_PROXY_IMPL(59);

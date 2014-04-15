@@ -5,4 +5,4 @@ QDesignerMemberSheetExtension
 
 .. class:: QDesignerMemberSheetExtension
 
-    `C++ documentation <http://qt-project.org/doc/qt-5.1/qtdesigner/qdesignermembersheetextension.html>`_
+    `C++ documentation <http://qt-project.org/doc/qt-5.2/qdesignermembersheetextension.html>`_

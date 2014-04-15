@@ -5,4 +5,4 @@ QRectF
 
 .. class:: QRectF
 
-    `C++ documentation <http://qt-project.org/doc/qt-5.1/qtcore/qrectf.html>`_
+    `C++ documentation <http://qt-project.org/doc/qt-5.2/qrectf.html>`_

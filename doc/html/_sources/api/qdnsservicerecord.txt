@@ -5,4 +5,4 @@ QDnsServiceRecord
 
 .. class:: QDnsServiceRecord
 
-    `C++ documentation <http://qt-project.org/doc/qt-5.1/qtnetwork/qdnsservicerecord.html>`_
+    `C++ documentation <http://qt-project.org/doc/qt-5.2/qdnsservicerecord.html>`_

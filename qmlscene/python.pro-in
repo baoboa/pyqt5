@@ -1,4 +1,4 @@
-CONFIG      += plugin release warn_on
+CONFIG      += plugin @QTCONFIG@ warn_on
 QT          += qml
 
 TARGET      = pyqt5qmlplugin

@@ -1,6 +1,6 @@
 // This implements the typedefs for the OpenGL data types.
 //
-// Copyright (c) 2013 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2014 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -18,6 +18,8 @@
 // WARRANTY OF DESIGN, MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE.
 
 
+%If (PyQt_OpenGL)
+
 typedef char GLchar;
 typedef qint8 GLbyte;
 typedef quint8 GLubyte;
@@ -29,9 +31,13 @@ typedef qint32 GLsizei;
 typedef quint32 GLuint;
 typedef quint32 GLenum;
 typedef quint32 GLbitfield;
+%If (PyQt_Desktop_OpenGL)
 typedef quint64 GLuint64;
+%End
 typedef float GLfloat;
 typedef float GLclampf;
 typedef double GLdouble;
 typedef long GLintptr;
 typedef long GLsizeiptr;
+
+%End

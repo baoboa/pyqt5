@@ -1,26 +1,30 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
+
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Internationalisation of PyQt5 Applications &mdash; PyQt 5.1.1-snapshot-3c895ca14f00 Reference Guide</title>
+    <title>Internationalisation of PyQt5 Applications &mdash; PyQt 5.2.1 Reference Guide</title>
+    
     <link rel="stylesheet" href="_static/default.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    '#',
-        VERSION:     '5.1.1-snapshot-3c895ca14f00',
-        COLLAPSE_MODINDEX: false,
+        URL_ROOT:    './',
+        VERSION:     '5.2.1',
+        COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
       };
     </script>
     <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
     <link rel="shortcut icon" href="_static/logo_tn.ico"/>
-    <link rel="top" title="PyQt 5.1.1-snapshot-3c895ca14f00 Reference Guide" href="index.html" />
+    <link rel="top" title="PyQt 5.2.1 Reference Guide" href="index.html" />
     <link rel="next" title="DBus Support" href="dbus.html" />
     <link rel="prev" title="Using PyQt5 from the Python Shell" href="python_shell.html" /> 
   </head>
@@ -32,15 +36,15 @@
           <a href="genindex.html" title="General Index"
              accesskey="I">index</a></li>
         <li class="right" >
-          <a href="modindex.html" title="Global Module Index"
-             accesskey="M">modules</a> |</li>
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
         <li class="right" >
           <a href="dbus.html" title="DBus Support"
              accesskey="N">next</a> |</li>
         <li class="right" >
           <a href="python_shell.html" title="Using PyQt5 from the Python Shell"
              accesskey="P">previous</a> |</li>
-        <li><a href="index.html">PyQt 5.1.1-snapshot-3c895ca14f00 Reference Guide</a> &raquo;</li> 
+        <li><a href="index.html">PyQt 5.2.1 Reference Guide</a> &raquo;</li> 
       </ul>
     </div>  
 
@@ -57,48 +61,48 @@ the Qt documentation.</p>
 <p>The process of internationalising an application comprises the following
 steps.</p>
 <ul class="simple">
-<li>The programmer uses <strong>pylupdate5</strong> to create or update a <tt class="docutils literal"><span class="pre">.ts</span></tt>
+<li>The programmer uses <strong class="program">pylupdate5</strong> to create or update a <tt class="docutils literal"><span class="pre">.ts</span></tt>
 translation file for each language that the application is to be translated
 into.  A <tt class="docutils literal"><span class="pre">.ts</span></tt> file is an XML file that contains the strings to be
 translated and the corresponding translations that have already been made.
-<strong>pylupdate5</strong> can be run any number of times during development to
+<strong class="program">pylupdate5</strong> can be run any number of times during development to
 update the <tt class="docutils literal"><span class="pre">.ts</span></tt> files with the latest strings for translation.</li>
 <li>The translator uses Qt Linguist to update the <tt class="docutils literal"><span class="pre">.ts</span></tt> files with translations
 of the strings.</li>
-<li>The release manager then uses Qt&#8217;s <strong>lrelease</strong> utility to convert the
+<li>The release manager then uses Qt&#8217;s <strong class="program">lrelease</strong> utility to convert the
 <tt class="docutils literal"><span class="pre">.ts</span></tt> files to <tt class="docutils literal"><span class="pre">.qm</span></tt> files which are compact binary equivalents used by
 the application.  If an application cannot find an appropriate <tt class="docutils literal"><span class="pre">.qm</span></tt> file,
 or a particular string hasn&#8217;t been translated, then the strings used in the
 original source code are used instead.</li>
-<li>The release manage may optionally use <strong>pyrcc5</strong> to embed the <tt class="docutils literal"><span class="pre">.qm</span></tt>
+<li>The release manage may optionally use <strong class="program">pyrcc5</strong> to embed the <tt class="docutils literal"><span class="pre">.qm</span></tt>
 files, along with other application resources such as icons, in a Python
 module.  This may make packaging and distribution of the application easier.</li>
 </ul>
 <div class="section" id="pylupdate5">
-<h2><strong>pylupdate5</strong><a class="headerlink" href="#pylupdate5" title="Permalink to this headline">¶</a></h2>
-<p><strong>pylupdate5</strong> is PyQt5&#8217;s equivalent to Qt&#8217;s <strong>lupdate</strong> utility
+<h2><strong class="program">pylupdate5</strong><a class="headerlink" href="#pylupdate5" title="Permalink to this headline">¶</a></h2>
+<p><strong class="program">pylupdate5</strong> is PyQt5&#8217;s equivalent to Qt&#8217;s <strong class="program">lupdate</strong> utility
 and is used in exactly the same way.  A Qt <tt class="docutils literal"><span class="pre">.pro</span></tt> project file is read that
 specifies the Python source files and Qt Designer interface files from which
 the text that needs to be translated is extracted.  The <tt class="docutils literal"><span class="pre">.pro</span></tt> file also
-specifies the <tt class="docutils literal"><span class="pre">.ts</span></tt> translation files that <strong>pylupdate5</strong> updates (or
+specifies the <tt class="docutils literal"><span class="pre">.ts</span></tt> translation files that <strong class="program">pylupdate5</strong> updates (or
 creates if necessary) and are subsequently used by Qt Linguist.</p>
 </div>
 <div class="section" id="differences-between-pyqt5-and-qt">
 <h2>Differences Between PyQt5 and Qt<a class="headerlink" href="#differences-between-pyqt5-and-qt" title="Permalink to this headline">¶</a></h2>
 <p>Qt implements internationalisation support through the
-<a title="PyQt5.QtCore.QTranslator" class="reference external" href="api/qtranslator.html#PyQt5.QtCore.QTranslator"><tt class="xref docutils literal"><span class="pre">QTranslator</span></tt></a> class, and the
-<tt class="xref docutils literal"><span class="pre">translate()</span></tt> and
-<tt class="xref docutils literal"><span class="pre">tr()</span></tt> methods.  Usually
-<tt class="xref docutils literal"><span class="pre">tr()</span></tt> is used to obtain the correct translation of a
+<a class="reference internal" href="api/qtranslator.html#PyQt5.QtCore.QTranslator" title="PyQt5.QtCore.QTranslator"><tt class="xref py py-class docutils literal"><span class="pre">QTranslator</span></tt></a> class, and the
+<tt class="xref py py-meth docutils literal"><span class="pre">translate()</span></tt> and
+<tt class="xref py py-meth docutils literal"><span class="pre">tr()</span></tt> methods.  Usually
+<tt class="xref py py-meth docutils literal"><span class="pre">tr()</span></tt> is used to obtain the correct translation of a
 message.  The translation process uses a message context to allow the same
-message to be translated differently.  In Qt <tt class="xref docutils literal"><span class="pre">tr()</span></tt>
+message to be translated differently.  In Qt <tt class="xref py py-meth docutils literal"><span class="pre">tr()</span></tt>
 is actually generated by <tt class="docutils literal"><span class="pre">moc</span></tt> and uses the hardcoded class name as the
-context.  On the other hand, <tt class="xref docutils literal"><span class="pre">translate()</span></tt>
+context.  On the other hand, <tt class="xref py py-meth docutils literal"><span class="pre">translate()</span></tt>
 allows the context to be specified explicitly.</p>
 <p>Unfortunately, because of the way Qt implements
-<tt class="xref docutils literal"><span class="pre">tr()</span></tt> it is not possible for PyQt5 to exactly
+<tt class="xref py py-meth docutils literal"><span class="pre">tr()</span></tt> it is not possible for PyQt5 to exactly
 reproduce its behaviour.  The PyQt5 implementation of
-<tt class="xref docutils literal"><span class="pre">tr()</span></tt> uses the class name of the instance as the
+<tt class="xref py py-meth docutils literal"><span class="pre">tr()</span></tt> uses the class name of the instance as the
 context.  The key difference, and the source of potential problems, is that the
 context is determined dynamically in PyQt5, but is hardcoded in Qt.  In other
 words, the context of a translation may change depending on an instance&#8217;s class
@@ -121,12 +125,12 @@ hierarchy.  For example:</p>
 <tt class="docutils literal"><span class="pre">A</span></tt>, and by <tt class="docutils literal"><span class="pre">b.hello()</span></tt> using a context of <tt class="docutils literal"><span class="pre">B</span></tt>.  In the equivalent C++
 version the context would be <tt class="docutils literal"><span class="pre">A</span></tt> in both cases.</p>
 <p>The PyQt5 behaviour is unsatisfactory and may be changed in the future.  It is
-recommended that <tt class="xref docutils literal"><span class="pre">translate()</span></tt> be used in
-preference to <tt class="xref docutils literal"><span class="pre">tr()</span></tt>.  This is guaranteed to work
+recommended that <tt class="xref py py-meth docutils literal"><span class="pre">translate()</span></tt> be used in
+preference to <tt class="xref py py-meth docutils literal"><span class="pre">tr()</span></tt>.  This is guaranteed to work
 with current and future versions of PyQt5 and makes it much easier to share
 message files between Python and C++ code.  Below is the alternative
 implementation of <tt class="docutils literal"><span class="pre">A</span></tt> that uses
-<tt class="xref docutils literal"><span class="pre">translate()</span></tt>:</p>
+<tt class="xref py py-meth docutils literal"><span class="pre">translate()</span></tt>:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="k">class</span> <span class="nc">A</span><span class="p">(</span><span class="n">QObject</span><span class="p">):</span>
     <span class="k">def</span> <span class="nf">hello</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="n">QCoreApplication</span><span class="o">.</span><span class="n">translate</span><span class="p">(</span><span class="s">&#39;A&#39;</span><span class="p">,</span> <span class="s">&quot;Hello&quot;</span><span class="p">)</span>
@@ -144,34 +148,34 @@ implementation of <tt class="docutils literal"><span class="pre">A</span></tt> t
             <p class="logo"><a href="index.html">
               <img class="logo" src="_static/logo.png" alt="Logo"/>
             </a></p>
-            <h3><a href="index.html">Table Of Contents</a></h3>
-            <ul>
-<li><a class="reference external" href="#">Internationalisation of PyQt5 Applications</a><ul>
-<li><a class="reference external" href="#pylupdate5"><strong>pylupdate5</strong></a></li>
-<li><a class="reference external" href="#differences-between-pyqt5-and-qt">Differences Between PyQt5 and Qt</a></li>
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Internationalisation of PyQt5 Applications</a><ul>
+<li><a class="reference internal" href="#pylupdate5"><strong class="program">pylupdate5</strong></a></li>
+<li><a class="reference internal" href="#differences-between-pyqt5-and-qt">Differences Between PyQt5 and Qt</a></li>
 </ul>
 </li>
 </ul>
 
-            <h4>Previous topic</h4>
-            <p class="topless"><a href="python_shell.html"
-                                  title="previous chapter">Using PyQt5 from the Python Shell</a></p>
-            <h4>Next topic</h4>
-            <p class="topless"><a href="dbus.html"
-                                  title="next chapter">DBus Support</a></p>
-          <div id="searchbox" style="display: none">
-            <h3>Quick search</h3>
-              <form class="search" action="search.html" method="get">
-                <input type="text" name="q" size="18" />
-                <input type="submit" value="Go" />
-                <input type="hidden" name="check_keywords" value="yes" />
-                <input type="hidden" name="area" value="default" />
-              </form>
-              <p class="searchtip" style="font-size: 90%">
-              Enter search terms or a module, class or function name.
-              </p>
-          </div>
-          <script type="text/javascript">$('#searchbox').show(0);</script>
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="python_shell.html"
+                        title="previous chapter">Using PyQt5 from the Python Shell</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="dbus.html"
+                        title="next chapter">DBus Support</a></p>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
         </div>
       </div>
       <div class="clearer"></div>
@@ -183,7 +187,7 @@ implementation of <tt class="docutils literal"><span class="pre">A</span></tt> t
           <a href="genindex.html" title="General Index"
              >index</a></li>
         <li class="right" >
-          <a href="modindex.html" title="Global Module Index"
+          <a href="py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
         <li class="right" >
           <a href="dbus.html" title="DBus Support"
@@ -191,12 +195,12 @@ implementation of <tt class="docutils literal"><span class="pre">A</span></tt> t
         <li class="right" >
           <a href="python_shell.html" title="Using PyQt5 from the Python Shell"
              >previous</a> |</li>
-        <li><a href="index.html">PyQt 5.1.1-snapshot-3c895ca14f00 Reference Guide</a> &raquo;</li> 
+        <li><a href="index.html">PyQt 5.2.1 Reference Guide</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer">
-      &copy; Copyright 2013 Riverbank Computing Limited.
-      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 0.6.4.
+        &copy; Copyright 2014 Riverbank Computing Limited.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
     </div>
   </body>
 </html>

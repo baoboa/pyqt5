@@ -5,4 +5,4 @@ QItemSelectionRange
 
 .. class:: QItemSelectionRange
 
-    `C++ documentation <http://qt-project.org/doc/qt-5.1/qtcore/qitemselectionrange.html>`_
+    `C++ documentation <http://qt-project.org/doc/qt-5.2/qitemselectionrange.html>`_

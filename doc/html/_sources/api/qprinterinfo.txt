@@ -5,4 +5,4 @@ QPrinterInfo
 
 .. class:: QPrinterInfo
 
-    `C++ documentation <http://qt-project.org/doc/qt-5.1/qtprintsupport/qprinterinfo.html>`_
+    `C++ documentation <http://qt-project.org/doc/qt-5.2/qprinterinfo.html>`_

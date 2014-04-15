@@ -5,4 +5,4 @@ QSerialPortInfo
 
 .. class:: QSerialPortInfo
 
-    `C++ documentation <http://qt-project.org/doc/qt-5.1/qtserialport/qserialportinfo.html>`_
+    `C++ documentation <http://qt-project.org/doc/qt-5.2/qserialportinfo.html>`_

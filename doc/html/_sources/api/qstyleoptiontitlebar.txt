@@ -5,4 +5,4 @@ QStyleOptionTitleBar
 
 .. class:: QStyleOptionTitleBar
 
-    `C++ documentation <http://qt-project.org/doc/qt-5.1/qtwidgets/qstyleoptiontitlebar.html>`_
+    `C++ documentation <http://qt-project.org/doc/qt-5.2/qstyleoptiontitlebar.html>`_

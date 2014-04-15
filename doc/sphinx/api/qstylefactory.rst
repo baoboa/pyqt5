@@ -5,4 +5,4 @@ QStyleFactory
 
 .. class:: QStyleFactory
 
-    `C++ documentation <http://qt-project.org/doc/qt-5.1/qtwidgets/qstylefactory.html>`_
+    `C++ documentation <http://qt-project.org/doc/qt-5.2/qstylefactory.html>`_

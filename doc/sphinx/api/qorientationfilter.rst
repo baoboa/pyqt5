@@ -5,4 +5,4 @@ QOrientationFilter
 
 .. class:: QOrientationFilter
 
-    `C++ documentation <http://qt-project.org/doc/qt-5.1/qtsensors/qorientationfilter.html>`_
+    `C++ documentation <http://qt-project.org/doc/qt-5.2/qorientationfilter.html>`_

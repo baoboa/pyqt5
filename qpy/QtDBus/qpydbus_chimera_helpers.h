@@ -1,6 +1,6 @@
 // This is the definition of the various Chimera helpers.
 //
-// Copyright (c) 2013 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2014 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -18,8 +18,8 @@
 // WARRANTY OF DESIGN, MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE.
 
 
-#ifndef _QPYDBUSCHIMERAHELPERS_H
-#define _QPYDBUSCHIMERAHELPERS_H
+#ifndef _QPYDBUS_CHIMERAHELPERS_H
+#define _QPYDBUS_CHIMERAHELPERS_H
 
 
 #include <Python.h>

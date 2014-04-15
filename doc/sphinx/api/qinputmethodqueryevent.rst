@@ -5,4 +5,4 @@ QInputMethodQueryEvent
 
 .. class:: QInputMethodQueryEvent
 
-    `C++ documentation <http://qt-project.org/doc/qt-5.1/qtgui/qinputmethodqueryevent.html>`_
+    `C++ documentation <http://qt-project.org/doc/qt-5.2/qinputmethodqueryevent.html>`_

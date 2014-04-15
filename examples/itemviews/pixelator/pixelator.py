@@ -48,8 +48,8 @@ from PyQt5.QtGui import QBrush, qGray, QImage, QPainter
 from PyQt5.QtPrintSupport import QPrinter
 from PyQt5.QtWidgets import (QAbstractItemDelegate, QApplication, QDialog,
         QFileDialog, QHBoxLayout, QLabel, QMainWindow, QMessageBox, QMenu,
-        QSpinBox, QStyle, QStyleOptionViewItem, QTableView, QVBoxLayout,
-        QWidget)
+        QProgressDialog, QSpinBox, QStyle, QStyleOptionViewItem, QTableView,
+        QVBoxLayout, QWidget)
 
 import pixelator_rc
 
@@ -246,7 +246,7 @@ class MainWindow(QMainWindow):
         painter.translate(printer.pageRect().x()+printer.pageRect().width()/2,
                           printer.pageRect().y()+printer.pageRect().height()/2)
         painter.scale(scale, scale)
-        painter.translate(-sourceWidt/2, -sourceHeight/2)
+        painter.translate(-sourceWidth/2, -sourceHeight/2)
 
         option = QStyleOptionViewItem()
         parent = QModelIndex()
@@ -262,7 +262,7 @@ class MainWindow(QMainWindow):
 
             x = ItemSize / 2.0
 
-            for col in range(columns):
+            for column in range(columns):
                 option.rect = QRect(x, y, ItemSize, ItemSize)
                 self.view.itemDelegate.paint(painter, option,
                         self.model.index(row, column, parent))

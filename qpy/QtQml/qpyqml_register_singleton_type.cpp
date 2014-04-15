@@ -1,6 +1,6 @@
 // This contains the main implementation of qmlRegisterSingletonType.
 //
-// Copyright (c) 2013 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2014 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -36,7 +36,7 @@ static int register_type(QQmlPrivate::RegisterSingletonType *rt);
 
 
 // The number of types that can be registered.
-const int NrOfTypes = 10;
+const int NrOfTypes = 30;
 
 
 // The registration data for the proxy types.
@@ -131,6 +131,26 @@ static QQmlPrivate::RegisterSingletonType *init_type(PyTypeObject *py_type,
         QPYQML_SINGLETON_TYPE_INIT(7);
         QPYQML_SINGLETON_TYPE_INIT(8);
         QPYQML_SINGLETON_TYPE_INIT(9);
+        QPYQML_SINGLETON_TYPE_INIT(10);
+        QPYQML_SINGLETON_TYPE_INIT(11);
+        QPYQML_SINGLETON_TYPE_INIT(12);
+        QPYQML_SINGLETON_TYPE_INIT(13);
+        QPYQML_SINGLETON_TYPE_INIT(14);
+        QPYQML_SINGLETON_TYPE_INIT(15);
+        QPYQML_SINGLETON_TYPE_INIT(16);
+        QPYQML_SINGLETON_TYPE_INIT(17);
+        QPYQML_SINGLETON_TYPE_INIT(18);
+        QPYQML_SINGLETON_TYPE_INIT(19);
+        QPYQML_SINGLETON_TYPE_INIT(20);
+        QPYQML_SINGLETON_TYPE_INIT(21);
+        QPYQML_SINGLETON_TYPE_INIT(22);
+        QPYQML_SINGLETON_TYPE_INIT(23);
+        QPYQML_SINGLETON_TYPE_INIT(24);
+        QPYQML_SINGLETON_TYPE_INIT(25);
+        QPYQML_SINGLETON_TYPE_INIT(26);
+        QPYQML_SINGLETON_TYPE_INIT(27);
+        QPYQML_SINGLETON_TYPE_INIT(28);
+        QPYQML_SINGLETON_TYPE_INIT(29);
     }
 
     // Initialise the remaining members.

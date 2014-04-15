@@ -5,4 +5,4 @@ QIconDragEvent
 
 .. class:: QIconDragEvent
 
-    `C++ documentation <http://qt-project.org/doc/qt-5.1/qtgui/qicondragevent.html>`_
+    `C++ documentation <http://qt-project.org/doc/qt-5.2/qicondragevent.html>`_

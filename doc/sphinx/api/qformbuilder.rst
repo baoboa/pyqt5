@@ -5,4 +5,4 @@ QFormBuilder
 
 .. class:: QFormBuilder
 
-    `C++ documentation <http://qt-project.org/doc/qt-5.1/qtdesigner/qformbuilder.html>`_
+    `C++ documentation <http://qt-project.org/doc/qt-5.2/qformbuilder.html>`_

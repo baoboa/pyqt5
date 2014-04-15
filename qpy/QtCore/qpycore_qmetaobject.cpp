@@ -1,6 +1,6 @@
 // This is the support code for QMetaObject.
 //
-// Copyright (c) 2013 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2014 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -23,9 +23,11 @@
 #include <QGenericArgument>
 #include <QGenericReturnArgument>
 
+#include "qpycore_api.h"
 #include "qpycore_chimera.h"
 #include "qpycore_misc.h"
-#include "qpycore_sip.h"
+
+#include "sipAPIQtCore.h"
 
 
 // Forward declarations.
@@ -35,29 +37,6 @@ extern "C" {static void ArgumentStorage_delete(PyObject *cap);}
 #else
 extern "C" {static void ArgumentStorage_delete(void *stv);}
 #endif
-
-
-// Register a number of named types and integer types for Q_FLAGS and Q_ENUMS.
-// Note that this support is half-baked but provided for backwards
-// compatibility until something better is done.
-PyObject *qpycore_register_int_types(PyObject *type_names)
-{
-    for (SIP_SSIZE_T i = 0; i < PyTuple_GET_SIZE(type_names); ++i)
-    {
-        PyObject *name = PyTuple_GET_ITEM(type_names, i);
-        const char *ascii = sipString_AsASCIIString(&name);
-
-        if (!ascii)
-            return 0;
-
-        Chimera::registerIntType(ascii);
-
-        Py_DECREF(name);
-    }
-
-    Py_INCREF(Py_None);
-    return Py_None;
-}
 
 
 // Return a wrapped QGenericArgument for the given type and Python object.

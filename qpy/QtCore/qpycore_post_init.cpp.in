@@ -1,6 +1,6 @@
 // This is the post-initialisation support code for the QtCore module.
 //
-// Copyright (c) 2013 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2014 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -22,21 +22,22 @@
 
 #include <QMutex>
 
+#include "qpycore_api.h"
+#include "qpycore_objectified_strings.h"
 #include "qpycore_pyqtboundsignal.h"
 #include "qpycore_pyqtmethodproxy.h"
 #include "qpycore_pyqtproperty.h"
 #include "qpycore_pyqtpyobject.h"
 #include "qpycore_pyqtsignal.h"
 #include "qpycore_pyqtslotproxy.h"
-#include "qpycore_sip.h"
 #include "qpycore_types.h"
 
+#include "sipAPIQtCore.h"
 
-// The name attribute name as an object.
-PyObject *qpycore_name_attr_name;
 
-// The signature attribute name as an object.
-PyObject *qpycore_signature_attr_name;
+// The objectified strings.
+PyObject *qpycore_dunder_name;
+PyObject *qpycore_dunder_pyqtsignature;
 
 
 // Perform any required post-initialisation.
@@ -88,21 +89,21 @@ void qpycore_post_init(PyObject *module_dict)
 
     // Objectify some strings.
 #if PY_MAJOR_VERSION >= 3
-    qpycore_signature_attr_name = PyUnicode_FromString("__pyqtSignature__");
+    qpycore_dunder_pyqtsignature = PyUnicode_FromString("__pyqtSignature__");
 #else
-    qpycore_signature_attr_name = PyString_FromString("__pyqtSignature__");
+    qpycore_dunder_pyqtsignature = PyString_FromString("__pyqtSignature__");
 #endif
 
-    if (!qpycore_signature_attr_name)
+    if (!qpycore_dunder_pyqtsignature)
         Py_FatalError("PyQt5.QtCore: Failed to objectify '__pyqtSignature__'");
 
 #if PY_MAJOR_VERSION >= 3
-    qpycore_name_attr_name = PyUnicode_FromString("__name__");
+    qpycore_dunder_name = PyUnicode_FromString("__name__");
 #else
-    qpycore_name_attr_name = PyString_FromString("__name__");
+    qpycore_dunder_name = PyString_FromString("__name__");
 #endif
 
-    if (!qpycore_name_attr_name)
+    if (!qpycore_dunder_name)
         Py_FatalError("PyQt5.QtCore: Failed to objectify '__name__'");
 
     // Embed the configuration.

@@ -1,6 +1,6 @@
 // This contains the support for converting QOpenGL arrays to Python objects.
 //
-// Copyright (c) 2013 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2014 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -19,10 +19,15 @@
 
 
 #include <Python.h>
-#include <sip.h>
+
+#include "sipAPIQtGui.h"
+
+#if defined(SIP_FEATURE_PyQt_OpenGL)
 
 #include "qpyopengl_api.h"
 
+
+#if QT_VERSION >= 0x050100
 
 // Convert a GLint array to a Python object.
 PyObject *qpyopengl_from_GLint(int *eflag, const GLint *array, SIP_SSIZE_T len)
@@ -186,3 +191,8 @@ PyObject *qpyopengl_from_GLdouble(int *eflag, const GLdouble *array,
 
     return tuple;
 }
+
+#endif
+
+
+#endif

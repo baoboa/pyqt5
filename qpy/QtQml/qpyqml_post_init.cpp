@@ -1,6 +1,6 @@
 // This is the initialisation support code for the QtQml module.
 //
-// Copyright (c) 2013 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2014 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -20,10 +20,11 @@
 
 #include <Python.h>
 
-#include "sipAPIQtQml.h"
-
+#include "qpyqml_api.h"
 #include "qpyqmllistproperty.h"
 #include "qpyqmlobject.h"
+
+#include "sipAPIQtQml.h"
 
 
 // Perform any required initialisation.

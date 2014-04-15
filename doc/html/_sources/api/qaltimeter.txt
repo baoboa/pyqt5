@@ -5,4 +5,4 @@ QAltimeter
 
 .. class:: QAltimeter
 
-    `C++ documentation <http://qt-project.org/doc/qt-5.1/qtsensors/qaltimeter.html>`_
+    `C++ documentation <http://qt-project.org/doc/qt-5.2/qaltimeter.html>`_

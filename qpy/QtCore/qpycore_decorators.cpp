@@ -1,6 +1,6 @@
 // This is the implementation of the pyqtSlot decorator.
 //
-// Copyright (c) 2013 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2014 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -22,9 +22,10 @@
 
 #include <QByteArray>
 
+#include "qpycore_api.h"
 #include "qpycore_chimera.h"
 #include "qpycore_misc.h"
-#include "qpycore_sip.h"
+#include "qpycore_objectified_strings.h"
 
 
 // Forward declarations.
@@ -106,7 +107,7 @@ static PyObject *decorator(PyObject *self, PyObject *f)
     if (sig.startsWith('('))
     {
         // Get the function's name.
-        PyObject *nobj = PyObject_GetAttr(f, qpycore_name_attr_name);
+        PyObject *nobj = PyObject_GetAttr(f, qpycore_dunder_name);
 
         if (!nobj)
             return 0;
@@ -124,7 +125,7 @@ static PyObject *decorator(PyObject *self, PyObject *f)
     }
 
     // See if the function has already been decorated.
-    PyObject *decorations = PyObject_GetAttr(f, qpycore_signature_attr_name);
+    PyObject *decorations = PyObject_GetAttr(f, qpycore_dunder_pyqtsignature);
     int rc;
 
     if (decorations)
@@ -146,7 +147,7 @@ static PyObject *decorator(PyObject *self, PyObject *f)
         PyList_SET_ITEM(decorations, 0, self);
 
         // Save the new decoration.
-        rc = PyObject_SetAttr(f, qpycore_signature_attr_name, decorations);
+        rc = PyObject_SetAttr(f, qpycore_dunder_pyqtsignature, decorations);
     }
 
     Py_DECREF(decorations);

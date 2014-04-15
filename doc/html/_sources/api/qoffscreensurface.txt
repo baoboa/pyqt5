@@ -5,4 +5,4 @@ QOffscreenSurface
 
 .. class:: QOffscreenSurface
 
-    `C++ documentation <http://qt-project.org/doc/qt-5.1/qtgui/qoffscreensurface.html>`_
+    `C++ documentation <http://qt-project.org/doc/qt-5.2/qoffscreensurface.html>`_

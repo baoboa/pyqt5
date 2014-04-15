@@ -5,4 +5,4 @@ QMargins
 
 .. class:: QMargins
 
-    `C++ documentation <http://qt-project.org/doc/qt-5.1/qtcore/qmargins.html>`_
+    `C++ documentation <http://qt-project.org/doc/qt-5.2/qmargins.html>`_

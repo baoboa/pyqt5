@@ -5,4 +5,4 @@ QElapsedTimer
 
 .. class:: QElapsedTimer
 
-    `C++ documentation <http://qt-project.org/doc/qt-5.1/qtcore/qelapsedtimer.html>`_
+    `C++ documentation <http://qt-project.org/doc/qt-5.2/qelapsedtimer.html>`_

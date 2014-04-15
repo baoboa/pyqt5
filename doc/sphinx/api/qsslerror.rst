@@ -5,4 +5,4 @@ QSslError
 
 .. class:: QSslError
 
-    `C++ documentation <http://qt-project.org/doc/qt-5.1/qtnetwork/qsslerror.html>`_
+    `C++ documentation <http://qt-project.org/doc/qt-5.2/qsslerror.html>`_

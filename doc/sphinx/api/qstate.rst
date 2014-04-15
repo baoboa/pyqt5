@@ -5,4 +5,4 @@ QState
 
 .. class:: QState
 
-    `C++ documentation <http://qt-project.org/doc/qt-5.1/qtcore/qstate.html>`_
+    `C++ documentation <http://qt-project.org/doc/qt-5.2/qstate.html>`_

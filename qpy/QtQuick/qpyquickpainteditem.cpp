@@ -1,6 +1,6 @@
 // This is the implementation of the QPyQuickPaintedItem classes.
 //
-// Copyright (c) 2013 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2014 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -28,7 +28,7 @@
 
 
 // The maximum number of Python QQuickPaintedItem types.
-const int NrOfQuickPaintedItemTypes = 20;
+const int NrOfQuickPaintedItemTypes = 30;
 
 // The list of registered Python types.
 static QList<PyTypeObject *> pyqt_types;
@@ -103,6 +103,16 @@ QQmlPrivate::RegisterType *QPyQuickPaintedItem::addType(PyTypeObject *type,
         QPYQUICKPAINTEDITEM_INIT(17);
         QPYQUICKPAINTEDITEM_INIT(18);
         QPYQUICKPAINTEDITEM_INIT(19);
+        QPYQUICKPAINTEDITEM_INIT(20);
+        QPYQUICKPAINTEDITEM_INIT(21);
+        QPYQUICKPAINTEDITEM_INIT(22);
+        QPYQUICKPAINTEDITEM_INIT(23);
+        QPYQUICKPAINTEDITEM_INIT(24);
+        QPYQUICKPAINTEDITEM_INIT(25);
+        QPYQUICKPAINTEDITEM_INIT(26);
+        QPYQUICKPAINTEDITEM_INIT(27);
+        QPYQUICKPAINTEDITEM_INIT(28);
+        QPYQUICKPAINTEDITEM_INIT(29);
     }
 
     return rt;
@@ -154,3 +164,13 @@ QPYQUICKPAINTEDITEM_IMPL(16);
 QPYQUICKPAINTEDITEM_IMPL(17);
 QPYQUICKPAINTEDITEM_IMPL(18);
 QPYQUICKPAINTEDITEM_IMPL(19);
+QPYQUICKPAINTEDITEM_IMPL(20);
+QPYQUICKPAINTEDITEM_IMPL(21);
+QPYQUICKPAINTEDITEM_IMPL(22);
+QPYQUICKPAINTEDITEM_IMPL(23);
+QPYQUICKPAINTEDITEM_IMPL(24);
+QPYQUICKPAINTEDITEM_IMPL(25);
+QPYQUICKPAINTEDITEM_IMPL(26);
+QPYQUICKPAINTEDITEM_IMPL(27);
+QPYQUICKPAINTEDITEM_IMPL(28);
+QPYQUICKPAINTEDITEM_IMPL(29);

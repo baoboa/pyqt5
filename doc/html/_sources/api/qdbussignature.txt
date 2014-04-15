@@ -5,4 +5,4 @@ QDBusSignature
 
 .. class:: QDBusSignature
 
-    `C++ documentation <http://qt-project.org/doc/qt-5.1/qtdbus/qdbussignature.html>`_
+    `C++ documentation <http://qt-project.org/doc/qt-5.2/qdbussignature.html>`_

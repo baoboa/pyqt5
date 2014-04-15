@@ -5,4 +5,4 @@ QItemDelegate
 
 .. class:: QItemDelegate
 
-    `C++ documentation <http://qt-project.org/doc/qt-5.1/qtwidgets/qitemdelegate.html>`_
+    `C++ documentation <http://qt-project.org/doc/qt-5.2/qitemdelegate.html>`_

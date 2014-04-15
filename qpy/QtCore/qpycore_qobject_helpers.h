@@ -1,6 +1,6 @@
 // This defines the interfaces of the helpers for QObject.
 //
-// Copyright (c) 2013 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2014 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -26,7 +26,7 @@
 
 #include <QMetaObject>
 
-#include "qpycore_sip.h"
+#include "sipAPIQtCore.h"
 
 
 const QMetaObject *qpycore_qobject_metaobject(sipSimpleWrapper *pySelf,

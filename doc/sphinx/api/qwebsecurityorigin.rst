@@ -5,4 +5,4 @@ QWebSecurityOrigin
 
 .. class:: QWebSecurityOrigin
 
-    `C++ documentation <http://qt-project.org/doc/qt-5.1/qtwebkit/qwebsecurityorigin.html>`_
+    `C++ documentation <http://qt-project.org/doc/qt-5.2/qwebsecurityorigin.html>`_

@@ -5,4 +5,4 @@ QXmlFormatter
 
 .. class:: QXmlFormatter
 
-    `C++ documentation <http://qt-project.org/doc/qt-5.1/qtxmlpatterns/qxmlformatter.html>`_
+    `C++ documentation <http://qt-project.org/doc/qt-5.2/qxmlformatter.html>`_

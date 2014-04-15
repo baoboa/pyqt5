@@ -5,4 +5,4 @@ QSortFilterProxyModel
 
 .. class:: QSortFilterProxyModel
 
-    `C++ documentation <http://qt-project.org/doc/qt-5.1/qtcore/qsortfilterproxymodel.html>`_
+    `C++ documentation <http://qt-project.org/doc/qt-5.2/qsortfilterproxymodel.html>`_

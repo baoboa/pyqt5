@@ -5,4 +5,4 @@ QGestureEvent
 
 .. class:: QGestureEvent
 
-    `C++ documentation <http://qt-project.org/doc/qt-5.1/qtwidgets/qgestureevent.html>`_
+    `C++ documentation <http://qt-project.org/doc/qt-5.2/qgestureevent.html>`_

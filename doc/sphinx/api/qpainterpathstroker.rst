@@ -5,4 +5,4 @@ QPainterPathStroker
 
 .. class:: QPainterPathStroker
 
-    `C++ documentation <http://qt-project.org/doc/qt-5.1/qtgui/qpainterpathstroker.html>`_
+    `C++ documentation <http://qt-project.org/doc/qt-5.2/qpainterpathstroker.html>`_

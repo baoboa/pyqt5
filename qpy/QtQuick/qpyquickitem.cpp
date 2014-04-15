@@ -1,6 +1,6 @@
 // This is the implementation of the QPyQuickItem classes.
 //
-// Copyright (c) 2013 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2014 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -28,7 +28,7 @@
 
 
 // The maximum number of Python QQuickItem types.
-const int NrOfQuickItemTypes = 20;
+const int NrOfQuickItemTypes = 30;
 
 // The list of registered Python types.
 static QList<PyTypeObject *> pyqt_types;
@@ -102,6 +102,16 @@ QQmlPrivate::RegisterType *QPyQuickItem::addType(PyTypeObject *type,
         QPYQUICKITEM_INIT(17);
         QPYQUICKITEM_INIT(18);
         QPYQUICKITEM_INIT(19);
+        QPYQUICKITEM_INIT(20);
+        QPYQUICKITEM_INIT(21);
+        QPYQUICKITEM_INIT(22);
+        QPYQUICKITEM_INIT(23);
+        QPYQUICKITEM_INIT(24);
+        QPYQUICKITEM_INIT(25);
+        QPYQUICKITEM_INIT(26);
+        QPYQUICKITEM_INIT(27);
+        QPYQUICKITEM_INIT(28);
+        QPYQUICKITEM_INIT(29);
     }
 
     return rt;
@@ -153,3 +163,13 @@ QPYQUICKITEM_IMPL(16);
 QPYQUICKITEM_IMPL(17);
 QPYQUICKITEM_IMPL(18);
 QPYQUICKITEM_IMPL(19);
+QPYQUICKITEM_IMPL(20);
+QPYQUICKITEM_IMPL(21);
+QPYQUICKITEM_IMPL(22);
+QPYQUICKITEM_IMPL(23);
+QPYQUICKITEM_IMPL(24);
+QPYQUICKITEM_IMPL(25);
+QPYQUICKITEM_IMPL(26);
+QPYQUICKITEM_IMPL(27);
+QPYQUICKITEM_IMPL(28);
+QPYQUICKITEM_IMPL(29);

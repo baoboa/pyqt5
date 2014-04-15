@@ -65,8 +65,8 @@ class ScanItem(DemoItem):
         painter.setRenderHint(QPainter.Antialiasing)
 
         if Colors.useEightBitPalette:
-            painter.setPen(QPen(Color(100, 100, 100), 2))
-            painter.setBrush(Color(206, 246, 117))
+            painter.setPen(QPen(QColor(100, 100, 100), 2))
+            painter.setBrush(QColor(206, 246, 117))
             painter.drawEllipse(1, 1, scaledRect.width() - 2,
                     scaledRect.height() - 2)
         else:

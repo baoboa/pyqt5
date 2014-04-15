@@ -5,4 +5,4 @@ QGraphicsLinearLayout
 
 .. class:: QGraphicsLinearLayout
 
-    `C++ documentation <http://qt-project.org/doc/qt-5.1/qtwidgets/qgraphicslinearlayout.html>`_
+    `C++ documentation <http://qt-project.org/doc/qt-5.2/qgraphicslinearlayout.html>`_

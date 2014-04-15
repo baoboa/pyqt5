@@ -5,4 +5,4 @@ QGenericReturnArgument
 
 .. class:: QGenericReturnArgument
 
-    `C++ documentation <http://qt-project.org/doc/qt-5.1/qtcore/qgenericreturnargument.html>`_
+    `C++ documentation <http://qt-project.org/doc/qt-5.2/qgenericreturnargument.html>`_

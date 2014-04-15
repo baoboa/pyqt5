@@ -5,4 +5,4 @@ QActionGroup
 
 .. class:: QActionGroup
 
-    `C++ documentation <http://qt-project.org/doc/qt-5.1/qtwidgets/qactiongroup.html>`_
+    `C++ documentation <http://qt-project.org/doc/qt-5.2/qactiongroup.html>`_

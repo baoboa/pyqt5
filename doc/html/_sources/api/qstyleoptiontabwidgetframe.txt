@@ -5,4 +5,4 @@ QStyleOptionTabWidgetFrame
 
 .. class:: QStyleOptionTabWidgetFrame
 
-    `C++ documentation <http://qt-project.org/doc/qt-5.1/qtwidgets/qstyleoptiontabwidgetframe.html>`_
+    `C++ documentation <http://qt-project.org/doc/qt-5.2/qstyleoptiontabwidgetframe.html>`_

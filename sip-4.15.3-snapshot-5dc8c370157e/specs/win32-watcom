@@ -1,0 +1,69 @@
+#
+# $Id: win32-watcom,v 1.2 2004/01/21 18:33:33 phil Exp $
+#
+# qmake configuration for win32-watcom
+#
+# Written for Watcom C++, now OpenWatcom.
+#
+
+TEMPLATE		= app
+CONFIG			+= qt warn_on release link_prl
+
+QMAKE_CC		= wcl386
+QMAKE_LEX		= flex
+QMAKE_LEXFLAGS		= 
+QMAKE_YACC		= byacc
+QMAKE_YACCFLAGS		= -d
+QMAKE_CFLAGS		= -zq
+QMAKE_CFLAGS_WARN_ON	= -w2
+QMAKE_CFLAGS_WARN_OFF	= -w0
+QMAKE_CFLAGS_RELEASE	= -ox
+QMAKE_CFLAGS_DEBUG	= -d2
+QMAKE_CFLAGS_YACC	=
+
+QMAKE_CXX		= $$QMAKE_CC
+QMAKE_CXXFLAGS		= $$QMAKE_CFLAGS
+QMAKE_CXXFLAGS_WARN_ON	= $$QMAKE_CFLAGS_WARN_ON
+QMAKE_CXXFLAGS_WARN_OFF	= $$QMAKE_CFLAGS_WARN_OFF
+QMAKE_CXXFLAGS_RELEASE	= $$QMAKE_CFLAGS_RELEASE
+QMAKE_CXXFLAGS_DEBUG	= $$QMAKE_CFLAGS_DEBUG
+QMAKE_CXXFLAGS_YACC	= $$QMAKE_CFLAGS_YACC
+
+QMAKE_INCDIR		=
+QMAKE_INCDIR_QT		= $(QTDIR)\include
+
+QMAKE_RUN_CC		= $(CC) -c $(CFLAGS) $(INCPATH) -fo=$obj $src
+QMAKE_RUN_CXX		= $(CXX) -c $(CXXFLAGS) $(INCPATH) -fo=$obj $src
+
+QMAKE_LINK		= wlink
+QMAKE_LFLAGS		= op quiet op c
+QMAKE_LFLAGS_RELEASE	=
+QMAKE_LFLAGS_DEBUG	= d all
+QMAKE_LFLAGS_CONSOLE	= sys nt
+QMAKE_LFLAGS_WINDOWS	= sys nt_win
+QMAKE_LFLAGS_CONSOLE_DLL= sys nt
+QMAKE_LFLAGS_WINDOWS_DLL= sys nt_win
+
+QMAKE_LIBS		=
+QMAKE_LIBS_CONSOLE	=
+QMAKE_LIBS_WINDOWS	=
+QMAKE_LIBS_QT		= %QTDIR%\lib\qt.lib
+QMAKE_LIBS_QT_ENTRY	= %QTDIR%\lib\qtmain.lib
+
+QMAKE_LIBS_OPENGL	= opengl32.lib
+
+QMAKE_MOC		= $(QTDIR)/bin/moc.exe
+QMAKE_UIC		= $(QTDIR)/bin/uic.exe
+QMAKE_IDC		= $(QTDIR)/bin/idc.exe
+
+QMAKE_LIB		= wlib -b -c -n -q -p=512
+QMAKE_RC		= rc
+
+QMAKE_ZIP		= zip -r -9
+
+QMAKE_COPY		= copy
+QMAKE_MOVE		= move
+QMAKE_DEL_FILE		= del
+QMAKE_DEL_DIR		= rmdir
+QMAKE_CHK_DIR_EXISTS	= test -d
+QMAKE_MKDIR		= mkdir -p

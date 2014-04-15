@@ -5,4 +5,4 @@ QRotationFilter
 
 .. class:: QRotationFilter
 
-    `C++ documentation <http://qt-project.org/doc/qt-5.1/qtsensors/qrotationfilter.html>`_
+    `C++ documentation <http://qt-project.org/doc/qt-5.2/qrotationfilter.html>`_

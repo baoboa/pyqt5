@@ -5,4 +5,4 @@ QCameraImageProcessing
 
 .. class:: QCameraImageProcessing
 
-    `C++ documentation <http://qt-project.org/doc/qt-5.1/qtmultimedia/qcameraimageprocessing.html>`_
+    `C++ documentation <http://qt-project.org/doc/qt-5.2/qcameraimageprocessing.html>`_

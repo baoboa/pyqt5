@@ -5,4 +5,4 @@ QPrintDialog
 
 .. class:: QPrintDialog
 
-    `C++ documentation <http://qt-project.org/doc/qt-5.1/qtprintsupport/qprintdialog.html>`_
+    `C++ documentation <http://qt-project.org/doc/qt-5.2/qprintdialog.html>`_

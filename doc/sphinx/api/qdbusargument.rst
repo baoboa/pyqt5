@@ -5,4 +5,4 @@ QDBusArgument
 
 .. class:: QDBusArgument
 
-    `C++ documentation <http://qt-project.org/doc/qt-5.1/qtdbus/qdbusargument.html>`_
+    `C++ documentation <http://qt-project.org/doc/qt-5.2/qdbusargument.html>`_

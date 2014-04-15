@@ -5,4 +5,4 @@ QSslConfiguration
 
 .. class:: QSslConfiguration
 
-    `C++ documentation <http://qt-project.org/doc/qt-5.1/qtnetwork/qsslconfiguration.html>`_
+    `C++ documentation <http://qt-project.org/doc/qt-5.2/qsslconfiguration.html>`_

@@ -5,4 +5,4 @@ QGraphicsProxyWidget
 
 .. class:: QGraphicsProxyWidget
 
-    `C++ documentation <http://qt-project.org/doc/qt-5.1/qtwidgets/qgraphicsproxywidget.html>`_
+    `C++ documentation <http://qt-project.org/doc/qt-5.2/qgraphicsproxywidget.html>`_

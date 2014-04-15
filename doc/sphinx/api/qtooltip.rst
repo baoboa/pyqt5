@@ -5,4 +5,4 @@ QToolTip
 
 .. class:: QToolTip
 
-    `C++ documentation <http://qt-project.org/doc/qt-5.1/qtwidgets/qtooltip.html>`_
+    `C++ documentation <http://qt-project.org/doc/qt-5.2/qtooltip.html>`_

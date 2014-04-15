@@ -1,6 +1,6 @@
 // This is the definition of the QPyQuickItem classes.
 //
-// Copyright (c) 2013 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2014 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -82,6 +82,16 @@ QPYQUICKITEM_DECL(16);
 QPYQUICKITEM_DECL(17);
 QPYQUICKITEM_DECL(18);
 QPYQUICKITEM_DECL(19);
+QPYQUICKITEM_DECL(20);
+QPYQUICKITEM_DECL(21);
+QPYQUICKITEM_DECL(22);
+QPYQUICKITEM_DECL(23);
+QPYQUICKITEM_DECL(24);
+QPYQUICKITEM_DECL(25);
+QPYQUICKITEM_DECL(26);
+QPYQUICKITEM_DECL(27);
+QPYQUICKITEM_DECL(28);
+QPYQUICKITEM_DECL(29);
 
 
 #endif

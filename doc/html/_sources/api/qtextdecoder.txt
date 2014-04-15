@@ -5,4 +5,4 @@ QTextDecoder
 
 .. class:: QTextDecoder
 
-    `C++ documentation <http://qt-project.org/doc/qt-5.1/qtcore/qtextdecoder.html>`_
+    `C++ documentation <http://qt-project.org/doc/qt-5.2/qtextdecoder.html>`_
