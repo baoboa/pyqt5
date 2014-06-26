@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Introduction &mdash; PyQt 5.2.1 Reference Guide</title>
+    <title>Introduction &mdash; PyQt 5.3 Reference Guide</title>
     
     <link rel="stylesheet" href="_static/default.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '5.2.1',
+        VERSION:     '5.3',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -24,8 +24,8 @@
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
     <link rel="shortcut icon" href="_static/logo_tn.ico"/>
-    <link rel="top" title="PyQt 5.2.1 Reference Guide" href="index.html" />
-    <link rel="next" title="Installing PyQt5" href="installation.html" />
+    <link rel="top" title="PyQt 5.3 Reference Guide" href="index.html" />
+    <link rel="next" title="Potential Incompatibilities with Earlier Versions" href="incompatibilities.html" />
     <link rel="prev" title="PyQt5 Reference Guide" href="index.html" /> 
   </head>
   <body>
@@ -39,12 +39,12 @@
           <a href="py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
         <li class="right" >
-          <a href="installation.html" title="Installing PyQt5"
+          <a href="incompatibilities.html" title="Potential Incompatibilities with Earlier Versions"
              accesskey="N">next</a> |</li>
         <li class="right" >
           <a href="index.html" title="PyQt5 Reference Guide"
              accesskey="P">previous</a> |</li>
-        <li><a href="index.html">PyQt 5.2.1 Reference Guide</a> &raquo;</li> 
+        <li><a href="index.html">PyQt 5.3 Reference Guide</a> &raquo;</li> 
       </ul>
     </div>  
 
@@ -55,7 +55,7 @@
             
   <div class="section" id="introduction">
 <h1>Introduction<a class="headerlink" href="#introduction" title="Permalink to this headline">¶</a></h1>
-<p>This is the reference guide for PyQt5 5.2.1.  PyQt5 is a set of
+<p>This is the reference guide for PyQt5 5.3.  PyQt5 is a set of
 <a class="reference external" href="http://www.python.org">Python</a> bindings for v5 of the Qt application
 framework from <a class="reference external" href="http://qt.digia.com">Digia</a>.</p>
 <p>Qt is a set of C++ libraries and development tools that includes platform
@@ -162,6 +162,10 @@ See <a class="reference internal" href="qml.html#ref-integrating-qml"><em>Integr
 <li><a class="reference internal" href="#module-PyQt5.QtQuick" title="PyQt5.QtQuick"><tt class="xref py py-mod docutils literal"><span class="pre">QtQuick</span></tt></a> contains classes that provide the basic elements
 necessary for creating user interfaces with QML.</li>
 </ul>
+<span class="target" id="module-PyQt5.QtQuickWidgets"></span><ul class="simple">
+<li><a class="reference internal" href="#module-PyQt5.QtQuickWidgets" title="PyQt5.QtQuickWidgets"><tt class="xref py py-mod docutils literal"><span class="pre">QtQuickWidgets</span></tt></a> contains classes that support the display of a
+QML scene in a traditional widget.</li>
+</ul>
 <span class="target" id="module-PyQt5.QtSensors"></span><ul class="simple">
 <li><a class="reference internal" href="#module-PyQt5.QtSensors" title="PyQt5.QtSensors"><tt class="xref py py-mod docutils literal"><span class="pre">QtSensors</span></tt></a> contains classes that provide access to a system&#8217;s
 hardware sensors including accelerometers, altimeters, ambient light and
@@ -198,6 +202,10 @@ a web browser.</li>
 <li><a class="reference internal" href="#module-PyQt5.QtWebKitWidgets" title="PyQt5.QtWebKitWidgets"><tt class="xref py py-mod docutils literal"><span class="pre">QtWebKitWidgets</span></tt></a> contains classes for a WebKit1 based
 implementation of a web browser for use in <a class="reference internal" href="#module-PyQt5.QtWidgets" title="PyQt5.QtWidgets"><tt class="xref py py-mod docutils literal"><span class="pre">QtWidgets</span></tt></a> based
 applications.</li>
+</ul>
+<span class="target" id="module-PyQt5.QtWebSockets"></span><ul class="simple">
+<li><a class="reference internal" href="#module-PyQt5.QtWebSockets" title="PyQt5.QtWebSockets"><tt class="xref py py-mod docutils literal"><span class="pre">QtWebSockets</span></tt></a> contains classes that implement the WebSocket
+protocol described in RFC 6455.</li>
 </ul>
 <span class="target" id="module-PyQt5.QtWidgets"></span><ul class="simple">
 <li><a class="reference internal" href="#module-PyQt5.QtWidgets" title="PyQt5.QtWidgets"><tt class="xref py py-mod docutils literal"><span class="pre">QtWidgets</span></tt></a> contains classes that provide a set of UI elements to
@@ -327,8 +335,8 @@ version of PyQt5 no matter what version of Qt v5 you are using.</p>
   <p class="topless"><a href="index.html"
                         title="previous chapter">PyQt5 Reference Guide</a></p>
   <h4>Next topic</h4>
-  <p class="topless"><a href="installation.html"
-                        title="next chapter">Installing PyQt5</a></p>
+  <p class="topless"><a href="incompatibilities.html"
+                        title="next chapter">Potential Incompatibilities with Earlier Versions</a></p>
 <div id="searchbox" style="display: none">
   <h3>Quick search</h3>
     <form class="search" action="search.html" method="get">
@@ -356,12 +364,12 @@ version of PyQt5 no matter what version of Qt v5 you are using.</p>
           <a href="py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
         <li class="right" >
-          <a href="installation.html" title="Installing PyQt5"
+          <a href="incompatibilities.html" title="Potential Incompatibilities with Earlier Versions"
              >next</a> |</li>
         <li class="right" >
           <a href="index.html" title="PyQt5 Reference Guide"
              >previous</a> |</li>
-        <li><a href="index.html">PyQt 5.2.1 Reference Guide</a> &raquo;</li> 
+        <li><a href="index.html">PyQt 5.3 Reference Guide</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer">

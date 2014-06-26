@@ -43,7 +43,9 @@ static void convert_ushort(PyObject *itm, void *array, SIP_SSIZE_T i);
 static void convert_int(PyObject *itm, void *array, SIP_SSIZE_T i);
 static void convert_uint(PyObject *itm, void *array, SIP_SSIZE_T i);
 static void convert_float(PyObject *itm, void *array, SIP_SSIZE_T i);
+#if defined(SIP_FEATURE_PyQt_Desktop_OpenGL)
 static void convert_double(PyObject *itm, void *array, SIP_SSIZE_T i);
+#endif
 
 
 // Get an array of OpenGL fundamental types from a sequence or an object that
@@ -201,9 +203,11 @@ static void *convert_values(Array *array, PyObject *values, GLenum gl_type,
             array_type = GL_FLOAT;
             break;
 
+#if defined(SIP_FEATURE_PyQt_Desktop_OpenGL)
         case 'd':
             array_type = GL_DOUBLE;
             break;
+#endif
 
         default:
             PyErr_Format(PyExc_TypeError, "unsupported buffer type '%s'",
@@ -311,11 +315,13 @@ static void *convert_values(Array *array, PyObject *values, GLenum gl_type,
         element_size = sizeof (GLfloat);
         break;
 
+#if defined(SIP_FEATURE_PyQt_Desktop_OpenGL)
 #if GL_DOUBLE != GL_FLOAT
     case GL_DOUBLE:
         convertor = convert_double;
         element_size = sizeof (GLdouble);
         break;
+#endif
 #endif
 
     default:
@@ -416,11 +422,13 @@ static void convert_float(PyObject *itm, void *array, SIP_SSIZE_T i)
 }
 
 
+#if defined(SIP_FEATURE_PyQt_Desktop_OpenGL)
 // Convert a Python object to a GLdouble.
 static void convert_double(PyObject *itm, void *array, SIP_SSIZE_T i)
 {
     reinterpret_cast<GLdouble *>(array)[i] = PyFloat_AsDouble(itm);
 }
+#endif
 
 #endif
 

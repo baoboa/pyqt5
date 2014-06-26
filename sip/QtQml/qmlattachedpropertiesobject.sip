@@ -37,7 +37,7 @@ QObject *qmlAttachedPropertiesObject(SIP_PYTYPE, QObject *object,
         static QHash<PyTypeObject *, int> cache;
 
         int idx = cache.value((PyTypeObject *)a0, -1);
-        const QMetaObject *mo = pyqt5_get_qmetaobject((PyTypeObject *)a0);
+        const QMetaObject *mo = pyqt5_qtqml_get_qmetaobject((PyTypeObject *)a0);
 
         sipRes = qmlAttachedPropertiesObject(&idx, proxy, mo, a2);
 

@@ -46,8 +46,10 @@ void qpyopengl_init()
     sipExportSymbol("qpyopengl_from_GLboolean",
             (void *)qpyopengl_from_GLboolean);
     sipExportSymbol("qpyopengl_from_GLfloat", (void *)qpyopengl_from_GLfloat);
+#if defined(SIP_FEATURE_PyQt_Desktop_OpenGL)
     sipExportSymbol("qpyopengl_from_GLdouble",
             (void *)qpyopengl_from_GLdouble);
+#endif
 #endif
 }
 

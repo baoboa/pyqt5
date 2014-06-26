@@ -9,7 +9,7 @@ used the modules shipped with your application to develop new applications
 would themselves be considered a developer and would need their own commercial
 PyQt5 license.
 
-One solution to this problem is the `VendorID
+One solution to this problem (for Python v2 only) is the `VendorID
 <http://www.riverbankcomputing.com/software/vendorid/>`__ package.  This allows
 you to build Python extension modules that can only be imported by a digitally
 signed custom interpreter.  The package enables you to create such an

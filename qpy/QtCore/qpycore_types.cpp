@@ -436,6 +436,12 @@ static int trawl_hierarchy(PyTypeObject *pytype, qpycore_metaobject *qo,
     {
         PyTypeObject *sup = (PyTypeObject *)PyTuple_GET_ITEM(pytype->tp_bases, i);
 
+#if PY_MAJOR_VERSION < 3
+        /* Ignore classic classes as mixins. */
+        if (PyClass_Check((PyObject *)sup))
+            continue;
+#endif
+
         if (PyType_IsSubtype(sup, sipTypeAsPyTypeObject(sipType_QObject)))
             continue;
 

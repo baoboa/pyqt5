@@ -101,7 +101,7 @@ PyObject *QPyDBusReply::value(PyObject *type) const
 
     QVariant val(_q_value_variant);
 
-    return pyqt5_from_qvariant_by_type(val, type);
+    return pyqt5_qtdbus_from_qvariant_by_type(val, type);
 }
 
 

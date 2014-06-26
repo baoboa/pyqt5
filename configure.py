@@ -32,9 +32,9 @@ except ImportError:
 
 
 # Initialise the constants.
-PYQT_VERSION_STR = "5.2.1"
+PYQT_VERSION_STR = "5.3"
 
-SIP_MIN_VERSION = '4.15.5'
+SIP_MIN_VERSION = '4.16'
 
 
 class ModuleMetadata:
@@ -83,6 +83,7 @@ MODULE_METADATA = {
     'QtPrintSupport':       ModuleMetadata(qmake_QT=['printsupport']),
     'QtQml':                ModuleMetadata(qmake_QT=['qml'], qpy_lib=True),
     'QtQuick':              ModuleMetadata(qmake_QT=['quick'], qpy_lib=True),
+    'QtQuickWidgets':       ModuleMetadata(qmake_QT=['quickwidgets']),
     'QtSensors':            ModuleMetadata(qmake_QT=['sensors']),
     'QtSerialPort':         ModuleMetadata(qmake_QT=['serialport']),
     'QtSql':                ModuleMetadata(qmake_QT=['sql', 'widgets']),
@@ -90,6 +91,7 @@ MODULE_METADATA = {
     'QtTest':               ModuleMetadata(qmake_QT=['testlib', 'widgets']),
     'QtWebKit':             ModuleMetadata(qmake_QT=['webkit', 'network']),
     'QtWebKitWidgets':      ModuleMetadata(qmake_QT=['webkitwidgets']),
+    'QtWebSockets':         ModuleMetadata(qmake_QT=['websockets']),
     'QtWidgets':            ModuleMetadata(qmake_QT=['widgets']),
     'QtWinExtras':          ModuleMetadata(qmake_QT=['winextras', 'widgets']),
     'QtX11Extras':          ModuleMetadata(qmake_QT=['x11extras']),
@@ -135,7 +137,7 @@ COMPOSITE_COMPONENTS = (
     'QtAxContainer', 'QtDesigner', 'QtHelp', 'QtMultimediaWidgets', 'QtOpenGL',
         'QtPrintSupport', 'QtQuick', 'QtSql', 'QtSvg', 'QtTest',
     'QtWebKitWidgets', 'QtBluetooth', 'QtMacExtras', 'QtPositioning',
-    'QtWinExtras', 'QtX11Extras'
+    'QtWinExtras', 'QtX11Extras', 'QtQuickWidgets', 'QtWebSockets'
 )
 
 
@@ -185,37 +187,185 @@ def version_to_sip_tag(version):
     """ Convert a version number to a SIP tag.  version is the version number.
     """
 
-    # The dictionary of tags keyed by version number.  The tag used is the one
-    # with the smallest key (ie. earliest version) that is greater than the
-    # given version number.
-    tags = {
-        0x050000: None,
-        0x050100: 'Qt_5_0_0',
-        0x050200: 'Qt_5_1_0',
-        0x060000: 'Qt_5_2_0'
-    }
+    # Anything after Qt v5 is assumed to be Qt v6.0.
+    if version > 0x060000:
+        version = 0x060000
 
-    v_list = list(tags.keys())
-    v_list.sort()
+    major = (version >> 16) & 0xff
+    minor = (version >> 8) & 0xff
+    patch = version & 0xff
 
-    for v in v_list:
-        if version < v:
-            tag = tags[v]
-            break
-    else:
-        error("Unsupported Qt version: 0x%06x." % version)
-
-    return tag
+    return 'Qt_%d_%d_%d' % (major, minor, patch)
 
 
-def version_to_string(version):
-    """ Convert a 3 part version number encoded as a hexadecimal value to a
+def version_to_string(version, parts=3):
+    """ Convert an n-part version number encoded as a hexadecimal value to a
     string.  version is the version number.  Returns the string.
     """
 
-    return "%u.%u.%u" % (
-            ((version >> 16) & 0xff), ((version >> 8) & 0xff),
-            (version & 0xff))
+    part_list = [str((version >> 16) & 0xff)]
+
+    if parts > 1:
+        part_list.append(str((version >> 8) & 0xff))
+
+        if parts > 2:
+            part_list.append(str(version & 0xff))
+
+    return '.'.join(part_list)
+
+
+class ConfigurationFileParser:
+    """ A parser for configuration files. """
+
+    def __init__(self, config_file):
+        """ Read and parse a configuration file. """
+
+        self._config = {}
+        self._extrapolating = []
+
+        cfg = open(config_file)
+        line_nr = 0
+        last_name = None
+
+        section = ''
+        section_config = {}
+        self._config[section] = section_config
+
+        for l in cfg:
+            line_nr += 1
+
+            # Strip comments.
+            l = l.split('#')[0]
+
+            # See if this might be part of a multi-line.
+            multiline = (last_name is not None and len(l) != 0 and l[0] == ' ')
+
+            l = l.strip()
+
+            if l == '':
+                last_name = None
+                continue
+
+            # See if this is a new section.
+            if l[0] == '[' and l[-1] == ']':
+                section = l[1:-1].strip()
+                if section == '':
+                    error(
+                            "%s:%d: Empty section name." % (
+                                    config_file, line_nr))
+
+                if section in self._config:
+                    error(
+                            "%s:%d: Section '%s' defined more than once." % (
+                                    config_file, line_nr, section))
+
+                section_config = {}
+                self._config[section] = section_config
+
+                last_name = None
+                continue
+
+            parts = l.split('=', maxsplit=1)
+            if len(parts) == 2:
+                name = parts[0].strip()
+                value = parts[1].strip()
+            elif multiline:
+                name = last_name
+                value = section_config[last_name]
+                value += ' ' + l
+            else:
+                name = value = ''
+
+            if name == '' or value == '':
+                error("%s:%d: Invalid line." % (config_file, line_nr))
+
+            section_config[name] = value
+            last_name = name
+
+        cfg.close()
+
+    def sections(self):
+        """ Return the list of sections, excluding the default one. """
+
+        return [s for s in self._config.keys() if s != '']
+
+    def preset(self, name, value):
+        """ Add a preset value to the configuration. """
+
+        self._config[''][name] = value
+
+    def get(self, section, name, default=None):
+        """ Get a configuration value while extrapolating. """
+
+        # Get the name from the section, or the default section.
+        value = self._config[section].get(name)
+        if value is None:
+            value = self._config[''].get(name)
+            if value is None:
+                if default is None:
+                    error(
+                            "Configuration file references non-existent name "
+                            "'%s'." % name)
+
+                return default
+
+        # Handle any extrapolations.
+        parts = value.split('%(', maxsplit=1)
+        while len(parts) == 2:
+            prefix, tail = parts
+
+            parts = tail.split(')', maxsplit=1)
+            if len(parts) != 2:
+                error(
+                        "Configuration file contains unterminated "
+                        "extrapolated name '%s'." % tail)
+
+            xtra_name, suffix = parts
+
+            if xtra_name in self._extrapolating:
+                error(
+                        "Configuration file contains a recursive reference to "
+                        "'%s'." % xtra_name)
+
+            self._extrapolating.append(xtra_name)
+            xtra_value = self.get(section, xtra_name)
+            self._extrapolating.pop()
+
+            value = prefix + xtra_value + suffix
+
+            parts = value.split('%(', maxsplit=1)
+
+        return value
+
+    def getboolean(self, section, name, default):
+        """ Get a boolean configuration value while extrapolating. """
+
+        value = self.get(section, name, default)
+
+        # In case the default was returned.
+        if isinstance(value, bool):
+            return value
+
+        if value in ('True', 'true', '1'):
+            return True
+
+        if value in ('False', 'false', '0'):
+            return False
+
+        error(
+                "Configuration file contains invalid boolean value for "
+                "'%s'." % name)
+
+    def getlist(self, section, name, default):
+        """ Get a list configuration value while extrapolating. """
+
+        value = self.get(section, name, default)
+
+        # In case the default was returned.
+        if isinstance(value, list):
+            return value
+
+        return value.split()
 
 
 class HostPythonConfiguration:
@@ -337,18 +487,19 @@ class TargetConfiguration:
         self.no_designer_plugin = False
         self.no_docstrings = False
         self.no_qml_plugin = False
-        self.prot_is_public = False
+        self.no_tools = False
+        self.prot_is_public = (self.py_platform.startswith('linux') or self.py_platform == 'darwin')
         self.qmake = self._find_exe('qmake')
         self.qmake_variables = []
         self.py_pylib_dir = ''
         self.py_pylib_lib = ''
         self.pydbus_inc_dir = ''
         self.pydbus_module_dir = ''
+        self.pyqt_disabled_features = []
         self.pyqt_modules = []
         self.qml_plugin_dir = ''
         self.qsci_api = False
         self.qsci_api_dir = ''
-        self.qt_disabled_features = []
         self.qt_licensee = ''
         self.qt_shared = False
         self.qt_version = 0
@@ -367,59 +518,68 @@ class TargetConfiguration:
 
         inform("Reading configuration from %s..." % config_file)
 
-        cfg = open(config_file)
-        line_nr = 0
+        parser = ConfigurationFileParser(config_file)
 
-        for l in cfg:
-            line_nr += 1
-            l = l.strip()
+        # Populate some presets from the command line.
+        version = version_to_string(self.py_version).split('.')
+        parser.preset('py_major', version[0])
+        parser.preset('py_minor', version[1])
 
-            if len(l) == 0 or l[0] == '#':
+        parser.preset('sysroot', self.sysroot)
+
+        # Find the section corresponding to the version of Qt.
+        qt_major = self.qt_version >> 16
+        section = None
+        latest_section = -1
+
+        for name in parser.sections():
+            parts = name.split()
+            if len(parts) != 2 or parts[0] != 'Qt':
                 continue
 
-            eq = l.find('=')
-            if eq > 0:
-                name = l[:eq - 1].rstrip()
-                value = l[eq + 1:].lstrip()
-            else:
-                name = value = ''
+            section_qt_version = version_from_string(parts[1])
+            if section_qt_version is None:
+                continue
 
-            if name == '' or value == '':
-                error("%s:%d: Invalid line." % (config_file, line_nr))
+            # Major versions must match.
+            if section_qt_version >> 16 != self.qt_version >> 16:
+                continue
 
-            default_value = getattr(self, name, None)
-            if default_value is None:
-                error(
-                        "%s:%d: Unknown item: %s." %
-                                (config_file, line_nr, name))
+            # It must be no later that the version of Qt.
+            if section_qt_version > self.qt_version:
+                continue
 
-            if isinstance(default_value, bool):
-                if value == 'True':
-                    value = True
-                elif value == 'False':
-                    value = False
-                else:
-                    error(
-                            "%s:%d: bool value expected for %s." %
-                                    (config_file, line_nr, name))
-            elif isinstance(default_value, int):
-                if value.startswith('0x'):
-                    value = int(value, 16)
-                else:
-                    value = int(value)
-            elif isinstance(default_value, list):
-                value = value.split()
+            # Save it if it is the latest so far.
+            if section_qt_version > latest_section:
+                section = name
+                latest_section = section_qt_version
 
-            setattr(self, name, value)
+        if section is None:
+            error("%s does not define a section that covers Qt v%s." % (config_file, version_to_string(self.qt_version)))
 
-        cfg.close()
+        self.py_platform = parser.get(section, 'py_platform', self.py_platform)
+        self.py_inc_dir = parser.get(section, 'py_inc_dir', self.py_inc_dir)
+        self.py_pylib_dir = parser.get(section, 'py_pylib_dir',
+                self.py_pylib_dir)
+        self.py_pylib_lib = parser.get(section, 'py_pylib_lib',
+                self.py_pylib_lib)
 
-        # Prepend sysroot where necessary.
-        self.py_inc_dir = self.sysroot + self.py_inc_dir
-        self.pyqt_bin_dir = self.sysroot + self.pyqt_bin_dir
-        self.pyqt_module_dir = self.sysroot + self.pyqt_module_dir
-        self.pyqt_sip_dir = self.sysroot + self.pyqt_sip_dir
+        self.qt_shared = parser.getboolean(section, 'qt_shared',
+                self.qt_shared)
 
+        self.pyqt_disabled_features = parser.getlist(section,
+                'pyqt_disabled_features', self.pyqt_disabled_features)
+        self.pyqt_modules = parser.getlist(section, 'pyqt_modules',
+                self.pyqt_modules)
+        self.pyqt_module_dir = parser.get(section, 'pyqt_module_dir',
+                self.pyqt_module_dir)
+        self.pyqt_bin_dir = parser.get(section, 'pyqt_bin_dir',
+                self.pyqt_bin_dir)
+        self.pyqt_sip_dir = parser.get(section, 'pyqt_sip_dir',
+                self.pyqt_sip_dir)
+        self.pyuic_interpreter = parser.get(section, 'pyuic_interpreter',
+                self.pyuic_interpreter)
+ 
     def from_introspection(self, verbose, debug):
         """ Initialise the configuration by introspecting the system. """
 
@@ -447,7 +607,7 @@ int main(int argc, char **argv)
 #if defined(QT_SHARED) || defined(QT_DLL)
     out << "shared\\n";
 #else
-    out << "\\n";
+    out << "static\\n";
 #endif
 
     // Determine which features should be disabled.
@@ -523,7 +683,7 @@ int main(int argc, char **argv)
 
         self.qt_licensee = lines[0]
         self.qt_shared = (lines[1] == 'shared')
-        self.qt_disabled_features = lines[2:]
+        self.pyqt_disabled_features = lines[2:]
 
         # Get the details of the Python interpreter library.
         py_major = self.py_version >> 16
@@ -558,30 +718,25 @@ int main(int argc, char **argv)
         self.py_pylib_dir = pylib_dir
         self.py_pylib_lib = pylib_lib
 
-    def get_qt_configuration(self, opts):
-        """ Get the Qt configuration that can be extracted from qmake.  opts
-        are the command line options.
+        # Apply sysroot where necessary.
+        if self.sysroot != '':
+            self.py_inc_dir = self._apply_sysroot(self.py_inc_dir)
+            self.py_pylib_dir = self._apply_sysroot(self.py_pylib_dir)
+            self.pyqt_bin_dir = self._apply_sysroot(self.pyqt_bin_dir)
+            self.pyqt_module_dir = self._apply_sysroot(self.pyqt_module_dir)
+            self.pyqt_sip_dir = self._apply_sysroot(self.pyqt_sip_dir)
+
+    def _apply_sysroot(self, dir_name):
+        """ Replace any leading sys.prefix of a directory name with sysroot.
         """
 
-        try:
-            qmake = opts.qmake
-        except AttributeError:
-            # Windows.
-            qmake = None
+        if dir_name.startswith(sys.prefix):
+            dir_name = self.sysroot + dir_name[len(sys.prefix):]
 
-        if qmake is not None:
-            self.qmake = qmake
-        elif self.qmake is None:
-            # Under Windows qmake and the Qt DLLs must be on the system PATH
-            # otherwise the dynamic linker won't be able to resolve the
-            # symbols.  On other systems we assume we can just run qmake by
-            # using its full pathname.
-            if sys.platform == 'win32':
-                error("Make sure you have a working Qt qmake on your PATH.")
-            else:
-                error(
-                        "Use the --qmake argument to explicitly specify a "
-                        "working Qt qmake.")
+        return dir_name
+
+    def get_qt_configuration(self):
+        """ Get the Qt configuration that can be extracted from qmake. """
 
         # Query qmake.
         qt_config = TargetQtConfiguration(self.qmake)
@@ -610,42 +765,75 @@ int main(int argc, char **argv)
 
         self.designer_plugin_dir = qt_config.QT_INSTALL_PLUGINS + '/designer'
         self.qml_plugin_dir = qt_config.QT_INSTALL_PLUGINS + '/PyQt5'
-        self.sysroot = qt_config.QT_SYSROOT
+
+        if self.sysroot == '':
+            self.sysroot = qt_config.QT_SYSROOT
 
         # By default, install the API file if QScintilla seems to be installed
         # in the default location.
         self.qsci_api_dir = os.path.join(qt_config.QT_INSTALL_DATA, 'qsci')
         self.qsci_api = os.path.isdir(self.qsci_api_dir)
 
-        if opts.qmakespec is not None:
-            self.qmake_spec = opts.qmakespec
-
-        if sys.platform == 'darwin':
-            if opts.qmakespec is None:
-                # The binary MacOS/X Qt installer defaults to XCode.  If this
-                # is what we might have then use macx-clang.
-                if qt_config.QMAKE_SPEC == 'macx-xcode':
-                    # This will exist (and we can't check anyway).
-                    self.qmake_spec = 'macx-clang'
+        if sys.platform == 'darwin' and self.qmake_spec == '':
+            # The binary MacOS/X Qt installer defaults to XCode.  If this is
+            # what we might have then use macx-clang.
+            if qt_config.QMAKE_SPEC == 'macx-xcode':
+                # This will exist (and we can't check anyway).
+                self.qmake_spec = 'macx-clang'
 
     def post_configuration(self):
         """ Handle any remaining default configuration after having read a
         configuration file or introspected the system.
         """
 
+        # The platform may have changed so update the default.
         if self.py_platform.startswith('linux') or self.py_platform == 'darwin':
             self.prot_is_public = True
-
-        if self.qt_licensee == 'Open Source':
-            self.qt_licensee = ''
 
         self.sip_inc_dir = self.py_inc_dir
         self.vend_inc_dir = self.py_inc_dir
         self.vend_lib_dir = self.py_lib_dir
 
-    def override_defaults(self, opts):
-        """ Override the defaults from the command line.  opts are the command
-        line options.
+    def apply_pre_options(self, opts):
+        """ Apply options from the command line that influence subsequent
+        configuration.  opts are the command line options.
+        """
+
+        # Get the target Python version.
+        if opts.target_py_version is not None:
+            self.py_version = opts.target_py_version
+
+        # Get the system root.
+        if opts.sysroot is not None:
+            self.sysroot = opts.sysroot
+
+        # Determine how to run qmake.
+        try:
+            qmake = opts.qmake
+        except AttributeError:
+            # Windows.
+            qmake = None
+
+        if qmake is not None:
+            self.qmake = qmake
+        elif self.qmake is None:
+            # Under Windows qmake and the Qt DLLs must be on the system PATH
+            # otherwise the dynamic linker won't be able to resolve the
+            # symbols.  On other systems we assume we can just run qmake by
+            # using its full pathname.
+            if sys.platform == 'win32':
+                error("Make sure you have a working Qt qmake on your PATH.")
+            else:
+                error(
+                        "Use the --qmake argument to explicitly specify a "
+                        "working Qt qmake.")
+
+        if opts.qmakespec is not None:
+            self.qmake_spec = opts.qmakespec
+
+    def apply_post_options(self, opts):
+        """ Apply options from the command line that override the previous
+        configuration.  opts are the command line options.
         """
 
         if opts.assumeshared:
@@ -677,6 +865,9 @@ int main(int argc, char **argv)
 
         if opts.noqmlplugin:
             self.no_qml_plugin = True
+
+        if opts.notools:
+            self.no_tools = True
 
         if opts.protispublic is not None:
             self.prot_is_public = opts.protispublic
@@ -788,6 +979,13 @@ def create_optparser(target_config):
             raise optparse.OptionValueError("'%s' is not a file" % value)
         setattr(parser.values, option.dest, os.path.abspath(value))
 
+    def store_version(option, opt_str, value, parser):
+        version = version_from_string(value)
+        if version is None:
+            raise optparse.OptionValueError(
+                    "'%s' is not a valid version number" % value)
+        setattr(parser.values, option.dest, version)
+
     p = optparse.OptionParser(usage="python %prog [opts] [name=value] "
             "[name+=value]", version=PYQT_VERSION_STR)
 
@@ -825,6 +1023,15 @@ def create_optparser(target_config):
     g.add_option("--confirm-license", dest='license_confirmed', default=False,
             action='store_true',
             help="confirm acceptance of the license")
+    g.add_option("--target-py-version", dest='target_py_version',
+            type='string', action='callback', callback=store_version,
+            metavar="VERSION",
+            help="the major.minor version of the target Python [default: "
+                    "%s]" % version_to_string(target_config.py_version,
+                            parts=2))
+    g.add_option("--sysroot", dest='sysroot', type='string', action='callback',
+            callback=store_abspath_dir, metavar="DIR",
+            help="DIR is the target system root directory")
     g.add_option("--spec", dest='qmakespec', default=None, action='store',
             metavar="SPEC",
             help="pass -spec SPEC to qmake [default: %s]" % "don't pass -spec" if target_config.qmake_spec == '' else target_config.qmake_spec)
@@ -921,6 +1128,10 @@ def create_optparser(target_config):
             action='callback', callback=store_abspath, metavar="DIR",
             help="install the PyQt5 .sip files in DIR [default: %s]" %
                     target_config.pyqt_sip_dir)
+    g.add_option("--no-tools", action="store_true", default=False,
+            dest="notools",
+            help="disable the building of pyuic5, pyrcc5 and pylupdate5 "
+                    "[default: enabled]")
     p.add_option_group(g)
 
     # Vendor ID.
@@ -1024,6 +1235,9 @@ def check_modules(target_config, verbose):
     if target_config.qt_version >= 0x050200:
         check_5_2_modules(target_config, verbose)
 
+    if target_config.qt_version >= 0x050300:
+        check_5_3_modules(target_config, verbose)
+
 
 def check_5_1_modules(target_config, verbose):
     """ Check which modules introduced in Qt v5.1 can be built and update the
@@ -1032,9 +1246,9 @@ def check_5_1_modules(target_config, verbose):
     """
 
     # Check the OpenGL functions.
-    if 'PyQt_OpenGL' in target_config.qt_disabled_features:
+    if 'PyQt_OpenGL' in target_config.pyqt_disabled_features:
         pass
-    elif 'PyQt_Desktop_OpenGL' in target_config.qt_disabled_features:
+    elif 'PyQt_Desktop_OpenGL' in target_config.pyqt_disabled_features:
         check_module(target_config, verbose, '_QOpenGLFunctions_ES2',
                 'qopenglfunctions_es2.h', 'new QOpenGLFunctions_ES2()')
     else:
@@ -1078,6 +1292,18 @@ def check_5_2_modules(target_config, verbose):
             'new QGeoAddress()')
     check_module(target_config, verbose, 'QtWinExtras', 'QtWin',
             'QtWin::isCompositionEnabled()')
+
+
+def check_5_3_modules(target_config, verbose):
+    """ Check which modules introduced in Qt v5.3 can be built and update the
+    target configuration accordingly.  target_config is the target
+    configuration.  verbose is set if the output is to be displayed.
+    """
+
+    check_module(target_config, verbose, 'QtQuickWidgets', 'qquickwidget.h',
+            'new QQuickWidget()')
+    check_module(target_config, verbose, 'QtWebSockets', 'qwebsocket.h',
+            'new QWebSocket()')
 
 
 def generate_makefiles(target_config, verbose, no_timestamp, parts, tracing):
@@ -1188,13 +1414,14 @@ def generate_makefiles(target_config, verbose, no_timestamp, parts, tracing):
                 tracing, '_qt', sip_flags, all_qpy_sources, all_qpy_headers)
         subdirs.append('_qt')
 
-    # Generate pylupdate5 and pyrcc5.
-    for tool in ('pylupdate', 'pyrcc'):
-        generate_application_makefile(target_config, verbose, tool)
-        subdirs.append(tool)
+    if not target_config.no_tools:
+        # Generate pylupdate5 and pyrcc5.
+        for tool in ('pylupdate', 'pyrcc'):
+            generate_application_makefile(target_config, verbose, tool)
+            subdirs.append(tool)
 
-    # Generate the pyuic5 wrapper.
-    pyuic_wrapper = generate_pyuic5_wrapper(target_config)
+        # Generate the pyuic5 wrapper.
+        pyuic_wrapper = generate_pyuic5_wrapper(target_config)
 
     # Generate the Qt Designer plugin.
     if not target_config.no_designer_plugin and 'QtDesigner' in target_config.pyqt_modules:
@@ -1266,7 +1493,8 @@ uic_package.path = %s/PyQt5
 INSTALLS += uic_package
 ''' % (source_path('pyuic', 'uic'), target_config.pyqt_module_dir))
 
-    out_f.write('''
+    if not target_config.no_tools:
+        out_f.write('''
 pyuic5.files = %s
 pyuic5.path = %s
 INSTALLS += pyuic5
@@ -1286,7 +1514,7 @@ INSTALLS += qscintilla_api
     # means that qmake will try and strip it after installing it resulting in
     # an (ignored) error.  However if we did it after running qmake then (on
     # Linux) the execute bits would be stripped on installation.
-    if target_config.py_platform != 'win32':
+    if not target_config.no_tools and target_config.py_platform != 'win32':
         inform("Making the %s wrapper executable..." % pyuic_wrapper)
 
         sbuf = os.stat(pyuic_wrapper)
@@ -1492,19 +1720,24 @@ def inform_user(target_config, sip_version):
     the target configuration.  sip_version is the SIP version string.
     """
 
-    inform("Qt v%s (%s) is being used." % (version_to_string(target_config.qt_version), "Open Source" if target_config.qt_licensee == '' else "Commercial"))
+    if target_config.qt_licensee == '':
+        detail = ''
+    elif target_config.qt_licensee == 'Open Source':
+        detail = " (Open Source)"
+    else:
+        detail = " licensed to %s" % target_config.qt_licensee
+
+    inform("Qt v%s%s is being used." % (
+            version_to_string(target_config.qt_version), detail))
+
     inform("The qmake executable is %s." % target_config.qmake)
 
-    if target_config.qt_licensee:
-        inform("Qt is licensed to %s." % target_config.qt_licensee)
-
-
     inform(
-            "Qt is built as a %s library." %
-                    "shared" if target_config.qt_shared else "static")
+            "Qt is built as a %s library." % (
+                    "shared" if target_config.qt_shared else "static"))
 
     if target_config.sysroot != '':
-        inform("Qt was built for cross-compilation with sysroot %s." % target_config.sysroot)
+        inform("The system root directory is %s." % target_config.sysroot)
 
     inform("SIP %s is being used." % sip_version)
     inform("The sip executable is %s." % target_config.sip)
@@ -1520,13 +1753,13 @@ def inform_user(target_config, sip_version):
         inform("PyQt5 is being built with 'protected' redefined as 'public'.")
 
     if target_config.no_designer_plugin:
-        inform("The Designer plugin will not be installed.")
+        inform("The Designer plugin will not be built.")
     else:
         inform("The Designer plugin will be installed in %s." %
                 target_config.designer_plugin_dir)
 
     if target_config.no_qml_plugin:
-        inform("The qmlscene plugin will not be installed.")
+        inform("The qmlscene plugin will not be built.")
     else:
         inform("The qmlscene plugin will be installed in %s." %
                 target_config.qml_plugin_dir)
@@ -1546,11 +1779,14 @@ def inform_user(target_config, sip_version):
         inform("The PyQt5 .sip files will be installed in %s." %
                 target_config.pyqt_sip_dir)
 
-    inform("pyuic5, pyrcc5 and pylupdate5 will be installed in %s." %
-            target_config.pyqt_bin_dir)
+    if target_config.no_tools:
+        inform("pyuic5, pyrcc5 and pylupdate5 will not be built.")
+    else:
+        inform("pyuic5, pyrcc5 and pylupdate5 will be installed in %s." %
+                target_config.pyqt_bin_dir)
 
-    inform("The interpreter used by pyuic5 is %s." %
-            target_config.pyuic_interpreter)
+        inform("The interpreter used by pyuic5 is %s." %
+                target_config.pyuic_interpreter)
 
     if target_config.vend_enabled:
         inform("PyQt5 will only be usable with signed interpreters.")
@@ -1696,7 +1932,10 @@ def check_vendorid(target_config):
     target_config is the target configuration.
     """
 
-    if target_config.vend_enabled:
+    if target_config.py_version >= 0x030000:
+        # VendorID doesn't support Python v3.
+        target_config.vend_enabled = False
+    elif target_config.vend_enabled:
         if os.access(os.path.join(target_config.vend_inc_dir, 'vendorid.h'), os.F_OK):
             if glob.glob(os.path.join(target_config.vend_lib_dir, '*vendorid*')):
                 inform("The VendorID package was found.")
@@ -1927,7 +2166,7 @@ def get_sip_flags(target_config):
 
     # If we don't check for signed interpreters, we exclude the 'VendorID'
     # feature
-    if not target_config.vend_enabled:
+    if target_config.py_version < 0x030000 and not target_config.vend_enabled:
         sip_flags.append('-x')
         sip_flags.append('VendorID')
 
@@ -1943,14 +2182,11 @@ def get_sip_flags(target_config):
     sip_flags.append(plattag)
 
     # Handle the Qt version tag.
-    verstag = version_to_sip_tag(target_config.qt_version)
-
-    if verstag:
-        sip_flags.append('-t')
-        sip_flags.append(verstag)
+    sip_flags.append('-t')
+    sip_flags.append(version_to_sip_tag(target_config.qt_version))
 
     # Handle any feature flags.
-    for xf in target_config.qt_disabled_features:
+    for xf in target_config.pyqt_disabled_features:
         sip_flags.append('-x')
         sip_flags.append(xf)
 
@@ -2008,6 +2244,10 @@ def generate_sip_module_code(target_config, verbose, no_timestamp, parts, tracin
     # Build the SIP command line.
     argv = [quote(target_config.sip), '-w', sip_flags]
 
+    # Make sure any unknown Qt version gets treated as the latest Qt v5.
+    argv.append('-B')
+    argv.append('Qt_6_0_0')
+
     if no_timestamp:
         argv.append('-T')
 
@@ -2030,7 +2270,7 @@ def generate_sip_module_code(target_config, verbose, no_timestamp, parts, tracin
     if tracing:
         argv.append('-r')
 
-    if mname not in ('Qt', '_qt'):
+    if target_config.qsci_api and mname not in ('Qt', '_qt'):
         argv.append('-a')
         argv.append(mname + '.api')
 
@@ -2197,9 +2437,11 @@ win32 {
     # This is needed for Windows.
     pro_lines.append('INCLUDEPATH += .')
 
-    pro_lines.append('INCLUDEPATH += %s' % target_config.py_inc_dir)
+    # Make sure the SIP include directory is searched before the Python include
+    # directory if they are different.
+    pro_lines.append('INCLUDEPATH += %s' % target_config.sip_inc_dir)
     if target_config.py_inc_dir != target_config.sip_inc_dir:
-        pro_lines.append('INCLUDEPATH += %s' % target_config.sip_inc_dir)
+        pro_lines.append('INCLUDEPATH += %s' % target_config.py_inc_dir)
 
     if mname != '_qt':
         pro_add_qpy(mname, metadata, pro_lines)
@@ -2309,7 +2551,7 @@ def check_license(target_config, license_confirmed):
         ltype = None
 
     if ltype is None:
-        ltype = "GPL"
+        ltype = 'GPL'
         lname = "GNU General Public License"
         lfile = 'pyqt-gpl.sip'
 
@@ -2320,7 +2562,7 @@ def check_license(target_config, license_confirmed):
                             sys.platform))
 
     # Common checks.
-    if target_config.qt_licensee != '' and ltype == 'GPL':
+    if target_config.qt_licensee != 'Open Source' and ltype == 'GPL':
         error(
                 "This version of PyQt5 and the commercial version of Qt have "
                 "incompatible licenses.")
@@ -2495,24 +2737,20 @@ def main(argv):
     parser = create_optparser(target_config)
     opts, target_config.qmake_variables = parser.parse_args()
 
+    target_config.apply_pre_options(opts)
+
     # Query qmake for the basic configuration information.
-    target_config.get_qt_configuration(opts)
+    target_config.get_qt_configuration()
 
     # Update the target configuration.
     if opts.config_file is not None:
-        if target_config.sysroot == '':
-            error("The '--configuration' argument was specified but Qt was "
-                    "not built for cross-compilation.")
         target_config.from_configuration_file(opts.config_file)
-    elif target_config.sysroot != '':
-        error("The '--configuration' argument must be specified because Qt "
-                    "was built for cross-compilation.")
     else:
         target_config.from_introspection(opts.verbose, opts.debug)
 
     target_config.post_configuration()
 
-    target_config.override_defaults(opts)
+    target_config.apply_post_options(opts)
 
     # Check the licenses are compatible.
     check_license(target_config, opts.license_confirmed)

@@ -1,3 +1,14 @@
+v5.3 26th May 2014
+  - By default a Python slot is only invoked if the underlying C++ instance
+    still exists.
+  - Added the no_receiver_check argument to connect().
+  - Added support for Qt v5.3.0.
+  - Added the QtQuickWidgets module.
+  - Added the QtWebSockets module.
+  - Added the --target_py_version, --sysroot and --no-tools option to
+    configure.py.
+  - Cross-compilation (specifically to iOS and Android) is now supported.
+
 v5.2.1 14th March 2014
   - Added full support for Qt v5.2.1.
   - Properties, signals and slots can now be defined in mixins (i.e.

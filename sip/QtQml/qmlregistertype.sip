@@ -25,13 +25,13 @@
 
 %ModuleCode
 // Imports from QtCore.
-pyqt5_get_qmetaobject_t pyqt5_get_qmetaobject;
+pyqt5_qtqml_get_qmetaobject_t pyqt5_qtqml_get_qmetaobject;
 %End
 
 
 %PostInitialisationCode
 // Imports from QtCore.
-pyqt5_get_qmetaobject = (pyqt5_get_qmetaobject_t)sipImportSymbol(
+pyqt5_qtqml_get_qmetaobject = (pyqt5_qtqml_get_qmetaobject_t)sipImportSymbol(
         "pyqt5_get_qmetaobject");
 %End
 

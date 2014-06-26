@@ -62,5 +62,5 @@ PyObject *QPyDBusPendingReply::value(PyObject *type) const
     val = argumentAt(0);
     Py_END_ALLOW_THREADS
 
-    return pyqt5_from_qvariant_by_type(val, type);
+    return pyqt5_qtdbus_from_qvariant_by_type(val, type);
 }

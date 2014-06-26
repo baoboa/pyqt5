@@ -43,7 +43,7 @@ In order to configure the build of PyQt5 you need to run the
 This assumes that the Python interpreter is on your path.  Something like the
 following may be appropriate on Windows::
 
-    c:\Python33\python configure.py
+    c:\Python34\python configure.py
 
 If you have multiple versions of Python installed then make sure you use the
 interpreter for which you wish to build PyQt5 for.
@@ -80,9 +80,8 @@ The full set of command line options is:
 .. cmdoption:: --configuration <FILE>
 
     ``<FILE>`` contains the configuration of the PyQt5 build to be used instead
-    of dynamically introspecting the system and is used when cross-compiling.
-    The :file:`configurations` directory contains configuration files for a
-    number of target devices.
+    of dynamically introspecting the system and is typically used when
+    cross-compiling.  See :ref:`ref-configuration-files`.
 
 .. cmdoption:: --confirm-license
 
@@ -152,6 +151,12 @@ The full set of command line options is:
 .. cmdoption:: --no-sip-files
 
     The ``.sip`` files for the PyQt5 modules will not be installed.
+
+.. cmdoption:: --no-tools
+
+    .. versionadded:: 5.3
+
+    The ``pyuic5``, ``pyrcc5`` and ``pylupdate5`` tools will not be built.
 
 .. cmdoption:: --no-timestamp
 
@@ -230,6 +235,26 @@ The full set of command line options is:
     building a custom interpreter with the PyQt5 modules built in to the
     interpreter.
 
+.. cmdoption:: --sysroot <DIR>
+
+    .. versionadded:: 5.3
+
+    ``<DIR>`` is the name of an optional directory that replaces ``sys.prefix``
+    in the names of other directories (specifically those specifying where the
+    various PyQt5 components will be installed and where the Python include and
+    library directories can be found).  It is typically used when
+    cross-compiling or when building a static version of PyQt5.  See
+    :ref:`ref-configuration-files`.
+
+.. cmdoption:: --target-py-version <VERSION>
+
+    .. versionadded:: 5.3
+
+    ``<VERSION>`` is the major and minor version (e.g. ``3.4``) of the version
+    of Python being targetted.  By default the version of Python being used to
+    run the :program:`configure.py` script is used.  It is typically used when
+    cross-compiling.  See :ref:`ref-configuration-files`.
+
 .. cmdoption:: --trace
 
     The generated PyQt5 modules contain additional tracing code that is enabled
@@ -239,18 +264,19 @@ The full set of command line options is:
 
     The checking of signed Python interpreters using the `VendorID
     <http://www.riverbankcomputing.com/software/vendorid/>`__ package is
-    enabled.  See also the :option:`--vendorid-incdir` and
-    :option:`--vendorid-libdir` options and :ref:`ref-deploy-commercial`.
+    enabled.  This option is ignored by Python v3.  See also the
+    :option:`--vendorid-incdir` and :option:`--vendorid-libdir` options and
+    :ref:`ref-deploy-commercial`.
 
 .. cmdoption:: --vendorid-incdir <DIR>
 
     The header file of the VendorID package can be found in the directory
-    ``<DIR>``.
+    ``<DIR>``.  This option is ignored by Python v3.
 
 .. cmdoption:: --vendorid-libdir <DIR>
 
     The library of the VendorID package can be found in the directory
-    ``<DIR>``.
+    ``<DIR>``.  This option is ignored by Python v3.
 
 .. cmdoption:: --verbose
 
@@ -288,4 +314,133 @@ Co-existence with PyQt4
 -----------------------
 
 PyQt5 can be installed alongside PyQt4 using the same Python interpreter
-without any problems so long as they are built with the same versions of SIP.
+without any problems so long as they are built with the same version of SIP.
+
+
+.. _ref-configuration-files:
+
+Configuring with Configuration Files
+------------------------------------
+
+The :program:`configure.py` script normally introspects the Python installation
+of the interpreter running it in order to determine the names of the various
+files and directories it needs.  This is fine for a native build of PyQt5 but
+isn't appropriate when cross-compiling.  In this case it is possible to supply
+a configuration file, specified using the :option:`--configuration` option,
+which contains definitions of all the required values.
+
+A configuration file is made up of a number of named sections each of which
+contains a number of configuration items.  The format of a configuration file
+is as follows:
+
+- a section name is a single line with the name enclosed between ``[`` and
+  ``]``
+
+- a configuration item is a single line containing a name/value pair separated
+  by ``=``
+
+- values may be extended to lines immediately following if they are indented by
+  at least one space
+
+- a value may include another value by embedding the name of that value
+  enclosed between ``%(`` and ``)``
+
+- comments begin with ``#`` and continue to the end of the line
+
+- blank lines are ignored.
+
+Those configuration items that appear before the first section name are
+automatically added to all sections.
+
+A configuration file defines a section for each version of Qt that requires a
+different configuration.  :program:`configure.py` will choose the most
+appropriate section according to the version of Qt you are actually using.  For
+example, if a configuration file contains sections for Qt v5.3 and Qt v5.1 and
+you are using Qt v5.2.1 then the section for Qt v5.1 will be chosen.
+
+:program:`configure.py` provides the following preset values for a
+configuration:
+
+``py_major``
+    is the major version number of the target Python installation.
+
+``py_minor``
+    is the minor version number of the target Python installation.
+
+``sysroot``
+    is the name of the system root directory.  This is specified with the
+    :option:`--sysroot` option.
+
+The following is an example configuration file::
+
+    # The target Python installation.
+    py_platform = linux
+    py_inc_dir = %(sysroot)/usr/include/python%(py_major).%(py_minor)
+    py_pylib_dir = %(sysroot)/usr/lib/python%(py_major).%(py_minor)/config
+    py_pylib_lib = python%(py_major).%(py_minor)mu
+
+    # The target PyQt installation.
+    pyqt_module_dir = %(sysroot)/usr/lib/python%(py_major)/dist-packages
+    pyqt_bin_dir = %(sysroot)/usr/bin
+    pyqt_sip_dir = %(sysroot)/usr/share/sip/PyQt5
+    pyuic_interpreter = /usr/bin/python%(py_major).%(py_minor)
+    pyqt_disabled_features = PyQt_Desktop_OpenGL PyQt_qreal_double
+
+    # Qt configuration common to all versions.
+    qt_shared = True
+
+    [Qt 5.1]
+    pyqt_modules = QtCore QtDBus QtDesigner QtGui QtHelp QtMultimedia
+        QtMultimediaWidgets QtNetwork QtOpenGL QtPrintSupport QtQml QtQuick
+        QtSensors QtSerialPort QtSql QtSvg QtTest QtWebKit QtWebKitWidgets
+        QtWidgets QtXmlPatterns _QOpenGLFunctions_ES2
+
+This example contains a section for Qt v5.1.  We have defined a number of
+values before the start of the section as they are not specific to any
+particular version of Qt.  Note that if you use this configuration with a
+version of Qt earlier than v5.1 then you will get an error.
+
+The following values can be specified in the configuration file:
+
+``qt_shared``
+    is set if Qt has been built as shared libraries.  The default value is
+    ``False``.
+
+``py_platform``
+    is the target Python platform.
+
+``py_inc_dir``
+    is the target Python include directory, i.e. the directory containing the
+    ``Python.h`` file.
+
+``py_pylib_dir``
+    is the target Python library directory.
+
+``py_pylib_lib``
+    is the target Python interpreter library.  It should not include any
+    platform-specific prefix or suffix.
+
+``pyqt_disabled_features``
+    is the space separated list of features (as defined by SIP's ``%Feature``
+    directive) that should be disabled.
+
+``pyqt_module_dir``
+    is the target directory where the PyQt5 modules will be installed.  It can
+    be overridden by the :option:`--destdir` option.
+
+``pyqt_modules``
+    is the space separated list of PyQt5 modules that will be built.  It can be
+    overridden by the :option:`--enable` option.
+
+``pyqt_bin_dir``
+    is the name of the target directory where the PyQt5 related executables
+    will be installed.  It can be overridden by the :option:`--bindir` option.
+
+``pyqt_sip_dir``
+    is the name of the target directory where the PyQt5 ``.sip`` files will be
+    installed.  It can be overridden by the :option:`--sipdir` option.
+
+``pyuic_interpreter``
+    is the name of the Python interpreter (as it would be called from the
+    target system) that will be used to run :program:`pyuic5`.  It can be
+    overridden by the :option:`--pyuic5-interpreter` option.

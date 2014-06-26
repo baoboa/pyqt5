@@ -65,6 +65,8 @@ public:
     static PyQtSlotProxy *findSlotProxy(const QObject *transmitter,
             const QByteArray &signal_signature, PyObject *slot);
 
+    void disableReceiverCheck();
+
     static int clearSlotProxies(const QObject *transmitter);
     static int visitSlotProxies(const QObject *transmitter, visitproc visit,
             void *arg);

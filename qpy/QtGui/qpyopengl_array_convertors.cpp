@@ -160,6 +160,7 @@ PyObject *qpyopengl_from_GLfloat(int *eflag, const GLfloat *array,
 }
 
 
+#if defined(SIP_FEATURE_PyQt_Desktop_OpenGL)
 // Convert a GLdouble array to a Python object.
 PyObject *qpyopengl_from_GLdouble(int *eflag, const GLdouble *array,
         SIP_SSIZE_T len)
@@ -191,6 +192,7 @@ PyObject *qpyopengl_from_GLdouble(int *eflag, const GLdouble *array,
 
     return tuple;
 }
+#endif
 
 #endif
 

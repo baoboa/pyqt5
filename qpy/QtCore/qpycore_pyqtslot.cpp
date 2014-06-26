@@ -71,7 +71,22 @@ PyQtSlot::~PyQtSlot()
 
 
 // Invoke the slot on behalf of C++.
+PyQtSlot::Result PyQtSlot::invoke(void **qargs, bool no_receiver_check) const
+{
+    return invoke(qargs, 0, 0, no_receiver_check);
+}
+
+
+// Invoke the slot on behalf of C++.
 bool PyQtSlot::invoke(void **qargs, PyObject *self, void *result) const
+{
+    return (invoke(qargs, self, result, false) != PyQtSlot::Failed);
+}
+
+
+// Invoke the slot on behalf of C++.
+PyQtSlot::Result PyQtSlot::invoke(void **qargs, PyObject *self, void *result,
+        bool no_receiver_check) const
 {
     // Get the callable.
     PyObject *callable;
@@ -88,8 +103,13 @@ bool PyQtSlot::invoke(void **qargs, PyObject *self, void *result) const
             self = instance();
 
         // See if the instance has gone (which isn't an error).
-        if (!self)
-            return true;
+        if (self == Py_None)
+            return PyQtSlot::Ignored;
+
+        // If the receiver wraps a C++ object then ignore the call if it no
+        // longer exists.
+        if (!no_receiver_check && PyObject_TypeCheck(self, sipSimpleWrapper_Type) && !sipGetAddress((sipSimpleWrapper *)self))
+            return PyQtSlot::Ignored;
 
 #if PY_MAJOR_VERSION < 3
         callable = PyMethod_New(mfunc, self, mclass);
@@ -104,7 +124,7 @@ bool PyQtSlot::invoke(void **qargs, PyObject *self, void *result) const
     PyObject *argtup = PyTuple_New(args.size());
 
     if (!argtup)
-        return false;
+        return PyQtSlot::Failed;
 
     QList<const Chimera *>::const_iterator it = args.constBegin();
 
@@ -115,7 +135,7 @@ bool PyQtSlot::invoke(void **qargs, PyObject *self, void *result) const
         if (!arg)
         {
             Py_DECREF(argtup);
-            return false;
+            return PyQtSlot::Failed;
         }
 
         PyTuple_SET_ITEM(argtup, a, arg);
@@ -124,13 +144,13 @@ bool PyQtSlot::invoke(void **qargs, PyObject *self, void *result) const
     }
 
     // Dispatch to the real slot.
-    PyObject *res = invoke(callable, argtup);
+    PyObject *res = call(callable, argtup);
 
     Py_DECREF(argtup);
     Py_DECREF(callable);
 
     if (!res)
-        return false;
+        return PyQtSlot::Failed;
 
     // Handle any result if required.
     bool ok;
@@ -142,7 +162,7 @@ bool PyQtSlot::invoke(void **qargs, PyObject *self, void *result) const
 
     Py_DECREF(res);
 
-    return ok;
+    return (ok ? PyQtSlot::Succeeded : PyQtSlot::Failed);
 }
 
 
@@ -180,8 +200,8 @@ PyObject *PyQtSlot::instance() const
 }
 
 
-// Invoke a single slot and return the result.
-PyObject *PyQtSlot::invoke(PyObject *callable, PyObject *args) const
+// Call a single slot and return the result.
+PyObject *PyQtSlot::call(PyObject *callable, PyObject *args) const
 {
     PyObject *sa, *oxtype, *oxvalue, *oxtb;
 

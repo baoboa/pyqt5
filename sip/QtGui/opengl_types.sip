@@ -32,11 +32,11 @@ typedef quint32 GLuint;
 typedef quint32 GLenum;
 typedef quint32 GLbitfield;
 %If (PyQt_Desktop_OpenGL)
-typedef quint64 GLuint64;
+typedef quint64 GLuint64;       // This is in OpenGL ES v3.
+typedef double GLdouble;
 %End
 typedef float GLfloat;
 typedef float GLclampf;
-typedef double GLdouble;
 typedef long GLintptr;
 typedef long GLsizeiptr;
 

@@ -40,6 +40,8 @@
 #define PROXY_SLOT_DISABLED 0x04    // The proxy deleteLater() has been called
                                     // or should be called after the slot has
                                     // finished executing.
+#define PROXY_NO_RCVR_CHECK 0x08    // The existence of the receiver C++ object
+                                    // should not be checked.
 
 
 // The last QObject sender.
@@ -200,8 +202,19 @@ void PyQtSlotProxy::unislot(void **qargs)
 
     proxy_flags |= PROXY_SLOT_INVOKED;
 
-    if (!real_slot->invoke(qargs))
+    switch (real_slot->invoke(qargs, (proxy_flags & PROXY_NO_RCVR_CHECK)))
+    {
+    case PyQtSlot::Succeeded:
+        break;
+
+    case PyQtSlot::Failed:
         PyErr_Print();
+        break;
+
+    case PyQtSlot::Ignored:
+        proxy_flags |= PROXY_SLOT_DISABLED;
+        break;
+    }
 
     proxy_flags &= ~PROXY_SLOT_INVOKED;
 
@@ -356,4 +369,12 @@ int qpycore_visitSlotProxies(const QObject *transmitter, visitproc visit,
 QObject *PyQtSlotProxy::lastSender()
 {
     return last_sender;
+}
+
+
+// Disable the check that the receiver C++ object exists before invoking a
+// slot.
+void PyQtSlotProxy::disableReceiverCheck()
+{
+    proxy_flags |= PROXY_NO_RCVR_CHECK;
 }

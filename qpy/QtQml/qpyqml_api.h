@@ -50,8 +50,8 @@ int qpyqml_convertTo_QJSValue(PyObject *py, PyObject *transferObj,
         QJSValue **cpp, int *isErr);
 
 // Imports from QtCore.
-typedef const QMetaObject *(*pyqt5_get_qmetaobject_t)(PyTypeObject *);
-extern pyqt5_get_qmetaobject_t pyqt5_get_qmetaobject;
+typedef const QMetaObject *(*pyqt5_qtqml_get_qmetaobject_t)(PyTypeObject *);
+extern pyqt5_qtqml_get_qmetaobject_t pyqt5_qtqml_get_qmetaobject;
 
 // Initialisation.
 void qpyqml_post_init(PyObject *module_dict);

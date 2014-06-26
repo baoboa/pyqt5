@@ -254,12 +254,7 @@ static PyObject *pyqtSignal_descr_get(PyObject *self, PyObject *obj,
             SIP_NO_CONVERTORS, 0, &is_err);
 
     if (is_err)
-    {
-        PyErr_Format(PyExc_TypeError,
-                "pyqtSignal must be bound to a QObject, not '%s'",
-                Py_TYPE(obj)->tp_name);
         return 0;
-    }
 
     // Return the bound signal.
     return qpycore_pyqtBoundSignal_New(ps, obj,

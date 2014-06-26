@@ -219,7 +219,7 @@ static QQmlPrivate::RegisterType *init_type(PyTypeObject *py_type, bool ctor,
         return 0;
     }
 
-    const QMetaObject *mo = pyqt5_get_qmetaobject(py_type);
+    const QMetaObject *mo = pyqt5_qtqml_get_qmetaobject(py_type);
 
     // See if the type is a parser status.
     bool is_parser_status = PyType_IsSubtype(py_type,
@@ -241,7 +241,7 @@ static QQmlPrivate::RegisterType *init_type(PyTypeObject *py_type, bool ctor,
             return 0;
         }
 
-        attached_mo = pyqt5_get_qmetaobject(attached);
+        attached_mo = pyqt5_qtqml_get_qmetaobject(attached);
 
         Py_INCREF((PyObject *)attached);
     }

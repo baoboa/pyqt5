@@ -68,14 +68,20 @@ static QByteArray slot_signature_from_metaobject(
         const QByteArray &slot_name, int nr_args);
 static QByteArray slot_signature(const Chimera::Signature *signal_signature,
         const QByteArray &slot_name, int nr_args);
+static sipErrorState get_receiver_slot_signature(PyObject *slot,
+        QObject *transmitter, const Chimera::Signature *signal_signature,
+        bool single_shot, QObject **receiver, QByteArray &slot_signature,
+        bool unique_connection_check, int no_receiver_check);
 
 
 // Doc-strings.
 PyDoc_STRVAR(pyqtBoundSignal_connect_doc,
-"connect(slot[, type=Qt.AutoConnection])\n"
+"connect(slot, type=Qt.AutoConnection, no_receiver_check=False)\n"
 "\n"
 "slot is either a Python callable or another signal.\n"
-"type is a Qt.ConnectionType");
+"type is a Qt.ConnectionType.\n"
+"no_receiver_check is True to disable the check that the receiver's C++\n"
+"instance still exists when the signal is emitted.\n");
 
 PyDoc_STRVAR(pyqtBoundSignal_disconnect_doc,
 "disconnect([slot])\n"
@@ -305,13 +311,20 @@ static PyObject *pyqtBoundSignal_connect(PyObject *self, PyObject *args,
     static const char *kwds[] = {
         "slot",
         "type",
+        "no_receiver_check",
         0
     };
 
     PyObject *py_slot, *py_type = 0;
+    int no_receiver_check = 0;
 
-    if (!PyArg_ParseTupleAndKeywords(args, kwd_args, "O|O:connect",
-                const_cast<char **>(kwds), &py_slot, &py_type))
+    if (!PyArg_ParseTupleAndKeywords(args, kwd_args,
+#if PY_VERSION_HEX >= 0x03030000
+                "O|Op:connect",
+#else
+                "O|Oi:connect",
+#endif
+                const_cast<char **>(kwds), &py_slot, &py_type, &no_receiver_check))
         return 0;
 
     Qt::ConnectionType q_type = Qt::AutoConnection;
@@ -334,8 +347,10 @@ static PyObject *pyqtBoundSignal_connect(PyObject *self, PyObject *args,
     Chimera::Signature *signal_signature = bs->unbound_signal->parsed_signature;
     QByteArray slot_signature;
 
-    sipErrorState estate = qpycore_get_receiver_slot_signature(py_slot, q_tx,
-            signal_signature, false, &q_rx, slot_signature);
+    sipErrorState estate = get_receiver_slot_signature(py_slot, q_tx,
+            signal_signature, false, &q_rx, slot_signature,
+            ((q_type & Qt::UniqueConnection) == Qt::UniqueConnection),
+            no_receiver_check);
 
     if (estate != sipErrorNone)
     {
@@ -375,6 +390,18 @@ sipErrorState qpycore_get_receiver_slot_signature(PyObject *slot,
         QObject *transmitter, const Chimera::Signature *signal_signature,
         bool single_shot, QObject **receiver, QByteArray &slot_signature)
 {
+    return get_receiver_slot_signature(slot, transmitter, signal_signature,
+            single_shot, receiver, slot_signature, false, 0);
+}
+
+
+// Get the receiver object and slot signature from a callable or signal.
+// Optionally disable the receiver check.
+static sipErrorState get_receiver_slot_signature(PyObject *slot,
+        QObject *transmitter, const Chimera::Signature *signal_signature,
+        bool single_shot, QObject **receiver, QByteArray &slot_signature,
+        bool unique_connection_check, int no_receiver_check)
+{
     // See if the slot is a signal.
     if (PyObject_TypeCheck(slot, &qpycore_pyqtBoundSignal_Type))
     {
@@ -402,10 +429,28 @@ sipErrorState qpycore_get_receiver_slot_signature(PyObject *slot,
         // Create a proxy for the slot.
         PyQtSlotProxy *proxy;
 
+        if (unique_connection_check)
+        {
+            proxy = PyQtSlotProxy::findSlotProxy(transmitter,
+                    signal_signature->signature, slot);
+
+            if (proxy)
+            {
+                // We give more information than we could if it was a Qt slot
+                // but to be consistent we raise a TypeError even though it's
+                // not the most appropriate for the type of error.
+                PyErr_SetString(PyExc_TypeError, "connection is not unique");
+                return sipErrorFail;
+            }
+        }
+
         Py_BEGIN_ALLOW_THREADS
 
         proxy = new PyQtSlotProxy(slot, transmitter, signal_signature,
                 single_shot);
+
+        if (no_receiver_check)
+            proxy->disableReceiverCheck();
 
         if (proxy->metaObject())
         {
@@ -590,8 +635,9 @@ static PyObject *pyqtBoundSignal_emit(PyObject *self, PyObject *args)
             if (mo_index < 0)
             {
                 PyErr_Format(PyExc_AttributeError,
-                        "signal was not defined in the first super-class of class '%s'",
-                        Py_TYPE(bs->bound_pyobject)->tp_name);
+                        "'%s' does not have a signal with the signature %s",
+                        Py_TYPE(bs->bound_pyobject)->tp_name,
+                        signature->signature.constData() + 1);
                 return 0;
             }
 

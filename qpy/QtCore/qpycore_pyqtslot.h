@@ -30,12 +30,20 @@
 class PyQtSlot
 {
 public:
+    enum Result
+    {
+        Succeeded,  // The invocation was successful.
+        Failed,     // The invocation failed.
+        Ignored     // The invocation was ignore because the receiver has gone.
+    };
+
     PyQtSlot(PyObject *method, PyObject *type,
             const Chimera::Signature *slot_signature);
     PyQtSlot(PyObject *callable, const Chimera::Signature *slot_signature);
     ~PyQtSlot();
 
-    bool invoke(void **qargs, PyObject *self = 0, void *result = 0) const;
+    PyQtSlot::Result invoke(void **qargs, bool no_receiver_check) const;
+    bool invoke(void **qargs, PyObject *self, void *result) const;
     const Chimera::Signature *slotSignature() const {return signature;}
 
     void clearOther();
@@ -44,7 +52,9 @@ public:
     bool operator==(PyObject *callable) const;
 
 private:
-    PyObject *invoke(PyObject *callable, PyObject *args) const;
+    PyQtSlot::Result invoke(void **qargs, PyObject *self, void *result,
+            bool no_receiver_check) const;
+    PyObject *call(PyObject *callable, PyObject *args) const;
     PyObject *instance() const;
 
     PyObject *mfunc;

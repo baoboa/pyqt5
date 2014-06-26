@@ -64,7 +64,7 @@ PyQt5 automatically defines signals for all Qt's built-in signals.  New signals
 can be defined as class attributes using the :func:`~PyQt5.QtCore.pyqtSignal`
 factory.
 
-.. function:: PyQt5.QtCore.pyqtSignal(types[, name][, revision=0][, arguments=[]])
+.. function:: PyQt5.QtCore.pyqtSignal(types[, name[, revision=0[, arguments=[]]]])
 
     Create one or more overloaded unbound signals as a class attribute.
 
@@ -128,7 +128,7 @@ Connecting, Disconnecting and Emitting Signals
 Signals are connected to slots using the :meth:`connect` method of a bound
 signal.
 
-.. method:: connect(slot[, type=PyQt5.QtCore.Qt.AutoConnection])
+.. method:: connect(slot[, type=PyQt5.QtCore.Qt.AutoConnection[, no_receiver_check=False]])
 
     Connect a signal to a slot.  An exception will be raised if the connection
     failed.
@@ -138,6 +138,9 @@ signal.
         signal.
     :param type:
         the type of the connection to make.
+    :param no_receiver_check:
+        suppress the check that the underlying C++ receiver instance still
+        exists and deliver the signal anyway.
 
 Signals are disconnected from slots using the :meth:`disconnect` method of a
 bound signal.
@@ -233,7 +236,7 @@ signals, it is sometimes necessary to explicitly mark a Python method as being
 a Qt slot and to provide a C++ signature for it.  PyQt5 provides the
 :func:`~PyQt5.QtCore.pyqtSlot` function decorator to do this.
 
-.. function:: PyQt5.QtCore.pyqtSlot(types[, name][, result][, revision=0])
+.. function:: PyQt5.QtCore.pyqtSlot(types[, name[, result[, revision=0]]])
 
     Decorate a Python method to create a Qt slot.
 

@@ -87,12 +87,13 @@ PyObject *qpycore_PyObject_FromQString(const QString &qstr)
                     {
                         maxchar = 0x10ffff;
                         --py_len;
-                        ++i;
                         ++qch;
                     }
                 }
+
+                uch = (++qch)->unicode();
             }
-            while (++i < qstr.length());
+            while (!qch->isNull());
 
             // Create the correctly sized object.
             if ((obj = PyUnicode_New(py_len, maxchar)) == NULL)

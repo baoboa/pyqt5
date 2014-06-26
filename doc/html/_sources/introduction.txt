@@ -1,7 +1,7 @@
 Introduction
 ============
 
-This is the reference guide for PyQt5 5.2.1.  PyQt5 is a set of
+This is the reference guide for PyQt5 5.3.  PyQt5 is a set of
 `Python <http://www.python.org>`__ bindings for v5 of the Qt application
 framework from `Digia <http://qt.digia.com>`__.
 
@@ -145,6 +145,11 @@ number of Python extension modules.  These are all installed in the
 - :mod:`~PyQt5.QtQuick` contains classes that provide the basic elements
   necessary for creating user interfaces with QML.
 
+.. module:: PyQt5.QtQuickWidgets
+
+- :mod:`~PyQt5.QtQuickWidgets` contains classes that support the display of a
+  QML scene in a traditional widget.
+
 .. module:: PyQt5.QtSensors
 
 - :mod:`~PyQt5.QtSensors` contains classes that provide access to a system's
@@ -188,6 +193,11 @@ number of Python extension modules.  These are all installed in the
 - :mod:`~PyQt5.QtWebKitWidgets` contains classes for a WebKit1 based
   implementation of a web browser for use in :mod:`~PyQt5.QtWidgets` based
   applications.
+
+.. module:: PyQt5.QtWebSockets
+
+- :mod:`~PyQt5.QtWebSockets` contains classes that implement the WebSocket
+  protocol described in RFC 6455.
 
 .. module:: PyQt5.QtWidgets
 

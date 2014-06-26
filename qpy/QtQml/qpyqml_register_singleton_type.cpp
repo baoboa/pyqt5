@@ -113,7 +113,7 @@ static QQmlPrivate::RegisterSingletonType *init_type(PyTypeObject *py_type,
 
     QQmlPrivate::RegisterSingletonType *rt = &proxy_types[type_nr];
 
-    const QMetaObject *mo = pyqt5_get_qmetaobject(py_type);
+    const QMetaObject *mo = pyqt5_qtqml_get_qmetaobject(py_type);
 
     QByteArray ptr_name(py_type->tp_name);
     ptr_name.append('*');

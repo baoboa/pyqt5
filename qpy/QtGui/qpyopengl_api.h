@@ -66,8 +66,10 @@ PyObject *qpyopengl_from_GLboolean(int *eflag, const GLboolean *array,
         SIP_SSIZE_T len);
 PyObject *qpyopengl_from_GLfloat(int *eflag, const GLfloat *array,
         SIP_SSIZE_T len);
+#if defined(SIP_FEATURE_PyQt_Desktop_OpenGL)
 PyObject *qpyopengl_from_GLdouble(int *eflag, const GLdouble *array,
         SIP_SSIZE_T len);
+#endif
 #endif
 
 
