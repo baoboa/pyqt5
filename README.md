@@ -1,4 +1,10 @@
 pyqt5
 =====
 
-dev repo http://www.riverbankcomputing.com/static/Downloads/PyQt5/PyQt-gpl-5.1.1-snapshot-3c895ca14f00.tar.gz
+####5.2.1 release
+* source -> http://www.riverbankcomputing.com/software/pyqt/download5
+
+for pyqtdeploy use pip
+
+    pip3 install pyqtdeploy
+
