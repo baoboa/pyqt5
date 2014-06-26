@@ -88,16 +88,6 @@ The full set of command line options is:
     Using this confirms that you accept the terms of the PyQt5 license.  If it
     is omitted then you will be asked for confirmation during configuration.
 
-.. cmdoption:: --consolidate
-
-    Normally each PyQt5 module (except for the :mod:`~PyQt5.Qt` module) is
-    linked against the corresponding Qt library.  This option creates a module
-    called :mod:`~PyQt5._qt` which is linked against all the required Qt
-    libraries and the other modules are stub modules that populate their module
-    dictionaries from this one.  This is useful when linking against static Qt
-    libraries to eliminate the need to distribute the Qt libraries while
-    minimising the memory footprint of the PyQt5 modules.
-
 .. cmdoption:: --dbus <DIR>
 
     The :file:`dbus-python.h` header file of the dbus-python package can be

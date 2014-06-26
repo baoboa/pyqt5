@@ -239,9 +239,7 @@ static void *convert_values(Array *array, PyObject *values, GLenum gl_type,
             return 0;
         }
 
-        void *array;
-
-        if (bf->bf_getreadbuffer(values, 0, &array) < 0)
+        if (bf->bf_getreadbuffer(values, 0, reinterpret_cast<void **>(&array)) < 0)
         {
             *estate = sipErrorFail;
             return 0;

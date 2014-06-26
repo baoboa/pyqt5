@@ -67,8 +67,10 @@
 #include <string.h>
 
 // defined in fetchtr.cpp
-extern void fetchtr_py( const char *fileName, MetaTranslator *tor,
-                         const char *defaultContext, bool mustExist, const QByteArray &codecForSource );
+extern void fetchtr_py(const char *fileName, MetaTranslator *tor,
+        const char *defaultContext, bool mustExist,
+        const QByteArray &codecForSource, const char *tr_func,
+        const char *translate_func);
 extern void fetchtr_ui( const char *fileName, MetaTranslator *tor,
                          const char *defaultContext, bool mustExist );
 
@@ -87,12 +89,16 @@ static void printUsage()
              "    pylupdate5 [options] source-files -ts ts-files\n"
              "Options:\n"
              "    -help  Display this information and exit\n"
-             "    -noobsolete\n"
-             "           Drop all obsolete strings\n"
+             "    -version\n"
+             "           Display the version of pylupdate5 and exit\n"
              "    -verbose\n"
              "           Explain what is being done\n"
-             "    -version\n"
-             "           Display the version of pylupdate5 and exit\n" );
+             "    -noobsolete\n"
+             "           Drop all obsolete strings\n"
+             "    -tr-function name\n"
+             "           name() may be used instead of tr()\n"
+             "    -translate-function name\n"
+             "           name() may be used instead of translate()\n");
 }
 
 static void updateTsFiles( const MetaTranslator& fetchedTor,
@@ -145,6 +151,8 @@ int main( int argc, char **argv )
     int numFiles = 0;
     bool standardSyntax = true;
     bool metTsFlag = false;
+    const char *tr_func = 0;
+    const char *translate_func = 0;
 
     int i;
 
@@ -168,6 +176,26 @@ int main( int argc, char **argv )
             return 0;
         } else if ( qstrcmp(argv[i], "-ts") == 0 ) {
             metTsFlag = true;
+            continue;
+        } else if ( qstrcmp(argv[i], "-tr-function") == 0 ) {
+            if (!argv[++i])
+            {
+                fprintf(stderr,
+                        "pylupdate5 error: missing -tr-function name\n");
+                return 2;
+            }
+
+            tr_func = argv[i];
+            continue;
+        } else if ( qstrcmp(argv[i], "-translate-function") == 0 ) {
+            if (!argv[++i])
+            {
+                fprintf(stderr,
+                        "pylupdate5 error: missing -translate-function name\n");
+                return 2;
+            }
+
+            translate_func = argv[i];
             continue;
         }
 
@@ -214,7 +242,9 @@ int main( int argc, char **argv )
 
                 for ( t = toks.begin(); t != toks.end(); ++t ) {
                     if ( it.key() == "SOURCES" ) {
-                        fetchtr_py( (*t).toLatin1(), &fetchedTor, defaultContext.toLatin1(), true, codecForSource );
+                        fetchtr_py((*t).toLatin1(), &fetchedTor,
+                                defaultContext.toLatin1(), true,
+                                codecForSource, tr_func, translate_func);
                         metSomething = true;
                     } else if ( it.key() == "TRANSLATIONS" ) {
                         tsFileNames.append( *t );
@@ -265,7 +295,9 @@ int main( int argc, char **argv )
             } else {
                 QFileInfo fi(argv[i]);
         if ( fi.suffix() == "py" || fi.suffix() == "pyw" ) {
-            fetchtr_py( fi.fileName().toLatin1(), &fetchedTor, defaultContext.toLatin1(), true, codecForSource );
+            fetchtr_py(fi.fileName().toLatin1(), &fetchedTor,
+                    defaultContext.toLatin1(), true, codecForSource, tr_func,
+                    translate_func);
         } else {
             fetchtr_ui( fi.fileName().toLatin1(), &fetchedTor, defaultContext.toLatin1(), true);
         }

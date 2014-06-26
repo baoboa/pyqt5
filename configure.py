@@ -32,7 +32,7 @@ except ImportError:
 
 
 # Initialise the constants.
-PYQT_VERSION_STR = "5.3"
+PYQT_VERSION_STR = "5.3.1-snapshot-b10aab47cc69"
 
 SIP_MIN_VERSION = '4.16'
 
@@ -40,7 +40,7 @@ SIP_MIN_VERSION = '4.16'
 class ModuleMetadata:
     """ This class encapsulates the meta-data about a PyQt5 module. """
 
-    def __init__(self, qmake_QT=None, qmake_TARGET='', qpy_lib=False, in_consolidated=True):
+    def __init__(self, qmake_QT=None, qmake_TARGET='', qpy_lib=False):
         """ Initialise the meta-data. """
 
         # The values to update qmake's QT variable.
@@ -53,15 +53,11 @@ class ModuleMetadata:
         # Set if there is a qpy support library.
         self.qpy_lib = qpy_lib
 
-        # Set if the module is to be included in the consolidated module.
-        self.in_consolidated = in_consolidated
-
 
 # The module meta-data.
 MODULE_METADATA = {
     'dbus':                 ModuleMetadata(qmake_QT=['-gui'],
-                                    qmake_TARGET='pyqt5',
-                                    in_consolidated=False),
+                                    qmake_TARGET='pyqt5'),
     'QAxContainer':         ModuleMetadata(qmake_QT=['axcontainer']),
     'Qt':                   ModuleMetadata(qmake_QT=['-core', '-gui']),
     'QtBluetooth':          ModuleMetadata(qmake_QT=['bluetooth']),
@@ -265,7 +261,7 @@ class ConfigurationFileParser:
                 last_name = None
                 continue
 
-            parts = l.split('=', maxsplit=1)
+            parts = l.split('=', 1)
             if len(parts) == 2:
                 name = parts[0].strip()
                 value = parts[1].strip()
@@ -310,11 +306,11 @@ class ConfigurationFileParser:
                 return default
 
         # Handle any extrapolations.
-        parts = value.split('%(', maxsplit=1)
+        parts = value.split('%(', 1)
         while len(parts) == 2:
             prefix, tail = parts
 
-            parts = tail.split(')', maxsplit=1)
+            parts = tail.split(')', 1)
             if len(parts) != 2:
                 error(
                         "Configuration file contains unterminated "
@@ -333,7 +329,7 @@ class ConfigurationFileParser:
 
             value = prefix + xtra_value + suffix
 
-            parts = value.split('%(', maxsplit=1)
+            parts = value.split('%(', 1)
 
         return value
 
@@ -463,7 +459,7 @@ class TargetConfiguration:
         self.pyqt_sip_dir = os.path.join(py_config.data_dir, 'sip', 'PyQt5')
         self.pyuic_interpreter = py_config.pyuic_interpreter
 
-        # The default qmake spec.
+        # The qmake spec we want to use.
         if self.py_platform == 'win32':
             if self.py_version >= 0x030300:
                 self.qmake_spec = 'win32-msvc2010'
@@ -474,11 +470,12 @@ class TargetConfiguration:
             else:
                 self.qmake_spec = 'win32-msvc'
         else:
-            # Use the Qt default.  (We may update it for MacOS/X later.)
+            # Use the Qt default.  (We may update it for OS/X later.)
             self.qmake_spec = ''
 
+        self.default_qmake_spec = ''
+
         # Remaining values.
-        self.consolidate = False
         self.dbus_inc_dirs = []
         self.dbus_lib_dirs = []
         self.dbus_libs = []
@@ -774,12 +771,17 @@ int main(int argc, char **argv)
         self.qsci_api_dir = os.path.join(qt_config.QT_INSTALL_DATA, 'qsci')
         self.qsci_api = os.path.isdir(self.qsci_api_dir)
 
-        if sys.platform == 'darwin' and self.qmake_spec == '':
-            # The binary MacOS/X Qt installer defaults to XCode.  If this is
-            # what we might have then use macx-clang.
-            if qt_config.QMAKE_SPEC == 'macx-xcode':
-                # This will exist (and we can't check anyway).
-                self.qmake_spec = 'macx-clang'
+        # Save the default qmake spec. and finalise the value we want to use.
+        self.default_qmake_spec = qt_config.QMAKE_SPEC
+
+        if self.qmake_spec == '':
+            self.qmake_spec = self.default_qmake_spec
+
+        # The binary OS/X Qt installer defaults to XCode.  If this is what we
+        # might have then use macx-clang.
+        if self.qmake_spec == 'macx-xcode':
+            # This will exist (and we can't check anyway).
+            self.qmake_spec = 'macx-clang'
 
     def post_configuration(self):
         """ Handle any remaining default configuration after having read a
@@ -841,9 +843,6 @@ int main(int argc, char **argv)
 
         if opts.bindir is not None:
             self.pyqt_bin_dir = opts.bindir
-
-        if opts.consolidate:
-            self.consolidate = True
 
         if opts.debug:
             self.debug = True
@@ -916,12 +915,10 @@ int main(int argc, char **argv)
 
         # Handle any conflicts.
         if not self.qt_shared:
-            if self.consolidate or self.static:
-                pass
-            else:
+            if not self.static:
                 error(
-                        "Qt has been built as static libraries so either the "
-                        "--consolidate or --static argument should be used.")
+                        "Qt has been built as static libraries so the "
+                        "--static argument should be used.")
 
         if self.vend_enabled and self.static:
             error(
@@ -1013,10 +1010,6 @@ def create_optparser(target_config):
             default=1, metavar="N",
             help="split the concatenated C++ source files into N pieces "
                     "[default: 1]")
-    p.add_option("--consolidate", "-g", dest='consolidate', default=False,
-            action='store_true',
-            help="create a single module which links against all the Qt "
-                    "libraries")
 
     # Configuration.
     g = optparse.OptionGroup(p, title="Configuration")
@@ -1179,9 +1172,6 @@ def check_modules(target_config, verbose):
     the output is to be displayed.
     """
 
-    # Note that the order in which we check is important for the consolidated
-    # module - a module's dependencies must be checked first.
-
     target_config.pyqt_modules.append('QtCore')
 
     check_module(target_config, verbose, 'QtGui', 'qfont.h', 'new QFont()')
@@ -1322,9 +1312,6 @@ def generate_makefiles(target_config, verbose, no_timestamp, parts, tracing):
     sip_flags = get_sip_flags(target_config)
 
     # Go through the modules.
-    all_qpy_sources = []
-    all_qpy_headers = []
-
     for mname in target_config.pyqt_modules:
         metadata = MODULE_METADATA[mname]
 
@@ -1339,13 +1326,6 @@ def generate_makefiles(target_config, verbose, no_timestamp, parts, tracing):
                     for f in glob.glob(os.path.join(sp_qpy_dir, '*.h'))]
 
             qpy_sources = qpy_c_sources + qpy_cpp_sources
-
-            if target_config.consolidate:
-                all_qpy_sources += qpy_sources
-                qpy_sources = []
-
-                all_qpy_headers += qpy_headers
-                qpy_headers = []
         else:
             qpy_sources = []
             qpy_headers = []
@@ -1392,27 +1372,6 @@ def generate_makefiles(target_config, verbose, no_timestamp, parts, tracing):
     generate_sip_module_code(target_config, verbose, no_timestamp, parts,
             tracing, 'Qt', sip_flags)
     subdirs.append('Qt')
-
-    # Generate the consolidated module if required.
-    if target_config.consolidate:
-        _qtmod_sipdir = os.path.join('sip', '_qt')
-        mk_clean_dir(_qtmod_sipdir)
-
-        _qtmod_sipfile = os.path.join(_qtmod_sipdir, '_qtmod.sip')
-        f = open_for_writing(_qtmod_sipfile)
-
-        f.write('''%ConsolidatedModule PyQt5._qt
-
-''')
-
-        for mname in target_config.pyqt_modules:
-            f.write('%%Include %s/%smod.sip\n' % (mname, mname))
-
-        f.close()
-
-        generate_sip_module_code(target_config, verbose, no_timestamp, parts,
-                tracing, '_qt', sip_flags, all_qpy_sources, all_qpy_headers)
-        subdirs.append('_qt')
 
     if not target_config.no_tools:
         # Generate pylupdate5 and pyrcc5.
@@ -1815,7 +1774,7 @@ def run_qmake(target_config, verbose, pro_name, makefile_name='', fatal=True):
 
     args = [quote(target_config.qmake)]
 
-    if target_config.qmake_spec != '':
+    if target_config.qmake_spec != target_config.default_qmake_spec:
         args.append('-spec')
         args.append(target_config.qmake_spec)
 
@@ -2257,12 +2216,6 @@ def generate_sip_module_code(target_config, verbose, no_timestamp, parts, tracin
     if target_config.prot_is_public:
         argv.append('-P');
 
-    # Work out how SIP is supposed to handle the consolidated module and its
-    # components.
-    if target_config.consolidate and mname != 'Qt':
-        argv.append('-p')
-        argv.append('PyQt5._qt')
-
     if parts != 0:
         argv.append('-j')
         argv.append(str(parts))
@@ -2270,7 +2223,7 @@ def generate_sip_module_code(target_config, verbose, no_timestamp, parts, tracin
     if tracing:
         argv.append('-r')
 
-    if target_config.qsci_api and mname not in ('Qt', '_qt'):
+    if target_config.qsci_api and mname != 'Qt':
         argv.append('-a')
         argv.append(mname + '.api')
 
@@ -2289,7 +2242,7 @@ def generate_sip_module_code(target_config, verbose, no_timestamp, parts, tracin
         argv.append(sp_sip_dir)
 
     # The .sip files for the Qt modules will be in the out-of-tree directory.
-    if mname in ('Qt', '_qt'):
+    if mname == 'Qt':
         sip_dir = 'sip'
     else:
         sip_dir = sp_sip_dir
@@ -2300,9 +2253,7 @@ def generate_sip_module_code(target_config, verbose, no_timestamp, parts, tracin
     run_command(' '.join(argv), verbose)
 
     # Check the result.
-    if mname == '_qt':
-        file_check = 'sip_qtcmodule.cpp'
-    elif mname == 'Qt' or target_config.consolidate:
+    if mname == 'Qt':
         file_check = 'sip%scmodule.c' % mname
     else:
         file_check = 'sipAPI%s.h' % mname
@@ -2313,9 +2264,7 @@ def generate_sip_module_code(target_config, verbose, no_timestamp, parts, tracin
     # Generate the makefile.
     includepath = libs = ''
     if target_config.vend_enabled:
-        m = '_qt' if target_config.consolidate else 'QtCore'
-
-        if mname == m:
+        if mname == 'QtCore':
             includepath = target_config.vend_inc_dir
             libs = '-L%s -lvendorid' % target_config.vend_lib_dir
 
@@ -2343,41 +2292,16 @@ def generate_module_makefile(target_config, verbose, mname, includepath='', libs
 
     target_name = mname
 
-    if mname != '_qt':
-        metadata = MODULE_METADATA[mname]
+    metadata = MODULE_METADATA[mname]
 
-        if metadata.qmake_TARGET != '':
-            target_name = metadata.qmake_TARGET
+    if metadata.qmake_TARGET != '':
+        target_name = metadata.qmake_TARGET
 
     pro_lines = ['TEMPLATE = lib']
 
     pro_lines.append('CONFIG += warn_on %s' % ('staticlib' if target_config.static else 'plugin'))
 
-    if mname != '_qt':
-        pro_add_qt_dependencies(target_config, metadata, pro_lines)
-    else:
-        # Merge the component module's details.  We assume core and gui will be
-        # needed.
-        add = []
-        config = ['debug' if target_config.debug else 'release']
-        cons_libs = []
-
-        for dep_mname in target_config.pyqt_modules:
-            dep_metadata = MODULE_METADATA[dep_mname]
-            if dep_metadata.in_consolidated:
-                for qt in dep_metadata.qmake_QT:
-                    if not qt.startswith('-') and qt not in add:
-                        add.append(qt)
-
-        if len(add) != 0:
-            pro_lines.append('QT += %s' % ' '.join(add))
-
-        pro_lines.append('CONFIG += %s' % ' '.join(config))
-
-        if len(cons_libs) != 0:
-            pro_lines.append('LIBS += %s' % ' '.join(cons_libs))
-
-        pro_lines.extend(target_config.qmake_variables)
+    pro_add_qt_dependencies(target_config, metadata, pro_lines)
 
     if not target_config.static:
         debug_suffix = get_win32_debug_suffix(target_config.debug)
@@ -2421,9 +2345,9 @@ win32 {
     # This optimisation could apply to other platforms.
     if 'linux' in target_config.qmake_spec and not target_config.static:
         if target_config.py_version >= 0x030000:
-            entry_point = 'PyInit_%s' % mname
+            entry_point = 'PyInit_%s' % target_name
         else:
-            entry_point = 'init%s' % mname
+            entry_point = 'init%s' % target_name
 
         exp = open_for_writing(os.path.join(mname, target_name + '.exp'))
         exp.write('{ global: %s; local: *; };' % entry_point)
@@ -2443,13 +2367,7 @@ win32 {
     if target_config.py_inc_dir != target_config.sip_inc_dir:
         pro_lines.append('INCLUDEPATH += %s' % target_config.py_inc_dir)
 
-    if mname != '_qt':
-        pro_add_qpy(mname, metadata, pro_lines)
-    else:
-        for dep_mname in target_config.pyqt_modules:
-            dep_metadata = MODULE_METADATA[dep_mname]
-            if dep_metadata.in_consolidated:
-                pro_add_qpy(dep_mname, dep_metadata, pro_lines)
+    pro_add_qpy(mname, metadata, pro_lines)
 
     if includepath != '':
         pro_lines.append('INCLUDEPATH += %s' % includepath)

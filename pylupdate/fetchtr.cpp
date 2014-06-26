@@ -1,4 +1,5 @@
 /**********************************************************************
+** Copyright (C) 2014 Riverbank Computing Limited
 ** Copyright (C) 2002-2007 Detlev Offenbach <detlev@die-offenbachs.de>
 **
 ** This is a modified version of lupdate. The original is part of Qt-Linguist.
@@ -83,6 +84,10 @@ enum { Tok_Eof, Tok_class, Tok_return, Tok_tr,
        Tok_Comment, Tok_Dot, Tok_String,
        Tok_LeftParen, Tok_RightParen,
        Tok_Comma, Tok_None, Tok_Integer};
+
+// The names of function aliases passed on the command line.
+static const char *tr_function;
+static const char *translate_function;
 
 /*
   The tokenizer maintains the following global variables. The names
@@ -218,6 +223,13 @@ static int getToken()
                 yyCh = getChar();
             } while ( isalnum(yyCh) || yyCh == '_' );
             yyIdent[yyIdentLen] = '\0';
+
+            // Check for names passed on the command line.
+            if (tr_function && strcmp(yyIdent, tr_function) == 0)
+                return Tok_tr;
+
+            if (translate_function && strcmp(yyIdent, translate_function) == 0)
+                return Tok_translate;
 
             bool might_be_str = false;
 
@@ -789,9 +801,14 @@ static void parse( MetaTranslator *tor, const char *initialContext,
             (const char *) yyFileName );
 }
 
-void fetchtr_py( const char *fileName, MetaTranslator *tor,
-                  const char *defaultContext, bool mustExist, const QByteArray &codecForSource )
+void fetchtr_py(const char *fileName, MetaTranslator *tor,
+        const char *defaultContext, bool mustExist,
+        const QByteArray &codecForSource, const char *tr_func,
+        const char *translate_func)
 {
+    tr_function = tr_func;
+    translate_function = translate_func;
+
 #if defined(_MSC_VER) && _MSC_VER >= 1400
     if (fopen_s(&yyInFile, fileName, "r")) {
         if ( mustExist ) {

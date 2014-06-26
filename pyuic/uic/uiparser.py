@@ -228,10 +228,10 @@ class UIParser(object):
         self.stack.push(self.setupObject(widget_class, parent, elem))
 
         if isinstance(self.stack.topwidget, QtWidgets.QTableWidget):
-            if self.getProperty(elem, 'columnCount') is not None:
+            if self.getProperty(elem, 'columnCount') is None:
                 self.stack.topwidget.setColumnCount(len(elem.findall("column")))
 
-            if self.getProperty(elem, 'rowCount') is not None:
+            if self.getProperty(elem, 'rowCount') is None:
                 self.stack.topwidget.setRowCount(len(elem.findall("row")))
 
         self.traverseWidgetTree(elem)

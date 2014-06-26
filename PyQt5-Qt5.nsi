@@ -19,7 +19,7 @@
 
 
 # These will change with different releases.
-!define PYQT_VERSION        "5.3"
+!define PYQT_VERSION        "5.3.1-snapshot-b10aab47cc69"
 !define PYQT_INSTALLER      ""
 #!define PYQT_INSTALLER      "-2"
 !define PYQT_LICENSE        "GPL"
@@ -28,7 +28,7 @@
 !define PYQT_PYTHON_MINOR   "4"
 !define PYQT_ARCH           "x64"
 !define PYQT_QT_VERS        "5.3.0"
-!define PYQT_QT_DOC_VERS    "5.3"
+!define PYQT_QT_DOC_VERS    "5"
 
 # These are all derived from the above.
 !define PYQT_PYTHON_DIR     "C:\Python${PYQT_PYTHON_MAJOR}${PYQT_PYTHON_MINOR}"
