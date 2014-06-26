@@ -1,7 +1,7 @@
 pyqt5
 =====
 
-####5.2.1 release
+####5.3 release
 * source -> http://www.riverbankcomputing.com/software/pyqt/download5
 
 for pyqtdeploy use pip
