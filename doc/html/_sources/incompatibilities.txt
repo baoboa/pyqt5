@@ -1,8 +1,8 @@
 Potential Incompatibilities with Earlier Versions
 =================================================
 
-PyQt5 v5.3
-----------
+PyQt v5.3
+---------
 
 Execution of Python Slots
 *************************

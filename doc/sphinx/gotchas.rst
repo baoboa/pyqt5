@@ -50,8 +50,11 @@ For Python v3 the following conversions are done by default.
 - If Qt expects a ``QString`` then PyQt5 will accept a ``str``, a ``bytes``
   that contains only ASCII characters or a ``QByteArray``.
 
+- If Qt expects a ``QByteArray`` then PyQt5 will also accept a ``bytes``.
+
 - If Qt expects a ``QByteArray`` then PyQt5 will also accept a ``str`` that
-  contains only Latin-1 characters, or a ``bytes``.
+  contains only Latin-1 characters.  **This is deprecated in PyQt v5.4 and will
+  be removed in PyQt v5.5.)**
 
 For Python v2 the following conversions are done by default.
 
@@ -68,8 +71,11 @@ For Python v2 the following conversions are done by default.
 - If Qt expects a ``QString`` then PyQt5 will accept a ``unicode``, a ``str``
   that contains only ASCII characters or a ``QByteArray``.
 
+- If Qt expects a ``QByteArray`` then PyQt5 will accept a ``str``.
+
 - If Qt expects a ``QByteArray`` then PyQt5 will accept a ``unicode`` that
-  contains only Latin-1 characters, or a ``str``.
+  contains only Latin-1 characters.  **This is deprecated in PyQt v5.4 and will
+  be removed in PyQt v5.5.)**
 
 Note that the different behaviour between Python v2 and v3 is due to v3's
 reduced support for the buffer protocol.

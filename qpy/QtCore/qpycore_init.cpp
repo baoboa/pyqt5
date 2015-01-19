@@ -52,6 +52,7 @@ void qpycore_init()
             (void *)PyQtSlotProxy::lastSender);
 
     // Export the public API.
+    sipExportSymbol("pyqt5_err_print", (void *)pyqt5_err_print);
     sipExportSymbol("pyqt5_from_argv_list", (void *)pyqt5_from_argv_list);
     sipExportSymbol("pyqt5_from_qvariant_by_type",
             (void *)pyqt5_from_qvariant_by_type);

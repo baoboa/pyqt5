@@ -32,15 +32,15 @@ except ImportError:
 
 
 # Initialise the constants.
-PYQT_VERSION_STR = "5.3.2"
+PYQT_VERSION_STR = "5.4"
 
-SIP_MIN_VERSION = '4.16'
+SIP_MIN_VERSION = '4.16.4'
 
 
 class ModuleMetadata:
     """ This class encapsulates the meta-data about a PyQt5 module. """
 
-    def __init__(self, qmake_QT=None, qmake_TARGET='', qpy_lib=False):
+    def __init__(self, qmake_QT=None, qmake_TARGET='', qpy_lib=False, cpp11=False):
         """ Initialise the meta-data. """
 
         # The values to update qmake's QT variable.
@@ -52,6 +52,9 @@ class ModuleMetadata:
 
         # Set if there is a qpy support library.
         self.qpy_lib = qpy_lib
+
+        # Set if C++11 support is required.
+        self.cpp11 = cpp11
 
 
 # The module meta-data.
@@ -86,12 +89,20 @@ MODULE_METADATA = {
     'QtSql':                ModuleMetadata(qmake_QT=['sql', 'widgets']),
     'QtSvg':                ModuleMetadata(qmake_QT=['svg']),
     'QtTest':               ModuleMetadata(qmake_QT=['testlib', 'widgets']),
+    'QtWebChannel':         ModuleMetadata(qmake_QT=['webchannel', 'network']),
+    'QtWebEngineWidgets':   ModuleMetadata(
+                                    qmake_QT=['webenginewidgets', 'network',
+                                            'widgets'],
+                                    cpp11=True),
     'QtWebKit':             ModuleMetadata(qmake_QT=['webkit', 'network']),
-    'QtWebKitWidgets':      ModuleMetadata(qmake_QT=['webkitwidgets']),
+    'QtWebKitWidgets':      ModuleMetadata(
+                                    qmake_QT=['webkitwidgets',
+                                            'printsupport']),
     'QtWebSockets':         ModuleMetadata(qmake_QT=['websockets']),
     'QtWidgets':            ModuleMetadata(qmake_QT=['widgets']),
     'QtWinExtras':          ModuleMetadata(qmake_QT=['winextras', 'widgets']),
     'QtX11Extras':          ModuleMetadata(qmake_QT=['x11extras']),
+    'QtXml':                ModuleMetadata(qmake_QT=['xml', '-gui']),
     'QtXmlPatterns':        ModuleMetadata(
                                     qmake_QT=['xmlpatterns', '-gui',
                                             'network']),
@@ -130,11 +141,12 @@ MODULE_METADATA = {
 COMPOSITE_COMPONENTS = (
     'QtCore',
     'QtDBus', 'QtGui', 'QtNetwork', 'QtSensors', 'QtSerialPort',
-    'QtMultimedia', 'QtQml', 'QtWebKit', 'QtWidgets', 'QtXmlPatterns',
+    'QtMultimedia', 'QtQml', 'QtWebKit', 'QtWidgets', 'QtXml', 'QtXmlPatterns',
     'QtAxContainer', 'QtDesigner', 'QtHelp', 'QtMultimediaWidgets', 'QtOpenGL',
         'QtPrintSupport', 'QtQuick', 'QtSql', 'QtSvg', 'QtTest',
     'QtWebKitWidgets', 'QtBluetooth', 'QtMacExtras', 'QtPositioning',
-    'QtWinExtras', 'QtX11Extras', 'QtQuickWidgets', 'QtWebSockets', 'Enginio'
+        'QtWinExtras', 'QtX11Extras', 'QtQuickWidgets', 'QtWebSockets',
+        'Enginio', 'QtWebChannel', 'QtWebEngineWidgets'
 )
 
 
@@ -700,6 +712,7 @@ int main(int argc, char **argv)
         else:
             abi = getattr(sys, 'abiflags', '')
             pylib_lib = 'python%d.%d%s' % (py_major, py_minor, abi)
+            pylib_dir = pyshlib = ''
 
             # Use distutils to get the additional configuration.
             from distutils.sysconfig import get_config_vars
@@ -707,10 +720,9 @@ int main(int argc, char **argv)
 
             config_args = ducfg.get('CONFIG_ARGS', '')
 
-            if sys.platform == 'darwin':
+            dynamic_pylib = '--enable-shared' in config_args
+            if not dynamic_pylib:
                 dynamic_pylib = '--enable-framework' in config_args
-            else:
-                dynamic_pylib = '--enable-shared' in config_args
 
             if dynamic_pylib:
                 pyshlib = ducfg.get('LDLIBRARY', '')
@@ -725,10 +737,6 @@ int main(int argc, char **argv)
                     pylib_dir = exec_prefix + '/lib/' + multiarch
                 elif glob.glob('%s/libpython%d.%d*' % (libdir, py_major, py_minor)):
                     pylib_dir = libdir
-                else:
-                    pylib_dir = ''
-            else:
-                pyshlib = ''
 
         self.py_pylib_dir = pylib_dir
         self.py_pylib_lib = pylib_lib
@@ -1222,6 +1230,8 @@ def check_modules(target_config, verbose):
             'new QWebPage()')
     check_module(target_config, verbose, 'QtWidgets', 'qwidget.h',
             'new QWidget()')
+    check_module(target_config, verbose, 'QtXml', 'qdom.h',
+            'new QDomDocument()')
     check_module(target_config, verbose, 'QtXmlPatterns', 'qxmlname.h',
             'new QXmlName()')
 
@@ -1236,7 +1246,6 @@ def check_modules(target_config, verbose):
 
     check_module(target_config, verbose, 'QtDBus', 'qdbusconnection.h',
             'QDBusConnection::systemBus()')
-    check_dbus(target_config, verbose)
 
     if target_config.qt_version >= 0x050100:
         check_5_1_modules(target_config, verbose)
@@ -1246,6 +1255,9 @@ def check_modules(target_config, verbose):
 
     if target_config.qt_version >= 0x050300:
         check_5_3_modules(target_config, verbose)
+
+    if target_config.qt_version >= 0x050400:
+        check_5_4_modules(target_config, verbose)
 
 
 def check_5_1_modules(target_config, verbose):
@@ -1315,6 +1327,18 @@ def check_5_3_modules(target_config, verbose):
             'new QWebSocket()')
     check_module(target_config, verbose, 'Enginio', 'enginioclient.h',
             'new EnginioClient()')
+
+
+def check_5_4_modules(target_config, verbose):
+    """ Check which modules introduced in Qt v5.4 can be built and update the
+    target configuration accordingly.  target_config is the target
+    configuration.  verbose is set if the output is to be displayed.
+    """
+
+    check_module(target_config, verbose, 'QtWebChannel', 'qwebchannel.h',
+            'new QWebChannel()')
+    check_module(target_config, verbose, 'QtWebEngineWidgets',
+            'qwebengineview.h', 'new QWebEngineView()')
 
 
 def generate_makefiles(target_config, verbose, no_timestamp, parts, tracing):
@@ -1484,9 +1508,9 @@ INSTALLS += qscintilla_api
         mode |= (stat.S_IXUSR | stat.S_IXGRP | stat.S_IXOTH)
         os.chmod(pyuic_wrapper, mode)
 
-    # Generate the top-level makefile.
-    inform("Generating the top-level Makefile...")
-    run_qmake(target_config, verbose, toplevel_pro)
+    # Generate the makefiles.
+    inform("Generating the Makefiles...")
+    run_qmake(target_config, verbose, toplevel_pro, recursive=True)
 
 
 def generate_plugin_makefile(target_config, verbose, plugin_dir, install_dir, plugin_name):
@@ -1509,7 +1533,7 @@ def generate_plugin_makefile(target_config, verbose, plugin_dir, install_dir, pl
 
     sp_plugin_dir = source_path(plugin_dir)
 
-    fin = open(os.path.join(sp_plugin_dir, 'python.pro-in'))
+    fin = open(os.path.join(sp_plugin_dir, '%s.pro-in' % plugin_dir))
     prj = fin.read()
     fin.close()
 
@@ -1521,7 +1545,7 @@ def generate_plugin_makefile(target_config, verbose, plugin_dir, install_dir, pl
     prj = prj.replace('@PYSHLIB@', target_config.py_pyshlib)
     prj = prj.replace('@QTPLUGINDIR@', qmake_quote(install_dir))
 
-    pro_name = os.path.join(plugin_dir, 'python.pro')
+    pro_name = os.path.join(plugin_dir, '%s.pro' % plugin_dir)
 
     mk_dir(plugin_dir)
     fout = open_for_writing(pro_name)
@@ -1537,18 +1561,14 @@ VPATH = %s
 
     fout.close()
 
-    # Create the makefile.
-    inform("Generating the %s plugin Makefile..." % plugin_name)
-
-    run_qmake(target_config, verbose, pro_name)
-
     return True
 
 
 def generate_application_makefile(target_config, verbose, src_dir):
     """ Create the makefile for a QtXml based application.  target_config is
     the target configuration.  verbose is set if the output is to be displayed.
-    src_dir is the name of the directory containing the source files.
+    src_dir is the name of the directory containing the source files.  (It is
+    assumed that it is not a path.)
     """
 
     mk_dir(src_dir)
@@ -1559,7 +1579,8 @@ def generate_application_makefile(target_config, verbose, src_dir):
 
     inform("Generating the .pro file for %s..." % app)
 
-    pro_lines = ['TEMPLATE = app', 'QT -= gui', 'QT += xml']
+    pro_lines = ['TARGET = %s' % app]
+    pro_lines.extend(['TEMPLATE = app', 'QT -= gui', 'QT += xml'])
     pro_lines.append(
             'CONFIG += warn_on %s' %
                     ('debug' if target_config.debug else 'release'))
@@ -1582,14 +1603,11 @@ def generate_application_makefile(target_config, verbose, src_dir):
     pro_lines.extend(pro_sources(sp_src_dir))
     pro_lines.extend(target_config.qmake_variables)
 
-    pro_name = os.path.join(src_dir, app + '.pro')
+    pro_name = os.path.join(src_dir, src_dir + '.pro')
 
     pro = open_for_writing(pro_name)
     pro.write('\n'.join(pro_lines))
     pro.close()
-
-    inform("Generating the Makefile for %s..." % app)
-    run_qmake(target_config, verbose, pro_name)
 
 
 def pro_sources(src_dir, other_headers=None, other_sources=None):
@@ -1758,12 +1776,13 @@ def inform_user(target_config, sip_version):
         inform("PyQt5 will only be usable with signed interpreters.")
 
 
-def run_qmake(target_config, verbose, pro_name, makefile_name='', fatal=True):
+def run_qmake(target_config, verbose, pro_name, makefile_name='', fatal=True, recursive=False):
     """ Run qmake against a .pro file.  target_config is the target
     configuration.  verbose is set if the output is to be displayed.  pro_name
     is the name of the .pro file.  makefile_name is the name of the makefile
     to generate (and defaults to Makefile).  fatal is set if a qmake failure is
     considered a fatal error, otherwise False is returned if qmake fails.
+    recursive is set to use the -recursive flag.
     """
 
     # qmake doesn't behave consistently if it is not run from the directory
@@ -1788,6 +1807,9 @@ def run_qmake(target_config, verbose, pro_name, makefile_name='', fatal=True):
     if makefile_name != '':
         args.append('-o')
         args.append(makefile_name)
+
+    if recursive:
+        args.append('-recursive')
 
     args.append(pro_file)
 
@@ -2120,6 +2142,9 @@ def pro_add_qt_dependencies(target_config, metadata, pro_lines, debug=None):
     pro_lines.append(
             'CONFIG += %s' % ('debug qml_debug' if debug else 'release'))
 
+    if metadata.cpp11:
+        pro_lines.append('CONFIG += c++11')
+
     pro_lines.extend(target_config.qmake_variables)
 
 
@@ -2430,9 +2455,6 @@ macx {
     pro.write('\n')
     pro.close()
 
-    inform("Generating the Makefile for the %s module..." % target_name)
-    run_qmake(target_config, verbose, pro_name)
-
 
 def pro_add_qpy(mname, metadata, pro_lines):
     """ Add the qpy dependencies of a module to a .pro file.  mname is the
@@ -2715,6 +2737,8 @@ def main(argv):
     # Check which modules to build if we haven't been told.
     if len(target_config.pyqt_modules) == 0:
         check_modules(target_config, opts.verbose)
+
+    check_dbus(target_config, opts.verbose)
 
     # Tell the user what's been found.
     inform_user(target_config, sip_version)

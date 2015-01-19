@@ -36,6 +36,11 @@ class QVariant;
 QT_END_NAMESPACE
 
 
+// A replacement for PyErr_Print().  In PyQt v5.4 it raises a deprecation
+// warning and calls PyErr_Print().  In PyQt v5.5 and later it passes the text
+// of the exception and traceback to qFatal().
+void pyqt5_err_print();
+
 // Convert a Python list to a standard C array of command line arguments and an
 // argument count.
 char **pyqt5_from_argv_list(PyObject *argv_list, int &argc);

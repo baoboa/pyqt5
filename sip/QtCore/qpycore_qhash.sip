@@ -137,6 +137,128 @@ template<_TYPE1_, _TYPE2_>
 };
 
 
+%If (Qt_5_4_0 -)
+
+// This is only needed for QtWebChannel but is sufficiently generic that we
+// include it here.
+
+template<_TYPE1_, _TYPE2_ *>
+%MappedType QHash<_TYPE1_, _TYPE2_ *> /DocType="dict-of-_TYPE1_-_TYPE2_"/
+{
+%TypeHeaderCode
+#include <qhash.h>
+%End
+
+%ConvertFromTypeCode
+    PyObject *d = PyDict_New();
+
+    if (!d)
+        return 0;
+
+    QHash<_TYPE1_, _TYPE2_ *>::const_iterator it = sipCpp->constBegin();
+    QHash<_TYPE1_, _TYPE2_ *>::const_iterator end = sipCpp->constEnd();
+
+    while (it != end)
+    {
+        _TYPE1_ *k = new _TYPE1_(it.key());
+        PyObject *kobj = sipConvertFromNewType(k, sipType__TYPE1_,
+                sipTransferObj);
+
+        if (!kobj)
+        {
+            delete k;
+            Py_DECREF(d);
+
+            return 0;
+        }
+
+        _TYPE2_ *v = it.value();
+        PyObject *vobj = sipConvertFromNewType(v, sipType__TYPE2_,
+                sipTransferObj);
+
+        if (!vobj)
+        {
+            Py_DECREF(kobj);
+            Py_DECREF(d);
+
+            return 0;
+        }
+
+        int rc = PyDict_SetItem(d, kobj, vobj);
+
+        Py_DECREF(vobj);
+        Py_DECREF(kobj);
+
+        if (rc < 0)
+        {
+            Py_DECREF(d);
+
+            return 0;
+        }
+
+        ++it;
+    }
+
+    return d;
+%End
+
+%ConvertToTypeCode
+    if (!sipIsErr)
+        return PyDict_Check(sipPy);
+
+    QHash<_TYPE1_, _TYPE2_ *> *qh = new QHash<_TYPE1_, _TYPE2_ *>;
+
+    SIP_SSIZE_T pos = 0;
+    PyObject *kobj, *vobj;
+ 
+    while (PyDict_Next(sipPy, &pos, &kobj, &vobj))
+    {
+        int kstate;
+        _TYPE1_ *k = reinterpret_cast<_TYPE1_ *>(
+                sipForceConvertToType(kobj, sipType__TYPE1_, sipTransferObj,
+                        SIP_NOT_NONE, &kstate, sipIsErr));
+
+        if (*sipIsErr)
+        {
+            PyErr_Format(PyExc_TypeError,
+                    "a key has type '%s' but '_TYPE1_' is expected",
+                    Py_TYPE(kobj)->tp_name);
+
+            delete qh;
+
+            return 0;
+        }
+
+        _TYPE2_ *v = reinterpret_cast<_TYPE2_ *>(
+                sipForceConvertToType(vobj, sipType__TYPE2_, sipTransferObj, 0,
+                        0, sipIsErr));
+
+        if (*sipIsErr)
+        {
+            PyErr_Format(PyExc_TypeError,
+                    "a value has type '%s' but '_TYPE2_' is expected",
+                    Py_TYPE(vobj)->tp_name);
+
+            sipReleaseType(k, sipType__TYPE1_, kstate);
+            delete qh;
+
+            return 0;
+        }
+
+        qh->insert(*k, v);
+
+        sipReleaseType(k, sipType__TYPE1_, kstate);
+    }
+ 
+    *sipCppPtr = qh;
+ 
+    return sipGetState(sipTransferObj);
+%End
+};
+
+%End
+
+
 template<int, _TYPE_>
 %MappedType QHash<int, _TYPE_> /DocType="dict-of-int-_TYPE_"/
 {

@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Things to be Aware Of &mdash; PyQt 5.3.2 Reference Guide</title>
+    <title>Things to be Aware Of &mdash; PyQt 5.4 Reference Guide</title>
     
     <link rel="stylesheet" href="_static/default.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '5.3.2',
+        VERSION:     '5.4',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -24,7 +24,7 @@
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
     <link rel="shortcut icon" href="_static/logo_tn.ico"/>
-    <link rel="top" title="PyQt 5.3.2 Reference Guide" href="index.html" />
+    <link rel="top" title="PyQt 5.4 Reference Guide" href="index.html" />
     <link rel="next" title="Using Qt Designer" href="designer.html" />
     <link rel="prev" title="Support for Cooperative Multi-inheritance" href="multiinheritance.html" /> 
   </head>
@@ -44,7 +44,7 @@
         <li class="right" >
           <a href="multiinheritance.html" title="Support for Cooperative Multi-inheritance"
              accesskey="P">previous</a> |</li>
-        <li><a href="index.html">PyQt 5.3.2 Reference Guide</a> &raquo;</li> 
+        <li><a href="index.html">PyQt 5.4 Reference Guide</a> &raquo;</li> 
       </ul>
     </div>  
 
@@ -92,8 +92,10 @@ version) then PyQt5 will accept a <tt class="docutils literal"><span class="pre"
 version) then PyQt5 will accept a <tt class="docutils literal"><span class="pre">bytes</span></tt> of length 1.</li>
 <li>If Qt expects a <tt class="docutils literal"><span class="pre">QString</span></tt> then PyQt5 will accept a <tt class="docutils literal"><span class="pre">str</span></tt>, a <tt class="docutils literal"><span class="pre">bytes</span></tt>
 that contains only ASCII characters or a <tt class="docutils literal"><span class="pre">QByteArray</span></tt>.</li>
+<li>If Qt expects a <tt class="docutils literal"><span class="pre">QByteArray</span></tt> then PyQt5 will also accept a <tt class="docutils literal"><span class="pre">bytes</span></tt>.</li>
 <li>If Qt expects a <tt class="docutils literal"><span class="pre">QByteArray</span></tt> then PyQt5 will also accept a <tt class="docutils literal"><span class="pre">str</span></tt> that
-contains only Latin-1 characters, or a <tt class="docutils literal"><span class="pre">bytes</span></tt>.</li>
+contains only Latin-1 characters.  <strong>This is deprecated in PyQt v5.4 and will
+be removed in PyQt v5.5.)</strong></li>
 </ul>
 <p>For Python v2 the following conversions are done by default.</p>
 <ul class="simple">
@@ -107,8 +109,10 @@ implements the buffer protocol.</li>
 character is provided.</li>
 <li>If Qt expects a <tt class="docutils literal"><span class="pre">QString</span></tt> then PyQt5 will accept a <tt class="docutils literal"><span class="pre">unicode</span></tt>, a <tt class="docutils literal"><span class="pre">str</span></tt>
 that contains only ASCII characters or a <tt class="docutils literal"><span class="pre">QByteArray</span></tt>.</li>
+<li>If Qt expects a <tt class="docutils literal"><span class="pre">QByteArray</span></tt> then PyQt5 will accept a <tt class="docutils literal"><span class="pre">str</span></tt>.</li>
 <li>If Qt expects a <tt class="docutils literal"><span class="pre">QByteArray</span></tt> then PyQt5 will accept a <tt class="docutils literal"><span class="pre">unicode</span></tt> that
-contains only Latin-1 characters, or a <tt class="docutils literal"><span class="pre">str</span></tt>.</li>
+contains only Latin-1 characters.  <strong>This is deprecated in PyQt v5.4 and will
+be removed in PyQt v5.5.)</strong></li>
 </ul>
 <p>Note that the different behaviour between Python v2 and v3 is due to v3&#8217;s
 reduced support for the buffer protocol.</p>
@@ -254,12 +258,12 @@ memory, memory mapped files or shared memory.</p>
         <li class="right" >
           <a href="multiinheritance.html" title="Support for Cooperative Multi-inheritance"
              >previous</a> |</li>
-        <li><a href="index.html">PyQt 5.3.2 Reference Guide</a> &raquo;</li> 
+        <li><a href="index.html">PyQt 5.4 Reference Guide</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer">
         &copy; Copyright 2014 Riverbank Computing Limited.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.3.
     </div>
   </body>
 </html>

@@ -44,12 +44,22 @@ int qmlRegisterRevision(SIP_PYTYPE, int revision, const char *uri, int major,
 %End
 
 
+%If (Qt_5_2_0 -)
+int qmlRegisterSingletonType(const QUrl &url, const char *uri, int major,
+        int minor, const char *qmlName);
+%End
+
+
 int qmlRegisterSingletonType(SIP_PYTYPE, const char *uri, int major, int minor,
         const char *typeName, SIP_PYCALLABLE factory);
 %MethodCode
     if ((sipRes = qpyqml_register_singleton_type((PyTypeObject *)a0, a1, a2, a3, a4, a5)) < 0)
         sipError = sipErrorFail;
 %End
+
+
+int qmlRegisterType(const QUrl &url, const char *uri, int major, int minor,
+        const char *qmlName);
 
 
 int qmlRegisterType(SIP_PYTYPE, SIP_PYTYPE attachedProperties = 0);

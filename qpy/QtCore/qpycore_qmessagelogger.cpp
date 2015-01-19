@@ -104,7 +104,7 @@ py_error:
     Py_XDECREF(info);
     Py_XDECREF(frame);
 
-    PyErr_Print();
+    pyqt5_err_print();
 
     *file = *function = "";
     return 0;

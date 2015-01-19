@@ -25,6 +25,10 @@
 #include "sipAPIQtQuick.h"
 
 
+// Imports from QtCore.
+pyqt5_qtquick_err_print_t pyqt5_qtquick_err_print;
+
+
 // Perform any required initialisation.
 void qpyquick_post_init()
 {
@@ -40,6 +44,10 @@ void qpyquick_post_init()
     void (*register_to_qvariant_data_convertor)(ToQVariantDataConvertorFn);
     register_to_qvariant_data_convertor = (void (*)(ToQVariantDataConvertorFn))sipImportSymbol("pyqt5_register_to_qvariant_data_convertor");
     register_to_qvariant_data_convertor(qpyquick_to_qvariant_data_convertor);
+
+    // Other QtCore imports.
+    pyqt5_qtquick_err_print = (pyqt5_qtquick_err_print_t)sipImportSymbol(
+            "pyqt5_err_print");
 
     // Export the qml_register_type() helper.
     sipExportSymbol("qtquick_register_item", (void *)qpyquick_register_type);

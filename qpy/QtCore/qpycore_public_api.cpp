@@ -29,6 +29,184 @@
 #include "qpycore_types.h"
 
 
+// A replacement for PyErr_Print() that passes the exception to qFatal().
+void pyqt5_err_print()
+{
+#if PY_MAJOR_VERSION >= 3
+#define CONST_CAST(s)   s
+#else
+#define CONST_CAST(s)   const_cast<char *>(s)
+#endif
+
+    // Save the exception in case of new exceptions raised here.
+    PyObject *exception, *value, *traceback;
+
+    PyErr_Fetch(&exception, &value, &traceback);
+
+    // Get the standard exception hook.
+    static PyObject *original_hook = 0;
+
+    if (!original_hook)
+        original_hook = PySys_GetObject(CONST_CAST("__excepthook__"));
+
+    // See if the application has installed its own hook.
+    PyObject *hook = PySys_GetObject(CONST_CAST("excepthook"));
+
+    if (hook != original_hook)
+    {
+        // This will invoke the application's hook.
+        PyErr_Restore(exception, value, traceback);
+        PyErr_Print();
+    }
+    else
+    {
+        if (PyErr_WarnEx(PyExc_DeprecationWarning, "unhandled Python exceptions will call qFatal() in PyQt v5.5", 1) < 0)
+        {
+            // This block will always be executed in PyQt v5.5.
+
+            // Make sure we have the StringIO ctor.
+            static PyObject *stringio_ctor = 0;
+
+            if (!stringio_ctor)
+            {
+                PyObject *io_module;
+
+#if PY_MAJOR_VERSION >= 3
+                io_module = PyImport_ImportModule("io");
+#else
+                PyErr_Clear();
+                io_module = PyImport_ImportModule("cStringIO");
+
+                if (!io_module)
+                {
+                    PyErr_Clear();
+                    io_module = PyImport_ImportModule("StringIO");
+                }
+#endif
+
+                if (io_module)
+                {
+                    stringio_ctor = PyObject_GetAttrString(io_module,
+                            "StringIO");
+                    Py_DECREF(io_module);
+                }
+            }
+
+            // Create a StringIO object and replace sys.stderr with it.
+            PyObject *new_stderr = 0, *old_stderr;
+
+            if (stringio_ctor)
+            {
+                old_stderr = PySys_GetObject(CONST_CAST("stderr"));
+
+                if (old_stderr)
+                {
+                    new_stderr = PyObject_CallObject(stringio_ctor, NULL);
+
+                    if (new_stderr)
+                    {
+                        if (PySys_SetObject(CONST_CAST("stderr"), new_stderr) < 0)
+                        {
+                            Py_DECREF(new_stderr);
+                            new_stderr = 0;
+                        }
+                    }
+                }
+            }
+
+            // Restore the exception and print it.
+            PyErr_Restore(exception, value, traceback);
+            PyErr_Print();
+
+            // This will be passed to qFatal() if we can't get the detailed
+            // text.
+            QByteArray message("Unhandled Python exception");
+
+            // Extract the detailed text if it was redirected.
+            if (new_stderr)
+            {
+                // Restore sys.stderr.
+                PySys_SetObject(CONST_CAST("stderr"), old_stderr);
+
+                // Extract the text.
+                PyObject *text = PyObject_CallMethod(new_stderr,
+                        CONST_CAST("getvalue"), NULL);
+
+                if (text)
+                {
+                    // Strip the text as qFatal() likes to add a newline.
+                    PyObject *stripped = PyObject_CallMethod(text,
+                            CONST_CAST("strip"), NULL);
+
+                    if (stripped)
+                    {
+                        Py_DECREF(text);
+                        text = stripped;
+                    }
+
+                    // Encode the text using the encoding of the original
+                    // sys.stderr.
+
+#if PY_MAJOR_VERSION >= 3
+                    PyObject *encoding = PyObject_GetAttrString(old_stderr,
+                            "encoding");
+
+                    if (encoding)
+                    {
+                        PyObject *encoding_bytes = PyUnicode_AsUTF8String(
+                                encoding);
+
+                        if (encoding_bytes)
+                        {
+                            Q_ASSERT(PyBytes_Check(encoding_bytes));
+
+                            PyObject *bytes = PyUnicode_AsEncodedString(text,
+                                    PyBytes_AS_STRING(encoding_bytes),
+                                    "strict");
+
+                            if (bytes)
+                            {
+                                Q_ASSERT(PyBytes_Check(bytes));
+
+                                message = QByteArray(PyBytes_AS_STRING(bytes),
+                                        PyBytes_GET_SIZE(bytes));
+
+                                Py_DECREF(bytes);
+                            }
+
+                            Py_DECREF(encoding_bytes);
+                        }
+
+                        Py_DECREF(encoding);
+                    }
+#else
+                    char *buffer;
+                    SIP_SSIZE_T length;
+
+                    if (PyString_AsStringAndSize(text, &buffer, &length) == 0)
+                        message = QByteArray(buffer, length);
+#endif
+
+                    Py_DECREF(text);
+                }
+
+                Py_DECREF(new_stderr);
+            }
+
+            // qFatal() may not call abort.
+            Py_BEGIN_ALLOW_THREADS
+            qFatal("%s", message.data());
+            Py_END_ALLOW_THREADS
+        }
+        else
+        {
+            PyErr_Restore(exception, value, traceback);
+            PyErr_Print();
+        }
+    }
+}
+
+
 // Convert a Python argv list to a conventional C argc count and argv array.
 char **pyqt5_from_argv_list(PyObject *argv_list, int &argc)
 {

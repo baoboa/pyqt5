@@ -1,7 +1,7 @@
 Introduction
 ============
 
-This is the reference guide for PyQt5 5.3.2.  PyQt5 is a set of
+This is the reference guide for PyQt5 5.4.  PyQt5 is a set of
 `Python <http://www.python.org>`__ bindings for v5 of the Qt application
 framework from `Digia <http://qt.digia.com>`__.
 
@@ -29,9 +29,10 @@ Earlier versions of Qt are supported by PyQt4.
 License
 -------
 
-PyQt5 is licensed on all platforms under a commercial license and the GPL v3.
-Your PyQt5 license must be compatible with your Qt license.  If you use the GPL
-version then your own code must also use a compatible license.
+PyQt5 is dual licensed on all platforms under the Riverbank Commercial License
+and the GPL v3.  Your PyQt5 license must be compatible with your Qt license.
+If you use the GPL version then your own code must also use a compatible
+license.
 
 PyQt5, unlike Qt, is not available under the LGPL.
 
@@ -183,6 +184,26 @@ number of Python extension modules.  These are all installed in the
   In addition the :class:`~PyQt5.QtTest.QSignalSpy` class provides easy
   introspection of Qt's signals and slots.
 
+.. module:: PyQt5.QtWebChannel
+
+- :mod:`~PyQt5.QtWebChannel` contains classes for transparently accessing
+  :class:`~PyQt5.QtCore.QObject` or QML objects from HTML clients.
+
+.. module:: PyQt5.QtWebEngineWidgets
+
+- :mod:`~PyQt5.QtWebEngineWidgets` contains classes for a Chromium based
+  implementation of a web browser.  This supercedes the :mod:`~PyQt5.QtWebKit`
+  module and provides better and up-to-date support for HTML, CSS and
+  JavaScript features.  However it also consumes more resources and doesn't
+  give direct access to the network stack and the HTML document via C++ APIs.
+
+  .. note::
+
+    :mod:`~PyQt5.QtWebEngineWidgets` is not normally available under Windows
+    because of compiler incompatibilities.  :mod:`~PyQt5.QtWebEngineWidgets`
+    requires MSVC2013 (or later) but the version used to build Python v3 is
+    MSVC2010.
+
 .. module:: PyQt5.QtWebKit
 
 - :mod:`~PyQt5.QtWebKit` contains classes for a WebKit2 based implementation of
@@ -216,6 +237,11 @@ number of Python extension modules.  These are all installed in the
 
 - :mod:`~PyQt5.QtX11Extras` contains additional classes that are specific to
   X11.
+
+.. module:: PyQt5.QtXml
+
+- :mod:`~PyQt5.QtXml` module.  This module contains classes that implement SAX
+  and DOM interfaces to Qt's XML parser.
 
 .. module:: PyQt5.QtXmlPatterns
 

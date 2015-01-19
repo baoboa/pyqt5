@@ -292,3 +292,8 @@ In both cases the contents of the ``qmldir`` file can be simplifed to::
 
     module Charts
     plugin pyqt5qmlplugin
+
+PyQt5 provides an example that can be run as follows::
+
+    cd /path/to/examples/quick/tutorials/extending/chapter6-plugins
+    QML2_IMPORT_PATH=. /path/to/qmlscene app.qml

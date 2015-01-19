@@ -236,7 +236,7 @@ static void list_append(QQmlListProperty<QObject> *p, QObject *el)
     }
 
     if (!ok)
-        PyErr_Print();
+        pyqt5_qtqml_err_print();
 
     SIP_UNBLOCK_THREADS
 }
@@ -280,7 +280,7 @@ static int list_count(QQmlListProperty<QObject> *p)
 
     if (res < 0)
     {
-        PyErr_Print();
+        pyqt5_qtqml_err_print();
         res = 0;
     }
 
@@ -330,7 +330,7 @@ static QObject *list_at(QQmlListProperty<QObject> *p, int idx)
     }
 
     if (!qobj)
-        PyErr_Print();
+        pyqt5_qtqml_err_print();
 
     SIP_UNBLOCK_THREADS
 
@@ -369,7 +369,7 @@ static void list_clear(QQmlListProperty<QObject> *p)
     }
 
     if (!ok)
-        PyErr_Print();
+        pyqt5_qtqml_err_print();
 
     SIP_UNBLOCK_THREADS
 }

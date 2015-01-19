@@ -34,8 +34,8 @@ QSet<QObject *> QPyQmlObjectProxy::proxies;
 
 
 // The ctor.
-QPyQmlObjectProxy::QPyQmlObjectProxy(QObject *parent) : QObject(parent),
-        py_proxied(0)
+QPyQmlObjectProxy::QPyQmlObjectProxy(QObject *parent) : QAbstractItemModel(parent),
+        proxied_model(0), py_proxied(0)
 {
     proxies.insert(this);
 }
@@ -109,11 +109,15 @@ int QPyQmlObjectProxy::qt_metacall(QMetaObject::Call call, int idx, void **args)
     if (idx < 0)
         return idx;
 
-    // If the sender is the proxied object then it has emitted a signal.
-    if (call == QMetaObject::InvokeMetaMethod && sender() == proxied)
-    {
-        const QMetaObject *proxied_mo = proxied->metaObject();
+    if (proxied.isNull())
+        return QObject::qt_metacall(call, idx, args);
 
+    const QMetaObject *proxied_mo = proxied->metaObject();
+
+    // See if a signal defined in the proxied object might be being invoked.
+    // Note that we used to use sender() but this proved unreliable.
+    if (call == QMetaObject::InvokeMetaMethod && idx >= proxied_mo->methodOffset() && proxied_mo->method(idx).methodType() == QMetaMethod::Signal)
+    {
         // Relay the signal to QML.
         QMetaObject::activate(this, proxied_mo,
                 idx - proxied_mo->methodOffset(), args);
@@ -121,7 +125,7 @@ int QPyQmlObjectProxy::qt_metacall(QMetaObject::Call call, int idx, void **args)
         return idx - (proxied_mo->methodCount() - proxied_mo->methodOffset());
     }
 
-    return !proxied.isNull() ? proxied->qt_metacall(call, idx, args) : QObject::qt_metacall(call, idx, args);
+    return proxied->qt_metacall(call, idx, args);
 }
 
 
@@ -143,10 +147,16 @@ void QPyQmlObjectProxy::createPyObject(QObject *parent)
             parent, sipType_QObject, NULL);
 
     if (py_proxied)
+    {
         proxied = reinterpret_cast<QObject *>(
                 sipGetAddress((sipSimpleWrapper *)py_proxied));
+
+        proxied_model = qobject_cast<QAbstractItemModel *>(proxied.data());
+    }
     else
-        PyErr_Print();
+    {
+        pyqt5_qtqml_err_print();
+    }
 
     SIP_UNBLOCK_THREADS
 }
@@ -189,7 +199,7 @@ QObject *QPyQmlObjectProxy::createAttachedProperties(PyTypeObject *py_type,
     }
     else
     {
-        PyErr_Print();
+        pyqt5_qtqml_err_print();
     }
 
     SIP_UNBLOCK_THREADS
@@ -234,7 +244,7 @@ void QPyQmlObjectProxy::pyClassBegin()
     }
 
     if (!ok)
-        PyErr_Print();
+        pyqt5_qtqml_err_print();
 
     SIP_UNBLOCK_THREADS
 }
@@ -276,7 +286,7 @@ void QPyQmlObjectProxy::pyComponentComplete()
     }
 
     if (!ok)
-        PyErr_Print();
+        pyqt5_qtqml_err_print();
 
     SIP_UNBLOCK_THREADS
 }
@@ -332,7 +342,7 @@ void QPyQmlObjectProxy::pySetTarget(const QQmlProperty &target)
     }
 
     if (!ok)
-        PyErr_Print();
+        pyqt5_qtqml_err_print();
 
     SIP_UNBLOCK_THREADS
 }
@@ -444,3 +454,260 @@ QPYQML_PROXY_IMPL(56);
 QPYQML_PROXY_IMPL(57);
 QPYQML_PROXY_IMPL(58);
 QPYQML_PROXY_IMPL(59);
+
+
+// The reimplementations of the QAbstractItemModel virtuals.
+
+QModelIndex QPyQmlObjectProxy::index(int row, int column, const QModelIndex &parent) const
+{
+    if (!proxied.isNull() && proxied_model)
+        return proxied_model->index(row, column, parent);
+
+    return QModelIndex();
+}
+
+QModelIndex QPyQmlObjectProxy::parent(const QModelIndex &child) const
+{
+    if (!proxied.isNull() && proxied_model)
+        return proxied_model->parent(child);
+
+    return QModelIndex();
+}
+
+QModelIndex QPyQmlObjectProxy::sibling(int row, int column, const QModelIndex &idx) const
+{
+    if (!proxied.isNull() && proxied_model)
+        return proxied_model->sibling(row, column, idx);
+
+    return QModelIndex();
+}
+
+int QPyQmlObjectProxy::rowCount(const QModelIndex &parent) const
+{
+    if (!proxied.isNull() && proxied_model)
+        return proxied_model->rowCount(parent);
+
+    return 0;
+}
+
+int QPyQmlObjectProxy::columnCount(const QModelIndex &parent) const
+{
+    if (!proxied.isNull() && proxied_model)
+        return proxied_model->columnCount(parent);
+
+    return 0;
+}
+
+bool QPyQmlObjectProxy::hasChildren(const QModelIndex &parent) const
+{
+    if (!proxied.isNull() && proxied_model)
+        return proxied_model->hasChildren(parent);
+
+    return false;
+}
+
+QVariant QPyQmlObjectProxy::data(const QModelIndex &index, int role) const
+{
+    if (!proxied.isNull() && proxied_model)
+        return proxied_model->data(index, role);
+
+    return QVariant();
+}
+
+bool QPyQmlObjectProxy::setData(const QModelIndex &index, const QVariant &value, int role)
+{
+    if (!proxied.isNull() && proxied_model)
+        return proxied_model->setData(index, value, role);
+
+    return false;
+}
+
+QVariant QPyQmlObjectProxy::headerData(int section, Qt::Orientation orientation, int role) const
+{
+    if (!proxied.isNull() && proxied_model)
+        return proxied_model->headerData(section, orientation, role);
+
+    return QVariant();
+}
+
+bool QPyQmlObjectProxy::setHeaderData(int section, Qt::Orientation orientation, const QVariant &value, int role)
+{
+    if (!proxied.isNull() && proxied_model)
+        return proxied_model->setHeaderData(section, orientation, value, role);
+
+    return false;
+}
+
+QMap<int, QVariant> QPyQmlObjectProxy::itemData(const QModelIndex &index) const
+{
+    if (!proxied.isNull() && proxied_model)
+        return proxied_model->itemData(index);
+
+    return QMap<int, QVariant>();
+}
+
+bool QPyQmlObjectProxy::setItemData(const QModelIndex &index, const QMap<int, QVariant> &roles)
+{
+    if (!proxied.isNull() && proxied_model)
+        return proxied_model->setItemData(index, roles);
+
+    return false;
+}
+
+QStringList QPyQmlObjectProxy::mimeTypes() const
+{
+    if (!proxied.isNull() && proxied_model)
+        return proxied_model->mimeTypes();
+
+    return QStringList();
+}
+
+QMimeData *QPyQmlObjectProxy::mimeData(const QModelIndexList &indexes) const
+{
+    if (!proxied.isNull() && proxied_model)
+        return proxied_model->mimeData(indexes);
+
+    return 0;
+}
+
+bool QPyQmlObjectProxy::canDropMimeData(const QMimeData *data, Qt::DropAction action, int row, int column, const QModelIndex &parent) const
+{
+    if (!proxied.isNull() && proxied_model)
+        return proxied_model->canDropMimeData(data, action, row, column, parent);
+
+    return false;
+}
+
+bool QPyQmlObjectProxy::dropMimeData(const QMimeData *data, Qt::DropAction action, int row, int column, const QModelIndex &parent)
+{
+    if (!proxied.isNull() && proxied_model)
+        return proxied_model->dropMimeData(data, action, row, column, parent);
+
+    return false;
+}
+
+Qt::DropActions QPyQmlObjectProxy::supportedDropActions() const
+{
+    if (!proxied.isNull() && proxied_model)
+        return proxied_model->supportedDropActions();
+
+    return Qt::IgnoreAction;
+}
+
+Qt::DropActions QPyQmlObjectProxy::supportedDragActions() const
+{
+    if (!proxied.isNull() && proxied_model)
+        return proxied_model->supportedDragActions();
+
+    return Qt::IgnoreAction;
+}
+
+bool QPyQmlObjectProxy::insertRows(int row, int count, const QModelIndex &parent)
+{
+    if (!proxied.isNull() && proxied_model)
+        return proxied_model->insertRows(row, count, parent);
+
+    return false;
+}
+
+bool QPyQmlObjectProxy::insertColumns(int column, int count, const QModelIndex &parent)
+{
+    if (!proxied.isNull() && proxied_model)
+        return proxied_model->insertColumns(column, count, parent);
+
+    return false;
+}
+
+bool QPyQmlObjectProxy::removeRows(int row, int count, const QModelIndex &parent)
+{
+    if (!proxied.isNull() && proxied_model)
+        return proxied_model->removeRows(row, count, parent);
+
+    return false;
+}
+
+bool QPyQmlObjectProxy::removeColumns(int column, int count, const QModelIndex &parent)
+{
+    if (!proxied.isNull() && proxied_model)
+        return proxied_model->removeColumns(column, count, parent);
+
+    return false;
+}
+
+bool QPyQmlObjectProxy::moveRows(const QModelIndex &sourceParent, int sourceRow, int count, const QModelIndex &destinationParent, int destinationChild)
+{
+    if (!proxied.isNull() && proxied_model)
+        return proxied_model->moveRows(sourceParent, sourceRow, count,
+                destinationParent, destinationChild);
+
+    return false;
+}
+
+bool QPyQmlObjectProxy::moveColumns(const QModelIndex &sourceParent, int sourceColumn, int count, const QModelIndex &destinationParent, int destinationChild)
+{
+    if (!proxied.isNull() && proxied_model)
+        return proxied_model->moveColumns(sourceParent, sourceColumn, count,
+                destinationParent, destinationChild);
+
+    return false;
+}
+
+void QPyQmlObjectProxy::fetchMore(const QModelIndex &parent)
+{
+    if (!proxied.isNull() && proxied_model)
+        proxied_model->fetchMore(parent);
+}
+
+bool QPyQmlObjectProxy::canFetchMore(const QModelIndex &parent) const
+{
+    if (!proxied.isNull() && proxied_model)
+        return proxied_model->canFetchMore(parent);
+
+    return false;
+}
+
+Qt::ItemFlags QPyQmlObjectProxy::flags(const QModelIndex &index) const
+{
+    if (!proxied.isNull() && proxied_model)
+        return proxied_model->flags(index);
+
+    return Qt::NoItemFlags;
+}
+
+void QPyQmlObjectProxy::sort(int column, Qt::SortOrder order)
+{
+    if (!proxied.isNull() && proxied_model)
+        proxied_model->sort(column, order);
+}
+
+QModelIndex QPyQmlObjectProxy::buddy(const QModelIndex &index) const
+{
+    if (!proxied.isNull() && proxied_model)
+        return proxied_model->buddy(index);
+
+    return QModelIndex();
+}
+
+QModelIndexList QPyQmlObjectProxy::match(const QModelIndex &start, int role, const QVariant &value, int hits, Qt::MatchFlags flags) const
+{
+    if (!proxied.isNull() && proxied_model)
+        return proxied_model->match(start, role, value, hits, flags);
+
+    return QModelIndexList();
+}
+
+QSize QPyQmlObjectProxy::span(const QModelIndex &index) const
+{
+    if (!proxied.isNull() && proxied_model)
+        return proxied_model->span(index);
+
+    return QSize();
+}
+
+QHash<int, QByteArray> QPyQmlObjectProxy::roleNames() const
+{
+    if (!proxied.isNull() && proxied_model)
+        return proxied_model->roleNames();
+
+    return QHash<int, QByteArray>();
+}

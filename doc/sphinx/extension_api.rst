@@ -45,6 +45,14 @@ not be supported by SIP v5.
 
 The functions exported by PyQt5 are as follows:
 
+.. cpp:function:: void pyqt_err_print()
+
+    .. versionadded:: 5.4
+
+    A replacement for :c:func:`PyErr_Print`.  In PyQt v5.4 it raises a
+    deprecation warning and calls :c:func:`PyErr_Print`.  In PyQt v5.5 and
+    later it passes the text of the exception and traceback to
+    :c:func:`qFatal`.
 
 .. cpp:function:: char **pyqt5_from_argv_list(PyObject *argv_list, int &argc)
 

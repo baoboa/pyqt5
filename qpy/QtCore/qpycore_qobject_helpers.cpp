@@ -203,7 +203,7 @@ static int qt_metacall_worker(sipSimpleWrapper *pySelf, PyTypeObject *pytype,
     // Handle any Python errors.
     if (!ok)
     {
-        PyErr_Print();
+        pyqt5_err_print();
         return -1;
     }
 

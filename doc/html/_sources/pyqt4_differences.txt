@@ -101,15 +101,6 @@ PyQt4's ``QtWebKit`` module has been split into PyQt5's :mod:`~PyQt5.QtWebKit`
 and :mod:`~PyQt5.QtWebKitWidgets` modules.
 
 
-``QtXml`` Module
-----------------
-
-PyQt4's ``QtXml`` module is not supported.  Use either the
-:class:`~PyQt5.QtCore.QXMLStreamReader` and
-:class:`~PyQt5.QtCore.QXMLStreamWriter` classes or Python's standard XML
-modules.
-
-
 ``pyqtconfig`` Module
 ---------------------
 

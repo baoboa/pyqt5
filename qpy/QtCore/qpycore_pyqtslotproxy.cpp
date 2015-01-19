@@ -208,7 +208,7 @@ void PyQtSlotProxy::unislot(void **qargs)
         break;
 
     case PyQtSlot::Failed:
-        PyErr_Print();
+        pyqt5_err_print();
         break;
 
     case PyQtSlot::Ignored:

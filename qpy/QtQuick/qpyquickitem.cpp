@@ -128,7 +128,7 @@ void QPyQuickItem::createPyObject(QQuickItem *parent)
             NULL, &sipPySelf, "D", parent, sipType_QQuickItem, NULL);
 
     if (!obj)
-        PyErr_Print();
+        pyqt5_qtquick_err_print();
 
     SIP_UNBLOCK_THREADS
 }

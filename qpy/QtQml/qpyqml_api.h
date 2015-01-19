@@ -49,7 +49,11 @@ int qpyqml_canConvertTo_QJSValue(PyObject *py);
 int qpyqml_convertTo_QJSValue(PyObject *py, PyObject *transferObj,
         QJSValue **cpp, int *isErr);
 
-// Imports from QtCore.
+// Python exception handling.
+typedef void (*pyqt5_qtqml_err_print_t)();
+extern pyqt5_qtqml_err_print_t pyqt5_qtqml_err_print;
+
+// Other imports from QtCore.
 typedef const QMetaObject *(*pyqt5_qtqml_get_qmetaobject_t)(PyTypeObject *);
 extern pyqt5_qtqml_get_qmetaobject_t pyqt5_qtqml_get_qmetaobject;
 

@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Introduction &mdash; PyQt 5.3.2 Reference Guide</title>
+    <title>Introduction &mdash; PyQt 5.4 Reference Guide</title>
     
     <link rel="stylesheet" href="_static/default.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '5.3.2',
+        VERSION:     '5.4',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -24,8 +24,8 @@
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
     <link rel="shortcut icon" href="_static/logo_tn.ico"/>
-    <link rel="top" title="PyQt 5.3.2 Reference Guide" href="index.html" />
-    <link rel="next" title="Potential Incompatibilities with Earlier Versions" href="incompatibilities.html" />
+    <link rel="top" title="PyQt 5.4 Reference Guide" href="index.html" />
+    <link rel="next" title="Deprecated Features and Behaviours" href="deprecations.html" />
     <link rel="prev" title="PyQt5 Reference Guide" href="index.html" /> 
   </head>
   <body>
@@ -39,12 +39,12 @@
           <a href="py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
         <li class="right" >
-          <a href="incompatibilities.html" title="Potential Incompatibilities with Earlier Versions"
+          <a href="deprecations.html" title="Deprecated Features and Behaviours"
              accesskey="N">next</a> |</li>
         <li class="right" >
           <a href="index.html" title="PyQt5 Reference Guide"
              accesskey="P">previous</a> |</li>
-        <li><a href="index.html">PyQt 5.3.2 Reference Guide</a> &raquo;</li> 
+        <li><a href="index.html">PyQt 5.4 Reference Guide</a> &raquo;</li> 
       </ul>
     </div>  
 
@@ -55,7 +55,7 @@
             
   <div class="section" id="introduction">
 <h1>Introduction<a class="headerlink" href="#introduction" title="Permalink to this headline">¶</a></h1>
-<p>This is the reference guide for PyQt5 5.3.2.  PyQt5 is a set of
+<p>This is the reference guide for PyQt5 5.4.  PyQt5 is a set of
 <a class="reference external" href="http://www.python.org">Python</a> bindings for v5 of the Qt application
 framework from <a class="reference external" href="http://qt.digia.com">Digia</a>.</p>
 <p>Qt is a set of C++ libraries and development tools that includes platform
@@ -73,9 +73,10 @@ order to build and use PyQt5.</p>
 <p>Earlier versions of Qt are supported by PyQt4.</p>
 <div class="section" id="license">
 <h2>License<a class="headerlink" href="#license" title="Permalink to this headline">¶</a></h2>
-<p>PyQt5 is licensed on all platforms under a commercial license and the GPL v3.
-Your PyQt5 license must be compatible with your Qt license.  If you use the GPL
-version then your own code must also use a compatible license.</p>
+<p>PyQt5 is dual licensed on all platforms under the Riverbank Commercial License
+and the GPL v3.  Your PyQt5 license must be compatible with your Qt license.
+If you use the GPL version then your own code must also use a compatible
+license.</p>
 <p>PyQt5, unlike Qt, is not available under the LGPL.</p>
 <p>You can purchase a commercial PyQt5 license <a class="reference external" href="http://www.riverbankcomputing.com/commercial/buy">here</a>.</p>
 </div>
@@ -194,6 +195,25 @@ and implements those functions that simulate a user interacting with a GUI.)
 In addition the <a class="reference internal" href="api/qsignalspy.html#PyQt5.QtTest.QSignalSpy" title="PyQt5.QtTest.QSignalSpy"><tt class="xref py py-class docutils literal"><span class="pre">QSignalSpy</span></tt></a> class provides easy
 introspection of Qt&#8217;s signals and slots.</li>
 </ul>
+<span class="target" id="module-PyQt5.QtWebChannel"></span><ul class="simple">
+<li><a class="reference internal" href="#module-PyQt5.QtWebChannel" title="PyQt5.QtWebChannel"><tt class="xref py py-mod docutils literal"><span class="pre">QtWebChannel</span></tt></a> contains classes for transparently accessing
+<a class="reference internal" href="api/qobject.html#PyQt5.QtCore.QObject" title="PyQt5.QtCore.QObject"><tt class="xref py py-class docutils literal"><span class="pre">QObject</span></tt></a> or QML objects from HTML clients.</li>
+</ul>
+<span class="target" id="module-PyQt5.QtWebEngineWidgets"></span><ul>
+<li><p class="first"><a class="reference internal" href="#module-PyQt5.QtWebEngineWidgets" title="PyQt5.QtWebEngineWidgets"><tt class="xref py py-mod docutils literal"><span class="pre">QtWebEngineWidgets</span></tt></a> contains classes for a Chromium based
+implementation of a web browser.  This supercedes the <a class="reference internal" href="#module-PyQt5.QtWebKit" title="PyQt5.QtWebKit"><tt class="xref py py-mod docutils literal"><span class="pre">QtWebKit</span></tt></a>
+module and provides better and up-to-date support for HTML, CSS and
+JavaScript features.  However it also consumes more resources and doesn&#8217;t
+give direct access to the network stack and the HTML document via C++ APIs.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last"><a class="reference internal" href="#module-PyQt5.QtWebEngineWidgets" title="PyQt5.QtWebEngineWidgets"><tt class="xref py py-mod docutils literal"><span class="pre">QtWebEngineWidgets</span></tt></a> is not normally available under Windows
+because of compiler incompatibilities.  <a class="reference internal" href="#module-PyQt5.QtWebEngineWidgets" title="PyQt5.QtWebEngineWidgets"><tt class="xref py py-mod docutils literal"><span class="pre">QtWebEngineWidgets</span></tt></a>
+requires MSVC2013 (or later) but the version used to build Python v3 is
+MSVC2010.</p>
+</div>
+</li>
+</ul>
 <span class="target" id="module-PyQt5.QtWebKit"></span><ul class="simple">
 <li><a class="reference internal" href="#module-PyQt5.QtWebKit" title="PyQt5.QtWebKit"><tt class="xref py py-mod docutils literal"><span class="pre">QtWebKit</span></tt></a> contains classes for a WebKit2 based implementation of
 a web browser.</li>
@@ -219,6 +239,10 @@ a taskbar button, and a thumbnail toolbar.</li>
 <span class="target" id="module-PyQt5.QtX11Extras"></span><ul class="simple">
 <li><a class="reference internal" href="#module-PyQt5.QtX11Extras" title="PyQt5.QtX11Extras (X11)"><tt class="xref py py-mod docutils literal"><span class="pre">QtX11Extras</span></tt></a> contains additional classes that are specific to
 X11.</li>
+</ul>
+<span class="target" id="module-PyQt5.QtXml"></span><ul class="simple">
+<li><a class="reference internal" href="#module-PyQt5.QtXml" title="PyQt5.QtXml"><tt class="xref py py-mod docutils literal"><span class="pre">QtXml</span></tt></a> module.  This module contains classes that implement SAX
+and DOM interfaces to Qt&#8217;s XML parser.</li>
 </ul>
 <span class="target" id="module-PyQt5.QtXmlPatterns"></span><ul class="simple">
 <li><a class="reference internal" href="#module-PyQt5.QtXmlPatterns" title="PyQt5.QtXmlPatterns"><tt class="xref py py-mod docutils literal"><span class="pre">QtXmlPatterns</span></tt></a> contains classes that provide support for XPath,
@@ -339,8 +363,8 @@ version of PyQt5 no matter what version of Qt v5 you are using.</p>
   <p class="topless"><a href="index.html"
                         title="previous chapter">PyQt5 Reference Guide</a></p>
   <h4>Next topic</h4>
-  <p class="topless"><a href="incompatibilities.html"
-                        title="next chapter">Potential Incompatibilities with Earlier Versions</a></p>
+  <p class="topless"><a href="deprecations.html"
+                        title="next chapter">Deprecated Features and Behaviours</a></p>
 <div id="searchbox" style="display: none">
   <h3>Quick search</h3>
     <form class="search" action="search.html" method="get">
@@ -368,17 +392,17 @@ version of PyQt5 no matter what version of Qt v5 you are using.</p>
           <a href="py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
         <li class="right" >
-          <a href="incompatibilities.html" title="Potential Incompatibilities with Earlier Versions"
+          <a href="deprecations.html" title="Deprecated Features and Behaviours"
              >next</a> |</li>
         <li class="right" >
           <a href="index.html" title="PyQt5 Reference Guide"
              >previous</a> |</li>
-        <li><a href="index.html">PyQt 5.3.2 Reference Guide</a> &raquo;</li> 
+        <li><a href="index.html">PyQt 5.4 Reference Guide</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer">
         &copy; Copyright 2014 Riverbank Computing Limited.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.3.
     </div>
   </body>
 </html>

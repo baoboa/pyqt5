@@ -19,7 +19,7 @@
 
 
 # These will change with different releases.
-!define PYQT_VERSION        "5.3.2"
+!define PYQT_VERSION        "5.4"
 !define PYQT_INSTALLER      ""
 #!define PYQT_INSTALLER      "-2"
 !define PYQT_LICENSE        "GPL"
@@ -27,7 +27,7 @@
 !define PYQT_PYTHON_MAJOR   "3"
 !define PYQT_PYTHON_MINOR   "4"
 !define PYQT_ARCH           "x64"
-!define PYQT_QT_VERS        "5.3.1"
+!define PYQT_QT_VERS        "5.4.0"
 !define PYQT_QT_DOC_VERS    "5"
 
 # These are all derived from the above.
@@ -209,15 +209,17 @@ Section "Extension modules" SecModules
     File .\build\QtSql\QtSql.pyd
     File .\build\QtSvg\QtSvg.pyd
     File .\build\QtTest\QtTest.pyd
+    File .\build\QtWebChannel\QtWebChannel.pyd
     File .\build\QtWebKit\QtWebKit.pyd
     File .\build\QtWebKitWidgets\QtWebKitWidgets.pyd
     File .\build\QtWebSockets\QtWebSockets.pyd
     File .\build\QtWinExtras\QtWinExtras.pyd
     File .\build\QtWidgets\QtWidgets.pyd
+    File .\build\QtXml\QtXml.pyd
     File .\build\QtXmlPatterns\QtXmlPatterns.pyd
     File .\build\QAxContainer\QAxContainer.pyd
     File .\build\Enginio\Enginio.pyd
-    File .\build\_QOpenGLFunctions_ES2\_QOpenGLFunctions_ES2.pyd
+    File .\build\_QOpenGLFunctions_2_0\_QOpenGLFunctions_2_0.pyd
 SectionEnd
 
 Section "QScintilla" SecQScintilla
@@ -269,6 +271,7 @@ Section "Qt runtime" SecQt
     File "${QT_SRC_DIR}\bin\Qt5Sql.dll"
     File "${QT_SRC_DIR}\bin\Qt5Svg.dll"
     File "${QT_SRC_DIR}\bin\Qt5Test.dll"
+    File "${QT_SRC_DIR}\bin\Qt5WebChannel.dll"
     File "${QT_SRC_DIR}\bin\Qt5WebKit.dll"
     File "${QT_SRC_DIR}\bin\Qt5WebKitWidgets.dll"
     File "${QT_SRC_DIR}\bin\Qt5WebSockets.dll"
@@ -281,9 +284,9 @@ Section "Qt runtime" SecQt
     File "${QT_SRC_DIR}\bin\libEGL.dll"
     File "${QT_SRC_DIR}\bin\libGLESv2.dll"
 
-    File "${ICU_SRC_DIR}\bin\icudt49.dll"
-    File "${ICU_SRC_DIR}\bin\icuin49.dll"
-    File "${ICU_SRC_DIR}\bin\icuuc49.dll"
+    File "${ICU_SRC_DIR}\bin\icudt53.dll"
+    File "${ICU_SRC_DIR}\bin\icuin53.dll"
+    File "${ICU_SRC_DIR}\bin\icuuc53.dll"
 
     File "${OPENSSL_SRC_DIR}\bin\libeay32.dll"
     File "${OPENSSL_SRC_DIR}\bin\ssleay32.dll"
@@ -293,26 +296,33 @@ Section "Qt runtime" SecQt
     SetOutPath $INSTDIR\Lib\site-packages\PyQt5
     File /r "${QT_SRC_DIR}\qml"
 
-    SetOutPath $INSTDIR\Lib\site-packages\PyQt5\plugins\accessible
-    File "${QT_SRC_DIR}\plugins\accessible\qtaccessiblequick.dll"
-    File "${QT_SRC_DIR}\plugins\accessible\qtaccessiblewidgets.dll"
+    SetOutPath $INSTDIR\Lib\site-packages\PyQt5\plugins\audio
+    File "${QT_SRC_DIR}\plugins\audio\qtaudio_windows.dll"
 
     SetOutPath $INSTDIR\Lib\site-packages\PyQt5\plugins\bearer
     File "${QT_SRC_DIR}\plugins\bearer\qgenericbearer.dll"
     File "${QT_SRC_DIR}\plugins\bearer\qnativewifibearer.dll"
 
+    SetOutPath $INSTDIR\Lib\site-packages\PyQt5\plugins\geoservices
+    File "${QT_SRC_DIR}\plugins\geoservices\qtgeoservices_nokia.dll"
+    File "${QT_SRC_DIR}\plugins\geoservices\qtgeoservices_osm.dll"
+
     SetOutPath $INSTDIR\Lib\site-packages\PyQt5\plugins\iconengines
     File "${QT_SRC_DIR}\plugins\iconengines\qsvgicon.dll"
 
     SetOutPath $INSTDIR\Lib\site-packages\PyQt5\plugins\imageformats
+    File "${QT_SRC_DIR}\plugins\imageformats\qdds.dll"
     File "${QT_SRC_DIR}\plugins\imageformats\qgif.dll"
+    File "${QT_SRC_DIR}\plugins\imageformats\qicns.dll"
     File "${QT_SRC_DIR}\plugins\imageformats\qico.dll"
+    File "${QT_SRC_DIR}\plugins\imageformats\qjp2.dll"
     File "${QT_SRC_DIR}\plugins\imageformats\qjpeg.dll"
     File "${QT_SRC_DIR}\plugins\imageformats\qmng.dll"
     File "${QT_SRC_DIR}\plugins\imageformats\qsvg.dll"
     File "${QT_SRC_DIR}\plugins\imageformats\qtga.dll"
     File "${QT_SRC_DIR}\plugins\imageformats\qtiff.dll"
-    File "${QT_SRC_DIR}\plugins\imageformats\qwbmp.dll"
+    File "${QT_SRC_DIR}\plugins\imageformats\qtiff.dll"
+    File "${QT_SRC_DIR}\plugins\imageformats\qwebp.dll"
 
     SetOutPath $INSTDIR\Lib\site-packages\PyQt5\plugins\mediaservice
     File "${QT_SRC_DIR}\plugins\mediaservice\dsengine.dll"
@@ -336,26 +346,29 @@ Section "Qt runtime" SecQt
     File "${QT_SRC_DIR}\plugins\sqldrivers\qsqlodbc.dll"
     File "${QT_SRC_DIR}\plugins\sqldrivers\qsqlpsql.dll"
 
+    SetOutPath $INSTDIR\Lib\site-packages\PyQt5\plugins\sensorgestures
+    File "${QT_SRC_DIR}\plugins\sensorgestures\qtsensorgestures_plugin.dll"
+    File "${QT_SRC_DIR}\plugins\sensorgestures\qtsensorgestures_shakeplugin.dll"
+
+    SetOutPath $INSTDIR\Lib\site-packages\PyQt5\plugins\sensors
+    File "${QT_SRC_DIR}\plugins\sensors\qtsensors_dummy.dll"
+    File "${QT_SRC_DIR}\plugins\sensors\qtsensors_generic.dll"
+
     SetOutPath $INSTDIR\Lib\site-packages\PyQt5\translations
     File "${QT_SRC_DIR}\translations\qt_*.qm"
     File "${QT_SRC_DIR}\translations\qtbase_*.qm"
 
     # Tell Python and the Qt tools where to find Qt.
-    Push $INSTDIR
-    Push "\"
-    Call StrSlash
-    Pop $R0
-
     FileOpen $0 $INSTDIR\qt.conf w
     FileWrite $0 "[Paths]$\r$\n"
-    FileWrite $0 "Prefix = $R0/Lib/site-packages/PyQt5$\r$\n"
-    FileWrite $0 "Binaries = $R0/Lib/site-packages/PyQt5$\r$\n"
+    FileWrite $0 "Prefix = Lib/site-packages/PyQt5$\r$\n"
+    FileWrite $0 "Binaries = Lib/site-packages/PyQt5$\r$\n"
     FileClose $0
 
     FileOpen $0 $INSTDIR\Lib\site-packages\PyQt5\qt.conf w
     FileWrite $0 "[Paths]$\r$\n"
-    FileWrite $0 "Prefix = $R0/Lib/site-packages/PyQt5$\r$\n"
-    FileWrite $0 "Binaries = $R0/Lib/site-packages/PyQt5$\r$\n"
+    FileWrite $0 "Prefix = .$\r$\n"
+    FileWrite $0 "Binaries = .$\r$\n"
     FileClose $0
 SectionEnd
 

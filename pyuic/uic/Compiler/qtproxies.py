@@ -282,8 +282,8 @@ class QtGui(ProxyNamespace):
 
 # These sub-class QWidget but aren't themselves sub-classed.
 _qwidgets = ("QCalendarWidget", "QDialogButtonBox", "QDockWidget", "QGroupBox",
-        "QLineEdit", "QMainWindow", "QMenuBar", "QProgressBar", "QStatusBar",
-        "QToolBar", "QWizardPage")
+        "QLineEdit", "QMainWindow", "QMenuBar", "QOpenGLWidget",
+        "QProgressBar", "QStatusBar", "QToolBar", "QWizardPage")
 
 class QtWidgets(ProxyNamespace):
     class QApplication(QtCore.QObject):

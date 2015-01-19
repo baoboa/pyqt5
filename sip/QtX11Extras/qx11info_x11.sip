@@ -51,6 +51,11 @@ public:
     static unsigned long getTimestamp();
 %End
 
+%If (Qt_5_4_0 -)
+    static QByteArray nextStartupId();
+    static void setNextStartupId(const QByteArray &id);
+%End
+
     static Display *display();
     static xcb_connection_t *connection();
 

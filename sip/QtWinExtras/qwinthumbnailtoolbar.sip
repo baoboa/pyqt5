@@ -39,8 +39,26 @@ public:
     QList<QWinThumbnailToolButton *> buttons() const;
     int count() const;
 
+%If (Qt_5_4_0 -)
+    bool iconicPixmapNotificationsEnabled() const;
+    void setIconicPixmapNotificationsEnabled(bool enabled);
+
+    QPixmap iconicThumbnailPixmap() const;
+    QPixmap iconicLivePreviewPixmap() const;
+%End
+
 public slots:
     void clear();
+%If (Qt_5_4_0 -)
+    void setIconicThumbnailPixmap(const QPixmap &);
+    void setIconicLivePreviewPixmap(const QPixmap &);
+%End
+
+signals:
+%If (Qt_5_4_0 -)
+    void iconicThumbnailPixmapRequested();
+    void iconicLivePreviewPixmapRequested();
+%End
 
 private:
     QWinThumbnailToolBar(const QWinThumbnailToolBar &);

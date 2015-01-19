@@ -27,9 +27,17 @@
 #include "sipAPIQtQml.h"
 
 
+// Imports from QtCore.
+pyqt5_qtqml_err_print_t pyqt5_qtqml_err_print;
+
+
 // Perform any required initialisation.
 void qpyqml_post_init(PyObject *module_dict)
 {
+    // QtCore imports.
+    pyqt5_qtqml_err_print = (pyqt5_qtqml_err_print_t)sipImportSymbol(
+            "pyqt5_err_print");
+
     // Initialise the QQmlListProperty type.
 #if PY_MAJOR_VERSION >= 3
     qpyqml_QQmlListProperty_Type.tp_base = &PyUnicode_Type;

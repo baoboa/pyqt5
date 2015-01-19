@@ -1,0 +1,155 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Deprecated Features and Behaviours &mdash; PyQt 5.4 Reference Guide</title>
+    
+    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '5.4',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="shortcut icon" href="_static/logo_tn.ico"/>
+    <link rel="top" title="PyQt 5.4 Reference Guide" href="index.html" />
+    <link rel="next" title="Potential Incompatibilities with Earlier Versions" href="incompatibilities.html" />
+    <link rel="prev" title="Introduction" href="introduction.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="incompatibilities.html" title="Potential Incompatibilities with Earlier Versions"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="introduction.html" title="Introduction"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">PyQt 5.4 Reference Guide</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="deprecated-features-and-behaviours">
+<h1>Deprecated Features and Behaviours<a class="headerlink" href="#deprecated-features-and-behaviours" title="Permalink to this headline">¶</a></h1>
+<p>These features and behaviours currenly issue deprecation warnings and will be
+removed in PyQt v5.5.  To ensure that the warnings are written to <tt class="docutils literal"><span class="pre">stderr</span></tt>
+pass the <tt class="docutils literal"><span class="pre">-Wa</span></tt> command line option to the Python interpreter.  To run your
+application as it would with PyQt v5.5 pass the <tt class="docutils literal"><span class="pre">-We</span></tt> command line option
+instead.</p>
+<div class="section" id="conversion-of-latin-1-strings-to-qbytearray">
+<h2>Conversion of Latin-1 Strings to <a class="reference internal" href="api/qbytearray.html#PyQt5.QtCore.QByteArray" title="PyQt5.QtCore.QByteArray"><tt class="xref py py-class docutils literal"><span class="pre">QByteArray</span></tt></a><a class="headerlink" href="#conversion-of-latin-1-strings-to-qbytearray" title="Permalink to this headline">¶</a></h2>
+<p>The automatic conversion of a Latin-1 encoded string when a
+<a class="reference internal" href="api/qbytearray.html#PyQt5.QtCore.QByteArray" title="PyQt5.QtCore.QByteArray"><tt class="xref py py-class docutils literal"><span class="pre">QByteArray</span></tt></a> is expected is deprecated.  In PyQt v5.5 an
+exception will be raised instead.</p>
+</div>
+<div class="section" id="unhandled-python-exceptions">
+<h2>Unhandled Python Exceptions<a class="headerlink" href="#unhandled-python-exceptions" title="Permalink to this headline">¶</a></h2>
+<p>There are a number of situations where Python code is executed from C++.
+Python reimplementations of C++ virtual methods is probably the most common
+example.  If the Python code raises an exception then PyQt will call Python&#8217;s
+<tt class="xref c c-func docutils literal"><span class="pre">PyErr_Print()</span></tt> function which will then call <tt class="xref py py-func docutils literal"><span class="pre">sys.excepthook()</span></tt>.
+The default exception hook will then display the exception and any traceback to
+<tt class="docutils literal"><span class="pre">stderr</span></tt>.  There are number of disadvantages to this default behaviour:</p>
+<ul class="simple">
+<li>the application does not terminate, meaning the behaviour is different to
+when exceptions are raised in other situations</li>
+<li>the output written to <tt class="docutils literal"><span class="pre">stderr</span></tt> may not be seen by the developer or user
+(particularly if it is a GUI application) thereby hiding the fact that the
+application is trying to report a potential bug.</li>
+</ul>
+<p>This behaviour is deprecated in PyQt v5.4.  In PyQt v5.5 an unhandled Python
+exception will result in a call to Qt&#8217;s <tt class="xref cpp cpp-func docutils literal"><span class="pre">qFatal()</span></tt> function.  By
+default this will call <tt class="xref c c-func docutils literal"><span class="pre">abort()</span></tt> and the application will terminate.
+Note that an application installed exception hook will still take precedence.</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="index.html">
+              <img class="logo" src="_static/logo.png" alt="Logo"/>
+            </a></p>
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Deprecated Features and Behaviours</a><ul>
+<li><a class="reference internal" href="#conversion-of-latin-1-strings-to-qbytearray">Conversion of Latin-1 Strings to <tt class="docutils literal"><span class="pre">QByteArray</span></tt></a></li>
+<li><a class="reference internal" href="#unhandled-python-exceptions">Unhandled Python Exceptions</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="introduction.html"
+                        title="previous chapter">Introduction</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="incompatibilities.html"
+                        title="next chapter">Potential Incompatibilities with Earlier Versions</a></p>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="incompatibilities.html" title="Potential Incompatibilities with Earlier Versions"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="introduction.html" title="Introduction"
+             >previous</a> |</li>
+        <li><a href="index.html">PyQt 5.4 Reference Guide</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2014 Riverbank Computing Limited.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.3.
+    </div>
+  </body>
+</html>

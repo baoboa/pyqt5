@@ -24,16 +24,17 @@
 
 #include <Python.h>
 
+#include <QAbstractItemModel>
 #include <QList>
-#include <QObject>
 #include <QPointer>
 #include <QQmlParserStatus>
 #include <QQmlProperty>
 #include <QQmlPropertyValueSource>
 #include <QSet>
+#include <QSize>
 
 
-class QPyQmlObjectProxy : public QObject
+class QPyQmlObjectProxy : public QAbstractItemModel
 {
 public:
     QPyQmlObjectProxy(QObject *parent = 0);
@@ -61,8 +62,65 @@ public:
     // The set of proxies in existence.
     static QSet<QObject *> proxies;
 
-    // A reference to the real object.
+    // The real object.
     QPointer<QObject> proxied;
+
+    // The real object if it is an item model.
+    QAbstractItemModel *proxied_model;
+
+    // QAbstractItemModel virtuals.
+    virtual QModelIndex index(int row, int column,
+            const QModelIndex &parent = QModelIndex()) const;
+    virtual QModelIndex parent(const QModelIndex &child) const;
+    virtual QModelIndex sibling(int row, int column, const QModelIndex &idx)
+            const;
+    virtual int rowCount(const QModelIndex &parent = QModelIndex()) const;
+    virtual int columnCount(const QModelIndex &parent = QModelIndex()) const;
+    virtual bool hasChildren(const QModelIndex &parent = QModelIndex()) const;
+    virtual QVariant data(const QModelIndex &index, int role = Qt::DisplayRole)
+            const;
+    virtual bool setData(const QModelIndex &index, const QVariant &value,
+            int role = Qt::EditRole);
+    virtual QVariant headerData(int section, Qt::Orientation orientation,
+            int role = Qt::DisplayRole) const;
+    virtual bool setHeaderData(int section, Qt::Orientation orientation,
+            const QVariant &value, int role = Qt::EditRole);
+    virtual QMap<int, QVariant> itemData(const QModelIndex &index) const;
+    virtual bool setItemData(const QModelIndex &index,
+            const QMap<int, QVariant> &roles);
+    virtual QStringList mimeTypes() const;
+    virtual QMimeData *mimeData(const QModelIndexList &indexes) const;
+    virtual bool canDropMimeData(const QMimeData *data, Qt::DropAction action,
+            int row, int column, const QModelIndex &parent) const;
+    virtual bool dropMimeData(const QMimeData *data, Qt::DropAction action,
+            int row, int column, const QModelIndex &parent);
+    virtual Qt::DropActions supportedDropActions() const;
+    virtual Qt::DropActions supportedDragActions() const;
+    virtual bool insertRows(int row, int count,
+            const QModelIndex &parent = QModelIndex());
+    virtual bool insertColumns(int column, int count,
+            const QModelIndex &parent = QModelIndex());
+    virtual bool removeRows(int row, int count,
+            const QModelIndex &parent = QModelIndex());
+    virtual bool removeColumns(int column, int count,
+            const QModelIndex &parent = QModelIndex());
+    virtual bool moveRows(const QModelIndex &sourceParent, int sourceRow,
+            int count, const QModelIndex &destinationParent,
+            int destinationChild);
+    virtual bool moveColumns(const QModelIndex &sourceParent, int sourceColumn,
+            int count, const QModelIndex &destinationParent,
+            int destinationChild);
+    virtual void fetchMore(const QModelIndex &parent);
+    virtual bool canFetchMore(const QModelIndex &parent) const;
+    virtual Qt::ItemFlags flags(const QModelIndex &index) const;
+    virtual void sort(int column, Qt::SortOrder order = Qt::AscendingOrder);
+    virtual QModelIndex buddy(const QModelIndex &index) const;
+    virtual QModelIndexList match(const QModelIndex &start, int role,
+            const QVariant &value, int hits = 1,
+            Qt::MatchFlags flags =
+                    Qt::MatchFlags(Qt::MatchStartsWith|Qt::MatchWrap)) const;
+    virtual QSize span(const QModelIndex &index) const;
+    virtual QHash<int,QByteArray> roleNames() const;
 
 protected:
     void connectNotify(const QMetaMethod &signal);

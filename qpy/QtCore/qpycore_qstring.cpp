@@ -52,16 +52,16 @@ PyObject *qpycore_PyObject_FromQString(const QString &qstr)
     // are checking so that we only go through the string once is the most
     // common case.  Note that we can't use PyUnicode_FromKindAndData() because
     // it doesn't handle surrogates in UCS2 strings.
-    int py_len = qstr.length();
+    int qt_len = qstr.length();
 
-    if ((obj = PyUnicode_New(py_len, 0x007f)) == NULL)
+    if ((obj = PyUnicode_New(qt_len, 0x007f)) == NULL)
         return NULL;
 
     int kind = PyUnicode_KIND(obj);
     void *data = PyUnicode_DATA(obj);
-    const QChar *qch = qstr.data();
+    const QChar *qch = qstr.constData();
 
-    for (int i = 0; i < py_len; ++i)
+    for (int qt_i = 0; qt_i < qt_len; ++qt_i)
     {
         ushort uch = qch->unicode();
 
@@ -74,26 +74,31 @@ PyObject *qpycore_PyObject_FromQString(const QString &qstr)
             // should be.
             Py_UCS4 maxchar = 0x00ff;
 
-            do
+            int py_len = qt_len;
+
+            while (qt_i < qt_len)
             {
+                uch = qch->unicode();
+
                 if (uch > 0x00ff)
                 {
                     if (maxchar == 0x00ff)
                         maxchar = 0x00ffff;
 
-                    // See if this is a surrogate pair.  We don't need to
-                    // bounds check because Qt puts a null QChar on the end.
-                    if (qch->isHighSurrogate() && (qch + 1)->isLowSurrogate())
+                    // See if this is a surrogate pair.  Note that we cannot
+                    // trust that the QString is terminated by a null QChar.
+                    if (qch->isHighSurrogate() && qt_i + 1 < qt_len && (qch + 1)->isLowSurrogate())
                     {
                         maxchar = 0x10ffff;
                         --py_len;
                         ++qch;
+                        ++qt_i;
                     }
                 }
 
-                uch = (++qch)->unicode();
+                ++qch;
+                ++qt_i;
             }
-            while (!qch->isNull());
 
             // Create the correctly sized object.
             if ((obj = PyUnicode_New(py_len, maxchar)) == NULL)
@@ -101,13 +106,13 @@ PyObject *qpycore_PyObject_FromQString(const QString &qstr)
 
             kind = PyUnicode_KIND(obj);
             data = PyUnicode_DATA(obj);
-            qch = qstr.data();
+            qch = qstr.constData();
 
             for (int py_i = 0; py_i < py_len; ++py_i)
             {
                 Py_UCS4 py_ch;
 
-                if (qch->isHighSurrogate() && (qch + 1)->isLowSurrogate())
+                if (qch->isHighSurrogate() && py_i + 1 < py_len && (qch + 1)->isLowSurrogate())
                 {
                     py_ch = QChar::surrogateToUcs4(*qch, *(qch + 1));
                     ++qch;
@@ -127,7 +132,7 @@ PyObject *qpycore_PyObject_FromQString(const QString &qstr)
 
         ++qch;
 
-        PyUnicode_WRITE(kind, data, i, uch);
+        PyUnicode_WRITE(kind, data, qt_i, uch);
     }
 #elif defined(Py_UNICODE_WIDE)
     QVector<uint> ucs4 = qstr.toUcs4();

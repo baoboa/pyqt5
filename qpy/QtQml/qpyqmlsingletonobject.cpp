@@ -61,7 +61,7 @@ QObject *QPyQmlSingletonObjectProxy::createObject(QQmlEngine *engine,
     else
     {
         qobject = 0;
-        PyErr_Print();
+        pyqt5_qtqml_err_print();
     }
 
     Py_DECREF(factory);

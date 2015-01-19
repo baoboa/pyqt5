@@ -143,7 +143,7 @@ QDataStream &operator<<(QDataStream &out, const PyQt_PyObject &obj)
             }
             else
             {
-                PyErr_Print();
+                pyqt5_err_print();
             }
         }
 

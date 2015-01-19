@@ -286,8 +286,21 @@ bool PyQt5QmlPlugin::callRegisterTypes(const QString &py_plugin,
 
         if (res_obj)
         {
+#if PY_MAJOR_VERSION >= 3
             PyErr_Format(PyExc_TypeError,
                     "unexpected result from registerTypes(): %S", res_obj);
+#else
+            PyObject *res_s = PyObject_Str(res_obj);
+
+            if (res_s != NULL)
+            {
+                PyErr_Format(PyExc_TypeError,
+                        "unexpected result from registerTypes(): %s",
+                        PyString_AsString(res_s));
+
+                Py_DECREF(res_s);
+            }
+#endif
 
             Py_DECREF(res_obj);
         }

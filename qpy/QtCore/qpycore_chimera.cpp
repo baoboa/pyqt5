@@ -1261,6 +1261,14 @@ PyObject *Chimera::toPyObject(const QVariant &var) const
 {
     if (_type != sipType_QVariant)
     {
+        // For some reason (see qvariant_p.h) an invalid QVariant can be
+        // returned when a QMetaType::Void is expected.
+        if (!var.isValid() && _metatype == QMetaType::Void)
+        {
+            Py_INCREF(Py_None);
+            return Py_None;
+        }
+
         // A sanity check.
         if (_metatype != var.userType())
         {
@@ -1273,7 +1281,7 @@ PyObject *Chimera::toPyObject(const QVariant &var) const
 
         // Deal with the simple case of unwrapping a Python object rather than
         // converting it.
-        if (_type != sipType_QVariant && _metatype == PyQt_PyObject::metatype)
+        if (_metatype == PyQt_PyObject::metatype)
         {
             PyQt_PyObject pyobj_wrapper = var.value<PyQt_PyObject>();
 

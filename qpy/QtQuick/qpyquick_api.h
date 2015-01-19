@@ -22,6 +22,10 @@
 #define _QPYQUICK_API_H
 
 
+// Python exception handling.
+typedef void (*pyqt5_qtquick_err_print_t)();
+extern pyqt5_qtquick_err_print_t pyqt5_qtquick_err_print;
+
 // Initialisation.
 void qpyquick_post_init();
 

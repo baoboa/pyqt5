@@ -1,3 +1,9 @@
+v5.4 25th December 2014
+  - Added full support for Qt v5.4.0.
+  - Added the QtWebChannel module.
+  - Added the QtWebEngineWidgets module.
+  - Added the QtXml module.
+
 v5.3.2 11th September 2014
   - Added the Enginio module.
   - Added the QJsonDocument and QJsonValue classes.
@@ -19,7 +25,7 @@ v5.3 26th May 2014
   - Added support for Qt v5.3.0.
   - Added the QtQuickWidgets module.
   - Added the QtWebSockets module.
-  - Added the --target_py_version, --sysroot and --no-tools option to
+  - Added the --target-py-version, --sysroot and --no-tools option to
     configure.py.
   - Cross-compilation (specifically to iOS and Android) is now supported.
 

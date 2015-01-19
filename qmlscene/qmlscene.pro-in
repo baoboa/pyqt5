@@ -1,0 +1,22 @@
+CONFIG      += plugin @QTCONFIG@ warn_on
+QT          += qml
+
+# Work around QTBUG-39300.
+CONFIG -= android_install
+
+TARGET      = pyqt5qmlplugin
+TEMPLATE    = lib
+
+INCLUDEPATH += @PYINCDIR@ @SIPINCDIR@
+LIBS        += @PYLINK@
+
+SOURCES     = pluginloader.cpp
+HEADERS     = pluginloader.h
+
+# Install.
+target.path = @QTPLUGINDIR@
+
+python.path = @QTPLUGINDIR@
+python.files = python
+
+INSTALLS    += target python
