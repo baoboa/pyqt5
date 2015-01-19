@@ -5,4 +5,4 @@ QKeyEvent
 
 .. class:: QKeyEvent
 
-    `C++ documentation <http://qt-project.org/doc/qt-5.2/qkeyevent.html>`_
+    `C++ documentation <http://qt-project.org/doc/qt-5/qkeyevent.html>`_

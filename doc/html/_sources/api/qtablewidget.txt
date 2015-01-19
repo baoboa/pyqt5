@@ -5,4 +5,4 @@ QTableWidget
 
 .. class:: QTableWidget
 
-    `C++ documentation <http://qt-project.org/doc/qt-5.2/qtablewidget.html>`_
+    `C++ documentation <http://qt-project.org/doc/qt-5/qtablewidget.html>`_

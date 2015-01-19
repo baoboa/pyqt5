@@ -32,7 +32,7 @@ except ImportError:
 
 
 # Initialise the constants.
-PYQT_VERSION_STR = "5.3.1-snapshot-b10aab47cc69"
+PYQT_VERSION_STR = "5.3.2"
 
 SIP_MIN_VERSION = '4.16'
 
@@ -66,6 +66,7 @@ MODULE_METADATA = {
                                     qpy_lib=True),
     'QtDesigner':           ModuleMetadata(qmake_QT=['designer'],
                                     qpy_lib=True),
+    'Enginio':              ModuleMetadata(qmake_QT=['enginio']),
     'QtGui':                ModuleMetadata(qpy_lib=True),
     'QtHelp':               ModuleMetadata(qmake_QT=['help']),
     'QtMacExtras':          ModuleMetadata(qmake_QT=['macextras']),
@@ -133,7 +134,7 @@ COMPOSITE_COMPONENTS = (
     'QtAxContainer', 'QtDesigner', 'QtHelp', 'QtMultimediaWidgets', 'QtOpenGL',
         'QtPrintSupport', 'QtQuick', 'QtSql', 'QtSvg', 'QtTest',
     'QtWebKitWidgets', 'QtBluetooth', 'QtMacExtras', 'QtPositioning',
-    'QtWinExtras', 'QtX11Extras', 'QtQuickWidgets', 'QtWebSockets'
+    'QtWinExtras', 'QtX11Extras', 'QtQuickWidgets', 'QtWebSockets', 'Enginio'
 )
 
 
@@ -490,6 +491,7 @@ class TargetConfiguration:
         self.qmake_variables = []
         self.py_pylib_dir = ''
         self.py_pylib_lib = ''
+        self.py_pyshlib = ''
         self.pydbus_inc_dir = ''
         self.pydbus_module_dir = ''
         self.pyqt_disabled_features = []
@@ -560,6 +562,7 @@ class TargetConfiguration:
                 self.py_pylib_dir)
         self.py_pylib_lib = parser.get(section, 'py_pylib_lib',
                 self.py_pylib_lib)
+        self.py_pyshlib = parser.get(section, 'py_pyshlib', self.py_pyshlib)
 
         self.qt_shared = parser.getboolean(section, 'qt_shared',
                 self.qt_shared)
@@ -691,6 +694,9 @@ int main(int argc, char **argv)
             pylib_lib = 'python%d%d%s' % (py_major, py_minor, debug_suffix)
 
             pylib_dir = self.py_lib_dir
+
+            # Assume Python is a DLL on Windows.
+            pyshlib = pylib_lib
         else:
             abi = getattr(sys, 'abiflags', '')
             pylib_lib = 'python%d.%d%s' % (py_major, py_minor, abi)
@@ -699,21 +705,34 @@ int main(int argc, char **argv)
             from distutils.sysconfig import get_config_vars
             ducfg = get_config_vars()
 
-            exec_prefix = ducfg['exec_prefix']
-            multiarch = ducfg.get('MULTIARCH', '')
-            libdir = ducfg['LIBDIR']
+            config_args = ducfg.get('CONFIG_ARGS', '')
 
-            if glob.glob('%s/lib/libpython%d.%d*' % (exec_prefix, py_major, py_minor)):
-                pylib_dir = exec_prefix + '/lib'
-            elif multiarch != '' and glob.glob('%s/lib/%s/libpython%d.%d*' % (exec_prefix, multiarch, py_major, py_minor)):
-                pylib_dir = exec_prefix + '/lib/' + multiarch
-            elif glob.glob('%s/libpython%d.%d*' % (libdir, py_major, py_minor)):
-                pylib_dir = libdir
+            if sys.platform == 'darwin':
+                dynamic_pylib = '--enable-framework' in config_args
             else:
-                pylib_dir = ''
+                dynamic_pylib = '--enable-shared' in config_args
+
+            if dynamic_pylib:
+                pyshlib = ducfg.get('LDLIBRARY', '')
+
+                exec_prefix = ducfg['exec_prefix']
+                multiarch = ducfg.get('MULTIARCH', '')
+                libdir = ducfg['LIBDIR']
+
+                if glob.glob('%s/lib/libpython%d.%d*' % (exec_prefix, py_major, py_minor)):
+                    pylib_dir = exec_prefix + '/lib'
+                elif multiarch != '' and glob.glob('%s/lib/%s/libpython%d.%d*' % (exec_prefix, multiarch, py_major, py_minor)):
+                    pylib_dir = exec_prefix + '/lib/' + multiarch
+                elif glob.glob('%s/libpython%d.%d*' % (libdir, py_major, py_minor)):
+                    pylib_dir = libdir
+                else:
+                    pylib_dir = ''
+            else:
+                pyshlib = ''
 
         self.py_pylib_dir = pylib_dir
         self.py_pylib_lib = pylib_lib
+        self.py_pyshlib = pyshlib
 
         # Apply sysroot where necessary.
         if self.sysroot != '':
@@ -1294,6 +1313,8 @@ def check_5_3_modules(target_config, verbose):
             'new QQuickWidget()')
     check_module(target_config, verbose, 'QtWebSockets', 'qwebsocket.h',
             'new QWebSocket()')
+    check_module(target_config, verbose, 'Enginio', 'enginioclient.h',
+            'new EnginioClient()')
 
 
 def generate_makefiles(target_config, verbose, no_timestamp, parts, tracing):
@@ -1330,27 +1351,9 @@ def generate_makefiles(target_config, verbose, no_timestamp, parts, tracing):
             qpy_sources = []
             qpy_headers = []
 
-        if mname == 'QtCore':
-            qpy_sources.insert(0, 'qpycore_post_init.cpp')
-
         generate_sip_module_code(target_config, verbose, no_timestamp, parts,
                 tracing, mname, sip_flags, qpy_sources, qpy_headers)
         subdirs.append(mname)
-
-    # Embed the sip flags.
-    if 'QtCore' in target_config.pyqt_modules:
-        inform("Embedding sip flags...")
-
-        in_f = open(source_path('qpy', 'QtCore', 'qpycore_post_init.cpp.in'))
-        out_f = open_for_writing(
-                os.path.join('QtCore', 'qpycore_post_init.cpp'))
-
-        for line in in_f:
-            line = line.replace('@@PYQT_SIP_FLAGS@@', sip_flags)
-            out_f.write(line)
-
-        in_f.close()
-        out_f.close()
 
     # Generate the composite module.
     qtmod_sipdir = os.path.join('sip', 'Qt')
@@ -1496,9 +1499,9 @@ def generate_plugin_makefile(target_config, verbose, plugin_dir, install_dir, pl
     generated.
     """
 
-    # Check we have an interpreter library.
-    if target_config.py_pylib_dir == '':
-        inform("The %s plugin was disabled because the Python library couldn't be found." % plugin_name)
+    # Check we have a shared interpreter library.
+    if target_config.py_pyshlib == '':
+        inform("The %s plugin was disabled because a dynamic Python library couldn't be found." % plugin_name)
         return False
 
     # Create the qmake project file.
@@ -1512,10 +1515,11 @@ def generate_plugin_makefile(target_config, verbose, plugin_dir, install_dir, pl
 
     prj = prj.replace('@QTCONFIG@',
             'debug' if target_config.debug else 'release')
-    prj = prj.replace('@PYINCDIR@', quote(target_config.py_inc_dir))
-    prj = prj.replace('@SIPINCDIR@', quote(target_config.sip_inc_dir))
+    prj = prj.replace('@PYINCDIR@', qmake_quote(target_config.py_inc_dir))
+    prj = prj.replace('@SIPINCDIR@', qmake_quote(target_config.sip_inc_dir))
     prj = prj.replace('@PYLINK@', target_config.get_pylib_link_arguments())
-    prj = prj.replace('@QTPLUGINDIR@', quote(install_dir))
+    prj = prj.replace('@PYSHLIB@', target_config.py_pyshlib)
+    prj = prj.replace('@QTPLUGINDIR@', qmake_quote(install_dir))
 
     pro_name = os.path.join(plugin_dir, 'python.pro')
 
@@ -1564,6 +1568,9 @@ def generate_application_makefile(target_config, verbose, src_dir):
         pro_lines.append('CONFIG += console')
     elif target_config.py_platform == 'darwin':
         pro_lines.append('CONFIG -= app_bundle')
+
+    # Work around QTBUG-39300.
+    pro_lines.append('CONFIG -= android_install')
 
     pro_lines.append('target.path = %s' % target_config.pyqt_bin_dir)
     pro_lines.append('INSTALLS += target')
@@ -2261,6 +2268,21 @@ def generate_sip_module_code(target_config, verbose, no_timestamp, parts, tracin
     if not os.access(os.path.join(mname, file_check), os.F_OK):
         error("Unable to create the C++ code.")
 
+    # Embed the sip flags.
+    if mname == 'QtCore':
+        inform("Embedding sip flags...")
+
+        in_f = open(source_path('qpy', 'QtCore', 'qpycore_post_init.cpp.in'))
+        out_f = open_for_writing(
+                os.path.join('QtCore', 'qpycore_post_init.cpp'))
+
+        for line in in_f:
+            line = line.replace('@@PYQT_SIP_FLAGS@@', sip_flags)
+            out_f.write(line)
+
+        in_f.close()
+        out_f.close()
+
     # Generate the makefile.
     includepath = libs = ''
     if target_config.vend_enabled:
@@ -2302,6 +2324,9 @@ def generate_module_makefile(target_config, verbose, mname, includepath='', libs
     pro_lines.append('CONFIG += warn_on %s' % ('staticlib' if target_config.static else 'plugin'))
 
     pro_add_qt_dependencies(target_config, metadata, pro_lines)
+
+    # Work around QTBUG-39300.
+    pro_lines.append('CONFIG -= android_install')
 
     if not target_config.static:
         debug_suffix = get_win32_debug_suffix(target_config.debug)
@@ -2393,8 +2418,8 @@ macx {
     pro_lines.append('TARGET = %s' % target_name)
 
     if src_dir != mname:
-        pro_lines.append('INCLUDEPATH += %s' % quote(src_dir))
-        pro_lines.append('VPATH = %s' % quote(src_dir))
+        pro_lines.append('INCLUDEPATH += %s' % qmake_quote(src_dir))
+        pro_lines.append('VPATH = %s' % qmake_quote(src_dir))
 
     pro_lines.extend(pro_sources(src_dir, qpy_headers, qpy_sources))
 
@@ -2450,10 +2475,11 @@ def fix_license(src_lfile, dst_lfile):
     f.close()
 
 
-def check_license(target_config, license_confirmed):
+def check_license(target_config, license_confirmed, introspecting):
     """ Handle the validation of the PyQt5 license.  target_config is the
     target configuration.  license_confirmed is set if the user has already
-    accepted the license.
+    accepted the license.  introspecting is set if the configuration is being
+    determined by introspection.
     """
 
     try:
@@ -2480,7 +2506,7 @@ def check_license(target_config, license_confirmed):
                             sys.platform))
 
     # Common checks.
-    if target_config.qt_licensee != 'Open Source' and ltype == 'GPL':
+    if introspecting and target_config.qt_licensee != 'Open Source' and ltype == 'GPL':
         error(
                 "This version of PyQt5 and the commercial version of Qt have "
                 "incompatible licenses.")
@@ -2671,7 +2697,8 @@ def main(argv):
     target_config.apply_post_options(opts)
 
     # Check the licenses are compatible.
-    check_license(target_config, opts.license_confirmed)
+    check_license(target_config, opts.license_confirmed,
+            (opts.config_file is None))
 
     # Check Python is what we need.
     check_python(target_config)

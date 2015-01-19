@@ -5,4 +5,4 @@ QScrollEvent
 
 .. class:: QScrollEvent
 
-    `C++ documentation <http://qt-project.org/doc/qt-5.2/qscrollevent.html>`_
+    `C++ documentation <http://qt-project.org/doc/qt-5/qscrollevent.html>`_

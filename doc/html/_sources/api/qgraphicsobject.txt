@@ -5,4 +5,4 @@ QGraphicsObject
 
 .. class:: QGraphicsObject
 
-    `C++ documentation <http://qt-project.org/doc/qt-5.2/qgraphicsobject.html>`_
+    `C++ documentation <http://qt-project.org/doc/qt-5/qgraphicsobject.html>`_

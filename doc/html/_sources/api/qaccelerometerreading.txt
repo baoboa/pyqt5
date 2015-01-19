@@ -5,4 +5,4 @@ QAccelerometerReading
 
 .. class:: QAccelerometerReading
 
-    `C++ documentation <http://qt-project.org/doc/qt-5.2/qaccelerometerreading.html>`_
+    `C++ documentation <http://qt-project.org/doc/qt-5/qaccelerometerreading.html>`_

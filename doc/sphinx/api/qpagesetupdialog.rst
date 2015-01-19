@@ -5,4 +5,4 @@ QPageSetupDialog
 
 .. class:: QPageSetupDialog
 
-    `C++ documentation <http://qt-project.org/doc/qt-5.2/qpagesetupdialog.html>`_
+    `C++ documentation <http://qt-project.org/doc/qt-5/qpagesetupdialog.html>`_

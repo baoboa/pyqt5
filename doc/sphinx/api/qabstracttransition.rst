@@ -5,4 +5,4 @@ QAbstractTransition
 
 .. class:: QAbstractTransition
 
-    `C++ documentation <http://qt-project.org/doc/qt-5.2/qabstracttransition.html>`_
+    `C++ documentation <http://qt-project.org/doc/qt-5/qabstracttransition.html>`_

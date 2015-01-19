@@ -5,4 +5,4 @@ QSplashScreen
 
 .. class:: QSplashScreen
 
-    `C++ documentation <http://qt-project.org/doc/qt-5.2/qsplashscreen.html>`_
+    `C++ documentation <http://qt-project.org/doc/qt-5/qsplashscreen.html>`_

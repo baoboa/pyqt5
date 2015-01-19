@@ -5,4 +5,4 @@ QMatrix2x4
 
 .. class:: QMatrix2x4
 
-    `C++ documentation <http://qt-project.org/doc/qt-5.2/qmatrix2x4.html>`_
+    `C++ documentation <http://qt-project.org/doc/qt-5/qmatrix2x4.html>`_

@@ -5,4 +5,4 @@ QDoubleSpinBox
 
 .. class:: QDoubleSpinBox
 
-    `C++ documentation <http://qt-project.org/doc/qt-5.2/qdoublespinbox.html>`_
+    `C++ documentation <http://qt-project.org/doc/qt-5/qdoublespinbox.html>`_

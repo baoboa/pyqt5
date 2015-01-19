@@ -5,4 +5,4 @@ QShowEvent
 
 .. class:: QShowEvent
 
-    `C++ documentation <http://qt-project.org/doc/qt-5.2/qshowevent.html>`_
+    `C++ documentation <http://qt-project.org/doc/qt-5/qshowevent.html>`_

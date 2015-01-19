@@ -5,4 +5,4 @@ QDesignerObjectInspectorInterface
 
 .. class:: QDesignerObjectInspectorInterface
 
-    `C++ documentation <http://qt-project.org/doc/qt-5.2/qdesignerobjectinspectorinterface.html>`_
+    `C++ documentation <http://qt-project.org/doc/qt-5/qdesignerobjectinspectorinterface.html>`_

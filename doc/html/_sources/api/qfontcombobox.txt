@@ -5,4 +5,4 @@ QFontComboBox
 
 .. class:: QFontComboBox
 
-    `C++ documentation <http://qt-project.org/doc/qt-5.2/qfontcombobox.html>`_
+    `C++ documentation <http://qt-project.org/doc/qt-5/qfontcombobox.html>`_

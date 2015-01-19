@@ -5,4 +5,4 @@ QEventLoopLocker
 
 .. class:: QEventLoopLocker
 
-    `C++ documentation <http://qt-project.org/doc/qt-5.2/qeventlooplocker.html>`_
+    `C++ documentation <http://qt-project.org/doc/qt-5/qeventlooplocker.html>`_

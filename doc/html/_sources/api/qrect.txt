@@ -5,4 +5,4 @@ QRect
 
 .. class:: QRect
 
-    `C++ documentation <http://qt-project.org/doc/qt-5.2/qrect.html>`_
+    `C++ documentation <http://qt-project.org/doc/qt-5/qrect.html>`_

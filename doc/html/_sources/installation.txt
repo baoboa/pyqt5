@@ -250,24 +250,6 @@ The full set of command line options is:
     The generated PyQt5 modules contain additional tracing code that is enabled
     using SIP's :func:`sip.settracemask` function.
 
-.. cmdoption:: --vendorid
-
-    The checking of signed Python interpreters using the `VendorID
-    <http://www.riverbankcomputing.com/software/vendorid/>`__ package is
-    enabled.  This option is ignored by Python v3.  See also the
-    :option:`--vendorid-incdir` and :option:`--vendorid-libdir` options and
-    :ref:`ref-deploy-commercial`.
-
-.. cmdoption:: --vendorid-incdir <DIR>
-
-    The header file of the VendorID package can be found in the directory
-    ``<DIR>``.  This option is ignored by Python v3.
-
-.. cmdoption:: --vendorid-libdir <DIR>
-
-    The library of the VendorID package can be found in the directory
-    ``<DIR>``.  This option is ignored by Python v3.
-
 .. cmdoption:: --verbose
 
     Compiler commands and any output issued during configuration is displayed

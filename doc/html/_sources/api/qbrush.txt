@@ -5,4 +5,4 @@ QBrush
 
 .. class:: QBrush
 
-    `C++ documentation <http://qt-project.org/doc/qt-5.2/qbrush.html>`_
+    `C++ documentation <http://qt-project.org/doc/qt-5/qbrush.html>`_

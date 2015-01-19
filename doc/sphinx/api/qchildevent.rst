@@ -5,4 +5,4 @@ QChildEvent
 
 .. class:: QChildEvent
 
-    `C++ documentation <http://qt-project.org/doc/qt-5.2/qchildevent.html>`_
+    `C++ documentation <http://qt-project.org/doc/qt-5/qchildevent.html>`_

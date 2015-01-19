@@ -5,4 +5,4 @@ QStateMachine
 
 .. class:: QStateMachine
 
-    `C++ documentation <http://qt-project.org/doc/qt-5.2/qstatemachine.html>`_
+    `C++ documentation <http://qt-project.org/doc/qt-5/qstatemachine.html>`_

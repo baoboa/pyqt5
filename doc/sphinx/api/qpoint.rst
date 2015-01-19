@@ -5,4 +5,4 @@ QPoint
 
 .. class:: QPoint
 
-    `C++ documentation <http://qt-project.org/doc/qt-5.2/qpoint.html>`_
+    `C++ documentation <http://qt-project.org/doc/qt-5/qpoint.html>`_

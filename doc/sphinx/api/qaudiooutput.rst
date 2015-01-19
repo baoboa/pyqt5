@@ -5,4 +5,4 @@ QAudioOutput
 
 .. class:: QAudioOutput
 
-    `C++ documentation <http://qt-project.org/doc/qt-5.2/qaudiooutput.html>`_
+    `C++ documentation <http://qt-project.org/doc/qt-5/qaudiooutput.html>`_

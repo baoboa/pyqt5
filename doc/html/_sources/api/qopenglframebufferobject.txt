@@ -5,4 +5,4 @@ QOpenGLFramebufferObject
 
 .. class:: QOpenGLFramebufferObject
 
-    `C++ documentation <http://qt-project.org/doc/qt-5.2/qopenglframebufferobject.html>`_
+    `C++ documentation <http://qt-project.org/doc/qt-5/qopenglframebufferobject.html>`_

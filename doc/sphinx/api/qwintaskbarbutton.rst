@@ -5,4 +5,4 @@ QWinTaskbarButton
 
 .. class:: QWinTaskbarButton
 
-    `C++ documentation <http://qt-project.org/doc/qt-5.2/qwintaskbarbutton.html>`_
+    `C++ documentation <http://qt-project.org/doc/qt-5/qwintaskbarbutton.html>`_

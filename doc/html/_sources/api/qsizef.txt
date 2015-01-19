@@ -5,4 +5,4 @@ QSizeF
 
 .. class:: QSizeF
 
-    `C++ documentation <http://qt-project.org/doc/qt-5.2/qsizef.html>`_
+    `C++ documentation <http://qt-project.org/doc/qt-5/qsizef.html>`_

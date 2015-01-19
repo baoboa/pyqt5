@@ -5,4 +5,4 @@ QHelpEvent
 
 .. class:: QHelpEvent
 
-    `C++ documentation <http://qt-project.org/doc/qt-5.2/qhelpevent.html>`_
+    `C++ documentation <http://qt-project.org/doc/qt-5/qhelpevent.html>`_

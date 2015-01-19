@@ -5,4 +5,4 @@ QXmlNamePool
 
 .. class:: QXmlNamePool
 
-    `C++ documentation <http://qt-project.org/doc/qt-5.2/qxmlnamepool.html>`_
+    `C++ documentation <http://qt-project.org/doc/qt-5/qxmlnamepool.html>`_

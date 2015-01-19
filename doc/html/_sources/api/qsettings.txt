@@ -5,4 +5,4 @@ QSettings
 
 .. class:: QSettings
 
-    `C++ documentation <http://qt-project.org/doc/qt-5.2/qsettings.html>`_
+    `C++ documentation <http://qt-project.org/doc/qt-5/qsettings.html>`_

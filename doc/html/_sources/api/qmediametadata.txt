@@ -5,4 +5,4 @@ QMediaMetaData
 
 .. class:: QMediaMetaData
 
-    `C++ documentation <http://qt-project.org/doc/qt-5.2/qmediametadata.html>`_
+    `C++ documentation <http://qt-project.org/doc/qt-5/qmediametadata.html>`_

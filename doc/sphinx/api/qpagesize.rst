@@ -5,4 +5,4 @@ QPageSize
 
 .. class:: QPageSize
 
-    `C++ documentation <http://qt-project.org/doc/qt-5.2/qpagesize.html>`_
+    `C++ documentation <http://qt-project.org/doc/qt-5/qpagesize.html>`_

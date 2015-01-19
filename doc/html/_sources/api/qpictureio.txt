@@ -5,4 +5,4 @@ QPictureIO
 
 .. class:: QPictureIO
 
-    `C++ documentation <http://qt-project.org/doc/qt-5.2/qpictureio.html>`_
+    `C++ documentation <http://qt-project.org/doc/qt-5/qpictureio.html>`_

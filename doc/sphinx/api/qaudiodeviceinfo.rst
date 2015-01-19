@@ -5,4 +5,4 @@ QAudioDeviceInfo
 
 .. class:: QAudioDeviceInfo
 
-    `C++ documentation <http://qt-project.org/doc/qt-5.2/qaudiodeviceinfo.html>`_
+    `C++ documentation <http://qt-project.org/doc/qt-5/qaudiodeviceinfo.html>`_

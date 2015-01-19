@@ -28,18 +28,16 @@
 // See if a Python object can be converted to a QJSValue.
 int qpyqml_canConvertTo_QJSValue(PyObject *py)
 {
-    // Note that these checks are done in the same order as the QJSValue ctors.
-
     if (PyObject_TypeCheck(py, sipTypeAsPyTypeObject(sipType_QJSValue_SpecialValue)))
         return 1;
 
     if (PyBool_Check(py))
         return 1;
 
-#if PY_MAJOR_VERSION >= 3
     if (PyLong_Check(py))
         return 1;
-#else
+
+#if PY_MAJOR_VERSION < 3
     if (PyInt_Check(py))
         return 1;
 #endif
@@ -72,14 +70,14 @@ int qpyqml_convertTo_QJSValue(PyObject *py, PyObject *transferObj,
         return sipGetState(transferObj);
     }
 
-#if PY_MAJOR_VERSION >= 3
     if (PyLong_Check(py))
     {
-        *cpp = new QJSValue((int)PyLong_AS_LONG(py));
+        *cpp = new QJSValue((int)PyLong_AsLong(py));
 
         return sipGetState(transferObj);
     }
-#else
+
+#if PY_MAJOR_VERSION < 3
     if (PyInt_Check(py))
     {
         *cpp = new QJSValue((int)PyInt_AS_LONG(py));

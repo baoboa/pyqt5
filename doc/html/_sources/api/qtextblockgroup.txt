@@ -5,4 +5,4 @@ QTextBlockGroup
 
 .. class:: QTextBlockGroup
 
-    `C++ documentation <http://qt-project.org/doc/qt-5.2/qtextblockgroup.html>`_
+    `C++ documentation <http://qt-project.org/doc/qt-5/qtextblockgroup.html>`_

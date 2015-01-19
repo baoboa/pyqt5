@@ -5,4 +5,4 @@ QPlainTextDocumentLayout
 
 .. class:: QPlainTextDocumentLayout
 
-    `C++ documentation <http://qt-project.org/doc/qt-5.2/qplaintextdocumentlayout.html>`_
+    `C++ documentation <http://qt-project.org/doc/qt-5/qplaintextdocumentlayout.html>`_

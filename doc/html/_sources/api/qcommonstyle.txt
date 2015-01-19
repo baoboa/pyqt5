@@ -5,4 +5,4 @@ QCommonStyle
 
 .. class:: QCommonStyle
 
-    `C++ documentation <http://qt-project.org/doc/qt-5.2/qcommonstyle.html>`_
+    `C++ documentation <http://qt-project.org/doc/qt-5/qcommonstyle.html>`_

@@ -5,4 +5,4 @@ QSqlRelationalTableModel
 
 .. class:: QSqlRelationalTableModel
 
-    `C++ documentation <http://qt-project.org/doc/qt-5.2/qsqlrelationaltablemodel.html>`_
+    `C++ documentation <http://qt-project.org/doc/qt-5/qsqlrelationaltablemodel.html>`_

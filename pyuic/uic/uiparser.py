@@ -55,26 +55,9 @@ QtCore = None
 QtWidgets = None
 
 
-def gridPosition(elem):
-    """gridPosition(elem) -> tuple
+def _parse_alignment(alignment):
+    """ Convert a C++ alignment to the corresponding flags. """
 
-    Return the 4 or 5-tuple of (row, column, rowspan, colspan, alignment)
-    for a widget element, or an empty tuple.
-    """
-    try:
-        row = int(elem.attrib['row'])
-        column = int(elem.attrib['column'])
-    except KeyError:
-        return ()
-
-    rowspan = int(elem.attrib.get('rowspan', 1))
-    colspan = int(elem.attrib.get('colspan', 1))
-    alignment = elem.attrib.get('alignment')
-
-    if alignment is None:
-        return (row, column, rowspan, colspan)
-
-    # This should be Qt::Align...|Qt::Align...
     align_flags = None
     for qt_align in alignment.split('|'):
         _, qt_align = qt_align.split('::')
@@ -85,7 +68,38 @@ def gridPosition(elem):
         else:
             align_flags |= align
 
-    return (row, column, rowspan, colspan, align_flags)
+    return align_flags
+
+
+def _layout_position(elem):
+    """ Return either (), (alignment), (row, column, rowspan, colspan) or
+    (row, column, rowspan, colspan, alignment) depending on the type of layout
+    and its configuration.  The result will be suitable to use as arguments to
+    the layout.
+    """
+
+    row = elem.attrib.get('row')
+    column = elem.attrib.get('column')
+    alignment = elem.attrib.get('alignment')
+
+    # See if it is a box layout.
+    if row is None or column is None:
+        if alignment is None:
+            return ()
+
+        return (_parse_alignment(alignment), )
+
+    # It must be a grid or a form layout.
+    row = int(row)
+    column = int(column)
+
+    rowspan = int(elem.attrib.get('rowspan', 1))
+    colspan = int(elem.attrib.get('colspan', 1))
+
+    if alignment is None:
+        return (row, column, rowspan, colspan)
+
+    return (row, column, rowspan, colspan, _parse_alignment(alignment))
 
 
 class WidgetStack(list):
@@ -280,12 +294,12 @@ class UIParser(object):
         
         if self.stack.topIsLayout():
             lay = self.stack.peek()
-            gp = elem.attrib["grid-position"]
+            lp = elem.attrib['layout-position']
 
             if isinstance(lay, QtWidgets.QFormLayout):
-                lay.setWidget(gp[0], self._form_layout_role(gp), widget)
+                lay.setWidget(lp[0], self._form_layout_role(lp), widget)
             else:
-                lay.addWidget(widget, *gp)
+                lay.addWidget(widget, *lp)
 
         topwidget = self.stack.topwidget
 
@@ -397,12 +411,12 @@ class UIParser(object):
 
         if self.stack.topIsLayout():
             lay = self.stack.peek()
-            gp = elem.attrib["grid-position"]
+            lp = elem.attrib['layout-position']
 
             if isinstance(lay, QtWidgets.QFormLayout):
-                lay.setItem(gp[0], self._form_layout_role(gp), spacer)
+                lay.setItem(lp[0], self._form_layout_role(lp), spacer)
             else:
-                lay.addItem(spacer, *gp)
+                lay.addItem(spacer, *lp)
 
     def createLayout(self, elem):
         # Qt v4.3 introduced setContentsMargins() and separate values for each
@@ -481,12 +495,12 @@ class UIParser(object):
 
         if self.stack.topIsLayout():
             top_layout = self.stack.peek()
-            gp = elem.attrib["grid-position"]
+            lp = elem.attrib['layout-position']
 
             if isinstance(top_layout, QtWidgets.QFormLayout):
-                top_layout.setLayout(gp[0], self._form_layout_role(gp), layout)
+                top_layout.setLayout(lp[0], self._form_layout_role(lp), layout)
             else:
-                top_layout.addLayout(layout, *gp)
+                top_layout.addLayout(layout, *lp)
 
     def configureLayout(self, elem, layout):
         if isinstance(layout, QtWidgets.QGridLayout):
@@ -516,7 +530,7 @@ class UIParser(object):
 
     def handleItem(self, elem):
         if self.stack.topIsLayout():
-            elem[0].attrib["grid-position"] = gridPosition(elem)
+            elem[0].attrib['layout-position'] = _layout_position(elem)
             self.traverseWidgetTree(elem)
         else:
             w = self.stack.topwidget
@@ -980,10 +994,10 @@ class UIParser(object):
         return w
 
     @staticmethod
-    def _form_layout_role(grid_position):
-        if grid_position[3] > 1:
+    def _form_layout_role(layout_position):
+        if layout_position[3] > 1:
             role = QtWidgets.QFormLayout.SpanningRole
-        elif grid_position[1] == 1:
+        elif layout_position[1] == 1:
             role = QtWidgets.QFormLayout.FieldRole
         else:
             role = QtWidgets.QFormLayout.LabelRole

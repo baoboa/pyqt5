@@ -5,4 +5,4 @@ QMediaRecorder
 
 .. class:: QMediaRecorder
 
-    `C++ documentation <http://qt-project.org/doc/qt-5.2/qmediarecorder.html>`_
+    `C++ documentation <http://qt-project.org/doc/qt-5/qmediarecorder.html>`_

@@ -5,4 +5,4 @@ QSplitterHandle
 
 .. class:: QSplitterHandle
 
-    `C++ documentation <http://qt-project.org/doc/qt-5.2/qsplitterhandle.html>`_
+    `C++ documentation <http://qt-project.org/doc/qt-5/qsplitterhandle.html>`_

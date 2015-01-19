@@ -5,4 +5,4 @@ QStackedLayout
 
 .. class:: QStackedLayout
 
-    `C++ documentation <http://qt-project.org/doc/qt-5.2/qstackedlayout.html>`_
+    `C++ documentation <http://qt-project.org/doc/qt-5/qstackedlayout.html>`_

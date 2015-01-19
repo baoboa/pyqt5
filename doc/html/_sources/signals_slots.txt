@@ -105,6 +105,11 @@ The following example shows the definition of a number of new signals::
         # the QString argument then this code will run under Python v2 and v3.
         valueChanged = pyqtSignal([int], ['QString'])
 
+New signals should only be defined in sub-classes of
+:class:`~PyQt5.QtCore.QObject`.  They must be part of the class definition and
+cannot be dynamically added as class attributes after the class has been
+defined.
+
 New signals defined in this way will be automatically added to the class's
 :class:`~PyQt5.QtCore.QMetaObject`.  This means that they will appear in Qt
 Designer and can be introspected using the :class:`~PyQt5.QtCore.QMetaObject`

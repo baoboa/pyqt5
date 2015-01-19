@@ -5,4 +5,4 @@ QExposeEvent
 
 .. class:: QExposeEvent
 
-    `C++ documentation <http://qt-project.org/doc/qt-5.2/qexposeevent.html>`_
+    `C++ documentation <http://qt-project.org/doc/qt-5/qexposeevent.html>`_

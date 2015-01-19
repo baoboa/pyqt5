@@ -5,4 +5,4 @@ QGraphicsLineItem
 
 .. class:: QGraphicsLineItem
 
-    `C++ documentation <http://qt-project.org/doc/qt-5.2/qgraphicslineitem.html>`_
+    `C++ documentation <http://qt-project.org/doc/qt-5/qgraphicslineitem.html>`_

@@ -5,4 +5,4 @@ QOpenGLVertexArrayObject
 
 .. class:: QOpenGLVertexArrayObject
 
-    `C++ documentation <http://qt-project.org/doc/qt-5.2/qopenglvertexarrayobject.html>`_
+    `C++ documentation <http://qt-project.org/doc/qt-5/qopenglvertexarrayobject.html>`_

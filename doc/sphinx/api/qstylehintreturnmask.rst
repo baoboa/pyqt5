@@ -5,4 +5,4 @@ QStyleHintReturnMask
 
 .. class:: QStyleHintReturnMask
 
-    `C++ documentation <http://qt-project.org/doc/qt-5.2/qstylehintreturnmask.html>`_
+    `C++ documentation <http://qt-project.org/doc/qt-5/qstylehintreturnmask.html>`_

@@ -5,4 +5,4 @@ QSGTextureProvider
 
 .. class:: QSGTextureProvider
 
-    `C++ documentation <http://qt-project.org/doc/qt-5.2/qsgtextureprovider.html>`_
+    `C++ documentation <http://qt-project.org/doc/qt-5/qsgtextureprovider.html>`_

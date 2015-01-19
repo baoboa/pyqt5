@@ -5,4 +5,4 @@ QSound
 
 .. class:: QSound
 
-    `C++ documentation <http://qt-project.org/doc/qt-5.2/qsound.html>`_
+    `C++ documentation <http://qt-project.org/doc/qt-5/qsound.html>`_

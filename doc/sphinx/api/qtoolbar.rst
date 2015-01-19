@@ -5,4 +5,4 @@ QToolBar
 
 .. class:: QToolBar
 
-    `C++ documentation <http://qt-project.org/doc/qt-5.2/qtoolbar.html>`_
+    `C++ documentation <http://qt-project.org/doc/qt-5/qtoolbar.html>`_

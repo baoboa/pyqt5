@@ -1,7 +1,7 @@
 Introduction
 ============
 
-This is the reference guide for PyQt5 5.3.1-snapshot-b10aab47cc69.  PyQt5 is a set of
+This is the reference guide for PyQt5 5.3.2.  PyQt5 is a set of
 `Python <http://www.python.org>`__ bindings for v5 of the Qt application
 framework from `Digia <http://qt.digia.com>`__.
 
@@ -221,6 +221,11 @@ number of Python extension modules.  These are all installed in the
 
 - :mod:`~PyQt5.QtXmlPatterns` contains classes that provide support for XPath,
   XQuery, XSLT and XML Schema validation.
+
+.. module:: PyQt5.Enginio
+
+- :mod:`~PyQt5.Enginio` implements the client-side library for accessing the Qt
+  Cloud Services Managed Application Runtime.
 
 .. module:: PyQt5.Qt
 

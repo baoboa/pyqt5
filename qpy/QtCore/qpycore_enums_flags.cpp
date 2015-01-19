@@ -112,6 +112,9 @@ static PyObject *parse_enums_flags(PyObject *args, bool flags)
         Chimera::registerIntType(arg);
     }
 
+    // Make sure there are no exceptions left after failed value conversions.
+    PyErr_Clear();
+
     Py_INCREF(Py_None);
     return Py_None;
 }

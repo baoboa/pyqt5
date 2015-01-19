@@ -5,4 +5,4 @@ QUuid
 
 .. class:: QUuid
 
-    `C++ documentation <http://qt-project.org/doc/qt-5.2/quuid.html>`_
+    `C++ documentation <http://qt-project.org/doc/qt-5/quuid.html>`_

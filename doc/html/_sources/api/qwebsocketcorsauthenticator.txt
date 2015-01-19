@@ -5,4 +5,4 @@ QWebSocketCorsAuthenticator
 
 .. class:: QWebSocketCorsAuthenticator
 
-    `C++ documentation <http://qt-project.org/doc/qt-5.2/qwebsocketcorsauthenticator.html>`_
+    `C++ documentation <http://qt-project.org/doc/qt-5/qwebsocketcorsauthenticator.html>`_

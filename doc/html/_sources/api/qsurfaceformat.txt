@@ -5,4 +5,4 @@ QSurfaceFormat
 
 .. class:: QSurfaceFormat
 
-    `C++ documentation <http://qt-project.org/doc/qt-5.2/qsurfaceformat.html>`_
+    `C++ documentation <http://qt-project.org/doc/qt-5/qsurfaceformat.html>`_

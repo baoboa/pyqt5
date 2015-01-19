@@ -265,4 +265,28 @@ of all wrapped instances that it owns.  This happens in a random order and can
 therefore cause the interpreter to crash.  This behavior can be disabled by
 calling the :func:`sip.setdestroyonexit` function.
 
-PyQt5 always calls :func:`sip.setdestroyonexit` automatically.
+PyQt5 always calls :func:`sip.setdestroyonexit` automatically.  However if the
+wrapped instances have not been created at the module level and have instead
+been created in a function then the problem will still exist.  For example, do
+not do the following::
+
+    def main():
+        app = QApplication(sys.argv)
+
+        w = QWidget()
+        w.show()
+
+        app.exec()
+
+    if __name__ == '__main__':
+        main()
+
+Instead, do the following::
+
+    if __name__ == '__main__':
+        app = QApplication(sys.argv)
+
+        w = QWidget()
+        w.show()
+
+        app.exec()

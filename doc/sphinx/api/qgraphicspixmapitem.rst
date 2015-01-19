@@ -5,4 +5,4 @@ QGraphicsPixmapItem
 
 .. class:: QGraphicsPixmapItem
 
-    `C++ documentation <http://qt-project.org/doc/qt-5.2/qgraphicspixmapitem.html>`_
+    `C++ documentation <http://qt-project.org/doc/qt-5/qgraphicspixmapitem.html>`_

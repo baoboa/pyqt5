@@ -5,4 +5,4 @@ QAudioRecorder
 
 .. class:: QAudioRecorder
 
-    `C++ documentation <http://qt-project.org/doc/qt-5.2/qaudiorecorder.html>`_
+    `C++ documentation <http://qt-project.org/doc/qt-5/qaudiorecorder.html>`_

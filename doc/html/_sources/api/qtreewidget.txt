@@ -5,4 +5,4 @@ QTreeWidget
 
 .. class:: QTreeWidget
 
-    `C++ documentation <http://qt-project.org/doc/qt-5.2/qtreewidget.html>`_
+    `C++ documentation <http://qt-project.org/doc/qt-5/qtreewidget.html>`_

@@ -5,4 +5,4 @@ QFileOpenEvent
 
 .. class:: QFileOpenEvent
 
-    `C++ documentation <http://qt-project.org/doc/qt-5.2/qfileopenevent.html>`_
+    `C++ documentation <http://qt-project.org/doc/qt-5/qfileopenevent.html>`_

@@ -5,4 +5,4 @@ QX11Info
 
 .. class:: QX11Info
 
-    `C++ documentation <http://qt-project.org/doc/qt-5.2/qx11info.html>`_
+    `C++ documentation <http://qt-project.org/doc/qt-5/qx11info.html>`_

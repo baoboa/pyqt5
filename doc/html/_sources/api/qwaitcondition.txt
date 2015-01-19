@@ -5,4 +5,4 @@ QWaitCondition
 
 .. class:: QWaitCondition
 
-    `C++ documentation <http://qt-project.org/doc/qt-5.2/qwaitcondition.html>`_
+    `C++ documentation <http://qt-project.org/doc/qt-5/qwaitcondition.html>`_

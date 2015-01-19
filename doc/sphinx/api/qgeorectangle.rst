@@ -5,4 +5,4 @@ QGeoRectangle
 
 .. class:: QGeoRectangle
 
-    `C++ documentation <http://qt-project.org/doc/qt-5.2/qgeorectangle.html>`_
+    `C++ documentation <http://qt-project.org/doc/qt-5/qgeorectangle.html>`_

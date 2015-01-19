@@ -5,4 +5,4 @@ QSGClipNode
 
 .. class:: QSGClipNode
 
-    `C++ documentation <http://qt-project.org/doc/qt-5.2/qsgclipnode.html>`_
+    `C++ documentation <http://qt-project.org/doc/qt-5/qsgclipnode.html>`_

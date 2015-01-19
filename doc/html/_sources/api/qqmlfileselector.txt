@@ -5,4 +5,4 @@ QQmlFileSelector
 
 .. class:: QQmlFileSelector
 
-    `C++ documentation <http://qt-project.org/doc/qt-5.2/qqmlfileselector.html>`_
+    `C++ documentation <http://qt-project.org/doc/qt-5/qqmlfileselector.html>`_

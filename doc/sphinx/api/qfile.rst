@@ -5,4 +5,4 @@ QFile
 
 .. class:: QFile
 
-    `C++ documentation <http://qt-project.org/doc/qt-5.2/qfile.html>`_
+    `C++ documentation <http://qt-project.org/doc/qt-5/qfile.html>`_

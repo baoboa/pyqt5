@@ -5,4 +5,4 @@ QAmbientLightReading
 
 .. class:: QAmbientLightReading
 
-    `C++ documentation <http://qt-project.org/doc/qt-5.2/qambientlightreading.html>`_
+    `C++ documentation <http://qt-project.org/doc/qt-5/qambientlightreading.html>`_

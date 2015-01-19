@@ -5,4 +5,4 @@ QBuffer
 
 .. class:: QBuffer
 
-    `C++ documentation <http://qt-project.org/doc/qt-5.2/qbuffer.html>`_
+    `C++ documentation <http://qt-project.org/doc/qt-5/qbuffer.html>`_

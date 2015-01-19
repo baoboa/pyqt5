@@ -5,4 +5,4 @@ QTimerEvent
 
 .. class:: QTimerEvent
 
-    `C++ documentation <http://qt-project.org/doc/qt-5.2/qtimerevent.html>`_
+    `C++ documentation <http://qt-project.org/doc/qt-5/qtimerevent.html>`_

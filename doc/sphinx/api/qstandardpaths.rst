@@ -5,4 +5,4 @@ QStandardPaths
 
 .. class:: QStandardPaths
 
-    `C++ documentation <http://qt-project.org/doc/qt-5.2/qstandardpaths.html>`_
+    `C++ documentation <http://qt-project.org/doc/qt-5/qstandardpaths.html>`_

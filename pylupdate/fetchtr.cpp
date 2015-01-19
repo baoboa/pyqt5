@@ -559,44 +559,6 @@ static bool matchString( QByteArray *s )
     return matches;
 }
 
-static bool matchEncoding( bool *utf8 )
-{
-    // Remove any leading module paths.
-    if (yyTok == Tok_Ident && strcmp(yyIdent, "PyQt4") == 0)
-    {
-    yyTok = getToken();
-
-    if (yyTok != Tok_Dot)
-        return false;
-
-    yyTok = getToken();
-    }
-
-    if (yyTok == Tok_Ident && (strcmp(yyIdent, "QtGui") == 0 || strcmp(yyIdent, "QtCore") == 0))
-    {
-    yyTok = getToken();
-
-    if (yyTok != Tok_Dot)
-        return false;
-
-    yyTok = getToken();
-    }
-
-    if ( yyTok == Tok_Ident ) {
-        if (strcmp(yyIdent, "QApplication") == 0 || strcmp(yyIdent, "QCoreApplication") == 0) {
-            yyTok = getToken();
-
-            if (yyTok == Tok_Dot)
-                yyTok = getToken();
-        }
-        *utf8 = QString( yyIdent ).endsWith( QString("UTF8") );
-        yyTok = getToken();
-        return true;
-    } else {
-        return false;
-    }
-}
-
 static bool matchStringOrNone(QByteArray *s)
 {
     bool matches = matchString(s);
@@ -676,6 +638,8 @@ static void parse( MetaTranslator *tor, const char *initialContext,
                     com = "";
                     bool plural = false;
 
+                    // Note that this isn't as rigorous as the parsing of
+                    // translate() below.
                     if (match(Tok_RightParen))
                     {
                         // There is no comment or plural arguments.
@@ -716,7 +680,6 @@ static void parse( MetaTranslator *tor, const char *initialContext,
                 }
                 break;
             case Tok_translate:
-                utf8 = false;
                 yyTok = getToken();
                 if ( match(Tok_LeftParen) &&
                  matchString(&context) &&
@@ -728,23 +691,12 @@ static void parse( MetaTranslator *tor, const char *initialContext,
                         // look for comment
                         if ( match(Tok_Comma) && matchStringOrNone(&com)) {
                             if (!match(Tok_RightParen)) {
-                                // look for encoding
+                                // Look for n.
                                 if (match(Tok_Comma)) {
-                                    if (matchEncoding(&utf8)) {
-                                        if (!match(Tok_RightParen)) {
-                                            // look for the plural quantifier,
-                                            // this can be a number, an identifier or a function call,
-                                            // so for simplicity we mark it as plural if we know we have a comma instead of an
-                                            // right parentheses.
-                                            plural = match(Tok_Comma);
-                                        }
+                                    if (matchExpression() && match(Tok_RightParen)) {
+                                        plural = true;
                                     } else {
-                                        // This can be a QTranslator::translate("context", "source", "comment", n) plural translation
-                                        if (matchExpression() && match(Tok_RightParen)) {
-                                            plural = true;
-                                        } else {
-                                            break;
-                                        }
+                                        break;
                                     }
                                 } else {
                                     break;
@@ -758,7 +710,7 @@ static void parse( MetaTranslator *tor, const char *initialContext,
                     {
                         tor->insert( MetaTranslatorMessage(context, text, com, 
                                                         yyFileName, yyParenLineNo,
-                                                        QStringList(), utf8,
+                                                        QStringList(), true,
                                                         MetaTranslatorMessage::Unfinished,
                                                         plural) );
                     }

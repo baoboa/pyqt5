@@ -5,4 +5,4 @@ QGraphicsView
 
 .. class:: QGraphicsView
 
-    `C++ documentation <http://qt-project.org/doc/qt-5.2/qgraphicsview.html>`_
+    `C++ documentation <http://qt-project.org/doc/qt-5/qgraphicsview.html>`_

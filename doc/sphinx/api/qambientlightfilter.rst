@@ -5,4 +5,4 @@ QAmbientLightFilter
 
 .. class:: QAmbientLightFilter
 
-    `C++ documentation <http://qt-project.org/doc/qt-5.2/qambientlightfilter.html>`_
+    `C++ documentation <http://qt-project.org/doc/qt-5/qambientlightfilter.html>`_

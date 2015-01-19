@@ -5,4 +5,4 @@ QCompleter
 
 .. class:: QCompleter
 
-    `C++ documentation <http://qt-project.org/doc/qt-5.2/qcompleter.html>`_
+    `C++ documentation <http://qt-project.org/doc/qt-5/qcompleter.html>`_

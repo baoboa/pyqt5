@@ -5,4 +5,4 @@ QStyleOptionDockWidget
 
 .. class:: QStyleOptionDockWidget
 
-    `C++ documentation <http://qt-project.org/doc/qt-5.2/qstyleoptiondockwidget.html>`_
+    `C++ documentation <http://qt-project.org/doc/qt-5/qstyleoptiondockwidget.html>`_

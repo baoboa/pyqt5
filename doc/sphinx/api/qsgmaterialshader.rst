@@ -5,4 +5,4 @@ QSGMaterialShader
 
 .. class:: QSGMaterialShader
 
-    `C++ documentation <http://qt-project.org/doc/qt-5.2/qsgmaterialshader.html>`_
+    `C++ documentation <http://qt-project.org/doc/qt-5/qsgmaterialshader.html>`_

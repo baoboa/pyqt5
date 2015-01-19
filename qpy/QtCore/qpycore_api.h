@@ -22,6 +22,7 @@
 #define _QPYCORE_API_H
 
 
+#include <QJsonValue>
 #include <QString>
 #include <QVariant>
 
@@ -88,6 +89,11 @@ PyObject *qpycore_qobject_disconnect(const QObject *q_obj);
 int qpycore_clearSlotProxies(const QObject *transmitter);
 int qpycore_visitSlotProxies(const QObject *transmitter, visitproc visit,
         void *arg);
+
+// Support for QJsonValue.
+int qpycore_canConvertTo_QJsonValue(PyObject *py);
+int qpycore_convertTo_QJsonValue(PyObject *py, PyObject *transferObj,
+        QJsonValue **cpp, int *isErr);
 
 // Utilities.
 #if PY_MAJOR_VERSION >= 3

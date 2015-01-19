@@ -5,4 +5,4 @@ QTextBlock
 
 .. class:: QTextBlock
 
-    `C++ documentation <http://qt-project.org/doc/qt-5.2/qtextblock.html>`_
+    `C++ documentation <http://qt-project.org/doc/qt-5/qtextblock.html>`_

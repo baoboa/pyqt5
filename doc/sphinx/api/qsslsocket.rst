@@ -5,4 +5,4 @@ QSslSocket
 
 .. class:: QSslSocket
 
-    `C++ documentation <http://qt-project.org/doc/qt-5.2/qsslsocket.html>`_
+    `C++ documentation <http://qt-project.org/doc/qt-5/qsslsocket.html>`_

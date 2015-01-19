@@ -5,4 +5,4 @@ QAbstractItemDelegate
 
 .. class:: QAbstractItemDelegate
 
-    `C++ documentation <http://qt-project.org/doc/qt-5.2/qabstractitemdelegate.html>`_
+    `C++ documentation <http://qt-project.org/doc/qt-5/qabstractitemdelegate.html>`_

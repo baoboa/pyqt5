@@ -5,4 +5,4 @@ QRotationSensor
 
 .. class:: QRotationSensor
 
-    `C++ documentation <http://qt-project.org/doc/qt-5.2/qrotationsensor.html>`_
+    `C++ documentation <http://qt-project.org/doc/qt-5/qrotationsensor.html>`_

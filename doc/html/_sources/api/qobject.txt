@@ -5,4 +5,4 @@ QObject
 
 .. class:: QObject
 
-    `C++ documentation <http://qt-project.org/doc/qt-5.2/qobject.html>`_
+    `C++ documentation <http://qt-project.org/doc/qt-5/qobject.html>`_

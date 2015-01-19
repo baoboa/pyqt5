@@ -5,4 +5,4 @@ QDragEnterEvent
 
 .. class:: QDragEnterEvent
 
-    `C++ documentation <http://qt-project.org/doc/qt-5.2/qdragenterevent.html>`_
+    `C++ documentation <http://qt-project.org/doc/qt-5/qdragenterevent.html>`_

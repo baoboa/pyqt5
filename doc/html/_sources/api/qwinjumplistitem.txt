@@ -5,4 +5,4 @@ QWinJumpListItem
 
 .. class:: QWinJumpListItem
 
-    `C++ documentation <http://qt-project.org/doc/qt-5.2/qwinjumplistitem.html>`_
+    `C++ documentation <http://qt-project.org/doc/qt-5/qwinjumplistitem.html>`_

@@ -5,4 +5,4 @@ QWinTaskbarProgress
 
 .. class:: QWinTaskbarProgress
 
-    `C++ documentation <http://qt-project.org/doc/qt-5.2/qwintaskbarprogress.html>`_
+    `C++ documentation <http://qt-project.org/doc/qt-5/qwintaskbarprogress.html>`_

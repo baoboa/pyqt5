@@ -5,4 +5,4 @@ QSysInfo
 
 .. class:: QSysInfo
 
-    `C++ documentation <http://qt-project.org/doc/qt-5.2/qsysinfo.html>`_
+    `C++ documentation <http://qt-project.org/doc/qt-5/qsysinfo.html>`_

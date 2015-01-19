@@ -5,4 +5,4 @@ QQmlProperty
 
 .. class:: QQmlProperty
 
-    `C++ documentation <http://qt-project.org/doc/qt-5.2/qqmlproperty.html>`_
+    `C++ documentation <http://qt-project.org/doc/qt-5/qqmlproperty.html>`_

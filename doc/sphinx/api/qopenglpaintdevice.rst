@@ -5,4 +5,4 @@ QOpenGLPaintDevice
 
 .. class:: QOpenGLPaintDevice
 
-    `C++ documentation <http://qt-project.org/doc/qt-5.2/qopenglpaintdevice.html>`_
+    `C++ documentation <http://qt-project.org/doc/qt-5/qopenglpaintdevice.html>`_

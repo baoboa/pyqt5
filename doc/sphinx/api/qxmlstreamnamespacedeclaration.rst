@@ -5,4 +5,4 @@ QXmlStreamNamespaceDeclaration
 
 .. class:: QXmlStreamNamespaceDeclaration
 
-    `C++ documentation <http://qt-project.org/doc/qt-5.2/qxmlstreamnamespacedeclaration.html>`_
+    `C++ documentation <http://qt-project.org/doc/qt-5/qxmlstreamnamespacedeclaration.html>`_

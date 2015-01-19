@@ -5,4 +5,4 @@ QRegularExpressionMatchIterator
 
 .. class:: QRegularExpressionMatchIterator
 
-    `C++ documentation <http://qt-project.org/doc/qt-5.2/qregularexpressionmatchiterator.html>`_
+    `C++ documentation <http://qt-project.org/doc/qt-5/qregularexpressionmatchiterator.html>`_

@@ -5,4 +5,4 @@ QStyleHints
 
 .. class:: QStyleHints
 
-    `C++ documentation <http://qt-project.org/doc/qt-5.2/qstylehints.html>`_
+    `C++ documentation <http://qt-project.org/doc/qt-5/qstylehints.html>`_

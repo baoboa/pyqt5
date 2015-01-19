@@ -5,4 +5,4 @@ QTextImageFormat
 
 .. class:: QTextImageFormat
 
-    `C++ documentation <http://qt-project.org/doc/qt-5.2/qtextimageformat.html>`_
+    `C++ documentation <http://qt-project.org/doc/qt-5/qtextimageformat.html>`_

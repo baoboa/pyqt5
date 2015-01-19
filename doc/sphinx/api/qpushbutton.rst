@@ -5,4 +5,4 @@ QPushButton
 
 .. class:: QPushButton
 
-    `C++ documentation <http://qt-project.org/doc/qt-5.2/qpushbutton.html>`_
+    `C++ documentation <http://qt-project.org/doc/qt-5/qpushbutton.html>`_

@@ -5,4 +5,4 @@ QParallelAnimationGroup
 
 .. class:: QParallelAnimationGroup
 
-    `C++ documentation <http://qt-project.org/doc/qt-5.2/qparallelanimationgroup.html>`_
+    `C++ documentation <http://qt-project.org/doc/qt-5/qparallelanimationgroup.html>`_

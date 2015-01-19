@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Potential Incompatibilities with Earlier Versions &mdash; PyQt 5.3.1-snapshot-b10aab47cc69 Reference Guide</title>
+    <title>Potential Incompatibilities with Earlier Versions &mdash; PyQt 5.3.2 Reference Guide</title>
     
     <link rel="stylesheet" href="_static/default.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '5.3.1-snapshot-b10aab47cc69',
+        VERSION:     '5.3.2',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -24,7 +24,7 @@
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
     <link rel="shortcut icon" href="_static/logo_tn.ico"/>
-    <link rel="top" title="PyQt 5.3.1-snapshot-b10aab47cc69 Reference Guide" href="index.html" />
+    <link rel="top" title="PyQt 5.3.2 Reference Guide" href="index.html" />
     <link rel="next" title="Installing PyQt5" href="installation.html" />
     <link rel="prev" title="Introduction" href="introduction.html" /> 
   </head>
@@ -44,7 +44,7 @@
         <li class="right" >
           <a href="introduction.html" title="Introduction"
              accesskey="P">previous</a> |</li>
-        <li><a href="index.html">PyQt 5.3.1-snapshot-b10aab47cc69 Reference Guide</a> &raquo;</li> 
+        <li><a href="index.html">PyQt 5.3.2 Reference Guide</a> &raquo;</li> 
       </ul>
     </div>  
 
@@ -74,6 +74,19 @@ workaround for this the <tt class="docutils literal"><span class="pre">no_receiv
 <tt class="xref py py-func docutils literal"><span class="pre">connect()</span></tt> which allows the check to be suppressed
 on a per connection basis.</p>
 </div>
+<div class="section" id="qt-signals-with-default-arguments">
+<h3>Qt Signals with Default Arguments<a class="headerlink" href="#qt-signals-with-default-arguments" title="Permalink to this headline">¶</a></h3>
+<p>In previous versions Qt signals with default arguments were exposed as multiple
+signals each with one additional default argument.  For example
+<tt class="docutils literal"><span class="pre">QAbstractButton::clicked(bool</span> <span class="pre">checked</span> <span class="pre">=</span> <span class="pre">false)</span></tt> was exposed as
+<tt class="docutils literal"><span class="pre">QAbstractButton::clicked(bool</span> <span class="pre">checked)</span></tt> and <tt class="docutils literal"><span class="pre">QAbstractButton::clicked()</span></tt>
+where the former was the default signal.  It was therefore possible to index
+the latter by using an empty tuple as the key - although there was no benefit
+in doing so.</p>
+<p>In this version only the signal with all arguments supplied is exposed.
+However the signal&#8217;s <tt class="docutils literal"><span class="pre">emit()</span></tt> method still supports the default argument,
+i.e. when used normally the change should not be noticed.</p>
+</div>
 </div>
 </div>
 
@@ -91,6 +104,7 @@ on a per connection basis.</p>
 <li><a class="reference internal" href="#">Potential Incompatibilities with Earlier Versions</a><ul>
 <li><a class="reference internal" href="#pyqt5-v5-3">PyQt5 v5.3</a><ul>
 <li><a class="reference internal" href="#execution-of-python-slots">Execution of Python Slots</a></li>
+<li><a class="reference internal" href="#qt-signals-with-default-arguments">Qt Signals with Default Arguments</a></li>
 </ul>
 </li>
 </ul>
@@ -135,7 +149,7 @@ on a per connection basis.</p>
         <li class="right" >
           <a href="introduction.html" title="Introduction"
              >previous</a> |</li>
-        <li><a href="index.html">PyQt 5.3.1-snapshot-b10aab47cc69 Reference Guide</a> &raquo;</li> 
+        <li><a href="index.html">PyQt 5.3.2 Reference Guide</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer">

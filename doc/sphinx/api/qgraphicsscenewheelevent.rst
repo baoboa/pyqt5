@@ -5,4 +5,4 @@ QGraphicsSceneWheelEvent
 
 .. class:: QGraphicsSceneWheelEvent
 
-    `C++ documentation <http://qt-project.org/doc/qt-5.2/qgraphicsscenewheelevent.html>`_
+    `C++ documentation <http://qt-project.org/doc/qt-5/qgraphicsscenewheelevent.html>`_

@@ -5,4 +5,4 @@ QGraphicsItem
 
 .. class:: QGraphicsItem
 
-    `C++ documentation <http://qt-project.org/doc/qt-5.2/qgraphicsitem.html>`_
+    `C++ documentation <http://qt-project.org/doc/qt-5/qgraphicsitem.html>`_

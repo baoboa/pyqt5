@@ -5,4 +5,4 @@ QGeoLocation
 
 .. class:: QGeoLocation
 
-    `C++ documentation <http://qt-project.org/doc/qt-5.2/qgeolocation.html>`_
+    `C++ documentation <http://qt-project.org/doc/qt-5/qgeolocation.html>`_

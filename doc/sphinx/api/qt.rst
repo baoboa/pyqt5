@@ -5,4 +5,4 @@ Qt
 
 .. class:: Qt
 
-    `C++ documentation <http://qt-project.org/doc/qt-5.2/qt.html>`_
+    `C++ documentation <http://qt-project.org/doc/qt-5/qt.html>`_

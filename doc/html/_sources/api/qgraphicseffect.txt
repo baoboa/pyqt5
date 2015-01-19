@@ -5,4 +5,4 @@ QGraphicsEffect
 
 .. class:: QGraphicsEffect
 
-    `C++ documentation <http://qt-project.org/doc/qt-5.2/qgraphicseffect.html>`_
+    `C++ documentation <http://qt-project.org/doc/qt-5/qgraphicseffect.html>`_

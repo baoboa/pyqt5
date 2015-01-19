@@ -5,4 +5,4 @@ QWizard
 
 .. class:: QWizard
 
-    `C++ documentation <http://qt-project.org/doc/qt-5.2/qwizard.html>`_
+    `C++ documentation <http://qt-project.org/doc/qt-5/qwizard.html>`_

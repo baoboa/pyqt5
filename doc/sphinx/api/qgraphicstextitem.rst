@@ -5,4 +5,4 @@ QGraphicsTextItem
 
 .. class:: QGraphicsTextItem
 
-    `C++ documentation <http://qt-project.org/doc/qt-5.2/qgraphicstextitem.html>`_
+    `C++ documentation <http://qt-project.org/doc/qt-5/qgraphicstextitem.html>`_

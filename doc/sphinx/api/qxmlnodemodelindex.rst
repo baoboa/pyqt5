@@ -5,4 +5,4 @@ QXmlNodeModelIndex
 
 .. class:: QXmlNodeModelIndex
 
-    `C++ documentation <http://qt-project.org/doc/qt-5.2/qxmlnodemodelindex.html>`_
+    `C++ documentation <http://qt-project.org/doc/qt-5/qxmlnodemodelindex.html>`_

@@ -5,4 +5,4 @@ QSystemSemaphore
 
 .. class:: QSystemSemaphore
 
-    `C++ documentation <http://qt-project.org/doc/qt-5.2/qsystemsemaphore.html>`_
+    `C++ documentation <http://qt-project.org/doc/qt-5/qsystemsemaphore.html>`_

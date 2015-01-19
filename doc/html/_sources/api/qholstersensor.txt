@@ -5,4 +5,4 @@ QHolsterSensor
 
 .. class:: QHolsterSensor
 
-    `C++ documentation <http://qt-project.org/doc/qt-5.2/qholstersensor.html>`_
+    `C++ documentation <http://qt-project.org/doc/qt-5/qholstersensor.html>`_

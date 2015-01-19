@@ -5,4 +5,4 @@ QNetworkAddressEntry
 
 .. class:: QNetworkAddressEntry
 
-    `C++ documentation <http://qt-project.org/doc/qt-5.2/qnetworkaddressentry.html>`_
+    `C++ documentation <http://qt-project.org/doc/qt-5/qnetworkaddressentry.html>`_

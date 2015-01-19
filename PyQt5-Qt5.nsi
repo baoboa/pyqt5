@@ -19,7 +19,7 @@
 
 
 # These will change with different releases.
-!define PYQT_VERSION        "5.3.1-snapshot-b10aab47cc69"
+!define PYQT_VERSION        "5.3.2"
 !define PYQT_INSTALLER      ""
 #!define PYQT_INSTALLER      "-2"
 !define PYQT_LICENSE        "GPL"
@@ -27,7 +27,7 @@
 !define PYQT_PYTHON_MAJOR   "3"
 !define PYQT_PYTHON_MINOR   "4"
 !define PYQT_ARCH           "x64"
-!define PYQT_QT_VERS        "5.3.0"
+!define PYQT_QT_VERS        "5.3.1"
 !define PYQT_QT_DOC_VERS    "5"
 
 # These are all derived from the above.
@@ -216,6 +216,7 @@ Section "Extension modules" SecModules
     File .\build\QtWidgets\QtWidgets.pyd
     File .\build\QtXmlPatterns\QtXmlPatterns.pyd
     File .\build\QAxContainer\QAxContainer.pyd
+    File .\build\Enginio\Enginio.pyd
     File .\build\_QOpenGLFunctions_ES2\_QOpenGLFunctions_ES2.pyd
 SectionEnd
 
@@ -244,6 +245,7 @@ Section "Qt runtime" SecQt
     File .\build\qmlscene\release\pyqt5qmlplugin.dll
 
     SetOutPath $INSTDIR\Lib\site-packages\PyQt5
+    File "${QT_SRC_DIR}\bin\Enginio.dll"
     File "${QT_SRC_DIR}\bin\qmlscene.exe"
     File "${QT_SRC_DIR}\bin\Qt5CLucene.dll"
     File "${QT_SRC_DIR}\bin\Qt5Core.dll"
@@ -383,7 +385,9 @@ Section "Qt developer tools" SecQtTools
     File "${QT_SRC_DIR}\bin\lrelease.exe"
     File "${QT_SRC_DIR}\bin\qcollectiongenerator.exe"
     File "${QT_SRC_DIR}\bin\qhelpgenerator.exe"
+    File "${QT_SRC_DIR}\bin\qmake.exe"
     File "${QT_SRC_DIR}\bin\xmlpatterns.exe"
+    File /r "${QT_SRC_DIR}\mkspecs"
 
     SetOutPath $INSTDIR\Lib\site-packages\PyQt5\plugins\designer
     File "${QT_SRC_DIR}\plugins\designer\qwebview.dll"

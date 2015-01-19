@@ -5,4 +5,4 @@ QAbstractMessageHandler
 
 .. class:: QAbstractMessageHandler
 
-    `C++ documentation <http://qt-project.org/doc/qt-5.2/qabstractmessagehandler.html>`_
+    `C++ documentation <http://qt-project.org/doc/qt-5/qabstractmessagehandler.html>`_

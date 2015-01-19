@@ -5,4 +5,4 @@ QNetworkAccessManager
 
 .. class:: QNetworkAccessManager
 
-    `C++ documentation <http://qt-project.org/doc/qt-5.2/qnetworkaccessmanager.html>`_
+    `C++ documentation <http://qt-project.org/doc/qt-5/qnetworkaccessmanager.html>`_

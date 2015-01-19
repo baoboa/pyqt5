@@ -5,4 +5,4 @@ QStandardItemModel
 
 .. class:: QStandardItemModel
 
-    `C++ documentation <http://qt-project.org/doc/qt-5.2/qstandarditemmodel.html>`_
+    `C++ documentation <http://qt-project.org/doc/qt-5/qstandarditemmodel.html>`_

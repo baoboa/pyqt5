@@ -5,4 +5,4 @@ QGraphicsSceneContextMenuEvent
 
 .. class:: QGraphicsSceneContextMenuEvent
 
-    `C++ documentation <http://qt-project.org/doc/qt-5.2/qgraphicsscenecontextmenuevent.html>`_
+    `C++ documentation <http://qt-project.org/doc/qt-5/qgraphicsscenecontextmenuevent.html>`_

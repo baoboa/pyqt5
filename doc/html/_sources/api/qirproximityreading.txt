@@ -5,4 +5,4 @@ QIRProximityReading
 
 .. class:: QIRProximityReading
 
-    `C++ documentation <http://qt-project.org/doc/qt-5.2/qirproximityreading.html>`_
+    `C++ documentation <http://qt-project.org/doc/qt-5/qirproximityreading.html>`_

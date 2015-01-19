@@ -5,4 +5,4 @@ QAction
 
 .. class:: QAction
 
-    `C++ documentation <http://qt-project.org/doc/qt-5.2/qaction.html>`_
+    `C++ documentation <http://qt-project.org/doc/qt-5/qaction.html>`_

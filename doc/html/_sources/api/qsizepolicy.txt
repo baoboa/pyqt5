@@ -5,4 +5,4 @@ QSizePolicy
 
 .. class:: QSizePolicy
 
-    `C++ documentation <http://qt-project.org/doc/qt-5.2/qsizepolicy.html>`_
+    `C++ documentation <http://qt-project.org/doc/qt-5/qsizepolicy.html>`_

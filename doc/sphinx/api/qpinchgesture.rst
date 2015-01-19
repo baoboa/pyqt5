@@ -5,4 +5,4 @@ QPinchGesture
 
 .. class:: QPinchGesture
 
-    `C++ documentation <http://qt-project.org/doc/qt-5.2/qpinchgesture.html>`_
+    `C++ documentation <http://qt-project.org/doc/qt-5/qpinchgesture.html>`_

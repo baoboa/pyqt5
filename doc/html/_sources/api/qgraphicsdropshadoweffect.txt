@@ -5,4 +5,4 @@ QGraphicsDropShadowEffect
 
 .. class:: QGraphicsDropShadowEffect
 
-    `C++ documentation <http://qt-project.org/doc/qt-5.2/qgraphicsdropshadoweffect.html>`_
+    `C++ documentation <http://qt-project.org/doc/qt-5/qgraphicsdropshadoweffect.html>`_

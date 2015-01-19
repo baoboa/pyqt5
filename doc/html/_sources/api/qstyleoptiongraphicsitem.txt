@@ -5,4 +5,4 @@ QStyleOptionGraphicsItem
 
 .. class:: QStyleOptionGraphicsItem
 
-    `C++ documentation <http://qt-project.org/doc/qt-5.2/qstyleoptiongraphicsitem.html>`_
+    `C++ documentation <http://qt-project.org/doc/qt-5/qstyleoptiongraphicsitem.html>`_

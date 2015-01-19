@@ -5,4 +5,4 @@ QGraphicsRotation
 
 .. class:: QGraphicsRotation
 
-    `C++ documentation <http://qt-project.org/doc/qt-5.2/qgraphicsrotation.html>`_
+    `C++ documentation <http://qt-project.org/doc/qt-5/qgraphicsrotation.html>`_

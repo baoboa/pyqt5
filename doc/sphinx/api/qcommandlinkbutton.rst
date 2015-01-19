@@ -5,4 +5,4 @@ QCommandLinkButton
 
 .. class:: QCommandLinkButton
 
-    `C++ documentation <http://qt-project.org/doc/qt-5.2/qcommandlinkbutton.html>`_
+    `C++ documentation <http://qt-project.org/doc/qt-5/qcommandlinkbutton.html>`_

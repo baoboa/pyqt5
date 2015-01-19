@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Deploying Commercial PyQt5 Applications &mdash; PyQt 5.3.1-snapshot-b10aab47cc69 Reference Guide</title>
+    <title>Deploying Commercial PyQt5 Applications &mdash; PyQt 5.3.2 Reference Guide</title>
     
     <link rel="stylesheet" href="_static/default.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '5.3.1-snapshot-b10aab47cc69',
+        VERSION:     '5.3.2',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -24,7 +24,7 @@
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
     <link rel="shortcut icon" href="_static/logo_tn.ico"/>
-    <link rel="top" title="PyQt 5.3.1-snapshot-b10aab47cc69 Reference Guide" href="index.html" />
+    <link rel="top" title="PyQt 5.3.2 Reference Guide" href="index.html" />
     <link rel="next" title="The PyQt5 Extension API" href="extension_api.html" />
     <link rel="prev" title="DBus Support" href="dbus.html" /> 
   </head>
@@ -44,7 +44,7 @@
         <li class="right" >
           <a href="dbus.html" title="DBus Support"
              accesskey="P">previous</a> |</li>
-        <li><a href="index.html">PyQt 5.3.1-snapshot-b10aab47cc69 Reference Guide</a> &raquo;</li> 
+        <li><a href="index.html">PyQt 5.3.2 Reference Guide</a> &raquo;</li> 
       </ul>
     </div>  
 
@@ -54,22 +54,22 @@
           <div class="body">
             
   <div class="section" id="deploying-commercial-pyqt5-applications">
-<span id="ref-deploy-commercial"></span><h1>Deploying Commercial PyQt5 Applications<a class="headerlink" href="#deploying-commercial-pyqt5-applications" title="Permalink to this headline">¶</a></h1>
-<p>When deploying commercial PyQt5 applications it is necessary to discourage
-users from accessing the underlying PyQt5 modules for themselves.  A user that
-used the modules shipped with your application to develop new applications
-would themselves be considered a developer and would need their own commercial
-PyQt5 license.</p>
-<p>One solution to this problem (for Python v2 only) is the <a class="reference external" href="http://www.riverbankcomputing.com/software/vendorid/">VendorID</a> package.  This allows
-you to build Python extension modules that can only be imported by a digitally
-signed custom interpreter.  The package enables you to create such an
-interpreter with your application embedded within it.  The result is an
-interpreter that can only run your application, and PyQt5 modules that can only
-be imported by that interpreter.  You can use the package to similarly restrict
-access to any extension module.</p>
-<p>In order to build PyQt5 with support for the VendorID package, pass the
-<a class="reference internal" href="installation.html#cmdoption-configure.py--vendorid"><em class="xref std std-option">--vendorid</em></a> command line option to
-<strong class="program">configure.py</strong>.</p>
+<h1>Deploying Commercial PyQt5 Applications<a class="headerlink" href="#deploying-commercial-pyqt5-applications" title="Permalink to this headline">¶</a></h1>
+<p>Deploying commercial PyQt5 applications can be a complicated process for a
+number of reasons:</p>
+<ul class="simple">
+<li>It is usually better not to rely on pre-requisite packages being already
+installed on the user&#8217;s system.  This means that as well as your application
+code, you also need to include the Python interpreter, the standard library,
+third-pary packages and extension modules, and Qt itself.</li>
+<li>Some target platforms (iOS for example) have restrictions on how an
+application is built in order for it to be included in app stores.</li>
+<li>It is necessary to discourage users from accessing the underlying PyQt5
+modules for themselves.  A user that used the modules shipped with your
+application to develop new applications would themselves be considered a
+developer and would need their own commercial PyQt5 license.</li>
+</ul>
+<p>The recommended solution to all of these issues is to use <a class="reference external" href="http://www.riverbankcomputing.com/software/pyqtdeploy/">pyqtdeploy</a>.</p>
 </div>
 
 
@@ -119,7 +119,7 @@ access to any extension module.</p>
         <li class="right" >
           <a href="dbus.html" title="DBus Support"
              >previous</a> |</li>
-        <li><a href="index.html">PyQt 5.3.1-snapshot-b10aab47cc69 Reference Guide</a> &raquo;</li> 
+        <li><a href="index.html">PyQt 5.3.2 Reference Guide</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer">

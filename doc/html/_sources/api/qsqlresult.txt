@@ -5,4 +5,4 @@ QSqlResult
 
 .. class:: QSqlResult
 
-    `C++ documentation <http://qt-project.org/doc/qt-5.2/qsqlresult.html>`_
+    `C++ documentation <http://qt-project.org/doc/qt-5/qsqlresult.html>`_

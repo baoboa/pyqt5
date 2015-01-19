@@ -5,4 +5,4 @@ QDesignerFormWindowCursorInterface
 
 .. class:: QDesignerFormWindowCursorInterface
 
-    `C++ documentation <http://qt-project.org/doc/qt-5.2/qdesignerformwindowcursorinterface.html>`_
+    `C++ documentation <http://qt-project.org/doc/qt-5/qdesignerformwindowcursorinterface.html>`_

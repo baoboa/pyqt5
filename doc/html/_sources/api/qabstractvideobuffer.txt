@@ -5,4 +5,4 @@ QAbstractVideoBuffer
 
 .. class:: QAbstractVideoBuffer
 
-    `C++ documentation <http://qt-project.org/doc/qt-5.2/qabstractvideobuffer.html>`_
+    `C++ documentation <http://qt-project.org/doc/qt-5/qabstractvideobuffer.html>`_

@@ -5,4 +5,4 @@ QVideoSurfaceFormat
 
 .. class:: QVideoSurfaceFormat
 
-    `C++ documentation <http://qt-project.org/doc/qt-5.2/qvideosurfaceformat.html>`_
+    `C++ documentation <http://qt-project.org/doc/qt-5/qvideosurfaceformat.html>`_

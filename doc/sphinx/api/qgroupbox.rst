@@ -5,4 +5,4 @@ QGroupBox
 
 .. class:: QGroupBox
 
-    `C++ documentation <http://qt-project.org/doc/qt-5.2/qgroupbox.html>`_
+    `C++ documentation <http://qt-project.org/doc/qt-5/qgroupbox.html>`_

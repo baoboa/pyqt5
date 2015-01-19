@@ -5,4 +5,4 @@ QStyle
 
 .. class:: QStyle
 
-    `C++ documentation <http://qt-project.org/doc/qt-5.2/qstyle.html>`_
+    `C++ documentation <http://qt-project.org/doc/qt-5/qstyle.html>`_

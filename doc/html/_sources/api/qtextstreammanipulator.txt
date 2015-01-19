@@ -5,4 +5,4 @@ QTextStreamManipulator
 
 .. class:: QTextStreamManipulator
 
-    `C++ documentation <http://qt-project.org/doc/qt-5.2/qtextstreammanipulator.html>`_
+    `C++ documentation <http://qt-project.org/doc/qt-5/qtextstreammanipulator.html>`_

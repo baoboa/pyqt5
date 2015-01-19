@@ -5,4 +5,4 @@ QSpinBox
 
 .. class:: QSpinBox
 
-    `C++ documentation <http://qt-project.org/doc/qt-5.2/qspinbox.html>`_
+    `C++ documentation <http://qt-project.org/doc/qt-5/qspinbox.html>`_

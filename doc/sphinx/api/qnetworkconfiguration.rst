@@ -5,4 +5,4 @@ QNetworkConfiguration
 
 .. class:: QNetworkConfiguration
 
-    `C++ documentation <http://qt-project.org/doc/qt-5.2/qnetworkconfiguration.html>`_
+    `C++ documentation <http://qt-project.org/doc/qt-5/qnetworkconfiguration.html>`_

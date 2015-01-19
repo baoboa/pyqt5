@@ -23,3 +23,19 @@ incompatibility for any code that relies on the earlier behaviour.  As a
 workaround for this the ``no_receiver_check`` argument has been added to
 :func:`~PyQt5.QtCore.QObject.connect` which allows the check to be suppressed
 on a per connection basis.
+
+
+Qt Signals with Default Arguments
+*********************************
+
+In previous versions Qt signals with default arguments were exposed as multiple
+signals each with one additional default argument.  For example
+``QAbstractButton::clicked(bool checked = false)`` was exposed as
+``QAbstractButton::clicked(bool checked)`` and ``QAbstractButton::clicked()``
+where the former was the default signal.  It was therefore possible to index
+the latter by using an empty tuple as the key - although there was no benefit
+in doing so.
+
+In this version only the signal with all arguments supplied is exposed.
+However the signal's ``emit()`` method still supports the default argument,
+i.e. when used normally the change should not be noticed.

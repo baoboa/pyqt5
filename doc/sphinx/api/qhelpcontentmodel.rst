@@ -5,4 +5,4 @@ QHelpContentModel
 
 .. class:: QHelpContentModel
 
-    `C++ documentation <http://qt-project.org/doc/qt-5.2/qhelpcontentmodel.html>`_
+    `C++ documentation <http://qt-project.org/doc/qt-5/qhelpcontentmodel.html>`_

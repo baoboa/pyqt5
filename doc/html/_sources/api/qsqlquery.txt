@@ -5,4 +5,4 @@ QSqlQuery
 
 .. class:: QSqlQuery
 
-    `C++ documentation <http://qt-project.org/doc/qt-5.2/qsqlquery.html>`_
+    `C++ documentation <http://qt-project.org/doc/qt-5/qsqlquery.html>`_

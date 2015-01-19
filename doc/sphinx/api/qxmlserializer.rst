@@ -5,4 +5,4 @@ QXmlSerializer
 
 .. class:: QXmlSerializer
 
-    `C++ documentation <http://qt-project.org/doc/qt-5.2/qxmlserializer.html>`_
+    `C++ documentation <http://qt-project.org/doc/qt-5/qxmlserializer.html>`_

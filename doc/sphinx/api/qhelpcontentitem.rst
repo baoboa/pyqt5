@@ -5,4 +5,4 @@ QHelpContentItem
 
 .. class:: QHelpContentItem
 
-    `C++ documentation <http://qt-project.org/doc/qt-5.2/qhelpcontentitem.html>`_
+    `C++ documentation <http://qt-project.org/doc/qt-5/qhelpcontentitem.html>`_

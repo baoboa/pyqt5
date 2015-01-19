@@ -3,7 +3,7 @@
 
 #############################################################################
 ##
-## Copyright (C) 2013 Riverbank Computing Limited.
+## Copyright (C) 2014 Riverbank Computing Limited.
 ## Copyright (C) 2010 Nokia Corporation and/or its subsidiary(-ies).
 ## All rights reserved.
 ##
@@ -47,8 +47,6 @@ from PyQt5.QtCore import (QFile, QFileInfo, QPoint, QRect, QSettings, QSize,
 from PyQt5.QtGui import QIcon, QKeySequence
 from PyQt5.QtWidgets import (QAction, QApplication, QFileDialog, QMainWindow,
         QMessageBox, QTextEdit)
-
-import application_rc
 
 
 class MainWindow(QMainWindow):
@@ -112,15 +110,17 @@ class MainWindow(QMainWindow):
         self.setWindowModified(self.textEdit.document().isModified())
 
     def createActions(self):
-        self.newAct = QAction(QIcon(':/images/new.png'), "&New", self,
+        root = QFileInfo(__file__).absolutePath()
+
+        self.newAct = QAction(QIcon(root + '/images/new.png'), "&New", self,
                 shortcut=QKeySequence.New, statusTip="Create a new file",
                 triggered=self.newFile)
 
-        self.openAct = QAction(QIcon(':/images/open.png'), "&Open...", self,
-                shortcut=QKeySequence.Open, statusTip="Open an existing file",
-                triggered=self.open)
+        self.openAct = QAction(QIcon(root + '/images/open.png'), "&Open...",
+                self, shortcut=QKeySequence.Open,
+                statusTip="Open an existing file", triggered=self.open)
 
-        self.saveAct = QAction(QIcon(':/images/save.png'), "&Save", self,
+        self.saveAct = QAction(QIcon(root + '/images/save.png'), "&Save", self,
                 shortcut=QKeySequence.Save,
                 statusTip="Save the document to disk", triggered=self.save)
 
@@ -132,18 +132,18 @@ class MainWindow(QMainWindow):
         self.exitAct = QAction("E&xit", self, shortcut="Ctrl+Q",
                 statusTip="Exit the application", triggered=self.close)
 
-        self.cutAct = QAction(QIcon(':/images/cut.png'), "Cu&t", self,
+        self.cutAct = QAction(QIcon(root + '/images/cut.png'), "Cu&t", self,
                 shortcut=QKeySequence.Cut,
                 statusTip="Cut the current selection's contents to the clipboard",
                 triggered=self.textEdit.cut)
 
-        self.copyAct = QAction(QIcon(':/images/copy.png'), "&Copy", self,
+        self.copyAct = QAction(QIcon(root + '/images/copy.png'), "&Copy", self,
                 shortcut=QKeySequence.Copy,
                 statusTip="Copy the current selection's contents to the clipboard",
                 triggered=self.textEdit.copy)
 
-        self.pasteAct = QAction(QIcon(':/images/paste.png'), "&Paste", self,
-                shortcut=QKeySequence.Paste,
+        self.pasteAct = QAction(QIcon(root + '/images/paste.png'), "&Paste",
+                self, shortcut=QKeySequence.Paste,
                 statusTip="Paste the clipboard's contents into the current selection",
                 triggered=self.textEdit.paste)
 

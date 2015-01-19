@@ -5,4 +5,4 @@ QDBusError
 
 .. class:: QDBusError
 
-    `C++ documentation <http://qt-project.org/doc/qt-5.2/qdbuserror.html>`_
+    `C++ documentation <http://qt-project.org/doc/qt-5/qdbuserror.html>`_

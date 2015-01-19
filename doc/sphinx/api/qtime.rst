@@ -5,4 +5,4 @@ QTime
 
 .. class:: QTime
 
-    `C++ documentation <http://qt-project.org/doc/qt-5.2/qtime.html>`_
+    `C++ documentation <http://qt-project.org/doc/qt-5/qtime.html>`_

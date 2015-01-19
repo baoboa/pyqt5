@@ -5,4 +5,4 @@ QSqlDatabase
 
 .. class:: QSqlDatabase
 
-    `C++ documentation <http://qt-project.org/doc/qt-5.2/qsqldatabase.html>`_
+    `C++ documentation <http://qt-project.org/doc/qt-5/qsqldatabase.html>`_

@@ -5,4 +5,4 @@ QXmlSchema
 
 .. class:: QXmlSchema
 
-    `C++ documentation <http://qt-project.org/doc/qt-5.2/qxmlschema.html>`_
+    `C++ documentation <http://qt-project.org/doc/qt-5/qxmlschema.html>`_

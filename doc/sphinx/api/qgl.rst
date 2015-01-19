@@ -5,4 +5,4 @@ QGL
 
 .. class:: QGL
 
-    `C++ documentation <http://qt-project.org/doc/qt-5.2/qgl.html>`_
+    `C++ documentation <http://qt-project.org/doc/qt-5/qgl.html>`_

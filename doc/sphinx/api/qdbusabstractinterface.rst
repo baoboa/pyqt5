@@ -5,4 +5,4 @@ QDBusAbstractInterface
 
 .. class:: QDBusAbstractInterface
 
-    `C++ documentation <http://qt-project.org/doc/qt-5.2/qdbusabstractinterface.html>`_
+    `C++ documentation <http://qt-project.org/doc/qt-5/qdbusabstractinterface.html>`_

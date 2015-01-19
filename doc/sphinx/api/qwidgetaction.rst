@@ -5,4 +5,4 @@ QWidgetAction
 
 .. class:: QWidgetAction
 
-    `C++ documentation <http://qt-project.org/doc/qt-5.2/qwidgetaction.html>`_
+    `C++ documentation <http://qt-project.org/doc/qt-5/qwidgetaction.html>`_

@@ -5,4 +5,4 @@ QDialogButtonBox
 
 .. class:: QDialogButtonBox
 
-    `C++ documentation <http://qt-project.org/doc/qt-5.2/qdialogbuttonbox.html>`_
+    `C++ documentation <http://qt-project.org/doc/qt-5/qdialogbuttonbox.html>`_

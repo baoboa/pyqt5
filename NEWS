@@ -1,3 +1,17 @@
+v5.3.2 11th September 2014
+  - Added the Enginio module.
+  - Added the QJsonDocument and QJsonValue classes.
+  - QJsonObject is implemented as a Python dict.
+  - QJsonArray is implemented as a Python list.
+  - Added setUnifiedTitleAndToolBarOnMac() and unifiedTitleAndToolBarOnMac() to
+    QWidget.
+  - Added windowHandle() to QWidget.
+
+v5.3.1 4th July 2014
+  - Added support for Qt v5.3.1.
+  - Added the -tr-function and -translate-function command line options to
+    pylupdate5.
+
 v5.3 26th May 2014
   - By default a Python slot is only invoked if the underlying C++ instance
     still exists.

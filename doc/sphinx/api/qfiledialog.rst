@@ -5,4 +5,4 @@ QFileDialog
 
 .. class:: QFileDialog
 
-    `C++ documentation <http://qt-project.org/doc/qt-5.2/qfiledialog.html>`_
+    `C++ documentation <http://qt-project.org/doc/qt-5/qfiledialog.html>`_

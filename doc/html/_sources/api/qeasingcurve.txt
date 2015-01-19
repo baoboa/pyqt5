@@ -5,4 +5,4 @@ QEasingCurve
 
 .. class:: QEasingCurve
 
-    `C++ documentation <http://qt-project.org/doc/qt-5.2/qeasingcurve.html>`_
+    `C++ documentation <http://qt-project.org/doc/qt-5/qeasingcurve.html>`_

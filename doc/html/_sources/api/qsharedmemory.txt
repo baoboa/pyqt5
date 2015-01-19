@@ -5,4 +5,4 @@ QSharedMemory
 
 .. class:: QSharedMemory
 
-    `C++ documentation <http://qt-project.org/doc/qt-5.2/qsharedmemory.html>`_
+    `C++ documentation <http://qt-project.org/doc/qt-5/qsharedmemory.html>`_

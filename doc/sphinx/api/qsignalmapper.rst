@@ -5,4 +5,4 @@ QSignalMapper
 
 .. class:: QSignalMapper
 
-    `C++ documentation <http://qt-project.org/doc/qt-5.2/qsignalmapper.html>`_
+    `C++ documentation <http://qt-project.org/doc/qt-5/qsignalmapper.html>`_

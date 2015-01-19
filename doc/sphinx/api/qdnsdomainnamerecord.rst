@@ -5,4 +5,4 @@ QDnsDomainNameRecord
 
 .. class:: QDnsDomainNameRecord
 
-    `C++ documentation <http://qt-project.org/doc/qt-5.2/qdnsdomainnamerecord.html>`_
+    `C++ documentation <http://qt-project.org/doc/qt-5/qdnsdomainnamerecord.html>`_

@@ -5,4 +5,4 @@ QScrollerProperties
 
 .. class:: QScrollerProperties
 
-    `C++ documentation <http://qt-project.org/doc/qt-5.2/qscrollerproperties.html>`_
+    `C++ documentation <http://qt-project.org/doc/qt-5/qscrollerproperties.html>`_

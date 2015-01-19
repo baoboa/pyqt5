@@ -5,4 +5,4 @@ QTableWidgetSelectionRange
 
 .. class:: QTableWidgetSelectionRange
 
-    `C++ documentation <http://qt-project.org/doc/qt-5.2/qtablewidgetselectionrange.html>`_
+    `C++ documentation <http://qt-project.org/doc/qt-5/qtablewidgetselectionrange.html>`_

@@ -5,4 +5,4 @@ QPixmapCache
 
 .. class:: QPixmapCache
 
-    `C++ documentation <http://qt-project.org/doc/qt-5.2/qpixmapcache.html>`_
+    `C++ documentation <http://qt-project.org/doc/qt-5/qpixmapcache.html>`_

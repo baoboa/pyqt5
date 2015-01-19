@@ -5,4 +5,4 @@ QSvgWidget
 
 .. class:: QSvgWidget
 
-    `C++ documentation <http://qt-project.org/doc/qt-5.2/qsvgwidget.html>`_
+    `C++ documentation <http://qt-project.org/doc/qt-5/qsvgwidget.html>`_

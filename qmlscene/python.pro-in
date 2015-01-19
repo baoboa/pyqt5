@@ -1,6 +1,9 @@
 CONFIG      += plugin @QTCONFIG@ warn_on
 QT          += qml
 
+# Work around QTBUG-39300.
+CONFIG -= android_install
+
 TARGET      = pyqt5qmlplugin
 TEMPLATE    = lib
 

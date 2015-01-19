@@ -5,4 +5,4 @@ QAudioDecoder
 
 .. class:: QAudioDecoder
 
-    `C++ documentation <http://qt-project.org/doc/qt-5.2/qaudiodecoder.html>`_
+    `C++ documentation <http://qt-project.org/doc/qt-5/qaudiodecoder.html>`_

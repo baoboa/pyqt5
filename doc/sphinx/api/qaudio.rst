@@ -5,4 +5,4 @@ QAudio
 
 .. class:: QAudio
 
-    `C++ documentation <http://qt-project.org/doc/qt-5.2/qaudio.html>`_
+    `C++ documentation <http://qt-project.org/doc/qt-5/qaudio.html>`_

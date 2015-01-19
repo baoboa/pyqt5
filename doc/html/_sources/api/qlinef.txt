@@ -5,4 +5,4 @@ QLineF
 
 .. class:: QLineF
 
-    `C++ documentation <http://qt-project.org/doc/qt-5.2/qlinef.html>`_
+    `C++ documentation <http://qt-project.org/doc/qt-5/qlinef.html>`_

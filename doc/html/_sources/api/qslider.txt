@@ -5,4 +5,4 @@ QSlider
 
 .. class:: QSlider
 
-    `C++ documentation <http://qt-project.org/doc/qt-5.2/qslider.html>`_
+    `C++ documentation <http://qt-project.org/doc/qt-5/qslider.html>`_

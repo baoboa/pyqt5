@@ -5,4 +5,4 @@ QNetworkProxy
 
 .. class:: QNetworkProxy
 
-    `C++ documentation <http://qt-project.org/doc/qt-5.2/qnetworkproxy.html>`_
+    `C++ documentation <http://qt-project.org/doc/qt-5/qnetworkproxy.html>`_

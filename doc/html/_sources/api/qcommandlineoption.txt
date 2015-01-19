@@ -5,4 +5,4 @@ QCommandLineOption
 
 .. class:: QCommandLineOption
 
-    `C++ documentation <http://qt-project.org/doc/qt-5.2/qcommandlineoption.html>`_
+    `C++ documentation <http://qt-project.org/doc/qt-5/qcommandlineoption.html>`_

@@ -5,4 +5,4 @@ QQmlExtensionPlugin
 
 .. class:: QQmlExtensionPlugin
 
-    `C++ documentation <http://qt-project.org/doc/qt-5.2/qqmlextensionplugin.html>`_
+    `C++ documentation <http://qt-project.org/doc/qt-5/qqmlextensionplugin.html>`_

@@ -5,4 +5,4 @@ QDnsTextRecord
 
 .. class:: QDnsTextRecord
 
-    `C++ documentation <http://qt-project.org/doc/qt-5.2/qdnstextrecord.html>`_
+    `C++ documentation <http://qt-project.org/doc/qt-5/qdnstextrecord.html>`_

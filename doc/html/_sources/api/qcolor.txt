@@ -5,4 +5,4 @@ QColor
 
 .. class:: QColor
 
-    `C++ documentation <http://qt-project.org/doc/qt-5.2/qcolor.html>`_
+    `C++ documentation <http://qt-project.org/doc/qt-5/qcolor.html>`_

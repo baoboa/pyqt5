@@ -5,4 +5,4 @@ QGLContext
 
 .. class:: QGLContext
 
-    `C++ documentation <http://qt-project.org/doc/qt-5.2/qglcontext.html>`_
+    `C++ documentation <http://qt-project.org/doc/qt-5/qglcontext.html>`_

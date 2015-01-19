@@ -5,4 +5,4 @@ QFormLayout
 
 .. class:: QFormLayout
 
-    `C++ documentation <http://qt-project.org/doc/qt-5.2/qformlayout.html>`_
+    `C++ documentation <http://qt-project.org/doc/qt-5/qformlayout.html>`_

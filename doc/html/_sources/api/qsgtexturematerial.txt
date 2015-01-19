@@ -5,4 +5,4 @@ QSGTextureMaterial
 
 .. class:: QSGTextureMaterial
 
-    `C++ documentation <http://qt-project.org/doc/qt-5.2/qsgtexturematerial.html>`_
+    `C++ documentation <http://qt-project.org/doc/qt-5/qsgtexturematerial.html>`_

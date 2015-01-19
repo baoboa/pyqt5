@@ -5,4 +5,4 @@ QStyledItemDelegate
 
 .. class:: QStyledItemDelegate
 
-    `C++ documentation <http://qt-project.org/doc/qt-5.2/qstyleditemdelegate.html>`_
+    `C++ documentation <http://qt-project.org/doc/qt-5/qstyleditemdelegate.html>`_

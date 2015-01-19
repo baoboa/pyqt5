@@ -5,4 +5,4 @@ QSaveFile
 
 .. class:: QSaveFile
 
-    `C++ documentation <http://qt-project.org/doc/qt-5.2/qsavefile.html>`_
+    `C++ documentation <http://qt-project.org/doc/qt-5/qsavefile.html>`_

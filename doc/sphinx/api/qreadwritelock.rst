@@ -5,4 +5,4 @@ QReadWriteLock
 
 .. class:: QReadWriteLock
 
-    `C++ documentation <http://qt-project.org/doc/qt-5.2/qreadwritelock.html>`_
+    `C++ documentation <http://qt-project.org/doc/qt-5/qreadwritelock.html>`_

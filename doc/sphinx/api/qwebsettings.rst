@@ -5,4 +5,4 @@ QWebSettings
 
 .. class:: QWebSettings
 
-    `C++ documentation <http://qt-project.org/doc/qt-5.2/qwebsettings.html>`_
+    `C++ documentation <http://qt-project.org/doc/qt-5/qwebsettings.html>`_

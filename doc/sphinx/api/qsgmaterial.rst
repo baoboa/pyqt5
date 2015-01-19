@@ -5,4 +5,4 @@ QSGMaterial
 
 .. class:: QSGMaterial
 
-    `C++ documentation <http://qt-project.org/doc/qt-5.2/qsgmaterial.html>`_
+    `C++ documentation <http://qt-project.org/doc/qt-5/qsgmaterial.html>`_

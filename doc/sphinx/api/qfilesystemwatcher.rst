@@ -5,4 +5,4 @@ QFileSystemWatcher
 
 .. class:: QFileSystemWatcher
 
-    `C++ documentation <http://qt-project.org/doc/qt-5.2/qfilesystemwatcher.html>`_
+    `C++ documentation <http://qt-project.org/doc/qt-5/qfilesystemwatcher.html>`_

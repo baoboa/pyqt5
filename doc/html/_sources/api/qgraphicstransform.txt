@@ -5,4 +5,4 @@ QGraphicsTransform
 
 .. class:: QGraphicsTransform
 
-    `C++ documentation <http://qt-project.org/doc/qt-5.2/qgraphicstransform.html>`_
+    `C++ documentation <http://qt-project.org/doc/qt-5/qgraphicstransform.html>`_

@@ -5,4 +5,4 @@ QGestureRecognizer
 
 .. class:: QGestureRecognizer
 
-    `C++ documentation <http://qt-project.org/doc/qt-5.2/qgesturerecognizer.html>`_
+    `C++ documentation <http://qt-project.org/doc/qt-5/qgesturerecognizer.html>`_

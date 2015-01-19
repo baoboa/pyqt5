@@ -5,4 +5,4 @@ QFrame
 
 .. class:: QFrame
 
-    `C++ documentation <http://qt-project.org/doc/qt-5.2/qframe.html>`_
+    `C++ documentation <http://qt-project.org/doc/qt-5/qframe.html>`_

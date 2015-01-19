@@ -5,4 +5,4 @@ QGraphicsBlurEffect
 
 .. class:: QGraphicsBlurEffect
 
-    `C++ documentation <http://qt-project.org/doc/qt-5.2/qgraphicsblureffect.html>`_
+    `C++ documentation <http://qt-project.org/doc/qt-5/qgraphicsblureffect.html>`_

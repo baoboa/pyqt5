@@ -46,7 +46,9 @@ QPyQmlObjectProxy::~QPyQmlObjectProxy()
 {
     proxies.remove(this);
 
+    SIP_BLOCK_THREADS
     Py_XDECREF(py_proxied);
+    SIP_UNBLOCK_THREADS
 
     if (!proxied.isNull())
         delete proxied.data();

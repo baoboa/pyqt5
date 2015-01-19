@@ -5,4 +5,4 @@ QTextObject
 
 .. class:: QTextObject
 
-    `C++ documentation <http://qt-project.org/doc/qt-5.2/qtextobject.html>`_
+    `C++ documentation <http://qt-project.org/doc/qt-5/qtextobject.html>`_

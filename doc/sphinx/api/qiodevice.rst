@@ -5,4 +5,4 @@ QIODevice
 
 .. class:: QIODevice
 
-    `C++ documentation <http://qt-project.org/doc/qt-5.2/qiodevice.html>`_
+    `C++ documentation <http://qt-project.org/doc/qt-5/qiodevice.html>`_

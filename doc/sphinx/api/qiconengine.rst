@@ -5,4 +5,4 @@ QIconEngine
 
 .. class:: QIconEngine
 
-    `C++ documentation <http://qt-project.org/doc/qt-5.2/qiconengine.html>`_
+    `C++ documentation <http://qt-project.org/doc/qt-5/qiconengine.html>`_

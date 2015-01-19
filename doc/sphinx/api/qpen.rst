@@ -5,4 +5,4 @@ QPen
 
 .. class:: QPen
 
-    `C++ documentation <http://qt-project.org/doc/qt-5.2/qpen.html>`_
+    `C++ documentation <http://qt-project.org/doc/qt-5/qpen.html>`_

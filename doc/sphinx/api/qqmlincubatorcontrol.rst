@@ -5,4 +5,4 @@ QQmlIncubatorControl
 
 .. class:: QQmlIncubatorControl
 
-    `C++ documentation <http://qt-project.org/doc/qt-5.2/qqmlincubatorcontrol.html>`_
+    `C++ documentation <http://qt-project.org/doc/qt-5/qqmlincubatorcontrol.html>`_

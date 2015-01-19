@@ -5,4 +5,4 @@ QStyleOptionHeader
 
 .. class:: QStyleOptionHeader
 
-    `C++ documentation <http://qt-project.org/doc/qt-5.2/qstyleoptionheader.html>`_
+    `C++ documentation <http://qt-project.org/doc/qt-5/qstyleoptionheader.html>`_

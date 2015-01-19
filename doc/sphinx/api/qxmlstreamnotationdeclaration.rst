@@ -5,4 +5,4 @@ QXmlStreamNotationDeclaration
 
 .. class:: QXmlStreamNotationDeclaration
 
-    `C++ documentation <http://qt-project.org/doc/qt-5.2/qxmlstreamnotationdeclaration.html>`_
+    `C++ documentation <http://qt-project.org/doc/qt-5/qxmlstreamnotationdeclaration.html>`_

@@ -5,4 +5,4 @@ QDataStream
 
 .. class:: QDataStream
 
-    `C++ documentation <http://qt-project.org/doc/qt-5.2/qdatastream.html>`_
+    `C++ documentation <http://qt-project.org/doc/qt-5/qdatastream.html>`_

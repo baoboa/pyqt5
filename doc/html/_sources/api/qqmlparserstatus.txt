@@ -5,4 +5,4 @@ QQmlParserStatus
 
 .. class:: QQmlParserStatus
 
-    `C++ documentation <http://qt-project.org/doc/qt-5.2/qqmlparserstatus.html>`_
+    `C++ documentation <http://qt-project.org/doc/qt-5/qqmlparserstatus.html>`_
