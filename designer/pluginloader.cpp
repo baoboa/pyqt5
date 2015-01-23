@@ -23,7 +23,7 @@
 
 #include "pluginloader.h"
 
-#include <stdlib.h>
+#include <cstdlib>
 
 #include <QtGlobal>
 #include <QtPlugin>
