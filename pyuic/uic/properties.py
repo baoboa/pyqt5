@@ -1,6 +1,6 @@
 #############################################################################
 ##
-## Copyright (C) 2014 Riverbank Computing Limited.
+## Copyright (C) 2015 Riverbank Computing Limited.
 ## Copyright (C) 2006 Thorsten Marek.
 ## All right reserved.
 ##
@@ -490,11 +490,6 @@ class Properties(object):
             widget.setFrameShape(
                 {'Qt::Horizontal': QtWidgets.QFrame.HLine,
                  'Qt::Vertical'  : QtWidgets.QFrame.VLine}[prop[0].text])
-
-            # In Qt Designer, lines appear to be sunken, QFormBuilder loads
-            # them as such, uic generates plain lines.  We stick to the look in
-            # Qt Designer.
-            widget.setFrameShadow(QtWidgets.QFrame.Sunken)
         else:
             widget.setOrientation(self._enum(prop[0]))
 

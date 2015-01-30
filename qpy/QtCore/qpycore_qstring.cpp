@@ -1,6 +1,6 @@
 // This is the support for QString.
 //
-// Copyright (c) 2014 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2015 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -108,13 +108,16 @@ PyObject *qpycore_PyObject_FromQString(const QString &qstr)
             data = PyUnicode_DATA(obj);
             qch = qstr.constData();
 
+            int qt_i2 = 0;
+
             for (int py_i = 0; py_i < py_len; ++py_i)
             {
                 Py_UCS4 py_ch;
 
-                if (qch->isHighSurrogate() && py_i + 1 < py_len && (qch + 1)->isLowSurrogate())
+                if (qch->isHighSurrogate() && qt_i2 + 1 < qt_len && (qch + 1)->isLowSurrogate())
                 {
                     py_ch = QChar::surrogateToUcs4(*qch, *(qch + 1));
+                    ++qt_i2;
                     ++qch;
                 }
                 else
@@ -122,6 +125,7 @@ PyObject *qpycore_PyObject_FromQString(const QString &qstr)
                     py_ch = qch->unicode();
                 }
 
+                ++qt_i2;
                 ++qch;
 
                 PyUnicode_WRITE(kind, data, py_i, py_ch);

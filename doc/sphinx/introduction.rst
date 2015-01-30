@@ -1,7 +1,7 @@
 Introduction
 ============
 
-This is the reference guide for PyQt5 5.4.  PyQt5 is a set of
+This is the reference guide for PyQt5 5.4.1-snapshot-0b20cc5fda6f.  PyQt5 is a set of
 `Python <http://www.python.org>`__ bindings for v5 of the Qt application
 framework from `Digia <http://qt.digia.com>`__.
 
@@ -17,7 +17,7 @@ PyQt5 does not include Qt itself - you must obtain it separately.
 
 The homepage for PyQt5 is http://www.riverbankcomputing.com/software/pyqt/.
 Here you will always find the latest stable version, current development
-snapshots, and the latest version of this documentation.
+previews, and the latest version of this documentation.
 
 PyQt5 is built using the `SIP bindings generator
 <http://www.riverbankcomputing.com/software/sip/>`__.  SIP must be installed in

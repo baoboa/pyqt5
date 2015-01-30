@@ -1,6 +1,6 @@
 #############################################################################
 ##
-## Copyright (C) 2014 Riverbank Computing Limited.
+## Copyright (C) 2015 Riverbank Computing Limited.
 ## Copyright (C) 2006 Thorsten Marek.
 ## All right reserved.
 ##
@@ -194,17 +194,29 @@ class UIParser(object):
         self.button_groups = {}
         self.layout_widget = False
 
-    def setupObject(self, clsname, parent, branch, is_attribute = True):
+    def setupObject(self, clsname, parent, branch, is_attribute=True):
         name = self.uniqueName(branch.attrib.get("name") or clsname[1:].lower())
+
         if parent is None:
             args = ()
         else:
             args = (parent, )
-        obj =  self.factory.createQObject(clsname, name, args, is_attribute)
-        self.wprops.setProperties(obj, branch)
+
+        obj = self.factory.createQObject(clsname, name, args, is_attribute)
+
+        props = self.wprops
+        props.setProperties(obj, branch)
+
+        # Set the default sunken frame shadow for a line (ie. a QFrame with an
+        # orientation) if it hasn't already been set explicitly.
+        if clsname == 'QFrame' and props.getProperty(branch, 'orientation') is not None and props.getProperty(branch, 'frameShadow') is None:
+            obj.setFrameShadow(QtWidgets.QFrame.Sunken)
+
         obj.setObjectName(name)
+
         if is_attribute:
             setattr(self.toplevelWidget, name, obj)
+
         return obj
 
     def getProperty(self, elem, name):

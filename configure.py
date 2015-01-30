@@ -1,6 +1,6 @@
 # This script generates the Makefiles for building PyQt5.
 #
-# Copyright (c) 2014 Riverbank Computing Limited <info@riverbankcomputing.com>
+# Copyright (c) 2015 Riverbank Computing Limited <info@riverbankcomputing.com>
 # 
 # This file is part of PyQt5.
 # 
@@ -32,9 +32,9 @@ except ImportError:
 
 
 # Initialise the constants.
-PYQT_VERSION_STR = "5.4"
+PYQT_VERSION_STR = "5.4.1-snapshot-0b20cc5fda6f"
 
-SIP_MIN_VERSION = '4.16.4'
+SIP_MIN_VERSION = '4.16.6'
 
 
 class ModuleMetadata:
@@ -89,7 +89,9 @@ MODULE_METADATA = {
     'QtSql':                ModuleMetadata(qmake_QT=['sql', 'widgets']),
     'QtSvg':                ModuleMetadata(qmake_QT=['svg']),
     'QtTest':               ModuleMetadata(qmake_QT=['testlib', 'widgets']),
-    'QtWebChannel':         ModuleMetadata(qmake_QT=['webchannel', 'network']),
+    'QtWebChannel':         ModuleMetadata(
+                                    qmake_QT=['webchannel', 'network',
+                                            '-gui']),
     'QtWebEngineWidgets':   ModuleMetadata(
                                     qmake_QT=['webenginewidgets', 'network',
                                             'widgets'],
@@ -98,7 +100,7 @@ MODULE_METADATA = {
     'QtWebKitWidgets':      ModuleMetadata(
                                     qmake_QT=['webkitwidgets',
                                             'printsupport']),
-    'QtWebSockets':         ModuleMetadata(qmake_QT=['websockets']),
+    'QtWebSockets':         ModuleMetadata(qmake_QT=['websockets', '-gui']),
     'QtWidgets':            ModuleMetadata(qmake_QT=['widgets']),
     'QtWinExtras':          ModuleMetadata(qmake_QT=['winextras', 'widgets']),
     'QtX11Extras':          ModuleMetadata(qmake_QT=['x11extras']),
@@ -1611,28 +1613,37 @@ def generate_application_makefile(target_config, verbose, src_dir):
 
 
 def pro_sources(src_dir, other_headers=None, other_sources=None):
-    """ Return the HEADERS and SOURCES variables for a .pro file by
-    introspecting a directory.  src_dir is the name of the directory.
+    """ Return the HEADERS, SOURCES and OBJECTIVE_SOURCES variables for a .pro
+    file by introspecting a directory.  src_dir is the name of the directory.
     other_headers is an optional list of other header files.  other_sources is
     an optional list of other source files.
     """
 
-    if other_headers is None:
-        other_headers = []
-
-    if other_sources is None:
-        other_sources = []
-
     pro_lines = []
 
     headers = [os.path.basename(f) for f in glob.glob('%s/*.h' % src_dir)]
+
+    if other_headers is not None:
+        headers += other_headers
+
     if len(headers) != 0:
-        pro_lines.append('HEADERS = %s' % ' '.join(headers + other_headers))
+        pro_lines.append('HEADERS = %s' % ' '.join(headers))
 
     c_sources = [os.path.basename(f) for f in glob.glob('%s/*.c' % src_dir)]
     cpp_sources = [os.path.basename(f) for f in glob.glob('%s/*.cpp' % src_dir)]
-    pro_lines.append(
-            'SOURCES = %s' % ' '.join(c_sources + cpp_sources + other_sources))
+    sources = c_sources + cpp_sources
+
+    if other_sources is not None:
+        sources += other_sources
+
+    if len(sources) != 0:
+        pro_lines.append('SOURCES = %s' % ' '.join(sources))
+
+    objective_sources = [
+            os.path.basename(f) for f in glob.glob('%s/*.mm' % src_dir)]
+
+    if len(objective_sources) != 0:
+        pro_lines.append('OBJECTIVE_SOURCES = %s' % ' '.join(objective_sources))
 
     return pro_lines
 
@@ -2625,7 +2636,7 @@ def check_sip(target_config):
 
     pipe.close()
 
-    if 'snapshot' not in version_str:
+    if 'preview' not in version_str and 'snapshot' not in version_str:
         version = version_from_string(version_str)
         if version is None:
             error(
