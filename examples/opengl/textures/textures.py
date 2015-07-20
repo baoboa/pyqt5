@@ -3,7 +3,7 @@
 
 #############################################################################
 ##
-## Copyright (C) 2013 Riverbank Computing Limited.
+## Copyright (C) 2015 Riverbank Computing Limited.
 ## Copyright (C) 2010 Nokia Corporation and/or its subsidiary(-ies).
 ## All rights reserved.
 ##
@@ -44,24 +44,13 @@
 
 import sys
 
-from PyQt5.QtCore import pyqtSignal, QPoint, QSize, Qt, QTimer
-from PyQt5.QtGui import (QColor, QMatrix4x4, QOpenGLShader,
-        QOpenGLShaderProgram, QPixmap)
-from PyQt5.QtWidgets import QApplication, QGridLayout, QMessageBox, QWidget
-from PyQt5.QtOpenGL import QGLWidget
-
-try:
-    from OpenGL.GL import *
-except ImportError:
-    app = QApplication(sys.argv)
-    QMessageBox.critical(None, "OpenGL textures",
-            "PyOpenGL must be installed to run this example.")
-    sys.exit(1)
-
-import textures_rc
+from PyQt5.QtCore import pyqtSignal, QFileInfo, QPoint, QSize, Qt, QTimer
+from PyQt5.QtGui import (QColor, QImage, QMatrix4x4, QOpenGLShader,
+        QOpenGLShaderProgram, QOpenGLTexture, QSurfaceFormat)
+from PyQt5.QtWidgets import QApplication, QGridLayout, QOpenGLWidget, QWidget
 
 
-class GLWidget(QGLWidget):
+class GLWidget(QOpenGLWidget):
 
     clicked = pyqtSignal()
 
@@ -97,18 +86,16 @@ void main(void)
         (( -1, -1, +1 ), ( +1, -1, +1 ), ( +1, +1, +1 ), ( -1, +1, +1 ))
     )
 
-    def __init__(self, parent=None, shareWidget=None):
-        super(GLWidget, self).__init__(parent, shareWidget)
+    def __init__(self, parent=None):
+        super(GLWidget, self).__init__(parent)
 
-        self.clearColor = Qt.black
+        self.clearColor = QColor(Qt.black)
         self.xRot = 0
         self.yRot = 0
         self.zRot = 0
-
-        self.clearColor = QColor()
-        self.lastPos = QPoint()
-
         self.program = None
+
+        self.lastPos = QPoint()
 
     def minimumSizeHint(self):
         return QSize(50, 50)
@@ -120,17 +107,20 @@ void main(void)
         self.xRot += xAngle
         self.yRot += yAngle
         self.zRot += zAngle
-        self.updateGL()
+        self.update()
 
     def setClearColor(self, color):
         self.clearColor = color
-        self.updateGL()
+        self.update()
 
     def initializeGL(self):
+        self.gl = self.context().versionFunctions()
+        self.gl.initializeOpenGLFunctions()
+
         self.makeObject()
 
-        glEnable(GL_DEPTH_TEST)
-        glEnable(GL_CULL_FACE)
+        self.gl.glEnable(self.gl.GL_DEPTH_TEST)
+        self.gl.glEnable(self.gl.GL_CULL_FACE)
 
         vshader = QOpenGLShader(QOpenGLShader.Vertex, self)
         vshader.compileSourceCode(self.vsrc)
@@ -138,7 +128,7 @@ void main(void)
         fshader = QOpenGLShader(QOpenGLShader.Fragment, self)
         fshader.compileSourceCode(self.fsrc)
 
-        self.program = QOpenGLShaderProgram(self)
+        self.program = QOpenGLShaderProgram()
         self.program.addShader(vshader)
         self.program.addShader(fshader)
         self.program.bindAttributeLocation('vertex',
@@ -158,8 +148,10 @@ void main(void)
                 self.texCoords)
 
     def paintGL(self):
-        self.qglClearColor(self.clearColor)
-        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT)
+        self.gl.glClearColor(self.clearColor.redF(), self.clearColor.greenF(),
+                self.clearColor.blueF(), self.clearColor.alphaF())
+        self.gl.glClear(
+                self.gl.GL_COLOR_BUFFER_BIT | self.gl.GL_DEPTH_BUFFER_BIT)
 
         m = QMatrix4x4()
         m.ortho(-0.5, 0.5, 0.5, -0.5, 4.0, 15.0)
@@ -170,13 +162,14 @@ void main(void)
 
         self.program.setUniformValue('matrix', m)
 
-        for i in range(6):
-            glBindTexture(GL_TEXTURE_2D, self.textures[i])
-            glDrawArrays(GL_TRIANGLE_FAN, i * 4, 4)
+        for i, texture in enumerate(self.textures):
+            texture.bind()
+            self.gl.glDrawArrays(self.gl.GL_TRIANGLE_FAN, i * 4, 4)
 
     def resizeGL(self, width, height):
         side = min(width, height)
-        glViewport((width - side) // 2, (height - side) // 2, side, side)
+        self.gl.glViewport((width - side) // 2, (height - side) // 2, side,
+                side)
 
     def mousePressEvent(self, event):
         self.lastPos = event.pos()
@@ -200,9 +193,12 @@ void main(void)
         self.texCoords = []
         self.vertices = []
 
+        root = QFileInfo(__file__).absolutePath()
+
         for i in range(6):
             self.textures.append(
-                    self.bindTexture(QPixmap(':/images/side%d.png' % (i + 1))))
+                    QOpenGLTexture(
+                            QImage(root + ('/images/side%d.png' % (i + 1))).mirrored()))
 
             for j in range(4):
                 self.texCoords.append(((j == 0 or j == 3), (j == 0 or j == 1)))
@@ -218,8 +214,9 @@ class Window(QWidget):
     def __init__(self):
         super(Window, self).__init__()
 
-        mainLayout = QGridLayout()
         self.glWidgets = []
+
+        mainLayout = QGridLayout()
 
         for i in range(Window.NumRows):
             row = []
@@ -230,7 +227,7 @@ class Window(QWidget):
                                   / (Window.NumRows * Window.NumColumns - 1),
                                   255, 63)
 
-                widget = GLWidget(None, None)
+                widget = GLWidget()
                 widget.setClearColor(clearColor)
                 widget.rotateBy(+42 * 16, +42 * 16, -21 * 16)
                 mainLayout.addWidget(widget, i, j)
@@ -262,6 +259,11 @@ class Window(QWidget):
 if __name__ == '__main__':
 
     app = QApplication(sys.argv)
+
+    format = QSurfaceFormat()
+    format.setDepthBufferSize(24)
+    QSurfaceFormat.setDefaultFormat(format)
+
     window = Window()
     window.show()
     sys.exit(app.exec_())

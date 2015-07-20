@@ -1,6 +1,6 @@
 #############################################################################
 ##
-## Copyright (C) 2014 Riverbank Computing Limited.
+## Copyright (C) 2015 Riverbank Computing Limited.
 ## Copyright (C) 2006 Thorsten Marek.
 ## All right reserved.
 ##
@@ -47,8 +47,7 @@ _header = """# -*- coding: utf-8 -*-
 
 # Form implementation generated from reading ui file '%s'
 #
-# Created: %s
-#      by: PyQt5 UI code generator %s
+# Created by: PyQt5 UI code generator %s
 #
 # WARNING! All changes made in this file will be lost!
 
@@ -149,7 +148,6 @@ def compileUi(uifile, pyfile, execute=False, indent=4, from_imports=False, resou
     module is foo_rc.
     """
 
-    from time import ctime
     from PyQt5.QtCore import PYQT_VERSION_STR
 
     try:
@@ -159,7 +157,7 @@ def compileUi(uifile, pyfile, execute=False, indent=4, from_imports=False, resou
 
     indenter.indentwidth = indent
 
-    pyfile.write(_header % (uifname, ctime(), PYQT_VERSION_STR))
+    pyfile.write(_header % (uifname, PYQT_VERSION_STR))
 
     winfo = compiler.UICompiler().compileUi(uifile, pyfile, from_imports, resource_suffix)
 

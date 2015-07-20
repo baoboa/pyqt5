@@ -6,15 +6,15 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Potential Incompatibilities with Earlier Versions &mdash; PyQt 5.4 Reference Guide</title>
+    <title>Potential Incompatibilities with Earlier Versions &mdash; PyQt 5.4.2 Reference Guide</title>
     
-    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/classic.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '5.4',
+        VERSION:     '5.4.2',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -24,12 +24,12 @@
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
     <link rel="shortcut icon" href="_static/logo_tn.ico"/>
-    <link rel="top" title="PyQt 5.4 Reference Guide" href="index.html" />
+    <link rel="top" title="PyQt 5.4.2 Reference Guide" href="index.html" />
     <link rel="next" title="Installing PyQt5" href="installation.html" />
     <link rel="prev" title="Deprecated Features and Behaviours" href="deprecations.html" /> 
   </head>
-  <body>
-    <div class="related">
+  <body role="document">
+    <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
@@ -44,14 +44,14 @@
         <li class="right" >
           <a href="deprecations.html" title="Deprecated Features and Behaviours"
              accesskey="P">previous</a> |</li>
-        <li><a href="index.html">PyQt 5.4 Reference Guide</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">PyQt 5.4.2 Reference Guide</a> &raquo;</li> 
       </ul>
     </div>  
 
     <div class="document">
       <div class="documentwrapper">
         <div class="bodywrapper">
-          <div class="body">
+          <div class="body" role="main">
             
   <div class="section" id="potential-incompatibilities-with-earlier-versions">
 <h1>Potential Incompatibilities with Earlier Versions<a class="headerlink" href="#potential-incompatibilities-with-earlier-versions" title="Permalink to this headline">¶</a></h1>
@@ -60,31 +60,31 @@
 <div class="section" id="execution-of-python-slots">
 <h3>Execution of Python Slots<a class="headerlink" href="#execution-of-python-slots" title="Permalink to this headline">¶</a></h3>
 <p>In previous versions, when a signal was emitted to a Python slot
-that was not decorated with <a class="reference internal" href="signals_slots.html#PyQt5.QtCore.pyqtSlot" title="PyQt5.QtCore.pyqtSlot"><tt class="xref py py-func docutils literal"><span class="pre">pyqtSlot()</span></tt></a>, it would not check
+that was not decorated with <a class="reference internal" href="signals_slots.html#PyQt5.QtCore.pyqtSlot" title="PyQt5.QtCore.pyqtSlot"><code class="xref py py-func docutils literal"><span class="pre">pyqtSlot()</span></code></a>, it would not check
 that the underlying C++ receiver instance still existed.  This matched the
 PyQt4 behaviour at the time that PyQt5 v5.0 was released, but doesn&#8217;t reflect
 the standard C++ behaviour.</p>
 <p>The lack of a check meant that an object could connect its
-<tt class="xref py py-func docutils literal"><span class="pre">destroyed()</span></tt> signal to itself so that it could
+<code class="xref py py-func docutils literal"><span class="pre">destroyed()</span></code> signal to itself so that it could
 monitor when its underlying C++ instance was destroyed.  Unfortunately this
 turned out to be a potential source of obscure bugs for more common code.</p>
 <p>In this version the check has been introduced - hence creating an
 incompatibility for any code that relies on the earlier behaviour.  As a
-workaround for this the <tt class="docutils literal"><span class="pre">no_receiver_check</span></tt> argument has been added to
-<tt class="xref py py-func docutils literal"><span class="pre">connect()</span></tt> which allows the check to be suppressed
+workaround for this the <code class="docutils literal"><span class="pre">no_receiver_check</span></code> argument has been added to
+<code class="xref py py-func docutils literal"><span class="pre">connect()</span></code> which allows the check to be suppressed
 on a per connection basis.</p>
 </div>
 <div class="section" id="qt-signals-with-default-arguments">
 <h3>Qt Signals with Default Arguments<a class="headerlink" href="#qt-signals-with-default-arguments" title="Permalink to this headline">¶</a></h3>
 <p>In previous versions Qt signals with default arguments were exposed as multiple
 signals each with one additional default argument.  For example
-<tt class="docutils literal"><span class="pre">QAbstractButton::clicked(bool</span> <span class="pre">checked</span> <span class="pre">=</span> <span class="pre">false)</span></tt> was exposed as
-<tt class="docutils literal"><span class="pre">QAbstractButton::clicked(bool</span> <span class="pre">checked)</span></tt> and <tt class="docutils literal"><span class="pre">QAbstractButton::clicked()</span></tt>
+<code class="docutils literal"><span class="pre">QAbstractButton::clicked(bool</span> <span class="pre">checked</span> <span class="pre">=</span> <span class="pre">false)</span></code> was exposed as
+<code class="docutils literal"><span class="pre">QAbstractButton::clicked(bool</span> <span class="pre">checked)</span></code> and <code class="docutils literal"><span class="pre">QAbstractButton::clicked()</span></code>
 where the former was the default signal.  It was therefore possible to index
 the latter by using an empty tuple as the key - although there was no benefit
 in doing so.</p>
 <p>In this version only the signal with all arguments supplied is exposed.
-However the signal&#8217;s <tt class="docutils literal"><span class="pre">emit()</span></tt> method still supports the default argument,
+However the signal&#8217;s <code class="docutils literal"><span class="pre">emit()</span></code> method still supports the default argument,
 i.e. when used normally the change should not be noticed.</p>
 </div>
 </div>
@@ -94,7 +94,7 @@ i.e. when used normally the change should not be noticed.</p>
           </div>
         </div>
       </div>
-      <div class="sphinxsidebar">
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
             <p class="logo"><a href="index.html">
               <img class="logo" src="_static/logo.png" alt="Logo"/>
@@ -117,7 +117,7 @@ i.e. when used normally the change should not be noticed.</p>
   <h4>Next topic</h4>
   <p class="topless"><a href="installation.html"
                         title="next chapter">Installing PyQt5</a></p>
-<div id="searchbox" style="display: none">
+<div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
     <form class="search" action="search.html" method="get">
       <input type="text" name="q" />
@@ -134,7 +134,7 @@ i.e. when used normally the change should not be noticed.</p>
       </div>
       <div class="clearer"></div>
     </div>
-    <div class="related">
+    <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
@@ -149,12 +149,12 @@ i.e. when used normally the change should not be noticed.</p>
         <li class="right" >
           <a href="deprecations.html" title="Deprecated Features and Behaviours"
              >previous</a> |</li>
-        <li><a href="index.html">PyQt 5.4 Reference Guide</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">PyQt 5.4.2 Reference Guide</a> &raquo;</li> 
       </ul>
     </div>
-    <div class="footer">
-        &copy; Copyright 2014 Riverbank Computing Limited.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.3.
+    <div class="footer" role="contentinfo">
+        &copy; Copyright 2015 Riverbank Computing Limited.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.1.
     </div>
   </body>
 </html>

@@ -6,15 +6,15 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Deprecated Features and Behaviours &mdash; PyQt 5.4 Reference Guide</title>
+    <title>Deprecated Features and Behaviours &mdash; PyQt 5.4.2 Reference Guide</title>
     
-    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/classic.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '5.4',
+        VERSION:     '5.4.2',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -24,12 +24,12 @@
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
     <link rel="shortcut icon" href="_static/logo_tn.ico"/>
-    <link rel="top" title="PyQt 5.4 Reference Guide" href="index.html" />
+    <link rel="top" title="PyQt 5.4.2 Reference Guide" href="index.html" />
     <link rel="next" title="Potential Incompatibilities with Earlier Versions" href="incompatibilities.html" />
     <link rel="prev" title="Introduction" href="introduction.html" /> 
   </head>
-  <body>
-    <div class="related">
+  <body role="document">
+    <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
@@ -44,26 +44,26 @@
         <li class="right" >
           <a href="introduction.html" title="Introduction"
              accesskey="P">previous</a> |</li>
-        <li><a href="index.html">PyQt 5.4 Reference Guide</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">PyQt 5.4.2 Reference Guide</a> &raquo;</li> 
       </ul>
     </div>  
 
     <div class="document">
       <div class="documentwrapper">
         <div class="bodywrapper">
-          <div class="body">
+          <div class="body" role="main">
             
   <div class="section" id="deprecated-features-and-behaviours">
 <h1>Deprecated Features and Behaviours<a class="headerlink" href="#deprecated-features-and-behaviours" title="Permalink to this headline">¶</a></h1>
 <p>These features and behaviours currenly issue deprecation warnings and will be
-removed in PyQt v5.5.  To ensure that the warnings are written to <tt class="docutils literal"><span class="pre">stderr</span></tt>
-pass the <tt class="docutils literal"><span class="pre">-Wa</span></tt> command line option to the Python interpreter.  To run your
-application as it would with PyQt v5.5 pass the <tt class="docutils literal"><span class="pre">-We</span></tt> command line option
+removed in PyQt v5.5.  To ensure that the warnings are written to <code class="docutils literal"><span class="pre">stderr</span></code>
+pass the <code class="docutils literal"><span class="pre">-Wa</span></code> command line option to the Python interpreter.  To run your
+application as it would with PyQt v5.5 pass the <code class="docutils literal"><span class="pre">-We</span></code> command line option
 instead.</p>
 <div class="section" id="conversion-of-latin-1-strings-to-qbytearray">
-<h2>Conversion of Latin-1 Strings to <a class="reference internal" href="api/qbytearray.html#PyQt5.QtCore.QByteArray" title="PyQt5.QtCore.QByteArray"><tt class="xref py py-class docutils literal"><span class="pre">QByteArray</span></tt></a><a class="headerlink" href="#conversion-of-latin-1-strings-to-qbytearray" title="Permalink to this headline">¶</a></h2>
+<h2>Conversion of Latin-1 Strings to <a class="reference internal" href="api/qbytearray.html#PyQt5.QtCore.QByteArray" title="PyQt5.QtCore.QByteArray"><code class="xref py py-class docutils literal"><span class="pre">QByteArray</span></code></a><a class="headerlink" href="#conversion-of-latin-1-strings-to-qbytearray" title="Permalink to this headline">¶</a></h2>
 <p>The automatic conversion of a Latin-1 encoded string when a
-<a class="reference internal" href="api/qbytearray.html#PyQt5.QtCore.QByteArray" title="PyQt5.QtCore.QByteArray"><tt class="xref py py-class docutils literal"><span class="pre">QByteArray</span></tt></a> is expected is deprecated.  In PyQt v5.5 an
+<a class="reference internal" href="api/qbytearray.html#PyQt5.QtCore.QByteArray" title="PyQt5.QtCore.QByteArray"><code class="xref py py-class docutils literal"><span class="pre">QByteArray</span></code></a> is expected is deprecated.  In PyQt v5.5 an
 exception will be raised instead.</p>
 </div>
 <div class="section" id="unhandled-python-exceptions">
@@ -71,19 +71,19 @@ exception will be raised instead.</p>
 <p>There are a number of situations where Python code is executed from C++.
 Python reimplementations of C++ virtual methods is probably the most common
 example.  If the Python code raises an exception then PyQt will call Python&#8217;s
-<tt class="xref c c-func docutils literal"><span class="pre">PyErr_Print()</span></tt> function which will then call <tt class="xref py py-func docutils literal"><span class="pre">sys.excepthook()</span></tt>.
+<code class="xref c c-func docutils literal"><span class="pre">PyErr_Print()</span></code> function which will then call <code class="xref py py-func docutils literal"><span class="pre">sys.excepthook()</span></code>.
 The default exception hook will then display the exception and any traceback to
-<tt class="docutils literal"><span class="pre">stderr</span></tt>.  There are number of disadvantages to this default behaviour:</p>
+<code class="docutils literal"><span class="pre">stderr</span></code>.  There are number of disadvantages to this default behaviour:</p>
 <ul class="simple">
 <li>the application does not terminate, meaning the behaviour is different to
 when exceptions are raised in other situations</li>
-<li>the output written to <tt class="docutils literal"><span class="pre">stderr</span></tt> may not be seen by the developer or user
+<li>the output written to <code class="docutils literal"><span class="pre">stderr</span></code> may not be seen by the developer or user
 (particularly if it is a GUI application) thereby hiding the fact that the
 application is trying to report a potential bug.</li>
 </ul>
 <p>This behaviour is deprecated in PyQt v5.4.  In PyQt v5.5 an unhandled Python
-exception will result in a call to Qt&#8217;s <tt class="xref cpp cpp-func docutils literal"><span class="pre">qFatal()</span></tt> function.  By
-default this will call <tt class="xref c c-func docutils literal"><span class="pre">abort()</span></tt> and the application will terminate.
+exception will result in a call to Qt&#8217;s <code class="xref cpp cpp-func docutils literal"><span class="pre">qFatal()</span></code> function.  By
+default this will call <code class="xref c c-func docutils literal"><span class="pre">abort()</span></code> and the application will terminate.
 Note that an application installed exception hook will still take precedence.</p>
 </div>
 </div>
@@ -92,7 +92,7 @@ Note that an application installed exception hook will still take precedence.</p
           </div>
         </div>
       </div>
-      <div class="sphinxsidebar">
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
             <p class="logo"><a href="index.html">
               <img class="logo" src="_static/logo.png" alt="Logo"/>
@@ -100,7 +100,7 @@ Note that an application installed exception hook will still take precedence.</p
   <h3><a href="index.html">Table Of Contents</a></h3>
   <ul>
 <li><a class="reference internal" href="#">Deprecated Features and Behaviours</a><ul>
-<li><a class="reference internal" href="#conversion-of-latin-1-strings-to-qbytearray">Conversion of Latin-1 Strings to <tt class="docutils literal"><span class="pre">QByteArray</span></tt></a></li>
+<li><a class="reference internal" href="#conversion-of-latin-1-strings-to-qbytearray">Conversion of Latin-1 Strings to <code class="docutils literal"><span class="pre">QByteArray</span></code></a></li>
 <li><a class="reference internal" href="#unhandled-python-exceptions">Unhandled Python Exceptions</a></li>
 </ul>
 </li>
@@ -112,7 +112,7 @@ Note that an application installed exception hook will still take precedence.</p
   <h4>Next topic</h4>
   <p class="topless"><a href="incompatibilities.html"
                         title="next chapter">Potential Incompatibilities with Earlier Versions</a></p>
-<div id="searchbox" style="display: none">
+<div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
     <form class="search" action="search.html" method="get">
       <input type="text" name="q" />
@@ -129,7 +129,7 @@ Note that an application installed exception hook will still take precedence.</p
       </div>
       <div class="clearer"></div>
     </div>
-    <div class="related">
+    <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
@@ -144,12 +144,12 @@ Note that an application installed exception hook will still take precedence.</p
         <li class="right" >
           <a href="introduction.html" title="Introduction"
              >previous</a> |</li>
-        <li><a href="index.html">PyQt 5.4 Reference Guide</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">PyQt 5.4.2 Reference Guide</a> &raquo;</li> 
       </ul>
     </div>
-    <div class="footer">
-        &copy; Copyright 2014 Riverbank Computing Limited.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.3.
+    <div class="footer" role="contentinfo">
+        &copy; Copyright 2015 Riverbank Computing Limited.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.1.
     </div>
   </body>
 </html>

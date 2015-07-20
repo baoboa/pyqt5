@@ -6,15 +6,15 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Things to be Aware Of &mdash; PyQt 5.4 Reference Guide</title>
+    <title>Things to be Aware Of &mdash; PyQt 5.4.2 Reference Guide</title>
     
-    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/classic.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '5.4',
+        VERSION:     '5.4.2',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -24,12 +24,12 @@
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
     <link rel="shortcut icon" href="_static/logo_tn.ico"/>
-    <link rel="top" title="PyQt 5.4 Reference Guide" href="index.html" />
+    <link rel="top" title="PyQt 5.4.2 Reference Guide" href="index.html" />
     <link rel="next" title="Using Qt Designer" href="designer.html" />
     <link rel="prev" title="Support for Cooperative Multi-inheritance" href="multiinheritance.html" /> 
   </head>
-  <body>
-    <div class="related">
+  <body role="document">
+    <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
@@ -44,14 +44,14 @@
         <li class="right" >
           <a href="multiinheritance.html" title="Support for Cooperative Multi-inheritance"
              accesskey="P">previous</a> |</li>
-        <li><a href="index.html">PyQt 5.4 Reference Guide</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">PyQt 5.4.2 Reference Guide</a> &raquo;</li> 
       </ul>
     </div>  
 
     <div class="document">
       <div class="documentwrapper">
         <div class="bodywrapper">
-          <div class="body">
+          <div class="body" role="main">
             
   <div class="section" id="things-to-be-aware-of">
 <h1>Things to be Aware Of<a class="headerlink" href="#things-to-be-aware-of" title="Permalink to this headline">¶</a></h1>
@@ -70,47 +70,47 @@ documentation will also be guaranteed to contain the correct argument names.</p>
 </div>
 <div class="section" id="python-strings-qt-strings-and-unicode">
 <h2>Python Strings, Qt Strings and Unicode<a class="headerlink" href="#python-strings-qt-strings-and-unicode" title="Permalink to this headline">¶</a></h2>
-<p>Qt uses the <tt class="docutils literal"><span class="pre">QString</span></tt> class to represent Unicode strings, and the
-<tt class="docutils literal"><span class="pre">QByteArray</span></tt> to represent byte arrays or strings.  In Python v3 the
-corresponding native object types are <tt class="docutils literal"><span class="pre">str</span></tt> and <tt class="docutils literal"><span class="pre">bytes</span></tt>.  In Python v2 the
-corresponding native object types are <tt class="docutils literal"><span class="pre">unicode</span></tt> and <tt class="docutils literal"><span class="pre">str</span></tt>.</p>
+<p>Qt uses the <code class="docutils literal"><span class="pre">QString</span></code> class to represent Unicode strings, and the
+<code class="docutils literal"><span class="pre">QByteArray</span></code> to represent byte arrays or strings.  In Python v3 the
+corresponding native object types are <code class="docutils literal"><span class="pre">str</span></code> and <code class="docutils literal"><span class="pre">bytes</span></code>.  In Python v2 the
+corresponding native object types are <code class="docutils literal"><span class="pre">unicode</span></code> and <code class="docutils literal"><span class="pre">str</span></code>.</p>
 <p>PyQt5 does its best to automatically convert between objects of the various
 types.  Explicit conversions can be easily made where necessary.</p>
 <p>In some cases PyQt5 will not perform automatic conversions where it is
 necessary to distinguish between different overloaded methods.</p>
 <p>For Python v3 the following conversions are done by default.</p>
 <ul class="simple">
-<li>If Qt expects a <tt class="docutils literal"><span class="pre">char</span> <span class="pre">*</span></tt> (or a <tt class="docutils literal"><span class="pre">const</span></tt> version) then PyQt5 will accept a
-<tt class="docutils literal"><span class="pre">str</span></tt> that contains only ASCII characters, a <tt class="docutils literal"><span class="pre">bytes</span></tt>, a <tt class="docutils literal"><span class="pre">QByteArray</span></tt>,
+<li>If Qt expects a <code class="docutils literal"><span class="pre">char</span> <span class="pre">*</span></code> (or a <code class="docutils literal"><span class="pre">const</span></code> version) then PyQt5 will accept a
+<code class="docutils literal"><span class="pre">str</span></code> that contains only ASCII characters, a <code class="docutils literal"><span class="pre">bytes</span></code>, a <code class="docutils literal"><span class="pre">QByteArray</span></code>,
 or a Python object that implements the buffer protocol.</li>
-<li>If Qt expects a <tt class="docutils literal"><span class="pre">char</span></tt> (or a <tt class="docutils literal"><span class="pre">const</span></tt> version) then PyQt5 will accept the
-same types as for <tt class="docutils literal"><span class="pre">char</span> <span class="pre">*</span></tt> and also require that a single character is
+<li>If Qt expects a <code class="docutils literal"><span class="pre">char</span></code> (or a <code class="docutils literal"><span class="pre">const</span></code> version) then PyQt5 will accept the
+same types as for <code class="docutils literal"><span class="pre">char</span> <span class="pre">*</span></code> and also require that a single character is
 provided.</li>
-<li>If Qt expects a <tt class="docutils literal"><span class="pre">signed</span> <span class="pre">char</span> <span class="pre">*</span></tt> or an <tt class="docutils literal"><span class="pre">unsigned</span> <span class="pre">char</span> <span class="pre">*</span></tt> (or a <tt class="docutils literal"><span class="pre">const</span></tt>
-version) then PyQt5 will accept a <tt class="docutils literal"><span class="pre">bytes</span></tt>.</li>
-<li>If Qt expects a <tt class="docutils literal"><span class="pre">signed</span> <span class="pre">char</span></tt> or an <tt class="docutils literal"><span class="pre">unsigned</span> <span class="pre">char</span></tt> (or a <tt class="docutils literal"><span class="pre">const</span></tt>
-version) then PyQt5 will accept a <tt class="docutils literal"><span class="pre">bytes</span></tt> of length 1.</li>
-<li>If Qt expects a <tt class="docutils literal"><span class="pre">QString</span></tt> then PyQt5 will accept a <tt class="docutils literal"><span class="pre">str</span></tt>, a <tt class="docutils literal"><span class="pre">bytes</span></tt>
-that contains only ASCII characters or a <tt class="docutils literal"><span class="pre">QByteArray</span></tt>.</li>
-<li>If Qt expects a <tt class="docutils literal"><span class="pre">QByteArray</span></tt> then PyQt5 will also accept a <tt class="docutils literal"><span class="pre">bytes</span></tt>.</li>
-<li>If Qt expects a <tt class="docutils literal"><span class="pre">QByteArray</span></tt> then PyQt5 will also accept a <tt class="docutils literal"><span class="pre">str</span></tt> that
+<li>If Qt expects a <code class="docutils literal"><span class="pre">signed</span> <span class="pre">char</span> <span class="pre">*</span></code> or an <code class="docutils literal"><span class="pre">unsigned</span> <span class="pre">char</span> <span class="pre">*</span></code> (or a <code class="docutils literal"><span class="pre">const</span></code>
+version) then PyQt5 will accept a <code class="docutils literal"><span class="pre">bytes</span></code>.</li>
+<li>If Qt expects a <code class="docutils literal"><span class="pre">signed</span> <span class="pre">char</span></code> or an <code class="docutils literal"><span class="pre">unsigned</span> <span class="pre">char</span></code> (or a <code class="docutils literal"><span class="pre">const</span></code>
+version) then PyQt5 will accept a <code class="docutils literal"><span class="pre">bytes</span></code> of length 1.</li>
+<li>If Qt expects a <code class="docutils literal"><span class="pre">QString</span></code> then PyQt5 will accept a <code class="docutils literal"><span class="pre">str</span></code>, a <code class="docutils literal"><span class="pre">bytes</span></code>
+that contains only ASCII characters or a <code class="docutils literal"><span class="pre">QByteArray</span></code>.</li>
+<li>If Qt expects a <code class="docutils literal"><span class="pre">QByteArray</span></code> then PyQt5 will also accept a <code class="docutils literal"><span class="pre">bytes</span></code>.</li>
+<li>If Qt expects a <code class="docutils literal"><span class="pre">QByteArray</span></code> then PyQt5 will also accept a <code class="docutils literal"><span class="pre">str</span></code> that
 contains only Latin-1 characters.  <strong>This is deprecated in PyQt v5.4 and will
 be removed in PyQt v5.5.)</strong></li>
 </ul>
 <p>For Python v2 the following conversions are done by default.</p>
 <ul class="simple">
-<li>If Qt expects a <tt class="docutils literal"><span class="pre">char</span> <span class="pre">*</span></tt>, <tt class="docutils literal"><span class="pre">signed</span> <span class="pre">char</span> <span class="pre">*</span></tt> or an <tt class="docutils literal"><span class="pre">unsigned</span> <span class="pre">char</span> <span class="pre">*</span></tt> (or a
-<tt class="docutils literal"><span class="pre">const</span></tt> version) then PyQt5 will accept a <tt class="docutils literal"><span class="pre">unicode</span></tt> that contains only
-ASCII characters, a <tt class="docutils literal"><span class="pre">str</span></tt>, a <tt class="docutils literal"><span class="pre">QByteArray</span></tt>, or a Python object that
+<li>If Qt expects a <code class="docutils literal"><span class="pre">char</span> <span class="pre">*</span></code>, <code class="docutils literal"><span class="pre">signed</span> <span class="pre">char</span> <span class="pre">*</span></code> or an <code class="docutils literal"><span class="pre">unsigned</span> <span class="pre">char</span> <span class="pre">*</span></code> (or a
+<code class="docutils literal"><span class="pre">const</span></code> version) then PyQt5 will accept a <code class="docutils literal"><span class="pre">unicode</span></code> that contains only
+ASCII characters, a <code class="docutils literal"><span class="pre">str</span></code>, a <code class="docutils literal"><span class="pre">QByteArray</span></code>, or a Python object that
 implements the buffer protocol.</li>
-<li>If Qt expects a <tt class="docutils literal"><span class="pre">char</span></tt>, <tt class="docutils literal"><span class="pre">signed</span> <span class="pre">char</span></tt> or an <tt class="docutils literal"><span class="pre">unsigned</span> <span class="pre">char</span></tt> (or a
-<tt class="docutils literal"><span class="pre">const</span></tt> version) then PyQt5 will accept the same types as for <tt class="docutils literal"><span class="pre">char</span> <span class="pre">*</span></tt>,
-<tt class="docutils literal"><span class="pre">signed</span> <span class="pre">char</span> <span class="pre">*</span></tt> and <tt class="docutils literal"><span class="pre">unsigned</span> <span class="pre">char</span> <span class="pre">*</span></tt> and also require that a single
+<li>If Qt expects a <code class="docutils literal"><span class="pre">char</span></code>, <code class="docutils literal"><span class="pre">signed</span> <span class="pre">char</span></code> or an <code class="docutils literal"><span class="pre">unsigned</span> <span class="pre">char</span></code> (or a
+<code class="docutils literal"><span class="pre">const</span></code> version) then PyQt5 will accept the same types as for <code class="docutils literal"><span class="pre">char</span> <span class="pre">*</span></code>,
+<code class="docutils literal"><span class="pre">signed</span> <span class="pre">char</span> <span class="pre">*</span></code> and <code class="docutils literal"><span class="pre">unsigned</span> <span class="pre">char</span> <span class="pre">*</span></code> and also require that a single
 character is provided.</li>
-<li>If Qt expects a <tt class="docutils literal"><span class="pre">QString</span></tt> then PyQt5 will accept a <tt class="docutils literal"><span class="pre">unicode</span></tt>, a <tt class="docutils literal"><span class="pre">str</span></tt>
-that contains only ASCII characters or a <tt class="docutils literal"><span class="pre">QByteArray</span></tt>.</li>
-<li>If Qt expects a <tt class="docutils literal"><span class="pre">QByteArray</span></tt> then PyQt5 will accept a <tt class="docutils literal"><span class="pre">str</span></tt>.</li>
-<li>If Qt expects a <tt class="docutils literal"><span class="pre">QByteArray</span></tt> then PyQt5 will accept a <tt class="docutils literal"><span class="pre">unicode</span></tt> that
+<li>If Qt expects a <code class="docutils literal"><span class="pre">QString</span></code> then PyQt5 will accept a <code class="docutils literal"><span class="pre">unicode</span></code>, a <code class="docutils literal"><span class="pre">str</span></code>
+that contains only ASCII characters or a <code class="docutils literal"><span class="pre">QByteArray</span></code>.</li>
+<li>If Qt expects a <code class="docutils literal"><span class="pre">QByteArray</span></code> then PyQt5 will accept a <code class="docutils literal"><span class="pre">str</span></code>.</li>
+<li>If Qt expects a <code class="docutils literal"><span class="pre">QByteArray</span></code> then PyQt5 will accept a <code class="docutils literal"><span class="pre">unicode</span></code> that
 contains only Latin-1 characters.  <strong>This is deprecated in PyQt v5.4 and will
 be removed in PyQt v5.5.)</strong></li>
 </ul>
@@ -127,7 +127,7 @@ col = new QColor();
 </pre></div>
 </div>
 <p>In the corresponding Python fragment, the first colour is destroyed when the
-second is assigned to <tt class="docutils literal"><span class="pre">col</span></tt>:</p>
+second is assigned to <code class="docutils literal"><span class="pre">col</span></code>:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="n">col</span> <span class="o">=</span> <span class="n">QColor</span><span class="p">()</span>
 <span class="n">col</span> <span class="o">=</span> <span class="n">QColor</span><span class="p">()</span>
 </pre></div>
@@ -140,13 +140,13 @@ done within class definitions, so the code fragment would be something like:</p>
 </div>
 <p>Sometimes a Qt class instance will maintain a pointer to another instance and
 will eventually call the destructor of that second instance.  The most common
-example is that a <a class="reference internal" href="api/qobject.html#PyQt5.QtCore.QObject" title="PyQt5.QtCore.QObject"><tt class="xref py py-class docutils literal"><span class="pre">QObject</span></tt></a> (and any of its sub-classes)
+example is that a <a class="reference internal" href="api/qobject.html#PyQt5.QtCore.QObject" title="PyQt5.QtCore.QObject"><code class="xref py py-class docutils literal"><span class="pre">QObject</span></code></a> (and any of its sub-classes)
 keeps pointers to its children and will automatically call their destructors.
 In these cases, the corresponding Python object will also keep a reference to
 the corresponding child objects.</p>
 <p>So, in the following Python fragment, the first
-<a class="reference internal" href="api/qlabel.html#PyQt5.QtWidgets.QLabel" title="PyQt5.QtWidgets.QLabel"><tt class="xref py py-class docutils literal"><span class="pre">QLabel</span></tt></a> is not destroyed when the second is assigned
-to <tt class="docutils literal"><span class="pre">lab</span></tt> because the parent <a class="reference internal" href="api/qwidget.html#PyQt5.QtWidgets.QWidget" title="PyQt5.QtWidgets.QWidget"><tt class="xref py py-class docutils literal"><span class="pre">QWidget</span></tt></a> still has a
+<a class="reference internal" href="api/qlabel.html#PyQt5.QtWidgets.QLabel" title="PyQt5.QtWidgets.QLabel"><code class="xref py py-class docutils literal"><span class="pre">QLabel</span></code></a> is not destroyed when the second is assigned
+to <code class="docutils literal"><span class="pre">lab</span></code> because the parent <a class="reference internal" href="api/qwidget.html#PyQt5.QtWidgets.QWidget" title="PyQt5.QtWidgets.QWidget"><code class="xref py py-class docutils literal"><span class="pre">QWidget</span></code></a> still has a
 reference to it:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="n">parent</span> <span class="o">=</span> <span class="n">QWidget</span><span class="p">()</span>
 <span class="n">lab</span> <span class="o">=</span> <span class="n">QLabel</span><span class="p">(</span><span class="s">&quot;First label&quot;</span><span class="p">,</span> <span class="n">parent</span><span class="p">)</span>
@@ -158,7 +158,7 @@ reference to it:</p>
 <h2>Multiple Inheritance<a class="headerlink" href="#multiple-inheritance" title="Permalink to this headline">¶</a></h2>
 <p>It is not possible to define a new Python class that sub-classes from more than
 one Qt class.  The exception is classes specifically intended to act as mixin
-classes such as those (like <a class="reference internal" href="api/qqmlparserstatus.html#PyQt5.QtQml.QQmlParserStatus" title="PyQt5.QtQml.QQmlParserStatus"><tt class="xref py py-class docutils literal"><span class="pre">QQmlParserStatus</span></tt></a>) that
+classes such as those (like <a class="reference internal" href="api/qqmlparserstatus.html#PyQt5.QtQml.QQmlParserStatus" title="PyQt5.QtQml.QQmlParserStatus"><code class="xref py py-class docutils literal"><span class="pre">QQmlParserStatus</span></code></a>) that
 implement Qt interfaces.</p>
 </div>
 <div class="section" id="access-to-protected-member-functions">
@@ -169,30 +169,30 @@ will raise a Python exception.  Also, any Python methods corresponding to the
 instance&#8217;s virtual member functions will never be called.</p>
 </div>
 <div class="section" id="none-and-null">
-<h2><tt class="docutils literal"><span class="pre">None</span></tt> and <tt class="docutils literal"><span class="pre">NULL</span></tt><a class="headerlink" href="#none-and-null" title="Permalink to this headline">¶</a></h2>
-<p>Throughout PyQt5, the <tt class="docutils literal"><span class="pre">None</span></tt> value can be specified wherever <tt class="docutils literal"><span class="pre">NULL</span></tt> is
+<h2><code class="docutils literal"><span class="pre">None</span></code> and <code class="docutils literal"><span class="pre">NULL</span></code><a class="headerlink" href="#none-and-null" title="Permalink to this headline">¶</a></h2>
+<p>Throughout PyQt5, the <code class="docutils literal"><span class="pre">None</span></code> value can be specified wherever <code class="docutils literal"><span class="pre">NULL</span></code> is
 acceptable to the underlying C++ code.</p>
-<p>Equally, <tt class="docutils literal"><span class="pre">NULL</span></tt> is converted to <tt class="docutils literal"><span class="pre">None</span></tt> whenever it is returned by the
+<p>Equally, <code class="docutils literal"><span class="pre">NULL</span></code> is converted to <code class="docutils literal"><span class="pre">None</span></code> whenever it is returned by the
 underlying C++ code.</p>
 </div>
 <div class="section" id="support-for-void">
-<h2>Support for <tt class="docutils literal"><span class="pre">void</span> <span class="pre">*</span></tt><a class="headerlink" href="#support-for-void" title="Permalink to this headline">¶</a></h2>
-<p>PyQt5 (actually SIP) represents <tt class="docutils literal"><span class="pre">void</span> <span class="pre">*</span></tt> values as objects of type
-<tt class="xref py py-class docutils literal"><span class="pre">sip.voidptr</span></tt>.  Such values are often used to pass the addresses of
+<h2>Support for <code class="docutils literal"><span class="pre">void</span> <span class="pre">*</span></code><a class="headerlink" href="#support-for-void" title="Permalink to this headline">¶</a></h2>
+<p>PyQt5 (actually SIP) represents <code class="docutils literal"><span class="pre">void</span> <span class="pre">*</span></code> values as objects of type
+<code class="xref py py-class docutils literal"><span class="pre">sip.voidptr</span></code>.  Such values are often used to pass the addresses of
 external objects between different Python modules.  To make this easier, a
 Python integer (or anything that Python can convert to an integer) can be used
-whenever a <tt class="xref py py-class docutils literal"><span class="pre">sip.voidptr</span></tt> is expected.</p>
-<p>A <tt class="xref py py-class docutils literal"><span class="pre">sip.voidptr</span></tt> may be converted to a Python integer by using the
-<tt class="docutils literal"><span class="pre">int()</span></tt> builtin function.</p>
-<p>A <tt class="xref py py-class docutils literal"><span class="pre">sip.voidptr</span></tt> may be converted to a Python string by using its
-<tt class="xref py py-meth docutils literal"><span class="pre">asstring()</span></tt> method.  The <tt class="xref py py-meth docutils literal"><span class="pre">asstring()</span></tt> method
+whenever a <code class="xref py py-class docutils literal"><span class="pre">sip.voidptr</span></code> is expected.</p>
+<p>A <code class="xref py py-class docutils literal"><span class="pre">sip.voidptr</span></code> may be converted to a Python integer by using the
+<code class="docutils literal"><span class="pre">int()</span></code> builtin function.</p>
+<p>A <code class="xref py py-class docutils literal"><span class="pre">sip.voidptr</span></code> may be converted to a Python string by using its
+<code class="xref py py-meth docutils literal"><span class="pre">asstring()</span></code> method.  The <code class="xref py py-meth docutils literal"><span class="pre">asstring()</span></code> method
 takes an optional integer argument which is the length of the data in bytes.</p>
-<p>A <tt class="xref py py-class docutils literal"><span class="pre">sip.voidptr</span></tt> may also be given a size (ie. the size of the block of
-memory that is pointed to) by calling its <tt class="xref py py-meth docutils literal"><span class="pre">setsize()</span></tt> method.
+<p>A <code class="xref py py-class docutils literal"><span class="pre">sip.voidptr</span></code> may also be given a size (ie. the size of the block of
+memory that is pointed to) by calling its <code class="xref py py-meth docutils literal"><span class="pre">setsize()</span></code> method.
 If it has a size then it is also able to support Python&#8217;s buffer protocol and
-behaves like a Python <tt class="docutils literal"><span class="pre">memoryview</span></tt> object so that the block of memory can be
+behaves like a Python <code class="docutils literal"><span class="pre">memoryview</span></code> object so that the block of memory can be
 treated as a mutable list of bytes.  It also means that the Python
-<tt class="xref py py-mod docutils literal"><span class="pre">struct</span></tt> module can be used to unpack and pack binary data structures in
+<code class="xref py py-mod docutils literal"><span class="pre">struct</span></code> module can be used to unpack and pack binary data structures in
 memory, memory mapped files or shared memory.</p>
 </div>
 </div>
@@ -201,7 +201,7 @@ memory, memory mapped files or shared memory.</p>
           </div>
         </div>
       </div>
-      <div class="sphinxsidebar">
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
             <p class="logo"><a href="index.html">
               <img class="logo" src="_static/logo.png" alt="Logo"/>
@@ -214,8 +214,8 @@ memory, memory mapped files or shared memory.</p>
 <li><a class="reference internal" href="#garbage-collection">Garbage Collection</a></li>
 <li><a class="reference internal" href="#multiple-inheritance">Multiple Inheritance</a></li>
 <li><a class="reference internal" href="#access-to-protected-member-functions">Access to Protected Member Functions</a></li>
-<li><a class="reference internal" href="#none-and-null"><tt class="docutils literal"><span class="pre">None</span></tt> and <tt class="docutils literal"><span class="pre">NULL</span></tt></a></li>
-<li><a class="reference internal" href="#support-for-void">Support for <tt class="docutils literal"><span class="pre">void</span> <span class="pre">*</span></tt></a></li>
+<li><a class="reference internal" href="#none-and-null"><code class="docutils literal"><span class="pre">None</span></code> and <code class="docutils literal"><span class="pre">NULL</span></code></a></li>
+<li><a class="reference internal" href="#support-for-void">Support for <code class="docutils literal"><span class="pre">void</span> <span class="pre">*</span></code></a></li>
 </ul>
 </li>
 </ul>
@@ -226,7 +226,7 @@ memory, memory mapped files or shared memory.</p>
   <h4>Next topic</h4>
   <p class="topless"><a href="designer.html"
                         title="next chapter">Using Qt Designer</a></p>
-<div id="searchbox" style="display: none">
+<div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
     <form class="search" action="search.html" method="get">
       <input type="text" name="q" />
@@ -243,7 +243,7 @@ memory, memory mapped files or shared memory.</p>
       </div>
       <div class="clearer"></div>
     </div>
-    <div class="related">
+    <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
@@ -258,12 +258,12 @@ memory, memory mapped files or shared memory.</p>
         <li class="right" >
           <a href="multiinheritance.html" title="Support for Cooperative Multi-inheritance"
              >previous</a> |</li>
-        <li><a href="index.html">PyQt 5.4 Reference Guide</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">PyQt 5.4.2 Reference Guide</a> &raquo;</li> 
       </ul>
     </div>
-    <div class="footer">
-        &copy; Copyright 2014 Riverbank Computing Limited.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.3.
+    <div class="footer" role="contentinfo">
+        &copy; Copyright 2015 Riverbank Computing Limited.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.1.
     </div>
   </body>
 </html>

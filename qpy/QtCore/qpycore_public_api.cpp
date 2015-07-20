@@ -1,6 +1,6 @@
 // This implements the public API provided by PyQt to external packages.
 //
-// Copyright (c) 2014 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2015 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -220,21 +220,23 @@ char **pyqt5_from_argv_list(PyObject *argv_list, int &argc)
     for (int a = 0; a < argc; ++a)
     {
         PyObject *arg_obj = PyList_GET_ITEM(argv_list, a);
-        const char *arg = sipString_AsLatin1String(&arg_obj);
+        char *arg;
 
-        if (arg)
+        if (PyUnicode_Check(arg_obj))
         {
-            arg = qstrdup(arg);
-            Py_DECREF(arg_obj);
+            QByteArray ba_arg = qpycore_PyObject_AsQString(arg_obj).toLocal8Bit();
+            arg = qstrdup(ba_arg.constData());
+        }
+        else if (SIPBytes_Check(arg_obj))
+        {
+            arg = qstrdup(SIPBytes_AS_STRING(arg_obj));
         }
         else
         {
-            // Try not to mess up Qt's argument parsing by simply missing out
-            // the argument.
-            arg = "unknown";
+            arg = const_cast<char *>("invalid");
         }
 
-        argv[a] = argv[a + argc + 1] = const_cast<char *>(arg);
+        argv[a] = argv[a + argc + 1] = arg;
     }
 
     argv[argc + argc + 1] = argv[argc] = NULL;

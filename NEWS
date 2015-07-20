@@ -1,3 +1,20 @@
+v5.4.2 11th June 2015
+  - Added support for Qt v5.4.2.
+  - Added QWIDGETSIZE_MAX to QtWidgets.
+  - Added the --no-python-dbus command line option to configure.py.
+
+v5.4.1 26th February 2015
+  - Added support for Qt v5.4.1.
+  - Added the QMacCocoaViewContainer class.
+  - All OpenGL examples use QOpenGLWidget and no longer require PyOpenGL.
+  - Added initial implementations of _QOpenGLFunctions_2_1 and
+    _QOpenGLFunctions_4_1_Core.
+  - QEvent.None is now QEvent.None_.
+  - Added missing QEvent.Type members that are now documented in Qt.
+  - Added the --license-dir option to configure.py.
+  - Installing into a virtual env should now work.
+  - pyuic5 and pyrcc5 no longer include a timestamp in the generated code.
+
 v5.4 25th December 2014
   - Added full support for Qt v5.4.0.
   - Added the QtWebChannel module.

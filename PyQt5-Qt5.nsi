@@ -1,6 +1,6 @@
 # PyQt5 NSIS installer script.
 # 
-# Copyright (c) 2014 Riverbank Computing Limited <info@riverbankcomputing.com>
+# Copyright (c) 2015 Riverbank Computing Limited <info@riverbankcomputing.com>
 # 
 # This file is part of PyQt5.
 # 
@@ -19,7 +19,7 @@
 
 
 # These will change with different releases.
-!define PYQT_VERSION        "5.4"
+!define PYQT_VERSION        "5.4.2"
 !define PYQT_INSTALLER      ""
 #!define PYQT_INSTALLER      "-2"
 !define PYQT_LICENSE        "GPL"
@@ -27,7 +27,7 @@
 !define PYQT_PYTHON_MAJOR   "3"
 !define PYQT_PYTHON_MINOR   "4"
 !define PYQT_ARCH           "x64"
-!define PYQT_QT_VERS        "5.4.0"
+!define PYQT_QT_VERS        "5.4.2"
 !define PYQT_QT_DOC_VERS    "5"
 
 # These are all derived from the above.
@@ -220,6 +220,7 @@ Section "Extension modules" SecModules
     File .\build\QAxContainer\QAxContainer.pyd
     File .\build\Enginio\Enginio.pyd
     File .\build\_QOpenGLFunctions_2_0\_QOpenGLFunctions_2_0.pyd
+    File .\build\_QOpenGLFunctions_2_1\_QOpenGLFunctions_2_1.pyd
 SectionEnd
 
 Section "QScintilla" SecQScintilla
@@ -321,7 +322,7 @@ Section "Qt runtime" SecQt
     File "${QT_SRC_DIR}\plugins\imageformats\qsvg.dll"
     File "${QT_SRC_DIR}\plugins\imageformats\qtga.dll"
     File "${QT_SRC_DIR}\plugins\imageformats\qtiff.dll"
-    File "${QT_SRC_DIR}\plugins\imageformats\qtiff.dll"
+    File "${QT_SRC_DIR}\plugins\imageformats\qwbmp.dll"
     File "${QT_SRC_DIR}\plugins\imageformats\qwebp.dll"
 
     SetOutPath $INSTDIR\Lib\site-packages\PyQt5\plugins\mediaservice
@@ -351,7 +352,6 @@ Section "Qt runtime" SecQt
     File "${QT_SRC_DIR}\plugins\sensorgestures\qtsensorgestures_shakeplugin.dll"
 
     SetOutPath $INSTDIR\Lib\site-packages\PyQt5\plugins\sensors
-    File "${QT_SRC_DIR}\plugins\sensors\qtsensors_dummy.dll"
     File "${QT_SRC_DIR}\plugins\sensors\qtsensors_generic.dll"
 
     SetOutPath $INSTDIR\Lib\site-packages\PyQt5\translations

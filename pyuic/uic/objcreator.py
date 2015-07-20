@@ -1,6 +1,6 @@
 #############################################################################
 ##
-## Copyright (C) 2014 Riverbank Computing Limited.
+## Copyright (C) 2015 Riverbank Computing Limited.
 ## Copyright (C) 2006 Thorsten Marek.
 ## All right reserved.
 ##
@@ -88,7 +88,7 @@ class QObjectCreator(object):
 
                 plugin_locals = {}
 
-                if load_plugin(open(filename, 'rU'), plugin_globals, plugin_locals):
+                if load_plugin(filename, plugin_globals, plugin_locals):
                     pluginType = plugin_locals["pluginType"]
                     if pluginType == MODULE:
                         modinfo = plugin_locals["moduleInformation"]()
@@ -135,6 +135,9 @@ class QObjectCreator(object):
 
     def getSlot(self, obj, slotname):
         return self._cpolicy.getSlot(obj, slotname)
+
+    def asString(self, s):
+        return self._cpolicy.asString(s)
 
     def addCustomWidget(self, widgetClass, baseClass, module):
         for cwFilter in self._cwFilters:

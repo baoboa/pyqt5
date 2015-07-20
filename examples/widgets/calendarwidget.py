@@ -3,7 +3,7 @@
 
 #############################################################################
 ##
-## Copyright (C) 2013 Riverbank Computing Limited
+## Copyright (C) 2015 Riverbank Computing Limited
 ## Copyright (C) 2010 Hans-Peter Jansen <hpj@urpla.net>.
 ## Copyright (C) 2010 Nokia Corporation and/or its subsidiary(-ies).
 ## All rights reserved.
@@ -186,18 +186,18 @@ class Window(QWidget):
         curLocaleIndex = -1
         index = 0
 
-        for lid in range(QLocale.C, QLocale.LastLanguage + 1):
-            lang = QLocale.Language(lid)
-            countries = QLocale.countriesForLanguage(lang)
-            for country in countries:
-                label = "%s/%s" % (QLocale.languageToString(lang),
-                                   QLocale.countryToString(country))
-                locale = QLocale(lang, country)
-                if self.locale().language() == lang and self.locale().country() == country:
-                    curLocaleIndex = index
+        this_language = self.locale().nativeLanguageName()
+        this_country = self.locale().nativeCountryName()
 
-                self.localeCombo.addItem(label, locale)
-                index += 1
+        for locale in QLocale.matchingLocales(QLocale.AnyLanguage, QLocale.AnyScript, QLocale.AnyCountry):
+            language = locale.nativeLanguageName()
+            country = locale.nativeCountryName()
+
+            if language == this_language and country == this_country:
+                curLocaleIndex = index
+
+            self.localeCombo.addItem('%s/%s' % (language, country), locale)
+            index += 1
 
         if curLocaleIndex != -1:
             self.localeCombo.setCurrentIndex(curLocaleIndex)

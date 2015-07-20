@@ -1,6 +1,6 @@
 #############################################################################
 ##
-## Copyright (c) 2014 Riverbank Computing Limited <info@riverbankcomputing.com>
+## Copyright (c) 2015 Riverbank Computing Limited <info@riverbankcomputing.com>
 ## 
 ## This file is part of PyQt5.
 ## 
@@ -23,11 +23,13 @@
 from ..exceptions import WidgetPluginError
 
 
-def load_plugin(plugin, plugin_globals, plugin_locals):
-    """ Load the given plugin (which is an open file).  Return True if the
-    plugin was loaded, or False if it wanted to be ignored.  Raise an exception
-    if there was an error.
+def load_plugin(filename, plugin_globals, plugin_locals):
+    """ Load the plugin from the given file.  Return True if the plugin was
+    loaded, or False if it wanted to be ignored.  Raise an exception if there
+    was an error.
     """
+
+    plugin = open(filename, 'rU')
 
     try:
         exec(plugin.read(), plugin_globals, plugin_locals)
@@ -35,5 +37,7 @@ def load_plugin(plugin, plugin_globals, plugin_locals):
         return False
     except Exception, e:
         raise WidgetPluginError("%s: %s" % (e.__class__, str(e)))
+    finally:
+        plugin.close()
 
     return True

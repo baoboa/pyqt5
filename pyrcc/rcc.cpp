@@ -1,6 +1,6 @@
 /****************************************************************************
 **
-** Copyright (c) 2014 Riverbank Computing Limited. All rights reserved.
+** Copyright (c) 2015 Riverbank Computing Limited. All rights reserved.
 ** Copyright (C) 2013 Digia Plc and/or its subsidiary(-ies).
 ** Contact: http://www.qt-project.org/legal
 **
@@ -45,7 +45,6 @@
 #include <qfile.h>
 #include <qfileinfo.h>
 #include <qlocale.h>
-#include <qdatetime.h>
 #include <qtextstream.h>
 #include <qbytearray.h>
 #include <qhash.h>
@@ -421,8 +420,7 @@ RCCResourceLibrary::writeHeader(FILE *out)
     fprintf(out, "# -*- coding: utf-8 -*-\n\n");
     fprintf(out, "# Resource object code\n");
     fprintf(out, "#\n");
-    fprintf(out, "# Created: %s\n", QDateTime::currentDateTime().toString().toUtf8().constData());
-    fprintf(out, "#      by: The Resource Compiler for PyQt (Qt v%s)\n", QT_VERSION_STR);
+    fprintf(out, "# Created by: The Resource Compiler for PyQt5 (Qt v%s)\n", QT_VERSION_STR);
     fprintf(out, "#\n");
     fprintf(out, "# WARNING! All changes made in this file will be lost!\n");
     fprintf(out, "\n");

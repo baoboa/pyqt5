@@ -3,7 +3,7 @@
 
 #############################################################################
 ##
-## Copyright (C) 2013 Riverbank Computing Limited.
+## Copyright (C) 2015 Riverbank Computing Limited.
 ## Copyright (C) 2010 Nokia Corporation and/or its subsidiary(-ies).
 ## All rights reserved.
 ##
@@ -42,14 +42,13 @@
 #############################################################################
 
 
-from PyQt5.QtCore import (QLineF, QMimeData, QPoint, QPointF, qrand, QRectF,
-        qsrand, Qt, QTime, QTimeLine)
+from PyQt5.QtCore import (QEasingCurve, QFileInfo, QLineF, QMimeData,
+        QParallelAnimationGroup, QPoint, QPointF, QPropertyAnimation, qrand,
+        QRectF, qsrand, Qt, QTime)
 from PyQt5.QtGui import (QBrush, QColor, QDrag, QImage, QPainter, QPen,
         QPixmap, QTransform)
-from PyQt5.QtWidgets import (QApplication, QGraphicsItem,
-        QGraphicsItemAnimation, QGraphicsScene, QGraphicsView)
-
-import dragdroprobot_rc
+from PyQt5.QtWidgets import (QApplication, QGraphicsItem, QGraphicsObject,
+        QGraphicsScene, QGraphicsView)
 
 
 class ColorItem(QGraphicsItem):
@@ -65,6 +64,7 @@ class ColorItem(QGraphicsItem):
               (self.color.red(), self.color.green(), self.color.blue())
         )
         self.setCursor(Qt.OpenHandCursor)
+        self.setAcceptedMouseButtons(Qt.LeftButton)
     
     def boundingRect(self):
         return QRectF(-15.5, -15.5, 34, 34)
@@ -78,10 +78,6 @@ class ColorItem(QGraphicsItem):
         painter.drawEllipse(-15, -15, 30, 30)
 
     def mousePressEvent(self, event):
-        if event.button() != Qt.LeftButton:
-            event.ignore()
-            return
-
         self.setCursor(Qt.ClosedHandCursor)
 
     def mouseMoveEvent(self, event):
@@ -94,7 +90,9 @@ class ColorItem(QGraphicsItem):
 
         ColorItem.n += 1
         if ColorItem.n > 2 and qrand() % 3 == 0:
-            image = QImage(':/images/head.png')
+            root = QFileInfo(__file__).absolutePath()
+
+            image = QImage(root + '/images/head.png')
             mime.setImageData(image)
             drag.setPixmap(QPixmap.fromImage(image).scaled(30,40))
             drag.setHotSpot(QPoint(15, 30))
@@ -123,19 +121,17 @@ class ColorItem(QGraphicsItem):
         self.setCursor(Qt.OpenHandCursor)
 
 
-class RobotPart(QGraphicsItem):
+class RobotPart(QGraphicsObject):
     def __init__(self, parent=None):
         super(RobotPart, self).__init__(parent)
 
         self.color = QColor(Qt.lightGray)
-        self.pixmap = None
         self.dragOver = False
 
         self.setAcceptDrops(True)
 
     def dragEnterEvent(self, event):
-        if event.mimeData().hasColor() or \
-          (isinstance(self, RobotHead) and event.mimeData().hasImage()):
+        if event.mimeData().hasColor():
             event.setAccepted(True)
             self.dragOver = True
             self.update()
@@ -150,20 +146,22 @@ class RobotPart(QGraphicsItem):
         self.dragOver = False
         if event.mimeData().hasColor():
             self.color = QColor(event.mimeData().colorData())
-        elif event.mimeData().hasImage():
-            self.pixmap = QPixmap(event.mimeData().imageData())
 
         self.update()
 
 
 class RobotHead(RobotPart):
+    def __init__(self, parent=None):
+        super(RobotHead, self).__init__(parent)
+
+        self.pixmap = QPixmap()
+
     def boundingRect(self):
         return QRectF(-15, -50, 30, 50)
 
     def paint(self, painter, option, widget=None):
-        if not self.pixmap:
-            painter.setBrush(self.dragOver and self.color.lighter(130) 
-                                            or self.color)
+        if self.pixmap.isNull():
+            painter.setBrush(self.color.lighter(130) if self.dragOver else self.color)
             painter.drawRoundedRect(-10, -30, 20, 30, 25, 25, Qt.RelativeSize)
             painter.setBrush(Qt.white)
             painter.drawEllipse(-7, -3 - 20, 7, 7)
@@ -178,14 +176,29 @@ class RobotHead(RobotPart):
             painter.scale(.2272, .2824)
             painter.drawPixmap(QPointF(-15*4.4, -50*3.54), self.pixmap)
 
+    def dragEnterEvent(self, event):
+        if event.mimeData().hasImage():
+            event.setAccepted(True)
+            self.dragOver = True
+            self.update()
+        else:
+            super(RobotHead, self).dragEnterEvent(event)
+
+    def dropEvent(self, event):
+        if event.mimeData().hasImage():
+            self.dragOver = False
+            self.pixmap = QPixmap(event.mimeData().imageData())
+            self.update()
+        else:
+            super(RobotHead, self).dropEvent(event)
+
 
 class RobotTorso(RobotPart):
     def boundingRect(self):
         return QRectF(-30, -20, 60, 60)
 
     def paint(self, painter, option, widget=None):
-        painter.setBrush(self.dragOver and self.color.lighter(130) 
-                                        or self.color)
+        painter.setBrush(self.color.lighter(130) if self.dragOver else self.color)
         painter.drawRoundedRect(-20, -20, 40, 60, 25, 25, Qt.RelativeSize)
         painter.drawEllipse(-25, -20, 20, 20)
         painter.drawEllipse(5, -20, 20, 20)
@@ -198,7 +211,7 @@ class RobotLimb(RobotPart):
         return QRectF(-5, -5, 40, 10)
 
     def paint(self, painter, option, widget=None):
-        painter.setBrush(self.dragOver and self.color.lighter(130) or self.color)
+        painter.setBrush(self.color.lighter(130) if self.dragOver else  self.color)
         painter.drawRoundedRect(self.boundingRect(), 50, 50, Qt.RelativeSize)
         painter.drawEllipse(-5, -5, 10, 10)
 
@@ -207,53 +220,65 @@ class Robot(RobotPart):
     def __init__(self):
         super(Robot, self).__init__()
 
-        self.torsoItem         = RobotTorso(self)
-        self.headItem          = RobotHead(self.torsoItem)
-        self.upperLeftArmItem  = RobotLimb(self.torsoItem)
-        self.lowerLeftArmItem  = RobotLimb(self.upperLeftArmItem)
+        self.setFlag(self.ItemHasNoContents)
+
+        self.torsoItem = RobotTorso(self)
+        self.headItem = RobotHead(self.torsoItem)
+        self.upperLeftArmItem = RobotLimb(self.torsoItem)
+        self.lowerLeftArmItem = RobotLimb(self.upperLeftArmItem)
         self.upperRightArmItem = RobotLimb(self.torsoItem)
         self.lowerRightArmItem = RobotLimb(self.upperRightArmItem)
         self.upperRightLegItem = RobotLimb(self.torsoItem)
         self.lowerRightLegItem = RobotLimb(self.upperRightLegItem)
-        self.upperLeftLegItem  = RobotLimb(self.torsoItem)
-        self.lowerLeftLegItem  = RobotLimb(self.upperLeftLegItem)
+        self.upperLeftLegItem = RobotLimb(self.torsoItem)
+        self.lowerLeftLegItem = RobotLimb(self.upperLeftLegItem)
 
-        self.timeline = QTimeLine()
-        settings = [
-        #             item               position    rotation at
-        #                                 x    y    time 0  /  1
-            ( self.headItem,              0,  -18,      20,   -20 ),
-            ( self.upperLeftArmItem,    -15,  -10,     190,   180 ),
-            ( self.lowerLeftArmItem,     30,    0,      50,    10 ),
-            ( self.upperRightArmItem,    15,  -10,     300,   310 ),
-            ( self.lowerRightArmItem,    30,    0,       0,   -70 ),
-            ( self.upperRightLegItem,    10,   32,      40,   120 ),
-            ( self.lowerRightLegItem,    30,    0,      10,    50 ),
-            ( self.upperLeftLegItem,    -10,   32,     150,    80 ),
-            ( self.lowerLeftLegItem,     30,    0,      70,    10 ),
-            ( self.torsoItem,             0,    0,       5,   -20 )
-        ]
-        self.animations = []
-        for item, pos_x, pos_y, rotation1, rotation2 in settings: 
-            item.setPos(pos_x,pos_y)
-            animation = QGraphicsItemAnimation()
-            animation.setItem(item)
-            animation.setTimeLine(self.timeline)
-            animation.setRotationAt(0, rotation1)
-            animation.setRotationAt(1, rotation2)
-            self.animations.append(animation)
-        self.animations[0].setScaleAt(1, 1.1, 1.1)
-    
-        self.timeline.setUpdateInterval(1000 / 25)
-        self.timeline.setCurveShape(QTimeLine.SineCurve)
-        self.timeline.setLoopCount(0)
-        self.timeline.setDuration(2000)
-        self.timeline.start()
+        settings = (
+        #    Item                       Position        Rotation  Scale
+        #                                x     y    start    end
+            (self.headItem,              0,  -18,      20,   -20,   1.1),
+            (self.upperLeftArmItem,    -15,  -10,     190,   180,     0),
+            (self.lowerLeftArmItem,     30,    0,      50,    10,     0),
+            (self.upperRightArmItem,    15,  -10,     300,   310,     0),
+            (self.lowerRightArmItem,    30,    0,       0,   -70,     0),
+            (self.upperRightLegItem,    10,   32,      40,   120,     0),
+            (self.lowerRightLegItem,    30,    0,      10,    50,     0),
+            (self.upperLeftLegItem,    -10,   32,     150,    80,     0),
+            (self.lowerLeftLegItem,     30,    0,      70,    10,     0),
+            (self.torsoItem,             0,    0,       5,   -20,     0),
+        )
+
+        animation = QParallelAnimationGroup(self)
+        for item, pos_x, pos_y, start_rot, end_rot, scale in settings: 
+            item.setPos(pos_x, pos_y)
+
+            rot_animation = QPropertyAnimation(item, 'rotation')
+            rot_animation.setStartValue(start_rot)
+            rot_animation.setEndValue(end_rot)
+            rot_animation.setEasingCurve(QEasingCurve.SineCurve)
+            rot_animation.setDuration(2000)
+            animation.addAnimation(rot_animation)
+
+            if scale > 0:
+                scale_animation = QPropertyAnimation(item, 'scale')
+                scale_animation.setEndValue(scale)
+                scale_animation.setEasingCurve(QEasingCurve.SineCurve)
+                scale_animation.setDuration(2000)
+                animation.addAnimation(scale_animation)
+
+        animation.setLoopCount(-1)
+        animation.start()
 
     def boundingRect(self):
         return QRectF()
 
     def paint(self, painter, option, widget=None):
+        pass
+
+
+class GraphicsView(QGraphicsView):
+
+    def resizeEvent(self, e):
         pass
 
 
@@ -279,7 +304,7 @@ if __name__== '__main__':
     robot.setPos(0, -20)
     scene.addItem(robot)
 
-    view = QGraphicsView(scene)
+    view = GraphicsView(scene)
     view.setRenderHint(QPainter.Antialiasing)
     view.setViewportUpdateMode(QGraphicsView.BoundingRectViewportUpdate)
     view.setBackgroundBrush(QColor(230, 200, 167))

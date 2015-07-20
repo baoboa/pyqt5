@@ -1,6 +1,6 @@
 #############################################################################
 ##
-## Copyright (c) 2014 Riverbank Computing Limited <info@riverbankcomputing.com>
+## Copyright (c) 2015 Riverbank Computing Limited <info@riverbankcomputing.com>
 ## 
 ## This file is part of PyQt5.
 ## 
@@ -20,13 +20,7 @@
 #############################################################################
 
 
-import sys
 import os.path
-
-if sys.hexversion >= 0x03000000:
-    from .port_v3.as_string import as_string
-else:
-    from .port_v2.as_string import as_string
 
 
 class IconCache(object):
@@ -54,7 +48,8 @@ class IconCache(object):
         theme = iconset.attrib.get('theme')
         if theme is not None:
             return self._object_factory.createQObject("QIcon.fromTheme",
-                    'icon', (as_string(theme), ), is_attribute=False)
+                    'icon', (self._object_factory.asString(theme), ),
+                    is_attribute=False)
 
         # Handle an empty iconset property.
         if iconset.text is None:

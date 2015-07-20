@@ -6,15 +6,15 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>PyQt5 Reference Guide &mdash; PyQt 5.4 Reference Guide</title>
+    <title>PyQt5 Reference Guide &mdash; PyQt 5.4.2 Reference Guide</title>
     
-    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/classic.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '5.4',
+        VERSION:     '5.4.2',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -24,11 +24,11 @@
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
     <link rel="shortcut icon" href="_static/logo_tn.ico"/>
-    <link rel="top" title="PyQt 5.4 Reference Guide" href="#" />
+    <link rel="top" title="PyQt 5.4.2 Reference Guide" href="#" />
     <link rel="next" title="Introduction" href="introduction.html" /> 
   </head>
-  <body>
-    <div class="related">
+  <body role="document">
+    <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
@@ -40,14 +40,14 @@
         <li class="right" >
           <a href="introduction.html" title="Introduction"
              accesskey="N">next</a> |</li>
-        <li><a href="#">PyQt 5.4 Reference Guide</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="#">PyQt 5.4.2 Reference Guide</a> &raquo;</li> 
       </ul>
     </div>  
 
     <div class="document">
       <div class="documentwrapper">
         <div class="bodywrapper">
-          <div class="body">
+          <div class="body" role="main">
             
   <div class="section" id="pyqt5-reference-guide">
 <h1>PyQt5 Reference Guide<a class="headerlink" href="#pyqt5-reference-guide" title="Permalink to this headline">¶</a></h1>
@@ -60,7 +60,7 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="deprecations.html">Deprecated Features and Behaviours</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="deprecations.html#conversion-of-latin-1-strings-to-qbytearray">Conversion of Latin-1 Strings to <tt class="docutils literal"><span class="pre">QByteArray</span></tt></a></li>
+<li class="toctree-l2"><a class="reference internal" href="deprecations.html#conversion-of-latin-1-strings-to-qbytearray">Conversion of Latin-1 Strings to <code class="docutils literal"><span class="pre">QByteArray</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="deprecations.html#unhandled-python-exceptions">Unhandled Python Exceptions</a></li>
 </ul>
 </li>
@@ -83,20 +83,20 @@
 <li class="toctree-l2"><a class="reference internal" href="pyqt4_differences.html#multiple-apis">Multiple APIs</a></li>
 <li class="toctree-l2"><a class="reference internal" href="pyqt4_differences.html#old-style-signals-and-slots">Old-style Signals and Slots</a></li>
 <li class="toctree-l2"><a class="reference internal" href="pyqt4_differences.html#new-style-signals-and-slots">New-style Signals and Slots</a></li>
-<li class="toctree-l2"><a class="reference internal" href="pyqt4_differences.html#qtdeclarative-qtscript-and-qtscripttools-modules"><tt class="docutils literal"><span class="pre">QtDeclarative</span></tt>, <tt class="docutils literal"><span class="pre">QtScript</span></tt> and <tt class="docutils literal"><span class="pre">QtScriptTools</span></tt> Modules</a></li>
-<li class="toctree-l2"><a class="reference internal" href="pyqt4_differences.html#qtgui-module"><tt class="docutils literal"><span class="pre">QtGui</span></tt> Module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="pyqt4_differences.html#qtopengl-module"><tt class="docutils literal"><span class="pre">QtOpenGL</span></tt> Module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="pyqt4_differences.html#qtwebkit-module"><tt class="docutils literal"><span class="pre">QtWebKit</span></tt> Module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="pyqt4_differences.html#pyqtconfig-module"><tt class="docutils literal"><span class="pre">pyqtconfig</span></tt> Module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="pyqt4_differences.html#dbus-mainloop-qt-module"><tt class="docutils literal"><span class="pre">dbus.mainloop.qt</span></tt> Module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="pyqt4_differences.html#qdatastream"><tt class="docutils literal"><span class="pre">QDataStream</span></tt></a></li>
-<li class="toctree-l2"><a class="reference internal" href="pyqt4_differences.html#qfiledialog"><tt class="docutils literal"><span class="pre">QFileDialog</span></tt></a></li>
-<li class="toctree-l2"><a class="reference internal" href="pyqt4_differences.html#qgraphicsitemanimation"><tt class="docutils literal"><span class="pre">QGraphicsItemAnimation</span></tt></a></li>
-<li class="toctree-l2"><a class="reference internal" href="pyqt4_differences.html#qmatrix"><tt class="docutils literal"><span class="pre">QMatrix</span></tt></a></li>
-<li class="toctree-l2"><a class="reference internal" href="pyqt4_differences.html#qpytextobject"><tt class="docutils literal"><span class="pre">QPyTextObject</span></tt></a></li>
-<li class="toctree-l2"><a class="reference internal" href="pyqt4_differences.html#qset"><tt class="docutils literal"><span class="pre">QSet</span></tt></a></li>
-<li class="toctree-l2"><a class="reference internal" href="pyqt4_differences.html#pyuic5"><tt class="docutils literal"><span class="pre">pyuic5</span></tt></a></li>
-<li class="toctree-l2"><a class="reference internal" href="pyqt4_differences.html#pyrcc5"><tt class="docutils literal"><span class="pre">pyrcc5</span></tt></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pyqt4_differences.html#qtdeclarative-qtscript-and-qtscripttools-modules"><code class="docutils literal"><span class="pre">QtDeclarative</span></code>, <code class="docutils literal"><span class="pre">QtScript</span></code> and <code class="docutils literal"><span class="pre">QtScriptTools</span></code> Modules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pyqt4_differences.html#qtgui-module"><code class="docutils literal"><span class="pre">QtGui</span></code> Module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pyqt4_differences.html#qtopengl-module"><code class="docutils literal"><span class="pre">QtOpenGL</span></code> Module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pyqt4_differences.html#qtwebkit-module"><code class="docutils literal"><span class="pre">QtWebKit</span></code> Module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pyqt4_differences.html#pyqtconfig-module"><code class="docutils literal"><span class="pre">pyqtconfig</span></code> Module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pyqt4_differences.html#dbus-mainloop-qt-module"><code class="docutils literal"><span class="pre">dbus.mainloop.qt</span></code> Module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pyqt4_differences.html#qdatastream"><code class="docutils literal"><span class="pre">QDataStream</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pyqt4_differences.html#qfiledialog"><code class="docutils literal"><span class="pre">QFileDialog</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pyqt4_differences.html#qgraphicsitemanimation"><code class="docutils literal"><span class="pre">QGraphicsItemAnimation</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pyqt4_differences.html#qmatrix"><code class="docutils literal"><span class="pre">QMatrix</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pyqt4_differences.html#qpytextobject"><code class="docutils literal"><span class="pre">QPyTextObject</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pyqt4_differences.html#qset"><code class="docutils literal"><span class="pre">QSet</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pyqt4_differences.html#pyuic5"><code class="docutils literal"><span class="pre">pyuic5</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pyqt4_differences.html#pyrcc5"><code class="docutils literal"><span class="pre">pyrcc5</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="pyqt4_differences.html#cooperative-multi-inheritance">Cooperative Multi-inheritance</a></li>
 <li class="toctree-l2"><a class="reference internal" href="pyqt4_differences.html#releasing-the-gil">Releasing the GIL</a></li>
 <li class="toctree-l2"><a class="reference internal" href="pyqt4_differences.html#object-destruction-on-exit">Object Destruction on Exit</a></li>
@@ -494,6 +494,7 @@
 <li class="toctree-l2"><a class="reference internal" href="api/qlowenergycontroller.html">QLowEnergyController</a></li>
 <li class="toctree-l2"><a class="reference internal" href="api/qlowenergydescriptor.html">QLowEnergyDescriptor</a></li>
 <li class="toctree-l2"><a class="reference internal" href="api/qlowenergyservice.html">QLowEnergyService</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/qmaccocoaviewcontainer.html">QMacCocoaViewContainer</a></li>
 <li class="toctree-l2"><a class="reference internal" href="api/qmacpasteboardmime.html">QMacPasteboardMime</a></li>
 <li class="toctree-l2"><a class="reference internal" href="api/qmagnetometer.html">QMagnetometer</a></li>
 <li class="toctree-l2"><a class="reference internal" href="api/qmagnetometerfilter.html">QMagnetometerFilter</a></li>
@@ -1011,10 +1012,10 @@
 </li>
 <li class="toctree-l1"><a class="reference internal" href="signals_slots.html">Support for Signals and Slots</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="signals_slots.html#unbound-and-bound-signals">Unbound and Bound Signals</a></li>
-<li class="toctree-l2"><a class="reference internal" href="signals_slots.html#defining-new-signals-with-pyqtsignal">Defining New Signals with <tt class="docutils literal"><span class="pre">pyqtSignal()</span></tt></a></li>
+<li class="toctree-l2"><a class="reference internal" href="signals_slots.html#defining-new-signals-with-pyqtsignal">Defining New Signals with <code class="docutils literal"><span class="pre">pyqtSignal()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="signals_slots.html#connecting-disconnecting-and-emitting-signals">Connecting, Disconnecting and Emitting Signals</a></li>
 <li class="toctree-l2"><a class="reference internal" href="signals_slots.html#connecting-signals-using-keyword-arguments">Connecting Signals Using Keyword Arguments</a></li>
-<li class="toctree-l2"><a class="reference internal" href="signals_slots.html#the-pyqtslot-decorator">The <tt class="docutils literal"><span class="pre">pyqtSlot()</span></tt> Decorator</a></li>
+<li class="toctree-l2"><a class="reference internal" href="signals_slots.html#the-pyqtslot-decorator">The <code class="docutils literal"><span class="pre">pyqtSlot()</span></code> Decorator</a></li>
 <li class="toctree-l2"><a class="reference internal" href="signals_slots.html#connecting-slots-by-name">Connecting Slots By Name</a></li>
 </ul>
 </li>
@@ -1023,21 +1024,21 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="metaobjects.html">Other Support for Dynamic Meta-objects</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="metaobjects.html#q-enums-and-q-flags"><tt class="docutils literal"><span class="pre">Q_ENUMS()</span></tt> and <tt class="docutils literal"><span class="pre">Q_FLAGS()</span></tt></a></li>
-<li class="toctree-l2"><a class="reference internal" href="metaobjects.html#q-classinfo"><tt class="docutils literal"><span class="pre">Q_CLASSINFO()</span></tt></a></li>
+<li class="toctree-l2"><a class="reference internal" href="metaobjects.html#q-enums-and-q-flags"><code class="docutils literal"><span class="pre">Q_ENUMS()</span></code> and <code class="docutils literal"><span class="pre">Q_FLAGS()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="metaobjects.html#q-classinfo"><code class="docutils literal"><span class="pre">Q_CLASSINFO()</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="opengl.html">Support for OpenGL</a></li>
 <li class="toctree-l1"><a class="reference internal" href="qt_interfaces.html">Support for Qt Interfaces</a></li>
-<li class="toctree-l1"><a class="reference internal" href="pyqt_qvariant.html">Support for <tt class="docutils literal"><span class="pre">QVariant</span></tt></a></li>
-<li class="toctree-l1"><a class="reference internal" href="pyqt_qsettings.html">Support for <tt class="docutils literal"><span class="pre">QSettings</span></tt></a></li>
+<li class="toctree-l1"><a class="reference internal" href="pyqt_qvariant.html">Support for <code class="docutils literal"><span class="pre">QVariant</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="pyqt_qsettings.html">Support for <code class="docutils literal"><span class="pre">QSettings</span></code></a></li>
 <li class="toctree-l1"><a class="reference internal" href="qml.html">Integrating Python and QML</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="qml.html#registering-python-types">Registering Python Types</a></li>
 <li class="toctree-l2"><a class="reference internal" href="qml.html#a-simple-example">A Simple Example</a></li>
-<li class="toctree-l2"><a class="reference internal" href="qml.html#using-qqmllistproperty">Using <tt class="docutils literal"><span class="pre">QQmlListProperty</span></tt></a></li>
+<li class="toctree-l2"><a class="reference internal" href="qml.html#using-qqmllistproperty">Using <code class="docutils literal"><span class="pre">QQmlListProperty</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="qml.html#using-attached-properties">Using Attached Properties</a></li>
 <li class="toctree-l2"><a class="reference internal" href="qml.html#using-property-value-sources">Using Property Value Sources</a></li>
-<li class="toctree-l2"><a class="reference internal" href="qml.html#using-qqmlparserstatus">Using <tt class="docutils literal"><span class="pre">QQmlParserStatus</span></tt></a></li>
+<li class="toctree-l2"><a class="reference internal" href="qml.html#using-qqmlparserstatus">Using <code class="docutils literal"><span class="pre">QQmlParserStatus</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="qml.html#writing-python-plugins-for-qmlscene">Writing Python Plugins for <strong class="program">qmlscene</strong></a></li>
 </ul>
 </li>
@@ -1048,13 +1049,13 @@
 <li class="toctree-l2"><a class="reference internal" href="gotchas.html#garbage-collection">Garbage Collection</a></li>
 <li class="toctree-l2"><a class="reference internal" href="gotchas.html#multiple-inheritance">Multiple Inheritance</a></li>
 <li class="toctree-l2"><a class="reference internal" href="gotchas.html#access-to-protected-member-functions">Access to Protected Member Functions</a></li>
-<li class="toctree-l2"><a class="reference internal" href="gotchas.html#none-and-null"><tt class="docutils literal"><span class="pre">None</span></tt> and <tt class="docutils literal"><span class="pre">NULL</span></tt></a></li>
-<li class="toctree-l2"><a class="reference internal" href="gotchas.html#support-for-void">Support for <tt class="docutils literal"><span class="pre">void</span> <span class="pre">*</span></tt></a></li>
+<li class="toctree-l2"><a class="reference internal" href="gotchas.html#none-and-null"><code class="docutils literal"><span class="pre">None</span></code> and <code class="docutils literal"><span class="pre">NULL</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="gotchas.html#support-for-void">Support for <code class="docutils literal"><span class="pre">void</span> <span class="pre">*</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="designer.html">Using Qt Designer</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="designer.html#using-the-generated-code">Using the Generated Code</a></li>
-<li class="toctree-l2"><a class="reference internal" href="designer.html#the-uic-module">The <tt class="docutils literal"><span class="pre">uic</span></tt> Module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="designer.html#the-uic-module">The <code class="docutils literal"><span class="pre">uic</span></code> Module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="designer.html#pyuic5"><strong class="program">pyuic5</strong></a></li>
 <li class="toctree-l2"><a class="reference internal" href="designer.html#writing-qt-designer-plugins">Writing Qt Designer Plugins</a></li>
 </ul>
@@ -1071,8 +1072,8 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="dbus.html">DBus Support</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="dbus.html#qtdbus"><tt class="docutils literal"><span class="pre">QtDBus</span></tt></a></li>
-<li class="toctree-l2"><a class="reference internal" href="dbus.html#dbus-mainloop-pyqt5"><tt class="docutils literal"><span class="pre">dbus.mainloop.pyqt5</span></tt></a></li>
+<li class="toctree-l2"><a class="reference internal" href="dbus.html#qtdbus"><code class="docutils literal"><span class="pre">QtDBus</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="dbus.html#dbus-mainloop-pyqt5"><code class="docutils literal"><span class="pre">dbus.mainloop.pyqt5</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="deploy_commercial.html">Deploying Commercial PyQt5 Applications</a></li>
@@ -1089,7 +1090,7 @@
           </div>
         </div>
       </div>
-      <div class="sphinxsidebar">
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
             <p class="logo"><a href="#">
               <img class="logo" src="_static/logo.png" alt="Logo"/>
@@ -1097,7 +1098,7 @@
   <h4>Next topic</h4>
   <p class="topless"><a href="introduction.html"
                         title="next chapter">Introduction</a></p>
-<div id="searchbox" style="display: none">
+<div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
     <form class="search" action="search.html" method="get">
       <input type="text" name="q" />
@@ -1114,7 +1115,7 @@
       </div>
       <div class="clearer"></div>
     </div>
-    <div class="related">
+    <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
@@ -1126,12 +1127,12 @@
         <li class="right" >
           <a href="introduction.html" title="Introduction"
              >next</a> |</li>
-        <li><a href="#">PyQt 5.4 Reference Guide</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="#">PyQt 5.4.2 Reference Guide</a> &raquo;</li> 
       </ul>
     </div>
-    <div class="footer">
-        &copy; Copyright 2014 Riverbank Computing Limited.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.3.
+    <div class="footer" role="contentinfo">
+        &copy; Copyright 2015 Riverbank Computing Limited.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.1.
     </div>
   </body>
 </html>

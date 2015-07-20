@@ -1,6 +1,6 @@
 #############################################################################
 ##
-## Copyright (C) 2014 Riverbank Computing Limited.
+## Copyright (C) 2015 Riverbank Computing Limited.
 ## Copyright (C) 2006 Thorsten Marek.
 ## All right reserved.
 ##
@@ -39,9 +39,15 @@
 
 
 import logging
+import sys
 
 from .indenter import write_code
 from .qtproxies import QtGui, QtWidgets, Literal, strict_getattr
+
+if sys.hexversion >= 0x03000000:
+    from ..port_v3.as_string import as_string
+else:
+    from ..port_v2.as_string import as_string
 
 
 logger = logging.getLogger(__name__)
@@ -132,8 +138,8 @@ class _CustomWidgetLoader(object):
             _, module = self._widgets[widget]
             imports.setdefault(module, []).append(widget)
 
-        for module, classes in imports.items():
-            write_code("from %s import %s" % (module, ", ".join(classes)))
+        for module, classes in sorted(imports.items()):
+            write_code("from %s import %s" % (module, ", ".join(sorted(classes))))
 
 
 class CompilerCreatorPolicy(object):
@@ -161,6 +167,9 @@ class CompilerCreatorPolicy(object):
 
     def getSlot(self, object, slotname):
         return Literal("%s.%s" % (object, slotname))
+
+    def asString(self, s):
+        return as_string(s)
 
     def _writeOutImports(self):
         for module in self._modules:

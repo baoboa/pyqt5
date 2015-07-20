@@ -6,15 +6,15 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Support for Cooperative Multi-inheritance &mdash; PyQt 5.4 Reference Guide</title>
+    <title>Support for Cooperative Multi-inheritance &mdash; PyQt 5.4.2 Reference Guide</title>
     
-    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/classic.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '5.4',
+        VERSION:     '5.4.2',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -24,12 +24,12 @@
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
     <link rel="shortcut icon" href="_static/logo_tn.ico"/>
-    <link rel="top" title="PyQt 5.4 Reference Guide" href="index.html" />
+    <link rel="top" title="PyQt 5.4.2 Reference Guide" href="index.html" />
     <link rel="next" title="Things to be Aware Of" href="gotchas.html" />
     <link rel="prev" title="Integrating Python and QML" href="qml.html" /> 
   </head>
-  <body>
-    <div class="related">
+  <body role="document">
+    <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
@@ -44,14 +44,14 @@
         <li class="right" >
           <a href="qml.html" title="Integrating Python and QML"
              accesskey="P">previous</a> |</li>
-        <li><a href="index.html">PyQt 5.4 Reference Guide</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">PyQt 5.4.2 Reference Guide</a> &raquo;</li> 
       </ul>
     </div>  
 
     <div class="document">
       <div class="documentwrapper">
         <div class="bodywrapper">
-          <div class="body">
+          <div class="body" role="main">
             
   <div class="section" id="support-for-cooperative-multi-inheritance">
 <span id="ref-cooperative-multiinheritance"></span><h1>Support for Cooperative Multi-inheritance<a class="headerlink" href="#support-for-cooperative-multi-inheritance" title="Permalink to this headline">¶</a></h1>
@@ -65,9 +65,9 @@ mixin classes that add additional behaviour.  It makes it easy to add new
 mixins at a later date to further extend the behavior, without needing to
 change either the implementation of the class or any existing code that creates
 an instance of the class.</p>
-<p>The technique requires that all the super-class&#8217;s <tt class="docutils literal"><span class="pre">__init__</span></tt> methods follow
+<p>The technique requires that all the super-class&#8217;s <code class="docutils literal"><span class="pre">__init__</span></code> methods follow
 the same pattern in the way that they handle unrecognised keyword arguments and
-use <tt class="docutils literal"><span class="pre">super()</span></tt> to invoke their own super-class&#8217;s <tt class="docutils literal"><span class="pre">__init__</span></tt> methods.</p>
+use <code class="docutils literal"><span class="pre">super()</span></code> to invoke their own super-class&#8217;s <code class="docutils literal"><span class="pre">__init__</span></code> methods.</p>
 <p>PyQt5&#8217;s classes follow this pattern.</p>
 <p>See Raymond Hettinger&#8217;s <a class="reference external" href="http://rhettinger.wordpress.com/2011/05/26/super-considered-super/">Python&#8217;s super() considered super!</a> blog
 post for some more background on the subject.</p>
@@ -87,12 +87,12 @@ person has a name.  The following might be an initial implementation:</p>
 </div>
 <p>This approach has some limitations:</p>
 <ul class="simple">
-<li>Only a sub-set of the <a class="reference internal" href="api/qobject.html#PyQt5.QtCore.QObject" title="PyQt5.QtCore.QObject"><tt class="xref py py-class docutils literal"><span class="pre">QObject</span></tt></a> API is exposed.  For
+<li>Only a sub-set of the <a class="reference internal" href="api/qobject.html#PyQt5.QtCore.QObject" title="PyQt5.QtCore.QObject"><code class="xref py py-class docutils literal"><span class="pre">QObject</span></code></a> API is exposed.  For
 example you cannot set the value of a Qt property or connect a signal by
-passing appropriate keyword arguments to <tt class="docutils literal"><span class="pre">Person.__init__</span></tt>.</li>
-<li>Adding another class to <tt class="docutils literal"><span class="pre">Person</span></tt>&#8216;s list of super-classes means that its
-<tt class="docutils literal"><span class="pre">__init__</span></tt> implementation needs to be changed.  If the new mixin takes
-non-optional arguments then every call to create a <tt class="docutils literal"><span class="pre">Person</span></tt> instance will
+passing appropriate keyword arguments to <code class="docutils literal"><span class="pre">Person.__init__</span></code>.</li>
+<li>Adding another class to <code class="docutils literal"><span class="pre">Person</span></code>&#8216;s list of super-classes means that its
+<code class="docutils literal"><span class="pre">__init__</span></code> implementation needs to be changed.  If the new mixin takes
+non-optional arguments then every call to create a <code class="docutils literal"><span class="pre">Person</span></code> instance will
 need changing.</li>
 </ul>
 <p>Consider this alternative implementation:</p>
@@ -103,9 +103,9 @@ need changing.</li>
         <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">name</span>
 </pre></div>
 </div>
-<p>The difference is that we only handle arguments that are used by the <tt class="docutils literal"><span class="pre">Person</span></tt>
+<p>The difference is that we only handle arguments that are used by the <code class="docutils literal"><span class="pre">Person</span></code>
 class itself and we punt all the other arguments to the super-classes by
-calling <tt class="docutils literal"><span class="pre">super()</span></tt>.</p>
+calling <code class="docutils literal"><span class="pre">super()</span></code>.</p>
 <p>With this implementation an instance would normally created in one of the
 following ways:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="n">person</span> <span class="o">=</span> <span class="n">Person</span><span class="p">(</span><span class="s">&quot;Joe&quot;</span><span class="p">)</span>
@@ -113,7 +113,7 @@ following ways:</p>
 </pre></div>
 </div>
 <p>Here the difference is that we are using keyword arguments to specify any
-arguments that are not handled by the <tt class="docutils literal"><span class="pre">Person</span></tt> class itself.  Note that we
+arguments that are not handled by the <code class="docutils literal"><span class="pre">Person</span></code> class itself.  Note that we
 could use keyword arguments for all arguments - whether or not you do so is
 down to personal choice.</p>
 <p>The limitations of the first implementation no longer apply.  For example,
@@ -121,7 +121,7 @@ without any further changes we can also do this:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="n">person</span> <span class="o">=</span> <span class="n">Person</span><span class="p">(</span><span class="s">&quot;Joe&quot;</span><span class="p">,</span> <span class="n">destroyed</span><span class="o">=</span><span class="n">some_callable</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>Let&#8217;s say we now want to extend the behaviour of the <tt class="docutils literal"><span class="pre">Person</span></tt> class by adding
+<p>Let&#8217;s say we now want to extend the behaviour of the <code class="docutils literal"><span class="pre">Person</span></code> class by adding
 a mixin that handles a person&#8217;s age.  The implementation of the mixin would be
 as follows:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="k">class</span> <span class="nc">Age</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
@@ -131,9 +131,9 @@ as follows:</p>
         <span class="bp">self</span><span class="o">.</span><span class="n">age</span> <span class="o">=</span> <span class="n">age</span>
 </pre></div>
 </div>
-<p>This follows a similar pattern to our <tt class="docutils literal"><span class="pre">Person</span></tt> implementation, but notice
-that we have provided the <tt class="docutils literal"><span class="pre">age</span></tt> argument with a default value.</p>
-<p>The following is our new <tt class="docutils literal"><span class="pre">Person</span></tt> implementation:</p>
+<p>This follows a similar pattern to our <code class="docutils literal"><span class="pre">Person</span></code> implementation, but notice
+that we have provided the <code class="docutils literal"><span class="pre">age</span></code> argument with a default value.</p>
+<p>The following is our new <code class="docutils literal"><span class="pre">Person</span></code> implementation:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="k">class</span> <span class="nc">Person</span><span class="p">(</span><span class="n">QObject</span><span class="p">,</span> <span class="n">Age</span><span class="p">):</span>
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="o">**</span><span class="n">kwds</span><span class="p">):</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="o">**</span><span class="n">kwds</span><span class="p">)</span>
@@ -141,10 +141,10 @@ that we have provided the <tt class="docutils literal"><span class="pre">age</sp
         <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">name</span>
 </pre></div>
 </div>
-<p>The only change we have had to make is to add <tt class="docutils literal"><span class="pre">Age</span></tt> to <tt class="docutils literal"><span class="pre">Person</span></tt>&#8216;s list of
+<p>The only change we have had to make is to add <code class="docutils literal"><span class="pre">Age</span></code> to <code class="docutils literal"><span class="pre">Person</span></code>&#8216;s list of
 super-classes.  More importantly we do not need to change any call to create a
-<tt class="docutils literal"><span class="pre">Person</span></tt> instance.</p>
-<p>If we do want to create a <tt class="docutils literal"><span class="pre">Person</span></tt> instance with a non-default age then we
+<code class="docutils literal"><span class="pre">Person</span></code> instance.</p>
+<p>If we do want to create a <code class="docutils literal"><span class="pre">Person</span></code> instance with a non-default age then we
 simply pass it as a keyword argument as follows:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="n">person</span> <span class="o">=</span> <span class="n">Person</span><span class="p">(</span><span class="s">&quot;Joe&quot;</span><span class="p">,</span> <span class="n">age</span><span class="o">=</span><span class="mi">38</span><span class="p">)</span>
 </pre></div>
@@ -157,7 +157,7 @@ more typing, it significantly increases the readability of application code.</p>
           </div>
         </div>
       </div>
-      <div class="sphinxsidebar">
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
             <p class="logo"><a href="index.html">
               <img class="logo" src="_static/logo.png" alt="Logo"/>
@@ -168,7 +168,7 @@ more typing, it significantly increases the readability of application code.</p>
   <h4>Next topic</h4>
   <p class="topless"><a href="gotchas.html"
                         title="next chapter">Things to be Aware Of</a></p>
-<div id="searchbox" style="display: none">
+<div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
     <form class="search" action="search.html" method="get">
       <input type="text" name="q" />
@@ -185,7 +185,7 @@ more typing, it significantly increases the readability of application code.</p>
       </div>
       <div class="clearer"></div>
     </div>
-    <div class="related">
+    <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
@@ -200,12 +200,12 @@ more typing, it significantly increases the readability of application code.</p>
         <li class="right" >
           <a href="qml.html" title="Integrating Python and QML"
              >previous</a> |</li>
-        <li><a href="index.html">PyQt 5.4 Reference Guide</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">PyQt 5.4.2 Reference Guide</a> &raquo;</li> 
       </ul>
     </div>
-    <div class="footer">
-        &copy; Copyright 2014 Riverbank Computing Limited.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.3.
+    <div class="footer" role="contentinfo">
+        &copy; Copyright 2015 Riverbank Computing Limited.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.1.
     </div>
   </body>
 </html>

@@ -3,7 +3,7 @@
 
 #############################################################################
 ##
-## Copyright (C) 2013 Riverbank Computing Limited.
+## Copyright (C) 2015 Riverbank Computing Limited.
 ## Copyright (C) 2010 Nokia Corporation and/or its subsidiary(-ies).
 ## All rights reserved.
 ##
@@ -46,9 +46,10 @@ import sys
 import math
 
 from PyQt5.QtCore import QPointF, QRect, QRectF, Qt, QTimer
-from PyQt5.QtGui import QBrush, QColor, QFont, QLinearGradient, QPainter, QPen
-from PyQt5.QtWidgets import QApplication, QGridLayout, QLabel, QWidget
-from PyQt5.QtOpenGL import QGL, QGLFormat, QGLWidget
+from PyQt5.QtGui import (QBrush, QColor, QFont, QLinearGradient, QPainter,
+        QPen, QSurfaceFormat)
+from PyQt5.QtWidgets import (QApplication, QGridLayout, QLabel, QOpenGLWidget,
+        QWidget)
 
 
 class Helper(object):
@@ -110,9 +111,9 @@ class Widget(QWidget):
         painter.end()
 
 
-class GLWidget(QGLWidget):
+class GLWidget(QOpenGLWidget):
     def __init__(self, helper, parent):
-        super(GLWidget, self).__init__(QGLFormat(QGL.SampleBuffers), parent)
+        super(GLWidget, self).__init__(parent)
 
         self.helper = helper
         self.elapsed = 0
@@ -121,7 +122,7 @@ class GLWidget(QGLWidget):
 
     def animate(self):
         self.elapsed = (self.elapsed + self.sender().interval()) % 1000
-        self.repaint()
+        self.update()
 
     def paintEvent(self, event):
         painter = QPainter()
@@ -161,6 +162,11 @@ class Window(QWidget):
 if __name__ == '__main__':
 
     app = QApplication(sys.argv)
+
+    fmt = QSurfaceFormat()
+    fmt.setSamples(4)
+    QSurfaceFormat.setDefaultFormat(fmt)
+
     window = Window()
     window.show()
     sys.exit(app.exec_())

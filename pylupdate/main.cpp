@@ -242,12 +242,14 @@ int main( int argc, char **argv )
 
                 for ( t = toks.begin(); t != toks.end(); ++t ) {
                     if ( it.key() == "SOURCES" ) {
-                        fetchtr_py((*t).toLatin1(), &fetchedTor,
+                        QString abs = QDir::current().absoluteFilePath(*t);
+                        fetchtr_py(abs.toLatin1(), &fetchedTor,
                                 defaultContext.toLatin1(), true,
                                 codecForSource, tr_func, translate_func);
                         metSomething = true;
                     } else if ( it.key() == "TRANSLATIONS" ) {
-                        tsFileNames.append( *t );
+                        QString abs = QDir::current().absoluteFilePath(*t);
+                        tsFileNames.append(abs);
                         metSomething = true;
                     } else if ( it.key() == "CODEC" ||
                                 it.key() == "DEFAULTCODEC" ||
@@ -257,8 +259,10 @@ int main( int argc, char **argv )
                     } else if ( it.key() == "CODECFORSRC" ) {
                         codecForSource = (*t).toLatin1();
                     } else if ( it.key() == "FORMS" ) {
-                fetchtr_ui( (*t).toLatin1(), &fetchedTor, defaultContext.toLatin1(), true);
-            }
+                        QString abs = QDir::current().absoluteFilePath(*t);
+                        fetchtr_ui(abs.toLatin1(), &fetchedTor,
+                                defaultContext.toLatin1(), true);
+                    }
                 }
             }
 

@@ -1,6 +1,6 @@
 #############################################################################
 ##
-## Copyright (C) 2014 Riverbank Computing Limited.
+## Copyright (C) 2015 Riverbank Computing Limited.
 ## Copyright (C) 2006 Thorsten Marek.
 ## All right reserved.
 ##
@@ -392,16 +392,18 @@ class Properties(object):
         return self._getChild("attribute", elem, name, default)
 
     def setProperties(self, widget, elem):
-        try:
-            self.wclass = elem.attrib["class"]
-        except KeyError:
-            pass
-        for prop in elem.findall("property"):
-            prop_name = prop.attrib["name"]
+        # Lines are sunken unless the frame shadow is explicitly set.
+        set_sunken = (elem.attrib.get('class') == 'Line')
+
+        for prop in elem.findall('property'):
+            prop_name = prop.attrib['name']
             DEBUG("setting property %s" % (prop_name,))
 
+            if prop_name == 'frameShadow':
+                set_sunken = False
+
             try:
-                stdset = bool(int(prop.attrib["stdset"]))
+                stdset = bool(int(prop.attrib['stdset']))
             except KeyError:
                 stdset = True
 
@@ -412,7 +414,10 @@ class Properties(object):
             else:
                 prop_value = self.convert(prop, widget)
                 if prop_value is not None:
-                    getattr(widget, "set%s%s" % (ascii_upper(prop_name[0]), prop_name[1:]))(prop_value)
+                    getattr(widget, 'set%s%s' % (ascii_upper(prop_name[0]), prop_name[1:]))(prop_value)
+
+        if set_sunken:
+            widget.setFrameShadow(QtWidgets.QFrame.Sunken)
 
     # SPECIAL PROPERTIES
     # If a property has a well-known value type but needs special,
@@ -455,10 +460,12 @@ class Properties(object):
     value = _setViaSetProperty
 
     objectName = _ignore
+    margin = _ignore
     leftMargin = _ignore
     topMargin = _ignore
     rightMargin = _ignore
     bottomMargin = _ignore
+    spacing = _ignore
     horizontalSpacing = _ignore
     verticalSpacing = _ignore
 
@@ -490,31 +497,19 @@ class Properties(object):
             widget.setFrameShape(
                 {'Qt::Horizontal': QtWidgets.QFrame.HLine,
                  'Qt::Vertical'  : QtWidgets.QFrame.VLine}[prop[0].text])
-
-            # In Qt Designer, lines appear to be sunken, QFormBuilder loads
-            # them as such, uic generates plain lines.  We stick to the look in
-            # Qt Designer.
-            widget.setFrameShadow(QtWidgets.QFrame.Sunken)
         else:
             widget.setOrientation(self._enum(prop[0]))
-
-    def margin(self, widget, prop):
-        # Qt5 doesn't have setMargin().
-        value = self.convert(prop)
-        widget.setContentsMargins(value, value, value, value)
 
     # The isWrapping attribute of QListView is named inconsistently, it should
     # be wrapping.
     def isWrapping(self, widget, prop):
         widget.setWrapping(self.convert(prop))
 
-    # This is a pseudo-property injected to deal with setContentsMargin()
-    # introduced in Qt v4.3.
-    def pyuicContentsMargins(self, widget, prop):
+    # This is a pseudo-property injected to deal with margins.
+    def pyuicMargins(self, widget, prop):
         widget.setContentsMargins(*int_list(prop))
 
-    # This is a pseudo-property injected to deal with setHorizontalSpacing()
-    # and setVerticalSpacing() introduced in Qt v4.3.
+    # This is a pseudo-property injected to deal with spacing.
     def pyuicSpacing(self, widget, prop):
         horiz, vert = int_list(prop)
 

@@ -1,6 +1,6 @@
 // This is the implementation of the Chimera class.
 //
-// Copyright (c) 2014 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2015 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -1531,6 +1531,15 @@ PyObject *Chimera::toPyObject(void *cpp) const
                 if (!py)
                     QMetaType::destroy(_metatype, copy);
             }
+        }
+        else if (_name.contains("_QMLTYPE_"))
+        {
+            // These correspond to objects defined in QML.  We assume that they
+            // are all sub-classes of QObject.  If this proves not to be the
+            // case then we will have to look at the first part of _name (and
+            // possibly move this code the the QtQml module).
+            py = sipConvertFromType(*reinterpret_cast<void **>(cpp),
+                    sipType_QObject, 0);
         }
     }
 

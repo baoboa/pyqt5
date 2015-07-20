@@ -1,6 +1,6 @@
 #############################################################################
 ##
-## Copyright (c) 2014 Riverbank Computing Limited <info@riverbankcomputing.com>
+## Copyright (c) 2015 Riverbank Computing Limited <info@riverbankcomputing.com>
 ## 
 ## This file is part of PyQt5.
 ## 
@@ -76,6 +76,8 @@ class Driver(object):
     def _generate(self):
         """ Generate the Python code. """
 
+        needs_close = False
+
         if sys.hexversion >= 0x03000000:
             if self._opts.output == '-':
                 from io import TextIOWrapper
@@ -83,14 +85,19 @@ class Driver(object):
                 pyfile = TextIOWrapper(sys.stdout.buffer, encoding='utf8')
             else:
                 pyfile = open(self._opts.output, 'wt', encoding='utf8')
+                needs_close = True
         else:
             if self._opts.output == '-':
                 pyfile = sys.stdout
             else:
                 pyfile = open(self._opts.output, 'wt')
+                needs_close = True
 
         compileUi(self._ui_file, pyfile, self._opts.execute, self._opts.indent,
                 self._opts.from_imports, self._opts.resource_suffix)
+
+        if needs_close:
+            pyfile.close()
 
     def on_IOError(self, e):
         """ Handle an IOError exception. """

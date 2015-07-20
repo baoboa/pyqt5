@@ -3,7 +3,7 @@
 
 #############################################################################
 ##
-## Copyright (C) 2013 Riverbank Computing Limited.
+## Copyright (C) 2015 Riverbank Computing Limited.
 ## Copyright (C) 2010 Nokia Corporation and/or its subsidiary(-ies).
 ## All rights reserved.
 ##
@@ -45,8 +45,6 @@
 
 from PyQt5.QtCore import QEventLoop, QTime
 from PyQt5.QtWidgets import QApplication, QMessageBox
-
-import qtdemo_rc
 
 from colors import Colors
 from mainwindow import MainWindow

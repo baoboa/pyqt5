@@ -1,6 +1,6 @@
 # This script generates the Makefiles for building PyQt5.
 #
-# Copyright (c) 2014 Riverbank Computing Limited <info@riverbankcomputing.com>
+# Copyright (c) 2015 Riverbank Computing Limited <info@riverbankcomputing.com>
 # 
 # This file is part of PyQt5.
 # 
@@ -18,6 +18,7 @@
 # WARRANTY OF DESIGN, MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE.
 
 
+from distutils import sysconfig
 import glob
 import optparse
 import os
@@ -25,16 +26,11 @@ import shutil
 import stat
 import sys
 
-try:
-    import sysconfig
-except ImportError:
-    from distutils import sysconfig
-
 
 # Initialise the constants.
-PYQT_VERSION_STR = "5.4"
+PYQT_VERSION_STR = "5.4.2"
 
-SIP_MIN_VERSION = '4.16.4'
+SIP_MIN_VERSION = '4.16.6'
 
 
 class ModuleMetadata:
@@ -89,7 +85,9 @@ MODULE_METADATA = {
     'QtSql':                ModuleMetadata(qmake_QT=['sql', 'widgets']),
     'QtSvg':                ModuleMetadata(qmake_QT=['svg']),
     'QtTest':               ModuleMetadata(qmake_QT=['testlib', 'widgets']),
-    'QtWebChannel':         ModuleMetadata(qmake_QT=['webchannel', 'network']),
+    'QtWebChannel':         ModuleMetadata(
+                                    qmake_QT=['webchannel', 'network',
+                                            '-gui']),
     'QtWebEngineWidgets':   ModuleMetadata(
                                     qmake_QT=['webenginewidgets', 'network',
                                             'widgets'],
@@ -98,7 +96,7 @@ MODULE_METADATA = {
     'QtWebKitWidgets':      ModuleMetadata(
                                     qmake_QT=['webkitwidgets',
                                             'printsupport']),
-    'QtWebSockets':         ModuleMetadata(qmake_QT=['websockets']),
+    'QtWebSockets':         ModuleMetadata(qmake_QT=['websockets', '-gui']),
     'QtWidgets':            ModuleMetadata(qmake_QT=['widgets']),
     'QtWinExtras':          ModuleMetadata(qmake_QT=['winextras', 'widgets']),
     'QtX11Extras':          ModuleMetadata(qmake_QT=['x11extras']),
@@ -386,14 +384,9 @@ class HostPythonConfiguration:
         self.platform = sys.platform
         self.version = sys.hexversion >> 8
 
-        if hasattr(sysconfig, 'get_path'):
-            # The modern API.
-            self.inc_dir = sysconfig.get_path('include')
-            self.module_dir = sysconfig.get_path('platlib')
-        else:
-            # The legacy distutils API.
-            self.inc_dir = sysconfig.get_python_inc(plat_specific=1)
-            self.module_dir = sysconfig.get_python_lib(plat_specific=1)
+        self.inc_dir = sysconfig.get_python_inc()
+        self.venv_inc_dir = sysconfig.get_python_inc(prefix=sys.prefix)
+        self.module_dir = sysconfig.get_python_lib(plat_specific=1)
 
         if sys.platform == 'win32':
             self.bin_dir = sys.exec_prefix
@@ -464,6 +457,7 @@ class TargetConfiguration:
         # Values based on the host Python configuration.
         py_config = HostPythonConfiguration()
         self.py_inc_dir = py_config.inc_dir
+        self.py_venv_inc_dir = py_config.venv_inc_dir
         self.py_lib_dir = py_config.lib_dir
         self.py_platform = py_config.platform
         self.py_version = py_config.version
@@ -494,8 +488,10 @@ class TargetConfiguration:
         self.dbus_libs = []
         self.debug = False
         self.designer_plugin_dir = ''
+        self.license_dir = source_path('sip')
         self.no_designer_plugin = False
         self.no_docstrings = False
+        self.no_pydbus = False
         self.no_qml_plugin = False
         self.no_tools = False
         self.prot_is_public = (self.py_platform.startswith('linux') or self.py_platform == 'darwin')
@@ -514,7 +510,7 @@ class TargetConfiguration:
         self.qt_licensee = ''
         self.qt_shared = False
         self.qt_version = 0
-        self.sip = self._find_exe('sip')
+        self.sip = self._find_exe('sip5', 'sip')
         self.sip_inc_dir = ''
         self.static = False
         self.sysroot = ''
@@ -570,6 +566,7 @@ class TargetConfiguration:
 
         self.py_platform = parser.get(section, 'py_platform', self.py_platform)
         self.py_inc_dir = parser.get(section, 'py_inc_dir', self.py_inc_dir)
+        self.py_venv_inc_dir = self.py_inc_dir
         self.py_pylib_dir = parser.get(section, 'py_pylib_dir',
                 self.py_pylib_dir)
         self.py_pylib_lib = parser.get(section, 'py_pylib_lib',
@@ -690,12 +687,12 @@ int main(int argc, char **argv)
 
         # Read the details.
         f = open(out_file)
-        lines = f.read().strip().split('\n')
+        lines = f.read().split('\n')
         f.close()
 
         self.qt_licensee = lines[0]
         self.qt_shared = (lines[1] == 'shared')
-        self.pyqt_disabled_features = lines[2:]
+        self.pyqt_disabled_features = lines[2:-1]
 
         # Get the details of the Python interpreter library.
         py_major = self.py_version >> 16
@@ -715,8 +712,7 @@ int main(int argc, char **argv)
             pylib_dir = pyshlib = ''
 
             # Use distutils to get the additional configuration.
-            from distutils.sysconfig import get_config_vars
-            ducfg = get_config_vars()
+            ducfg = sysconfig.get_config_vars()
 
             config_args = ducfg.get('CONFIG_ARGS', '')
 
@@ -745,6 +741,7 @@ int main(int argc, char **argv)
         # Apply sysroot where necessary.
         if self.sysroot != '':
             self.py_inc_dir = self._apply_sysroot(self.py_inc_dir)
+            self.py_venv_inc_dir = self._apply_sysroot(self.py_venv_inc_dir)
             self.py_pylib_dir = self._apply_sysroot(self.py_pylib_dir)
             self.pyqt_bin_dir = self._apply_sysroot(self.pyqt_bin_dir)
             self.pyqt_module_dir = self._apply_sysroot(self.pyqt_module_dir)
@@ -819,8 +816,8 @@ int main(int argc, char **argv)
         if self.py_platform.startswith('linux') or self.py_platform == 'darwin':
             self.prot_is_public = True
 
-        self.sip_inc_dir = self.py_inc_dir
-        self.vend_inc_dir = self.py_inc_dir
+        self.sip_inc_dir = self.py_venv_inc_dir
+        self.vend_inc_dir = self.py_venv_inc_dir
         self.vend_lib_dir = self.py_lib_dir
 
     def apply_pre_options(self, opts):
@@ -874,8 +871,14 @@ int main(int argc, char **argv)
         if opts.debug:
             self.debug = True
 
+        if opts.licensedir is not None:
+            self.license_dir = opts.licensedir
+
         if opts.designerplugindir is not None:
             self.designer_plugin_dir = opts.designerplugindir
+
+        if opts.qmlplugindir is not None:
+            self.qml_plugin_dir = opts.qmlplugindir
 
         if opts.destdir is not None:
             self.pyqt_module_dir = opts.destdir
@@ -888,6 +891,9 @@ int main(int argc, char **argv)
 
         if opts.nodocstrings:
             self.no_docstrings = True
+
+        if opts.nopydbus:
+            self.no_pydbus = True
 
         if opts.noqmlplugin:
             self.no_qml_plugin = True
@@ -960,22 +966,20 @@ int main(int argc, char **argv)
         return qmake_quote('-L' + self.py_pylib_dir) + ' -l' + self.py_pylib_lib
 
     @staticmethod
-    def _find_exe(exe):
+    def _find_exe(*exes):
         """ Find an executable, ie. the first on the path. """
 
-        try:
-            path = os.environ['PATH']
-        except KeyError:
-            path = ''
+        path_dirs = os.environ.get('PATH', '').split(os.pathsep)
 
-        if sys.platform == 'win32':
-            exe = exe + '.exe'
+        for exe in exes:
+            if sys.platform == 'win32':
+                exe = exe + '.exe'
 
-        for d in path.split(os.pathsep):
-            exe_path = os.path.join(d, exe)
+            for d in path_dirs:
+                exe_path = os.path.join(d, exe)
 
-            if os.path.isfile(exe_path) and os.access(exe_path, os.X_OK):
-                return exe_path
+                if os.access(exe_path, os.X_OK):
+                    return exe_path
 
         return None
 
@@ -1043,6 +1047,11 @@ def create_optparser(target_config):
     g.add_option("--confirm-license", dest='license_confirmed', default=False,
             action='store_true',
             help="confirm acceptance of the license")
+    g.add_option("--license-dir", dest='licensedir', type='string',
+            default=None, action='callback', callback=store_abspath,
+            metavar="DIR",
+            help="the license file can be found in DIR [default: "
+                    "%s]" % target_config.license_dir)
     g.add_option("--target-py-version", dest='target_py_version',
             type='string', action='callback', callback=store_version,
             metavar="VERSION",
@@ -1113,6 +1122,10 @@ def create_optparser(target_config):
             help="the directory containing the sip.h header file is DIR "
                     "[default: %s]" % target_config.sip_inc_dir)
 
+    g.add_option("--no-python-dbus", dest='nopydbus',
+            default=False, action='store_true',
+            help="disable the Qt support for the standard Python DBus "
+                    "bindings [default: enabled]")
     g.add_option("--dbus", "-s", dest='pydbusincdir', type='string',
             default=None, action='callback', callback=store_abspath_dir,
             metavar="DIR",
@@ -1464,7 +1477,7 @@ def generate_makefiles(target_config, verbose, no_timestamp, parts, tracing):
     out_f = open_for_writing(toplevel_pro)
 
     out_f.write('''TEMPLATE = subdirs
-CONFIG += ordered
+CONFIG += ordered nostrip
 SUBDIRS = %s
 
 init_py.files = %s
@@ -1496,10 +1509,9 @@ INSTALLS += qscintilla_api
 
     out_f.close()
 
-    # Make the pyuic5 wrapper executable on platforms that support it.  This
-    # means that qmake will try and strip it after installing it resulting in
-    # an (ignored) error.  However if we did it after running qmake then (on
-    # Linux) the execute bits would be stripped on installation.
+    # Make the pyuic5 wrapper executable on platforms that support it.  If we
+    # did it after running qmake then (on Linux) the execute bits would be
+    # stripped on installation.
     if not target_config.no_tools and target_config.py_platform != 'win32':
         inform("Making the %s wrapper executable..." % pyuic_wrapper)
 
@@ -1611,28 +1623,43 @@ def generate_application_makefile(target_config, verbose, src_dir):
 
 
 def pro_sources(src_dir, other_headers=None, other_sources=None):
-    """ Return the HEADERS and SOURCES variables for a .pro file by
-    introspecting a directory.  src_dir is the name of the directory.
+    """ Return the HEADERS, SOURCES and OBJECTIVE_SOURCES variables for a .pro
+    file by introspecting a directory.  src_dir is the name of the directory.
     other_headers is an optional list of other header files.  other_sources is
     an optional list of other source files.
     """
 
-    if other_headers is None:
-        other_headers = []
-
-    if other_sources is None:
-        other_sources = []
-
     pro_lines = []
 
     headers = [os.path.basename(f) for f in glob.glob('%s/*.h' % src_dir)]
-    if len(headers) != 0:
-        pro_lines.append('HEADERS = %s' % ' '.join(headers + other_headers))
 
-    c_sources = [os.path.basename(f) for f in glob.glob('%s/*.c' % src_dir)]
-    cpp_sources = [os.path.basename(f) for f in glob.glob('%s/*.cpp' % src_dir)]
-    pro_lines.append(
-            'SOURCES = %s' % ' '.join(c_sources + cpp_sources + other_sources))
+    if other_headers is not None:
+        headers += other_headers
+
+    if len(headers) != 0:
+        pro_lines.append('HEADERS = %s' % ' '.join(headers))
+
+    sources = [os.path.basename(f) for f in glob.glob('%s/*.c' % src_dir)]
+
+    for f in glob.glob('%s/*.cpp' % src_dir):
+        f = os.path.basename(f)
+
+        # Exclude any moc generated C++ files that might be around from a
+        # previous build.
+        if not f.startswith('moc_'):
+            sources.append(f)
+
+    if other_sources is not None:
+        sources += other_sources
+
+    if len(sources) != 0:
+        pro_lines.append('SOURCES = %s' % ' '.join(sources))
+
+    objective_sources = [
+            os.path.basename(f) for f in glob.glob('%s/*.mm' % src_dir)]
+
+    if len(objective_sources) != 0:
+        pro_lines.append('OBJECTIVE_SOURCES = %s' % ' '.join(objective_sources))
 
     return pro_lines
 
@@ -1988,7 +2015,7 @@ def check_dbus(target_config, verbose):
     verbose is set if the output is to be displayed.
     """
 
-    if not os.path.isdir(source_path('dbus')):
+    if target_config.no_pydbus or not os.path.isdir(source_path('dbus')):
         return
 
     inform("Checking to see if the dbus support module should be built...")
@@ -2571,14 +2598,15 @@ Type 'no' to decline the terms of the license.
     sip_dir = 'sip'
     mk_dir(sip_dir)
 
-    sp_sip_dir = source_path(sip_dir)
-    src_lfile = os.path.join(sp_sip_dir, lfile)
+    src_lfile = os.path.join(target_config.license_dir, lfile)
 
     if os.access(src_lfile, os.F_OK):
         inform("Found the license file %s." % lfile)
         fix_license(src_lfile, os.path.join(sip_dir, lfile + '5'))
     else:
-        error("Please copy the license file %s to %s." % (lfile, sp_sip_dir))
+        error(
+                "Please copy the license file %s to %s." % (lfile,
+                        target_config.license_dir))
 
 
 def check_qt(target_config):
@@ -2625,7 +2653,7 @@ def check_sip(target_config):
 
     pipe.close()
 
-    if 'snapshot' not in version_str:
+    if 'preview' not in version_str and 'snapshot' not in version_str:
         version = version_from_string(version_str)
         if version is None:
             error(

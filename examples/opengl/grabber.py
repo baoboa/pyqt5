@@ -3,7 +3,7 @@
 
 #############################################################################
 ##
-## Copyright (C) 2013 Riverbank Computing Limited.
+## Copyright (C) 2015 Riverbank Computing Limited.
 ## Copyright (C) 2010 Nokia Corporation and/or its subsidiary(-ies).
 ## All rights reserved.
 ##
@@ -45,23 +45,14 @@
 import sys
 import math
 
-from PyQt5.QtCore import pyqtSignal, QRegExp, QSize, Qt, QTimer
+from PyQt5.QtCore import pyqtSignal, QSize, Qt, QTimer
 from PyQt5.QtGui import QPixmap
-from PyQt5.QtWidgets import (QAction, QApplication, QGridLayout, QInputDialog,
-        QLabel, QLineEdit, QMainWindow, QMessageBox, QScrollArea, QSizePolicy,
-        QSlider, QWidget)
-from PyQt5.QtOpenGL import QGLWidget
-
-try:
-    from OpenGL.GL import *
-except ImportError:
-    app = QApplication(sys.argv)
-    QMessageBox.critical(None, "OpenGL grabber",
-            "PyOpenGL must be installed to run this example.")
-    sys.exit(1)
+from PyQt5.QtWidgets import (QAction, QApplication, QGridLayout, QLabel,
+        QLineEdit, QMainWindow, QMessageBox, QOpenGLWidget, QScrollArea,
+        QSizePolicy, QSlider, QWidget)
 
 
-class GLWidget(QGLWidget):
+class GLWidget(QOpenGLWidget):
     xRotationChanged = pyqtSignal(int)
     yRotationChanged = pyqtSignal(int)
     zRotationChanged = pyqtSignal(int)
@@ -87,7 +78,7 @@ class GLWidget(QGLWidget):
         if angle != self.xRot:
             self.xRot = angle
             self.xRotationChanged.emit(angle)
-            self.updateGL()
+            self.update()
 
     def setYRotation(self, angle):
         self.normalizeAngle(angle)
@@ -95,7 +86,7 @@ class GLWidget(QGLWidget):
         if angle != self.yRot:
             self.yRot = angle
             self.yRotationChanged.emit(angle)
-            self.updateGL()
+            self.update()
 
     def setZRotation(self, angle):
         self.normalizeAngle(angle)
@@ -103,57 +94,60 @@ class GLWidget(QGLWidget):
         if angle != self.zRot:
             self.zRot = angle
             self.zRotationChanged.emit(angle)
-            self.updateGL()
+            self.update()
 
     def initializeGL(self):
+        self.gl = self.context().versionFunctions()
+        self.gl.initializeOpenGLFunctions()
+
         lightPos = (5.0, 5.0, 10.0, 1.0)
         reflectance1 = (0.8, 0.1, 0.0, 1.0)
         reflectance2 = (0.0, 0.8, 0.2, 1.0)
         reflectance3 = (0.2, 0.2, 1.0, 1.0)
 
-        glLightfv(GL_LIGHT0, GL_POSITION, lightPos)
-        glEnable(GL_LIGHTING)
-        glEnable(GL_LIGHT0)
-        glEnable(GL_DEPTH_TEST)
+        self.gl.glLightfv(self.gl.GL_LIGHT0, self.gl.GL_POSITION, lightPos)
+        self.gl.glEnable(self.gl.GL_LIGHTING)
+        self.gl.glEnable(self.gl.GL_LIGHT0)
+        self.gl.glEnable(self.gl.GL_DEPTH_TEST)
 
         self.gear1 = self.makeGear(reflectance1, 1.0, 4.0, 1.0, 0.7, 20)
         self.gear2 = self.makeGear(reflectance2, 0.5, 2.0, 2.0, 0.7, 10)
         self.gear3 = self.makeGear(reflectance3, 1.3, 2.0, 0.5, 0.7, 10)
 
-        glEnable(GL_NORMALIZE)
-        glClearColor(0.0, 0.0, 0.0, 1.0)
+        self.gl.glEnable(self.gl.GL_NORMALIZE)
+        self.gl.glClearColor(0.0, 0.0, 0.0, 1.0)
 
     def paintGL(self):
-        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT)
+        self.gl.glClear(self.gl.GL_COLOR_BUFFER_BIT | self.gl.GL_DEPTH_BUFFER_BIT)
 
-        glPushMatrix()
-        glRotated(self.xRot / 16.0, 1.0, 0.0, 0.0)
-        glRotated(self.yRot / 16.0, 0.0, 1.0, 0.0)
-        glRotated(self.zRot / 16.0, 0.0, 0.0, 1.0)
+        self.gl.glPushMatrix()
+        self.gl.glRotated(self.xRot / 16.0, 1.0, 0.0, 0.0)
+        self.gl.glRotated(self.yRot / 16.0, 0.0, 1.0, 0.0)
+        self.gl.glRotated(self.zRot / 16.0, 0.0, 0.0, 1.0)
 
         self.drawGear(self.gear1, -3.0, -2.0, 0.0, self.gear1Rot / 16.0)
         self.drawGear(self.gear2, +3.1, -2.0, 0.0,
                 -2.0 * (self.gear1Rot / 16.0) - 9.0)
 
-        glRotated(+90.0, 1.0, 0.0, 0.0)
+        self.gl.glRotated(+90.0, 1.0, 0.0, 0.0)
         self.drawGear(self.gear3, -3.1, -1.8, -2.2,
                 +2.0 * (self.gear1Rot / 16.0) - 2.0)
 
-        glPopMatrix()
+        self.gl.glPopMatrix()
 
     def resizeGL(self, width, height):
         side = min(width, height)
         if side < 0:
             return
 
-        glViewport((width - side) // 2, (height - side) // 2, side, side)
+        self.gl.glViewport((width - side) // 2, (height - side) // 2, side, side)
 
-        glMatrixMode(GL_PROJECTION)
-        glLoadIdentity()
-        glFrustum(-1.0, +1.0, -1.0, 1.0, 5.0, 60.0)
-        glMatrixMode(GL_MODELVIEW)
-        glLoadIdentity()
-        glTranslated(0.0, 0.0, -40.0)
+        self.gl.glMatrixMode(self.gl.GL_PROJECTION)
+        self.gl.glLoadIdentity()
+        self.gl.glFrustum(-1.0, +1.0, -1.0, 1.0, 5.0, 60.0)
+        self.gl.glMatrixMode(self.gl.GL_MODELVIEW)
+        self.gl.glLoadIdentity()
+        self.gl.glTranslated(0.0, 0.0, -40.0)
 
     def mousePressEvent(self, event):
         self.lastPos = event.pos()
@@ -173,7 +167,7 @@ class GLWidget(QGLWidget):
 
     def advanceGears(self):
         self.gear1Rot += 2 * 16
-        self.updateGL()    
+        self.update()    
 
     def xRotation(self):
         return self.xRot
@@ -185,9 +179,10 @@ class GLWidget(QGLWidget):
         return self.zRot
 
     def makeGear(self, reflectance, innerRadius, outerRadius, thickness, toothSize, toothCount):
-        list = glGenLists(1)
-        glNewList(list, GL_COMPILE)
-        glMaterialfv(GL_FRONT, GL_AMBIENT_AND_DIFFUSE, reflectance)
+        list = self.gl.glGenLists(1)
+        self.gl.glNewList(list, self.gl.GL_COMPILE)
+        self.gl.glMaterialfv(self.gl.GL_FRONT, self.gl.GL_AMBIENT_AND_DIFFUSE,
+                reflectance)
 
         r0 = innerRadius
         r1 = outerRadius - toothSize / 2.0
@@ -195,7 +190,7 @@ class GLWidget(QGLWidget):
         delta = (2.0 * math.pi / toothCount) / 4.0
         z = thickness / 2.0
 
-        glShadeModel(GL_FLAT)
+        self.gl.glShadeModel(self.gl.GL_FLAT)
 
         for i in range(2):
             if i == 0:
@@ -203,31 +198,31 @@ class GLWidget(QGLWidget):
             else:
                 sign = -1.0
 
-            glNormal3d(0.0, 0.0, sign)
+            self.gl.glNormal3d(0.0, 0.0, sign)
 
-            glBegin(GL_QUAD_STRIP)
+            self.gl.glBegin(self.gl.GL_QUAD_STRIP)
 
             for j in range(toothCount+1):
                 angle = 2.0 * math.pi * j / toothCount
-                glVertex3d(r0 * math.cos(angle), r0 * math.sin(angle), sign * z)
-                glVertex3d(r1 * math.cos(angle), r1 * math.sin(angle), sign * z)
-                glVertex3d(r0 * math.cos(angle), r0 * math.sin(angle), sign * z)
-                glVertex3d(r1 * math.cos(angle + 3 * delta), r1 * math.sin(angle + 3 * delta), sign * z)
+                self.gl.glVertex3d(r0 * math.cos(angle), r0 * math.sin(angle), sign * z)
+                self.gl.glVertex3d(r1 * math.cos(angle), r1 * math.sin(angle), sign * z)
+                self.gl.glVertex3d(r0 * math.cos(angle), r0 * math.sin(angle), sign * z)
+                self.gl.glVertex3d(r1 * math.cos(angle + 3 * delta), r1 * math.sin(angle + 3 * delta), sign * z)
 
-            glEnd()
+            self.gl.glEnd()
 
-            glBegin(GL_QUADS)
+            self.gl.glBegin(self.gl.GL_QUADS)
 
             for j in range(toothCount):
                 angle = 2.0 * math.pi * j / toothCount                
-                glVertex3d(r1 * math.cos(angle), r1 * math.sin(angle), sign * z)
-                glVertex3d(r2 * math.cos(angle + delta), r2 * math.sin(angle + delta), sign * z)
-                glVertex3d(r2 * math.cos(angle + 2 * delta), r2 * math.sin(angle + 2 * delta), sign * z)
-                glVertex3d(r1 * math.cos(angle + 3 * delta), r1 * math.sin(angle + 3 * delta), sign * z)
+                self.gl.glVertex3d(r1 * math.cos(angle), r1 * math.sin(angle), sign * z)
+                self.gl.glVertex3d(r2 * math.cos(angle + delta), r2 * math.sin(angle + delta), sign * z)
+                self.gl.glVertex3d(r2 * math.cos(angle + 2 * delta), r2 * math.sin(angle + 2 * delta), sign * z)
+                self.gl.glVertex3d(r1 * math.cos(angle + 3 * delta), r1 * math.sin(angle + 3 * delta), sign * z)
 
-            glEnd()
+            self.gl.glEnd()
 
-        glBegin(GL_QUAD_STRIP)
+        self.gl.glBegin(self.gl.GL_QUAD_STRIP)
 
         for i in range(toothCount):
             for j in range(2):
@@ -238,40 +233,40 @@ class GLWidget(QGLWidget):
                 if j == 1:
                     s1, s2 = s2, s1
 
-                glNormal3d(math.cos(angle), math.sin(angle), 0.0)
-                glVertex3d(s1 * math.cos(angle), s1 * math.sin(angle), +z)
-                glVertex3d(s1 * math.cos(angle), s1 * math.sin(angle), -z)
+                self.gl.glNormal3d(math.cos(angle), math.sin(angle), 0.0)
+                self.gl.glVertex3d(s1 * math.cos(angle), s1 * math.sin(angle), +z)
+                self.gl.glVertex3d(s1 * math.cos(angle), s1 * math.sin(angle), -z)
 
-                glNormal3d(s2 * math.sin(angle + delta) - s1 * math.sin(angle), s1 * math.cos(angle) - s2 * math.cos(angle + delta), 0.0)
-                glVertex3d(s2 * math.cos(angle + delta), s2 * math.sin(angle + delta), +z)
-                glVertex3d(s2 * math.cos(angle + delta), s2 * math.sin(angle + delta), -z)
+                self.gl.glNormal3d(s2 * math.sin(angle + delta) - s1 * math.sin(angle), s1 * math.cos(angle) - s2 * math.cos(angle + delta), 0.0)
+                self.gl.glVertex3d(s2 * math.cos(angle + delta), s2 * math.sin(angle + delta), +z)
+                self.gl.glVertex3d(s2 * math.cos(angle + delta), s2 * math.sin(angle + delta), -z)
 
-        glVertex3d(r1, 0.0, +z)
-        glVertex3d(r1, 0.0, -z)
-        glEnd()
+        self.gl.glVertex3d(r1, 0.0, +z)
+        self.gl.glVertex3d(r1, 0.0, -z)
+        self.gl.glEnd()
 
-        glShadeModel(GL_SMOOTH)
+        self.gl.glShadeModel(self.gl.GL_SMOOTH)
 
-        glBegin(GL_QUAD_STRIP)
+        self.gl.glBegin(self.gl.GL_QUAD_STRIP)
 
         for i in range(toothCount+1):
             angle = i * 2.0 * math.pi / toothCount
-            glNormal3d(-math.cos(angle), -math.sin(angle), 0.0)
-            glVertex3d(r0 * math.cos(angle), r0 * math.sin(angle), +z)
-            glVertex3d(r0 * math.cos(angle), r0 * math.sin(angle), -z)
+            self.gl.glNormal3d(-math.cos(angle), -math.sin(angle), 0.0)
+            self.gl.glVertex3d(r0 * math.cos(angle), r0 * math.sin(angle), +z)
+            self.gl.glVertex3d(r0 * math.cos(angle), r0 * math.sin(angle), -z)
 
-        glEnd()
+        self.gl.glEnd()
 
-        glEndList()
+        self.gl.glEndList()
 
         return list    
 
     def drawGear(self, gear, dx, dy, dz, angle):
-        glPushMatrix()
-        glTranslated(dx, dy, dz)
-        glRotated(angle, 0.0, 0.0, 1.0)
-        glCallList(gear)
-        glPopMatrix()
+        self.gl.glPushMatrix()
+        self.gl.glTranslated(dx, dy, dz)
+        self.gl.glRotated(angle, 0.0, 0.0, 1.0)
+        self.gl.glCallList(gear)
+        self.gl.glPopMatrix()
 
     def normalizeAngle(self, angle):
         while (angle < 0):
@@ -331,15 +326,8 @@ class MainWindow(QMainWindow):
         self.setWindowTitle("Grabber")
         self.resize(400, 300)
 
-    def renderIntoPixmap(self):
-        size = self.getSize()
-
-        if size.isValid():
-            pixmap = self.glWidget.renderPixmap(size.width(), size.height())
-            self.setPixmap(pixmap)
-
     def grabFrameBuffer(self):
-        image = self.glWidget.grabFrameBuffer()
+        image = self.glWidget.grabFramebuffer()
         self.setPixmap(QPixmap.fromImage(image))
 
     def clearPixmap(self):
@@ -351,9 +339,6 @@ class MainWindow(QMainWindow):
                 "rendering OpenGL into a Qt pixmap.")
 
     def createActions(self):
-        self.renderIntoPixmapAct = QAction("&Render into Pixmap...",
-                self, shortcut="Ctrl+R", triggered=self.renderIntoPixmap)
-
         self.grabFrameBufferAct = QAction("&Grab Frame Buffer", self,
                 shortcut="Ctrl+G", triggered=self.grabFrameBuffer)
 
@@ -370,7 +355,6 @@ class MainWindow(QMainWindow):
 
     def createMenus(self):
         self.fileMenu = self.menuBar().addMenu("&File")
-        self.fileMenu.addAction(self.renderIntoPixmapAct)
         self.fileMenu.addAction(self.grabFrameBufferAct)
         self.fileMenu.addAction(self.clearPixmapAct)
         self.fileMenu.addSeparator()
@@ -401,24 +385,6 @@ class MainWindow(QMainWindow):
             size -= QSize(1, 0)
 
         self.pixmapLabel.resize(size)
-
-    def getSize(self):
-        text, ok = QInputDialog.getText(self, "Grabber",
-                "Enter pixmap size:", QLineEdit.Normal,
-                "%d x %d" % (self.glWidget.width(), self.glWidget.height()))
-
-        if not ok:
-            return QSize()
-
-        regExp = QRegExp(r'([0-9]+) *x *([0-9]+)')
-
-        if regExp.exactMatch(text):
-            width = int(regExp.cap(1))
-            height = int(regExp.cap(2))
-            if width > 0 and width < 2048 and height > 0 and height < 2048:
-                return QSize(width, height)
-
-        return self.glWidget.size()
 
 
 if __name__ == '__main__':

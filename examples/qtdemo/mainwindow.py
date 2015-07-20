@@ -1,6 +1,6 @@
 #############################################################################
 ##
-## Copyright (C) 2013 Riverbank Computing Limited.
+## Copyright (C) 2015 Riverbank Computing Limited.
 ## Copyright (C) 2010 Nokia Corporation and/or its subsidiary(-ies).
 ## All rights reserved.
 ##
@@ -40,7 +40,7 @@
 #############################################################################
 
 
-from PyQt5.QtCore import QPoint, QRect, qRound, Qt, QTime, QTimer
+from PyQt5.QtCore import QFileInfo, QPoint, QRect, qRound, Qt, QTime, QTimer
 from PyQt5.QtGui import (QFontMetricsF, QImage, QPainter, QPixmap, QPolygon,
         QRegion)
 from PyQt5.QtWidgets import (QApplication, QFrame, QGraphicsScene,
@@ -56,6 +56,8 @@ from menumanager import MenuManager
 class MainWindow(QGraphicsView):
     def __init__(self, parent=None):
         super(MainWindow, self).__init__(parent)
+
+        self.imagesDir = QFileInfo(__file__).absolutePath() + '/images'
 
         self.updateTimer = QTimer(self)
         self.demoStartTime = QTime()
@@ -239,10 +241,11 @@ class MainWindow(QGraphicsView):
         self.mainSceneRoot = QGraphicsWidget()
         self.scene.addItem(self.mainSceneRoot)
 
-        self.companyLogo = ImageItem(QImage(':/images/trolltech-logo.png'),
+        self.companyLogo = ImageItem(
+                QImage(self.imagesDir + '/trolltech-logo.png'),
                 1000, 1000, None, True, 0.5)
-        self.qtLogo = ImageItem(QImage(':/images/qtlogo_small.png'), 1000,
-                1000, None, True, 0.5)
+        self.qtLogo = ImageItem(QImage(self.imagesDir + '/qtlogo_small.png'),
+                1000, 1000, None, True, 0.5)
         self.companyLogo.setZValue(100)
         self.qtLogo.setZValue(100)
         self.pausedLabel = DemoTextItem("PAUSED", Colors.buttonFont(),
@@ -289,7 +292,7 @@ class MainWindow(QGraphicsView):
         self.background.fill(Qt.black)
         painter = QPainter(self.background)
 
-        bg = QImage(':/images/demobg.png')
+        bg = QImage(self.imagesDir + '/demobg.png')
         painter.drawImage(0, 0, bg)
 
     def drawBackground(self, painter, rect):

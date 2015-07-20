@@ -1,6 +1,6 @@
 #############################################################################
 ##
-## Copyright (C) 2014 Riverbank Computing Limited.
+## Copyright (C) 2015 Riverbank Computing Limited.
 ## Copyright (C) 2006 Thorsten Marek.
 ## All right reserved.
 ##
@@ -147,3 +147,6 @@ class LoaderCreatorPolicy(object):
             slotname += '_'
 
         return getattr(object, slotname)
+
+    def asString(self, s):
+        return s

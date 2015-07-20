@@ -6,15 +6,15 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Support for Qt Interfaces &mdash; PyQt 5.4 Reference Guide</title>
+    <title>Support for Qt Interfaces &mdash; PyQt 5.4.2 Reference Guide</title>
     
-    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/classic.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '5.4',
+        VERSION:     '5.4.2',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -24,12 +24,12 @@
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
     <link rel="shortcut icon" href="_static/logo_tn.ico"/>
-    <link rel="top" title="PyQt 5.4 Reference Guide" href="index.html" />
+    <link rel="top" title="PyQt 5.4.2 Reference Guide" href="index.html" />
     <link rel="next" title="Support for QVariant" href="pyqt_qvariant.html" />
     <link rel="prev" title="Support for OpenGL" href="opengl.html" /> 
   </head>
-  <body>
-    <div class="related">
+  <body role="document">
+    <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
@@ -44,27 +44,27 @@
         <li class="right" >
           <a href="opengl.html" title="Support for OpenGL"
              accesskey="P">previous</a> |</li>
-        <li><a href="index.html">PyQt 5.4 Reference Guide</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">PyQt 5.4.2 Reference Guide</a> &raquo;</li> 
       </ul>
     </div>  
 
     <div class="document">
       <div class="documentwrapper">
         <div class="bodywrapper">
-          <div class="body">
+          <div class="body" role="main">
             
   <div class="section" id="support-for-qt-interfaces">
 <h1>Support for Qt Interfaces<a class="headerlink" href="#support-for-qt-interfaces" title="Permalink to this headline">¶</a></h1>
 <p>PyQt5 does not, generally, support defining a class that inherits from more
 than one Qt class.  The exception is when inheriting from classes that Qt
 defines as <em>interfaces</em>, for example
-<a class="reference internal" href="api/qtextobjectinterface.html#PyQt5.QtGui.QTextObjectInterface" title="PyQt5.QtGui.QTextObjectInterface"><tt class="xref py py-class docutils literal"><span class="pre">QTextObjectInterface</span></tt></a>.</p>
+<a class="reference internal" href="api/qtextobjectinterface.html#PyQt5.QtGui.QTextObjectInterface" title="PyQt5.QtGui.QTextObjectInterface"><code class="xref py py-class docutils literal"><span class="pre">QTextObjectInterface</span></code></a>.</p>
 <p>A Qt interface is an abstract class contains only pure virtual methods and is
-used as a mixin with (normally) a <a class="reference internal" href="api/qobject.html#PyQt5.QtCore.QObject" title="PyQt5.QtCore.QObject"><tt class="xref py py-class docutils literal"><span class="pre">QObject</span></tt></a> sub-class.  It
+used as a mixin with (normally) a <a class="reference internal" href="api/qobject.html#PyQt5.QtCore.QObject" title="PyQt5.QtCore.QObject"><code class="xref py py-class docutils literal"><span class="pre">QObject</span></code></a> sub-class.  It
 is often used to define the interface that a plugin must implement.</p>
-<p>Note that PyQt5 does not need an equivalent of Qt&#8217;s <tt class="docutils literal"><span class="pre">Q_INTERFACES</span></tt> macro in
+<p>Note that PyQt5 does not need an equivalent of Qt&#8217;s <code class="docutils literal"><span class="pre">Q_INTERFACES</span></code> macro in
 order to use an interface class.</p>
-<p>The <tt class="docutils literal"><span class="pre">textobject.py</span></tt> example includedd with PyQt5 demonstrates the use of an
+<p>The <code class="docutils literal"><span class="pre">textobject.py</span></code> example includedd with PyQt5 demonstrates the use of an
 interface.</p>
 </div>
 
@@ -72,7 +72,7 @@ interface.</p>
           </div>
         </div>
       </div>
-      <div class="sphinxsidebar">
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
             <p class="logo"><a href="index.html">
               <img class="logo" src="_static/logo.png" alt="Logo"/>
@@ -82,8 +82,8 @@ interface.</p>
                         title="previous chapter">Support for OpenGL</a></p>
   <h4>Next topic</h4>
   <p class="topless"><a href="pyqt_qvariant.html"
-                        title="next chapter">Support for <tt class="docutils literal"><span class="pre">QVariant</span></tt></a></p>
-<div id="searchbox" style="display: none">
+                        title="next chapter">Support for <code class="docutils literal"><span class="pre">QVariant</span></code></a></p>
+<div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
     <form class="search" action="search.html" method="get">
       <input type="text" name="q" />
@@ -100,7 +100,7 @@ interface.</p>
       </div>
       <div class="clearer"></div>
     </div>
-    <div class="related">
+    <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
@@ -115,12 +115,12 @@ interface.</p>
         <li class="right" >
           <a href="opengl.html" title="Support for OpenGL"
              >previous</a> |</li>
-        <li><a href="index.html">PyQt 5.4 Reference Guide</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">PyQt 5.4.2 Reference Guide</a> &raquo;</li> 
       </ul>
     </div>
-    <div class="footer">
-        &copy; Copyright 2014 Riverbank Computing Limited.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.3.
+    <div class="footer" role="contentinfo">
+        &copy; Copyright 2015 Riverbank Computing Limited.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.1.
     </div>
   </body>
 </html>
