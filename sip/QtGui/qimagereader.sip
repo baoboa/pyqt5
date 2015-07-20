@@ -90,6 +90,15 @@ public:
 %If (Qt_5_4_0 -)
     QList<QByteArray> supportedSubTypes() const;
 %End
+%If (Qt_5_5_0 -)
+    QFlags<QImageIOHandler::Transformation> transformation() const;
+%End
+%If (Qt_5_5_0 -)
+    void setAutoTransform(bool enabled);
+%End
+%If (Qt_5_5_0 -)
+    bool autoTransform() const;
+%End
 
 private:
     QImageReader(const QImageReader &);

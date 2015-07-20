@@ -60,4 +60,32 @@ private:
     QCameraImageProcessing(QCamera *camera);
     virtual ~QCameraImageProcessing();
     QCameraImageProcessing(const QCameraImageProcessing &);
+
+public:
+%If (Qt_5_5_0 -)
+
+    enum ColorFilter
+    {
+        ColorFilterNone,
+        ColorFilterGrayscale,
+        ColorFilterNegative,
+        ColorFilterSolarize,
+        ColorFilterSepia,
+        ColorFilterPosterize,
+        ColorFilterWhiteboard,
+        ColorFilterBlackboard,
+        ColorFilterAqua,
+        ColorFilterVendor,
+    };
+
+%End
+%If (Qt_5_5_0 -)
+    QCameraImageProcessing::ColorFilter colorFilter() const;
+%End
+%If (Qt_5_5_0 -)
+    void setColorFilter(QCameraImageProcessing::ColorFilter filter);
+%End
+%If (Qt_5_5_0 -)
+    bool isColorFilterSupported(QCameraImageProcessing::ColorFilter filter) const;
+%End
 };

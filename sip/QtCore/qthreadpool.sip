@@ -63,4 +63,7 @@ public:
 %If (Qt_5_2_0 -)
     void clear();
 %End
+%If (Qt_5_5_0 -)
+    void cancel(QRunnable *runnable);
+%End
 };

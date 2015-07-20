@@ -45,6 +45,9 @@ public:
         Velocity,
         RawPositions,
         NormalizedPosition,
+%If (Qt_5_5_0 -)
+        MouseEmulation,
+%End
     };
 
     typedef QFlags<QTouchDevice::CapabilityFlag> Capabilities;

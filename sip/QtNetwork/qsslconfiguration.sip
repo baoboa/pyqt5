@@ -113,6 +113,21 @@ public:
 %If (Qt_5_4_0 -)
     QSsl::SslProtocol sessionProtocol() const;
 %End
+%If (Qt_5_5_0 -)
+    static QList<QSslCipher> supportedCiphers();
+%End
+%If (Qt_5_5_0 -)
+    static QList<QSslCertificate> systemCaCertificates();
+%End
+%If (Qt_5_5_0 -)
+    QVector<QSslEllipticCurve> ellipticCurves() const;
+%End
+%If (Qt_5_5_0 -)
+    void setEllipticCurves(const QVector<QSslEllipticCurve> &curves);
+%End
+%If (Qt_5_5_0 -)
+    static QVector<QSslEllipticCurve> supportedEllipticCurves();
+%End
 };
 
 %End

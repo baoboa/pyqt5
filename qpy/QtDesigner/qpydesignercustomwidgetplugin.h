@@ -24,7 +24,7 @@
 
 
 #include <QObject>
-#include <QDesignerCustomWidgetInterface>
+#include <QtDesigner>
 
 
 class QPyDesignerCustomWidgetPlugin : public QObject, public QDesignerCustomWidgetInterface

@@ -68,6 +68,9 @@ public:
     void ensureCursorVisible();
     virtual QVariant loadResource(int type, const QUrl &name);
     QMenu *createStandardContextMenu() /Factory/;
+%If (Qt_5_5_0 -)
+    QMenu *createStandardContextMenu(const QPoint &position) /Factory/;
+%End
     QTextCursor cursorForPosition(const QPoint &pos) const;
     QRect cursorRect(const QTextCursor &cursor) const;
     QRect cursorRect() const;

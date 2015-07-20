@@ -1,15 +1,16 @@
 Introduction
 ============
 
-This is the reference guide for PyQt5 5.4.2.  PyQt5 is a set of
+This is the reference guide for PyQt5 5.5.  PyQt5 is a set of
 `Python <http://www.python.org>`__ bindings for v5 of the Qt application
-framework from `Digia <http://qt.digia.com>`__.
+framework from `The Qt Company <http://www.qt.io>`__.
 
 Qt is a set of C++ libraries and development tools that includes platform
 independent abstractions for graphical user interfaces, networking, threads,
-regular expressions, SQL databases, SVG, OpenGL, XML, and user and application
-settings.  PyQt5 implements over 620 of these classes as a set of Python
-modules.
+regular expressions, SQL databases, SVG, OpenGL, XML, user and application
+settings, positioning and location services, short range communications (NFC
+and Bluetooth) and access to the cloud.  PyQt5 implements over 1000 of these
+classes as a set of Python modules.
 
 PyQt5 supports the Windows, Linux, UNIX, Android, OS X and iOS platforms.
 
@@ -93,6 +94,12 @@ number of Python extension modules.  These are all installed in the
 - :mod:`~PyQt5.QtHelp` contains classes for creating and viewing searchable
   documentation.
 
+.. module:: PyQt5.QtLocation
+
+- :mod:`~PyQt5.QtLocation` contains classes for accessing geocoding and
+  navigation information, and also place search.  It allows the creation of
+  mapping solutions using data from some of the popular location services.
+
 .. module:: PyQt5.QtMacExtras
     :platform:  OS X, iOS
 
@@ -114,6 +121,14 @@ number of Python extension modules.  These are all installed in the
 - :mod:`~PyQt5.QtNetwork` contains classes for writing UDP and TCP clients and
   servers.  It includes classes that implement HTTP clients and support DNS
   lookups.
+
+.. module:: PyQt5.QtNfc
+
+- :mod:`~PyQt5.QtNfc` contains classes to provide connectivity between NFC
+  enabled devices.  The NFC API provides APIs for interacting with NFC Forum
+  Tags and NFC Forum Devices, including target detection and loss, registering
+  NDEF message handlers, reading and writing NDEF messages on NFC Forum Tags
+  and sending tag specific commands.
 
 .. module:: PyQt5.QtOpenGL
 

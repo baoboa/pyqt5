@@ -76,6 +76,12 @@ public:
 %If (Qt_5_4_0 -)
         Format_A2RGB30_Premultiplied,
 %End
+%If (Qt_5_5_0 -)
+        Format_Alpha8,
+%End
+%If (Qt_5_5_0 -)
+        Format_Grayscale8,
+%End
     };
 
     QImage();
@@ -180,6 +186,9 @@ public:
 
 protected:
     virtual int metric(QPaintDevice::PaintDeviceMetric metric) const;
+%If (Qt_5_5_0 -)
+    QImage smoothScaled(int w, int h) const;
+%End
 
 public:
     QImage createMaskFromColor(QRgb color, Qt::MaskMode mode = Qt::MaskInColor) const;

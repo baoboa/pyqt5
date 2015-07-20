@@ -21,6 +21,12 @@
 
 
 %If (Qt_5_2_0 -)
+%ModuleCode
+#include <qbluetoothdeviceinfo.h>
+%End
+%End
+
+%If (Qt_5_2_0 -)
 
 class QBluetoothDeviceInfo
 {
@@ -183,6 +189,9 @@ public:
 
     QBluetoothDeviceInfo();
     QBluetoothDeviceInfo(const QBluetoothAddress &address, const QString &name, quint32 classOfDevice);
+%If (Qt_5_5_0 -)
+    QBluetoothDeviceInfo(const QBluetoothUuid &uuid, const QString &name, quint32 classOfDevice);
+%End
     QBluetoothDeviceInfo(const QBluetoothDeviceInfo &other);
     ~QBluetoothDeviceInfo();
     bool isValid() const;
@@ -220,6 +229,18 @@ public:
 %If (Qt_5_4_0 -)
     QFlags<QBluetoothDeviceInfo::CoreConfiguration> coreConfigurations() const;
 %End
+%If (Qt_5_5_0 -)
+    void setDeviceUuid(const QBluetoothUuid &uuid);
+%End
+%If (Qt_5_5_0 -)
+    QBluetoothUuid deviceUuid() const;
+%End
 };
 
+%End
+%If (Qt_5_5_0 -)
+QFlags<QBluetoothDeviceInfo::CoreConfiguration> operator|(QBluetoothDeviceInfo::CoreConfiguration f1, QFlags<QBluetoothDeviceInfo::CoreConfiguration> f2);
+%End
+%If (Qt_5_5_0 -)
+QFlags<QBluetoothDeviceInfo::ServiceClass> operator|(QBluetoothDeviceInfo::ServiceClass f1, QFlags<QBluetoothDeviceInfo::ServiceClass> f2);
 %End

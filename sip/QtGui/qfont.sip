@@ -69,10 +69,22 @@ public:
 
     enum Weight
     {
+%If (Qt_5_5_0 -)
+        Thin,
+%End
+%If (Qt_5_5_0 -)
+        ExtraLight,
+%End
         Light,
         Normal,
+%If (Qt_5_5_0 -)
+        Medium,
+%End
         DemiBold,
         Bold,
+%If (Qt_5_5_0 -)
+        ExtraBold,
+%End
         Black,
     };
 

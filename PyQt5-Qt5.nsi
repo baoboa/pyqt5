@@ -19,7 +19,7 @@
 
 
 # These will change with different releases.
-!define PYQT_VERSION        "5.4.2"
+!define PYQT_VERSION        "5.5"
 !define PYQT_INSTALLER      ""
 #!define PYQT_INSTALLER      "-2"
 !define PYQT_LICENSE        "GPL"
@@ -27,7 +27,7 @@
 !define PYQT_PYTHON_MAJOR   "3"
 !define PYQT_PYTHON_MINOR   "4"
 !define PYQT_ARCH           "x64"
-!define PYQT_QT_VERS        "5.4.2"
+!define PYQT_QT_VERS        "5.5.0"
 !define PYQT_QT_DOC_VERS    "5"
 
 # These are all derived from the above.
@@ -195,6 +195,7 @@ Section "Extension modules" SecModules
     File .\build\QtDesigner\QtDesigner.pyd
     File .\build\QtGui\QtGui.pyd
     File .\build\QtHelp\QtHelp.pyd
+    File .\build\QtLocation\QtLocation.pyd
     File .\build\QtMultimedia\QtMultimedia.pyd
     File .\build\QtMultimediaWidgets\QtMultimediaWidgets.pyd
     File .\build\QtNetwork\QtNetwork.pyd
@@ -221,6 +222,7 @@ Section "Extension modules" SecModules
     File .\build\Enginio\Enginio.pyd
     File .\build\_QOpenGLFunctions_2_0\_QOpenGLFunctions_2_0.pyd
     File .\build\_QOpenGLFunctions_2_1\_QOpenGLFunctions_2_1.pyd
+    File .\build\_QOpenGLFunctions_4_1_Core\_QOpenGLFunctions_4_1_Core.pyd
 SectionEnd
 
 Section "QScintilla" SecQScintilla
@@ -256,6 +258,7 @@ Section "Qt runtime" SecQt
     File "${QT_SRC_DIR}\bin\Qt5DesignerComponents.dll"
     File "${QT_SRC_DIR}\bin\Qt5Gui.dll"
     File "${QT_SRC_DIR}\bin\Qt5Help.dll"
+    File "${QT_SRC_DIR}\bin\Qt5Location.dll"
     File "${QT_SRC_DIR}\bin\Qt5Multimedia.dll"
     File "${QT_SRC_DIR}\bin\Qt5MultimediaQuick_p.dll"
     File "${QT_SRC_DIR}\bin\Qt5MultimediaWidgets.dll"
@@ -305,6 +308,7 @@ Section "Qt runtime" SecQt
     File "${QT_SRC_DIR}\plugins\bearer\qnativewifibearer.dll"
 
     SetOutPath $INSTDIR\Lib\site-packages\PyQt5\plugins\geoservices
+    File "${QT_SRC_DIR}\plugins\geoservices\qtgeoservices_mapbox.dll"
     File "${QT_SRC_DIR}\plugins\geoservices\qtgeoservices_nokia.dll"
     File "${QT_SRC_DIR}\plugins\geoservices\qtgeoservices_osm.dll"
 
@@ -338,14 +342,11 @@ Section "Qt runtime" SecQt
     SetOutPath $INSTDIR\Lib\site-packages\PyQt5\plugins\playlistformats
     File "${QT_SRC_DIR}\plugins\playlistformats\qtmultimedia_m3u.dll"
 
+    SetOutPath $INSTDIR\Lib\site-packages\PyQt5\plugins\position
+    File "${QT_SRC_DIR}\plugins\position\qtposition_positionpoll.dll"
+
     SetOutPath $INSTDIR\Lib\site-packages\PyQt5\plugins\printsupport
     File "${QT_SRC_DIR}\plugins\printsupport\windowsprintersupport.dll"
-
-    SetOutPath $INSTDIR\Lib\site-packages\PyQt5\plugins\sqldrivers
-    File "${QT_SRC_DIR}\plugins\sqldrivers\qsqlite.dll"
-    File "${QT_SRC_DIR}\plugins\sqldrivers\qsqlmysql.dll"
-    File "${QT_SRC_DIR}\plugins\sqldrivers\qsqlodbc.dll"
-    File "${QT_SRC_DIR}\plugins\sqldrivers\qsqlpsql.dll"
 
     SetOutPath $INSTDIR\Lib\site-packages\PyQt5\plugins\sensorgestures
     File "${QT_SRC_DIR}\plugins\sensorgestures\qtsensorgestures_plugin.dll"
@@ -353,6 +354,12 @@ Section "Qt runtime" SecQt
 
     SetOutPath $INSTDIR\Lib\site-packages\PyQt5\plugins\sensors
     File "${QT_SRC_DIR}\plugins\sensors\qtsensors_generic.dll"
+
+    SetOutPath $INSTDIR\Lib\site-packages\PyQt5\plugins\sqldrivers
+    File "${QT_SRC_DIR}\plugins\sqldrivers\qsqlite.dll"
+    File "${QT_SRC_DIR}\plugins\sqldrivers\qsqlmysql.dll"
+    File "${QT_SRC_DIR}\plugins\sqldrivers\qsqlodbc.dll"
+    File "${QT_SRC_DIR}\plugins\sqldrivers\qsqlpsql.dll"
 
     SetOutPath $INSTDIR\Lib\site-packages\PyQt5\translations
     File "${QT_SRC_DIR}\translations\qt_*.qm"

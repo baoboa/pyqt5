@@ -49,6 +49,9 @@ namespace QSsl
         Opaque,
         Rsa,
         Dsa,
+%If (Qt_5_5_0 -)
+        Ec,
+%End
     };
 
     enum AlternativeNameEntryType
@@ -63,8 +66,17 @@ namespace QSsl
         SslV3,
         SslV2,
         TlsV1_0,
+%If (Qt_5_5_0 -)
+        TlsV1_0OrLater,
+%End
         TlsV1_1,
+%If (Qt_5_5_0 -)
+        TlsV1_1OrLater,
+%End
         TlsV1_2,
+%If (Qt_5_5_0 -)
+        TlsV1_2OrLater,
+%End
         AnyProtocol,
         TlsV1SslV3,
         SecureProtocols,

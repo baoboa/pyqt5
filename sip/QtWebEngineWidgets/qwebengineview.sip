@@ -34,8 +34,18 @@ class QWebEngineView : QWidget
         sipTypeDef **type;
         int yes, no;
     } graph[] = {
-        {sipName_QWebEnginePage, &sipType_QWebEnginePage, -1, 1},
-        {sipName_QWebEngineView, &sipType_QWebEngineView, -1, -1},
+    #if QT_VERSION >= 0x050500
+        {sipName_QWebEngineProfile, &sipType_QWebEngineProfile, -1, 1},
+    #else
+        {0, 0, -1, 1},
+    #endif
+        {sipName_QWebEnginePage, &sipType_QWebEnginePage, -1, 2},
+        {sipName_QWebEngineView, &sipType_QWebEngineView, -1, 3},
+    #if QT_VERSION >= 0x050500
+        {sipName_QWebEngineDownloadItem, &sipType_QWebEngineDownloadItem, -1, -1},
+    #else
+        {0, 0, -1, -1},
+    #endif
     };
     
     int i = 0;

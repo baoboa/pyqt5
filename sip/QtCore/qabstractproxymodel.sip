@@ -39,7 +39,12 @@ public:
     virtual void revert();
     virtual QVariant data(const QModelIndex &proxyIndex, int role = Qt::DisplayRole) const;
     virtual bool setData(const QModelIndex &index, const QVariant &value, int role = Qt::EditRole);
+%If (Qt_5_5_0 -)
+    virtual QVariant headerData(int section, Qt::Orientation orientation, int role = Qt::DisplayRole) const;
+%End
+%If (- Qt_5_5_0)
     virtual QVariant headerData(int section, Qt::Orientation orientation, int role) const;
+%End
     virtual bool setHeaderData(int section, Qt::Orientation orientation, const QVariant &value, int role = Qt::EditRole);
     virtual QMap<int, QVariant> itemData(const QModelIndex &index) const /DocType="dict-of-int-object"/;
     virtual Qt::ItemFlags flags(const QModelIndex &index) const;

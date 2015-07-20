@@ -205,6 +205,24 @@ public:
 %If (Qt_5_4_0 -)
         LocationAndNavigation,
 %End
+%If (Qt_5_5_0 -)
+        EnvironmentalSensing,
+%End
+%If (Qt_5_5_0 -)
+        BodyComposition,
+%End
+%If (Qt_5_5_0 -)
+        UserData,
+%End
+%If (Qt_5_5_0 -)
+        WeightScale,
+%End
+%If (Qt_5_5_0 -)
+        BondManagement,
+%End
+%If (Qt_5_5_0 -)
+        ContinuousGlucoseMonitoring,
+%End
     };
 
     QBluetoothUuid();
@@ -304,6 +322,174 @@ public:
         PositionQuality,
         LNFeature,
         LNControlPoint,
+%If (Qt_5_5_0 -)
+        MagneticDeclination,
+%End
+%If (Qt_5_5_0 -)
+        Elevation,
+%End
+%If (Qt_5_5_0 -)
+        Pressure,
+%End
+%If (Qt_5_5_0 -)
+        Temperature,
+%End
+%If (Qt_5_5_0 -)
+        Humidity,
+%End
+%If (Qt_5_5_0 -)
+        TrueWindSpeed,
+%End
+%If (Qt_5_5_0 -)
+        TrueWindDirection,
+%End
+%If (Qt_5_5_0 -)
+        ApparentWindSpeed,
+%End
+%If (Qt_5_5_0 -)
+        ApparentWindDirection,
+%End
+%If (Qt_5_5_0 -)
+        GustFactor,
+%End
+%If (Qt_5_5_0 -)
+        PollenConcentration,
+%End
+%If (Qt_5_5_0 -)
+        UVIndex,
+%End
+%If (Qt_5_5_0 -)
+        Irradiance,
+%End
+%If (Qt_5_5_0 -)
+        Rainfall,
+%End
+%If (Qt_5_5_0 -)
+        WindChill,
+%End
+%If (Qt_5_5_0 -)
+        HeatIndex,
+%End
+%If (Qt_5_5_0 -)
+        DewPoint,
+%End
+%If (Qt_5_5_0 -)
+        DescriptorValueChanged,
+%End
+%If (Qt_5_5_0 -)
+        AerobicHeartRateLowerLimit,
+%End
+%If (Qt_5_5_0 -)
+        AerobicThreshold,
+%End
+%If (Qt_5_5_0 -)
+        Age,
+%End
+%If (Qt_5_5_0 -)
+        AnaerobicHeartRateLowerLimit,
+%End
+%If (Qt_5_5_0 -)
+        AnaerobicHeartRateUpperLimit,
+%End
+%If (Qt_5_5_0 -)
+        AnaerobicThreshold,
+%End
+%If (Qt_5_5_0 -)
+        AerobicHeartRateUpperLimit,
+%End
+%If (Qt_5_5_0 -)
+        DateOfBirth,
+%End
+%If (Qt_5_5_0 -)
+        DateOfThresholdAssessment,
+%End
+%If (Qt_5_5_0 -)
+        EmailAddress,
+%End
+%If (Qt_5_5_0 -)
+        FatBurnHeartRateLowerLimit,
+%End
+%If (Qt_5_5_0 -)
+        FatBurnHeartRateUpperLimit,
+%End
+%If (Qt_5_5_0 -)
+        FirstName,
+%End
+%If (Qt_5_5_0 -)
+        FiveZoneHeartRateLimits,
+%End
+%If (Qt_5_5_0 -)
+        Gender,
+%End
+%If (Qt_5_5_0 -)
+        HeartRateMax,
+%End
+%If (Qt_5_5_0 -)
+        Height,
+%End
+%If (Qt_5_5_0 -)
+        HipCircumference,
+%End
+%If (Qt_5_5_0 -)
+        LastName,
+%End
+%If (Qt_5_5_0 -)
+        MaximumRecommendedHeartRate,
+%End
+%If (Qt_5_5_0 -)
+        RestingHeartRate,
+%End
+%If (Qt_5_5_0 -)
+        SportTypeForAerobicAnaerobicThresholds,
+%End
+%If (Qt_5_5_0 -)
+        ThreeZoneHeartRateLimits,
+%End
+%If (Qt_5_5_0 -)
+        TwoZoneHeartRateLimits,
+%End
+%If (Qt_5_5_0 -)
+        VO2Max,
+%End
+%If (Qt_5_5_0 -)
+        WaistCircumference,
+%End
+%If (Qt_5_5_0 -)
+        Weight,
+%End
+%If (Qt_5_5_0 -)
+        DatabaseChangeIncrement,
+%End
+%If (Qt_5_5_0 -)
+        UserIndex,
+%End
+%If (Qt_5_5_0 -)
+        BodyCompositionFeature,
+%End
+%If (Qt_5_5_0 -)
+        BodyCompositionMeasurement,
+%End
+%If (Qt_5_5_0 -)
+        WeightMeasurement,
+%End
+%If (Qt_5_5_0 -)
+        WeightScaleFeature,
+%End
+%If (Qt_5_5_0 -)
+        UserControlPoint,
+%End
+%If (Qt_5_5_0 -)
+        MagneticFluxDensity2D,
+%End
+%If (Qt_5_5_0 -)
+        MagneticFluxDensity3D,
+%End
+%If (Qt_5_5_0 -)
+        Language,
+%End
+%If (Qt_5_5_0 -)
+        BarometricPressureTrend,
+%End
     };
 
 %End
@@ -321,6 +507,15 @@ public:
         ValidRange,
         ExternalReportReference,
         ReportReference,
+%If (Qt_5_5_0 -)
+        EnvironmentalSensingConfiguration,
+%End
+%If (Qt_5_5_0 -)
+        EnvironmentalSensingMeasurement,
+%End
+%If (Qt_5_5_0 -)
+        EnvironmentalSensingTriggerSetting,
+%End
     };
 
 %End

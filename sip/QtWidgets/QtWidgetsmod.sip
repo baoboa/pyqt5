@@ -124,6 +124,7 @@ WARRANTY OF DESIGN, MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE.
 %Include qplaintextedit.sip
 %Include qprogressbar.sip
 %Include qprogressdialog.sip
+%Include qproxystyle.sip
 %Include qpushbutton.sip
 %Include qradiobutton.sip
 %Include qrubberband.sip

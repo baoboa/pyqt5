@@ -416,6 +416,12 @@ public:
 %If (Qt_5_4_0 -)
         PM_TreeViewIndentation,
 %End
+%If (Qt_5_5_0 -)
+        PM_HeaderDefaultSectionSizeHorizontal,
+%End
+%If (Qt_5_5_0 -)
+        PM_HeaderDefaultSectionSizeVertical,
+%End
         PM_CustomBase,
     };
 
@@ -572,6 +578,24 @@ public:
 %End
 %If (Qt_5_4_0 -)
         SH_TabBar_ChangeCurrentDelay,
+%End
+%If (Qt_5_5_0 -)
+        SH_Menu_SubMenuUniDirection,
+%End
+%If (Qt_5_5_0 -)
+        SH_Menu_SubMenuUniDirectionFailCount,
+%End
+%If (Qt_5_5_0 -)
+        SH_Menu_SubMenuSloppySelectOtherActions,
+%End
+%If (Qt_5_5_0 -)
+        SH_Menu_SubMenuSloppyCloseTimeout,
+%End
+%If (Qt_5_5_0 -)
+        SH_Menu_SubMenuResetWhenReenteringParent,
+%End
+%If (Qt_5_5_0 -)
+        SH_Menu_SubMenuDontStartSloppyOnLeave,
 %End
         SH_CustomBase,
     };

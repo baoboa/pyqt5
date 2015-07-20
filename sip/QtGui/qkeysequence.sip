@@ -184,6 +184,9 @@ public:
 %If (Qt_5_2_0 -)
         DeleteCompleteLine,
 %End
+%If (Qt_5_5_0 -)
+        Backspace,
+%End
     };
 
     QKeySequence();

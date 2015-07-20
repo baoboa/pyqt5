@@ -47,6 +47,29 @@ public:
 %If (Qt_5_3_0 -)
     int mousePressAndHoldInterval() const;
 %End
+%If (Qt_5_5_0 -)
+    Qt::TabFocusBehavior tabFocusBehavior() const;
+%End
+%If (Qt_5_5_0 -)
+    bool singleClickActivation() const;
+%End
+
+signals:
+%If (Qt_5_5_0 -)
+    void cursorFlashTimeChanged(int cursorFlashTime);
+%End
+%If (Qt_5_5_0 -)
+    void keyboardInputIntervalChanged(int keyboardInputInterval);
+%End
+%If (Qt_5_5_0 -)
+    void mouseDoubleClickIntervalChanged(int mouseDoubleClickInterval);
+%End
+%If (Qt_5_5_0 -)
+    void startDragDistanceChanged(int startDragDistance);
+%End
+%If (Qt_5_5_0 -)
+    void startDragTimeChanged(int startDragTime);
+%End
 
 private:
     QStyleHints();

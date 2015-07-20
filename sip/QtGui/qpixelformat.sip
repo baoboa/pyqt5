@@ -45,6 +45,9 @@ public:
         HSL,
         HSV,
         YUV,
+%If (Qt_5_5_0 -)
+        Alpha,
+%End
     };
 
     enum AlphaUsage
@@ -150,4 +153,7 @@ QPixelFormat qPixelFormatHsv(uchar channelSize /PyInt/, uchar alphaSize /PyInt/ 
 %End
 %If (Qt_5_4_0 -)
 QPixelFormat qPixelFormatYuv(QPixelFormat::YUVLayout layout, uchar alphaSize /PyInt/ = 0, QPixelFormat::AlphaUsage alphaUsage = QPixelFormat::IgnoresAlpha, QPixelFormat::AlphaPosition alphaPosition = QPixelFormat::AtBeginning, QPixelFormat::AlphaPremultiplied premultiplied = QPixelFormat::NotPremultiplied, QPixelFormat::TypeInterpretation typeInterpretation = QPixelFormat::UnsignedByte, QPixelFormat::ByteOrder byteOrder = QPixelFormat::LittleEndian);
+%End
+%If (Qt_5_5_0 -)
+QPixelFormat qPixelFormatAlpha(uchar channelSize /PyInt/, QPixelFormat::TypeInterpretation typeInterpretation = QPixelFormat::UnsignedInteger);
 %End

@@ -111,6 +111,9 @@ public:
 %If (Qt_5_4_0 -)
         QByteArrayList,
 %End
+%If (Qt_5_5_0 -)
+        QPersistentModelIndex,
+%End
         User,
     };
 
@@ -125,6 +128,9 @@ public:
         NeedsConstruction,
         NeedsDestruction,
         MovableType,
+%If (Qt_5_5_0 -)
+        IsGadget,
+%End
     };
 
     typedef QFlags<QMetaType::TypeFlag> TypeFlags;

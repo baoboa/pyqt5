@@ -184,6 +184,12 @@ class QInputEvent : QEvent /NoDefaultCtors/
         break;
     #endif
     
+    #if QT_VERSION >= 0x050500
+    case QEvent::PlatformSurface:
+        sipType = sipType_QPlatformSurfaceEvent;
+        break;
+    #endif
+    
     default:
         sipType = 0;
     }
@@ -252,6 +258,9 @@ public:
 %If (Qt_5_2_0 -)
     QWheelEvent(const QPointF &pos, const QPointF &globalPos, QPoint pixelDelta, QPoint angleDelta, int qt4Delta, Qt::Orientation qt4Orientation, Qt::MouseButtons buttons, Qt::KeyboardModifiers modifiers, Qt::ScrollPhase phase);
 %End
+%If (Qt_5_5_0 -)
+    QWheelEvent(const QPointF &pos, const QPointF &globalPos, QPoint pixelDelta, QPoint angleDelta, int qt4Delta, Qt::Orientation qt4Orientation, Qt::MouseButtons buttons, Qt::KeyboardModifiers modifiers, Qt::ScrollPhase phase, Qt::MouseEventSource source);
+%End
     virtual ~QWheelEvent();
     QPoint pos() const;
     QPoint globalPos() const;
@@ -266,6 +275,9 @@ public:
     const QPointF &globalPosF() const;
 %If (Qt_5_2_0 -)
     Qt::ScrollPhase phase() const;
+%End
+%If (Qt_5_5_0 -)
+    Qt::MouseEventSource source() const;
 %End
 };
 
@@ -829,6 +841,27 @@ public:
     const QPointF &localPos() const;
     const QPointF &windowPos() const;
     const QPointF &screenPos() const;
+};
+
+%End
+%If (Qt_5_5_0 -)
+
+class QPlatformSurfaceEvent : QEvent
+{
+%TypeHeaderCode
+#include <qevent.h>
+%End
+
+public:
+    enum SurfaceEventType
+    {
+        SurfaceCreated,
+        SurfaceAboutToBeDestroyed,
+    };
+
+    explicit QPlatformSurfaceEvent(QPlatformSurfaceEvent::SurfaceEventType surfaceEventType);
+    virtual ~QPlatformSurfaceEvent();
+    QPlatformSurfaceEvent::SurfaceEventType surfaceEventType() const;
 };
 
 %End

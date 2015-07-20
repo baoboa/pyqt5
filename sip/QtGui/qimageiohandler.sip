@@ -46,6 +46,18 @@ public:
 %If (Qt_5_4_0 -)
         SupportedSubTypes,
 %End
+%If (Qt_5_5_0 -)
+        OptimizedWrite,
+%End
+%If (Qt_5_5_0 -)
+        ProgressiveScanWrite,
+%End
+%If (Qt_5_5_0 -)
+        ImageTransformation,
+%End
+%If (Qt_5_5_0 -)
+        TransformedByDefault,
+%End
     };
 
     QImageIOHandler();
@@ -67,6 +79,24 @@ public:
     virtual int nextImageDelay() const;
     virtual int currentImageNumber() const;
     virtual QRect currentImageRect() const;
+%If (Qt_5_5_0 -)
+
+    enum Transformation
+    {
+        TransformationNone,
+        TransformationMirror,
+        TransformationFlip,
+        TransformationRotate180,
+        TransformationRotate90,
+        TransformationMirrorAndRotate90,
+        TransformationFlipAndRotate90,
+        TransformationRotate270,
+    };
+
+%End
+%If (Qt_5_5_0 -)
+    typedef QFlags<QImageIOHandler::Transformation> Transformations;
+%End
 
 private:
     QImageIOHandler(const QImageIOHandler &);

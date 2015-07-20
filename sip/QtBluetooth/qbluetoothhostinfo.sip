@@ -36,6 +36,12 @@ public:
     void setAddress(const QBluetoothAddress &address);
     QString name() const;
     void setName(const QString &name);
+%If (Qt_5_5_0 -)
+    bool operator==(const QBluetoothHostInfo &other) const;
+%End
+%If (Qt_5_5_0 -)
+    bool operator!=(const QBluetoothHostInfo &other) const;
+%End
 };
 
 %End

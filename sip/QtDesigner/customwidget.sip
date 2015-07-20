@@ -23,7 +23,7 @@
 class QDesignerCustomWidgetInterface
 {
 %TypeHeaderCode
-#include <customwidget.h>
+#include <QtDesigner>
 %End
 
 public:
@@ -45,7 +45,7 @@ public:
 class QDesignerCustomWidgetCollectionInterface
 {
 %TypeHeaderCode
-#include <customwidget.h>
+#include <QtDesigner>
 %End
 
 public:

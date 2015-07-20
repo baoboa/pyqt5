@@ -72,7 +72,7 @@ def _parse_alignment(alignment):
 
 
 def _layout_position(elem):
-    """ Return either (), (alignment), (row, column, rowspan, colspan) or
+    """ Return either (), (0, alignment), (row, column, rowspan, colspan) or
     (row, column, rowspan, colspan, alignment) depending on the type of layout
     and its configuration.  The result will be suitable to use as arguments to
     the layout.
@@ -87,7 +87,7 @@ def _layout_position(elem):
         if alignment is None:
             return ()
 
-        return (_parse_alignment(alignment), )
+        return (0, _parse_alignment(alignment))
 
     # It must be a grid or a form layout.
     row = int(row)

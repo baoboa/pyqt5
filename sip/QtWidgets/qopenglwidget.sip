@@ -56,6 +56,23 @@ protected:
     virtual int metric(QPaintDevice::PaintDeviceMetric metric) const;
     virtual QPaintEngine *paintEngine() const;
 
+public:
+%If (Qt_5_5_0 -)
+
+    enum UpdateBehavior
+    {
+        NoPartialUpdate,
+        PartialUpdate,
+    };
+
+%End
+%If (Qt_5_5_0 -)
+    void setUpdateBehavior(QOpenGLWidget::UpdateBehavior updateBehavior);
+%End
+%If (Qt_5_5_0 -)
+    QOpenGLWidget::UpdateBehavior updateBehavior() const;
+%End
+
 private:
     QOpenGLWidget(const QOpenGLWidget &);
 };

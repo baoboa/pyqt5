@@ -188,6 +188,9 @@ public:
 %If (Qt_5_4_0 -)
     void viewport(const QRectF &rect);
 %End
+%If (Qt_5_5_0 -)
+    bool isAffine() const;
+%End
 };
 
 QMatrix4x4 operator/(const QMatrix4x4 &matrix, float divisor);

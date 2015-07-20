@@ -185,6 +185,36 @@ public:
 %If (Qt_5_4_0 -)
         S8,
 %End
+%If (Qt_5_5_0 -)
+        R11_EAC_UNorm,
+%End
+%If (Qt_5_5_0 -)
+        R11_EAC_SNorm,
+%End
+%If (Qt_5_5_0 -)
+        RG11_EAC_UNorm,
+%End
+%If (Qt_5_5_0 -)
+        RG11_EAC_SNorm,
+%End
+%If (Qt_5_5_0 -)
+        RGB8_ETC2,
+%End
+%If (Qt_5_5_0 -)
+        SRGB8_ETC2,
+%End
+%If (Qt_5_5_0 -)
+        RGB8_PunchThrough_Alpha1_ETC2,
+%End
+%If (Qt_5_5_0 -)
+        SRGB8_PunchThrough_Alpha1_ETC2,
+%End
+%If (Qt_5_5_0 -)
+        RGBA8_ETC2_EAC,
+%End
+%If (Qt_5_5_0 -)
+        SRGB8_Alpha8_ETC2_EAC,
+%End
     };
 
     void setFormat(QOpenGLTexture::TextureFormat format);
@@ -200,6 +230,9 @@ public:
     int layers() const;
     int faces() const;
     void allocateStorage();
+%If (Qt_5_5_0 -)
+    void allocateStorage(QOpenGLTexture::PixelFormat pixelFormat, QOpenGLTexture::PixelType pixelType);
+%End
     bool isStorageAllocated() const;
     QOpenGLTexture *createTextureView(QOpenGLTexture::Target target, QOpenGLTexture::TextureFormat viewFormat, int minimumMipmapLevel, int maximumMipmapLevel, int minimumLayer, int maximumLayer) const /Factory/;
     bool isTextureView() const;
@@ -361,6 +394,12 @@ public:
 %If (Qt_5_3_0 -)
         Texture1D,
 %End
+%If (Qt_5_5_0 -)
+        TextureComparisonOperators,
+%End
+%If (Qt_5_5_0 -)
+        TextureMipMapLevel,
+%End
     };
 
     typedef QFlags<QOpenGLTexture::Feature> Features;
@@ -468,6 +507,42 @@ public:
 %End
 %If (Qt_5_4_0 -)
     bool isFixedSamplePositions() const;
+%End
+%If (Qt_5_5_0 -)
+
+    enum ComparisonFunction
+    {
+        CompareLessEqual,
+        CompareGreaterEqual,
+        CompareLess,
+        CompareGreater,
+        CompareEqual,
+        CommpareNotEqual,
+        CompareAlways,
+        CompareNever,
+    };
+
+%End
+%If (Qt_5_5_0 -)
+    void setComparisonFunction(QOpenGLTexture::ComparisonFunction function);
+%End
+%If (Qt_5_5_0 -)
+    QOpenGLTexture::ComparisonFunction comparisonFunction() const;
+%End
+%If (Qt_5_5_0 -)
+
+    enum ComparisonMode
+    {
+        CompareRefToTexture,
+        CompareNone,
+    };
+
+%End
+%If (Qt_5_5_0 -)
+    void setComparisonMode(QOpenGLTexture::ComparisonMode mode);
+%End
+%If (Qt_5_5_0 -)
+    QOpenGLTexture::ComparisonMode comparisonMode() const;
 %End
 
 private:

@@ -92,6 +92,18 @@ protected:
 %If (Qt_5_3_1 -)
     virtual void focusOutEvent(QFocusEvent *event);
 %End
+%If (Qt_5_5_0 -)
+    virtual void dragEnterEvent(QDragEnterEvent *);
+%End
+%If (Qt_5_5_0 -)
+    virtual void dragMoveEvent(QDragMoveEvent *);
+%End
+%If (Qt_5_5_0 -)
+    virtual void dragLeaveEvent(QDragLeaveEvent *);
+%End
+%If (Qt_5_5_0 -)
+    virtual void dropEvent(QDropEvent *);
+%End
 
 public:
 %If (Qt_5_4_0 -)
@@ -99,6 +111,9 @@ public:
 %End
 %If (Qt_5_4_0 -)
     void setClearColor(const QColor &color);
+%End
+%If (Qt_5_5_0 -)
+    QQuickWindow *quickWindow() const;
 %End
 
 private:

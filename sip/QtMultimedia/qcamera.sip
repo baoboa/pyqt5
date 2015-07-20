@@ -154,8 +154,49 @@ signals:
     void lockStatusChanged(QCamera::LockType, QCamera::LockStatus, QCamera::LockChangeReason);
     void error(QCamera::Error);
 
+public:
+%If (Qt_5_5_0 -)
+
+    struct FrameRateRange
+    {
+%TypeHeaderCode
+#include <qcamera.h>
+%End
+
+        FrameRateRange(qreal minimum, qreal maximum);
+        FrameRateRange();
+        qreal minimumFrameRate;
+        qreal maximumFrameRate;
+    };
+
+%End
+%If (Qt_5_5_0 -)
+    QCameraViewfinderSettings viewfinderSettings() const;
+%End
+%If (Qt_5_5_0 -)
+    void setViewfinderSettings(const QCameraViewfinderSettings &settings);
+%End
+%If (Qt_5_5_0 -)
+    QList<QCameraViewfinderSettings> supportedViewfinderSettings(const QCameraViewfinderSettings &settings = QCameraViewfinderSettings()) const;
+%End
+%If (Qt_5_5_0 -)
+    QList<QSize> supportedViewfinderResolutions(const QCameraViewfinderSettings &settings = QCameraViewfinderSettings()) const;
+%End
+%If (Qt_5_5_0 -)
+    QList<QCamera::FrameRateRange> supportedViewfinderFrameRateRanges(const QCameraViewfinderSettings &settings = QCameraViewfinderSettings()) const;
+%End
+%If (Qt_5_5_0 -)
+    QList<QVideoFrame::PixelFormat> supportedViewfinderPixelFormats(const QCameraViewfinderSettings &settings = QCameraViewfinderSettings()) const;
+%End
+
 private:
     QCamera(const QCamera &);
 };
 
 QFlags<QCamera::LockType> operator|(QCamera::LockType f1, QFlags<QCamera::LockType> f2);
+%If (Qt_5_5_0 -)
+bool operator==(const QCamera::FrameRateRange &r1, const QCamera::FrameRateRange &r2);
+%End
+%If (Qt_5_5_0 -)
+bool operator!=(const QCamera::FrameRateRange &r1, const QCamera::FrameRateRange &r2);
+%End

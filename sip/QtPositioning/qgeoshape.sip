@@ -71,6 +71,12 @@ public:
 %If (Qt_5_3_0 -)
     void extendShape(const QGeoCoordinate &coordinate);
 %End
+%If (Qt_5_5_0 -)
+    QGeoCoordinate center() const;
+%End
+%If (Qt_5_5_0 -)
+    QString toString() const;
+%End
 };
 
 %End

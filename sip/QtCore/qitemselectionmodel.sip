@@ -85,7 +85,12 @@ public:
     };
 
     typedef QFlags<QItemSelectionModel::SelectionFlag> SelectionFlags;
+%If (Qt_5_5_0 -)
+    explicit QItemSelectionModel(QAbstractItemModel *model /TransferThis/ = 0);
+%End
+%If (- Qt_5_5_0)
     explicit QItemSelectionModel(QAbstractItemModel *model /TransferThis/);
+%End
     QItemSelectionModel(QAbstractItemModel *model, QObject *parent /TransferThis/);
     virtual ~QItemSelectionModel();
     QModelIndex currentIndex() const;
@@ -96,7 +101,12 @@ public:
     bool columnIntersectsSelection(int column, const QModelIndex &parent) const;
     QModelIndexList selectedIndexes() const;
     const QItemSelection selection() const;
+%If (Qt_5_5_0 -)
+    QAbstractItemModel *model();
+%End
+%If (- Qt_5_5_0)
     const QAbstractItemModel *model() const;
+%End
 
 public slots:
     virtual void clear();
@@ -120,6 +130,14 @@ public:
     bool hasSelection() const;
     QModelIndexList selectedRows(int column = 0) const;
     QModelIndexList selectedColumns(int row = 0) const;
+%If (Qt_5_5_0 -)
+    void setModel(QAbstractItemModel *model);
+%End
+
+signals:
+%If (Qt_5_5_0 -)
+    void modelChanged(QAbstractItemModel *model);
+%End
 
 private:
     QItemSelectionModel(const QItemSelectionModel &);

@@ -21,6 +21,12 @@
 
 
 %If (Qt_5_4_0 -)
+%ModuleCode
+#include <qlowenergyservice.h>
+%End
+%End
+
+%If (Qt_5_4_0 -)
 
 class QLowEnergyService : QObject /NoDefaultCtors/
 {
@@ -43,6 +49,15 @@ public:
         OperationError,
         CharacteristicWriteError,
         DescriptorWriteError,
+%If (Qt_5_5_0 -)
+        CharacteristicReadError,
+%End
+%If (Qt_5_5_0 -)
+        DescriptorReadError,
+%End
+%If (Qt_5_5_0 -)
+        UnknownError,
+%End
     };
 
     enum ServiceState
@@ -80,6 +95,25 @@ signals:
     void characteristicWritten(const QLowEnergyCharacteristic &info, const QByteArray &value);
     void descriptorWritten(const QLowEnergyDescriptor &info, const QByteArray &value);
     void error(QLowEnergyService::ServiceError error);
+
+public:
+%If (Qt_5_5_0 -)
+    void readCharacteristic(const QLowEnergyCharacteristic &characteristic);
+%End
+%If (Qt_5_5_0 -)
+    void readDescriptor(const QLowEnergyDescriptor &descriptor);
+%End
+
+signals:
+%If (Qt_5_5_0 -)
+    void characteristicRead(const QLowEnergyCharacteristic &info, const QByteArray &value);
+%End
+%If (Qt_5_5_0 -)
+    void descriptorRead(const QLowEnergyDescriptor &info, const QByteArray &value);
+%End
 };
 
+%End
+%If (Qt_5_5_0 -)
+QFlags<QLowEnergyService::ServiceType> operator|(QLowEnergyService::ServiceType f1, QFlags<QLowEnergyService::ServiceType> f2);
 %End

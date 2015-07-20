@@ -54,6 +54,9 @@ public:
 %If (Qt_5_2_0 -)
     QUrl mediaUrl() const;
 %End
+%If (Qt_5_5_0 -)
+    QString linkTitleString() const;
+%End
 };
 
 class QWebFrame : QObject /NoDefaultCtors/

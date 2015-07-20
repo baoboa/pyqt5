@@ -95,6 +95,9 @@ public:
     QVector3D &operator*=(float factor);
     QVector3D &operator*=(const QVector3D &vector);
     QVector3D &operator/=(float divisor);
+%If (Qt_5_5_0 -)
+    QVector3D &operator/=(const QVector3D &vector);
+%End
     QPoint toPoint() const;
     QPointF toPointF() const;
 %If (Qt_5_1_0 -)
@@ -102,6 +105,12 @@ public:
 %End
 %If (Qt_5_2_0 -)
     float operator[](int i) const;
+%End
+%If (Qt_5_5_0 -)
+    QVector3D project(const QMatrix4x4 &modelView, const QMatrix4x4 &projection, const QRect &viewport) const;
+%End
+%If (Qt_5_5_0 -)
+    QVector3D unproject(const QMatrix4x4 &modelView, const QMatrix4x4 &projection, const QRect &viewport) const;
 %End
 };
 
@@ -114,6 +123,9 @@ const QVector3D operator*(const QVector3D &vector, float factor);
 const QVector3D operator*(const QVector3D &v1, const QVector3D &v2);
 const QVector3D operator-(const QVector3D &vector);
 const QVector3D operator/(const QVector3D &vector, float divisor);
+%If (Qt_5_5_0 -)
+const QVector3D operator/(const QVector3D &vector, const QVector3D &divisor);
+%End
 bool qFuzzyCompare(const QVector3D &v1, const QVector3D &v2);
 QDataStream &operator<<(QDataStream &, const QVector3D & /Constrained/) /ReleaseGIL/;
 QDataStream &operator>>(QDataStream &, QVector3D & /Constrained/) /ReleaseGIL/;

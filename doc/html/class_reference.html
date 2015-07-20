@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>PyQt5 Class Reference &mdash; PyQt 5.4.2 Reference Guide</title>
+    <title>PyQt5 Class Reference &mdash; PyQt 5.5 Reference Guide</title>
     
     <link rel="stylesheet" href="_static/classic.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '5.4.2',
+        VERSION:     '5.5',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -24,7 +24,7 @@
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
     <link rel="shortcut icon" href="_static/logo_tn.ico"/>
-    <link rel="top" title="PyQt 5.4.2 Reference Guide" href="index.html" />
+    <link rel="top" title="PyQt 5.5 Reference Guide" href="index.html" />
     <link rel="next" title="Enginio" href="api/enginio.html" />
     <link rel="prev" title="Differences Between PyQt4 and PyQt5" href="pyqt4_differences.html" /> 
   </head>
@@ -44,7 +44,7 @@
         <li class="right" >
           <a href="pyqt4_differences.html" title="Differences Between PyQt4 and PyQt5"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">PyQt 5.4.2 Reference Guide</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">PyQt 5.5 Reference Guide</a> &raquo;</li> 
       </ul>
     </div>  
 
@@ -303,13 +303,24 @@ Pythonic documentation.</p>
 <li class="toctree-l1"><a class="reference internal" href="api/qgeoareamonitorinfo.html">QGeoAreaMonitorInfo</a></li>
 <li class="toctree-l1"><a class="reference internal" href="api/qgeoareamonitorsource.html">QGeoAreaMonitorSource</a></li>
 <li class="toctree-l1"><a class="reference internal" href="api/qgeocircle.html">QGeoCircle</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api/qgeocodereply.html">QGeoCodeReply</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api/qgeocodingmanager.html">QGeoCodingManager</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api/qgeocodingmanagerengine.html">QGeoCodingManagerEngine</a></li>
 <li class="toctree-l1"><a class="reference internal" href="api/qgeocoordinate.html">QGeoCoordinate</a></li>
 <li class="toctree-l1"><a class="reference internal" href="api/qgeolocation.html">QGeoLocation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api/qgeomaneuver.html">QGeoManeuver</a></li>
 <li class="toctree-l1"><a class="reference internal" href="api/qgeopositioninfo.html">QGeoPositionInfo</a></li>
 <li class="toctree-l1"><a class="reference internal" href="api/qgeopositioninfosource.html">QGeoPositionInfoSource</a></li>
 <li class="toctree-l1"><a class="reference internal" href="api/qgeorectangle.html">QGeoRectangle</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api/qgeoroute.html">QGeoRoute</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api/qgeoroutereply.html">QGeoRouteReply</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api/qgeorouterequest.html">QGeoRouteRequest</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api/qgeoroutesegment.html">QGeoRouteSegment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api/qgeoroutingmanager.html">QGeoRoutingManager</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api/qgeoroutingmanagerengine.html">QGeoRoutingManagerEngine</a></li>
 <li class="toctree-l1"><a class="reference internal" href="api/qgeosatelliteinfo.html">QGeoSatelliteInfo</a></li>
 <li class="toctree-l1"><a class="reference internal" href="api/qgeosatelliteinfosource.html">QGeoSatelliteInfoSource</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api/qgeoserviceprovider.html">QGeoServiceProvider</a></li>
 <li class="toctree-l1"><a class="reference internal" href="api/qgeoshape.html">QGeoShape</a></li>
 <li class="toctree-l1"><a class="reference internal" href="api/qgesture.html">QGesture</a></li>
 <li class="toctree-l1"><a class="reference internal" href="api/qgestureevent.html">QGestureEvent</a></li>
@@ -447,6 +458,7 @@ Pythonic documentation.</p>
 <li class="toctree-l1"><a class="reference internal" href="api/qlocale.html">QLocale</a></li>
 <li class="toctree-l1"><a class="reference internal" href="api/qlocalserver.html">QLocalServer</a></li>
 <li class="toctree-l1"><a class="reference internal" href="api/qlocalsocket.html">QLocalSocket</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api/qlocation.html">QLocation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="api/qlockfile.html">QLockFile</a></li>
 <li class="toctree-l1"><a class="reference internal" href="api/qlowenergycharacteristic.html">QLowEnergyCharacteristic</a></li>
 <li class="toctree-l1"><a class="reference internal" href="api/qlowenergycontroller.html">QLowEnergyController</a></li>
@@ -454,6 +466,8 @@ Pythonic documentation.</p>
 <li class="toctree-l1"><a class="reference internal" href="api/qlowenergyservice.html">QLowEnergyService</a></li>
 <li class="toctree-l1"><a class="reference internal" href="api/qmaccocoaviewcontainer.html">QMacCocoaViewContainer</a></li>
 <li class="toctree-l1"><a class="reference internal" href="api/qmacpasteboardmime.html">QMacPasteboardMime</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api/qmactoolbar.html">QMacToolBar</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api/qmactoolbaritem.html">QMacToolBarItem</a></li>
 <li class="toctree-l1"><a class="reference internal" href="api/qmagnetometer.html">QMagnetometer</a></li>
 <li class="toctree-l1"><a class="reference internal" href="api/qmagnetometerfilter.html">QMagnetometerFilter</a></li>
 <li class="toctree-l1"><a class="reference internal" href="api/qmagnetometerreading.html">QMagnetometerReading</a></li>
@@ -507,6 +521,17 @@ Pythonic documentation.</p>
 <li class="toctree-l1"><a class="reference internal" href="api/qmultimedia.html">QMultimedia</a></li>
 <li class="toctree-l1"><a class="reference internal" href="api/qmutex.html">QMutex</a></li>
 <li class="toctree-l1"><a class="reference internal" href="api/qmutexlocker.html">QMutexLocker</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api/qndeffilter.html">QNdefFilter</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api/qndefmessage.html">QNdefMessage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api/qndefnfciconrecord.html">QNdefNfcIconRecord</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api/qndefnfcsmartposterrecord.html">QNdefNfcSmartPosterRecord</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api/qndefnfctextrecord.html">QNdefNfcTextRecord</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api/qndefnfcurirecord.html">QNdefNfcUriRecord</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api/qndefrecord.html">QNdefRecord</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api/qnearfieldmanager.html">QNearFieldManager</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api/qnearfieldsharemanager.html">QNearFieldShareManager</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api/qnearfieldsharetarget.html">QNearFieldShareTarget</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api/qnearfieldtarget.html">QNearFieldTarget</a></li>
 <li class="toctree-l1"><a class="reference internal" href="api/qnetworkaccessmanager.html">QNetworkAccessManager</a></li>
 <li class="toctree-l1"><a class="reference internal" href="api/qnetworkaddressentry.html">QNetworkAddressEntry</a></li>
 <li class="toctree-l1"><a class="reference internal" href="api/qnetworkcachemetadata.html">QNetworkCacheMetaData</a></li>
@@ -570,6 +595,33 @@ Pythonic documentation.</p>
 <li class="toctree-l1"><a class="reference internal" href="api/qpixelformat.html">QPixelFormat</a></li>
 <li class="toctree-l1"><a class="reference internal" href="api/qpixmap.html">QPixmap</a></li>
 <li class="toctree-l1"><a class="reference internal" href="api/qpixmapcache.html">QPixmapCache</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api/qplace.html">QPlace</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api/qplaceattribute.html">QPlaceAttribute</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api/qplacecategory.html">QPlaceCategory</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api/qplacecontactdetail.html">QPlaceContactDetail</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api/qplacecontent.html">QPlaceContent</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api/qplacecontentreply.html">QPlaceContentReply</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api/qplacecontentrequest.html">QPlaceContentRequest</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api/qplacedetailsreply.html">QPlaceDetailsReply</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api/qplaceeditorial.html">QPlaceEditorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api/qplaceicon.html">QPlaceIcon</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api/qplaceidreply.html">QPlaceIdReply</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api/qplaceimage.html">QPlaceImage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api/qplacemanager.html">QPlaceManager</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api/qplacemanagerengine.html">QPlaceManagerEngine</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api/qplacematchreply.html">QPlaceMatchReply</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api/qplacematchrequest.html">QPlaceMatchRequest</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api/qplaceproposedsearchresult.html">QPlaceProposedSearchResult</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api/qplaceratings.html">QPlaceRatings</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api/qplacereply.html">QPlaceReply</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api/qplaceresult.html">QPlaceResult</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api/qplacereview.html">QPlaceReview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api/qplacesearchreply.html">QPlaceSearchReply</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api/qplacesearchrequest.html">QPlaceSearchRequest</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api/qplacesearchresult.html">QPlaceSearchResult</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api/qplacesearchsuggestionreply.html">QPlaceSearchSuggestionReply</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api/qplacesupplier.html">QPlaceSupplier</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api/qplaceuser.html">QPlaceUser</a></li>
 <li class="toctree-l1"><a class="reference internal" href="api/qplaintextdocumentlayout.html">QPlainTextDocumentLayout</a></li>
 <li class="toctree-l1"><a class="reference internal" href="api/qplaintextedit.html">QPlainTextEdit</a></li>
 <li class="toctree-l1"><a class="reference internal" href="api/qpluginloader.html">QPluginLoader</a></li>
@@ -594,6 +646,7 @@ Pythonic documentation.</p>
 <li class="toctree-l1"><a class="reference internal" href="api/qproximityfilter.html">QProximityFilter</a></li>
 <li class="toctree-l1"><a class="reference internal" href="api/qproximityreading.html">QProximityReading</a></li>
 <li class="toctree-l1"><a class="reference internal" href="api/qproximitysensor.html">QProximitySensor</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api/qproxystyle.html">QProxyStyle</a></li>
 <li class="toctree-l1"><a class="reference internal" href="api/qpushbutton.html">QPushButton</a></li>
 <li class="toctree-l1"><a class="reference internal" href="api/qqmlabstracturlinterceptor.html">QQmlAbstractUrlInterceptor</a></li>
 <li class="toctree-l1"><a class="reference internal" href="api/qqmlapplicationengine.html">QQmlApplicationEngine</a></li>
@@ -609,6 +662,7 @@ Pythonic documentation.</p>
 <li class="toctree-l1"><a class="reference internal" href="api/qqmlincubatorcontrol.html">QQmlIncubatorControl</a></li>
 <li class="toctree-l1"><a class="reference internal" href="api/qqmllistproperty.html">QQmlListProperty</a></li>
 <li class="toctree-l1"><a class="reference internal" href="api/qqmllistreference.html">QQmlListReference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api/qqmlndefrecord.html">QQmlNdefRecord</a></li>
 <li class="toctree-l1"><a class="reference internal" href="api/qqmlnetworkaccessmanagerfactory.html">QQmlNetworkAccessManagerFactory</a></li>
 <li class="toctree-l1"><a class="reference internal" href="api/qqmlparserstatus.html">QQmlParserStatus</a></li>
 <li class="toctree-l1"><a class="reference internal" href="api/qqmlproperty.html">QQmlProperty</a></li>
@@ -895,9 +949,13 @@ Pythonic documentation.</p>
 <li class="toctree-l1"><a class="reference internal" href="api/qwebelement.html">QWebElement</a></li>
 <li class="toctree-l1"><a class="reference internal" href="api/qwebelementcollection.html">QWebElementCollection</a></li>
 <li class="toctree-l1"><a class="reference internal" href="api/qwebenginecertificateerror.html">QWebEngineCertificateError</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api/qwebenginedownloaditem.html">QWebEngineDownloadItem</a></li>
 <li class="toctree-l1"><a class="reference internal" href="api/qwebenginehistory.html">QWebEngineHistory</a></li>
 <li class="toctree-l1"><a class="reference internal" href="api/qwebenginehistoryitem.html">QWebEngineHistoryItem</a></li>
 <li class="toctree-l1"><a class="reference internal" href="api/qwebenginepage.html">QWebEnginePage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api/qwebengineprofile.html">QWebEngineProfile</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api/qwebenginescript.html">QWebEngineScript</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api/qwebenginescriptcollection.html">QWebEngineScriptCollection</a></li>
 <li class="toctree-l1"><a class="reference internal" href="api/qwebenginesettings.html">QWebEngineSettings</a></li>
 <li class="toctree-l1"><a class="reference internal" href="api/qwebengineview.html">QWebEngineView</a></li>
 <li class="toctree-l1"><a class="reference internal" href="api/qwebframe.html">QWebFrame</a></li>
@@ -1017,7 +1075,7 @@ Pythonic documentation.</p>
         <li class="right" >
           <a href="pyqt4_differences.html" title="Differences Between PyQt4 and PyQt5"
              >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">PyQt 5.4.2 Reference Guide</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">PyQt 5.5 Reference Guide</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">

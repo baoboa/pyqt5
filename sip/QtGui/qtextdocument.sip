@@ -77,8 +77,14 @@ public:
     typedef QFlags<QTextDocument::FindFlag> FindFlags;
     QTextCursor find(const QString &subString, int position = 0, QFlags<QTextDocument::FindFlag> options = 0) const;
     QTextCursor find(const QRegExp &expr, int position = 0, QFlags<QTextDocument::FindFlag> options = 0) const;
+%If (Qt_5_5_0 -)
+    QTextCursor find(const QRegularExpression &expr, int position = 0, QFlags<QTextDocument::FindFlag> options = 0) const;
+%End
     QTextCursor find(const QString &subString, const QTextCursor &cursor, QFlags<QTextDocument::FindFlag> options = 0) const;
     QTextCursor find(const QRegExp &expr, const QTextCursor &cursor, QFlags<QTextDocument::FindFlag> options = 0) const;
+%If (Qt_5_5_0 -)
+    QTextCursor find(const QRegularExpression &expr, const QTextCursor &cursor, QFlags<QTextDocument::FindFlag> options = 0) const;
+%End
     QTextFrame *rootFrame() const;
     QTextObject *object(int objectIndex) const;
     QTextObject *objectForFormat(const QTextFormat &) const;

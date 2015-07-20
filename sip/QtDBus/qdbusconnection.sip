@@ -225,6 +225,9 @@ public:
 %End
 
     bool registerObject(const QString &path, QObject *object, QDBusConnection::RegisterOptions options = QDBusConnection::ExportAdaptors);
+%If (Qt_5_5_0 -)
+    bool registerObject(const QString &path, const QString &interface, QObject *object, QDBusConnection::RegisterOptions options = QDBusConnection::ExportAdaptors);
+%End
     void unregisterObject(const QString &path, QDBusConnection::UnregisterMode mode = QDBusConnection::UnregisterNode);
     QObject *objectRegisteredAt(const QString &path) const;
     bool registerService(const QString &serviceName);

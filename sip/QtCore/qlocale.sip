@@ -473,6 +473,81 @@ public:
 %If (Qt_5_3_0 -)
         StandardMoroccanTamazight,
 %End
+%If (Qt_5_5_0 -)
+        Mapuche,
+%End
+%If (Qt_5_5_0 -)
+        CentralKurdish,
+%End
+%If (Qt_5_5_0 -)
+        LowerSorbian,
+%End
+%If (Qt_5_5_0 -)
+        UpperSorbian,
+%End
+%If (Qt_5_5_0 -)
+        Kenyang,
+%End
+%If (Qt_5_5_0 -)
+        Mohawk,
+%End
+%If (Qt_5_5_0 -)
+        Nko,
+%End
+%If (Qt_5_5_0 -)
+        Prussian,
+%End
+%If (Qt_5_5_0 -)
+        Kiche,
+%End
+%If (Qt_5_5_0 -)
+        SouthernSami,
+%End
+%If (Qt_5_5_0 -)
+        LuleSami,
+%End
+%If (Qt_5_5_0 -)
+        InariSami,
+%End
+%If (Qt_5_5_0 -)
+        SkoltSami,
+%End
+%If (Qt_5_5_0 -)
+        Warlpiri,
+%End
+%If (Qt_5_5_0 -)
+        ManichaeanMiddlePersian,
+%End
+%If (Qt_5_5_0 -)
+        Mende,
+%End
+%If (Qt_5_5_0 -)
+        AncientNorthArabian,
+%End
+%If (Qt_5_5_0 -)
+        LinearA,
+%End
+%If (Qt_5_5_0 -)
+        HmongNjua,
+%End
+%If (Qt_5_5_0 -)
+        Ho,
+%End
+%If (Qt_5_5_0 -)
+        Lezghian,
+%End
+%If (Qt_5_5_0 -)
+        Bassa,
+%End
+%If (Qt_5_5_0 -)
+        Mono,
+%End
+%If (Qt_5_5_0 -)
+        TedimChin,
+%End
+%If (Qt_5_5_0 -)
+        Maithili,
+%End
     };
 
     enum Country
@@ -1076,6 +1151,75 @@ public:
 %End
 %If (Qt_5_1_0 -)
         HiraganaScript,
+%End
+%If (Qt_5_5_0 -)
+        CaucasianAlbanianScript,
+%End
+%If (Qt_5_5_0 -)
+        BassaVahScript,
+%End
+%If (Qt_5_5_0 -)
+        DuployanScript,
+%End
+%If (Qt_5_5_0 -)
+        ElbasanScript,
+%End
+%If (Qt_5_5_0 -)
+        GranthaScript,
+%End
+%If (Qt_5_5_0 -)
+        PahawhHmongScript,
+%End
+%If (Qt_5_5_0 -)
+        KhojkiScript,
+%End
+%If (Qt_5_5_0 -)
+        LinearAScript,
+%End
+%If (Qt_5_5_0 -)
+        MahajaniScript,
+%End
+%If (Qt_5_5_0 -)
+        ManichaeanScript,
+%End
+%If (Qt_5_5_0 -)
+        MendeKikakuiScript,
+%End
+%If (Qt_5_5_0 -)
+        ModiScript,
+%End
+%If (Qt_5_5_0 -)
+        MroScript,
+%End
+%If (Qt_5_5_0 -)
+        OldNorthArabianScript,
+%End
+%If (Qt_5_5_0 -)
+        NabataeanScript,
+%End
+%If (Qt_5_5_0 -)
+        PalmyreneScript,
+%End
+%If (Qt_5_5_0 -)
+        PauCinHauScript,
+%End
+%If (Qt_5_5_0 -)
+        OldPermicScript,
+%End
+%If (Qt_5_5_0 -)
+        PsalterPahlaviScript,
+%End
+%If (Qt_5_5_0 -)
+        SiddhamScript,
+%End
+%If (Qt_5_5_0 -)
+        KhudawadiScript,
+%End
+%If (Qt_5_5_0 -)
+        TirhutaScript,
+%End
+%If (Qt_5_5_0 -)
+        VarangKshitiScript,
 %End
     };
 

@@ -63,6 +63,9 @@ public:
 %If (Qt_5_3_0 -)
         SpdyWasUsedAttribute,
 %End
+%If (Qt_5_5_0 -)
+        EmitAllUploadProgressSignalsAttribute,
+%End
         User,
         UserMax,
     };

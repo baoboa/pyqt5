@@ -98,3 +98,9 @@ public:
 
 QDataStream &operator<<(QDataStream &, const QUuid & /Constrained/) /ReleaseGIL/;
 QDataStream &operator>>(QDataStream &, QUuid & /Constrained/) /ReleaseGIL/;
+%If (Qt_5_5_0 -)
+bool operator<=(const QUuid &lhs, const QUuid &rhs);
+%End
+%If (Qt_5_5_0 -)
+bool operator>=(const QUuid &lhs, const QUuid &rhs);
+%End

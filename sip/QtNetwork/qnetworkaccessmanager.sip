@@ -63,6 +63,9 @@ signals:
     void sslErrors(QNetworkReply *reply, const QList<QSslError> &errors);
 %End
     void networkAccessibleChanged(QNetworkAccessManager::NetworkAccessibility accessible);
+%If (Qt_5_5_0 -)
+    void preSharedKeyAuthenticationRequired(QNetworkReply *reply, QSslPreSharedKeyAuthenticator *authenticator);
+%End
 
 protected:
     virtual QNetworkReply *createRequest(QNetworkAccessManager::Operation op, const QNetworkRequest &request, QIODevice *device = 0) /AbortOnException,DisallowNone,ReleaseGIL/;

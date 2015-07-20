@@ -60,6 +60,36 @@ public:
         ExposureBeach,
         ExposureLargeAperture,
         ExposureSmallAperture,
+%If (Qt_5_5_0 -)
+        ExposureAction,
+%End
+%If (Qt_5_5_0 -)
+        ExposureLandscape,
+%End
+%If (Qt_5_5_0 -)
+        ExposureNightPortrait,
+%End
+%If (Qt_5_5_0 -)
+        ExposureTheatre,
+%End
+%If (Qt_5_5_0 -)
+        ExposureSunset,
+%End
+%If (Qt_5_5_0 -)
+        ExposureSteadyPhoto,
+%End
+%If (Qt_5_5_0 -)
+        ExposureFireworks,
+%End
+%If (Qt_5_5_0 -)
+        ExposureParty,
+%End
+%If (Qt_5_5_0 -)
+        ExposureCandlelight,
+%End
+%If (Qt_5_5_0 -)
+        ExposureBarcode,
+%End
         ExposureModeVendor,
     };
 

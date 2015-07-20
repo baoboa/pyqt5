@@ -78,8 +78,8 @@ public:
 
     explicit QProcess(QObject *parent /TransferThis/ = 0);
     virtual ~QProcess();
-    void start(const QString &program, const QStringList &arguments, QFlags<QIODevice::OpenModeFlag> mode = ReadWrite) /HoldGIL/;
-    void start(const QString &program, QFlags<QIODevice::OpenModeFlag> mode = ReadWrite) /HoldGIL/;
+    void start(const QString &program, const QStringList &arguments, QFlags<QIODevice::OpenModeFlag> mode = QIODevice::ReadWrite) /HoldGIL/;
+    void start(const QString &command, QFlags<QIODevice::OpenModeFlag> mode = QIODevice::ReadWrite) /HoldGIL/;
 %If (Qt_5_1_0 -)
     void start(QFlags<QIODevice::OpenModeFlag> mode = QIODevice::ReadWrite) /HoldGIL/;
 %End
@@ -115,8 +115,8 @@ public:
     QProcess::ProcessChannelMode processChannelMode() const;
     void setProcessChannelMode(QProcess::ProcessChannelMode mode);
     void setStandardInputFile(const QString &fileName);
-    void setStandardOutputFile(const QString &fileName, QFlags<QIODevice::OpenModeFlag> mode = Truncate);
-    void setStandardErrorFile(const QString &fileName, QFlags<QIODevice::OpenModeFlag> mode = Truncate);
+    void setStandardOutputFile(const QString &fileName, QFlags<QIODevice::OpenModeFlag> mode = QIODevice::Truncate);
+    void setStandardErrorFile(const QString &fileName, QFlags<QIODevice::OpenModeFlag> mode = QIODevice::Truncate);
     void setStandardOutputProcess(QProcess *destination);
 
 public slots:

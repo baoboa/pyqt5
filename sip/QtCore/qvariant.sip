@@ -119,6 +119,9 @@ public:
         ModelIndex,
         PolygonF,
         RegularExpression,
+%If (Qt_5_5_0 -)
+        PersistentModelIndex,
+%End
         UserType,
     };
 

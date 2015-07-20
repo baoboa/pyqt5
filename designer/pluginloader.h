@@ -25,7 +25,7 @@
 
 #include <Python.h>
 
-#include <QDesignerCustomWidgetCollectionInterface>
+#include <QtDesigner>
 #include <QList>
 #include <QObject>
 

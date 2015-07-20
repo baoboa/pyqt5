@@ -95,6 +95,9 @@ signals:
     void encrypted();
     void sslErrors(const QList<QSslError> &errors);
     void modeChanged(QSslSocket::SslMode newMode);
+%If (Qt_5_5_0 -)
+    void preSharedKeyAuthenticationRequired(QSslPreSharedKeyAuthenticator *authenticator);
+%End
 
 protected:
     virtual SIP_PYOBJECT readData(qint64 maxlen) /DocType="Py_v3:bytes;str",ReleaseGIL/ [qint64 (char *data, qint64 maxlen)];

@@ -1,5 +1,40 @@
-Potential Incompatibilities with Earlier Versions
-=================================================
+Incompatibilities with Earlier Versions
+=======================================
+
+PyQt v5.5
+---------
+
+Conversion of Latin-1 Strings to :class:`~PyQt5.QtCore.QByteArray`
+******************************************************************
+
+This version removes the automatic conversion of a Latin-1 encoded string when
+a :class:`~PyQt5.QtCore.QByteArray` is expected.  It was deprecated in PyQt
+v5.4.
+
+
+Unhandled Python Exceptions
+***************************
+
+There are a number of situations where Python code is executed from C++.
+Python reimplementations of C++ virtual methods is probably the most common
+example.  In previous versions, if the Python code raised an exception then
+PyQt would call Python's :c:func:`PyErr_Print` function which would then call
+:func:`sys.excepthook`.  The default exception hook would then display the
+exception and any traceback to ``stderr``.  There are number of disadvantages
+to this behaviour:
+
+- the application does not terminate, meaning the behaviour is different to
+  when exceptions are raised in other situations
+
+- the output written to ``stderr`` may not be seen by the developer or user
+  (particularly if it is a GUI application) thereby hiding the fact that the
+  application is trying to report a potential bug.
+
+This behaviour was deprecated in PyQt v5.4.  In PyQt v5.5 an unhandled Python
+exception will result in a call to Qt's :cpp:func:`qFatal` function.  By
+default this will call :c:func:`abort` and the application will terminate.
+Note that an application installed exception hook will still take precedence.
+
 
 PyQt v5.3
 ---------

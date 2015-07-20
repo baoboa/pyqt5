@@ -207,6 +207,9 @@ public:
 %If (Qt_5_4_0 -)
         ReadOnlyChange,
 %End
+%If (Qt_5_5_0 -)
+        PlatformSurface,
+%End
         User,
         MaxUser,
     };

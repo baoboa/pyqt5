@@ -98,6 +98,9 @@ public:
     QVector4D &operator*=(float factor);
     QVector4D &operator*=(const QVector4D &vector);
     QVector4D &operator/=(float divisor);
+%If (Qt_5_5_0 -)
+    QVector4D &operator/=(const QVector4D &vector);
+%End
     QPoint toPoint() const;
     QPointF toPointF() const;
 %If (Qt_5_2_0 -)
@@ -114,6 +117,9 @@ const QVector4D operator*(const QVector4D &vector, float factor);
 const QVector4D operator*(const QVector4D &v1, const QVector4D &v2);
 const QVector4D operator-(const QVector4D &vector);
 const QVector4D operator/(const QVector4D &vector, float divisor);
+%If (Qt_5_5_0 -)
+const QVector4D operator/(const QVector4D &vector, const QVector4D &divisor);
+%End
 bool qFuzzyCompare(const QVector4D &v1, const QVector4D &v2);
 QDataStream &operator<<(QDataStream &, const QVector4D & /Constrained/) /ReleaseGIL/;
 QDataStream &operator>>(QDataStream &, QVector4D & /Constrained/) /ReleaseGIL/;

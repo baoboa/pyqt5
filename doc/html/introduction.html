@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Introduction &mdash; PyQt 5.4.2 Reference Guide</title>
+    <title>Introduction &mdash; PyQt 5.5 Reference Guide</title>
     
     <link rel="stylesheet" href="_static/classic.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '5.4.2',
+        VERSION:     '5.5',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -24,8 +24,8 @@
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
     <link rel="shortcut icon" href="_static/logo_tn.ico"/>
-    <link rel="top" title="PyQt 5.4.2 Reference Guide" href="index.html" />
-    <link rel="next" title="Deprecated Features and Behaviours" href="deprecations.html" />
+    <link rel="top" title="PyQt 5.5 Reference Guide" href="index.html" />
+    <link rel="next" title="Platform Specific Issues" href="platforms.html" />
     <link rel="prev" title="PyQt5 Reference Guide" href="index.html" /> 
   </head>
   <body role="document">
@@ -39,12 +39,12 @@
           <a href="py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
         <li class="right" >
-          <a href="deprecations.html" title="Deprecated Features and Behaviours"
+          <a href="platforms.html" title="Platform Specific Issues"
              accesskey="N">next</a> |</li>
         <li class="right" >
           <a href="index.html" title="PyQt5 Reference Guide"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">PyQt 5.4.2 Reference Guide</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">PyQt 5.5 Reference Guide</a> &raquo;</li> 
       </ul>
     </div>  
 
@@ -55,14 +55,15 @@
             
   <div class="section" id="introduction">
 <h1>Introduction<a class="headerlink" href="#introduction" title="Permalink to this headline">¶</a></h1>
-<p>This is the reference guide for PyQt5 5.4.2.  PyQt5 is a set of
+<p>This is the reference guide for PyQt5 5.5.  PyQt5 is a set of
 <a class="reference external" href="http://www.python.org">Python</a> bindings for v5 of the Qt application
-framework from <a class="reference external" href="http://qt.digia.com">Digia</a>.</p>
+framework from <a class="reference external" href="http://www.qt.io">The Qt Company</a>.</p>
 <p>Qt is a set of C++ libraries and development tools that includes platform
 independent abstractions for graphical user interfaces, networking, threads,
-regular expressions, SQL databases, SVG, OpenGL, XML, and user and application
-settings.  PyQt5 implements over 620 of these classes as a set of Python
-modules.</p>
+regular expressions, SQL databases, SVG, OpenGL, XML, user and application
+settings, positioning and location services, short range communications (NFC
+and Bluetooth) and access to the cloud.  PyQt5 implements over 1000 of these
+classes as a set of Python modules.</p>
 <p>PyQt5 supports the Windows, Linux, UNIX, Android, OS X and iOS platforms.</p>
 <p>PyQt5 does not include Qt itself - you must obtain it separately.</p>
 <p>The homepage for PyQt5 is <a class="reference external" href="http://www.riverbankcomputing.com/software/pyqt/">http://www.riverbankcomputing.com/software/pyqt/</a>.
@@ -120,6 +121,11 @@ those contained in the <a class="reference internal" href="#module-PyQt5.QtWidge
 <li><a class="reference internal" href="#module-PyQt5.QtHelp" title="PyQt5.QtHelp"><code class="xref py py-mod docutils literal"><span class="pre">QtHelp</span></code></a> contains classes for creating and viewing searchable
 documentation.</li>
 </ul>
+<span class="target" id="module-PyQt5.QtLocation"></span><ul class="simple">
+<li><a class="reference internal" href="#module-PyQt5.QtLocation" title="PyQt5.QtLocation"><code class="xref py py-mod docutils literal"><span class="pre">QtLocation</span></code></a> contains classes for accessing geocoding and
+navigation information, and also place search.  It allows the creation of
+mapping solutions using data from some of the popular location services.</li>
+</ul>
 <span class="target" id="module-PyQt5.QtMacExtras"></span><ul class="simple">
 <li><a class="reference internal" href="#module-PyQt5.QtMacExtras" title="PyQt5.QtMacExtras (OS X, iOS)"><code class="xref py py-mod docutils literal"><span class="pre">QtMacExtras</span></code></a> contains additional classes that are specific to
 OS X and iOS.</li>
@@ -136,6 +142,13 @@ content in <a class="reference internal" href="#module-PyQt5.QtWidgets" title="P
 <li><a class="reference internal" href="#module-PyQt5.QtNetwork" title="PyQt5.QtNetwork"><code class="xref py py-mod docutils literal"><span class="pre">QtNetwork</span></code></a> contains classes for writing UDP and TCP clients and
 servers.  It includes classes that implement HTTP clients and support DNS
 lookups.</li>
+</ul>
+<span class="target" id="module-PyQt5.QtNfc"></span><ul class="simple">
+<li><a class="reference internal" href="#module-PyQt5.QtNfc" title="PyQt5.QtNfc"><code class="xref py py-mod docutils literal"><span class="pre">QtNfc</span></code></a> contains classes to provide connectivity between NFC
+enabled devices.  The NFC API provides APIs for interacting with NFC Forum
+Tags and NFC Forum Devices, including target detection and loss, registering
+NDEF message handlers, reading and writing NDEF messages on NFC Forum Tags
+and sending tag specific commands.</li>
 </ul>
 <span class="target" id="module-PyQt5.QtOpenGL"></span><ul class="simple">
 <li><a class="reference internal" href="#module-PyQt5.QtOpenGL" title="PyQt5.QtOpenGL"><code class="xref py py-mod docutils literal"><span class="pre">QtOpenGL</span></code></a> contains classes that allow the use of OpenGL in
@@ -363,8 +376,8 @@ version of PyQt5 no matter what version of Qt v5 you are using.</p>
   <p class="topless"><a href="index.html"
                         title="previous chapter">PyQt5 Reference Guide</a></p>
   <h4>Next topic</h4>
-  <p class="topless"><a href="deprecations.html"
-                        title="next chapter">Deprecated Features and Behaviours</a></p>
+  <p class="topless"><a href="platforms.html"
+                        title="next chapter">Platform Specific Issues</a></p>
 <div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
     <form class="search" action="search.html" method="get">
@@ -392,12 +405,12 @@ version of PyQt5 no matter what version of Qt v5 you are using.</p>
           <a href="py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
         <li class="right" >
-          <a href="deprecations.html" title="Deprecated Features and Behaviours"
+          <a href="platforms.html" title="Platform Specific Issues"
              >next</a> |</li>
         <li class="right" >
           <a href="index.html" title="PyQt5 Reference Guide"
              >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">PyQt 5.4.2 Reference Guide</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">PyQt 5.5 Reference Guide</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">

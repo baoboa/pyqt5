@@ -138,6 +138,9 @@ public:
 
     explicit QDnsLookup(QObject *parent /TransferThis/ = 0);
     QDnsLookup(QDnsLookup::Type type, const QString &name, QObject *parent /TransferThis/ = 0);
+%If (Qt_5_5_0 -)
+    QDnsLookup(QDnsLookup::Type type, const QString &name, const QHostAddress &nameserver, QObject *parent /TransferThis/ = 0);
+%End
     virtual ~QDnsLookup();
     QDnsLookup::Error error() const;
     QString errorString() const;

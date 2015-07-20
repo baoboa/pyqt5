@@ -64,6 +64,9 @@ public:
         DefaultFixedFontSize,
     };
 
+%If (Qt_5_5_0 -)
+    static QWebEngineSettings *defaultSettings();
+%End
     static QWebEngineSettings *globalSettings();
     void setFontFamily(QWebEngineSettings::FontFamily which, const QString &family);
     QString fontFamily(QWebEngineSettings::FontFamily which) const;
@@ -78,7 +81,6 @@ public:
     QString defaultTextEncoding() const;
 
 private:
-    QWebEngineSettings();
     QWebEngineSettings(const QWebEngineSettings &);
     ~QWebEngineSettings();
 };

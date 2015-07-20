@@ -24,7 +24,7 @@
 #include <qsgmaterial.h>
 %End
 
-class QSGMaterialShader
+class QSGMaterialShader /Supertype=sip.wrapper/
 {
 %TypeHeaderCode
 #include <qsgmaterial.h>
@@ -106,56 +106,14 @@ public:
 %End
 
 %VirtualCatcherCode
-        char **result = 0;
         PyObject *names = sipCallMethod(&sipIsErr, sipMethod, "");
         
         if (names)
         {
-            if (PyList_Check(names))
-            {
-                // Note that the converted value will leak.  This shouldn't matter
-                // because the data should be static anyway.
-                result = new char *[PyList_GET_SIZE(names) + 1];
-                result[PyList_GET_SIZE(names)] = 0;
-        
-                for (SIP_SSIZE_T i = 0; i < PyList_GET_SIZE(names); ++i)
-                {
-                    char *name;
-                    PyObject *el = PyList_GET_ITEM(names, i);
-                    
-        #if PY_MAJOR_VERSION >= 3
-                    PyObject *name_obj = PyUnicode_AsASCIIString(el);
-        
-                    name = (name_obj ? PyBytes_AS_STRING(name_obj) : 0);
-        #else
-                    name = PyString_AsString(el);
-        #endif
-        
-                    if (!name)
-                    {
-                        result[i] = 0;
-                        sipBadCatcherResult(sipMethod);
-                        sipIsErr = 1;
-                        break;
-                    }
-        
-                    char *name_copy = new char[strlen(name) + 1];
-                    strcpy(name_copy, name);
-                    result[i] = name_copy;
-        
-        #if PY_MAJOR_VERSION >= 3
-                    Py_DECREF(name_obj);
-        #endif
-                }
-        
-                if (!sipIsErr)
-                    sipRes = result;
-            }
-            else
-            {
-                sipBadCatcherResult(sipMethod);
+            sipRes = qtquick_anc_get_attr_names(sipPySelf, sipMethod, names);
+            
+            if (!sipRes)
                 sipIsErr = 1;
-            }
             
             Py_DECREF(names);
         }
@@ -229,3 +187,86 @@ private:
 
 QFlags<QSGMaterial::Flag> operator|(QSGMaterial::Flag f1, QFlags<QSGMaterial::Flag> f2);
 QFlags<QSGMaterialShader::RenderState::DirtyState> operator|(QSGMaterialShader::RenderState::DirtyState f1, QFlags<QSGMaterialShader::RenderState::DirtyState> f2);
+
+%ModuleCode
+// Release any attribute names to the heap.
+static void qtquick_anc_release(char **attr_names)
+{
+    if (attr_names)
+    {
+        for (int i = 0; attr_names[i]; ++i)
+            delete[] attr_names[i];
+
+        delete[] attr_names;
+    }
+}
+
+
+// The destructor for the attribute names PyCapsule.
+static void qtquick_anc_destructor(PyObject *cap)
+{
+    qtquick_anc_release(
+            reinterpret_cast<char **>(PyCapsule_GetPointer(cap, NULL)));
+}
+
+
+// Get the attribute names or 0 if there was an error.
+static char **qtquick_anc_get_attr_names(sipSimpleWrapper *pySelf, PyObject *method, PyObject *attr_names_obj)
+{
+    // Dispose of any existing names.
+    Py_XDECREF(pySelf->user);
+    pySelf->user = NULL;
+
+    // Convert the new names.
+    if (!PyList_Check(attr_names_obj))
+    {
+        sipBadCatcherResult(method);
+        return 0;
+    }
+
+    char **names = new char *[PyList_GET_SIZE(attr_names_obj) + 1];
+
+    for (SIP_SSIZE_T i = 0; i < PyList_GET_SIZE(attr_names_obj); ++i)
+    {
+        char *name;
+        PyObject *el = PyList_GET_ITEM(attr_names_obj, i);
+
+#if PY_MAJOR_VERSION >= 3
+        PyObject *name_obj = PyUnicode_AsASCIIString(el);
+
+        name = (name_obj ? PyBytes_AS_STRING(name_obj) : 0);
+#else
+        name = PyString_AsString(el);
+#endif
+
+        if (!name)
+        {
+            names[i] = 0;
+            qtquick_anc_release(names);
+
+            sipBadCatcherResult(method);
+            return 0;
+        }
+
+        char *name_copy = new char[strlen(name) + 1];
+        strcpy(name_copy, name);
+        names[i] = name_copy;
+
+#if PY_MAJOR_VERSION >= 3
+        Py_DECREF(name_obj);
+#endif
+    }
+
+    names[PyList_GET_SIZE(attr_names_obj)] = 0;
+
+    pySelf->user = PyCapsule_New(names, NULL, qtquick_anc_destructor);
+
+    if (!pySelf->user)
+    {
+        qtquick_anc_release(names);
+        return 0;
+    }
+
+    return names;
+}
+%End

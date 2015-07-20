@@ -56,7 +56,7 @@ public:
         }
 %End
 
-    virtual ~QCoreApplication();
+    virtual ~QCoreApplication() /ReleaseGIL/;
     static void setOrganizationDomain(const QString &orgDomain);
     static QString organizationDomain();
     static void setOrganizationName(const QString &orgName);

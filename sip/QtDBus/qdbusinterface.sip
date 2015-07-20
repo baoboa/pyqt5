@@ -27,6 +27,6 @@ class QDBusInterface : QDBusAbstractInterface
 %End
 
 public:
-    QDBusInterface(const QString &service, const QString &path, const QString &interface = QString(), const QDBusConnection &connection = QDBusConnection::sessionBus(), QObject *parent = 0);
+    QDBusInterface(const QString &service, const QString &path, const QString &interface = QString(), const QDBusConnection &connection = QDBusConnection::sessionBus(), QObject *parent /TransferThis/ = 0);
     virtual ~QDBusInterface();
 };

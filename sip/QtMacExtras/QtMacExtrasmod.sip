@@ -21,6 +21,7 @@
 %Module(name=PyQt5.QtMacExtras, keyword_arguments="Optional")
 
 %Import QtCore/QtCoremod.sip
+%Import QtGui/QtGuimod.sip
 
 %Copying
 Copyright (c) 2015 Riverbank Computing Limited <info@riverbankcomputing.com>
@@ -44,3 +45,5 @@ WARRANTY OF DESIGN, MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE.
 %DefaultSupertype sip.simplewrapper
 
 %Include qmacpasteboardmime.sip
+%Include qmactoolbar.sip
+%Include qmactoolbaritem.sip

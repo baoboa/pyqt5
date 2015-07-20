@@ -37,6 +37,12 @@ public:
     };
 
     QOpenGLWindow(QOpenGLWindow::UpdateBehavior updateBehavior = QOpenGLWindow::NoPartialUpdate, QWindow *parent /TransferThis/ = 0);
+%If (Qt_5_5_0 -)
+    QOpenGLWindow(QOpenGLContext *shareContext, QOpenGLWindow::UpdateBehavior updateBehavior = QOpenGLWindow::NoPartialUpdate, QWindow *parent /TransferThis/ = 0);
+%End
+%If (Qt_5_5_0 -)
+    virtual ~QOpenGLWindow();
+%End
     QOpenGLWindow::UpdateBehavior updateBehavior() const;
     bool isValid() const;
     void makeCurrent();
@@ -44,6 +50,9 @@ public:
     QOpenGLContext *context() const;
     GLuint defaultFramebufferObject() const;
     QImage grabFramebuffer();
+%If (Qt_5_5_0 -)
+    QOpenGLContext *shareContext() const;
+%End
 
 signals:
     void frameSwapped();

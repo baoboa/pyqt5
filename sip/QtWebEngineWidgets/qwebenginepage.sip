@@ -70,7 +70,6 @@ public:
 
     enum Feature
     {
-        Notifications,
         Geolocation,
         MediaAudioCapture,
         MediaVideoCapture,
@@ -91,6 +90,9 @@ public:
     };
 
     explicit QWebEnginePage(QObject *parent /TransferThis/ = 0);
+%If (Qt_5_5_0 -)
+    QWebEnginePage(QWebEngineProfile *profile, QObject *parent /TransferThis/ = 0);
+%End
     virtual ~QWebEnginePage();
     QWebEngineHistory *history() const;
     void setView(QWidget *view);
@@ -230,6 +232,38 @@ protected:
     virtual bool javaScriptPrompt(const QUrl &securityOrigin, const QString &msg, const QString &defaultValue, QString *result);
     virtual void javaScriptConsoleMessage(QWebEnginePage::JavaScriptConsoleMessageLevel level, const QString &message, int lineNumber, const QString &sourceID);
     virtual bool certificateError(const QWebEngineCertificateError &certificateError /NoCopy/);
+
+public:
+%If (Qt_5_5_0 -)
+
+    enum NavigationType
+    {
+        NavigationTypeLinkClicked,
+        NavigationTypeTyped,
+        NavigationTypeFormSubmitted,
+        NavigationTypeBackForward,
+        NavigationTypeReload,
+        NavigationTypeOther,
+    };
+
+%End
+%If (Qt_5_5_0 -)
+    QWebEngineProfile *profile() const;
+%End
+%If (Qt_5_5_0 -)
+    QWebEngineScriptCollection &scripts();
+%End
+%If (Qt_5_5_0 -)
+    QWebChannel *webChannel() const;
+%End
+%If (Qt_5_5_0 -)
+    void setWebChannel(QWebChannel *);
+%End
+
+protected:
+%If (Qt_5_5_0 -)
+    virtual bool acceptNavigationRequest(const QUrl &url, QWebEnginePage::NavigationType type, bool isMainFrame);
+%End
 };
 
 %End

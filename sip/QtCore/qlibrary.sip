@@ -37,6 +37,9 @@ public:
         ExportExternalSymbolsHint,
         LoadArchiveMemberHint,
         PreventUnloadHint,
+%If (Qt_5_5_0 -)
+        DeepBindHint,
+%End
     };
 
     typedef QFlags<QLibrary::LoadHint> LoadHints;

@@ -69,6 +69,24 @@ public:
 %If (Qt_5_4_0 -)
     QList<QByteArray> supportedSubTypes() const;
 %End
+%If (Qt_5_5_0 -)
+    void setOptimizedWrite(bool optimize);
+%End
+%If (Qt_5_5_0 -)
+    bool optimizedWrite() const;
+%End
+%If (Qt_5_5_0 -)
+    void setProgressiveScanWrite(bool progressive);
+%End
+%If (Qt_5_5_0 -)
+    bool progressiveScanWrite() const;
+%End
+%If (Qt_5_5_0 -)
+    QFlags<QImageIOHandler::Transformation> transformation() const;
+%End
+%If (Qt_5_5_0 -)
+    void setTransformation(QFlags<QImageIOHandler::Transformation> orientation);
+%End
 
 private:
     QImageWriter(const QImageWriter &);

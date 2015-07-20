@@ -60,7 +60,12 @@ public:
     virtual bool hasChildren(const QModelIndex &parent = QModelIndex()) const;
     virtual QVariant data(const QModelIndex &index, int role = Qt::DisplayRole) const;
     virtual bool setData(const QModelIndex &index, const QVariant &value, int role = Qt::EditRole);
+%If (Qt_5_5_0 -)
+    virtual QVariant headerData(int section, Qt::Orientation orientation, int role = Qt::DisplayRole) const;
+%End
+%If (- Qt_5_5_0)
     virtual QVariant headerData(int section, Qt::Orientation orientation, int role = Qt::EditRole) const;
+%End
     virtual bool setHeaderData(int section, Qt::Orientation orientation, const QVariant &value, int role = Qt::EditRole);
     virtual QMimeData *mimeData(const QModelIndexList &indexes) const /TransferBack/;
     virtual bool dropMimeData(const QMimeData *data, Qt::DropAction action, int row, int column, const QModelIndex &parent);

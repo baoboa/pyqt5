@@ -42,6 +42,13 @@ public:
 
 protected:
     void setViewportMargins(int left, int top, int right, int bottom);
+    void setViewportMargins(const QMargins &margins);
+%If (Qt_5_5_0 -)
+    QMargins viewportMargins() const;
+%End
+%If (Qt_5_2_0 -)
+    virtual QSize viewportSizeHint() const;
+%End
     virtual bool event(QEvent *);
     virtual bool viewportEvent(QEvent *);
     virtual void resizeEvent(QResizeEvent *);
@@ -69,11 +76,6 @@ public:
     QWidgetList scrollBarWidgets(Qt::Alignment alignment) /Transfer/;
     void setViewport(QWidget *widget /Transfer/);
     virtual void setupViewport(QWidget *viewport);
-
-protected:
-    void setViewportMargins(const QMargins &margins);
-
-public:
 %If (Qt_5_2_0 -)
 
     enum SizeAdjustPolicy

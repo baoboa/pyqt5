@@ -233,6 +233,9 @@ namespace Qt
 %If (Qt_5_2_0 -)
         CoverWindow,
 %End
+%If (Qt_5_5_0 -)
+        MaximizeUsingFullscreenGeometryHint,
+%End
     };
 
     typedef QFlags<Qt::WindowType> WindowFlags;
@@ -368,6 +371,8 @@ namespace Qt
         AutoDither,
         PreferDither,
         AvoidDither,
+        NoOpaqueDetection,
+        NoFormatConversion,
     };
 
     typedef QFlags<Qt::ImageConversionFlag> ImageConversionFlags;
@@ -1220,6 +1225,9 @@ namespace Qt
 %If (Qt_5_1_0 -)
         ItemNeverHasChildren,
 %End
+%If (Qt_5_5_0 -)
+        ItemIsUserTristate,
+%End
     };
 
     typedef QFlags<Qt::ItemFlag> ItemFlags;
@@ -1279,6 +1287,9 @@ namespace Qt
 %End
 %If (Qt_5_4_0 -)
         AA_ShareOpenGLContexts,
+%End
+%If (Qt_5_5_0 -)
+        AA_SetPalette,
 %End
     };
 
@@ -1561,6 +1572,26 @@ namespace Qt
 %End
 %If (Qt_5_3_0 -)
     typedef QFlags<Qt::MouseEventFlag> MouseEventFlags;
+%End
+%If (Qt_5_5_0 -)
+
+    enum TabFocusBehavior
+    {
+        NoTabFocus,
+        TabFocusTextControls,
+        TabFocusListControls,
+        TabFocusAllControls,
+    };
+
+%End
+%If (Qt_5_5_0 -)
+
+    enum ItemSelectionOperation
+    {
+        ReplaceSelection,
+        AddToSelection,
+    };
+
 %End
 };
 

@@ -49,7 +49,11 @@ public:
     Qt::WindowType type() const;
     QString title() const;
     void setOpacity(qreal level);
+
+public slots:
     void requestActivate();
+
+public:
     bool isActive() const;
     void reportContentOrientationChange(Qt::ScreenOrientation orientation);
     Qt::ScreenOrientation contentOrientation() const;
@@ -132,6 +136,12 @@ public slots:
     void setMinimumHeight(int h);
     void setMaximumWidth(int w);
     void setMaximumHeight(int h);
+%If (Qt_5_1_0 -)
+    void alert(int msec);
+%End
+%If (Qt_5_5_0 -)
+    void requestUpdate();
+%End
 
 signals:
     void screenChanged(QScreen *screen);
@@ -202,11 +212,6 @@ public:
 %End
 %If (Qt_5_1_0 -)
     static QWindow *fromWinId(WId id);
-%End
-
-public slots:
-%If (Qt_5_1_0 -)
-    void alert(int msec);
 %End
 
 signals:

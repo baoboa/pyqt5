@@ -171,6 +171,11 @@ signals:
     void focusItemChanged(QGraphicsItem *newFocus, QGraphicsItem *oldFocus, Qt::FocusReason reason);
 %End
 
+public:
+%If (Qt_5_5_0 -)
+    void setSelectionArea(const QPainterPath &path, Qt::ItemSelectionOperation selectionOperation, Qt::ItemSelectionMode mode = Qt::IntersectsItemShape, const QTransform &deviceTransform = QTransform());
+%End
+
 private:
     QGraphicsScene(const QGraphicsScene &);
 };

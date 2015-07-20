@@ -28,7 +28,7 @@ import sys
 
 
 # Initialise the constants.
-PYQT_VERSION_STR = "5.4.2"
+PYQT_VERSION_STR = "5.5"
 
 SIP_MIN_VERSION = '4.16.6'
 
@@ -68,12 +68,14 @@ MODULE_METADATA = {
     'Enginio':              ModuleMetadata(qmake_QT=['enginio']),
     'QtGui':                ModuleMetadata(qpy_lib=True),
     'QtHelp':               ModuleMetadata(qmake_QT=['help']),
+    'QtLocation':           ModuleMetadata(qmake_QT=['location']),
     'QtMacExtras':          ModuleMetadata(qmake_QT=['macextras']),
     'QtMultimedia':         ModuleMetadata(qmake_QT=['multimedia']),
     'QtMultimediaWidgets':  ModuleMetadata(
                                     qmake_QT=['multimediawidgets',
                                             'multimedia']),
     'QtNetwork':            ModuleMetadata(qmake_QT=['network', '-gui']),
+    'QtNfc':                ModuleMetadata(qmake_QT=['nfc', '-gui']),
     'QtOpenGL':             ModuleMetadata(qmake_QT=['opengl']),
     'QtPositioning':        ModuleMetadata(qmake_QT=['positioning']),
     'QtPrintSupport':       ModuleMetadata(qmake_QT=['printsupport']),
@@ -89,8 +91,8 @@ MODULE_METADATA = {
                                     qmake_QT=['webchannel', 'network',
                                             '-gui']),
     'QtWebEngineWidgets':   ModuleMetadata(
-                                    qmake_QT=['webenginewidgets', 'network',
-                                            'widgets'],
+                                    qmake_QT=['webenginewidgets', 'webchannel',
+                                            'network', 'widgets'],
                                     cpp11=True),
     'QtWebKit':             ModuleMetadata(qmake_QT=['webkit', 'network']),
     'QtWebKitWidgets':      ModuleMetadata(
@@ -128,6 +130,10 @@ MODULE_METADATA = {
     '_QOpenGLFunctions_4_2_Core':           ModuleMetadata(),
     '_QOpenGLFunctions_4_3_Compatibility':  ModuleMetadata(),
     '_QOpenGLFunctions_4_3_Core':           ModuleMetadata(),
+    '_QOpenGLFunctions_4_4_Compatibility':  ModuleMetadata(),
+    '_QOpenGLFunctions_4_4_Core':           ModuleMetadata(),
+    '_QOpenGLFunctions_4_5_Compatibility':  ModuleMetadata(),
+    '_QOpenGLFunctions_4_5_Core':           ModuleMetadata(),
     '_QOpenGLFunctions_ES2':                ModuleMetadata()
 }
 
@@ -144,7 +150,8 @@ COMPOSITE_COMPONENTS = (
         'QtPrintSupport', 'QtQuick', 'QtSql', 'QtSvg', 'QtTest',
     'QtWebKitWidgets', 'QtBluetooth', 'QtMacExtras', 'QtPositioning',
         'QtWinExtras', 'QtX11Extras', 'QtQuickWidgets', 'QtWebSockets',
-        'Enginio', 'QtWebChannel', 'QtWebEngineWidgets'
+        'Enginio', 'QtWebChannel', 'QtWebEngineWidgets',
+    'QtLocation', 'QtNfc'
 )
 
 
@@ -1272,6 +1279,9 @@ def check_modules(target_config, verbose):
     if target_config.qt_version >= 0x050400:
         check_5_4_modules(target_config, verbose)
 
+    if target_config.qt_version >= 0x050500:
+        check_5_5_modules(target_config, verbose)
+
 
 def check_5_1_modules(target_config, verbose):
     """ Check which modules introduced in Qt v5.1 can be built and update the
@@ -1295,7 +1305,9 @@ def check_5_1_modules(target_config, verbose):
                 '4_0_Compatibility', '4_0_Core',
                 '4_1_Compatibility', '4_1_Core',
                 '4_2_Compatibility', '4_2_Core',
-                '4_3_Compatibility', '4_3_Core')
+                '4_3_Compatibility', '4_3_Core',
+                '4_4_Compatibility', '4_4_Core',
+                '4_5_Compatibility', '4_5_Core')
 
         for ogl in desktop_versions:
             ogl_module = '_QOpenGLFunctions_' + ogl
@@ -1352,6 +1364,19 @@ def check_5_4_modules(target_config, verbose):
             'new QWebChannel()')
     check_module(target_config, verbose, 'QtWebEngineWidgets',
             'qwebengineview.h', 'new QWebEngineView()')
+
+
+def check_5_5_modules(target_config, verbose):
+    """ Check which modules introduced in Qt v5.5 can be built and update the
+    target configuration accordingly.  target_config is the target
+    configuration.  verbose is set if the output is to be displayed.
+    """
+
+    check_module(target_config, verbose, 'QtLocation', 'qplace.h',
+            'new QPlace()')
+
+    check_module(target_config, verbose, 'QtNfc', 'qnearfieldmanager.h',
+            'new QNearFieldManager()')
 
 
 def generate_makefiles(target_config, verbose, no_timestamp, parts, tracing):
@@ -2453,6 +2478,10 @@ win32 {
         pro_lines.append('LIBS += %s' % libs)
 
     if not target_config.static:
+        # Make sure these frameworks are already loaded by the time the
+        # libqcocoa.dylib plugin gets loaded.
+        extra_lflags = 'QMAKE_LFLAGS += "-framework QtPrintSupport -framework QtDBus -framework QtWidgets"\n        ' if mname == 'QtGui' else ''
+
         shared = '''
 win32 {
     QMAKE_POST_LINK = $(COPY_FILE) $(DESTDIR_TARGET) $$PY_MODULE
@@ -2462,8 +2491,12 @@ win32 {
 macx {
     QMAKE_LFLAGS += "-undefined dynamic_lookup"
     QMAKE_LFLAGS += "-install_name $$absolute_path($$PY_MODULE, $$target.path)"
+
+    greaterThan(QT_MINOR_VERSION, 4) {
+        %sQMAKE_RPATHDIR += $$[QT_INSTALL_LIBS]
+    }
 }
-'''
+''' % extra_lflags
 
         pro_lines.extend(shared.split('\n'))
 

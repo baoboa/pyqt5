@@ -88,6 +88,23 @@ protected:
     virtual void onTransition(QEvent *event) = 0;
     virtual bool event(QEvent *e);
 
+public:
+%If (Qt_5_5_0 -)
+
+    enum TransitionType
+    {
+        ExternalTransition,
+        InternalTransition,
+    };
+
+%End
+%If (Qt_5_5_0 -)
+    QAbstractTransition::TransitionType transitionType() const;
+%End
+%If (Qt_5_5_0 -)
+    void setTransitionType(QAbstractTransition::TransitionType type);
+%End
+
 private:
     QAbstractTransition(const QAbstractTransition &);
 };

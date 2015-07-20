@@ -222,6 +222,22 @@ protected:
     virtual bool childMouseEventFilter(QQuickItem *, QEvent *);
     virtual void geometryChanged(const QRectF &newGeometry, const QRectF &oldGeometry);
     virtual QSGNode *updatePaintNode(QSGNode *, QQuickItem::UpdatePaintNodeData *);
+%VirtualCatcherCode
+        PyObject *res;
+        
+        res = sipCallMethod(&sipIsErr, sipMethod, "DD",
+                a0, sipType_QSGNode, NULL,
+                a1, sipType_QQuickItem_UpdatePaintNodeData, NULL);
+        
+        if (res)
+        {
+            sipParseResult(&sipIsErr, sipMethod, res, "H0", sipType_QSGNode, &sipRes);
+        
+            if (!sipIsErr && sipRes && (sipRes->flags() & QSGNode::OwnedByParent))
+                sipTransferTo(res, (PyObject *)sipPySelf);
+        }
+%End
+
     virtual void releaseResources();
     virtual void updatePolish();
 

@@ -89,9 +89,8 @@ public:
         }
 %End
 
-    void accepted();
-
 signals:
+    void accepted();
     void accepted(QPrinter *printer);
 };
 

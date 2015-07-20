@@ -28,11 +28,11 @@
 #include <QtGlobal>
 #include <QtPlugin>
 #include <QCoreApplication>
-#include <QDesignerCustomWidgetInterface>
 #include <QDir>
 #include <QLibrary>
 #include <QStringList>
 #include <QVector>
+#include <QtDesigner>
 
 #include "../qpy/QtDesigner/qpydesignercustomwidgetplugin.h"
 

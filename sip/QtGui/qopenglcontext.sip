@@ -107,6 +107,12 @@ public:
 %If (Qt_5_4_0 -)
     QVariant nativeHandle() const;
 %End
+%If (Qt_5_5_0 -)
+    static bool supportsThreadedOpenGL();
+%End
+%If (Qt_5_5_0 -)
+    static QOpenGLContext *globalShareContext();
+%End
 };
 
 %End

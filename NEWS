@@ -1,3 +1,11 @@
+v5.5 17th July 2015
+  - Added full support for Qt v5.5.0.
+  - Added the QtLocation module.
+  - Added the QtNfc module.
+  - Added Qt.NoOpaqueDetection amd Qt.NoFormatConversion to QtCore.
+  - Added QMacToolBar and QMacToolBarItem to QtMacExtras.
+  - Added QProxyStyle to QtWidgets.
+
 v5.4.2 11th June 2015
   - Added support for Qt v5.4.2.
   - Added QWIDGETSIZE_MAX to QtWidgets.

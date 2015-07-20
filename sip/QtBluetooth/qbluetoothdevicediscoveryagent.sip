@@ -37,6 +37,9 @@ public:
 %If (Qt_5_3_0 -)
         InvalidBluetoothAdapterError,
 %End
+%If (Qt_5_5_0 -)
+        UnsupportedPlatformError,
+%End
         UnknownError,
     };
 

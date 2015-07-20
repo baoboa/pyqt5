@@ -73,42 +73,18 @@ static PyObject *QByteArrayToPyStr(QByteArray *ba)
 // expected.  This means that a QString must not automatically convert a bytes
 // object.
 //
-// A QByteArray can be created from a Latin-1 encoded string.  This was a
-// mistaken attempt to ease the porting of Python2 code to Python3.  It is
-// deprecated in PyQt v5.4 and will be removed in v5.5.
+// In PyQt v5.4 and earlier a QByteArray could be created from a Latin-1
+// encoded string.  This was a mistaken attempt to ease the porting of Python2
+// code to Python3.
 
 if (sipIsErr == NULL)
-    return (PyByteArray_Check(sipPy) || PyUnicode_Check(sipPy) ||
-            SIPBytes_Check(sipPy) ||
+    return (PyByteArray_Check(sipPy) || SIPBytes_Check(sipPy) ||
             sipCanConvertToType(sipPy, sipType_QByteArray, SIP_NO_CONVERTORS));
 
 if (PyByteArray_Check(sipPy))
 {
     *sipCppPtr = new QByteArray(PyByteArray_AS_STRING(sipPy),
             PyByteArray_GET_SIZE(sipPy));
-
-    return sipGetState(sipTransferObj);
-}
-
-if (PyUnicode_Check(sipPy))
-{
-    if (PyErr_WarnEx(PyExc_DeprecationWarning, "support for creating a QByteArray from a Latin-1 encoded string is deprecated in PyQt v5.4 and will be removed in v5.5", 1) < 0)
-    {
-        *sipIsErr = 1;
-        return 0;
-    }
-
-    const char *bytes = sipString_AsLatin1String(&sipPy);
-
-    if (!sipPy)
-    {
-        *sipIsErr = 1;
-        return 0;
-    }
-
-    *sipCppPtr = new QByteArray(bytes);
-
-    Py_DECREF(sipPy);
 
     return sipGetState(sipTransferObj);
 }

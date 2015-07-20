@@ -100,6 +100,48 @@ public:
     QVector3D vector() const;
     void setVector(float aX, float aY, float aZ);
     QVector4D toVector4D() const;
+%If (Qt_5_5_0 -)
+    void getAxisAndAngle(QVector3D *axis /Out/, float *angle) const;
+%End
+%If (Qt_5_5_0 -)
+    void getEulerAngles(float *pitch, float *yaw, float *roll) const;
+%End
+%If (Qt_5_5_0 -)
+    static QQuaternion fromEulerAngles(float pitch, float yaw, float roll);
+%End
+%If (Qt_5_5_0 -)
+    QMatrix3x3 toRotationMatrix() const;
+%End
+%If (Qt_5_5_0 -)
+    static QQuaternion fromRotationMatrix(const QMatrix3x3 &rot3x3);
+%End
+%If (Qt_5_5_0 -)
+    void getAxes(QVector3D *xAxis /Out/, QVector3D *yAxis /Out/, QVector3D *zAxis /Out/) const;
+%End
+%If (Qt_5_5_0 -)
+    static QQuaternion fromAxes(const QVector3D &xAxis, const QVector3D &yAxis, const QVector3D &zAxis);
+%End
+%If (Qt_5_5_0 -)
+    static QQuaternion fromDirection(const QVector3D &direction, const QVector3D &up);
+%End
+%If (Qt_5_5_0 -)
+    static QQuaternion rotationTo(const QVector3D &from, const QVector3D &to);
+%End
+%If (Qt_5_5_0 -)
+    static float dotProduct(const QQuaternion &q1, const QQuaternion &q2);
+%End
+%If (Qt_5_5_0 -)
+    QQuaternion inverted() const;
+%End
+%If (Qt_5_5_0 -)
+    QQuaternion conjugated() const;
+%End
+%If (Qt_5_5_0 -)
+    QVector3D toEulerAngles() const;
+%End
+%If (Qt_5_5_0 -)
+    static QQuaternion fromEulerAngles(const QVector3D &eulerAngles);
+%End
 };
 
 const QQuaternion operator*(const QQuaternion &q1, const QQuaternion &q2);
@@ -114,3 +156,6 @@ const QQuaternion operator/(const QQuaternion &quaternion, float divisor);
 bool qFuzzyCompare(const QQuaternion &q1, const QQuaternion &q2);
 QDataStream &operator<<(QDataStream &, const QQuaternion & /Constrained/) /ReleaseGIL/;
 QDataStream &operator>>(QDataStream &, QQuaternion & /Constrained/) /ReleaseGIL/;
+%If (Qt_5_5_0 -)
+QVector3D operator*(const QQuaternion &quaternion, const QVector3D &vec);
+%End

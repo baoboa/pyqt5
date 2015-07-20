@@ -83,6 +83,9 @@ public:
     virtual void setGeometry(const QRect &);
     virtual QRect geometry() const;
     virtual QSpacerItem *spacerItem();
+%If (Qt_5_5_0 -)
+    QSizePolicy sizePolicy() const;
+%End
 };
 
 class QWidgetItem : QLayoutItem

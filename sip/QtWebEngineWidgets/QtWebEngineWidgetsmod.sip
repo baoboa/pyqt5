@@ -24,6 +24,7 @@
 
 %Import QtCore/QtCoremod.sip
 %Import QtNetwork/QtNetworkmod.sip
+%Import QtWebChannel/QtWebChannelmod.sip
 %Import QtWidgets/QtWidgetsmod.sip
 
 %Copying
@@ -52,3 +53,7 @@ WARRANTY OF DESIGN, MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE.
 %Include qwebenginepage.sip
 %Include qwebenginesettings.sip
 %Include qwebengineview.sip
+%Include qwebenginedownloaditem.sip
+%Include qwebengineprofile.sip
+%Include qwebenginescript.sip
+%Include qwebenginescriptcollection.sip

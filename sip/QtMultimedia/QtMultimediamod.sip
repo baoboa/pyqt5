@@ -48,6 +48,7 @@ WARRANTY OF DESIGN, MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE.
 %DefaultSupertype sip.simplewrapper
 
 %Include qabstractvideobuffer.sip
+%Include qabstractvideofilter.sip
 %Include qabstractvideosurface.sip
 %Include qaudio.sip
 %Include qaudiobuffer.sip
@@ -64,6 +65,7 @@ WARRANTY OF DESIGN, MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE.
 %Include qcameraimagecapture.sip
 %Include qcameraimageprocessing.sip
 %Include qcamerainfo.sip
+%Include qcameraviewfindersettings.sip
 %Include qmediabindableinterface.sip
 %Include qmediacontent.sip
 %Include qmediacontrol.sip

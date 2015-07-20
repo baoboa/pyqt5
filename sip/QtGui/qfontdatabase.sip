@@ -106,4 +106,7 @@ public:
 %If (Qt_5_2_0 -)
     static QFont systemFont(QFontDatabase::SystemFont type);
 %End
+%If (Qt_5_5_0 -)
+    bool isPrivateFamily(const QString &family) const;
+%End
 };

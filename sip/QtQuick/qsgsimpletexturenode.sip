@@ -67,6 +67,15 @@ public:
 %If (Qt_5_4_0 -)
     bool ownsTexture() const;
 %End
+%If (Qt_5_5_0 -)
+    void setSourceRect(const QRectF &r);
+%End
+%If (Qt_5_5_0 -)
+    void setSourceRect(qreal x, qreal y, qreal w, qreal h);
+%End
+%If (Qt_5_5_0 -)
+    QRectF sourceRect() const;
+%End
 };
 
 %If (Qt_5_2_0 -)

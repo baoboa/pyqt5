@@ -44,7 +44,12 @@ public:
     virtual bool insertRows(int row, int count, const QModelIndex &parent = QModelIndex());
     virtual bool removeColumns(int column, int count, const QModelIndex &parent = QModelIndex());
     virtual bool removeRows(int row, int count, const QModelIndex &parent = QModelIndex());
+%If (Qt_5_5_0 -)
+    virtual QVariant headerData(int section, Qt::Orientation orientation, int role = Qt::DisplayRole) const;
+%End
+%If (- Qt_5_5_0)
     virtual QVariant headerData(int section, Qt::Orientation orientation, int role) const;
+%End
     virtual QModelIndex sibling(int row, int column, const QModelIndex &idx) const;
 
 private:

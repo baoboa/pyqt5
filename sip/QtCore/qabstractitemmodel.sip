@@ -271,6 +271,9 @@ public:
 %If (Qt_5_2_0 -)
     QObject *parent() const;
 %End
+%If (Qt_5_5_0 -)
+    virtual QModelIndex sibling(int row, int column, const QModelIndex &idx) const;
+%End
 
 private:
     QAbstractTableModel(const QAbstractTableModel &);
@@ -294,6 +297,9 @@ public:
 %End
 %If (Qt_5_2_0 -)
     QObject *parent() const;
+%End
+%If (Qt_5_5_0 -)
+    virtual QModelIndex sibling(int row, int column, const QModelIndex &idx) const;
 %End
 
 private:

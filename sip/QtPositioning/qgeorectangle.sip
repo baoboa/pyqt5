@@ -61,6 +61,9 @@ public:
     QGeoRectangle united(const QGeoRectangle &rectangle) const;
     QGeoRectangle &operator|=(const QGeoRectangle &rectangle);
     QGeoRectangle operator|(const QGeoRectangle &rectangle) const;
+%If (Qt_5_5_0 -)
+    QString toString() const;
+%End
 };
 
 %End

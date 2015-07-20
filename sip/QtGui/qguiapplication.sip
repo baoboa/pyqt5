@@ -171,7 +171,7 @@ public:
         }
 %End
 
-    virtual ~QGuiApplication();
+    virtual ~QGuiApplication() /ReleaseGIL/;
     static QWindowList allWindows();
     static QWindowList topLevelWindows();
     static QWindow *topLevelAt(const QPoint &pos);

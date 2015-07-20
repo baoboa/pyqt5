@@ -20,6 +20,10 @@
 // WARRANTY OF DESIGN, MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE.
 
 
+%ModuleCode
+#include <qjsengine.h>
+%End
+
 class QJSEngine : QObject
 {
 %TypeHeaderCode
@@ -87,6 +91,10 @@ public:
 private:
     QJSEngine(const QJSEngine &);
 };
+
+%If (Qt_5_5_0 -)
+QJSEngine *qjsEngine(const QObject *);
+%End
 
 %ModuleHeaderCode
 #include "qpyqml_api.h"

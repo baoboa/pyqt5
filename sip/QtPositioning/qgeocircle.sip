@@ -42,6 +42,9 @@ public:
     qreal radius() const;
     void translate(double degreesLatitude, double degreesLongitude);
     QGeoCircle translated(double degreesLatitude, double degreesLongitude) const;
+%If (Qt_5_5_0 -)
+    QString toString() const;
+%End
 };
 
 %End

@@ -133,4 +133,10 @@ public:
 %If (Qt_5_4_0 -)
     int planeCount() const;
 %End
+%If (Qt_5_5_0 -)
+    bool operator==(const QVideoFrame &other) const;
+%End
+%If (Qt_5_5_0 -)
+    bool operator!=(const QVideoFrame &other) const;
+%End
 };

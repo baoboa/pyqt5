@@ -104,13 +104,13 @@ public:
 
     typedef QFlags<QQuickWindow::CreateTextureOption> CreateTextureOptions;
     QQuickWindow(QWindow *parent /TransferThis/ = 0);
-    virtual ~QQuickWindow();
+    virtual ~QQuickWindow() /ReleaseGIL/;
     QQuickItem *contentItem() const;
     QQuickItem *activeFocusItem() const;
     virtual QObject *focusObject() const;
     QQuickItem *mouseGrabberItem() const;
     bool sendEvent(QQuickItem *, QEvent *);
-    QImage grabWindow();
+    QImage grabWindow() /ReleaseGIL/;
     void setRenderTarget(QOpenGLFramebufferObject *fbo);
     QOpenGLFramebufferObject *renderTarget() const;
     void setRenderTarget(uint fboId, const QSize &size);
@@ -218,10 +218,13 @@ public:
 
 %End
 %If (Qt_5_4_0 -)
-    void scheduleRenderJob(QRunnable *job /Transfer/, QQuickWindow::RenderStage schedule);
+    void scheduleRenderJob(QRunnable *job /Transfer/, QQuickWindow::RenderStage schedule) /ReleaseGIL/;
 %End
 %If (Qt_5_4_0 -)
     qreal effectiveDevicePixelRatio() const;
+%End
+%If (Qt_5_5_0 -)
+    bool isSceneGraphInitialized() const;
 %End
 
 private:

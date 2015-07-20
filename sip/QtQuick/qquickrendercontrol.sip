@@ -39,6 +39,9 @@ public:
     QImage grab();
     static QWindow *renderWindowFor(QQuickWindow *win, QPoint *offset = 0);
     virtual QWindow *renderWindow(QPoint *offset);
+%If (Qt_5_5_0 -)
+    void prepareThread(QThread *targetThread);
+%End
 
 signals:
     void renderRequested();

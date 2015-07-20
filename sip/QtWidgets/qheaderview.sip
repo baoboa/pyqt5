@@ -171,6 +171,9 @@ public:
 %If (Qt_5_2_0 -)
     void setMaximumSectionSize(int size);
 %End
+%If (Qt_5_5_0 -)
+    void resetDefaultSectionSize();
+%End
 
 private:
     QHeaderView(const QHeaderView &);

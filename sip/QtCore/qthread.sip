@@ -87,4 +87,7 @@ public:
 %If (Qt_5_2_0 -)
     bool isInterruptionRequested() const;
 %End
+%If (Qt_5_5_0 -)
+    int loopLevel() const;
+%End
 };

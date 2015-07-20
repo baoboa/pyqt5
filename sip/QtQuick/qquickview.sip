@@ -30,7 +30,7 @@ public:
     explicit QQuickView(QWindow *parent /TransferThis/ = 0);
     QQuickView(QQmlEngine *engine, QWindow *parent /TransferThis/);
     QQuickView(const QUrl &source, QWindow *parent /TransferThis/ = 0);
-    virtual ~QQuickView();
+    virtual ~QQuickView() /ReleaseGIL/;
     QUrl source() const;
     QQmlEngine *engine() const;
     QQmlContext *rootContext() const;

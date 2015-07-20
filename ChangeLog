@@ -1,8 +1,267 @@
+2015-07-17  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* .hgtags:
+	Added tag 5.5 for changeset fce525727ee2
+	[4f84a437e46b] [tip]
+
+	* NEWS:
+	Released as v5.5.
+	[fce525727ee2] [5.5]
+
+	* lib/configure.py:
+	Tidied up the format of chenerated .pro files.
+	[3481361d7081]
+
+	* installers/pyqt5-check.py:
+	pyqt5-check.py now checks the import of each module.
+	[204bcf3320a3]
+
+2015-07-12  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* installers/BuildGPL.txt, installers/PyQt5-Qt5-gpl.nsi,
+	installers/pyqt5-check.py:
+	Updated the Windows installer for Qt v5.5.0.
+	[7291c392fd1f]
+
+	* PyQt5.msp:
+	Fixed a build problem when compiling each class separately.
+	[6968432991a7]
+
+	* sphinx/deprecations.rst, sphinx/index.rst, sphinx/platforms.rst:
+	Added the section covering platform specific issues to the docs.
+	[872c73dc46ec]
+
+	* PyQt5.msp, designer/pluginloader.cpp, designer/pluginloader.h,
+	qpy/QtDesigner/qpydesignercustomwidgetcollectionplugin.h,
+	qpy/QtDesigner/qpydesignercustomwidgetplugin.h:
+	Eliminated the warning messages when compiling QtDesigner against Qt
+	v5.5.0.
+	[ef816a6023fa]
+
+	* PyQt5.msp:
+	Ignore the Qt3D namespace.
+	[f76909162b0d]
+
+2015-07-10  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* qpy/QtCore/qpycore_qhash.sip, qpy/QtCore/qpycore_qmap.sip:
+	Made small improvements to the exception text for some mapped type
+	conversions.
+	[6636b3382c7c]
+
+	* NEWS, PyQt5.msp, sphinx/api_metadata.cfg:
+	Implemented QProxyStyle.
+	[4a8da89efee1]
+
+	* PyQt5.msp:
+	Added the initial scan of QProxyStyle.
+	[10918a24693d]
+
+2015-07-09  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* NEWS, sphinx/api_metadata.cfg, sphinx/introduction.rst:
+	Documented the QtNfc module.
+	[098fa0059151]
+
+	* PyQt5.msp, lib/configure.py:
+	Completed the implementation of the QtNfc module.
+	[980a642056c2]
+
+	* PyQt5.msp:
+	Completed the initial scan of the QtNfc module.
+	[f84dc533613e]
+
+	* PyQt5.msp:
+	Really scan Qt v5.5.0.
+	[e942243e71f2]
+
+	* lib/configure.py:
+	Update QMAKE_RPATHDIR rather than set it.
+	[6e7ef843d1a8]
+
+2015-07-07  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* NEWS, sphinx/api_metadata.cfg, sphinx/introduction.rst:
+	Added QtLocation to the documentation. Updated the NEWS file.
+	[6fd628724de4]
+
+	* PyQt5.msp:
+	Updated for Qt v5.5.0.
+	[825d80753312]
+
+	* lib/configure.py:
+	Fixed the remaining problems caused by the use of rpath in Qt v5.5.0
+	on OS X.
+	[5245460dd4e0]
+
+2015-07-01  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* PyQt5.msp, lib/configure.py:
+	Completed the implementation of QtLocation.
+	[5ef6f88ed7cc]
+
+	* pyuic/uic/uiparser.py:
+	Fixed the adding of a widget to a box layout when an alignment is
+	specified.
+	[c7462b03a569]
+
+	* PyQt5.msp:
+	Added the initial support for QtLocation.
+	[74dba26ade24]
+
+	* lib/configure.py:
+	Updated configure.py for the QtLocation module.
+	[2adcdd927f7b]
+
+	* sphinx/api_metadata.cfg:
+	Updated the API configuration for the recently added new classes.
+	[46d2397e4bac]
+
+	* PyQt5.msp:
+	Completed the initial scan of QtLocation.
+	[01c5d7b2f5c1]
+
+2015-06-30  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* PyQt5.msp, lib/SubclassCode/QtWebEngineWidgets.versions,
+	lib/configure.py:
+	Updated QtWebEngineWidgets for Qt v5.5.0-rc.
+	[9d90aaba2346]
+
+	* PyQt5.msp:
+	Updated QtGui for Qt v5.5.0-rc.
+	[29e5da47d4eb]
+
+	* PyQt5.msp:
+	Added QT v5.5.0-rc support to QtOpenGL, QtPositioning,
+	QtPrintSupport, QtQml, QtQuick, QtQuickWidgets, QtSensors,
+	QtSerialPort and QtTest.
+	[16c53510a247]
+
+2015-06-25  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* PyQt5.msp:
+	Completed the Qt v5.5 support for QtNetwork.
+	[7df1482cd7cd]
+
+	* PyQt5.msp, lib/SubclassCode/QtMultimedia.versions:
+	Completed the Qt v5.5 support for QtMultimedia.
+	[9bc46f0d7c99]
+
+	* PyQt5.msp:
+	Initial scan of the remaining existing modules.
+	[c267700a94e9]
+
+2015-06-24  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* PyQt5.msp:
+	Fixed a missing reference in the QtGui module.
+	[639da5a3046f]
+
+	* lib/configure.py:
+	Set QMAKE_RPATHDIR for Qt v5.5 and later on OS X.
+	[4cb6a26802dd]
+
+	* PyQt5.msp, lib/configure.py:
+	Completed the updates for QtGui for Qt v5.5.0-rc.
+	[40bfae01fe1a]
+
+2015-06-23  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* PyQt5.msp:
+	Completed the QtDBus and QtDesigner modules for Qt v5.5.0-rc.
+	[9169626a8e94]
+
+	* PyQt5.msp:
+	Initial scan of QtDBus, QtDesigner and QtGui for Qt v5.5.0-rc.
+	[bd6a2e668fd7]
+
+	* PyQt5.msp:
+	Completed the initial Qt v5.5 support for QtBluetooth and QtCore.
+	[19bff136b8f4]
+
+	* PyQt5.msp:
+	Parsed the Qt v5.5.0-rc changes for Enginio, QtBluetooth and QtCore.
+	[051e57a17d18]
+
+2015-06-20  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* PyQt5.msp:
+	Simplified the fix for the memory leak in attributeNames().
+	[d5b00e76067f]
+
+2015-06-19  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* PyQt5.msp:
+	QSGMaterialShader.attributeNames() no longer leaks memory.
+	[be201b77bdb6]
+
+	* QtMacExtras/QtMacExtrasmod.sip, QtMacExtras/qmactoolbar.sip,
+	QtMacExtras/qmactoolbaritem.sip:
+	Added QMacToolBar and QMacToolBarItem.
+	[07cd3c5604f2]
+
+	* PyQt5.msp:
+	Added /ReleaseGIL/ to the QCoreApplication, QGuiApplication and
+	QApplication dtors to allow for the internal mutex in OpenGL
+	rendering.
+	[64f2c9dbf061]
+
+2015-06-18  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* PyQt5.msp:
+	The ownership of the QSGNode returned by
+	QQuickItem.updatePaintNode() is now handled correctly.
+	[97ce4458a5c1]
+
+	* PyQt5.msp:
+	Added /ReleaseGIL/ for all QQuickWindow methods that seem to lock
+	the internal mutex.
+	[61740b8dd171]
+
+	* PyQt5.msp:
+	Fix the QSGMaterialShader super-type as it can be owned.
+	[67adc9416118]
+
+	* PyQt5.msp:
+	The QQuickView dtor now releases the GIL in order to avoid a
+	deadlock.
+	[70f4a305607e]
+
+2015-06-17  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* PyQt5.msp:
+	Added the missing Qt.NoOpaqueDetection and Qt.NoFormatConversion
+	values.
+	[f800f67c3286]
+
+2015-06-12  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* sphinx/deprecations.rst, sphinx/incompatibilities.rst,
+	sphinx/index.rst:
+	Documented the incompatible changes.
+	[f6bfd44ba749]
+
+	* PyQt5.msp, build.py, qpy/QtCore/qpycore_public_api.cpp:
+	Removed the (deprecated) ability to convert a Latin-1 string to a
+	QByteArray(). Unhandled Python exceptions now call qFatal().
+	[de30e9dedad8]
+
+	* examples/graphicsview/dragdroprobot/dragdroprobot.qrc,
+	examples/graphicsview/dragdroprobot/dragdroprobot_rc.py,
+	examples/opengl/samplebuffers.py,
+	examples/opengl/textures/textures.qrc,
+	examples/opengl/textures/textures_rc.py, examples/qtdemo/qtdemo.qrc,
+	examples/qtdemo/qtdemo_rc.py, examples/qtdemo/xml/examples.xml,
+	sphinx/static/default.css:
+	Merged the v5.4 maintenance branch with the trunk.
+	[b512611dd0ea]
+
 2015-06-11  Phil Thompson  <phil@riverbankcomputing.com>
 
 	* .hgtags:
 	Added tag 5.4.2 for changeset 5a34feb6b31d
-	[6f80aa2771d3] [tip] <5.4-maint>
+	[6f80aa2771d3] <5.4-maint>
 
 	* NEWS:
 	Released as v5.4.2.

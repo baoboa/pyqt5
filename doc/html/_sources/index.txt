@@ -5,6 +5,7 @@ PyQt5 Reference Guide
     :maxdepth: 2
 
     introduction
+    platforms
     deprecations
     incompatibilities
     installation

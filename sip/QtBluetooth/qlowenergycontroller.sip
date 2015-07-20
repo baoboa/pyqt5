@@ -36,6 +36,9 @@ public:
         UnknownRemoteDeviceError,
         NetworkError,
         InvalidBluetoothAdapterError,
+%If (Qt_5_5_0 -)
+        ConnectionError,
+%End
     };
 
     enum ControllerState
@@ -54,6 +57,9 @@ public:
         RandomAddress,
     };
 
+%If (Qt_5_5_0 -)
+    QLowEnergyController(const QBluetoothDeviceInfo &remoteDevice, QObject *parent /TransferThis/ = 0);
+%End
     QLowEnergyController(const QBluetoothAddress &remoteDevice, QObject *parent /TransferThis/ = 0);
     QLowEnergyController(const QBluetoothAddress &remoteDevice, const QBluetoothAddress &localDevice, QObject *parent /TransferThis/ = 0);
     virtual ~QLowEnergyController();
@@ -69,6 +75,9 @@ public:
     QLowEnergyService *createServiceObject(const QBluetoothUuid &service, QObject *parent /TransferThis/ = 0) /Factory/;
     QLowEnergyController::Error error() const;
     QString errorString() const;
+%If (Qt_5_5_0 -)
+    QString remoteName() const;
+%End
 
 signals:
     void connected();

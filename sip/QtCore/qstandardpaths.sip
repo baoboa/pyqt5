@@ -54,6 +54,9 @@ public:
 %If (Qt_5_4_0 -)
         AppLocalDataLocation,
 %End
+%If (Qt_5_5_0 -)
+        AppConfigLocation,
+%End
     };
 
     static QString writableLocation(QStandardPaths::StandardLocation type);

@@ -31,6 +31,9 @@ enum QtMsgType
     QtCriticalMsg,
     QtFatalMsg,
     QtSystemMsg,
+%If (Qt_5_5_0 -)
+    QtInfoMsg,
+%End
 };
 
 class QMessageLogContext /NoDefaultCtors/
@@ -86,6 +89,16 @@ public:
         Py_BEGIN_ALLOW_THREADS
         sipCpp->fatal("%s", a0);
         Py_END_ALLOW_THREADS
+%End
+
+%If (Qt_5_5_0 -)
+    void info(const char *msg) const /ReleaseGIL/;
+%MethodCode
+        Py_BEGIN_ALLOW_THREADS
+        sipCpp->info("%s", a0);
+        Py_END_ALLOW_THREADS
+%End
+
 %End
 };
 

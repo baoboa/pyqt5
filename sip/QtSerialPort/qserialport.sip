@@ -314,6 +314,14 @@ public:
     void *handle() const;
 %End
 %End
+%If (Qt_5_5_0 -)
+    bool isBreakEnabled() const;
+%End
+
+signals:
+%If (Qt_5_5_0 -)
+    void breakEnabledChanged(bool set);
+%End
 
 private:
     QSerialPort(const QSerialPort &);

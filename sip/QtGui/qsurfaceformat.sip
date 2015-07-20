@@ -36,6 +36,9 @@ public:
         StereoBuffers,
         DebugContext,
         DeprecatedFunctions,
+%If (Qt_5_5_0 -)
+        ResetNotification,
+%End
     };
 
     typedef QFlags<QSurfaceFormat::FormatOption> FormatOptions;

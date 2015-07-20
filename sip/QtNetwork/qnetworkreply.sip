@@ -113,6 +113,9 @@ signals:
 %End
     void uploadProgress(qint64 bytesSent, qint64 bytesTotal);
     void downloadProgress(qint64 bytesReceived, qint64 bytesTotal);
+%If (Qt_5_5_0 -)
+    void preSharedKeyAuthenticationRequired(QSslPreSharedKeyAuthenticator *authenticator);
+%End
 
 protected:
     explicit QNetworkReply(QObject *parent /TransferThis/ = 0);

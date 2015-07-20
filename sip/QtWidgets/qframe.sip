@@ -73,6 +73,9 @@ protected:
     virtual void paintEvent(QPaintEvent *);
     virtual void changeEvent(QEvent *);
     void drawFrame(QPainter *);
+%If (Qt_5_5_0 -)
+    void initStyleOption(QStyleOptionFrame *option) const;
+%End
 
 private:
     QFrame(const QFrame &);

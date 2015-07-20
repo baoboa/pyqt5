@@ -178,6 +178,9 @@ signals:
     void activated(const QModelIndex &index);
     void entered(const QModelIndex &index);
     void viewportEntered();
+%If (Qt_5_5_0 -)
+    void iconSizeChanged(const QSize &size);
+%End
 
 protected:
     enum CursorAction

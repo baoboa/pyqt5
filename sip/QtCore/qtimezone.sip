@@ -100,6 +100,12 @@ public:
     static QByteArray windowsIdToDefaultIanaId(const QByteArray &windowsId, QLocale::Country country);
     static QList<QByteArray> windowsIdToIanaIds(const QByteArray &windowsId);
     static QList<QByteArray> windowsIdToIanaIds(const QByteArray &windowsId, QLocale::Country country);
+%If (Qt_5_5_0 -)
+    static QTimeZone systemTimeZone();
+%End
+%If (Qt_5_5_0 -)
+    static QTimeZone utc();
+%End
 };
 
 %End
