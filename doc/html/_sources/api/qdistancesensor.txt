@@ -5,4 +5,4 @@ QDistanceSensor
 
 .. class:: QDistanceSensor
 
-    `C++ documentation <http://qt-project.org/doc/qt-5/qdistancesensor.html>`_
+    `C++ documentation <http://doc.qt.io/qt-5/qdistancesensor.html>`_

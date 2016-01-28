@@ -5,4 +5,4 @@ QBluetoothHostInfo
 
 .. class:: QBluetoothHostInfo
 
-    `C++ documentation <http://qt-project.org/doc/qt-5/qbluetoothhostinfo.html>`_
+    `C++ documentation <http://doc.qt.io/qt-5/qbluetoothhostinfo.html>`_

@@ -5,4 +5,4 @@ QQmlPropertyMap
 
 .. class:: QQmlPropertyMap
 
-    `C++ documentation <http://qt-project.org/doc/qt-5/qqmlpropertymap.html>`_
+    `C++ documentation <http://doc.qt.io/qt-5/qqmlpropertymap.html>`_

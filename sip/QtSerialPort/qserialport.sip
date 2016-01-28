@@ -21,12 +21,6 @@
 
 
 %If (Qt_5_1_0 -)
-%ModuleCode
-#include <qserialport.h>
-%End
-%End
-
-%If (Qt_5_1_0 -)
 
 class QSerialPort : QIODevice
 {

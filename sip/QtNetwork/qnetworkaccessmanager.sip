@@ -57,14 +57,18 @@ signals:
     void authenticationRequired(QNetworkReply *reply, QAuthenticator *authenticator);
     void finished(QNetworkReply *reply);
 %If (Qt_5_1_0 -)
+%If (PyQt_SSL)
     void encrypted(QNetworkReply *reply);
+%End
 %End
 %If (PyQt_SSL)
     void sslErrors(QNetworkReply *reply, const QList<QSslError> &errors);
 %End
     void networkAccessibleChanged(QNetworkAccessManager::NetworkAccessibility accessible);
 %If (Qt_5_5_0 -)
+%If (PyQt_SSL)
     void preSharedKeyAuthenticationRequired(QNetworkReply *reply, QSslPreSharedKeyAuthenticator *authenticator);
+%End
 %End
 
 protected:

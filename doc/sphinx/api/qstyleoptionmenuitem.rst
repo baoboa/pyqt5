@@ -5,4 +5,4 @@ QStyleOptionMenuItem
 
 .. class:: QStyleOptionMenuItem
 
-    `C++ documentation <http://qt-project.org/doc/qt-5/qstyleoptionmenuitem.html>`_
+    `C++ documentation <http://doc.qt.io/qt-5/qstyleoptionmenuitem.html>`_

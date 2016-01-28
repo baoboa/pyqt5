@@ -63,8 +63,8 @@ public:
     static bool quadToQuad(const QPolygonF &one, const QPolygonF &two, QTransform &result);
     bool operator==(const QTransform &) const;
     bool operator!=(const QTransform &) const;
-    QTransform &operator*=(const QTransform &);
-    QTransform operator*(const QTransform &o) const;
+    QTransform &operator*=(const QTransform &) /__imatmul__/;
+    QTransform operator*(const QTransform &o) const /__matmul__/;
     void reset();
     void map(int x /Constrained/, int y /Constrained/, int *tx, int *ty) const;
     void map(qreal x, qreal y, qreal *tx, qreal *ty) const;

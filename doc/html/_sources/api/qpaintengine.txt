@@ -5,4 +5,4 @@ QPaintEngine
 
 .. class:: QPaintEngine
 
-    `C++ documentation <http://qt-project.org/doc/qt-5/qpaintengine.html>`_
+    `C++ documentation <http://doc.qt.io/qt-5/qpaintengine.html>`_

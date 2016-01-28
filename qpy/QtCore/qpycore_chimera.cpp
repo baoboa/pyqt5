@@ -100,6 +100,9 @@ const Chimera *Chimera::parse(PyObject *obj)
     {
         // Parse the type object.
         parse_ok = ct->parse_py_type((PyTypeObject *)obj);
+
+        if (!parse_ok)
+            raiseParseException(obj);
     }
     else
     {
@@ -114,6 +117,9 @@ const Chimera *Chimera::parse(PyObject *obj)
 
             // Parse the type name.
             parse_ok = ct->parse_cpp_type(norm_name);
+
+            if (!parse_ok)
+                raiseParseCppException(cpp_type_name);
         }
         else
         {
@@ -139,6 +145,9 @@ const Chimera *Chimera::parse(const QByteArray &name)
     if (!ct->parse_cpp_type(name))
     {
         delete ct;
+
+        raiseParseCppException(name.constData());
+
         return 0;
     }
 
@@ -239,7 +248,7 @@ Chimera::Signature *Chimera::parse(const QByteArray &sig, const char *context)
                         qDeleteAll(parsed_args.constBegin(),
                                 parsed_args.constEnd());
 
-                        raiseParseException(arg.constData(), context);
+                        raiseParseCppException(arg.constData(), context);
 
                         return 0;
                     }
@@ -319,9 +328,13 @@ void Chimera::raiseParseException(PyObject *type, const char *context)
 {
     if (PyType_Check(type))
     {
-        PyErr_Format(PyExc_TypeError,
-                "Python type '%s' is not supported as %s type",
-                ((PyTypeObject *)type)->tp_name, context);
+        if (context)
+            PyErr_Format(PyExc_TypeError,
+                    "Python type '%s' is not supported as %s type",
+                    ((PyTypeObject *)type)->tp_name, context);
+        else
+            PyErr_Format(PyExc_TypeError, "unknown Python type '%s'",
+                    ((PyTypeObject *)type)->tp_name);
     }
     else
     {
@@ -329,7 +342,7 @@ void Chimera::raiseParseException(PyObject *type, const char *context)
 
         if (cpp_type_name)
         {
-            raiseParseException(cpp_type_name, context);
+            raiseParseCppException(cpp_type_name, context);
             Py_DECREF(type);
         }
     }
@@ -337,10 +350,13 @@ void Chimera::raiseParseException(PyObject *type, const char *context)
 
 
 // Raise an exception after parse() of a C++ type has failed.
-void Chimera::raiseParseException(const char *type, const char *context)
+void Chimera::raiseParseCppException(const char *type, const char *context)
 {
-    PyErr_Format(PyExc_TypeError, "C++ type '%s' is not supported as %s type",
-            type, context);
+    if (context)
+        PyErr_Format(PyExc_TypeError,
+                "C++ type '%s' is not supported as %s type", type, context);
+    else
+        PyErr_Format(PyExc_TypeError, "unknown C++ type '%s'", type);
 }
 
 
@@ -1516,7 +1532,11 @@ PyObject *Chimera::toPyObject(void *cpp) const
     default:
         if (_type)
         {
-            if (_name.endsWith('*'))
+            if (sipTypeIsEnum(_type))
+            {
+                py = sipConvertFromEnum(*reinterpret_cast<int *>(cpp), _type);
+            }
+            else if (_name.endsWith('*'))
             {
                 py = sipConvertFromType(*reinterpret_cast<void **>(cpp),
                         _type, 0);

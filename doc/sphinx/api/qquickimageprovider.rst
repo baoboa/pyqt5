@@ -5,4 +5,4 @@ QQuickImageProvider
 
 .. class:: QQuickImageProvider
 
-    `C++ documentation <http://qt-project.org/doc/qt-5/qquickimageprovider.html>`_
+    `C++ documentation <http://doc.qt.io/qt-5/qquickimageprovider.html>`_

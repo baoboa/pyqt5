@@ -5,4 +5,4 @@ EnginioClient
 
 .. class:: EnginioClient
 
-    `C++ documentation <http://qt-project.org/doc/qt-5/enginioclient.html>`_
+    `C++ documentation <http://doc.qt.io/qt-5/enginioclient.html>`_

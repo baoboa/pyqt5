@@ -20,10 +20,6 @@
 // WARRANTY OF DESIGN, MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE.
 
 
-%ModuleCode
-#include <qtreewidget.h>
-%End
-
 class QTreeWidgetItem /Supertype=sip.wrapper/
 {
 %TypeHeaderCode

@@ -5,4 +5,4 @@ QDragLeaveEvent
 
 .. class:: QDragLeaveEvent
 
-    `C++ documentation <http://qt-project.org/doc/qt-5/qdragleaveevent.html>`_
+    `C++ documentation <http://doc.qt.io/qt-5/qdragleaveevent.html>`_

@@ -5,4 +5,4 @@ QQmlAbstractUrlInterceptor
 
 .. class:: QQmlAbstractUrlInterceptor
 
-    `C++ documentation <http://qt-project.org/doc/qt-5/qqmlabstracturlinterceptor.html>`_
+    `C++ documentation <http://doc.qt.io/qt-5/qqmlabstracturlinterceptor.html>`_

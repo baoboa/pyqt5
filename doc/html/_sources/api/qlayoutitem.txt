@@ -5,4 +5,4 @@ QLayoutItem
 
 .. class:: QLayoutItem
 
-    `C++ documentation <http://qt-project.org/doc/qt-5/qlayoutitem.html>`_
+    `C++ documentation <http://doc.qt.io/qt-5/qlayoutitem.html>`_

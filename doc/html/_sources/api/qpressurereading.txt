@@ -5,4 +5,4 @@ QPressureReading
 
 .. class:: QPressureReading
 
-    `C++ documentation <http://qt-project.org/doc/qt-5/qpressurereading.html>`_
+    `C++ documentation <http://doc.qt.io/qt-5/qpressurereading.html>`_

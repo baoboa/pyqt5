@@ -5,4 +5,4 @@ QtWin
 
 .. class:: QtWin
 
-    `C++ documentation <http://qt-project.org/doc/qt-5/qtwin.html>`_
+    `C++ documentation <http://doc.qt.io/qt-5/qtwin.html>`_

@@ -5,4 +5,4 @@ QQmlListReference
 
 .. class:: QQmlListReference
 
-    `C++ documentation <http://qt-project.org/doc/qt-5/qqmllistreference.html>`_
+    `C++ documentation <http://doc.qt.io/qt-5/qqmllistreference.html>`_

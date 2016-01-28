@@ -5,4 +5,4 @@ QLine
 
 .. class:: QLine
 
-    `C++ documentation <http://qt-project.org/doc/qt-5/qline.html>`_
+    `C++ documentation <http://doc.qt.io/qt-5/qline.html>`_

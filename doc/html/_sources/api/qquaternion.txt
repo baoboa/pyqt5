@@ -5,4 +5,4 @@ QQuaternion
 
 .. class:: QQuaternion
 
-    `C++ documentation <http://qt-project.org/doc/qt-5/qquaternion.html>`_
+    `C++ documentation <http://doc.qt.io/qt-5/qquaternion.html>`_

@@ -5,4 +5,4 @@ QGlyphRun
 
 .. class:: QGlyphRun
 
-    `C++ documentation <http://qt-project.org/doc/qt-5/qglyphrun.html>`_
+    `C++ documentation <http://doc.qt.io/qt-5/qglyphrun.html>`_

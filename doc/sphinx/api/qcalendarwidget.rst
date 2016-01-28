@@ -5,4 +5,4 @@ QCalendarWidget
 
 .. class:: QCalendarWidget
 
-    `C++ documentation <http://qt-project.org/doc/qt-5/qcalendarwidget.html>`_
+    `C++ documentation <http://doc.qt.io/qt-5/qcalendarwidget.html>`_

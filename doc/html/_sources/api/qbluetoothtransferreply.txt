@@ -5,4 +5,4 @@ QBluetoothTransferReply
 
 .. class:: QBluetoothTransferReply
 
-    `C++ documentation <http://qt-project.org/doc/qt-5/qbluetoothtransferreply.html>`_
+    `C++ documentation <http://doc.qt.io/qt-5/qbluetoothtransferreply.html>`_

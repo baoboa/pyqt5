@@ -5,4 +5,4 @@ QCollator
 
 .. class:: QCollator
 
-    `C++ documentation <http://qt-project.org/doc/qt-5/qcollator.html>`_
+    `C++ documentation <http://doc.qt.io/qt-5/qcollator.html>`_

@@ -5,4 +5,4 @@ QSessionManager
 
 .. class:: QSessionManager
 
-    `C++ documentation <http://qt-project.org/doc/qt-5/qsessionmanager.html>`_
+    `C++ documentation <http://doc.qt.io/qt-5/qsessionmanager.html>`_

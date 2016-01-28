@@ -5,4 +5,4 @@ QWebSocketServer
 
 .. class:: QWebSocketServer
 
-    `C++ documentation <http://qt-project.org/doc/qt-5/qwebsocketserver.html>`_
+    `C++ documentation <http://doc.qt.io/qt-5/qwebsocketserver.html>`_

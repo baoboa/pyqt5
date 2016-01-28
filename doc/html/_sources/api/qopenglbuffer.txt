@@ -5,4 +5,4 @@ QOpenGLBuffer
 
 .. class:: QOpenGLBuffer
 
-    `C++ documentation <http://qt-project.org/doc/qt-5/qopenglbuffer.html>`_
+    `C++ documentation <http://doc.qt.io/qt-5/qopenglbuffer.html>`_

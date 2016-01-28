@@ -5,4 +5,4 @@ QTextTableCell
 
 .. class:: QTextTableCell
 
-    `C++ documentation <http://qt-project.org/doc/qt-5/qtexttablecell.html>`_
+    `C++ documentation <http://doc.qt.io/qt-5/qtexttablecell.html>`_

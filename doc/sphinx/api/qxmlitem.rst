@@ -5,4 +5,4 @@ QXmlItem
 
 .. class:: QXmlItem
 
-    `C++ documentation <http://qt-project.org/doc/qt-5/qxmlitem.html>`_
+    `C++ documentation <http://doc.qt.io/qt-5/qxmlitem.html>`_

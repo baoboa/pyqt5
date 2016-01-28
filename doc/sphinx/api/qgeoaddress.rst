@@ -5,4 +5,4 @@ QGeoAddress
 
 .. class:: QGeoAddress
 
-    `C++ documentation <http://qt-project.org/doc/qt-5/qgeoaddress.html>`_
+    `C++ documentation <http://doc.qt.io/qt-5/qgeoaddress.html>`_

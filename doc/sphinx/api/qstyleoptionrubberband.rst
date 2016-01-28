@@ -5,4 +5,4 @@ QStyleOptionRubberBand
 
 .. class:: QStyleOptionRubberBand
 
-    `C++ documentation <http://qt-project.org/doc/qt-5/qstyleoptionrubberband.html>`_
+    `C++ documentation <http://doc.qt.io/qt-5/qstyleoptionrubberband.html>`_

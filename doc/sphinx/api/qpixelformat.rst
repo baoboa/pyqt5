@@ -5,4 +5,4 @@ QPixelFormat
 
 .. class:: QPixelFormat
 
-    `C++ documentation <http://qt-project.org/doc/qt-5/qpixelformat.html>`_
+    `C++ documentation <http://doc.qt.io/qt-5/qpixelformat.html>`_

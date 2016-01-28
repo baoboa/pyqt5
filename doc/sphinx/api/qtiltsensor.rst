@@ -5,4 +5,4 @@ QTiltSensor
 
 .. class:: QTiltSensor
 
-    `C++ documentation <http://qt-project.org/doc/qt-5/qtiltsensor.html>`_
+    `C++ documentation <http://doc.qt.io/qt-5/qtiltsensor.html>`_

@@ -5,4 +5,4 @@ QLinearGradient
 
 .. class:: QLinearGradient
 
-    `C++ documentation <http://qt-project.org/doc/qt-5/qlineargradient.html>`_
+    `C++ documentation <http://doc.qt.io/qt-5/qlineargradient.html>`_

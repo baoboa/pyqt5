@@ -5,4 +5,4 @@ QXmlStreamWriter
 
 .. class:: QXmlStreamWriter
 
-    `C++ documentation <http://qt-project.org/doc/qt-5/qxmlstreamwriter.html>`_
+    `C++ documentation <http://doc.qt.io/qt-5/qxmlstreamwriter.html>`_

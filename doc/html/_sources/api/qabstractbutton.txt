@@ -5,4 +5,4 @@ QAbstractButton
 
 .. class:: QAbstractButton
 
-    `C++ documentation <http://qt-project.org/doc/qt-5/qabstractbutton.html>`_
+    `C++ documentation <http://doc.qt.io/qt-5/qabstractbutton.html>`_

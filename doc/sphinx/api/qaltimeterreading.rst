@@ -5,4 +5,4 @@ QAltimeterReading
 
 .. class:: QAltimeterReading
 
-    `C++ documentation <http://qt-project.org/doc/qt-5/qaltimeterreading.html>`_
+    `C++ documentation <http://doc.qt.io/qt-5/qaltimeterreading.html>`_

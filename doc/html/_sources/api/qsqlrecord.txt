@@ -5,4 +5,4 @@ QSqlRecord
 
 .. class:: QSqlRecord
 
-    `C++ documentation <http://qt-project.org/doc/qt-5/qsqlrecord.html>`_
+    `C++ documentation <http://doc.qt.io/qt-5/qsqlrecord.html>`_

@@ -5,4 +5,4 @@ QSGSimpleRectNode
 
 .. class:: QSGSimpleRectNode
 
-    `C++ documentation <http://qt-project.org/doc/qt-5/qsgsimplerectnode.html>`_
+    `C++ documentation <http://doc.qt.io/qt-5/qsgsimplerectnode.html>`_

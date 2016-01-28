@@ -5,4 +5,4 @@ QCameraImageCapture
 
 .. class:: QCameraImageCapture
 
-    `C++ documentation <http://qt-project.org/doc/qt-5/qcameraimagecapture.html>`_
+    `C++ documentation <http://doc.qt.io/qt-5/qcameraimagecapture.html>`_

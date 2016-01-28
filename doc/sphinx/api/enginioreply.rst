@@ -5,4 +5,4 @@ EnginioReply
 
 .. class:: EnginioReply
 
-    `C++ documentation <http://qt-project.org/doc/qt-5/enginioreply.html>`_
+    `C++ documentation <http://doc.qt.io/qt-5/enginioreply.html>`_

@@ -5,4 +5,4 @@ QToolBox
 
 .. class:: QToolBox
 
-    `C++ documentation <http://qt-project.org/doc/qt-5/qtoolbox.html>`_
+    `C++ documentation <http://doc.qt.io/qt-5/qtoolbox.html>`_

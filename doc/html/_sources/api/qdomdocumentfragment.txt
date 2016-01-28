@@ -5,4 +5,4 @@ QDomDocumentFragment
 
 .. class:: QDomDocumentFragment
 
-    `C++ documentation <http://qt-project.org/doc/qt-5/qdomdocumentfragment.html>`_
+    `C++ documentation <http://doc.qt.io/qt-5/qdomdocumentfragment.html>`_

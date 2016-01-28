@@ -5,4 +5,4 @@ QTemporaryDir
 
 .. class:: QTemporaryDir
 
-    `C++ documentation <http://qt-project.org/doc/qt-5/qtemporarydir.html>`_
+    `C++ documentation <http://doc.qt.io/qt-5/qtemporarydir.html>`_

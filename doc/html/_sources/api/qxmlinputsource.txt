@@ -5,4 +5,4 @@ QXmlInputSource
 
 .. class:: QXmlInputSource
 
-    `C++ documentation <http://qt-project.org/doc/qt-5/qxmlinputsource.html>`_
+    `C++ documentation <http://doc.qt.io/qt-5/qxmlinputsource.html>`_

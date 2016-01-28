@@ -32,8 +32,8 @@
 
 
 // See if we can find an attribute in the Qt meta-type system.  This is
-// primarily to support access to JavaScript (e.g. QDeclarativeItem) so we
-// don't support overloads.
+// primarily to support access to JavaScript (e.g. QQuickItem) so we don't
+// support overloads.
 PyObject *qpycore_qobject_getattr(const QObject *qobj, PyObject *py_qobj,
         const char *name)
 {

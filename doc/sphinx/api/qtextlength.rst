@@ -5,4 +5,4 @@ QTextLength
 
 .. class:: QTextLength
 
-    `C++ documentation <http://qt-project.org/doc/qt-5/qtextlength.html>`_
+    `C++ documentation <http://doc.qt.io/qt-5/qtextlength.html>`_

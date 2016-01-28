@@ -5,4 +5,4 @@ QPointF
 
 .. class:: QPointF
 
-    `C++ documentation <http://qt-project.org/doc/qt-5/qpointf.html>`_
+    `C++ documentation <http://doc.qt.io/qt-5/qpointf.html>`_

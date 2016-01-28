@@ -5,4 +5,4 @@ QMessageAuthenticationCode
 
 .. class:: QMessageAuthenticationCode
 
-    `C++ documentation <http://qt-project.org/doc/qt-5/qmessageauthenticationcode.html>`_
+    `C++ documentation <http://doc.qt.io/qt-5/qmessageauthenticationcode.html>`_

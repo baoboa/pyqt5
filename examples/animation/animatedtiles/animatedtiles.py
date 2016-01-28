@@ -232,7 +232,7 @@ if __name__ == '__main__':
 
     group = QParallelAnimationGroup()
     for i, item in enumerate(items):
-        anim = QPropertyAnimation(item, 'pos')
+        anim = QPropertyAnimation(item, b'pos')
         anim.setDuration(750 + i * 25)
         anim.setEasingCurve(QEasingCurve.InOutBack)
         group.addAnimation(anim)

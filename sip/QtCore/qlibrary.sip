@@ -20,10 +20,6 @@
 // WARRANTY OF DESIGN, MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE.
 
 
-%ModuleCode
-#include <qlibrary.h>
-%End
-
 class QLibrary : QObject
 {
 %TypeHeaderCode

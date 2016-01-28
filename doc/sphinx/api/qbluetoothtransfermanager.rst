@@ -5,4 +5,4 @@ QBluetoothTransferManager
 
 .. class:: QBluetoothTransferManager
 
-    `C++ documentation <http://qt-project.org/doc/qt-5/qbluetoothtransfermanager.html>`_
+    `C++ documentation <http://doc.qt.io/qt-5/qbluetoothtransfermanager.html>`_

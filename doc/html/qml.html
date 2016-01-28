@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Integrating Python and QML &mdash; PyQt 5.5 Reference Guide</title>
+    <title>Integrating Python and QML &mdash; PyQt 5.5.1 Reference Guide</title>
     
     <link rel="stylesheet" href="_static/classic.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '5.5',
+        VERSION:     '5.5.1',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -24,7 +24,7 @@
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
     <link rel="shortcut icon" href="_static/logo_tn.ico"/>
-    <link rel="top" title="PyQt 5.5 Reference Guide" href="index.html" />
+    <link rel="top" title="PyQt 5.5.1 Reference Guide" href="index.html" />
     <link rel="next" title="Support for Cooperative Multi-inheritance" href="multiinheritance.html" />
     <link rel="prev" title="Support for QSettings" href="pyqt_qsettings.html" /> 
   </head>
@@ -44,7 +44,7 @@
         <li class="right" >
           <a href="pyqt_qsettings.html" title="Support for QSettings"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">PyQt 5.5 Reference Guide</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">PyQt 5.5.1 Reference Guide</a> &raquo;</li> 
       </ul>
     </div>  
 
@@ -173,8 +173,31 @@ Person {
 <p>Defining list-based properties in Python that can be updated from QML is done
 using the <a class="reference internal" href="api/qqmllistproperty.html#PyQt5.QtQml.QQmlListProperty" title="PyQt5.QtQml.QQmlListProperty"><code class="xref py py-class docutils literal"><span class="pre">QQmlListProperty</span></code></a> class.  However the way it is
 used in Python is slightly different to the way it is used in C++.</p>
-<p>The following code fragment is taken from the <code class="docutils literal"><span class="pre">chapter5-listproperties.py</span></code>
-example included with PyQt5:</p>
+<p>In the simple case <a class="reference internal" href="api/qqmllistproperty.html#PyQt5.QtQml.QQmlListProperty" title="PyQt5.QtQml.QQmlListProperty"><code class="xref py py-class docutils literal"><span class="pre">QQmlListProperty</span></code></a> wraps a Python list
+that is usually an instance sttribute, for example:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">class</span> <span class="nc">BirthdayParty</span><span class="p">(</span><span class="n">QObject</span><span class="p">):</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">parent</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="n">parent</span><span class="p">)</span>
+
+        <span class="c"># The list which will be accessible from QML.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_guests</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="nd">@pyqtProperty</span><span class="p">(</span><span class="n">QQmlListProperty</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">guests</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">QQmlListProperty</span><span class="p">(</span><span class="n">Person</span><span class="p">,</span> <span class="bp">self</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_guests</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>QML can now manipulate the Python list of <code class="docutils literal"><span class="pre">Person</span></code> instances.
+<a class="reference internal" href="api/qqmllistproperty.html#PyQt5.QtQml.QQmlListProperty" title="PyQt5.QtQml.QQmlListProperty"><code class="xref py py-class docutils literal"><span class="pre">QQmlListProperty</span></code></a> also acts as a proxy for the Python list
+so that the following can be written:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">for</span> <span class="n">guest</span> <span class="ow">in</span> <span class="n">party</span><span class="o">.</span><span class="n">guests</span><span class="p">:</span>
+    <span class="k">print</span><span class="p">(</span><span class="s">&quot;Guest:&quot;</span><span class="p">,</span> <span class="n">guest</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><a class="reference internal" href="api/qqmllistproperty.html#PyQt5.QtQml.QQmlListProperty" title="PyQt5.QtQml.QQmlListProperty"><code class="xref py py-class docutils literal"><span class="pre">QQmlListProperty</span></code></a> can also be used to wrap a <em>virtual</em>
+list.  The following code fragment is taken from the
+<code class="docutils literal"><span class="pre">chapter5-listproperties.py</span></code> example included with PyQt5:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="k">class</span> <span class="nc">PieChart</span><span class="p">(</span><span class="n">QQuickItem</span><span class="p">):</span>
 
     <span class="nd">@pyqtProperty</span><span class="p">(</span><span class="n">QQmlListProperty</span><span class="p">)</span>
@@ -381,7 +404,7 @@ QML2_IMPORT_PATH=. /path/to/qmlscene app.qml
         <li class="right" >
           <a href="pyqt_qsettings.html" title="Support for QSettings"
              >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">PyQt 5.5 Reference Guide</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">PyQt 5.5.1 Reference Guide</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">

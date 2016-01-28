@@ -5,4 +5,4 @@ QContextMenuEvent
 
 .. class:: QContextMenuEvent
 
-    `C++ documentation <http://qt-project.org/doc/qt-5/qcontextmenuevent.html>`_
+    `C++ documentation <http://doc.qt.io/qt-5/qcontextmenuevent.html>`_

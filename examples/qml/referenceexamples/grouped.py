@@ -178,12 +178,6 @@ class BirthdayParty(QObject):
     def guests(self):
         return QQmlListProperty(Person, self, self._guests)
 
-    def guestCount(self):
-        return len(self._guests)
-
-    def guest(self, idx):
-        return self._guests[idx]
-
 
 app = QCoreApplication(sys.argv)
 
@@ -210,9 +204,7 @@ if party is not None and party.host is not None:
 
     bestShoe = None
 
-    for ii in range(party.guestCount()):
-        guest = party.guest(ii)
-
+    for guest in party.guests:
         print("    \"%s\"" % guest.name)
 
         if bestShoe is None or bestShoe.shoe.price < guest.shoe.price:

@@ -21,52 +21,18 @@
 %MappedType QQmlListProperty<QObject> /DocType="QQmlListProperty"/
 {
 %TypeHeaderCode
-#include <QQmlListProperty>
-%End
-
-%TypeCode
-#if defined(SIP_USE_PYCAPSULE)
-extern "C" {
-static void qpyqml_QQmlListProperty_delete(PyObject *capsule)
-{
-    delete reinterpret_cast<QQmlListProperty<QObject> *>(PyCapsule_GetPointer(capsule, 0));
-}
-}
-#else
-extern "C" {
-static void qpyqml_QQmlListProperty_delete(void *ptr)
-{
-    delete reinterpret_cast<QQmlListProperty<QObject> *>(ptr);
-}
-}
-#endif
+#include "qpyqmllistpropertywrapper.h"
 %End
 
 %ConvertFromTypeCode
-#if defined(SIP_USE_PYCAPSULE)
-    return PyCapsule_New(sipCpp, 0, qpyqml_QQmlListProperty_delete);
-#else
-    return PyCObject_FromVoidPtr(sipCpp, qpyqml_QQmlListProperty_delete);
-#endif
+    return qpyqml_QQmlListPropertyWrapper_New(sipCpp, 0);
 %End
 
 %ConvertToTypeCode
     if (sipIsErr == NULL)
-    {
-#if defined(SIP_USE_PYCAPSULE)
-        return PyCapsule_CheckExact(sipPy);
-#else
-        return PyCObject_Check(sipPy);
-#endif
-    }
+        return PyObject_IsInstance(sipPy, (PyObject *)&qpyqml_QQmlListPropertyWrapper_Type);
 
-#if defined(SIP_USE_PYCAPSULE)
-    *sipCppPtr = reinterpret_cast<QQmlListProperty<QObject> *>(
-            PyCapsule_GetPointer(sipPy, 0));
-#else
-    *sipCppPtr = reinterpret_cast<QQmlListProperty<QObject> *>(
-            PyCObject_AsVoidPtr(sipPy));
-#endif
+    *sipCppPtr = ((qpyqml_QQmlListPropertyWrapper *)sipPy)->qml_list_property;
 
     // It isn't a temporary copy.
     return 0;

@@ -5,4 +5,4 @@ QAbstractNetworkCache
 
 .. class:: QAbstractNetworkCache
 
-    `C++ documentation <http://qt-project.org/doc/qt-5/qabstractnetworkcache.html>`_
+    `C++ documentation <http://doc.qt.io/qt-5/qabstractnetworkcache.html>`_

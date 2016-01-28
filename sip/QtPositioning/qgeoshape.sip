@@ -21,12 +21,6 @@
 
 
 %If (Qt_5_2_0 -)
-%ModuleCode
-#include <qgeoshape.h>
-%End
-%End
-
-%If (Qt_5_2_0 -)
 
 class QGeoShape
 {

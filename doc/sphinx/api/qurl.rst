@@ -5,4 +5,4 @@ QUrl
 
 .. class:: QUrl
 
-    `C++ documentation <http://qt-project.org/doc/qt-5/qurl.html>`_
+    `C++ documentation <http://doc.qt.io/qt-5/qurl.html>`_

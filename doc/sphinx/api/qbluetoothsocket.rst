@@ -5,4 +5,4 @@ QBluetoothSocket
 
 .. class:: QBluetoothSocket
 
-    `C++ documentation <http://qt-project.org/doc/qt-5/qbluetoothsocket.html>`_
+    `C++ documentation <http://doc.qt.io/qt-5/qbluetoothsocket.html>`_

@@ -5,4 +5,4 @@ QPressureSensor
 
 .. class:: QPressureSensor
 
-    `C++ documentation <http://qt-project.org/doc/qt-5/qpressuresensor.html>`_
+    `C++ documentation <http://doc.qt.io/qt-5/qpressuresensor.html>`_

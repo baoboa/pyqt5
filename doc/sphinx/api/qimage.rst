@@ -5,4 +5,4 @@ QImage
 
 .. class:: QImage
 
-    `C++ documentation <http://qt-project.org/doc/qt-5/qimage.html>`_
+    `C++ documentation <http://doc.qt.io/qt-5/qimage.html>`_

@@ -5,4 +5,4 @@ QWidgetItem
 
 .. class:: QWidgetItem
 
-    `C++ documentation <http://qt-project.org/doc/qt-5/qwidgetitem.html>`_
+    `C++ documentation <http://doc.qt.io/qt-5/qwidgetitem.html>`_

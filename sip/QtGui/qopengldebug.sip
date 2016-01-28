@@ -21,12 +21,6 @@
 
 
 %If (Qt_5_1_0 -)
-%ModuleCode
-#include <qopengldebug.h>
-%End
-%End
-
-%If (Qt_5_1_0 -)
 %If (PyQt_OpenGL)
 
 class QOpenGLDebugMessage

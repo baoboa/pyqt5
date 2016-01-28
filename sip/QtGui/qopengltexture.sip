@@ -21,12 +21,6 @@
 
 
 %If (Qt_5_2_0 -)
-%ModuleCode
-#include <qopengltexture.h>
-%End
-%End
-
-%If (Qt_5_2_0 -)
 %If (PyQt_OpenGL)
 
 class QOpenGLTexture

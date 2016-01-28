@@ -5,4 +5,4 @@ QSemaphore
 
 .. class:: QSemaphore
 
-    `C++ documentation <http://qt-project.org/doc/qt-5/qsemaphore.html>`_
+    `C++ documentation <http://doc.qt.io/qt-5/qsemaphore.html>`_

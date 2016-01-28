@@ -20,10 +20,6 @@
 // WARRANTY OF DESIGN, MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE.
 
 
-%ModuleCode
-#include <qiodevice.h>
-%End
-
 class QIODevice : QObject
 {
 %TypeHeaderCode

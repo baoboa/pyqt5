@@ -5,4 +5,4 @@ QLockFile
 
 .. class:: QLockFile
 
-    `C++ documentation <http://qt-project.org/doc/qt-5/qlockfile.html>`_
+    `C++ documentation <http://doc.qt.io/qt-5/qlockfile.html>`_

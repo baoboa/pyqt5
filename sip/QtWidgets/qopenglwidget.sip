@@ -21,6 +21,7 @@
 
 
 %If (Qt_5_4_0 -)
+%If (PyQt_OpenGL)
 
 class QOpenGLWidget : QWidget
 {
@@ -77,4 +78,5 @@ private:
     QOpenGLWidget(const QOpenGLWidget &);
 };
 
+%End
 %End

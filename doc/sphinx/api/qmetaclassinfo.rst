@@ -5,4 +5,4 @@ QMetaClassInfo
 
 .. class:: QMetaClassInfo
 
-    `C++ documentation <http://qt-project.org/doc/qt-5/qmetaclassinfo.html>`_
+    `C++ documentation <http://doc.qt.io/qt-5/qmetaclassinfo.html>`_

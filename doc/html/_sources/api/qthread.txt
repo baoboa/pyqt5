@@ -5,4 +5,4 @@ QThread
 
 .. class:: QThread
 
-    `C++ documentation <http://qt-project.org/doc/qt-5/qthread.html>`_
+    `C++ documentation <http://doc.qt.io/qt-5/qthread.html>`_

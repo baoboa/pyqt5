@@ -5,4 +5,4 @@ QDesignerActionEditorInterface
 
 .. class:: QDesignerActionEditorInterface
 
-    `C++ documentation <http://qt-project.org/doc/qt-5/qdesigneractioneditorinterface.html>`_
+    `C++ documentation <http://doc.qt.io/qt-5/qdesigneractioneditorinterface.html>`_

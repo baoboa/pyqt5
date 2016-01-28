@@ -5,4 +5,4 @@ QLCDNumber
 
 .. class:: QLCDNumber
 
-    `C++ documentation <http://qt-project.org/doc/qt-5/qlcdnumber.html>`_
+    `C++ documentation <http://doc.qt.io/qt-5/qlcdnumber.html>`_

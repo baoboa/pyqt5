@@ -111,12 +111,6 @@ class BirthdayParty(QObject):
     def guests(self):
         return QQmlListProperty(Person, self, self._guests)
 
-    def guestCount(self):
-        return len(self._guests)
-
-    def guest(self, idx):
-        return self._guests[idx]
-
 
 app = QCoreApplication(sys.argv)
 
@@ -134,8 +128,8 @@ if party is not None and party.host is not None:
     print("\"%s\" is having a birthday!" % party.host.name)
     print("They are inviting:")
 
-    for ii in range(party.guestCount()):
-        print("    \"%s\"" % party.guest(ii).name)
+    for guest in party.guests:
+        print("    \"%s\"" % guest.name)
 else:
     for e in component.errors():
         print("Error:", e.toString());

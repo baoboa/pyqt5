@@ -5,4 +5,4 @@ QItemEditorCreatorBase
 
 .. class:: QItemEditorCreatorBase
 
-    `C++ documentation <http://qt-project.org/doc/qt-5/qitemeditorcreatorbase.html>`_
+    `C++ documentation <http://doc.qt.io/qt-5/qitemeditorcreatorbase.html>`_

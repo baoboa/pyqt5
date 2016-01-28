@@ -5,4 +5,4 @@ QTextCodec
 
 .. class:: QTextCodec
 
-    `C++ documentation <http://qt-project.org/doc/qt-5/qtextcodec.html>`_
+    `C++ documentation <http://doc.qt.io/qt-5/qtextcodec.html>`_

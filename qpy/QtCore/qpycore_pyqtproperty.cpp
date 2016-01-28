@@ -44,6 +44,7 @@ static int pyqtProperty_traverse(PyObject *self, visitproc visit, void *arg);
 }
 
 static qpycore_pyqtProperty *clone(qpycore_pyqtProperty *orig);
+static PyObject *getter_docstring(PyObject *getter);
 
 
 // Doc-strings.
@@ -363,19 +364,15 @@ static int pyqtProperty_init(PyObject *self, PyObject *args, PyObject *kwds)
     Py_XINCREF(notify);
     Py_INCREF(type);
 
-    /* If no docstring was given and the getter has one, then use it. */
-    if ((!doc || doc == Py_None) && get)
+    // If no docstring was given try the getter.
+    if (!doc || doc == Py_None)
     {
-        PyObject *get_doc = PyObject_GetAttrString(get, "__doc__");
+        PyObject *getter_doc = getter_docstring(get);
 
-        if (get_doc)
+        if (getter_doc)
         {
             Py_XDECREF(doc);
-            doc = get_doc;
-        }
-        else
-        {
-            PyErr_Clear();
+            doc = getter_doc;
         }
     }
 
@@ -448,6 +445,15 @@ static PyObject *pyqtProperty_getter(PyObject *self, PyObject *getter)
             Py_INCREF(getter);
 
         pp->pyqtprop_get = getter;
+
+        // Use the getter's docstring if it has one.
+        PyObject *getter_doc = getter_docstring(getter);
+
+        if (getter_doc)
+        {
+            Py_XDECREF(pp->pyqtprop_doc);
+            pp->pyqtprop_doc = getter_doc;
+        }
     }
 
     return (PyObject *)pp;
@@ -560,4 +566,29 @@ static qpycore_pyqtProperty *clone(qpycore_pyqtProperty *orig)
     }
 
     return pp;
+}
+
+
+// Return the docstring of an optional getter or 0 if it doesn't have one.
+static PyObject *getter_docstring(PyObject *getter)
+{
+    // Handle the trivial case.
+    if (!getter)
+        return 0;
+
+    PyObject *getter_doc = PyObject_GetAttrString(getter, "__doc__");
+
+    if (!getter_doc)
+    {
+        PyErr_Clear();
+        return 0;
+    }
+
+    if (getter_doc == Py_None)
+    {
+        Py_DECREF(getter_doc);
+        return 0;
+    }
+
+    return getter_doc;
 }

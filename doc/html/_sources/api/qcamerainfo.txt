@@ -5,4 +5,4 @@ QCameraInfo
 
 .. class:: QCameraInfo
 
-    `C++ documentation <http://qt-project.org/doc/qt-5/qcamerainfo.html>`_
+    `C++ documentation <http://doc.qt.io/qt-5/qcamerainfo.html>`_

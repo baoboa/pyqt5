@@ -5,4 +5,4 @@ QPrintPreviewWidget
 
 .. class:: QPrintPreviewWidget
 
-    `C++ documentation <http://qt-project.org/doc/qt-5/qprintpreviewwidget.html>`_
+    `C++ documentation <http://doc.qt.io/qt-5/qprintpreviewwidget.html>`_

@@ -20,10 +20,6 @@
 // WARRANTY OF DESIGN, MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE.
 
 
-%ModuleCode
-#include <qrawfont.h>
-%End
-
 %If (PyQt_RawFont)
 
 class QRawFont

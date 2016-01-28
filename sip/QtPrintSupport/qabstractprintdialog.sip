@@ -20,10 +20,6 @@
 // WARRANTY OF DESIGN, MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE.
 
 
-%ModuleCode
-#include <qabstractprintdialog.h>
-%End
-
 %If (PyQt_Printer)
 
 class QAbstractPrintDialog : QDialog

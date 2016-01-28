@@ -5,4 +5,4 @@ QScrollArea
 
 .. class:: QScrollArea
 
-    `C++ documentation <http://qt-project.org/doc/qt-5/qscrollarea.html>`_
+    `C++ documentation <http://doc.qt.io/qt-5/qscrollarea.html>`_

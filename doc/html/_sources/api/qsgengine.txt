@@ -5,4 +5,4 @@ QSGEngine
 
 .. class:: QSGEngine
 
-    `C++ documentation <http://qt-project.org/doc/qt-5/qsgengine.html>`_
+    `C++ documentation <http://doc.qt.io/qt-5/qsgengine.html>`_

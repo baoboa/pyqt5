@@ -5,4 +5,4 @@ QFileInfo
 
 .. class:: QFileInfo
 
-    `C++ documentation <http://qt-project.org/doc/qt-5/qfileinfo.html>`_
+    `C++ documentation <http://doc.qt.io/qt-5/qfileinfo.html>`_

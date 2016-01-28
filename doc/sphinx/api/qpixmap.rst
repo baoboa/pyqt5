@@ -5,4 +5,4 @@ QPixmap
 
 .. class:: QPixmap
 
-    `C++ documentation <http://qt-project.org/doc/qt-5/qpixmap.html>`_
+    `C++ documentation <http://doc.qt.io/qt-5/qpixmap.html>`_

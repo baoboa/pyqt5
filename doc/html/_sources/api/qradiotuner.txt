@@ -5,4 +5,4 @@ QRadioTuner
 
 .. class:: QRadioTuner
 
-    `C++ documentation <http://qt-project.org/doc/qt-5/qradiotuner.html>`_
+    `C++ documentation <http://doc.qt.io/qt-5/qradiotuner.html>`_

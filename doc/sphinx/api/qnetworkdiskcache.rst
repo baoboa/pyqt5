@@ -5,4 +5,4 @@ QNetworkDiskCache
 
 .. class:: QNetworkDiskCache
 
-    `C++ documentation <http://qt-project.org/doc/qt-5/qnetworkdiskcache.html>`_
+    `C++ documentation <http://doc.qt.io/qt-5/qnetworkdiskcache.html>`_

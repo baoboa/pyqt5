@@ -181,12 +181,6 @@ class BirthdayParty(QObject):
     def guests(self):
         return QQmlListProperty(Person, self, self._guests)
 
-    def guestCount(self):
-        return len(self._guests)
-
-    def guest(self, idx):
-        return self._guests[idx]
-
 
 app = QCoreApplication(sys.argv)
 
@@ -213,9 +207,7 @@ if party is not None and party.host is not None:
     else:
         print("She is inviting:")
 
-    for ii in range(party.guestCount()):
-        guest = party.guest(ii)
-
+    for guest in party.guests:
         attached = qmlAttachedPropertiesObject(BirthdayParty, guest, False)
 
         if attached is not None:

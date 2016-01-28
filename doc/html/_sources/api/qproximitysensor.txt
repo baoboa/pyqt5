@@ -5,4 +5,4 @@ QProximitySensor
 
 .. class:: QProximitySensor
 
-    `C++ documentation <http://qt-project.org/doc/qt-5/qproximitysensor.html>`_
+    `C++ documentation <http://doc.qt.io/qt-5/qproximitysensor.html>`_

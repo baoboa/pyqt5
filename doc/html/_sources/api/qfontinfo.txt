@@ -5,4 +5,4 @@ QFontInfo
 
 .. class:: QFontInfo
 
-    `C++ documentation <http://qt-project.org/doc/qt-5/qfontinfo.html>`_
+    `C++ documentation <http://doc.qt.io/qt-5/qfontinfo.html>`_

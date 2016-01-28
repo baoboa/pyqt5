@@ -20,10 +20,6 @@
 // WARRANTY OF DESIGN, MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE.
 
 
-%ModuleCode
-#include <qqmlengine.h>
-%End
-
 class QQmlImageProviderBase /Supertype=sip.wrapper/
 {
 %TypeHeaderCode

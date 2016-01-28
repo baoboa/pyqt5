@@ -5,4 +5,4 @@ QAudioBuffer
 
 .. class:: QAudioBuffer
 
-    `C++ documentation <http://qt-project.org/doc/qt-5/qaudiobuffer.html>`_
+    `C++ documentation <http://doc.qt.io/qt-5/qaudiobuffer.html>`_

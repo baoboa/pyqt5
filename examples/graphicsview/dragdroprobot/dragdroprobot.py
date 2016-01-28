@@ -252,7 +252,7 @@ class Robot(RobotPart):
         for item, pos_x, pos_y, start_rot, end_rot, scale in settings: 
             item.setPos(pos_x, pos_y)
 
-            rot_animation = QPropertyAnimation(item, 'rotation')
+            rot_animation = QPropertyAnimation(item, b'rotation')
             rot_animation.setStartValue(start_rot)
             rot_animation.setEndValue(end_rot)
             rot_animation.setEasingCurve(QEasingCurve.SineCurve)
@@ -260,7 +260,7 @@ class Robot(RobotPart):
             animation.addAnimation(rot_animation)
 
             if scale > 0:
-                scale_animation = QPropertyAnimation(item, 'scale')
+                scale_animation = QPropertyAnimation(item, b'scale')
                 scale_animation.setEndValue(scale)
                 scale_animation.setEasingCurve(QEasingCurve.SineCurve)
                 scale_animation.setDuration(2000)

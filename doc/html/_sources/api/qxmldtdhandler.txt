@@ -5,4 +5,4 @@ QXmlDTDHandler
 
 .. class:: QXmlDTDHandler
 
-    `C++ documentation <http://qt-project.org/doc/qt-5/qxmldtdhandler.html>`_
+    `C++ documentation <http://doc.qt.io/qt-5/qxmldtdhandler.html>`_

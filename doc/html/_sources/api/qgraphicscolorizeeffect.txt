@@ -5,4 +5,4 @@ QGraphicsColorizeEffect
 
 .. class:: QGraphicsColorizeEffect
 
-    `C++ documentation <http://qt-project.org/doc/qt-5/qgraphicscolorizeeffect.html>`_
+    `C++ documentation <http://doc.qt.io/qt-5/qgraphicscolorizeeffect.html>`_
