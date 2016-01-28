@@ -5,4 +5,4 @@ QMimeDatabase
 
 .. class:: QMimeDatabase
 
-    `C++ documentation <http://qt-project.org/doc/qt-5/qmimedatabase.html>`_
+    `C++ documentation <http://doc.qt.io/qt-5/qmimedatabase.html>`_

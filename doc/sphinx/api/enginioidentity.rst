@@ -5,4 +5,4 @@ EnginioIdentity
 
 .. class:: EnginioIdentity
 
-    `C++ documentation <http://qt-project.org/doc/qt-5/enginioidentity.html>`_
+    `C++ documentation <http://doc.qt.io/qt-5/enginioidentity.html>`_

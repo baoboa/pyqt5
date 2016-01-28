@@ -5,4 +5,4 @@ QBluetoothDeviceInfo
 
 .. class:: QBluetoothDeviceInfo
 
-    `C++ documentation <http://qt-project.org/doc/qt-5/qbluetoothdeviceinfo.html>`_
+    `C++ documentation <http://doc.qt.io/qt-5/qbluetoothdeviceinfo.html>`_

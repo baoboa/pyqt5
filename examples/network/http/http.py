@@ -60,7 +60,7 @@ class HttpWindow(QDialog):
         self.httpGetId = 0
         self.httpRequestAborted = False
 
-        self.urlLineEdit = QLineEdit('https://qt-project.org')
+        self.urlLineEdit = QLineEdit('https://www.qt.io')
 
         urlLabel = QLabel("&URL:")
         urlLabel.setBuddy(self.urlLineEdit)
@@ -142,7 +142,8 @@ class HttpWindow(QDialog):
     def cancelDownload(self):
         self.statusLabel.setText("Download canceled.")
         self.httpRequestAborted = True
-        self.reply.abort()
+        if self.reply is not None:
+            self.reply.abort()
         self.downloadButton.setEnabled(True)
 
     def httpFinished(self):
@@ -169,7 +170,7 @@ class HttpWindow(QDialog):
                     "Download failed: %s." % self.reply.errorString())
             self.downloadButton.setEnabled(True)
         elif redirectionTarget is not None:
-            newUrl = self.url.resolved(redirectionTarget.toUrl())
+            newUrl = self.url.resolved(redirectionTarget)
 
             ret = QMessageBox.question(self, "HTTP",
                     "Redirect to %s?" % newUrl.toString(),

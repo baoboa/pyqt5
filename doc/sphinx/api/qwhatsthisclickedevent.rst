@@ -5,4 +5,4 @@ QWhatsThisClickedEvent
 
 .. class:: QWhatsThisClickedEvent
 
-    `C++ documentation <http://qt-project.org/doc/qt-5/qwhatsthisclickedevent.html>`_
+    `C++ documentation <http://doc.qt.io/qt-5/qwhatsthisclickedevent.html>`_

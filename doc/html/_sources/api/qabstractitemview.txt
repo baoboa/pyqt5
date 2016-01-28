@@ -5,4 +5,4 @@ QAbstractItemView
 
 .. class:: QAbstractItemView
 
-    `C++ documentation <http://qt-project.org/doc/qt-5/qabstractitemview.html>`_
+    `C++ documentation <http://doc.qt.io/qt-5/qabstractitemview.html>`_

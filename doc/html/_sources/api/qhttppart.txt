@@ -5,4 +5,4 @@ QHttpPart
 
 .. class:: QHttpPart
 
-    `C++ documentation <http://qt-project.org/doc/qt-5/qhttppart.html>`_
+    `C++ documentation <http://doc.qt.io/qt-5/qhttppart.html>`_

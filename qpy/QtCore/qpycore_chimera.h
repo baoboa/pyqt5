@@ -132,7 +132,7 @@ public:
             const char *context);
 
     // Raise an exception after parse() has failed.
-    static void raiseParseException(PyObject *type, const char *context);
+    static void raiseParseException(PyObject *type, const char *context = 0);
 
     class Storage
     {
@@ -269,7 +269,8 @@ private:
     bool to_QVariantHash(PyObject *py, QVariantHash &cpp) const;
     static bool add_variant_to_dict(PyObject *dict, const QString &key_ref,
             const QVariant &val_ref);
-    static void raiseParseException(const char *type, const char *context);
+    static void raiseParseCppException(const char *type,
+            const char *context = 0);
     static QVariant keep_as_pyobject(PyObject *py);
     static int extract_raw_type(const QByteArray &type, QByteArray &raw_type);
     static QByteArray resolve_types(const QByteArray &type);

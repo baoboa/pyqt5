@@ -5,4 +5,4 @@ QOpenGLContext
 
 .. class:: QOpenGLContext
 
-    `C++ documentation <http://qt-project.org/doc/qt-5/qopenglcontext.html>`_
+    `C++ documentation <http://doc.qt.io/qt-5/qopenglcontext.html>`_

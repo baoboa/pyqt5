@@ -5,4 +5,4 @@ QDate
 
 .. class:: QDate
 
-    `C++ documentation <http://qt-project.org/doc/qt-5/qdate.html>`_
+    `C++ documentation <http://doc.qt.io/qt-5/qdate.html>`_

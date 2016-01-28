@@ -5,4 +5,4 @@ QTextCursor
 
 .. class:: QTextCursor
 
-    `C++ documentation <http://qt-project.org/doc/qt-5/qtextcursor.html>`_
+    `C++ documentation <http://doc.qt.io/qt-5/qtextcursor.html>`_

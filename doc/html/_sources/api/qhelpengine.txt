@@ -5,4 +5,4 @@ QHelpEngine
 
 .. class:: QHelpEngine
 
-    `C++ documentation <http://qt-project.org/doc/qt-5/qhelpengine.html>`_
+    `C++ documentation <http://doc.qt.io/qt-5/qhelpengine.html>`_

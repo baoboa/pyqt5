@@ -5,4 +5,4 @@ QByteArray
 
 .. class:: QByteArray
 
-    `C++ documentation <http://qt-project.org/doc/qt-5/qbytearray.html>`_
+    `C++ documentation <http://doc.qt.io/qt-5/qbytearray.html>`_

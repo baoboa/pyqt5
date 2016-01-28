@@ -68,8 +68,8 @@ WARRANTY OF DESIGN, MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE.
 %Include qssl.sip
 %Include qsslcertificate.sip
 %Include qsslcertificateextension.sip
-%Include qsslconfiguration.sip
 %Include qsslcipher.sip
+%Include qsslconfiguration.sip
 %Include qsslellipticcurve.sip
 %Include qsslerror.sip
 %Include qsslkey.sip

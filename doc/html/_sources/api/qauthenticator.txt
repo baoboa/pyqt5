@@ -5,4 +5,4 @@ QAuthenticator
 
 .. class:: QAuthenticator
 
-    `C++ documentation <http://qt-project.org/doc/qt-5/qauthenticator.html>`_
+    `C++ documentation <http://doc.qt.io/qt-5/qauthenticator.html>`_

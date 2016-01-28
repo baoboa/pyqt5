@@ -134,8 +134,31 @@ Defining list-based properties in Python that can be updated from QML is done
 using the :class:`~PyQt5.QtQml.QQmlListProperty` class.  However the way it is
 used in Python is slightly different to the way it is used in C++.
 
-The following code fragment is taken from the ``chapter5-listproperties.py``
-example included with PyQt5::
+In the simple case :class:`~PyQt5.QtQml.QQmlListProperty` wraps a Python list
+that is usually an instance sttribute, for example::
+
+    class BirthdayParty(QObject):
+
+        def __init__(self, parent=None):
+            super().__init__(parent)
+
+            # The list which will be accessible from QML.
+            self._guests = []
+
+        @pyqtProperty(QQmlListProperty)
+        def guests(self):
+            return QQmlListProperty(Person, self, self._guests)
+
+QML can now manipulate the Python list of ``Person`` instances.
+:class:`~PyQt5.QtQml.QQmlListProperty` also acts as a proxy for the Python list
+so that the following can be written::
+
+    for guest in party.guests:
+        print("Guest:", guest.name)
+
+:class:`~PyQt5.QtQml.QQmlListProperty` can also be used to wrap a *virtual*
+list.  The following code fragment is taken from the
+``chapter5-listproperties.py`` example included with PyQt5::
 
     class PieChart(QQuickItem):
 

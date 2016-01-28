@@ -5,4 +5,4 @@ QAxWidget
 
 .. class:: QAxWidget
 
-    `C++ documentation <http://qt-project.org/doc/qt-5/qaxwidget.html>`_
+    `C++ documentation <http://doc.qt.io/qt-5/qaxwidget.html>`_

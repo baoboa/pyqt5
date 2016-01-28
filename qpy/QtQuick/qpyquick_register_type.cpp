@@ -19,6 +19,7 @@
 
 
 #include "qpyquick_register_type.h"
+#include "qpyquickframebufferobject.h"
 #include "qpyquickitem.h"
 #include "qpyquickpainteditem.h"
 
@@ -29,6 +30,11 @@ sipErrorState qpyquick_register_type(PyTypeObject *py_type,
         const QMetaObject *mo, const QByteArray &ptr_name,
         const QByteArray &list_name, QQmlPrivate::RegisterType **rtp)
 {
+#if QT_VERSION >= 0x050200
+    if (PyType_IsSubtype(py_type, sipTypeAsPyTypeObject(sipType_QQuickFramebufferObject)))
+        return ((*rtp = QPyQuickFramebufferObject::addType(py_type, mo, ptr_name, list_name)) ? sipErrorNone : sipErrorFail);
+#endif
+
     if (PyType_IsSubtype(py_type, sipTypeAsPyTypeObject(sipType_QQuickPaintedItem)))
         return ((*rtp = QPyQuickPaintedItem::addType(py_type, mo, ptr_name, list_name)) ? sipErrorNone : sipErrorFail);
 

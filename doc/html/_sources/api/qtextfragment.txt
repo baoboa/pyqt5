@@ -5,4 +5,4 @@ QTextFragment
 
 .. class:: QTextFragment
 
-    `C++ documentation <http://qt-project.org/doc/qt-5/qtextfragment.html>`_
+    `C++ documentation <http://doc.qt.io/qt-5/qtextfragment.html>`_

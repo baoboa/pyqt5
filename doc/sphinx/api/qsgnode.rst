@@ -5,4 +5,4 @@ QSGNode
 
 .. class:: QSGNode
 
-    `C++ documentation <http://qt-project.org/doc/qt-5/qsgnode.html>`_
+    `C++ documentation <http://doc.qt.io/qt-5/qsgnode.html>`_

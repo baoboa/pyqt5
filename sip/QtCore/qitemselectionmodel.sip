@@ -20,10 +20,6 @@
 // WARRANTY OF DESIGN, MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE.
 
 
-%ModuleCode
-#include <qitemselectionmodel.h>
-%End
-
 class QItemSelectionRange
 {
 %TypeHeaderCode

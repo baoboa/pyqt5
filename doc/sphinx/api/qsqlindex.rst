@@ -5,4 +5,4 @@ QSqlIndex
 
 .. class:: QSqlIndex
 
-    `C++ documentation <http://qt-project.org/doc/qt-5/qsqlindex.html>`_
+    `C++ documentation <http://doc.qt.io/qt-5/qsqlindex.html>`_

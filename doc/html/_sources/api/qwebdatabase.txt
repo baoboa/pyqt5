@@ -5,4 +5,4 @@ QWebDatabase
 
 .. class:: QWebDatabase
 
-    `C++ documentation <http://qt-project.org/doc/qt-5/qwebdatabase.html>`_
+    `C++ documentation <http://doc.qt.io/qt-5/qwebdatabase.html>`_

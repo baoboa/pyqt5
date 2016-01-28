@@ -5,4 +5,4 @@ QRegularExpressionValidator
 
 .. class:: QRegularExpressionValidator
 
-    `C++ documentation <http://qt-project.org/doc/qt-5/qregularexpressionvalidator.html>`_
+    `C++ documentation <http://doc.qt.io/qt-5/qregularexpressionvalidator.html>`_

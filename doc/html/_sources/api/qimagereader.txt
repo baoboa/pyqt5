@@ -5,4 +5,4 @@ QImageReader
 
 .. class:: QImageReader
 
-    `C++ documentation <http://qt-project.org/doc/qt-5/qimagereader.html>`_
+    `C++ documentation <http://doc.qt.io/qt-5/qimagereader.html>`_

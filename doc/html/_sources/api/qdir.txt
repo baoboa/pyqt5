@@ -5,4 +5,4 @@ QDir
 
 .. class:: QDir
 
-    `C++ documentation <http://qt-project.org/doc/qt-5/qdir.html>`_
+    `C++ documentation <http://doc.qt.io/qt-5/qdir.html>`_

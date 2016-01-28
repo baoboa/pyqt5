@@ -337,7 +337,7 @@ class Properties(object):
     _sizepolicy = needsWidget(_sizepolicy)
 
     # font needs special handling/conversion of all child elements.
-    _font_attributes = (("Family",          str),
+    _font_attributes = (("Family",          lambda s: s),
                         ("PointSize",       int),
                         ("Bold",            bool_),
                         ("Italic",          bool_),

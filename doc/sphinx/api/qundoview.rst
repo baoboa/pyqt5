@@ -5,4 +5,4 @@ QUndoView
 
 .. class:: QUndoView
 
-    `C++ documentation <http://qt-project.org/doc/qt-5/qundoview.html>`_
+    `C++ documentation <http://doc.qt.io/qt-5/qundoview.html>`_

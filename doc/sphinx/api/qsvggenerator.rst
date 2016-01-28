@@ -5,4 +5,4 @@ QSvgGenerator
 
 .. class:: QSvgGenerator
 
-    `C++ documentation <http://qt-project.org/doc/qt-5/qsvggenerator.html>`_
+    `C++ documentation <http://doc.qt.io/qt-5/qsvggenerator.html>`_

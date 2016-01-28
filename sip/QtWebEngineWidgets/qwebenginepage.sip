@@ -104,6 +104,9 @@ public:
     virtual bool event(QEvent *);
     void findText(const QString &subString, QFlags<QWebEnginePage::FindFlag> options = 0, SIP_PYCALLABLE resultCallback /AllowNone/ = 0);
 %MethodCode
+        // Make sure any callable doesn't get garbage collected.
+        Py_XINCREF(a2);
+        
         Py_BEGIN_ALLOW_THREADS
         
         sipCpp->findText(*a0, *a1, [a2](bool arg) {
@@ -113,7 +116,9 @@ public:
                 
                 PyObject *res;
         
-                res = sipCallMethod(NULL, a2, "b", (int)arg);
+                res = PyObject_CallFunctionObjArgs(a2, (arg ? Py_True : Py_False), NULL);
+        
+                Py_DECREF(a2);
         
                 if (!res)
                     pyqt5_qtwebenginewidgets_err_print();
@@ -134,6 +139,9 @@ public:
     void setContent(const QByteArray &data, const QString &mimeType = QString(), const QUrl &baseUrl = QUrl());
     void toHtml(SIP_PYCALLABLE resultCallback) const;
 %MethodCode
+        // Make sure the callable doesn't get garbage collected.
+        Py_INCREF(a0);
+        
         Py_BEGIN_ALLOW_THREADS
         
         sipCpp->toHtml([a0](const QString &arg) {
@@ -143,6 +151,8 @@ public:
         
             res = sipCallMethod(NULL, a0, "N", new QString(arg), sipType_QString, NULL);
         
+            Py_DECREF(a0);
+            
             if (!res)
                 pyqt5_qtwebenginewidgets_err_print();
             else
@@ -156,6 +166,9 @@ public:
 
     void toPlainText(SIP_PYCALLABLE resultCallback) const;
 %MethodCode
+        // Make sure the callable doesn't get garbage collected.
+        Py_INCREF(a0);
+        
         Py_BEGIN_ALLOW_THREADS
         
         sipCpp->toPlainText([a0](const QString &arg) {
@@ -165,6 +178,8 @@ public:
         
             res = sipCallMethod(NULL, a0, "N", new QString(arg), sipType_QString, NULL);
         
+            Py_DECREF(a0);
+            
             if (!res)
                 pyqt5_qtwebenginewidgets_err_print();
             else
@@ -186,6 +201,9 @@ public:
     void runJavaScript(const QString &scriptSource);
     void runJavaScript(const QString &scriptSource, SIP_PYCALLABLE resultCallback);
 %MethodCode
+        // Make sure the callable doesn't get garbage collected.
+        Py_INCREF(a1);
+        
         Py_BEGIN_ALLOW_THREADS
         
         sipCpp->runJavaScript(*a0, [a1](const QVariant &arg) {
@@ -194,6 +212,8 @@ public:
             PyObject *res;
         
             res = sipCallMethod(NULL, a1, "N", new QVariant(arg), sipType_QVariant, NULL);
+        
+            Py_DECREF(a1);
         
             if (!res)
                 pyqt5_qtwebenginewidgets_err_print();

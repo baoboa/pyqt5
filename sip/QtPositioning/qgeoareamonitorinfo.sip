@@ -21,12 +21,6 @@
 
 
 %If (Qt_5_2_0 -)
-%ModuleCode
-#include <qgeoareamonitorinfo.h>
-%End
-%End
-
-%If (Qt_5_2_0 -)
 
 class QGeoAreaMonitorInfo
 {

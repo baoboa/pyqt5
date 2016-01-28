@@ -57,8 +57,8 @@ public:
     QList<QQmlError> errors() const;
     qreal progress() const;
     QUrl url() const;
-    virtual QObject *create(QQmlContext *context = 0) /Factory/;
-    virtual QObject *beginCreate(QQmlContext *) /Factory/;
+    virtual QObject *create(QQmlContext *context = 0) /TransferBack/;
+    virtual QObject *beginCreate(QQmlContext *) /TransferBack/;
     virtual void completeCreate();
     void create(QQmlIncubator &, QQmlContext *context = 0, QQmlContext *forContext = 0);
     QQmlContext *creationContext() const;

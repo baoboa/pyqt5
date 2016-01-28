@@ -1,12 +1,341 @@
-2015-07-17  Phil Thompson  <phil@riverbankcomputing.com>
+2015-10-25  Phil Thompson  <phil@riverbankcomputing.com>
 
 	* .hgtags:
-	Added tag 5.5 for changeset fce525727ee2
-	[4f84a437e46b] [tip]
+	Added tag 5.5.1 for changeset ee08241be21f
+	[0659e00fc2ab] [tip] <5.5-maint>
 
-	* NEWS:
+	* NEWS, installers/PyQt5-Qt5-gpl.nsi:
+	Released as v5.5.1.
+	[ee08241be21f] [5.5.1] <5.5-maint>
+
+	* qpy/QtCore/qpycore_pyqtproperty.cpp:
+	Fixed the handling of getter docstrings by pyqtProperty.
+	[75fe5856da75] <5.5-maint>
+
+	* lib/configure.py:
+	Make sure configure.py enables debug flags early enough.
+	[71a413789681] <5.5-maint>
+
+2015-10-18  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* Makefile, PyQt5.msp, installers/PyQt5-Qt5-gpl.nsi,
+	qpy/QtCore/qsysinfo.sip:
+	Remainig updates for Qt v5.5.1.
+	[13f9ece29d02] <5.5-maint>
+
+2015-10-17  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* lib/configure.py:
+	The workaround for the Qt v5.5 rpath problem on OS X will now handle
+	Qt builds where any of QtPrintSupport, QtDBus or QtWidgets have been
+	disabled.
+	[aec0addf0acb] <5.5-maint>
+
+	* PyQt5.msp:
+	Updated from the initial scan of Qt v5.5.1.
+	[942ae18cf71c] <5.5-maint>
+
+2015-10-16  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* examples/network/http/http.py:
+	Another minor fix to http.py.
+	[0be6496d6bfe] <5.5-maint>
+
+	* examples/network/http/http.py:
+	Fixed a bug in the http.py example.
+	[e4609df54374] <5.5-maint>
+
+2015-09-22  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* PyQt5.msp:
+	Fixed ownership issues with QQuickFramebufferObject.Renderer.
+	[32c52859b93a] <5.5-maint>
+
+	* installers/BuildGPL.txt, installers/pyqt5-config.bat,
+	lib/configure.py, sphinx/installation.rst:
+	Added the --disable option to configure.py.
+	[992d1d3c2439] <5.5-maint>
+
+2015-09-19  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* qpy/QtCore/qpycore_qstring.cpp:
+	Don't assume unicode objects being converted to QStrings are ready.
+	[dd00723a6712] <5.5-maint>
+
+2015-09-18  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* PyQt5.msp:
+	Hopefully fixed the ownership of the object returned by
+	QQuickFramebufferObject.createRenderer().
+	[28175521934f] <5.5-maint>
+
+	* PyQt5.msp, qpy/QtQuick/qpyquick_register_type.cpp,
+	qpy/QtQuick/qpyquickframebufferobject.cpp,
+	qpy/QtQuick/qpyquickframebufferobject.h:
+	Handle a QQuickFramebufferObject in the same was as
+	QQuickPaintedItem.
+	[af9ef4c21748] <5.5-maint>
+
+	* pyuic/uic/properties.py:
+	Fixed pyuic's handling of non-ASCII font family names.
+	[cf72929c8d36] <5.5-maint>
+
+2015-09-10  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* PyQt5.msp:
+	Fixed all handwritten code that uses C++11 lambdas.
+	[5c39838726ef] <5.5-maint>
+
+	* Makefile, PyQt5.msp:
+	Improved some handwritten code.
+	[7bf4b1f25365] <5.5-maint>
+
+2015-09-09  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* build.py:
+	Updated the root URL for the Qt docs.
+	[c52056ca5ef2] <5.5-maint>
+
+2015-09-08  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* installers/BuildGPL.txt, installers/PyQt5-Qt5-gpl.nsi, installers
+	/psql-config.bat:
+	Updates to installers for Python v3.5.
+	[df9e3329a638] <5.5-maint>
+
+	* lib/configure.py:
+	Use win32-msvc2015 for Python v3.5.
+	[8ab07055894e] <5.5-maint>
+
+	* installers/BuildGPL.txt, installers/PyQt5-Qt5-gpl.nsi:
+	Installer updates for Python v3.5.
+	[bf1db67f03e7] <5.5-maint>
+
+	* PyQt5.msp:
+	Remainder of QMacCocoaViewContainer fix.
+	[06cf88343082] <5.5-maint>
+
+2015-09-07  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* lib/SubclassCode/QtWidgets.versions,
+	qpy/QtWidgets/qmaccocoaviewcontainer.sip:
+	QMacCocoaViewContainer is now feature dependent so that it can be
+	disabled for iOS.
+	[ee9b7b0e0576] <5.5-maint>
+
+2015-09-02  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* examples/animation/animatedtiles/animatedtiles.py,
+	examples/animation/appchooser/appchooser.py,
+	examples/animation/easing/easing.py,
+	examples/animation/moveblocks.py,
+	examples/animation/states/states.py,
+	examples/animation/stickman/stickman.py,
+	examples/graphicsview/dragdroprobot/dragdroprobot.py,
+	examples/graphicsview/padnavigator/padnavigator.py:
+	Fixed implicit conversions from strings to QByteArray in the
+	examples.
+	[03781fa3b27e] <5.5-maint>
+
+	* PyQt5.msp:
+	Implemented __matmul__ and __imatmul__ for QMatrix4x4 and
+	QTransform.
+	[f13ef1501dfb] <5.5-maint>
+
+2015-09-01  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* Makefile:
+	The internal build system now defaults to Python v3.5.
+	[514fd7675915] <5.5-maint>
+
+2015-08-28  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* README-PyQml.txt:
+	Added the README-PyQml.txt to document the state of the branch.
+	[626b6d11f93c] <PyQml>
+
+2015-08-27  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* PyQml/QtQml/__init__.py, PyQml/QtQml/v2_2/__init__.py,
+	PyQml/QtQml/v2_2/qtobject.py, PyQml/QtQuick/__init__.py,
+	PyQml/QtQuick/v2_5/__init__.py, PyQml/QtQuick/v2_5/item.py,
+	PyQml/QtQuick/v2_5/rectangle.py, PyQml/__init__.py,
+	PyQml/component.py, PyQml/properties.py,
+	examples/PyQml/properties.py:
+	Added minimal QtQml and QtQuick QML modules.
+	[8ab6fb1dbb3f] <PyQml>
+
+	* examples/qml/referenceexamples/attached.py,
+	examples/qml/referenceexamples/binding.py,
+	examples/qml/referenceexamples/coercion.py,
+	examples/qml/referenceexamples/default.py,
+	examples/qml/referenceexamples/grouped.py,
+	examples/qml/referenceexamples/methods.py,
+	examples/qml/referenceexamples/properties.py,
+	examples/qml/referenceexamples/signal.py,
+	examples/qml/referenceexamples/valuesource.py,
+	qpy/QtCore/qpycore_namespace.h, qpy/QtQml/qpyqml_post_init.cpp,
+	qpy/QtQml/qpyqmllistproperty.cpp, qpy/QtQml/qpyqmllistproperty.sip,
+	qpy/QtQml/qpyqmllistpropertywrapper.cpp,
+	qpy/QtQml/qpyqmllistpropertywrapper.h, sphinx/qml.rst:
+	QQmlListProperty now acts as a proxy for any underlying Python list.
+	[0118d626268a] <PyQml>
+
+2015-08-26  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* PyQt5.msp:
+	Applied a better fix than 56be1a87fd2c that doesn't break proxy
+	resolution.
+	[d4abeb2c9492] <PyQml>
+
+	* PyQml/__init__.py, PyQml/component.py, PyQml/meta_component.py,
+	PyQml/properties.py, examples/PyQml/properties.py:
+	All property types can now have initial values. PyQmlComponent.qml()
+	is now a class method.
+	[63fc6972574d] <PyQml>
+
+2015-08-25  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* PyQt5.msp:
+	Backed out 56be1a87fd2c because it breaks the proxy resolution.
+	[eeff9acbcf1c] <PyQml>
+
+	* PyQml/__init__.py, PyQml/component.py, PyQml/register_components.py,
+	examples/PyQml/properties.py:
+	Added support for __uri__ and __version__.
+	[a242c6cb3da4] <PyQml>
+
+	* Makefile, PyQml/__init__.py, PyQml/component.py,
+	PyQml/meta_component.py, PyQml/properties.py, PyQml/qml_types.py:
+	Completed the initial implementation of properties and the meta-
+	class.
+	[4f5dfbdfa7e3] <PyQml>
+
+	* PyQml/__init__.py, PyQml/component.py, PyQml/qml_types.py,
+	PyQml/register_components.py, examples/PyQml/properties.py:
+	Added stubs for the initial API.
+	[6b3aafdf0cfd] <PyQml>
+
+2015-08-24  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* PyQml/__init__.py, build.py, examples/PyQml/properties.py,
+	lib/configure.py:
+	Added the stub of the PyQml module.
+	[a8d40cffa7ba] <PyQml>
+
+2015-08-28  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* qpy/QtCore/qpycore_qobject_getattr.cpp:
+	Fixed a legacy comment.
+	[fc27a24424ee] <5.5-maint>
+
+2015-08-27  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* examples/qml/referenceexamples/attached.py,
+	examples/qml/referenceexamples/binding.py,
+	examples/qml/referenceexamples/coercion.py,
+	examples/qml/referenceexamples/default.py,
+	examples/qml/referenceexamples/grouped.py,
+	examples/qml/referenceexamples/methods.py,
+	examples/qml/referenceexamples/properties.py,
+	examples/qml/referenceexamples/signal.py,
+	examples/qml/referenceexamples/valuesource.py,
+	qpy/QtCore/qpycore_namespace.h, qpy/QtQml/qpyqml_post_init.cpp,
+	qpy/QtQml/qpyqmllistproperty.cpp, qpy/QtQml/qpyqmllistproperty.sip,
+	qpy/QtQml/qpyqmllistpropertywrapper.cpp,
+	qpy/QtQml/qpyqmllistpropertywrapper.h, sphinx/qml.rst:
+	QQmlListProperty now acts as a proxy for any underlying Python list.
+	[ffd5437ab83f] <5.5-maint>
+
+2015-08-26  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* PyQt5.msp:
+	Applied a better fix than 56be1a87fd2c that doesn't break proxy
+	resolution.
+	[e0fc4cba9b47] <5.5-maint>
+
+2015-08-25  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* PyQt5.msp:
+	Backed out 56be1a87fd2c because it breaks the proxy resolution.
+	[209dc1cc0ecc] <5.5-maint>
+
+2015-08-17  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* qpy/QtCore/qpycore_chimera.cpp:
+	Fixed the conversion of enums for Qt v5.5.
+	[698e32887e28] <5.5-maint>
+
+2015-08-12  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* PyQt5.msp:
+	Fixed a remaining OpenGL feature.
+	[02a5c02ddbcb] <5.5-maint>
+
+2015-08-11  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* qpy/QtCore/qpycore_chimera.cpp, qpy/QtCore/qpycore_chimera.h:
+	Fixed a missing exception when failing to parse types.
+	[fb938891400e] <5.5-maint>
+
+2015-08-10  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* PyQt5.msp, lib/SubclassCode/QtWidgets.versions:
+	Fixes for building against a Qt without OpenGL support.
+	[2bd297e85e66] <5.5-maint>
+
+2015-08-02  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* PyQt5.msp:
+	Fixed a leak in the handling of QQuickItem.updatePaintNode().
+	[8bfac6a28129] <5.5-maint>
+
+	* lib/configure.py:
+	Properly fix the different licensee values for the LGPL version of
+	Qt.
+	[45a7890b0823] <5.5-maint>
+
+	* PyQt5.msp:
+	Ensure that QtWebEngineWidgets is imported before a QCoreApplication
+	instance is created.
+	[a4041c1d6446] <5.5-maint>
+
+2015-07-23  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* examples/qtdemo/demoitemanimation.py:
+	Fixed an implicit coding bug in qtdemo.
+	[7ff58420e62e] <5.5-maint>
+
+2015-07-22  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* PyQt5.msp, lib/SubclassCode/QtCore.versions, lib/configure.py:
+	Changes needed because iOS doesn't have QProcess etc.
+	[4e482908fc36] <5.5-maint>
+
+	* lib/configure.py:
+	Interpret a licensee of "Builder Qt" as being the LGPL version.
+	[1327c48468e4] <5.5-maint>
+
+	* Merge the forgotten tagging of the v5.5 release.
+	[fec61fb57dc8] <5.5-maint>
+
+	* .hgtags:
+	Added tag 5.5 for changeset a4bf2ec86f1e
+	[9d7d3e5d6370]
+
+	* Makefile:
+	Updated the default target version.
+	[4e9e6b798220] <5.5-maint>
+
+	* PyQt5.msp:
+	Fixes for compiling against Qt builds without SSL support.
+	[a5cfb55177fc] <5.5-maint>
+
+2015-07-17  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* NEWS, installers/pyqt5-check.py:
 	Released as v5.5.
-	[fce525727ee2] [5.5]
+	[a4bf2ec86f1e] [5.5]
 
 	* lib/configure.py:
 	Tidied up the format of chenerated .pro files.

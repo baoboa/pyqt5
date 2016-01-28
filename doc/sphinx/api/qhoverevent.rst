@@ -5,4 +5,4 @@ QHoverEvent
 
 .. class:: QHoverEvent
 
-    `C++ documentation <http://qt-project.org/doc/qt-5/qhoverevent.html>`_
+    `C++ documentation <http://doc.qt.io/qt-5/qhoverevent.html>`_

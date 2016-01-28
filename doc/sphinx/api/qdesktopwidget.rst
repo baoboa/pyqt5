@@ -5,4 +5,4 @@ QDesktopWidget
 
 .. class:: QDesktopWidget
 
-    `C++ documentation <http://qt-project.org/doc/qt-5/qdesktopwidget.html>`_
+    `C++ documentation <http://doc.qt.io/qt-5/qdesktopwidget.html>`_

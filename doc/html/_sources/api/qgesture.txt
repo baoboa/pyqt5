@@ -5,4 +5,4 @@ QGesture
 
 .. class:: QGesture
 
-    `C++ documentation <http://qt-project.org/doc/qt-5/qgesture.html>`_
+    `C++ documentation <http://doc.qt.io/qt-5/qgesture.html>`_

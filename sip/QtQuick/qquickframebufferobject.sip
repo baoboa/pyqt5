@@ -22,14 +22,14 @@
 
 %If (Qt_5_2_0 -)
 
-class QQuickFramebufferObject : QQuickItem
+class QQuickFramebufferObject : QQuickItem /ExportDerived/
 {
 %TypeHeaderCode
 #include <qquickframebufferobject.h>
 %End
 
 public:
-    class Renderer
+    class Renderer /Supertype=sip.wrapper/
     {
 %TypeHeaderCode
 #include <qquickframebufferobject.h>

@@ -5,4 +5,4 @@ QCompass
 
 .. class:: QCompass
 
-    `C++ documentation <http://qt-project.org/doc/qt-5/qcompass.html>`_
+    `C++ documentation <http://doc.qt.io/qt-5/qcompass.html>`_

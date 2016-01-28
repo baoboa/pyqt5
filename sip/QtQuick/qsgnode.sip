@@ -20,10 +20,6 @@
 // WARRANTY OF DESIGN, MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE.
 
 
-%ModuleCode
-#include <qsgnode.h>
-%End
-
 class QSGNode /NoDefaultCtors,Supertype=sip.wrapper/
 {
 %TypeHeaderCode

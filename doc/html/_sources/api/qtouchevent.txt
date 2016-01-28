@@ -5,4 +5,4 @@ QTouchEvent
 
 .. class:: QTouchEvent
 
-    `C++ documentation <http://qt-project.org/doc/qt-5/qtouchevent.html>`_
+    `C++ documentation <http://doc.qt.io/qt-5/qtouchevent.html>`_

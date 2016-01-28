@@ -5,4 +5,4 @@ QDBusVariant
 
 .. class:: QDBusVariant
 
-    `C++ documentation <http://qt-project.org/doc/qt-5/qdbusvariant.html>`_
+    `C++ documentation <http://doc.qt.io/qt-5/qdbusvariant.html>`_

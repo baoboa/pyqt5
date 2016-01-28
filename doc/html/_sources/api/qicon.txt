@@ -5,4 +5,4 @@ QIcon
 
 .. class:: QIcon
 
-    `C++ documentation <http://qt-project.org/doc/qt-5/qicon.html>`_
+    `C++ documentation <http://doc.qt.io/qt-5/qicon.html>`_

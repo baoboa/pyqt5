@@ -5,4 +5,4 @@ QActionEvent
 
 .. class:: QActionEvent
 
-    `C++ documentation <http://qt-project.org/doc/qt-5/qactionevent.html>`_
+    `C++ documentation <http://doc.qt.io/qt-5/qactionevent.html>`_

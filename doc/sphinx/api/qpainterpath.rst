@@ -5,4 +5,4 @@ QPainterPath
 
 .. class:: QPainterPath
 
-    `C++ documentation <http://qt-project.org/doc/qt-5/qpainterpath.html>`_
+    `C++ documentation <http://doc.qt.io/qt-5/qpainterpath.html>`_

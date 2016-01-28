@@ -20,10 +20,6 @@
 // WARRANTY OF DESIGN, MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE.
 
 
-%ModuleCode
-#include <qtextcodec.h>
-%End
-
 class QTextCodec /Abstract,Supertype=sip.wrapper/
 {
 %TypeHeaderCode

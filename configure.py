@@ -28,9 +28,13 @@ import sys
 
 
 # Initialise the constants.
-PYQT_VERSION_STR = "5.5"
+PYQT_VERSION_STR = "5.5.1"
 
 SIP_MIN_VERSION = '4.16.6'
+
+# The different values QLibraryInfo::licensee() can return for the LGPL version
+# of Qt.
+OPEN_SOURCE_LICENSEES = ('Open Source', 'Builder Qt')
 
 
 class ModuleMetadata:
@@ -475,7 +479,9 @@ class TargetConfiguration:
 
         # The qmake spec we want to use.
         if self.py_platform == 'win32':
-            if self.py_version >= 0x030300:
+            if self.py_version >= 0x030500:
+                self.qmake_spec = 'win32-msvc2015'
+            elif self.py_version >= 0x030300:
                 self.qmake_spec = 'win32-msvc2010'
             elif self.py_version >= 0x020600:
                 self.qmake_spec = 'win32-msvc2008'
@@ -675,6 +681,10 @@ int main(int argc, char **argv)
 #endif
 #endif
 
+#if defined(QT_NO_PROCESS)
+    out << "PyQt_Process\\n";
+#endif
+
     return 0;
 }
 ''' % out_file
@@ -864,6 +874,9 @@ int main(int argc, char **argv)
         if opts.qmakespec is not None:
             self.qmake_spec = opts.qmakespec
 
+        if opts.debug:
+            self.debug = True
+
     def apply_post_options(self, opts):
         """ Apply options from the command line that override the previous
         configuration.  opts are the command line options.
@@ -874,9 +887,6 @@ int main(int argc, char **argv)
 
         if opts.bindir is not None:
             self.pyqt_bin_dir = opts.bindir
-
-        if opts.debug:
-            self.debug = True
 
         if opts.licensedir is not None:
             self.license_dir = opts.licensedir
@@ -1071,6 +1081,10 @@ def create_optparser(target_config):
     g.add_option("--spec", dest='qmakespec', default=None, action='store',
             metavar="SPEC",
             help="pass -spec SPEC to qmake [default: %s]" % "don't pass -spec" if target_config.qmake_spec == '' else target_config.qmake_spec)
+    g.add_option("--disable", dest='disabled_modules', default=[],
+            action='append', metavar="MODULE",
+            help="disable the specified MODULE [default: checks for all "
+                    "modules will be enabled]")
     g.add_option("--enable", "-e", dest='modules', default=[], action='append',
             metavar="MODULE",
             help="enable checks for the specified MODULE [default: checks for "
@@ -1213,88 +1227,92 @@ def create_optparser(target_config):
     return p
 
 
-def check_modules(target_config, verbose):
+def check_modules(target_config, disabled_modules, verbose):
     """ Check which modules can be built and update the target configuration
-    accordingly.  target_config is the target configuration.  verbose is set if
-    the output is to be displayed.
+    accordingly.  target_config is the target configuration.  disabled_modules
+    is the list of modules that have been explicitly disabled.  verbose is set
+    if the output is to be displayed.
     """
 
     target_config.pyqt_modules.append('QtCore')
 
-    check_module(target_config, verbose, 'QtGui', 'qfont.h', 'new QFont()')
-    check_module(target_config, verbose, 'QtHelp', 'qhelpengine.h',
-            'new QHelpEngine("foo")')
-    check_module(target_config, verbose, 'QtMultimedia', 'QAudioDeviceInfo',
-            'new QAudioDeviceInfo()')
-    check_module(target_config, verbose, 'QtMultimediaWidgets', 'QVideoWidget',
-            'new QVideoWidget()')
-    check_module(target_config, verbose, 'QtNetwork', 'qhostaddress.h',
-            'new QHostAddress()')
-    check_module(target_config, verbose, 'QtOpenGL', 'qgl.h',
+    check_module(target_config, disabled_modules, verbose, 'QtGui', 'qfont.h',
+            'new QFont()')
+    check_module(target_config, disabled_modules, verbose, 'QtHelp',
+            'qhelpengine.h', 'new QHelpEngine("foo")')
+    check_module(target_config, disabled_modules, verbose, 'QtMultimedia',
+            'QAudioDeviceInfo', 'new QAudioDeviceInfo()')
+    check_module(target_config, disabled_modules, verbose,
+            'QtMultimediaWidgets', 'QVideoWidget', 'new QVideoWidget()')
+    check_module(target_config, disabled_modules, verbose, 'QtNetwork',
+            'qhostaddress.h', 'new QHostAddress()')
+    check_module(target_config, disabled_modules, verbose, 'QtOpenGL', 'qgl.h',
             'new QGLWidget()')
-    check_module(target_config, verbose, 'QtPrintSupport', 'qprinter.h',
-            'new QPrinter()')
-    check_module(target_config, verbose, 'QtQml', 'qjsengine.h',
-            'new QJSEngine()')
-    check_module(target_config, verbose, 'QtQuick', 'qquickwindow.h',
-            'new QQuickWindow()')
-    check_module(target_config, verbose, 'QtSql', 'qsqldatabase.h',
-            'new QSqlDatabase()')
-    check_module(target_config, verbose, 'QtSvg', 'qsvgwidget.h',
-            'new QSvgWidget()')
-    check_module(target_config, verbose, 'QtTest', 'QtTest',
+    check_module(target_config, disabled_modules, verbose, 'QtPrintSupport',
+            'qprinter.h', 'new QPrinter()')
+    check_module(target_config, disabled_modules, verbose, 'QtQml',
+            'qjsengine.h', 'new QJSEngine()')
+    check_module(target_config, disabled_modules, verbose, 'QtQuick',
+            'qquickwindow.h', 'new QQuickWindow()')
+    check_module(target_config, disabled_modules, verbose, 'QtSql',
+            'qsqldatabase.h', 'new QSqlDatabase()')
+    check_module(target_config, disabled_modules, verbose, 'QtSvg',
+            'qsvgwidget.h', 'new QSvgWidget()')
+    check_module(target_config, disabled_modules, verbose, 'QtTest', 'QtTest',
             'QTest::qSleep(0)')
-    check_module(target_config, verbose, 'QtWebKit', 'qwebkitglobal.h',
-            'qWebKitVersion()')
-    check_module(target_config, verbose, 'QtWebKitWidgets', 'qwebpage.h',
-            'new QWebPage()')
-    check_module(target_config, verbose, 'QtWidgets', 'qwidget.h',
-            'new QWidget()')
-    check_module(target_config, verbose, 'QtXml', 'qdom.h',
+    check_module(target_config, disabled_modules, verbose, 'QtWebKit',
+            'qwebkitglobal.h', 'qWebKitVersion()')
+    check_module(target_config, disabled_modules, verbose, 'QtWebKitWidgets',
+            'qwebpage.h', 'new QWebPage()')
+    check_module(target_config, disabled_modules, verbose, 'QtWidgets',
+            'qwidget.h', 'new QWidget()')
+    check_module(target_config, disabled_modules, verbose, 'QtXml', 'qdom.h',
             'new QDomDocument()')
-    check_module(target_config, verbose, 'QtXmlPatterns', 'qxmlname.h',
-            'new QXmlName()')
+    check_module(target_config, disabled_modules, verbose, 'QtXmlPatterns',
+            'qxmlname.h', 'new QXmlName()')
 
     if target_config.qt_shared:
-        check_module(target_config, verbose, 'QtDesigner', 'QExtensionFactory',
-                'new QExtensionFactory()')
+        check_module(target_config, disabled_modules, verbose, 'QtDesigner',
+                'QExtensionFactory', 'new QExtensionFactory()')
     else:
         inform("QtDesigner module disabled with static Qt libraries.")
 
-    check_module(target_config, verbose, 'QAxContainer', 'qaxobject.h',
-            'new QAxObject()')
+    check_module(target_config, disabled_modules, verbose, 'QAxContainer',
+            'qaxobject.h', 'new QAxObject()')
 
-    check_module(target_config, verbose, 'QtDBus', 'qdbusconnection.h',
-            'QDBusConnection::systemBus()')
+    check_module(target_config, disabled_modules, verbose, 'QtDBus',
+            'qdbusconnection.h', 'QDBusConnection::systemBus()')
 
     if target_config.qt_version >= 0x050100:
-        check_5_1_modules(target_config, verbose)
+        check_5_1_modules(target_config, disabled_modules, verbose)
 
     if target_config.qt_version >= 0x050200:
-        check_5_2_modules(target_config, verbose)
+        check_5_2_modules(target_config, disabled_modules, verbose)
 
     if target_config.qt_version >= 0x050300:
-        check_5_3_modules(target_config, verbose)
+        check_5_3_modules(target_config, disabled_modules, verbose)
 
     if target_config.qt_version >= 0x050400:
-        check_5_4_modules(target_config, verbose)
+        check_5_4_modules(target_config, disabled_modules, verbose)
 
     if target_config.qt_version >= 0x050500:
-        check_5_5_modules(target_config, verbose)
+        check_5_5_modules(target_config, disabled_modules, verbose)
 
 
-def check_5_1_modules(target_config, verbose):
+def check_5_1_modules(target_config, disabled_modules, verbose):
     """ Check which modules introduced in Qt v5.1 can be built and update the
     target configuration accordingly.  target_config is the target
-    configuration.  verbose is set if the output is to be displayed.
+    configuration.  disabled_modules is the list of modules that have been
+    explicitly disabled.  verbose is set if the output is to be displayed.
     """
 
     # Check the OpenGL functions.
     if 'PyQt_OpenGL' in target_config.pyqt_disabled_features:
         pass
     elif 'PyQt_Desktop_OpenGL' in target_config.pyqt_disabled_features:
-        check_module(target_config, verbose, '_QOpenGLFunctions_ES2',
-                'qopenglfunctions_es2.h', 'new QOpenGLFunctions_ES2()')
+        check_module(target_config, disabled_modules, verbose,
+                '_QOpenGLFunctions_ES2', 'qopenglfunctions_es2.h',
+                'new QOpenGLFunctions_ES2()')
     else:
         desktop_versions = (
                 '1_0', '1_1', '1_2', '1_3', '1_4', '1_5',
@@ -1314,69 +1332,73 @@ def check_5_1_modules(target_config, verbose):
             ogl_h = 'qopenglfunctions_' + ogl.lower() + '.h'
             ogl_ctor = 'new QOpenGLFunctions_' + ogl + '()'
 
-            check_module(target_config, verbose, ogl_module, ogl_h, ogl_ctor)
+            check_module(target_config, disabled_modules, verbose, ogl_module,
+                    ogl_h, ogl_ctor)
 
-    check_module(target_config, verbose, 'QtSensors', 'qsensor.h',
-            'new QSensor(QByteArray())')
-    check_module(target_config, verbose, 'QtSerialPort', 'qserialport.h',
-            'new QSerialPort()')
-    check_module(target_config, verbose, 'QtX11Extras', 'QX11Info',
-            'QX11Info::display()')
+    check_module(target_config, disabled_modules, verbose, 'QtSensors',
+            'qsensor.h', 'new QSensor(QByteArray())')
+    check_module(target_config, disabled_modules, verbose, 'QtSerialPort',
+            'qserialport.h', 'new QSerialPort()')
+    check_module(target_config, disabled_modules, verbose, 'QtX11Extras',
+            'QX11Info', 'QX11Info::display()')
 
 
-def check_5_2_modules(target_config, verbose):
+def check_5_2_modules(target_config, disabled_modules, verbose):
     """ Check which modules introduced in Qt v5.2 can be built and update the
     target configuration accordingly.  target_config is the target
-    configuration.  verbose is set if the output is to be displayed.
+    configuration.  disabled_modules is the list of modules that have been
+    explicitly disabled.  verbose is set if the output is to be displayed.
     """
 
-    check_module(target_config, verbose, 'QtBluetooth', 'qbluetoothaddress.h',
-            'new QBluetoothAddress()')
-    check_module(target_config, verbose, 'QtMacExtras', 'qmacpasteboardmime.h',
-            'class Foo : public QMacPasteboardMime {}')
-    check_module(target_config, verbose, 'QtPositioning', 'qgeoaddress.h',
-            'new QGeoAddress()')
-    check_module(target_config, verbose, 'QtWinExtras', 'QtWin',
-            'QtWin::isCompositionEnabled()')
+    check_module(target_config, disabled_modules, verbose, 'QtBluetooth',
+            'qbluetoothaddress.h', 'new QBluetoothAddress()')
+    check_module(target_config, disabled_modules, verbose, 'QtMacExtras',
+            'qmacpasteboardmime.h', 'class Foo : public QMacPasteboardMime {}')
+    check_module(target_config, disabled_modules, verbose, 'QtPositioning',
+            'qgeoaddress.h', 'new QGeoAddress()')
+    check_module(target_config, disabled_modules, verbose, 'QtWinExtras',
+            'QtWin', 'QtWin::isCompositionEnabled()')
 
 
-def check_5_3_modules(target_config, verbose):
+def check_5_3_modules(target_config, disabled_modules, verbose):
     """ Check which modules introduced in Qt v5.3 can be built and update the
     target configuration accordingly.  target_config is the target
-    configuration.  verbose is set if the output is to be displayed.
+    configuration.  disabled_modules is the list of modules that have been
+    explicitly disabled.  verbose is set if the output is to be displayed.
     """
 
-    check_module(target_config, verbose, 'QtQuickWidgets', 'qquickwidget.h',
-            'new QQuickWidget()')
-    check_module(target_config, verbose, 'QtWebSockets', 'qwebsocket.h',
-            'new QWebSocket()')
-    check_module(target_config, verbose, 'Enginio', 'enginioclient.h',
-            'new EnginioClient()')
+    check_module(target_config, disabled_modules, verbose, 'QtQuickWidgets',
+            'qquickwidget.h', 'new QQuickWidget()')
+    check_module(target_config, disabled_modules, verbose, 'QtWebSockets',
+            'qwebsocket.h', 'new QWebSocket()')
+    check_module(target_config, disabled_modules, verbose, 'Enginio',
+            'enginioclient.h', 'new EnginioClient()')
 
 
-def check_5_4_modules(target_config, verbose):
+def check_5_4_modules(target_config, disabled_modules, verbose):
     """ Check which modules introduced in Qt v5.4 can be built and update the
     target configuration accordingly.  target_config is the target
-    configuration.  verbose is set if the output is to be displayed.
+    configuration.  disabled_modules is the list of modules that have been
+    explicitly disabled.  verbose is set if the output is to be displayed.
     """
 
-    check_module(target_config, verbose, 'QtWebChannel', 'qwebchannel.h',
-            'new QWebChannel()')
-    check_module(target_config, verbose, 'QtWebEngineWidgets',
-            'qwebengineview.h', 'new QWebEngineView()')
+    check_module(target_config, disabled_modules, verbose, 'QtWebChannel',
+            'qwebchannel.h', 'new QWebChannel()')
+    check_module(target_config, disabled_modules, verbose,
+            'QtWebEngineWidgets', 'qwebengineview.h', 'new QWebEngineView()')
 
 
-def check_5_5_modules(target_config, verbose):
+def check_5_5_modules(target_config, disabled_modules, verbose):
     """ Check which modules introduced in Qt v5.5 can be built and update the
     target configuration accordingly.  target_config is the target
-    configuration.  verbose is set if the output is to be displayed.
+    configuration.  disabled_modules is the list of modules that have been
+    explicitly disabled.  verbose is set if the output is to be displayed.
     """
 
-    check_module(target_config, verbose, 'QtLocation', 'qplace.h',
-            'new QPlace()')
-
-    check_module(target_config, verbose, 'QtNfc', 'qnearfieldmanager.h',
-            'new QNearFieldManager()')
+    check_module(target_config, disabled_modules, verbose, 'QtLocation',
+            'qplace.h', 'new QPlace()')
+    check_module(target_config, disabled_modules, verbose, 'QtNfc',
+            'qnearfieldmanager.h', 'new QNearFieldManager()')
 
 
 def generate_makefiles(target_config, verbose, no_timestamp, parts, tracing):
@@ -1758,7 +1780,7 @@ def inform_user(target_config, sip_version):
 
     if target_config.qt_licensee == '':
         detail = ''
-    elif target_config.qt_licensee == 'Open Source':
+    elif target_config.qt_licensee in OPEN_SOURCE_LICENSEES:
         detail = " (Open Source)"
     else:
         detail = " licensed to %s" % target_config.qt_licensee
@@ -2101,13 +2123,17 @@ def check_dbus(target_config, verbose):
         target_config.pydbus_module_dir = ''
 
 
-def check_module(target_config, verbose, mname, incfile, test):
+def check_module(target_config, disabled_modules, verbose, mname, incfile, test):
     """ See if a module can be built and, if so, add it to the target
     configurations list of modules.  target_config is the target configuration.
+    disabled_modules is the list of modules that have been explicitly disabled.
     verbose is set if the output is to be displayed.  mname is the name of the
     module.  incfile is the name of the include file needed for the test.  test
     is a C++ statement being used for the test.
     """
+
+    if mname in disabled_modules:
+        return
 
     # Check the module's main .sip file exists.
     if not os.access(source_path('sip', mname, mname + 'mod.sip'), os.F_OK):
@@ -2478,9 +2504,25 @@ win32 {
         pro_lines.append('LIBS += %s' % libs)
 
     if not target_config.static:
-        # Make sure these frameworks are already loaded by the time the
-        # libqcocoa.dylib plugin gets loaded.
-        extra_lflags = 'QMAKE_LFLAGS += "-framework QtPrintSupport -framework QtDBus -framework QtWidgets"\n        ' if mname == 'QtGui' else ''
+        # For Qt v5.5 and later, Make sure these frameworks are already loaded
+        # by the time the libqcocoa.dylib plugin gets loaded.  This problem is
+        # due to be fixed in Qt v5.6.
+        extra_lflags = ''
+
+        if mname == 'QtGui':
+            # Note that this workaround is flawed because it looks at the PyQt
+            # configuration rather than the Qt configuration.  It will fail if
+            # the user is building a PyQt without the QtDBus module against a
+            # Qt with the QtDBus library.  However it will be fine for the
+            # common case where the PyQt configuration reflects the Qt
+            # configuration.
+            fwks = []
+            for m in ('QtPrintSupport', 'QtDBus', 'QtWidgets'):
+                if m in target_config.pyqt_modules:
+                    fwks.append('-framework ' + m)
+
+            if len(fwks) != 0:
+                extra_lflags = 'QMAKE_LFLAGS += "%s"\n        ' % ' '.join(fwks)
 
         shared = '''
 win32 {
@@ -2588,7 +2630,7 @@ def check_license(target_config, license_confirmed, introspecting):
                             sys.platform))
 
     # Common checks.
-    if introspecting and target_config.qt_licensee != 'Open Source' and ltype == 'GPL':
+    if introspecting and target_config.qt_licensee not in OPEN_SOURCE_LICENSEES and ltype == 'GPL':
         error(
                 "This version of PyQt5 and the commercial version of Qt have "
                 "incompatible licenses.")
@@ -2797,7 +2839,7 @@ def main(argv):
 
     # Check which modules to build if we haven't been told.
     if len(target_config.pyqt_modules) == 0:
-        check_modules(target_config, opts.verbose)
+        check_modules(target_config, opts.disabled_modules, opts.verbose)
 
     check_dbus(target_config, opts.verbose)
 

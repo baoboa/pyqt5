@@ -5,4 +5,4 @@ QWebFrame
 
 .. class:: QWebFrame
 
-    `C++ documentation <http://qt-project.org/doc/qt-5/qwebframe.html>`_
+    `C++ documentation <http://doc.qt.io/qt-5/qwebframe.html>`_

@@ -5,4 +5,4 @@ QOrientationReading
 
 .. class:: QOrientationReading
 
-    `C++ documentation <http://qt-project.org/doc/qt-5/qorientationreading.html>`_
+    `C++ documentation <http://doc.qt.io/qt-5/qorientationreading.html>`_

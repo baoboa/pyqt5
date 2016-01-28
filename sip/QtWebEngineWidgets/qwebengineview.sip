@@ -88,6 +88,9 @@ public:
     void setZoomFactor(qreal factor);
     void findText(const QString &subString, QFlags<QWebEnginePage::FindFlag> options = 0, SIP_PYCALLABLE resultCallback /AllowNone/ = 0);
 %MethodCode
+        // Make sure any callable doesn't get garbage collected.
+        Py_XINCREF(a2);
+        
         Py_BEGIN_ALLOW_THREADS
         
         sipCpp->findText(*a0, *a1, [a2](bool arg) {
@@ -97,7 +100,9 @@ public:
                 
                 PyObject *res;
         
-                res = sipCallMethod(NULL, a2, "b", (int)arg);
+                res = PyObject_CallFunctionObjArgs(a2, (arg ? Py_True : Py_False), NULL);
+        
+                Py_DECREF(a2);
         
                 if (!res)
                     pyqt5_qtwebenginewidgets_err_print();
@@ -146,6 +151,21 @@ extern pyqt5_qtwebenginewidgets_err_print_t pyqt5_qtwebenginewidgets_err_print;
 %ModuleCode
 // Imports from QtCore.
 pyqt5_qtwebenginewidgets_err_print_t pyqt5_qtwebenginewidgets_err_print;
+
+// Needed by the %PreInitialisationCode.
+#include <QCoreApplication>
+%End
+
+%PreInitialisationCode
+// QtWebEngineWidgets uses Q_COREAPP_STARTUP_FUNCTION so, in order to make sure
+// things work (particularly on Windows) when we dynamically load the code, we
+// check things have been done in the right order.
+if (QCoreApplication::instance())
+{
+    PyErr_SetString(PyExc_ImportError,
+            "QtWebEngineWidgets must be imported before a QCoreApplication instance is created");
+    SIP_MODULE_RETURN(NULL);
+}
 %End
 
 %PostInitialisationCode

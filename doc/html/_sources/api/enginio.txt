@@ -5,4 +5,4 @@ Enginio
 
 .. class:: Enginio
 
-    `C++ documentation <http://qt-project.org/doc/qt-5/enginio.html>`_
+    `C++ documentation <http://doc.qt.io/qt-5/enginio.html>`_

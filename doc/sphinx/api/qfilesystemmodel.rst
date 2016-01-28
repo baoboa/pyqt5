@@ -5,4 +5,4 @@ QFileSystemModel
 
 .. class:: QFileSystemModel
 
-    `C++ documentation <http://qt-project.org/doc/qt-5/qfilesystemmodel.html>`_
+    `C++ documentation <http://doc.qt.io/qt-5/qfilesystemmodel.html>`_

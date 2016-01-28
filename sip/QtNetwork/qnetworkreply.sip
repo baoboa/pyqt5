@@ -105,7 +105,9 @@ signals:
     void metaDataChanged();
     void finished();
 %If (Qt_5_1_0 -)
+%If (PyQt_SSL)
     void encrypted();
+%End
 %End
     void error(QNetworkReply::NetworkError);
 %If (PyQt_SSL)
@@ -114,7 +116,9 @@ signals:
     void uploadProgress(qint64 bytesSent, qint64 bytesTotal);
     void downloadProgress(qint64 bytesReceived, qint64 bytesTotal);
 %If (Qt_5_5_0 -)
+%If (PyQt_SSL)
     void preSharedKeyAuthenticationRequired(QSslPreSharedKeyAuthenticator *authenticator);
+%End
 %End
 
 protected:

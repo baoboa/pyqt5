@@ -5,4 +5,4 @@ QExtensionManager
 
 .. class:: QExtensionManager
 
-    `C++ documentation <http://qt-project.org/doc/qt-5/qextensionmanager.html>`_
+    `C++ documentation <http://doc.qt.io/qt-5/qextensionmanager.html>`_

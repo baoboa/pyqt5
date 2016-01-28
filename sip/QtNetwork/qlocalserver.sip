@@ -20,10 +20,6 @@
 // WARRANTY OF DESIGN, MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE.
 
 
-%ModuleCode
-#include <qlocalserver.h>
-%End
-
 class QLocalServer : QObject
 {
 %TypeHeaderCode

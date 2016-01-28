@@ -5,4 +5,4 @@ QRegion
 
 .. class:: QRegion
 
-    `C++ documentation <http://qt-project.org/doc/qt-5/qregion.html>`_
+    `C++ documentation <http://doc.qt.io/qt-5/qregion.html>`_

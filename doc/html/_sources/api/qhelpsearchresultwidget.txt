@@ -5,4 +5,4 @@ QHelpSearchResultWidget
 
 .. class:: QHelpSearchResultWidget
 
-    `C++ documentation <http://qt-project.org/doc/qt-5/qhelpsearchresultwidget.html>`_
+    `C++ documentation <http://doc.qt.io/qt-5/qhelpsearchresultwidget.html>`_

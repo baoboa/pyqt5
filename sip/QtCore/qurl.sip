@@ -20,10 +20,6 @@
 // WARRANTY OF DESIGN, MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE.
 
 
-%ModuleCode
-#include <qurl.h>
-%End
-
 // Template definition for QUrlTwoFlags.
 template<E1, E2>
 class QUrlTwoFlags /PyQtFlags=0x1/

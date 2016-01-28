@@ -1,5 +1,5 @@
-// This ensure the Qt namespace macros are defined irrespective of the version
-// of Qt being used.
+// This ensures that the Qt namespace macros are defined irrespective of the
+// version of Qt being used.
 //
 // Copyright (c) 2015 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 

@@ -5,4 +5,4 @@ QCoreApplication
 
 .. class:: QCoreApplication
 
-    `C++ documentation <http://qt-project.org/doc/qt-5/qcoreapplication.html>`_
+    `C++ documentation <http://doc.qt.io/qt-5/qcoreapplication.html>`_

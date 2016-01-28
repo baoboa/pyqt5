@@ -5,4 +5,4 @@ QTapSensor
 
 .. class:: QTapSensor
 
-    `C++ documentation <http://qt-project.org/doc/qt-5/qtapsensor.html>`_
+    `C++ documentation <http://doc.qt.io/qt-5/qtapsensor.html>`_

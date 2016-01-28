@@ -5,4 +5,4 @@ QGeoSatelliteInfoSource
 
 .. class:: QGeoSatelliteInfoSource
 
-    `C++ documentation <http://qt-project.org/doc/qt-5/qgeosatelliteinfosource.html>`_
+    `C++ documentation <http://doc.qt.io/qt-5/qgeosatelliteinfosource.html>`_

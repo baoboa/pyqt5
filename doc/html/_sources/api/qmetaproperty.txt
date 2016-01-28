@@ -5,4 +5,4 @@ QMetaProperty
 
 .. class:: QMetaProperty
 
-    `C++ documentation <http://qt-project.org/doc/qt-5/qmetaproperty.html>`_
+    `C++ documentation <http://doc.qt.io/qt-5/qmetaproperty.html>`_

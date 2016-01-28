@@ -5,4 +5,4 @@ QAbstractGraphicsShapeItem
 
 .. class:: QAbstractGraphicsShapeItem
 
-    `C++ documentation <http://qt-project.org/doc/qt-5/qabstractgraphicsshapeitem.html>`_
+    `C++ documentation <http://doc.qt.io/qt-5/qabstractgraphicsshapeitem.html>`_

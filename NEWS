@@ -1,3 +1,8 @@
+v5.5.1 25th October 2015
+  - Added support for Qt v5.5.1.
+  - Added the --disable option to configure.py.
+  - Implemented __matmul__ and __imatmul__ for QMatrix4x4 and QTransform.
+
 v5.5 17th July 2015
   - Added full support for Qt v5.5.0.
   - Added the QtLocation module.

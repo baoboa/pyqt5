@@ -20,10 +20,6 @@
 // WARRANTY OF DESIGN, MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE.
 
 
-%ModuleCode
-#include <qlistwidget.h>
-%End
-
 class QListWidgetItem /Supertype=sip.wrapper/
 {
 %TypeHeaderCode

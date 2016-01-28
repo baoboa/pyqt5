@@ -5,4 +5,4 @@ QDnsMailExchangeRecord
 
 .. class:: QDnsMailExchangeRecord
 
-    `C++ documentation <http://qt-project.org/doc/qt-5/qdnsmailexchangerecord.html>`_
+    `C++ documentation <http://doc.qt.io/qt-5/qdnsmailexchangerecord.html>`_

@@ -19,22 +19,23 @@
 
 
 # These will change with different releases.
-!define PYQT_VERSION        "5.5"
+!define PYQT_VERSION        "5.5.1"
 !define PYQT_INSTALLER      ""
 #!define PYQT_INSTALLER      "-2"
 !define PYQT_LICENSE        "GPL"
 !define PYQT_LICENSE_LC     "gpl"
 !define PYQT_PYTHON_MAJOR   "3"
 !define PYQT_PYTHON_MINOR   "4"
-!define PYQT_ARCH           "x64"
-!define PYQT_QT_VERS        "5.5.0"
+!define PYQT_ARCH           "64"
+!define PYQT_QT_VERS        "5.5.1"
 !define PYQT_QT_DOC_VERS    "5"
 
 # These are all derived from the above.
 !define PYQT_PYTHON_DIR     "C:\Python${PYQT_PYTHON_MAJOR}${PYQT_PYTHON_MINOR}"
 !define PYQT_PYTHON_VERS    "${PYQT_PYTHON_MAJOR}.${PYQT_PYTHON_MINOR}"
 !define PYQT_PYTHON_HK      "Software\Python\PythonCore\${PYQT_PYTHON_VERS}\InstallPath"
-!define PYQT_NAME           "PyQt ${PYQT_LICENSE} v${PYQT_VERSION} for Python v${PYQT_PYTHON_VERS} (${PYQT_ARCH})"
+!define PYQT_PYTHON_HK_ARCH "Software\Python\PythonCore\${PYQT_PYTHON_VERS}-${PYQT_ARCH}\InstallPath"
+!define PYQT_NAME           "PyQt ${PYQT_LICENSE} v${PYQT_VERSION} for Python v${PYQT_PYTHON_VERS} (x${PYQT_ARCH})"
 !define PYQT_HK_ROOT        "Software\PyQt5\Py${PYQT_PYTHON_VERS}"
 !define PYQT_HK             "${PYQT_HK_ROOT}\InstallPath"
 !define PYQT4_HK            "Software\PyQt4\Py${PYQT_PYTHON_VERS}\InstallPath"
@@ -71,7 +72,7 @@ Click Next to continue."
 # Define the product name and installer executable.
 Name "PyQt"
 Caption "${PYQT_NAME} Setup"
-OutFile "PyQt5-${PYQT_VERSION}-${PYQT_LICENSE_LC}-Py${PYQT_PYTHON_MAJOR}.${PYQT_PYTHON_MINOR}-Qt${PYQT_QT_VERS}-${PYQT_ARCH}${PYQT_INSTALLER}.exe"
+OutFile "PyQt5-${PYQT_VERSION}-${PYQT_LICENSE_LC}-Py${PYQT_PYTHON_MAJOR}.${PYQT_PYTHON_MINOR}-Qt${PYQT_QT_VERS}-x${PYQT_ARCH}${PYQT_INSTALLER}.exe"
 
 
 # This is done (along with the use of SetShellVarContext) so that we can remove
@@ -94,7 +95,7 @@ SetCompressor /SOLID lzma
 !define MUI_ABORTWARNING
 
 Function .onInit
-    ${If} ${PYQT_ARCH} == "x64"
+    ${If} ${PYQT_ARCH} == "64"
         SetRegView 64
     ${Endif}
 
@@ -132,17 +133,26 @@ Uninstall:
         ExecWait '"$0\Lib\site-packages\PyQt5\Uninstall.exe" /S'
     ${Endif}
 
-    # Check the right version of Python has been installed.
+    # Check the right version of Python has been installed.  Different versions
+    # of Python use different formats for the version number.
     ReadRegStr $INSTDIR HKCU "${PYQT_PYTHON_HK}" ""
 
     ${If} $INSTDIR == ""
-        ReadRegStr $INSTDIR HKLM "${PYQT_PYTHON_HK}" ""
+        ReadRegStr $INSTDIR HKCU "${PYQT_PYTHON_HK_ARCH}" ""
+
+        ${If} $INSTDIR == ""
+            ReadRegStr $INSTDIR HKLM "${PYQT_PYTHON_HK}" ""
+
+            ${If} $INSTDIR == ""
+                ReadRegStr $INSTDIR HKLM "${PYQT_PYTHON_HK_ARCH}" ""
+            ${Endif}
+        ${Endif}
     ${Endif}
 
     ${If} $INSTDIR == ""
         MessageBox MB_YESNO|MB_ICONQUESTION \
 "This copy of PyQt has been built against Python v${PYQT_PYTHON_VERS} \
-(${PYQT_ARCH}) which doesn't seem to be installed.$\r$\n\
+(x${PYQT_ARCH}) which doesn't seem to be installed.$\r$\n\
 $\r$\n\
 Do you wish to continue with the installation?" IDYES GotPython
             Abort
@@ -288,9 +298,9 @@ Section "Qt runtime" SecQt
     File "${QT_SRC_DIR}\bin\libEGL.dll"
     File "${QT_SRC_DIR}\bin\libGLESv2.dll"
 
-    File "${ICU_SRC_DIR}\bin\icudt53.dll"
-    File "${ICU_SRC_DIR}\bin\icuin53.dll"
-    File "${ICU_SRC_DIR}\bin\icuuc53.dll"
+    File "${ICU_SRC_DIR}\bin\icudt55.dll"
+    File "${ICU_SRC_DIR}\bin\icuin55.dll"
+    File "${ICU_SRC_DIR}\bin\icuuc55.dll"
 
     File "${OPENSSL_SRC_DIR}\bin\libeay32.dll"
     File "${OPENSSL_SRC_DIR}\bin\ssleay32.dll"
@@ -550,7 +560,7 @@ SectionEnd
 
 
 Function un.onInit
-    ${If} ${PYQT_ARCH} == "x64"
+    ${If} ${PYQT_ARCH} == "64"
         SetRegView 64
     ${Endif}
 
@@ -565,11 +575,20 @@ Function un.onInit
             ReadRegStr $INSTDIR HKCU "${PYQT_PYTHON_HK}" ""
 
             ${If} $INSTDIR == ""
-                ReadRegStr $INSTDIR HKLM "${PYQT_PYTHON_HK}" ""
+                ReadRegStr $INSTDIR HKCU "${PYQT_PYTHON_HK_ARCH}" ""
 
-                ${If} $INSTDIR != ""
-                    # Default to where Python should be installed.
-                    StrCpy $INSTDIR "${PYQT_PYTHON_DIR}\"
+                ${If} $INSTDIR == ""
+                    ReadRegStr $INSTDIR HKLM "${PYQT_PYTHON_HK}" ""
+
+                    ${If} $INSTDIR != ""
+                        ReadRegStr $INSTDIR HKLM "${PYQT_PYTHON_HK_ARCH}" ""
+
+                        ${If} $INSTDIR != ""
+                            # Default to where Python should be installed (at
+                            # least prior to v3.5).
+                            StrCpy $INSTDIR "${PYQT_PYTHON_DIR}\"
+                        ${Endif}
+                    ${Endif}
                 ${Endif}
             ${Endif}
         ${Endif}

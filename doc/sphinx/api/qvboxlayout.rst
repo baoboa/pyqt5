@@ -5,4 +5,4 @@ QVBoxLayout
 
 .. class:: QVBoxLayout
 
-    `C++ documentation <http://qt-project.org/doc/qt-5/qvboxlayout.html>`_
+    `C++ documentation <http://doc.qt.io/qt-5/qvboxlayout.html>`_

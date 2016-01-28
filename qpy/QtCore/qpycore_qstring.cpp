@@ -162,6 +162,9 @@ PyObject *qpycore_PyObject_FromQString(const QString &qstr)
 QString qpycore_PyObject_AsQString(PyObject *obj)
 {
 #if defined(PYQT_PEP_393)
+    if (PyUnicode_READY(obj) < 0)
+        return QString();
+
     SIP_SSIZE_T len = PyUnicode_GET_LENGTH(obj);
 
     switch (PyUnicode_KIND(obj))

@@ -5,4 +5,4 @@ QAbstractItemModel
 
 .. class:: QAbstractItemModel
 
-    `C++ documentation <http://qt-project.org/doc/qt-5/qabstractitemmodel.html>`_
+    `C++ documentation <http://doc.qt.io/qt-5/qabstractitemmodel.html>`_

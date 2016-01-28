@@ -5,4 +5,4 @@ QDBusPendingCallWatcher
 
 .. class:: QDBusPendingCallWatcher
 
-    `C++ documentation <http://qt-project.org/doc/qt-5/qdbuspendingcallwatcher.html>`_
+    `C++ documentation <http://doc.qt.io/qt-5/qdbuspendingcallwatcher.html>`_

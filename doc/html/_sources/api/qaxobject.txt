@@ -5,4 +5,4 @@ QAxObject
 
 .. class:: QAxObject
 
-    `C++ documentation <http://qt-project.org/doc/qt-5/qaxobject.html>`_
+    `C++ documentation <http://doc.qt.io/qt-5/qaxobject.html>`_

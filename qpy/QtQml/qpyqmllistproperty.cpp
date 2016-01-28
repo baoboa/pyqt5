@@ -24,6 +24,7 @@
 #include <QQmlListProperty>
 
 #include "qpyqmllistproperty.h"
+#include "qpyqmllistpropertywrapper.h"
 #include "qpyqml_listdata.h"
 
 #include "sipAPIQtQml.h"
@@ -158,10 +159,9 @@ static PyObject *QQmlListProperty_call(PyObject *, PyObject *args,
     ListData *list_data = new ListData(py_type, py_obj, py_list, py_append,
             py_count, py_at, py_clear, obj);
 
-    // Create the C++ QDeclarativeListProperty<QObject> with the list data as
-    // the data.  Note that we will create a new one each time the property
-    // getter is called - however, under normal usage, this should only be
-    // once.  Also note that the callables will not be reached by the garbage
+    // Create the C++ QQmlListProperty<QObject> with the list data as the data.
+    // Note that we will create a new one each time the property getter is
+    // called.  Also note that the callables will not be reached by the garbage
     // collector.
     QQmlListProperty<QObject> *prop = new QQmlListProperty<QObject>(obj,
             list_data, ((py_list || py_append) ? list_append : 0),
@@ -170,15 +170,7 @@ static PyObject *QQmlListProperty_call(PyObject *, PyObject *args,
             ((py_list || py_clear) ? list_clear : 0));
 
     // Convert it to a Python object.
-    static const sipTypeDef *mapped_type = 0;
-
-    if (!mapped_type)
-        mapped_type = sipFindType("QQmlListProperty<QObject>");
-
-    Q_ASSERT(mapped_type);
-
-    // Make sure ownership is with Python.
-    PyObject *prop_obj = sipConvertFromNewType(prop, mapped_type, py_obj);
+    PyObject *prop_obj = qpyqml_QQmlListPropertyWrapper_New(prop, py_list);
 
     if (!prop_obj)
     {

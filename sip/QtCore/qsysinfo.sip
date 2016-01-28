@@ -57,6 +57,9 @@ public:
 %If (Qt_5_4_0 -)
         MV_10_10,
 %End
+%If (Qt_5_5_0 -)
+        MV_10_11,
+%End
         MV_CHEETAH,
         MV_PUMA,
         MV_JAGUAR,
@@ -72,6 +75,9 @@ public:
 %If (Qt_5_4_0 -)
         MV_YOSEMITE,
 %End
+%If (Qt_5_5_0 -)
+        MV_ELCAPITAN,
+%End
 
 %If (Qt_5_2_0 -)
         MV_IOS,
@@ -85,6 +91,13 @@ public:
 %End
 %If (Qt_5_4_0 -)
         MV_IOS_8_0,
+%End
+%If (Qt_5_5_0 -)
+        MV_IOS_8_1,
+        MV_IOS_8_2,
+        MV_IOS_8_3,
+        MV_IOS_8_4,
+        MV_IOS_9_0,
 %End
     };
 
@@ -110,6 +123,9 @@ public:
 %If (Qt_5_2_0 -)
         WV_WINDOWS8_1,
 %End
+%If (Qt_5_5_0 -)
+        WV_WINDOWS10,
+%End
         WV_NT_based,
 
         WV_4_0,
@@ -121,6 +137,9 @@ public:
         WV_6_2,
 %If (Qt_5_2_0 -)
         WV_6_3,
+%End
+%If (Qt_5_5_0 -)
+        WV_10_0,
 %End
 
         WV_CE,

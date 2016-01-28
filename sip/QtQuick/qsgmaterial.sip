@@ -20,10 +20,6 @@
 // WARRANTY OF DESIGN, MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE.
 
 
-%ModuleCode
-#include <qsgmaterial.h>
-%End
-
 class QSGMaterialShader /Supertype=sip.wrapper/
 {
 %TypeHeaderCode

@@ -5,4 +5,4 @@ QXmlStreamAttributes
 
 .. class:: QXmlStreamAttributes
 
-    `C++ documentation <http://qt-project.org/doc/qt-5/qxmlstreamattributes.html>`_
+    `C++ documentation <http://doc.qt.io/qt-5/qxmlstreamattributes.html>`_

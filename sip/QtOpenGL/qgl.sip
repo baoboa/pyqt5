@@ -20,10 +20,6 @@
 // WARRANTY OF DESIGN, MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE.
 
 
-%ModuleCode
-#include <qgl.h>
-%End
-
 %If (PyQt_OpenGL)
 
 namespace QGL

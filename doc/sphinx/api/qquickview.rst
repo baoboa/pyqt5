@@ -5,4 +5,4 @@ QQuickView
 
 .. class:: QQuickView
 
-    `C++ documentation <http://qt-project.org/doc/qt-5/qquickview.html>`_
+    `C++ documentation <http://doc.qt.io/qt-5/qquickview.html>`_

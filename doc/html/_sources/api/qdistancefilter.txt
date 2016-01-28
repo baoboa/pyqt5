@@ -5,4 +5,4 @@ QDistanceFilter
 
 .. class:: QDistanceFilter
 
-    `C++ documentation <http://qt-project.org/doc/qt-5/qdistancefilter.html>`_
+    `C++ documentation <http://doc.qt.io/qt-5/qdistancefilter.html>`_

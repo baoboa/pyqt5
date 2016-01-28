@@ -20,10 +20,6 @@
 // WARRANTY OF DESIGN, MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE.
 
 
-%ModuleCode
-#include <qgesturerecognizer.h>
-%End
-
 class QGestureRecognizer /Supertype=sip.wrapper/
 {
 %TypeHeaderCode

@@ -21,12 +21,6 @@
 
 
 %If (Qt_5_3_0 -)
-%ModuleCode
-#include <qpagesize.h>
-%End
-%End
-
-%If (Qt_5_3_0 -)
 
 class QPageSize
 {

@@ -20,10 +20,6 @@
 // WARRANTY OF DESIGN, MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE.
 
 
-%ModuleCode
-#include <qfontcombobox.h>
-%End
-
 class QFontComboBox : QComboBox
 {
 %TypeHeaderCode

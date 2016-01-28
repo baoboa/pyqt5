@@ -5,4 +5,4 @@ QMarginsF
 
 .. class:: QMarginsF
 
-    `C++ documentation <http://qt-project.org/doc/qt-5/qmarginsf.html>`_
+    `C++ documentation <http://doc.qt.io/qt-5/qmarginsf.html>`_

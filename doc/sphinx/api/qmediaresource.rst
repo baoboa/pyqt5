@@ -5,4 +5,4 @@ QMediaResource
 
 .. class:: QMediaResource
 
-    `C++ documentation <http://qt-project.org/doc/qt-5/qmediaresource.html>`_
+    `C++ documentation <http://doc.qt.io/qt-5/qmediaresource.html>`_

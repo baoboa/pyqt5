@@ -5,4 +5,4 @@ QStyleHintReturnVariant
 
 .. class:: QStyleHintReturnVariant
 
-    `C++ documentation <http://qt-project.org/doc/qt-5/qstylehintreturnvariant.html>`_
+    `C++ documentation <http://doc.qt.io/qt-5/qstylehintreturnvariant.html>`_

@@ -5,4 +5,4 @@ QWinThumbnailToolButton
 
 .. class:: QWinThumbnailToolButton
 
-    `C++ documentation <http://qt-project.org/doc/qt-5/qwinthumbnailtoolbutton.html>`_
+    `C++ documentation <http://doc.qt.io/qt-5/qwinthumbnailtoolbutton.html>`_

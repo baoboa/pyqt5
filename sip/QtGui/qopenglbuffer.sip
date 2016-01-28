@@ -20,10 +20,6 @@
 // WARRANTY OF DESIGN, MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE.
 
 
-%ModuleCode
-#include <qopenglbuffer.h>
-%End
-
 %If (PyQt_OpenGL)
 
 class QOpenGLBuffer
@@ -106,5 +102,7 @@ public:
 
 %End
 %If (Qt_5_4_0 -)
+%If (PyQt_OpenGL)
 QFlags<QOpenGLBuffer::RangeAccessFlag> operator|(QOpenGLBuffer::RangeAccessFlag f1, QFlags<QOpenGLBuffer::RangeAccessFlag> f2);
+%End
 %End

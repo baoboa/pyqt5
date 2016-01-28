@@ -5,4 +5,4 @@ QDomImplementation
 
 .. class:: QDomImplementation
 
-    `C++ documentation <http://qt-project.org/doc/qt-5/qdomimplementation.html>`_
+    `C++ documentation <http://doc.qt.io/qt-5/qdomimplementation.html>`_

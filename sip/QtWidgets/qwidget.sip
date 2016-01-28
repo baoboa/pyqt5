@@ -20,10 +20,6 @@
 // WARRANTY OF DESIGN, MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE.
 
 
-%ModuleCode
-#include <qwidget.h>
-%End
-
 const int QWIDGETSIZE_MAX;
 
 class QWidget : QObject, QPaintDevice

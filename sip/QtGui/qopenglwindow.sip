@@ -21,6 +21,7 @@
 
 
 %If (Qt_5_4_0 -)
+%If (PyQt_OpenGL)
 
 class QOpenGLWindow : QPaintDeviceWindow
 {
@@ -71,4 +72,5 @@ private:
     QOpenGLWindow(const QOpenGLWindow &);
 };
 
+%End
 %End

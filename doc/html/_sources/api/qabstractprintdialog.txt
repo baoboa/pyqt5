@@ -5,4 +5,4 @@ QAbstractPrintDialog
 
 .. class:: QAbstractPrintDialog
 
-    `C++ documentation <http://qt-project.org/doc/qt-5/qabstractprintdialog.html>`_
+    `C++ documentation <http://doc.qt.io/qt-5/qabstractprintdialog.html>`_

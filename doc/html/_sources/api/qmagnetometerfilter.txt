@@ -5,4 +5,4 @@ QMagnetometerFilter
 
 .. class:: QMagnetometerFilter
 
-    `C++ documentation <http://qt-project.org/doc/qt-5/qmagnetometerfilter.html>`_
+    `C++ documentation <http://doc.qt.io/qt-5/qmagnetometerfilter.html>`_

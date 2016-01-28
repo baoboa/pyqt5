@@ -5,4 +5,4 @@ QQuickTextureFactory
 
 .. class:: QQuickTextureFactory
 
-    `C++ documentation <http://qt-project.org/doc/qt-5/qquicktexturefactory.html>`_
+    `C++ documentation <http://doc.qt.io/qt-5/qquicktexturefactory.html>`_

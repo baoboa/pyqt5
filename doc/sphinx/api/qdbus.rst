@@ -5,4 +5,4 @@ QDBus
 
 .. class:: QDBus
 
-    `C++ documentation <http://qt-project.org/doc/qt-5/qdbus.html>`_
+    `C++ documentation <http://doc.qt.io/qt-5/qdbus.html>`_

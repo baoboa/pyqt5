@@ -5,4 +5,4 @@ QHolsterReading
 
 .. class:: QHolsterReading
 
-    `C++ documentation <http://qt-project.org/doc/qt-5/qholsterreading.html>`_
+    `C++ documentation <http://doc.qt.io/qt-5/qholsterreading.html>`_

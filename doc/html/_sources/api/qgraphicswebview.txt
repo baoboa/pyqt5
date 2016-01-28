@@ -5,4 +5,4 @@ QGraphicsWebView
 
 .. class:: QGraphicsWebView
 
-    `C++ documentation <http://qt-project.org/doc/qt-5/qgraphicswebview.html>`_
+    `C++ documentation <http://doc.qt.io/qt-5/qgraphicswebview.html>`_

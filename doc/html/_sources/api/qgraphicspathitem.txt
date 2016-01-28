@@ -5,4 +5,4 @@ QGraphicsPathItem
 
 .. class:: QGraphicsPathItem
 
-    `C++ documentation <http://qt-project.org/doc/qt-5/qgraphicspathitem.html>`_
+    `C++ documentation <http://doc.qt.io/qt-5/qgraphicspathitem.html>`_

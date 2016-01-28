@@ -5,4 +5,4 @@ QPdfWriter
 
 .. class:: QPdfWriter
 
-    `C++ documentation <http://qt-project.org/doc/qt-5/qpdfwriter.html>`_
+    `C++ documentation <http://doc.qt.io/qt-5/qpdfwriter.html>`_

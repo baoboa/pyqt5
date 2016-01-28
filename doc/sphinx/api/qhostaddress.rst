@@ -5,4 +5,4 @@ QHostAddress
 
 .. class:: QHostAddress
 
-    `C++ documentation <http://qt-project.org/doc/qt-5/qhostaddress.html>`_
+    `C++ documentation <http://doc.qt.io/qt-5/qhostaddress.html>`_

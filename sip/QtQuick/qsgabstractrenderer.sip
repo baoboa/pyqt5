@@ -21,12 +21,6 @@
 
 
 %If (Qt_5_4_0 -)
-%ModuleCode
-#include <qsgabstractrenderer.h>
-%End
-%End
-
-%If (Qt_5_4_0 -)
 
 class QSGAbstractRenderer : QObject /NoDefaultCtors/
 {

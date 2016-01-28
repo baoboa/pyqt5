@@ -21,11 +21,16 @@
 
 
 %If (WS_WIN)
+%If (PyQt_Process)
 typedef void *Q_PID;
 %End
+%End
 %If (WS_X11 || WS_MACX)
+%If (PyQt_Process)
 typedef qint64 Q_PID;
 %End
+%End
+%If (PyQt_Process)
 
 class QProcess : QIODevice
 {
@@ -214,6 +219,9 @@ private:
     QProcess(const QProcess &);
 };
 
+%End
+%If (PyQt_Process)
+
 class QProcessEnvironment
 {
 %TypeHeaderCode
@@ -238,3 +246,5 @@ public:
     QStringList keys() const;
     void swap(QProcessEnvironment &other);
 };
+
+%End

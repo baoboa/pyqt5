@@ -5,4 +5,4 @@ QQmlImageProviderBase
 
 .. class:: QQmlImageProviderBase
 
-    `C++ documentation <http://qt-project.org/doc/qt-5/qqmlimageproviderbase.html>`_
+    `C++ documentation <http://doc.qt.io/qt-5/qqmlimageproviderbase.html>`_

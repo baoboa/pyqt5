@@ -5,4 +5,4 @@ QVideoProbe
 
 .. class:: QVideoProbe
 
-    `C++ documentation <http://qt-project.org/doc/qt-5/qvideoprobe.html>`_
+    `C++ documentation <http://doc.qt.io/qt-5/qvideoprobe.html>`_

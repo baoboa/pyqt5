@@ -511,7 +511,7 @@ class LifeCycle(object):
         stickManNodeCount = self.m_stickMan.nodeCount()
         self._pas = []
         for i in range(stickManNodeCount):
-            pa = QPropertyAnimation(self.m_stickMan.node(i), 'pos')
+            pa = QPropertyAnimation(self.m_stickMan.node(i), b'pos')
             self._pas.append(pa)
             self.m_animationGroup.addAnimation(pa)
 

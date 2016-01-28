@@ -5,4 +5,4 @@ QTextObjectInterface
 
 .. class:: QTextObjectInterface
 
-    `C++ documentation <http://qt-project.org/doc/qt-5/qtextobjectinterface.html>`_
+    `C++ documentation <http://doc.qt.io/qt-5/qtextobjectinterface.html>`_

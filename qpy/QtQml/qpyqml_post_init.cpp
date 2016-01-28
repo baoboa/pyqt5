@@ -22,6 +22,7 @@
 
 #include "qpyqml_api.h"
 #include "qpyqmllistproperty.h"
+#include "qpyqmllistpropertywrapper.h"
 #include "qpyqmlobject.h"
 
 #include "sipAPIQtQml.h"
@@ -58,6 +59,10 @@ void qpyqml_post_init(PyObject *module_dict)
 
     if (PyDict_SetItemString(module_dict, "QQmlListProperty", inst) < 0)
         Py_FatalError("PyQt5.QtQml: Failed to set QQmlListProperty instance");
+
+    // Initialise the private QQmlListPropertyWrapper type.
+    if (PyType_Ready(&qpyqml_QQmlListPropertyWrapper_Type) < 0)
+        Py_FatalError("PyQt5.QtQml: Failed to initialise QQmlListPropertyWrapper type");
 
     // Register the proxy resolver.
     if (sipRegisterProxyResolver(sipType_QObject, QPyQmlObjectProxy::resolveProxy) < 0)

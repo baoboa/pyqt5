@@ -5,4 +5,4 @@ QXmlNamespaceSupport
 
 .. class:: QXmlNamespaceSupport
 
-    `C++ documentation <http://qt-project.org/doc/qt-5/qxmlnamespacesupport.html>`_
+    `C++ documentation <http://doc.qt.io/qt-5/qxmlnamespacesupport.html>`_

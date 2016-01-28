@@ -111,6 +111,14 @@ The full set of command line options is:
     you use this option then the :envvar:`PYTHONPATH` environment variable must
     include ``<DIR>``.
 
+.. cmdoption:: --disable <MODULE>
+
+    .. versionadded:: 5.5.1
+
+    Normally all PyQt5 modules are enabled and are built if the corresponding
+    Qt library can be found.  This option will suppress the check for
+    ``<MODULE>>``.  The option may be specified any number of times.
+
 .. cmdoption:: --enable <MODULE>
 
     Normally all PyQt5 modules are enabled and are built if the corresponding

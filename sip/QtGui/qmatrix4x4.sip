@@ -172,7 +172,7 @@ public:
     void fill(float value);
     QMatrix4x4 &operator+=(const QMatrix4x4 &other);
     QMatrix4x4 &operator-=(const QMatrix4x4 &other);
-    QMatrix4x4 &operator*=(const QMatrix4x4 &other);
+    QMatrix4x4 &operator*=(const QMatrix4x4 &other) /__imatmul__/;
     QMatrix4x4 &operator*=(float factor);
     QMatrix4x4 &operator/=(float divisor);
     bool operator==(const QMatrix4x4 &other) const;
@@ -196,7 +196,7 @@ public:
 QMatrix4x4 operator/(const QMatrix4x4 &matrix, float divisor);
 QMatrix4x4 operator+(const QMatrix4x4 &m1, const QMatrix4x4 &m2);
 QMatrix4x4 operator-(const QMatrix4x4 &m1, const QMatrix4x4 &m2);
-QMatrix4x4 operator*(const QMatrix4x4 &m1, const QMatrix4x4 &m2);
+QMatrix4x4 operator*(const QMatrix4x4 &m1, const QMatrix4x4 &m2) /__matmul__/;
 QVector3D operator*(const QVector3D &vector, const QMatrix4x4 &matrix);
 QVector3D operator*(const QMatrix4x4 &matrix, const QVector3D &vector);
 QVector4D operator*(const QVector4D &vector, const QMatrix4x4 &matrix);

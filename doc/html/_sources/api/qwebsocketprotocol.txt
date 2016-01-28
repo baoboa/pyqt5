@@ -5,4 +5,4 @@ QWebSocketProtocol
 
 .. class:: QWebSocketProtocol
 
-    `C++ documentation <http://qt-project.org/doc/qt-5/qwebsocketprotocol.html>`_
+    `C++ documentation <http://doc.qt.io/qt-5/qwebsocketprotocol.html>`_

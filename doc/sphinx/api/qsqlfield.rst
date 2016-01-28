@@ -5,4 +5,4 @@ QSqlField
 
 .. class:: QSqlField
 
-    `C++ documentation <http://qt-project.org/doc/qt-5/qsqlfield.html>`_
+    `C++ documentation <http://doc.qt.io/qt-5/qsqlfield.html>`_

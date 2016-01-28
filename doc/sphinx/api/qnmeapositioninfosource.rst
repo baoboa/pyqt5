@@ -5,4 +5,4 @@ QNmeaPositionInfoSource
 
 .. class:: QNmeaPositionInfoSource
 
-    `C++ documentation <http://qt-project.org/doc/qt-5/qnmeapositioninfosource.html>`_
+    `C++ documentation <http://doc.qt.io/qt-5/qnmeapositioninfosource.html>`_

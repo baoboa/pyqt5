@@ -5,4 +5,4 @@ QOpenGLFramebufferObjectFormat
 
 .. class:: QOpenGLFramebufferObjectFormat
 
-    `C++ documentation <http://qt-project.org/doc/qt-5/qopenglframebufferobjectformat.html>`_
+    `C++ documentation <http://doc.qt.io/qt-5/qopenglframebufferobjectformat.html>`_

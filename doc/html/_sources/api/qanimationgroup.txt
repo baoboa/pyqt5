@@ -5,4 +5,4 @@ QAnimationGroup
 
 .. class:: QAnimationGroup
 
-    `C++ documentation <http://qt-project.org/doc/qt-5/qanimationgroup.html>`_
+    `C++ documentation <http://doc.qt.io/qt-5/qanimationgroup.html>`_

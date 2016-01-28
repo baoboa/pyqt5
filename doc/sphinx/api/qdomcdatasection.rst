@@ -5,4 +5,4 @@ QDomCDATASection
 
 .. class:: QDomCDATASection
 
-    `C++ documentation <http://qt-project.org/doc/qt-5/qdomcdatasection.html>`_
+    `C++ documentation <http://doc.qt.io/qt-5/qdomcdatasection.html>`_

@@ -20,10 +20,6 @@
 // WARRANTY OF DESIGN, MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE.
 
 
-%ModuleCode
-#include <qquickitem.h>
-%End
-
 class QQuickItem : QObject, QQmlParserStatus /ExportDerived/
 {
 %TypeHeaderCode
@@ -235,6 +231,8 @@ protected:
         
             if (!sipIsErr && sipRes && (sipRes->flags() & QSGNode::OwnedByParent))
                 sipTransferTo(res, (PyObject *)sipPySelf);
+        
+            Py_DECREF(res);
         }
 %End
 

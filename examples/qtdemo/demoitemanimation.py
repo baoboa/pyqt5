@@ -49,7 +49,7 @@ class DemoItemAnimation(QPropertyAnimation):
     ANIM_IN, ANIM_OUT, ANIM_UNSPECIFIED = range(3)
 
     def __init__(self, item, inOrOut=ANIM_UNSPECIFIED):
-        super(DemoItemAnimation, self).__init__(item, 'pos')
+        super(DemoItemAnimation, self).__init__(item, b'pos')
 
         self._startDelay = 0
         self._inOrOut = inOrOut

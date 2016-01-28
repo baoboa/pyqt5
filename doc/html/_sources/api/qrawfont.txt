@@ -5,4 +5,4 @@ QRawFont
 
 .. class:: QRawFont
 
-    `C++ documentation <http://qt-project.org/doc/qt-5/qrawfont.html>`_
+    `C++ documentation <http://doc.qt.io/qt-5/qrawfont.html>`_

@@ -5,4 +5,4 @@ QPaintDevice
 
 .. class:: QPaintDevice
 
-    `C++ documentation <http://qt-project.org/doc/qt-5/qpaintdevice.html>`_
+    `C++ documentation <http://doc.qt.io/qt-5/qpaintdevice.html>`_

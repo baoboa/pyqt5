@@ -5,4 +5,4 @@ QTimeZone
 
 .. class:: QTimeZone
 
-    `C++ documentation <http://qt-project.org/doc/qt-5/qtimezone.html>`_
+    `C++ documentation <http://doc.qt.io/qt-5/qtimezone.html>`_
