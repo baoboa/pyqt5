@@ -436,6 +436,10 @@ class TargetQtConfiguration:
         """
 
         inform("Querying qmake about your Qt installation...")
+        
+        # Avoid error if space in the qmake PATH
+        if  ' ' in qmake:
+            qmake = '"%s"'%qmake
 
         pipe = os.popen(' '.join([qmake, '-query']))
 
