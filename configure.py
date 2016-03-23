@@ -2343,12 +2343,15 @@ def generate_sip_module_code(target_config, verbose, no_timestamp, parts, tracin
 
     # Pass the absolute pathname so that #line files are absolute.
     argv.append('-c')
-    argv.append(os.path.abspath(mname))
+    argv.append('"%s"'%os.path.abspath(mname))
 
     argv.append('-I')
     argv.append('sip')
-
+    
     sp_sip_dir = source_path('sip')
+    if ' ' in sp_sip_dir:
+        sp_sip_dir = '"%s"'%sp_sip_dir
+        
     if sp_sip_dir != 'sip':
         # SIP assumes POSIX style separators.
         sp_sip_dir = sp_sip_dir.replace(os.pathsep, '/')
