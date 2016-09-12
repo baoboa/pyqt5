@@ -30,5 +30,10 @@ public:
     virtual ~QMediaControl();
 
 protected:
+%If (Qt_5_6_1 -)
+    explicit QMediaControl(QObject *parent /TransferThis/ = 0);
+%End
+%If (- Qt_5_6_1)
     QMediaControl(QObject *parent /TransferThis/ = 0);
+%End
 };

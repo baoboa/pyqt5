@@ -5,4 +5,4 @@ QGraphicsGridLayout
 
 .. class:: QGraphicsGridLayout
 
-    `C++ documentation <http://doc.qt.io/qt-5/qgraphicsgridlayout.html>`_
+    `C++ documentation <https://doc.qt.io/qt-5/qgraphicsgridlayout.html>`_

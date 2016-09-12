@@ -5,4 +5,4 @@ QGraphicsWidget
 
 .. class:: QGraphicsWidget
 
-    `C++ documentation <http://doc.qt.io/qt-5/qgraphicswidget.html>`_
+    `C++ documentation <https://doc.qt.io/qt-5/qgraphicswidget.html>`_

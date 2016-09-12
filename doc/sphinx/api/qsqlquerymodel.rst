@@ -5,4 +5,4 @@ QSqlQueryModel
 
 .. class:: QSqlQueryModel
 
-    `C++ documentation <http://doc.qt.io/qt-5/qsqlquerymodel.html>`_
+    `C++ documentation <https://doc.qt.io/qt-5/qsqlquerymodel.html>`_

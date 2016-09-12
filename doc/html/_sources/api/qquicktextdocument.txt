@@ -5,4 +5,4 @@ QQuickTextDocument
 
 .. class:: QQuickTextDocument
 
-    `C++ documentation <http://doc.qt.io/qt-5/qquicktextdocument.html>`_
+    `C++ documentation <https://doc.qt.io/qt-5/qquicktextdocument.html>`_

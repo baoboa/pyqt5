@@ -5,4 +5,4 @@ QTextOption
 
 .. class:: QTextOption
 
-    `C++ documentation <http://doc.qt.io/qt-5/qtextoption.html>`_
+    `C++ documentation <https://doc.qt.io/qt-5/qtextoption.html>`_

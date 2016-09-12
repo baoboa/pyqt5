@@ -5,4 +5,4 @@ QAbstractProxyModel
 
 .. class:: QAbstractProxyModel
 
-    `C++ documentation <http://doc.qt.io/qt-5/qabstractproxymodel.html>`_
+    `C++ documentation <https://doc.qt.io/qt-5/qabstractproxymodel.html>`_

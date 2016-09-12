@@ -5,4 +5,4 @@ QPaintEvent
 
 .. class:: QPaintEvent
 
-    `C++ documentation <http://doc.qt.io/qt-5/qpaintevent.html>`_
+    `C++ documentation <https://doc.qt.io/qt-5/qpaintevent.html>`_

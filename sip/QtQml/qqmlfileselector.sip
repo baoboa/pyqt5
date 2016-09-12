@@ -39,6 +39,9 @@ public:
     void setExtraSelectors(QStringList &strings);
 %End
     static QQmlFileSelector *get(QQmlEngine *);
+%If (Qt_5_7_0 -)
+    QFileSelector *selector() const;
+%End
 
 private:
     QQmlFileSelector(const QQmlFileSelector &);

@@ -5,4 +5,4 @@ QAbstractFormBuilder
 
 .. class:: QAbstractFormBuilder
 
-    `C++ documentation <http://doc.qt.io/qt-5/qabstractformbuilder.html>`_
+    `C++ documentation <https://doc.qt.io/qt-5/qabstractformbuilder.html>`_

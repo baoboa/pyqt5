@@ -42,7 +42,7 @@ public:
     QIODevice *device() const;
     virtual void setUpdateInterval(int msec);
     virtual QGeoPositionInfo lastKnownPosition(bool fromSatellitePositioningMethodsOnly = false) const;
-    virtual QFlags<QGeoPositionInfoSource::PositioningMethod> supportedPositioningMethods() const;
+    virtual QGeoPositionInfoSource::PositioningMethods supportedPositioningMethods() const;
     virtual int minimumUpdateInterval() const;
     virtual QGeoPositionInfoSource::Error error() const;
 

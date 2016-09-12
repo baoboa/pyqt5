@@ -5,4 +5,4 @@ QButtonGroup
 
 .. class:: QButtonGroup
 
-    `C++ documentation <http://doc.qt.io/qt-5/qbuttongroup.html>`_
+    `C++ documentation <https://doc.qt.io/qt-5/qbuttongroup.html>`_

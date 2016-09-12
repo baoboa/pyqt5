@@ -5,4 +5,4 @@ QImageWriter
 
 .. class:: QImageWriter
 
-    `C++ documentation <http://doc.qt.io/qt-5/qimagewriter.html>`_
+    `C++ documentation <https://doc.qt.io/qt-5/qimagewriter.html>`_

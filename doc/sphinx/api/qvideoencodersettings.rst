@@ -5,4 +5,4 @@ QVideoEncoderSettings
 
 .. class:: QVideoEncoderSettings
 
-    `C++ documentation <http://doc.qt.io/qt-5/qvideoencodersettings.html>`_
+    `C++ documentation <https://doc.qt.io/qt-5/qvideoencodersettings.html>`_

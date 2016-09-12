@@ -5,4 +5,4 @@ QDomProcessingInstruction
 
 .. class:: QDomProcessingInstruction
 
-    `C++ documentation <http://doc.qt.io/qt-5/qdomprocessinginstruction.html>`_
+    `C++ documentation <https://doc.qt.io/qt-5/qdomprocessinginstruction.html>`_

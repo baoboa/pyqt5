@@ -5,4 +5,4 @@ QVariantAnimation
 
 .. class:: QVariantAnimation
 
-    `C++ documentation <http://doc.qt.io/qt-5/qvariantanimation.html>`_
+    `C++ documentation <https://doc.qt.io/qt-5/qvariantanimation.html>`_

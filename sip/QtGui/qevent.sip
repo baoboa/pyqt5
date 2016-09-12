@@ -261,6 +261,9 @@ public:
 %If (Qt_5_5_0 -)
     QWheelEvent(const QPointF &pos, const QPointF &globalPos, QPoint pixelDelta, QPoint angleDelta, int qt4Delta, Qt::Orientation qt4Orientation, Qt::MouseButtons buttons, Qt::KeyboardModifiers modifiers, Qt::ScrollPhase phase, Qt::MouseEventSource source);
 %End
+%If (Qt_5_7_0 -)
+    QWheelEvent(const QPointF &pos, const QPointF &globalPos, QPoint pixelDelta, QPoint angleDelta, int qt4Delta, Qt::Orientation qt4Orientation, Qt::MouseButtons buttons, Qt::KeyboardModifiers modifiers, Qt::ScrollPhase phase, Qt::MouseEventSource source, bool inverted);
+%End
     virtual ~QWheelEvent();
     QPoint pos() const;
     QPoint globalPos() const;
@@ -278,6 +281,9 @@ public:
 %End
 %If (Qt_5_5_0 -)
     Qt::MouseEventSource source() const;
+%End
+%If (Qt_5_7_0 -)
+    bool inverted() const;
 %End
 };
 

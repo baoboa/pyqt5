@@ -5,4 +5,4 @@ QBluetoothAddress
 
 .. class:: QBluetoothAddress
 
-    `C++ documentation <http://doc.qt.io/qt-5/qbluetoothaddress.html>`_
+    `C++ documentation <https://doc.qt.io/qt-5/qbluetoothaddress.html>`_

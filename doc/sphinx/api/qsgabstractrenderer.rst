@@ -5,4 +5,4 @@ QSGAbstractRenderer
 
 .. class:: QSGAbstractRenderer
 
-    `C++ documentation <http://doc.qt.io/qt-5/qsgabstractrenderer.html>`_
+    `C++ documentation <https://doc.qt.io/qt-5/qsgabstractrenderer.html>`_

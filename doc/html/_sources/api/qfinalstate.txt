@@ -5,4 +5,4 @@ QFinalState
 
 .. class:: QFinalState
 
-    `C++ documentation <http://doc.qt.io/qt-5/qfinalstate.html>`_
+    `C++ documentation <https://doc.qt.io/qt-5/qfinalstate.html>`_

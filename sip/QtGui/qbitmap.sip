@@ -28,6 +28,9 @@ class QBitmap : QPixmap
 
 public:
     QBitmap();
+%If (Qt_5_7_0 -)
+    QBitmap(const QBitmap &other);
+%End
     QBitmap(const QPixmap &);
     QBitmap(int w, int h);
     explicit QBitmap(const QSize &);

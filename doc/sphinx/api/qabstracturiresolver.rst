@@ -5,4 +5,4 @@ QAbstractUriResolver
 
 .. class:: QAbstractUriResolver
 
-    `C++ documentation <http://doc.qt.io/qt-5/qabstracturiresolver.html>`_
+    `C++ documentation <https://doc.qt.io/qt-5/qabstracturiresolver.html>`_

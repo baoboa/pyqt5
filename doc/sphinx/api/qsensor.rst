@@ -5,4 +5,4 @@ QSensor
 
 .. class:: QSensor
 
-    `C++ documentation <http://doc.qt.io/qt-5/qsensor.html>`_
+    `C++ documentation <https://doc.qt.io/qt-5/qsensor.html>`_

@@ -5,4 +5,4 @@ QInputEvent
 
 .. class:: QInputEvent
 
-    `C++ documentation <http://doc.qt.io/qt-5/qinputevent.html>`_
+    `C++ documentation <https://doc.qt.io/qt-5/qinputevent.html>`_

@@ -5,4 +5,4 @@ QQmlApplicationEngine
 
 .. class:: QQmlApplicationEngine
 
-    `C++ documentation <http://doc.qt.io/qt-5/qqmlapplicationengine.html>`_
+    `C++ documentation <https://doc.qt.io/qt-5/qqmlapplicationengine.html>`_

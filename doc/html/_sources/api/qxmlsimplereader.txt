@@ -5,4 +5,4 @@ QXmlSimpleReader
 
 .. class:: QXmlSimpleReader
 
-    `C++ documentation <http://doc.qt.io/qt-5/qxmlsimplereader.html>`_
+    `C++ documentation <https://doc.qt.io/qt-5/qxmlsimplereader.html>`_

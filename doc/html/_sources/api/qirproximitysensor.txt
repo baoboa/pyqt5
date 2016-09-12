@@ -5,4 +5,4 @@ QIRProximitySensor
 
 .. class:: QIRProximitySensor
 
-    `C++ documentation <http://doc.qt.io/qt-5/qirproximitysensor.html>`_
+    `C++ documentation <https://doc.qt.io/qt-5/qirproximitysensor.html>`_

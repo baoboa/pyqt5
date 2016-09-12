@@ -5,4 +5,4 @@ QDateEdit
 
 .. class:: QDateEdit
 
-    `C++ documentation <http://doc.qt.io/qt-5/qdateedit.html>`_
+    `C++ documentation <https://doc.qt.io/qt-5/qdateedit.html>`_

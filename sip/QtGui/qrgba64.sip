@@ -35,6 +35,9 @@ class QRgba64
 %End
 
 public:
+%If (Qt_5_7_0 -)
+    QRgba64();
+%End
     static QRgba64 fromRgba64(quint64 c);
     static QRgba64 fromRgba64(quint16 red, quint16 green, quint16 blue, quint16 alpha);
     static QRgba64 fromRgba(quint8 red, quint8 green, quint8 blue, quint8 alpha);

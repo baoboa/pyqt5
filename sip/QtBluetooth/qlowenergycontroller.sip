@@ -39,6 +39,9 @@ public:
 %If (Qt_5_5_0 -)
         ConnectionError,
 %End
+%If (Qt_5_7_0 -)
+        AdvertisingError,
+%End
     };
 
     enum ControllerState
@@ -49,6 +52,9 @@ public:
         DiscoveringState,
         DiscoveredState,
         ClosingState,
+%If (Qt_5_7_0 -)
+        AdvertisingState,
+%End
     };
 
     enum RemoteAddressType
@@ -86,6 +92,48 @@ signals:
     void error(QLowEnergyController::Error newError);
     void serviceDiscovered(const QBluetoothUuid &newService);
     void discoveryFinished();
+
+public:
+%If (Qt_5_7_0 -)
+
+    enum Role
+    {
+        CentralRole,
+        PeripheralRole,
+    };
+
+%End
+%If (Qt_5_7_0 -)
+    static QLowEnergyController *createCentral(const QBluetoothDeviceInfo &remoteDevice, QObject *parent /TransferThis/ = 0) /Factory/;
+%End
+%If (Qt_5_7_0 -)
+    static QLowEnergyController *createPeripheral(QObject *parent /TransferThis/ = 0) /Factory/;
+%End
+%If (Qt_5_7_0 -)
+    void startAdvertising(const QLowEnergyAdvertisingParameters &parameters, const QLowEnergyAdvertisingData &advertisingData, const QLowEnergyAdvertisingData &scanResponseData = QLowEnergyAdvertisingData());
+%End
+%If (Qt_5_7_0 -)
+    void stopAdvertising();
+%End
+%If (Qt_5_7_0 -)
+    QLowEnergyService *addService(const QLowEnergyServiceData &service, QObject *parent /TransferThis/ = 0) /Factory/;
+%End
+%If (Qt_5_7_0 -)
+    void requestConnectionUpdate(const QLowEnergyConnectionParameters &parameters);
+%End
+%If (Qt_5_7_0 -)
+    QLowEnergyController::Role role() const;
+%End
+
+signals:
+%If (Qt_5_7_0 -)
+    void connectionUpdated(const QLowEnergyConnectionParameters &parameters);
+%End
+
+private:
+%If (Qt_5_7_0 -)
+    explicit QLowEnergyController(QObject *parent = 0);
+%End
 };
 
 %End

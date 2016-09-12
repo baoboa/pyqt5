@@ -76,6 +76,12 @@ public:
     int index() const;
     QString humanReadableName() const;
     void swap(QNetworkInterface &other /Constrained/);
+%If (Qt_5_7_0 -)
+    static int interfaceIndexFromName(const QString &name);
+%End
+%If (Qt_5_7_0 -)
+    static QString interfaceNameFromIndex(int index);
+%End
 };
 
 QFlags<QNetworkInterface::InterfaceFlag> operator|(QNetworkInterface::InterfaceFlag f1, QFlags<QNetworkInterface::InterfaceFlag> f2);

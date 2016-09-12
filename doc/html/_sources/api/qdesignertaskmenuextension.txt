@@ -5,4 +5,4 @@ QDesignerTaskMenuExtension
 
 .. class:: QDesignerTaskMenuExtension
 
-    `C++ documentation <http://doc.qt.io/qt-5/qdesignertaskmenuextension.html>`_
+    `C++ documentation <https://doc.qt.io/qt-5/qdesignertaskmenuextension.html>`_

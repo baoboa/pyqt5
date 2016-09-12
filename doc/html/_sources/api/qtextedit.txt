@@ -5,4 +5,4 @@ QTextEdit
 
 .. class:: QTextEdit
 
-    `C++ documentation <http://doc.qt.io/qt-5/qtextedit.html>`_
+    `C++ documentation <https://doc.qt.io/qt-5/qtextedit.html>`_

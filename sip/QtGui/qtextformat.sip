@@ -371,8 +371,8 @@ public:
     bool nonBreakableLines() const;
     void setAlignment(Qt::Alignment aalignment);
     void setIndent(int aindent);
-    void setPageBreakPolicy(QFlags<QTextFormat::PageBreakFlag> flags);
-    QFlags<QTextFormat::PageBreakFlag> pageBreakPolicy() const;
+    void setPageBreakPolicy(QTextFormat::PageBreakFlags flags);
+    QTextFormat::PageBreakFlags pageBreakPolicy() const;
     void setTabPositions(const QList<QTextOption::Tab> &tabs);
     QList<QTextOption::Tab> tabPositions() const;
 
@@ -471,8 +471,8 @@ public:
     void setWidth(qreal awidth);
     void setHeight(qreal aheight);
     void setHeight(const QTextLength &aheight);
-    void setPageBreakPolicy(QFlags<QTextFormat::PageBreakFlag> flags);
-    QFlags<QTextFormat::PageBreakFlag> pageBreakPolicy() const;
+    void setPageBreakPolicy(QTextFormat::PageBreakFlags flags);
+    QTextFormat::PageBreakFlags pageBreakPolicy() const;
 
     enum BorderStyle
     {

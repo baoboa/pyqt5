@@ -5,4 +5,4 @@ QHistoryState
 
 .. class:: QHistoryState
 
-    `C++ documentation <http://doc.qt.io/qt-5/qhistorystate.html>`_
+    `C++ documentation <https://doc.qt.io/qt-5/qhistorystate.html>`_

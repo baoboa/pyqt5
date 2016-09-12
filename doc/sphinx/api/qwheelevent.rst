@@ -5,4 +5,4 @@ QWheelEvent
 
 .. class:: QWheelEvent
 
-    `C++ documentation <http://doc.qt.io/qt-5/qwheelevent.html>`_
+    `C++ documentation <https://doc.qt.io/qt-5/qwheelevent.html>`_

@@ -5,4 +5,4 @@ QDropEvent
 
 .. class:: QDropEvent
 
-    `C++ documentation <http://doc.qt.io/qt-5/qdropevent.html>`_
+    `C++ documentation <https://doc.qt.io/qt-5/qdropevent.html>`_

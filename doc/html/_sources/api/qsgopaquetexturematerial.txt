@@ -5,4 +5,4 @@ QSGOpaqueTextureMaterial
 
 .. class:: QSGOpaqueTextureMaterial
 
-    `C++ documentation <http://doc.qt.io/qt-5/qsgopaquetexturematerial.html>`_
+    `C++ documentation <https://doc.qt.io/qt-5/qsgopaquetexturematerial.html>`_

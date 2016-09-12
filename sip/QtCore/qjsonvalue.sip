@@ -61,11 +61,19 @@ public:
     bool toBool(bool defaultValue = false) const;
     int toInt(int defaultValue = 0) const;
     double toDouble(double defaultValue = 0) const;
-    QString toString(const QString &defaultValue = QString()) const;
     QJsonArray toArray() const;
     QJsonArray toArray(const QJsonArray &defaultValue) const;
     QJsonObject toObject() const;
     QJsonObject toObject(const QJsonObject &defaultValue) const;
     bool operator==(const QJsonValue &other) const;
     bool operator!=(const QJsonValue &other) const;
+%If (Qt_5_7_0 -)
+    QString toString() const;
+%End
+%If (Qt_5_7_0 -)
+    QString toString(const QString &defaultValue) const;
+%End
+%If (- Qt_5_7_0)
+    QString toString(const QString &defaultValue = QString()) const;
+%End
 };

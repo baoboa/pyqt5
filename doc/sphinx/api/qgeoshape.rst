@@ -5,4 +5,4 @@ QGeoShape
 
 .. class:: QGeoShape
 
-    `C++ documentation <http://doc.qt.io/qt-5/qgeoshape.html>`_
+    `C++ documentation <https://doc.qt.io/qt-5/qgeoshape.html>`_

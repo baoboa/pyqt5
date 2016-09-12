@@ -27,9 +27,24 @@ class QAction : QObject
 %End
 
 public:
+%If (Qt_5_7_0 -)
+    explicit QAction(QObject *parent /TransferThis/ = 0);
+%End
+%If (- Qt_5_7_0)
     explicit QAction(QObject *parent /TransferThis/);
+%End
+%If (Qt_5_7_0 -)
+    QAction(const QString &text, QObject *parent /TransferThis/ = 0);
+%End
+%If (- Qt_5_7_0)
     QAction(const QString &text, QObject *parent /TransferThis/);
+%End
+%If (Qt_5_7_0 -)
+    QAction(const QIcon &icon, const QString &text, QObject *parent /TransferThis/ = 0);
+%End
+%If (- Qt_5_7_0)
     QAction(const QIcon &icon, const QString &text, QObject *parent /TransferThis/);
+%End
     virtual ~QAction();
     void setActionGroup(QActionGroup *group /KeepReference/);
     QActionGroup *actionGroup() const;

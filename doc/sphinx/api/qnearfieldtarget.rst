@@ -5,4 +5,4 @@ QNearFieldTarget
 
 .. class:: QNearFieldTarget
 
-    `C++ documentation <http://doc.qt.io/qt-5/qnearfieldtarget.html>`_
+    `C++ documentation <https://doc.qt.io/qt-5/qnearfieldtarget.html>`_

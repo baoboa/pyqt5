@@ -97,8 +97,8 @@ public:
     };
 
     bool isAvailable() const;
-    QFlags<QCameraExposure::FlashMode> flashMode() const;
-    bool isFlashModeSupported(QFlags<QCameraExposure::FlashMode> mode) const;
+    QCameraExposure::FlashModes flashMode() const;
+    bool isFlashModeSupported(QCameraExposure::FlashModes mode) const;
     bool isFlashReady() const;
     QCameraExposure::ExposureMode exposureMode() const;
     bool isExposureModeSupported(QCameraExposure::ExposureMode mode) const;
@@ -118,7 +118,7 @@ public:
     QList<qreal> supportedShutterSpeeds(bool *continuous = 0) const;
 
 public slots:
-    void setFlashMode(QFlags<QCameraExposure::FlashMode> mode);
+    void setFlashMode(QCameraExposure::FlashModes mode);
     void setExposureMode(QCameraExposure::ExposureMode mode);
     void setMeteringMode(QCameraExposure::MeteringMode mode);
     void setExposureCompensation(qreal ev);

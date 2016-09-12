@@ -5,4 +5,4 @@ QConicalGradient
 
 .. class:: QConicalGradient
 
-    `C++ documentation <http://doc.qt.io/qt-5/qconicalgradient.html>`_
+    `C++ documentation <https://doc.qt.io/qt-5/qconicalgradient.html>`_

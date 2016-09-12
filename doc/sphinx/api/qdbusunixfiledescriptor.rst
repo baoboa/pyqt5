@@ -5,4 +5,4 @@ QDBusUnixFileDescriptor
 
 .. class:: QDBusUnixFileDescriptor
 
-    `C++ documentation <http://doc.qt.io/qt-5/qdbusunixfiledescriptor.html>`_
+    `C++ documentation <https://doc.qt.io/qt-5/qdbusunixfiledescriptor.html>`_

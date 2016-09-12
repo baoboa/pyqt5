@@ -65,9 +65,9 @@ public:
     QList<QVideoFrame::PixelFormat> supportedBufferFormats() const;
     QVideoFrame::PixelFormat bufferFormat() const;
     void setBufferFormat(const QVideoFrame::PixelFormat format);
-    bool isCaptureDestinationSupported(QFlags<QCameraImageCapture::CaptureDestination> destination) const;
-    QFlags<QCameraImageCapture::CaptureDestination> captureDestination() const;
-    void setCaptureDestination(QFlags<QCameraImageCapture::CaptureDestination> destination);
+    bool isCaptureDestinationSupported(QCameraImageCapture::CaptureDestinations destination) const;
+    QCameraImageCapture::CaptureDestinations captureDestination() const;
+    void setCaptureDestination(QCameraImageCapture::CaptureDestinations destination);
 
 public slots:
     int capture(const QString &file = QString()) /ReleaseGIL/;
@@ -77,7 +77,7 @@ signals:
     void error(int id, QCameraImageCapture::Error error, const QString &errorString);
     void readyForCaptureChanged(bool);
     void bufferFormatChanged(QVideoFrame::PixelFormat);
-    void captureDestinationChanged(QFlags<QCameraImageCapture::CaptureDestination>);
+    void captureDestinationChanged(QCameraImageCapture::CaptureDestinations);
     void imageExposed(int id);
     void imageCaptured(int id, const QImage &preview);
     void imageMetadataAvailable(int id, const QString &key, const QVariant &value);

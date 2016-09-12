@@ -5,4 +5,4 @@ QDesignerContainerExtension
 
 .. class:: QDesignerContainerExtension
 
-    `C++ documentation <http://doc.qt.io/qt-5/qdesignercontainerextension.html>`_
+    `C++ documentation <https://doc.qt.io/qt-5/qdesignercontainerextension.html>`_

@@ -5,4 +5,4 @@ QSequentialAnimationGroup
 
 .. class:: QSequentialAnimationGroup
 
-    `C++ documentation <http://doc.qt.io/qt-5/qsequentialanimationgroup.html>`_
+    `C++ documentation <https://doc.qt.io/qt-5/qsequentialanimationgroup.html>`_

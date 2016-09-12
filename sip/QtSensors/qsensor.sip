@@ -205,7 +205,7 @@ public:
     int error() const;
     void addFilter(QSensorFilter *filter);
     void removeFilter(QSensorFilter *filter);
-    QList<QSensorFilter*> filters() const;
+    QList<QSensorFilter *> filters() const;
     QSensorReading *reading() const;
     static QList<QByteArray> sensorTypes();
     static QList<QByteArray> sensorsForType(const QByteArray &type);

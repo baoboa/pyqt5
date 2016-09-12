@@ -5,4 +5,4 @@ QTiltFilter
 
 .. class:: QTiltFilter
 
-    `C++ documentation <http://doc.qt.io/qt-5/qtiltfilter.html>`_
+    `C++ documentation <https://doc.qt.io/qt-5/qtiltfilter.html>`_

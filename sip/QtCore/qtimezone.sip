@@ -83,7 +83,7 @@ public:
     bool hasTransitions() const;
     QTimeZone::OffsetData nextTransition(const QDateTime &afterDateTime) const;
     QTimeZone::OffsetData previousTransition(const QDateTime &beforeDateTime) const;
-    QVector<QTimeZone::OffsetData> transitions(const QDateTime &fromDateTime, const QDateTime &toDateTime) const;
+    QTimeZone::OffsetDataList transitions(const QDateTime &fromDateTime, const QDateTime &toDateTime) const;
     static QByteArray systemTimeZoneId();
     static bool isTimeZoneIdAvailable(const QByteArray &ianaId);
     static QList<QByteArray> availableTimeZoneIds();

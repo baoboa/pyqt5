@@ -377,6 +377,15 @@ public:
 %If (Qt_5_2_0 -)
     static QByteArray fromBase64(const QByteArray &base64, QByteArray::Base64Options options);
 %End
+%If (Qt_5_7_0 -)
+    QByteArray &prepend(int count, char c /Encoding="None"/);
+%End
+%If (Qt_5_7_0 -)
+    QByteArray &append(int count, char c /Encoding="None"/);
+%End
+%If (Qt_5_7_0 -)
+    QByteArray &insert(int i, int count, char c /Encoding="None"/);
+%End
 };
 
 bool operator==(const QByteArray &a1, const QByteArray &a2);

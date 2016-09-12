@@ -5,4 +5,4 @@ QWhatsThis
 
 .. class:: QWhatsThis
 
-    `C++ documentation <http://doc.qt.io/qt-5/qwhatsthis.html>`_
+    `C++ documentation <https://doc.qt.io/qt-5/qwhatsthis.html>`_

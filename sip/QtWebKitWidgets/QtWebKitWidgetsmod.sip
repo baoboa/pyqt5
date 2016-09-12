@@ -23,6 +23,7 @@
 %Module(name=PyQt5.QtWebKitWidgets, keyword_arguments="Optional")
 
 %Import QtCore/QtCoremod.sip
+%Import QtNetwork/QtNetworkmod.sip
 %Import QtPrintSupport/QtPrintSupportmod.sip
 %Import QtWebKit/QtWebKitmod.sip
 %Import QtWidgets/QtWidgetsmod.sip

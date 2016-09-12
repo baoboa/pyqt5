@@ -5,4 +5,4 @@ QItemSelection
 
 .. class:: QItemSelection
 
-    `C++ documentation <http://doc.qt.io/qt-5/qitemselection.html>`_
+    `C++ documentation <https://doc.qt.io/qt-5/qitemselection.html>`_

@@ -33,7 +33,7 @@ public:
     QQmlApplicationEngine(const QUrl &url, QObject *parent /TransferThis/ = 0);
     QQmlApplicationEngine(const QString &filePath, QObject *parent /TransferThis/ = 0);
     virtual ~QQmlApplicationEngine();
-    QList<QObject*> rootObjects();
+    QList<QObject *> rootObjects();
 
 public slots:
     void load(const QUrl &url) /ReleaseGIL/;

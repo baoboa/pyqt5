@@ -5,4 +5,4 @@ QDnsHostAddressRecord
 
 .. class:: QDnsHostAddressRecord
 
-    `C++ documentation <http://doc.qt.io/qt-5/qdnshostaddressrecord.html>`_
+    `C++ documentation <https://doc.qt.io/qt-5/qdnshostaddressrecord.html>`_

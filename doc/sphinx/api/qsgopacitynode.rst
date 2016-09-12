@@ -5,4 +5,4 @@ QSGOpacityNode
 
 .. class:: QSGOpacityNode
 
-    `C++ documentation <http://doc.qt.io/qt-5/qsgopacitynode.html>`_
+    `C++ documentation <https://doc.qt.io/qt-5/qsgopacitynode.html>`_

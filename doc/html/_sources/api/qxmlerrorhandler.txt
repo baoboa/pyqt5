@@ -5,4 +5,4 @@ QXmlErrorHandler
 
 .. class:: QXmlErrorHandler
 
-    `C++ documentation <http://doc.qt.io/qt-5/qxmlerrorhandler.html>`_
+    `C++ documentation <https://doc.qt.io/qt-5/qxmlerrorhandler.html>`_

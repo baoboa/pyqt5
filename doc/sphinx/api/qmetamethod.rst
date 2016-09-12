@@ -5,4 +5,4 @@ QMetaMethod
 
 .. class:: QMetaMethod
 
-    `C++ documentation <http://doc.qt.io/qt-5/qmetamethod.html>`_
+    `C++ documentation <https://doc.qt.io/qt-5/qmetamethod.html>`_

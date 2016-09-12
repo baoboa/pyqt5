@@ -5,4 +5,4 @@ QGeoAreaMonitorSource
 
 .. class:: QGeoAreaMonitorSource
 
-    `C++ documentation <http://doc.qt.io/qt-5/qgeoareamonitorsource.html>`_
+    `C++ documentation <https://doc.qt.io/qt-5/qgeoareamonitorsource.html>`_

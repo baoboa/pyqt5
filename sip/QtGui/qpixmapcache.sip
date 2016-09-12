@@ -42,6 +42,9 @@ public:
 %If (Qt_5_6_0 -)
         void swap(QPixmapCache::Key &other /Constrained/);
 %End
+%If (Qt_5_7_0 -)
+        bool isValid() const;
+%End
     };
 
     static int cacheLimit();

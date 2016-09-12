@@ -5,4 +5,4 @@ QXmlDeclHandler
 
 .. class:: QXmlDeclHandler
 
-    `C++ documentation <http://doc.qt.io/qt-5/qxmldeclhandler.html>`_
+    `C++ documentation <https://doc.qt.io/qt-5/qxmldeclhandler.html>`_

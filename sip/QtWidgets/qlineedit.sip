@@ -155,6 +155,9 @@ public:
 %If (Qt_5_2_0 -)
     QAction *addAction(const QIcon &icon, QLineEdit::ActionPosition position) /Transfer/;
 %End
+%If (Qt_5_7_0 -)
+    QVariant inputMethodQuery(Qt::InputMethodQuery property, QVariant argument) const;
+%End
 
 private:
     QLineEdit(const QLineEdit &);

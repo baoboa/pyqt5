@@ -5,4 +5,4 @@ QAbstractVideoSurface
 
 .. class:: QAbstractVideoSurface
 
-    `C++ documentation <http://doc.qt.io/qt-5/qabstractvideosurface.html>`_
+    `C++ documentation <https://doc.qt.io/qt-5/qabstractvideosurface.html>`_

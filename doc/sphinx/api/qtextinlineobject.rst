@@ -5,4 +5,4 @@ QTextInlineObject
 
 .. class:: QTextInlineObject
 
-    `C++ documentation <http://doc.qt.io/qt-5/qtextinlineobject.html>`_
+    `C++ documentation <https://doc.qt.io/qt-5/qtextinlineobject.html>`_

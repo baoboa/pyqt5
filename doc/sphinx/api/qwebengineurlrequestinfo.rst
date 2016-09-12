@@ -5,4 +5,4 @@ QWebEngineUrlRequestInfo
 
 .. class:: QWebEngineUrlRequestInfo
 
-    `C++ documentation <http://doc.qt.io/qt-5/qwebengineurlrequestinfo.html>`_
+    `C++ documentation <https://doc.qt.io/qt-5/qwebengineurlrequestinfo.html>`_

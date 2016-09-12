@@ -5,4 +5,4 @@ QNearFieldShareTarget
 
 .. class:: QNearFieldShareTarget
 
-    `C++ documentation <http://doc.qt.io/qt-5/qnearfieldsharetarget.html>`_
+    `C++ documentation <https://doc.qt.io/qt-5/qnearfieldsharetarget.html>`_

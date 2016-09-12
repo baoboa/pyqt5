@@ -23,6 +23,7 @@
 %Module(name=PyQt5.QtPrintSupport, keyword_arguments="Optional")
 
 %Import QtCore/QtCoremod.sip
+%Import QtGui/QtGuimod.sip
 %Import QtWidgets/QtWidgetsmod.sip
 
 %Copying

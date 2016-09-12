@@ -5,4 +5,4 @@ QQmlListProperty
 
 .. class:: QQmlListProperty
 
-    `C++ documentation <http://doc.qt.io/qt-5/qqmllistproperty.html>`_
+    `C++ documentation <https://doc.qt.io/qt-5/qqmllistproperty.html>`_

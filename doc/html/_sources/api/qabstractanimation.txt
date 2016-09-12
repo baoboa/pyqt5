@@ -5,4 +5,4 @@ QAbstractAnimation
 
 .. class:: QAbstractAnimation
 
-    `C++ documentation <http://doc.qt.io/qt-5/qabstractanimation.html>`_
+    `C++ documentation <https://doc.qt.io/qt-5/qabstractanimation.html>`_

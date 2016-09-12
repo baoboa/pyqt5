@@ -27,7 +27,12 @@ class QCameraViewfinder : QVideoWidget
 %End
 
 public:
+%If (Qt_5_6_1 -)
+    explicit QCameraViewfinder(QWidget *parent /TransferThis/ = 0);
+%End
+%If (- Qt_5_6_1)
     QCameraViewfinder(QWidget *parent /TransferThis/ = 0);
+%End
     virtual ~QCameraViewfinder();
     virtual QMediaObject *mediaObject() const;
 

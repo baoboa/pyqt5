@@ -5,4 +5,4 @@ QAbstractEventDispatcher
 
 .. class:: QAbstractEventDispatcher
 
-    `C++ documentation <http://doc.qt.io/qt-5/qabstracteventdispatcher.html>`_
+    `C++ documentation <https://doc.qt.io/qt-5/qabstracteventdispatcher.html>`_

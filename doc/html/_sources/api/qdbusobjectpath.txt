@@ -5,4 +5,4 @@ QDBusObjectPath
 
 .. class:: QDBusObjectPath
 
-    `C++ documentation <http://doc.qt.io/qt-5/qdbusobjectpath.html>`_
+    `C++ documentation <https://doc.qt.io/qt-5/qdbusobjectpath.html>`_

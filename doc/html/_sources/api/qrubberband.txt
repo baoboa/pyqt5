@@ -5,4 +5,4 @@ QRubberBand
 
 .. class:: QRubberBand
 
-    `C++ documentation <http://doc.qt.io/qt-5/qrubberband.html>`_
+    `C++ documentation <https://doc.qt.io/qt-5/qrubberband.html>`_

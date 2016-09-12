@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>PyQt5 Reference Guide &mdash; PyQt 5.6 Reference Guide</title>
+    <title>PyQt5 Reference Guide &mdash; PyQt 5.7 Reference Guide</title>
     
     <link rel="stylesheet" href="_static/classic.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '5.6',
+        VERSION:     '5.7',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -24,7 +24,7 @@
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
     <link rel="shortcut icon" href="_static/logo_tn.ico"/>
-    <link rel="top" title="PyQt 5.6 Reference Guide" href="#" />
+    <link rel="top" title="PyQt 5.7 Reference Guide" href="#" />
     <link rel="next" title="Introduction" href="introduction.html" /> 
   </head>
   <body role="document">
@@ -40,7 +40,7 @@
         <li class="right" >
           <a href="introduction.html" title="Introduction"
              accesskey="N">next</a> |</li>
-        <li class="nav-item nav-item-0"><a href="#">PyQt 5.6 Reference Guide</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="#">PyQt 5.7 Reference Guide</a> &raquo;</li> 
       </ul>
     </div>  
 
@@ -65,17 +65,15 @@
 </li>
 <li class="toctree-l1"><a class="reference internal" href="deprecations.html">Deprecated Features and Behaviours</a></li>
 <li class="toctree-l1"><a class="reference internal" href="incompatibilities.html">Incompatibilities with Earlier Versions</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="incompatibilities.html#pyqt-v5-6">PyQt v5.6</a></li>
 <li class="toctree-l2"><a class="reference internal" href="incompatibilities.html#pyqt-v5-5">PyQt v5.5</a></li>
 <li class="toctree-l2"><a class="reference internal" href="incompatibilities.html#pyqt-v5-3">PyQt v5.3</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="installation.html">Installing PyQt5</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="installation.html#downloading-sip">Downloading SIP</a></li>
-<li class="toctree-l2"><a class="reference internal" href="installation.html#downloading-pyqt5">Downloading PyQt5</a></li>
-<li class="toctree-l2"><a class="reference internal" href="installation.html#configuring-pyqt5">Configuring PyQt5</a></li>
-<li class="toctree-l2"><a class="reference internal" href="installation.html#building-pyqt5">Building PyQt5</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#installing-from-wheels">Installing from Wheels</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#building-and-installing-from-source">Building and Installing from Source</a></li>
 <li class="toctree-l2"><a class="reference internal" href="installation.html#co-existence-with-pyqt4">Co-existence with PyQt4</a></li>
-<li class="toctree-l2"><a class="reference internal" href="installation.html#configuring-with-configuration-files">Configuring with Configuration Files</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="pyqt4_differences.html">Differences Between PyQt4 and PyQt5</a><ul>
@@ -503,10 +501,16 @@
 <li class="toctree-l2"><a class="reference internal" href="api/qlocalsocket.html">QLocalSocket</a></li>
 <li class="toctree-l2"><a class="reference internal" href="api/qlocation.html">QLocation</a></li>
 <li class="toctree-l2"><a class="reference internal" href="api/qlockfile.html">QLockFile</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/qlowenergyadvertisingdata.html">QLowEnergyAdvertisingData</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/qlowenergyadvertisingparameters.html">QLowEnergyAdvertisingParameters</a></li>
 <li class="toctree-l2"><a class="reference internal" href="api/qlowenergycharacteristic.html">QLowEnergyCharacteristic</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/qlowenergycharacteristicdata.html">QLowEnergyCharacteristicData</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/qlowenergyconnectionparameters.html">QLowEnergyConnectionParameters</a></li>
 <li class="toctree-l2"><a class="reference internal" href="api/qlowenergycontroller.html">QLowEnergyController</a></li>
 <li class="toctree-l2"><a class="reference internal" href="api/qlowenergydescriptor.html">QLowEnergyDescriptor</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/qlowenergydescriptordata.html">QLowEnergyDescriptorData</a></li>
 <li class="toctree-l2"><a class="reference internal" href="api/qlowenergyservice.html">QLowEnergyService</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/qlowenergyservicedata.html">QLowEnergyServiceData</a></li>
 <li class="toctree-l2"><a class="reference internal" href="api/qmaccocoaviewcontainer.html">QMacCocoaViewContainer</a></li>
 <li class="toctree-l2"><a class="reference internal" href="api/qmacpasteboardmime.html">QMacPasteboardMime</a></li>
 <li class="toctree-l2"><a class="reference internal" href="api/qmactoolbar.html">QMacToolBar</a></li>
@@ -995,6 +999,7 @@
 <li class="toctree-l2"><a class="reference internal" href="api/qwebelement.html">QWebElement</a></li>
 <li class="toctree-l2"><a class="reference internal" href="api/qwebelementcollection.html">QWebElementCollection</a></li>
 <li class="toctree-l2"><a class="reference internal" href="api/qwebenginecertificateerror.html">QWebEngineCertificateError</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/qwebenginecontextmenudata.html">QWebEngineContextMenuData</a></li>
 <li class="toctree-l2"><a class="reference internal" href="api/qwebenginecookiestore.html">QWebEngineCookieStore</a></li>
 <li class="toctree-l2"><a class="reference internal" href="api/qwebenginedownloaditem.html">QWebEngineDownloadItem</a></li>
 <li class="toctree-l2"><a class="reference internal" href="api/qwebenginehistory.html">QWebEngineHistory</a></li>
@@ -1170,8 +1175,8 @@
 <div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
     <form class="search" action="search.html" method="get">
-      <input type="text" name="q" />
-      <input type="submit" value="Go" />
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
       <input type="hidden" name="check_keywords" value="yes" />
       <input type="hidden" name="area" value="default" />
     </form>
@@ -1193,12 +1198,12 @@
         <li class="right" >
           <a href="introduction.html" title="Introduction"
              >next</a> |</li>
-        <li class="nav-item nav-item-0"><a href="#">PyQt 5.6 Reference Guide</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="#">PyQt 5.7 Reference Guide</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
         &copy; Copyright 2015 Riverbank Computing Limited.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.4.1.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.4.5.
     </div>
   </body>
 </html>

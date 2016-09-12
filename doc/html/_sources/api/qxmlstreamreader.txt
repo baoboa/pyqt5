@@ -5,4 +5,4 @@ QXmlStreamReader
 
 .. class:: QXmlStreamReader
 
-    `C++ documentation <http://doc.qt.io/qt-5/qxmlstreamreader.html>`_
+    `C++ documentation <https://doc.qt.io/qt-5/qxmlstreamreader.html>`_

@@ -5,4 +5,4 @@ QMutexLocker
 
 .. class:: QMutexLocker
 
-    `C++ documentation <http://doc.qt.io/qt-5/qmutexlocker.html>`_
+    `C++ documentation <https://doc.qt.io/qt-5/qmutexlocker.html>`_

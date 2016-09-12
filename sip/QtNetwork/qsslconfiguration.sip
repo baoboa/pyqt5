@@ -118,6 +118,9 @@ public:
 %If (Qt_5_5_0 -)
     static QVector<QSslEllipticCurve> supportedEllipticCurves();
 %End
+%If (Qt_5_7_0 -)
+    QSslKey ephemeralServerKey() const;
+%End
 };
 
 %End

@@ -5,4 +5,4 @@ QCollatorSortKey
 
 .. class:: QCollatorSortKey
 
-    `C++ documentation <http://doc.qt.io/qt-5/qcollatorsortkey.html>`_
+    `C++ documentation <https://doc.qt.io/qt-5/qcollatorsortkey.html>`_

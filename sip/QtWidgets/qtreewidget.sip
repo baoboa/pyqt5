@@ -203,7 +203,12 @@ protected:
     virtual QMimeData *mimeData(const QList<QTreeWidgetItem *> items) const /TransferBack/;
     virtual bool dropMimeData(QTreeWidgetItem *parent, int index, const QMimeData *data, Qt::DropAction action);
     virtual Qt::DropActions supportedDropActions() const;
+%If (Qt_5_7_0 -)
+    QModelIndex indexFromItem(const QTreeWidgetItem *item, int column = 0) const;
+%End
+%If (- Qt_5_7_0)
     QModelIndex indexFromItem(QTreeWidgetItem *item, int column = 0) const;
+%End
     QTreeWidgetItem *itemFromIndex(const QModelIndex &index) const;
     virtual bool event(QEvent *e);
     virtual void dropEvent(QDropEvent *event);

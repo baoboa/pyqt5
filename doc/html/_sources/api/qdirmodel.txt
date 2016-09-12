@@ -5,4 +5,4 @@ QDirModel
 
 .. class:: QDirModel
 
-    `C++ documentation <http://doc.qt.io/qt-5/qdirmodel.html>`_
+    `C++ documentation <https://doc.qt.io/qt-5/qdirmodel.html>`_

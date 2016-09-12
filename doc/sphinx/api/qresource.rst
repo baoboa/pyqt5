@@ -5,4 +5,4 @@ QResource
 
 .. class:: QResource
 
-    `C++ documentation <http://doc.qt.io/qt-5/qresource.html>`_
+    `C++ documentation <https://doc.qt.io/qt-5/qresource.html>`_

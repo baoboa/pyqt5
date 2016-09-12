@@ -34,12 +34,12 @@ public:
     int managerVersion() const;
     QGeoRouteReply *calculateRoute(const QGeoRouteRequest &request) /Factory/;
     QGeoRouteReply *updateRoute(const QGeoRoute &route, const QGeoCoordinate &position) /TransferThis/;
-    QFlags<QGeoRouteRequest::TravelMode> supportedTravelModes() const;
-    QFlags<QGeoRouteRequest::FeatureType> supportedFeatureTypes() const;
-    QFlags<QGeoRouteRequest::FeatureWeight> supportedFeatureWeights() const;
-    QFlags<QGeoRouteRequest::RouteOptimization> supportedRouteOptimizations() const;
-    QFlags<QGeoRouteRequest::SegmentDetail> supportedSegmentDetails() const;
-    QFlags<QGeoRouteRequest::ManeuverDetail> supportedManeuverDetails() const;
+    QGeoRouteRequest::TravelModes supportedTravelModes() const;
+    QGeoRouteRequest::FeatureTypes supportedFeatureTypes() const;
+    QGeoRouteRequest::FeatureWeights supportedFeatureWeights() const;
+    QGeoRouteRequest::RouteOptimizations supportedRouteOptimizations() const;
+    QGeoRouteRequest::SegmentDetails supportedSegmentDetails() const;
+    QGeoRouteRequest::ManeuverDetails supportedManeuverDetails() const;
     void setLocale(const QLocale &locale);
     QLocale locale() const;
     void setMeasurementSystem(QLocale::MeasurementSystem system);

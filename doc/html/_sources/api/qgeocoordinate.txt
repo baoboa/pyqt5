@@ -5,4 +5,4 @@ QGeoCoordinate
 
 .. class:: QGeoCoordinate
 
-    `C++ documentation <http://doc.qt.io/qt-5/qgeocoordinate.html>`_
+    `C++ documentation <https://doc.qt.io/qt-5/qgeocoordinate.html>`_

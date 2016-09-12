@@ -5,4 +5,4 @@ QQuickWidget
 
 .. class:: QQuickWidget
 
-    `C++ documentation <http://doc.qt.io/qt-5/qquickwidget.html>`_
+    `C++ documentation <https://doc.qt.io/qt-5/qquickwidget.html>`_

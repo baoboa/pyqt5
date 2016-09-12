@@ -40,7 +40,12 @@ public:
     };
 
     typedef QFlags<QSGEngine::CreateTextureOption> CreateTextureOptions;
+%If (Qt_5_6_1 -)
+    explicit QSGEngine(QObject *parent /TransferThis/ = 0);
+%End
+%If (- Qt_5_6_1)
     QSGEngine(QObject *parent /TransferThis/ = 0);
+%End
     virtual ~QSGEngine();
     void initialize(QOpenGLContext *context);
     void invalidate();

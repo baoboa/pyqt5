@@ -5,4 +5,4 @@ QMediaObject
 
 .. class:: QMediaObject
 
-    `C++ documentation <http://doc.qt.io/qt-5/qmediaobject.html>`_
+    `C++ documentation <https://doc.qt.io/qt-5/qmediaobject.html>`_

@@ -73,7 +73,15 @@ public:
     void addPixmap(const QPixmap &pixmap, QIcon::Mode mode = QIcon::Normal, QIcon::State state = QIcon::Off);
     void addFile(const QString &fileName, const QSize &size = QSize(), QIcon::Mode mode = QIcon::Normal, QIcon::State state = QIcon::Off);
     qint64 cacheKey() const;
+%If (Qt_5_7_0 -)
+    static QIcon fromTheme(const QString &name);
+%End
+%If (Qt_5_7_0 -)
+    static QIcon fromTheme(const QString &name, const QIcon &fallback);
+%End
+%If (- Qt_5_7_0)
     static QIcon fromTheme(const QString &name, const QIcon &fallback = QIcon());
+%End
     static bool hasThemeIcon(const QString &name);
     static QStringList themeSearchPaths();
     static void setThemeSearchPaths(const QStringList &searchpath);

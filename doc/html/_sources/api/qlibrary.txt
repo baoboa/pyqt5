@@ -5,4 +5,4 @@ QLibrary
 
 .. class:: QLibrary
 
-    `C++ documentation <http://doc.qt.io/qt-5/qlibrary.html>`_
+    `C++ documentation <https://doc.qt.io/qt-5/qlibrary.html>`_

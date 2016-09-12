@@ -5,4 +5,4 @@ QInputMethod
 
 .. class:: QInputMethod
 
-    `C++ documentation <http://doc.qt.io/qt-5/qinputmethod.html>`_
+    `C++ documentation <https://doc.qt.io/qt-5/qinputmethod.html>`_

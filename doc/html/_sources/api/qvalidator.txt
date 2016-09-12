@@ -5,4 +5,4 @@ QValidator
 
 .. class:: QValidator
 
-    `C++ documentation <http://doc.qt.io/qt-5/qvalidator.html>`_
+    `C++ documentation <https://doc.qt.io/qt-5/qvalidator.html>`_

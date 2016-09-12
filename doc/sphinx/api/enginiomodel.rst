@@ -5,4 +5,4 @@ EnginioModel
 
 .. class:: EnginioModel
 
-    `C++ documentation <http://doc.qt.io/qt-5/enginiomodel.html>`_
+    `C++ documentation <https://doc.qt.io/qt-5/enginiomodel.html>`_

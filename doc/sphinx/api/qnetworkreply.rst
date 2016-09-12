@@ -5,4 +5,4 @@ QNetworkReply
 
 .. class:: QNetworkReply
 
-    `C++ documentation <http://doc.qt.io/qt-5/qnetworkreply.html>`_
+    `C++ documentation <https://doc.qt.io/qt-5/qnetworkreply.html>`_

@@ -5,4 +5,4 @@ QDialog
 
 .. class:: QDialog
 
-    `C++ documentation <http://doc.qt.io/qt-5/qdialog.html>`_
+    `C++ documentation <https://doc.qt.io/qt-5/qdialog.html>`_

@@ -277,6 +277,12 @@ protected:
 public:
     void setDefaultDropAction(Qt::DropAction dropAction);
     Qt::DropAction defaultDropAction() const;
+%If (Qt_5_7_0 -)
+    void resetVerticalScrollMode();
+%End
+%If (Qt_5_7_0 -)
+    void resetHorizontalScrollMode();
+%End
 
 private:
     QAbstractItemView(const QAbstractItemView &);

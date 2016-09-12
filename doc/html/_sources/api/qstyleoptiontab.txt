@@ -5,4 +5,4 @@ QStyleOptionTab
 
 .. class:: QStyleOptionTab
 
-    `C++ documentation <http://doc.qt.io/qt-5/qstyleoptiontab.html>`_
+    `C++ documentation <https://doc.qt.io/qt-5/qstyleoptiontab.html>`_

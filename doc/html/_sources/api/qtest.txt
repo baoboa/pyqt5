@@ -5,4 +5,4 @@ QTest
 
 .. class:: QTest
 
-    `C++ documentation <http://doc.qt.io/qt-5/qtest.html>`_
+    `C++ documentation <https://doc.qt.io/qt-5/qtest.html>`_

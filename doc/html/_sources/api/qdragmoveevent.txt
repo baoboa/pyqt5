@@ -5,4 +5,4 @@ QDragMoveEvent
 
 .. class:: QDragMoveEvent
 
-    `C++ documentation <http://doc.qt.io/qt-5/qdragmoveevent.html>`_
+    `C++ documentation <https://doc.qt.io/qt-5/qdragmoveevent.html>`_

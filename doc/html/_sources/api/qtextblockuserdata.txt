@@ -5,4 +5,4 @@ QTextBlockUserData
 
 .. class:: QTextBlockUserData
 
-    `C++ documentation <http://doc.qt.io/qt-5/qtextblockuserdata.html>`_
+    `C++ documentation <https://doc.qt.io/qt-5/qtextblockuserdata.html>`_

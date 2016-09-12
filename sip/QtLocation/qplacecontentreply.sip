@@ -32,14 +32,14 @@ public:
     explicit QPlaceContentReply(QObject *parent /TransferThis/ = 0);
     virtual ~QPlaceContentReply();
     virtual QPlaceReply::Type type() const;
-    QMap<int, QPlaceContent> content() const;
+    QPlaceContent::Collection content() const;
     int totalCount() const;
     QPlaceContentRequest request() const;
     QPlaceContentRequest previousPageRequest() const;
     QPlaceContentRequest nextPageRequest() const;
 
 protected:
-    void setContent(const QMap<int, QPlaceContent> &content);
+    void setContent(const QPlaceContent::Collection &content);
     void setTotalCount(int total);
     void setRequest(const QPlaceContentRequest &request);
     void setPreviousPageRequest(const QPlaceContentRequest &previous);

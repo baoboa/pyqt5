@@ -5,4 +5,4 @@ QStackedWidget
 
 .. class:: QStackedWidget
 
-    `C++ documentation <http://doc.qt.io/qt-5/qstackedwidget.html>`_
+    `C++ documentation <https://doc.qt.io/qt-5/qstackedwidget.html>`_

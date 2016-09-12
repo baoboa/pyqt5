@@ -5,4 +5,4 @@ QPlaceContent
 
 .. class:: QPlaceContent
 
-    `C++ documentation <http://doc.qt.io/qt-5/qplacecontent.html>`_
+    `C++ documentation <https://doc.qt.io/qt-5/qplacecontent.html>`_

@@ -5,4 +5,4 @@ QAbstractXmlReceiver
 
 .. class:: QAbstractXmlReceiver
 
-    `C++ documentation <http://doc.qt.io/qt-5/qabstractxmlreceiver.html>`_
+    `C++ documentation <https://doc.qt.io/qt-5/qabstractxmlreceiver.html>`_

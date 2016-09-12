@@ -8,4 +8,4 @@ QJsonArray
     :class:`QJsonArray` is implemented as a Python list of :class:`QJsonValue`
     instances.
 
-    `C++ documentation <http://doc.qt.io/qt-5/qjsonarray.html>`_
+    `C++ documentation <https://doc.qt.io/qt-5/qjsonarray.html>`_

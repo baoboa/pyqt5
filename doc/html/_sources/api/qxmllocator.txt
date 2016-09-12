@@ -5,4 +5,4 @@ QXmlLocator
 
 .. class:: QXmlLocator
 
-    `C++ documentation <http://doc.qt.io/qt-5/qxmllocator.html>`_
+    `C++ documentation <https://doc.qt.io/qt-5/qxmllocator.html>`_

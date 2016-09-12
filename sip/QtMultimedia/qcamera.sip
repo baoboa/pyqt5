@@ -100,7 +100,12 @@ public:
     };
 
 %End
+%If (Qt_5_6_1 -)
+    explicit QCamera(QObject *parent /TransferThis/ = 0);
+%End
+%If (- Qt_5_6_1)
     QCamera(QObject *parent /TransferThis/ = 0);
+%End
     QCamera(const QByteArray &device, QObject *parent /TransferThis/ = 0);
 %If (Qt_5_3_0 -)
     QCamera(const QCameraInfo &cameraInfo, QObject *parent /TransferThis/ = 0);
@@ -114,8 +119,8 @@ public:
     virtual QMultimedia::AvailabilityStatus availability() const;
     QCamera::State state() const;
     QCamera::Status status() const;
-    QFlags<QCamera::CaptureMode> captureMode() const;
-    bool isCaptureModeSupported(QFlags<QCamera::CaptureMode> mode) const;
+    QCamera::CaptureModes captureMode() const;
+    bool isCaptureModeSupported(QCamera::CaptureModes mode) const;
     QCameraExposure *exposure() const;
     QCameraFocus *focus() const;
     QCameraImageProcessing *imageProcessing() const;
@@ -124,25 +129,25 @@ public:
     void setViewfinder(QAbstractVideoSurface *surface);
     QCamera::Error error() const;
     QString errorString() const;
-    QFlags<QCamera::LockType> supportedLocks() const;
-    QFlags<QCamera::LockType> requestedLocks() const;
+    QCamera::LockTypes supportedLocks() const;
+    QCamera::LockTypes requestedLocks() const;
     QCamera::LockStatus lockStatus() const;
     QCamera::LockStatus lockStatus(QCamera::LockType lock) const;
 
 public slots:
-    void setCaptureMode(QFlags<QCamera::CaptureMode> mode);
+    void setCaptureMode(QCamera::CaptureModes mode);
     void load();
     void unload();
     void start();
     void stop();
     void searchAndLock();
     void unlock();
-    void searchAndLock(QFlags<QCamera::LockType> locks);
-    void unlock(QFlags<QCamera::LockType> locks);
+    void searchAndLock(QCamera::LockTypes locks);
+    void unlock(QCamera::LockTypes locks);
 
 signals:
     void stateChanged(QCamera::State);
-    void captureModeChanged(QFlags<QCamera::CaptureMode>);
+    void captureModeChanged(QCamera::CaptureModes);
     void statusChanged(QCamera::Status);
     void locked();
     void lockFailed();

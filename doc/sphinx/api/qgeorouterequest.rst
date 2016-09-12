@@ -5,4 +5,4 @@ QGeoRouteRequest
 
 .. class:: QGeoRouteRequest
 
-    `C++ documentation <http://doc.qt.io/qt-5/qgeorouterequest.html>`_
+    `C++ documentation <https://doc.qt.io/qt-5/qgeorouterequest.html>`_

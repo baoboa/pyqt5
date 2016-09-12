@@ -5,4 +5,4 @@ QPauseAnimation
 
 .. class:: QPauseAnimation
 
-    `C++ documentation <http://doc.qt.io/qt-5/qpauseanimation.html>`_
+    `C++ documentation <https://doc.qt.io/qt-5/qpauseanimation.html>`_

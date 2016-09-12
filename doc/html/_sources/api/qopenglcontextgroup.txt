@@ -5,4 +5,4 @@ QOpenGLContextGroup
 
 .. class:: QOpenGLContextGroup
 
-    `C++ documentation <http://doc.qt.io/qt-5/qopenglcontextgroup.html>`_
+    `C++ documentation <https://doc.qt.io/qt-5/qopenglcontextgroup.html>`_

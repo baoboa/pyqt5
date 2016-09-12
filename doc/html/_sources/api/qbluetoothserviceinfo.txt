@@ -5,4 +5,4 @@ QBluetoothServiceInfo
 
 .. class:: QBluetoothServiceInfo
 
-    `C++ documentation <http://doc.qt.io/qt-5/qbluetoothserviceinfo.html>`_
+    `C++ documentation <https://doc.qt.io/qt-5/qbluetoothserviceinfo.html>`_

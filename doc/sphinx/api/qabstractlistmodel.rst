@@ -5,4 +5,4 @@ QAbstractListModel
 
 .. class:: QAbstractListModel
 
-    `C++ documentation <http://doc.qt.io/qt-5/qabstractlistmodel.html>`_
+    `C++ documentation <https://doc.qt.io/qt-5/qabstractlistmodel.html>`_

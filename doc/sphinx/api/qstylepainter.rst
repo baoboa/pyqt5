@@ -5,4 +5,4 @@ QStylePainter
 
 .. class:: QStylePainter
 
-    `C++ documentation <http://doc.qt.io/qt-5/qstylepainter.html>`_
+    `C++ documentation <https://doc.qt.io/qt-5/qstylepainter.html>`_

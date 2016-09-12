@@ -5,4 +5,4 @@ QSGTransformNode
 
 .. class:: QSGTransformNode
 
-    `C++ documentation <http://doc.qt.io/qt-5/qsgtransformnode.html>`_
+    `C++ documentation <https://doc.qt.io/qt-5/qsgtransformnode.html>`_

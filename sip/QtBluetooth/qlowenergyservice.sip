@@ -60,12 +60,18 @@ public:
         DiscoveryRequired,
         DiscoveringServices,
         ServiceDiscovered,
+%If (Qt_5_7_0 -)
+        LocalService,
+%End
     };
 
     enum WriteMode
     {
         WriteWithResponse,
         WriteWithoutResponse,
+%If (Qt_5_7_0 -)
+        WriteSigned,
+%End
     };
 
     virtual ~QLowEnergyService();

@@ -42,8 +42,8 @@ public:
     virtual QDir absoluteDir() const = 0;
     virtual QString contents() const = 0;
     virtual bool setContents(QIODevice *dev, QString *errorMessage = 0) = 0;
-    virtual QFlags<QDesignerFormWindowInterface::FeatureFlag> features() const = 0;
-    virtual bool hasFeature(QFlags<QDesignerFormWindowInterface::FeatureFlag> f) const = 0;
+    virtual QDesignerFormWindowInterface::Feature features() const = 0;
+    virtual bool hasFeature(QDesignerFormWindowInterface::Feature f) const = 0;
     virtual QString author() const = 0;
     virtual void setAuthor(const QString &author) = 0;
     virtual QString comment() const = 0;
@@ -75,7 +75,7 @@ public:
 public slots:
     virtual void manageWidget(QWidget *widget) = 0;
     virtual void unmanageWidget(QWidget *widget) = 0;
-    virtual void setFeatures(QFlags<QDesignerFormWindowInterface::FeatureFlag> f) = 0;
+    virtual void setFeatures(QDesignerFormWindowInterface::Feature f) = 0;
     virtual void setDirty(bool dirty) = 0;
     virtual void clearSelection(bool update = true) = 0;
     virtual void selectWidget(QWidget *widget, bool select = true) = 0;
@@ -86,7 +86,7 @@ public slots:
 signals:
     void mainContainerChanged(QWidget *mainContainer);
     void fileNameChanged(const QString &fileName);
-    void featureChanged(QFlags<QDesignerFormWindowInterface::FeatureFlag> f);
+    void featureChanged(QDesignerFormWindowInterface::Feature f);
     void selectionChanged();
     void geometryChanged();
     void resourceFilesChanged();

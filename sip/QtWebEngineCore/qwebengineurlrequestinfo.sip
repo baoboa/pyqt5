@@ -48,6 +48,12 @@ public:
         ResourceTypePing,
         ResourceTypeServiceWorker,
         ResourceTypeUnknown,
+%If (Qt_5_7_0 -)
+        ResourceTypeCspReport,
+%End
+%If (Qt_5_7_0 -)
+        ResourceTypePluginResource,
+%End
     };
 
     enum NavigationType

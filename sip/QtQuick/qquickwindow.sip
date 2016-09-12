@@ -111,7 +111,12 @@ public:
     };
 
     typedef QFlags<QQuickWindow::CreateTextureOption> CreateTextureOptions;
+%If (Qt_5_6_1 -)
+    explicit QQuickWindow(QWindow *parent /TransferThis/ = 0);
+%End
+%If (- Qt_5_6_1)
     QQuickWindow(QWindow *parent /TransferThis/ = 0);
+%End
     virtual ~QQuickWindow() /ReleaseGIL/;
     QQuickItem *contentItem() const;
     QQuickItem *activeFocusItem() const;

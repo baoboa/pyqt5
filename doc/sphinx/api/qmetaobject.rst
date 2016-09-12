@@ -5,4 +5,4 @@ QMetaObject
 
 .. class:: QMetaObject
 
-    `C++ documentation <http://doc.qt.io/qt-5/qmetaobject.html>`_
+    `C++ documentation <https://doc.qt.io/qt-5/qmetaobject.html>`_

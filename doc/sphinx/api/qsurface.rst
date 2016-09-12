@@ -5,4 +5,4 @@ QSurface
 
 .. class:: QSurface
 
-    `C++ documentation <http://doc.qt.io/qt-5/qsurface.html>`_
+    `C++ documentation <https://doc.qt.io/qt-5/qsurface.html>`_

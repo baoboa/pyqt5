@@ -27,7 +27,12 @@ class QQuickPaintedItem : QQuickItem /ExportDerived/
 %End
 
 public:
+%If (Qt_5_6_1 -)
+    explicit QQuickPaintedItem(QQuickItem *parent /TransferThis/ = 0);
+%End
+%If (- Qt_5_6_1)
     QQuickPaintedItem(QQuickItem *parent /TransferThis/ = 0);
+%End
     virtual ~QQuickPaintedItem();
 
     enum RenderTarget
@@ -85,6 +90,9 @@ public:
 protected:
 %If (Qt_5_4_0 -)
     virtual void releaseResources();
+%End
+%If (Qt_5_6_1 -)
+    virtual void itemChange(QQuickItem::ItemChange, const QQuickItem::ItemChangeData &);
 %End
 
 public:

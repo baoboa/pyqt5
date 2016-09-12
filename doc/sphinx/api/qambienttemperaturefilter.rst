@@ -5,4 +5,4 @@ QAmbientTemperatureFilter
 
 .. class:: QAmbientTemperatureFilter
 
-    `C++ documentation <http://doc.qt.io/qt-5/qambienttemperaturefilter.html>`_
+    `C++ documentation <https://doc.qt.io/qt-5/qambienttemperaturefilter.html>`_

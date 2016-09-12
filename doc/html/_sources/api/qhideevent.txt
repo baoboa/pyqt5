@@ -5,4 +5,4 @@ QHideEvent
 
 .. class:: QHideEvent
 
-    `C++ documentation <http://doc.qt.io/qt-5/qhideevent.html>`_
+    `C++ documentation <https://doc.qt.io/qt-5/qhideevent.html>`_

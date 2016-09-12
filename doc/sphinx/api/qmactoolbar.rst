@@ -5,4 +5,4 @@ QMacToolBar
 
 .. class:: QMacToolBar
 
-    `C++ documentation <http://doc.qt.io/qt-5/qmactoolbar.html>`_
+    `C++ documentation <https://doc.qt.io/qt-5/qmactoolbar.html>`_

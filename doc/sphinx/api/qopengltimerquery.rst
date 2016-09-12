@@ -5,4 +5,4 @@ QOpenGLTimerQuery
 
 .. class:: QOpenGLTimerQuery
 
-    `C++ documentation <http://doc.qt.io/qt-5/qopengltimerquery.html>`_
+    `C++ documentation <https://doc.qt.io/qt-5/qopengltimerquery.html>`_

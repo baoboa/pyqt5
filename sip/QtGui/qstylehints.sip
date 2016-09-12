@@ -70,6 +70,12 @@ signals:
 %If (Qt_5_5_0 -)
     void startDragTimeChanged(int startDragTime);
 %End
+%If (Qt_5_7_0 -)
+    void mousePressAndHoldIntervalChanged(int mousePressAndHoldInterval);
+%End
+%If (Qt_5_7_0 -)
+    void tabFocusBehaviorChanged(Qt::TabFocusBehavior tabFocusBehavior);
+%End
 
 public:
 %If (Qt_5_6_0 -)

@@ -1,3 +1,6 @@
+v5.7 25th July 2016
+  - Added support for Qt v5.7.0.
+
 v5.6 24th April 2016
   - Added full support for Qt v5.6.0.
   - Python v3.5 wheels are available for 64-bit Linux, 64-bit OS X and 32 and

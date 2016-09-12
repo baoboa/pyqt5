@@ -1151,6 +1151,12 @@ namespace Qt
 %If (Qt_5_6_0 -)
         ImEnterKeyType,
 %End
+%If (Qt_5_7_0 -)
+        ImAnchorRectangle,
+%End
+%If (Qt_5_7_0 -)
+        ImInputItemClipRectangle,
+%End
     };
 
     typedef QFlags<Qt::InputMethodQuery> InputMethodQueries;
@@ -1299,6 +1305,21 @@ namespace Qt
 %End
 %If (Qt_5_6_0 -)
         AA_DisableHighDpiScaling,
+%End
+%If (Qt_5_7_0 -)
+        AA_PluginApplication,
+%End
+%If (Qt_5_7_0 -)
+        AA_UseStyleSheetPropagationInWidgetStyles,
+%End
+%If (Qt_5_7_0 -)
+        AA_DontUseNativeDialogs,
+%End
+%If (Qt_5_7_0 -)
+        AA_SynthesizeMouseForUnhandledTabletEvents,
+%End
+%If (Qt_5_7_0 -)
+        AA_CompressHighFrequencyEvents,
 %End
     };
 
@@ -1555,6 +1576,9 @@ namespace Qt
         ScrollBegin,
         ScrollUpdate,
         ScrollEnd,
+%If (Qt_5_7_0 -)
+        NoScrollPhase,
+%End
     };
 
 %End

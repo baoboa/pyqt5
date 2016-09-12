@@ -5,4 +5,4 @@ QMdiArea
 
 .. class:: QMdiArea
 
-    `C++ documentation <http://doc.qt.io/qt-5/qmdiarea.html>`_
+    `C++ documentation <https://doc.qt.io/qt-5/qmdiarea.html>`_

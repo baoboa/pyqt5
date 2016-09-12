@@ -5,4 +5,4 @@ QAccelerometer
 
 .. class:: QAccelerometer
 
-    `C++ documentation <http://doc.qt.io/qt-5/qaccelerometer.html>`_
+    `C++ documentation <https://doc.qt.io/qt-5/qaccelerometer.html>`_

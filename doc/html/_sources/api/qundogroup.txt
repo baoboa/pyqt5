@@ -5,4 +5,4 @@ QUndoGroup
 
 .. class:: QUndoGroup
 
-    `C++ documentation <http://doc.qt.io/qt-5/qundogroup.html>`_
+    `C++ documentation <https://doc.qt.io/qt-5/qundogroup.html>`_

@@ -37,6 +37,9 @@ public:
     {
         MemoryHttpCache,
         DiskHttpCache,
+%If (Qt_5_7_0 -)
+        NoCache,
+%End
     };
 
     enum PersistentCookiesPolicy
@@ -97,6 +100,9 @@ public:
 %End
 %If (Qt_5_6_0 -)
     void removeAllUrlSchemeHandlers();
+%End
+%If (Qt_5_7_0 -)
+    void clearHttpCache();
 %End
 
 private:

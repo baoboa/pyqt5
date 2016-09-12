@@ -5,4 +5,4 @@ QGLWidget
 
 .. class:: QGLWidget
 
-    `C++ documentation <http://doc.qt.io/qt-5/qglwidget.html>`_
+    `C++ documentation <https://doc.qt.io/qt-5/qglwidget.html>`_

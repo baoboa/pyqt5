@@ -89,32 +89,12 @@ bool qpycore_qt_conf()
     // Get the directory containing the PyQt5 extension modules.
     QDir pyqt5_dir = QFileInfo(QDir::fromNativeSeparators(init_impl)).absoluteDir();
 
-#if defined(Q_OS_WIN)
-    // On Windows we set PATH so any plugins can find the Qt libraries.
-    QByteArray path_envvar = qgetenv("PATH");
-    QByteArray bin_dir = QDir::toNativeSeparators(pyqt5_dir.absolutePath()).toLocal8Bit();
-
-    if (!path_envvar.split(';').contains(bin_dir))
-    {
-        path_envvar.prepend(';');
-        path_envvar.prepend(bin_dir);
-        qputenv("PATH", path_envvar);
-    }
-#endif
-
     // Get the prefix path with non-native separators.
     static QByteArray qt_conf = pyqt5_dir.absoluteFilePath(PYQT_QTCONF_PREFIX).toLocal8Bit();
 
     qt_conf.prepend("[Paths]\nPrefix = ");
     qt_conf.append("\n");
 
-#if defined(Q_OS_WIN)
-    // On Windows anything executable should probably be above the prefix
-    // directory.  If this is inapporpriate then we need to also define things
-    // like PYQT_QTCONF_BIN and PYQT_QTCONF_LIBEXEC.
-    qt_conf.append("Binaries = ..\n");
-    qt_conf.append("LibraryExecutables = ..\n");
-#endif
 
     // Prepend the 4-byte size.
     int size = qt_conf.size();

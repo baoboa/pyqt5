@@ -54,17 +54,20 @@ public:
         ShowLineAndParagraphSeparators,
         AddSpaceForLineAndParagraphSeparators,
         SuppressColors,
+%If (Qt_5_7_0 -)
+        ShowDocumentTerminator,
+%End
     };
 
     typedef QFlags<QTextOption::Flag> Flags;
-    QFlags<QTextOption::Flag> flags() const;
+    QTextOption::Flags flags() const;
     qreal tabStop() const;
     void setTabArray(const QList<qreal> &tabStops);
     QList<qreal> tabArray() const;
     void setUseDesignMetrics(bool b);
     bool useDesignMetrics() const;
     void setAlignment(Qt::Alignment aalignment);
-    void setFlags(QFlags<QTextOption::Flag> aflags);
+    void setFlags(QTextOption::Flags flags);
     void setTabStop(qreal atabStop);
 
     enum TabType

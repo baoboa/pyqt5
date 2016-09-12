@@ -5,4 +5,4 @@ QLocalServer
 
 .. class:: QLocalServer
 
-    `C++ documentation <http://doc.qt.io/qt-5/qlocalserver.html>`_
+    `C++ documentation <https://doc.qt.io/qt-5/qlocalserver.html>`_

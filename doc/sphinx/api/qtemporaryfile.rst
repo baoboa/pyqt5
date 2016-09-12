@@ -5,4 +5,4 @@ QTemporaryFile
 
 .. class:: QTemporaryFile
 
-    `C++ documentation <http://doc.qt.io/qt-5/qtemporaryfile.html>`_
+    `C++ documentation <https://doc.qt.io/qt-5/qtemporaryfile.html>`_

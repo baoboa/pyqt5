@@ -5,4 +5,4 @@ QFontMetrics
 
 .. class:: QFontMetrics
 
-    `C++ documentation <http://doc.qt.io/qt-5/qfontmetrics.html>`_
+    `C++ documentation <https://doc.qt.io/qt-5/qfontmetrics.html>`_

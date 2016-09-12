@@ -54,7 +54,12 @@ public:
     };
 
     QBluetoothSocket(QBluetoothServiceInfo::Protocol socketType, QObject *parent /TransferThis/ = 0);
+%If (Qt_5_6_1 -)
+    explicit QBluetoothSocket(QObject *parent /TransferThis/ = 0);
+%End
+%If (- Qt_5_6_1)
     QBluetoothSocket(QObject *parent /TransferThis/ = 0);
+%End
     virtual ~QBluetoothSocket();
     void abort();
     virtual void close() /ReleaseGIL/;

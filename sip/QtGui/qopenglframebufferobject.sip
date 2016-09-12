@@ -77,10 +77,23 @@ public:
     static bool bindDefault();
     static bool hasOpenGLFramebufferObjects();
     static bool hasOpenGLFramebufferBlit();
+%If (Qt_5_7_0 -)
+
+    enum FramebufferRestorePolicy
+    {
+        DontRestoreFramebufferBinding,
+        RestoreFramebufferBindingToDefault,
+        RestoreFrameBufferBinding,
+    };
+
+%End
     static void blitFramebuffer(QOpenGLFramebufferObject *target, const QRect &targetRect, QOpenGLFramebufferObject *source, const QRect &sourceRect, GLbitfield buffers = GL_COLOR_BUFFER_BIT, GLenum filter = GL_NEAREST);
     static void blitFramebuffer(QOpenGLFramebufferObject *target, QOpenGLFramebufferObject *source, GLbitfield buffers = GL_COLOR_BUFFER_BIT, GLenum filter = GL_NEAREST);
 %If (Qt_5_6_0 -)
     static void blitFramebuffer(QOpenGLFramebufferObject *target, const QRect &targetRect, QOpenGLFramebufferObject *source, const QRect &sourceRect, GLbitfield buffers, GLenum filter, int readColorAttachmentIndex, int drawColorAttachmentIndex);
+%End
+%If (Qt_5_7_0 -)
+    static void blitFramebuffer(QOpenGLFramebufferObject *target, const QRect &targetRect, QOpenGLFramebufferObject *source, const QRect &sourceRect, GLbitfield buffers, GLenum filter, int readColorAttachmentIndex, int drawColorAttachmentIndex, QOpenGLFramebufferObject::FramebufferRestorePolicy restorePolicy);
 %End
 %If (Qt_5_3_0 -)
     GLuint takeTexture();

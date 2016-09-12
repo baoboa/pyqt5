@@ -292,6 +292,46 @@ protected:
     void setOpenMode(QIODevice::OpenMode openMode);
     void setErrorString(const QString &errorString);
 
+public:
+%If (Qt_5_7_0 -)
+    int readChannelCount() const;
+%End
+%If (Qt_5_7_0 -)
+    int writeChannelCount() const;
+%End
+%If (Qt_5_7_0 -)
+    int currentReadChannel() const;
+%End
+%If (Qt_5_7_0 -)
+    void setCurrentReadChannel(int channel);
+%End
+%If (Qt_5_7_0 -)
+    int currentWriteChannel() const;
+%End
+%If (Qt_5_7_0 -)
+    void setCurrentWriteChannel(int channel);
+%End
+%If (Qt_5_7_0 -)
+    void startTransaction();
+%End
+%If (Qt_5_7_0 -)
+    void commitTransaction();
+%End
+%If (Qt_5_7_0 -)
+    void rollbackTransaction();
+%End
+%If (Qt_5_7_0 -)
+    bool isTransactionStarted() const;
+%End
+
+signals:
+%If (Qt_5_7_0 -)
+    void channelReadyRead(int channel);
+%End
+%If (Qt_5_7_0 -)
+    void channelBytesWritten(int channel, qint64 bytes);
+%End
+
 private:
     QIODevice(const QIODevice &);
 };

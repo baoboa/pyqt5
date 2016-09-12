@@ -5,4 +5,4 @@ QCameraFocus
 
 .. class:: QCameraFocus
 
-    `C++ documentation <http://doc.qt.io/qt-5/qcamerafocus.html>`_
+    `C++ documentation <https://doc.qt.io/qt-5/qcamerafocus.html>`_

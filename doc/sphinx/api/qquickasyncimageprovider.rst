@@ -5,4 +5,4 @@ QQuickAsyncImageProvider
 
 .. class:: QQuickAsyncImageProvider
 
-    `C++ documentation <http://doc.qt.io/qt-5/qquickasyncimageprovider.html>`_
+    `C++ documentation <https://doc.qt.io/qt-5/qquickasyncimageprovider.html>`_

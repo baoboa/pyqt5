@@ -226,9 +226,9 @@ public:
     QSGNode *nextSibling() const;
     QSGNode *previousSibling() const;
     QSGNode::NodeType type() const;
-    void markDirty(QFlags<QSGNode::DirtyStateBit> bits);
+    void markDirty(QSGNode::DirtyState bits);
     virtual bool isSubtreeBlocked() const;
-    QFlags<QSGNode::Flag> flags() const;
+    QSGNode::Flags flags() const;
     void setFlag(QSGNode::Flag, bool enabled = true);
 %MethodCode
         QSGNode::Flags old_flags = sipCpp->flags();
@@ -238,15 +238,7 @@ public:
         sipError = qsgnode_handle_flags(sipCpp, sipSelf, old_flags);
 %End
 
-    void setFlags(QFlags<QSGNode::Flag>, bool enabled = true);
-%MethodCode
-        QSGNode::Flags old_flags = sipCpp->flags();
-        
-        sipCpp->setFlags(*a0, a1);
-        
-        sipError = qsgnode_handle_flags(sipCpp, sipSelf, old_flags);
-%End
-
+    void setFlags(QSGNode::Flags, bool enabled = true);
     virtual void preprocess();
 };
 

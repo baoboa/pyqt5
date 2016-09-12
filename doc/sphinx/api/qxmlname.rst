@@ -5,4 +5,4 @@ QXmlName
 
 .. class:: QXmlName
 
-    `C++ documentation <http://doc.qt.io/qt-5/qxmlname.html>`_
+    `C++ documentation <https://doc.qt.io/qt-5/qxmlname.html>`_

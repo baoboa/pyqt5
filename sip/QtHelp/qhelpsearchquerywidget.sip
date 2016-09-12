@@ -27,7 +27,12 @@ class QHelpSearchQueryWidget : QWidget
 %End
 
 public:
+%If (Qt_5_6_1 -)
+    explicit QHelpSearchQueryWidget(QWidget *parent /TransferThis/ = 0);
+%End
+%If (- Qt_5_6_1)
     QHelpSearchQueryWidget(QWidget *parent /TransferThis/ = 0);
+%End
     virtual ~QHelpSearchQueryWidget();
     QList<QHelpSearchQuery> query() const;
     void setQuery(const QList<QHelpSearchQuery> &queryList);

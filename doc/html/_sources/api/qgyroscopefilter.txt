@@ -5,4 +5,4 @@ QGyroscopeFilter
 
 .. class:: QGyroscopeFilter
 
-    `C++ documentation <http://doc.qt.io/qt-5/qgyroscopefilter.html>`_
+    `C++ documentation <https://doc.qt.io/qt-5/qgyroscopefilter.html>`_

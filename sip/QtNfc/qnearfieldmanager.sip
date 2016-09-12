@@ -73,8 +73,8 @@ public:
     explicit QNearFieldManager(QObject *parent /TransferThis/ = 0);
     virtual ~QNearFieldManager();
     bool isAvailable() const;
-    void setTargetAccessModes(QFlags<QNearFieldManager::TargetAccessMode> accessModes);
-    QFlags<QNearFieldManager::TargetAccessMode> targetAccessModes() const;
+    void setTargetAccessModes(QNearFieldManager::TargetAccessModes accessModes);
+    QNearFieldManager::TargetAccessModes targetAccessModes() const;
     bool startTargetDetection();
     void stopTargetDetection();
     int registerNdefMessageHandler(SIP_PYOBJECT slot /TypeHint="PYQT_SLOT"/);

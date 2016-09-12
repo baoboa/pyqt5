@@ -5,4 +5,4 @@ QQmlComponent
 
 .. class:: QQmlComponent
 
-    `C++ documentation <http://doc.qt.io/qt-5/qqmlcomponent.html>`_
+    `C++ documentation <https://doc.qt.io/qt-5/qqmlcomponent.html>`_

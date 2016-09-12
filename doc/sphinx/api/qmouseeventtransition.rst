@@ -5,4 +5,4 @@ QMouseEventTransition
 
 .. class:: QMouseEventTransition
 
-    `C++ documentation <http://doc.qt.io/qt-5/qmouseeventtransition.html>`_
+    `C++ documentation <https://doc.qt.io/qt-5/qmouseeventtransition.html>`_

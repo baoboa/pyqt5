@@ -37,6 +37,9 @@ public:
         SansSerifFont,
         CursiveFont,
         FantasyFont,
+%If (Qt_5_7_0 -)
+        PictographFont,
+%End
     };
 
     enum WebAttribute
@@ -59,6 +62,21 @@ public:
 %End
 %If (Qt_5_6_0 -)
         FullScreenSupportEnabled,
+%End
+%If (Qt_5_7_0 -)
+        ScreenCaptureEnabled,
+%End
+%If (Qt_5_7_0 -)
+        WebGLEnabled,
+%End
+%If (Qt_5_7_0 -)
+        Accelerated2dCanvasEnabled,
+%End
+%If (Qt_5_7_0 -)
+        AutoLoadIconsForPage,
+%End
+%If (Qt_5_7_0 -)
+        TouchIconsEnabled,
 %End
     };
 

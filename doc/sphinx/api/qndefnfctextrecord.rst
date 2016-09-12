@@ -5,4 +5,4 @@ QNdefNfcTextRecord
 
 .. class:: QNdefNfcTextRecord
 
-    `C++ documentation <http://doc.qt.io/qt-5/qndefnfctextrecord.html>`_
+    `C++ documentation <https://doc.qt.io/qt-5/qndefnfctextrecord.html>`_

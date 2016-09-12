@@ -5,4 +5,4 @@ QMatrix2x3
 
 .. class:: QMatrix2x3
 
-    `C++ documentation <http://doc.qt.io/qt-5/qmatrix2x3.html>`_
+    `C++ documentation <https://doc.qt.io/qt-5/qmatrix2x3.html>`_

@@ -5,4 +5,4 @@ QAccelerometerFilter
 
 .. class:: QAccelerometerFilter
 
-    `C++ documentation <http://doc.qt.io/qt-5/qaccelerometerfilter.html>`_
+    `C++ documentation <https://doc.qt.io/qt-5/qaccelerometerfilter.html>`_

@@ -5,4 +5,4 @@ QGraphicsScale
 
 .. class:: QGraphicsScale
 
-    `C++ documentation <http://doc.qt.io/qt-5/qgraphicsscale.html>`_
+    `C++ documentation <https://doc.qt.io/qt-5/qgraphicsscale.html>`_

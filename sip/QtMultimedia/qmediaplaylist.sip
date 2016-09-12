@@ -45,7 +45,12 @@ public:
         AccessDeniedError,
     };
 
+%If (Qt_5_6_1 -)
+    explicit QMediaPlaylist(QObject *parent /TransferThis/ = 0);
+%End
+%If (- Qt_5_6_1)
     QMediaPlaylist(QObject *parent /TransferThis/ = 0);
+%End
     virtual ~QMediaPlaylist();
     virtual QMediaObject *mediaObject() const;
     QMediaPlaylist::PlaybackMode playbackMode() const;
@@ -72,6 +77,9 @@ public:
     bool save(QIODevice *device, const char *format) /ReleaseGIL/;
     QMediaPlaylist::Error error() const;
     QString errorString() const;
+%If (Qt_5_7_0 -)
+    bool moveMedia(int from, int to);
+%End
 
 public slots:
     void shuffle();

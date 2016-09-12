@@ -5,4 +5,4 @@ QWebHitTestResult
 
 .. class:: QWebHitTestResult
 
-    `C++ documentation <http://doc.qt.io/qt-5/qwebhittestresult.html>`_
+    `C++ documentation <https://doc.qt.io/qt-5/qwebhittestresult.html>`_

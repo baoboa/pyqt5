@@ -5,4 +5,4 @@ QWebEngineUrlSchemeHandler
 
 .. class:: QWebEngineUrlSchemeHandler
 
-    `C++ documentation <http://doc.qt.io/qt-5/qwebengineurlschemehandler.html>`_
+    `C++ documentation <https://doc.qt.io/qt-5/qwebengineurlschemehandler.html>`_

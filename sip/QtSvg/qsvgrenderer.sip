@@ -58,9 +58,9 @@ class QSvgRenderer : QObject
 
 public:
     QSvgRenderer(QObject *parent /TransferThis/ = 0);
-    QSvgRenderer(const QString &filename, QObject *parent /TransferThis/ = 0);
-    QSvgRenderer(const QByteArray &contents, QObject *parent /TransferThis/ = 0);
-    QSvgRenderer(QXmlStreamReader *contents, QObject *parent /TransferThis/ = 0);
+    QSvgRenderer(const QString &filename, QObject *parent /TransferThis/ = 0) /ReleaseGIL/;
+    QSvgRenderer(const QByteArray &contents, QObject *parent /TransferThis/ = 0) /ReleaseGIL/;
+    QSvgRenderer(QXmlStreamReader *contents, QObject *parent /TransferThis/ = 0) /ReleaseGIL/;
     virtual ~QSvgRenderer();
     bool isValid() const;
     QSize defaultSize() const;
@@ -78,12 +78,12 @@ public:
     int animationDuration() const;
 
 public slots:
-    bool load(const QString &filename);
-    bool load(const QByteArray &contents);
-    bool load(QXmlStreamReader *contents);
-    void render(QPainter *p);
-    void render(QPainter *p, const QRectF &bounds);
-    void render(QPainter *painter, const QString &elementId, const QRectF &bounds = QRectF());
+    bool load(const QString &filename) /ReleaseGIL/;
+    bool load(const QByteArray &contents) /ReleaseGIL/;
+    bool load(QXmlStreamReader *contents) /ReleaseGIL/;
+    void render(QPainter *p) /ReleaseGIL/;
+    void render(QPainter *p, const QRectF &bounds) /ReleaseGIL/;
+    void render(QPainter *painter, const QString &elementId, const QRectF &bounds = QRectF()) /ReleaseGIL/;
 
 signals:
     void repaintNeeded();

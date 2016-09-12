@@ -5,4 +5,4 @@ QIRProximityFilter
 
 .. class:: QIRProximityFilter
 
-    `C++ documentation <http://doc.qt.io/qt-5/qirproximityfilter.html>`_
+    `C++ documentation <https://doc.qt.io/qt-5/qirproximityfilter.html>`_

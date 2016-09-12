@@ -5,4 +5,4 @@ QWriteLocker
 
 .. class:: QWriteLocker
 
-    `C++ documentation <http://doc.qt.io/qt-5/qwritelocker.html>`_
+    `C++ documentation <https://doc.qt.io/qt-5/qwritelocker.html>`_

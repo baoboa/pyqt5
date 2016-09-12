@@ -5,4 +5,4 @@ QSGGeometry
 
 .. class:: QSGGeometry
 
-    `C++ documentation <http://doc.qt.io/qt-5/qsggeometry.html>`_
+    `C++ documentation <https://doc.qt.io/qt-5/qsggeometry.html>`_

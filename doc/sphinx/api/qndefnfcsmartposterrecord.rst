@@ -5,4 +5,4 @@ QNdefNfcSmartPosterRecord
 
 .. class:: QNdefNfcSmartPosterRecord
 
-    `C++ documentation <http://doc.qt.io/qt-5/qndefnfcsmartposterrecord.html>`_
+    `C++ documentation <https://doc.qt.io/qt-5/qndefnfcsmartposterrecord.html>`_

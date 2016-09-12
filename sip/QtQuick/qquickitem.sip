@@ -85,7 +85,12 @@ public:
         BottomRight,
     };
 
+%If (Qt_5_6_1 -)
+    explicit QQuickItem(QQuickItem *parent /TransferThis/ = 0);
+%End
+%If (- Qt_5_6_1)
     QQuickItem(QQuickItem *parent /TransferThis/ = 0);
+%End
     virtual ~QQuickItem();
     QQuickWindow *window() const;
     QQuickItem *parentItem() const;
@@ -281,6 +286,15 @@ public:
         sipRes = grab->data();
 %End
 
+%End
+%If (Qt_5_7_0 -)
+    bool isAncestorOf(const QQuickItem *child) const;
+%End
+%If (Qt_5_7_0 -)
+    QPointF mapToGlobal(const QPointF &point) const;
+%End
+%If (Qt_5_7_0 -)
+    QPointF mapFromGlobal(const QPointF &point) const;
 %End
 
 private:

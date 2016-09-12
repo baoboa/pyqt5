@@ -5,4 +5,4 @@ QWebEnginePage
 
 .. class:: QWebEnginePage
 
-    `C++ documentation <http://doc.qt.io/qt-5/qwebenginepage.html>`_
+    `C++ documentation <https://doc.qt.io/qt-5/qwebenginepage.html>`_

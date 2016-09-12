@@ -133,6 +133,9 @@ static void qtcore_invokeMethod_exception()
     int indexOfConstructor(const char *constructor) const;
     QMetaMethod constructor(int index) const;
     static bool checkConnectArgs(const QMetaMethod &signal, const QMetaMethod &method);
+%If (Qt_5_7_0 -)
+    bool inherits(const QMetaObject *metaObject) const;
+%End
 };
 
 // The support for Q_ARG(), Q_RETURN_ARG() and supporting classes.

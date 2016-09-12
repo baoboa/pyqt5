@@ -5,4 +5,4 @@ QNetworkProxyQuery
 
 .. class:: QNetworkProxyQuery
 
-    `C++ documentation <http://doc.qt.io/qt-5/qnetworkproxyquery.html>`_
+    `C++ documentation <https://doc.qt.io/qt-5/qnetworkproxyquery.html>`_

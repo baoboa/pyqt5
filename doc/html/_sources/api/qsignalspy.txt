@@ -5,4 +5,4 @@ QSignalSpy
 
 .. class:: QSignalSpy
 
-    `C++ documentation <http://doc.qt.io/qt-5/qsignalspy.html>`_
+    `C++ documentation <https://doc.qt.io/qt-5/qsignalspy.html>`_

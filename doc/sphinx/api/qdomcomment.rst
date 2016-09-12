@@ -5,4 +5,4 @@ QDomComment
 
 .. class:: QDomComment
 
-    `C++ documentation <http://doc.qt.io/qt-5/qdomcomment.html>`_
+    `C++ documentation <https://doc.qt.io/qt-5/qdomcomment.html>`_

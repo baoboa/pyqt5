@@ -88,4 +88,10 @@ public:
 %If (Qt_5_5_0 -)
     bool isColorFilterSupported(QCameraImageProcessing::ColorFilter filter) const;
 %End
+%If (Qt_5_7_0 -)
+    qreal brightness() const;
+%End
+%If (Qt_5_7_0 -)
+    void setBrightness(qreal value);
+%End
 };

@@ -5,4 +5,4 @@ QXmlLexicalHandler
 
 .. class:: QXmlLexicalHandler
 
-    `C++ documentation <http://doc.qt.io/qt-5/qxmllexicalhandler.html>`_
+    `C++ documentation <https://doc.qt.io/qt-5/qxmllexicalhandler.html>`_

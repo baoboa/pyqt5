@@ -5,4 +5,4 @@ QMessageLogContext
 
 .. class:: QMessageLogContext
 
-    `C++ documentation <http://doc.qt.io/qt-5/qmessagelogcontext.html>`_
+    `C++ documentation <https://doc.qt.io/qt-5/qmessagelogcontext.html>`_

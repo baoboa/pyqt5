@@ -5,4 +5,4 @@ QTextLayout
 
 .. class:: QTextLayout
 
-    `C++ documentation <http://doc.qt.io/qt-5/qtextlayout.html>`_
+    `C++ documentation <https://doc.qt.io/qt-5/qtextlayout.html>`_

@@ -127,6 +127,12 @@ public:
         PE_PanelStatusBar,
         PE_IndicatorTabClose,
         PE_PanelMenu,
+%If (Qt_5_7_0 -)
+        PE_IndicatorTabTearLeft,
+%End
+%If (Qt_5_7_0 -)
+        PE_IndicatorTabTearRight,
+%End
         PE_CustomBase,
     };
 
@@ -243,6 +249,18 @@ public:
         SE_TabBarTabText,
         SE_ShapedFrameContents,
         SE_ToolBarHandle,
+%If (Qt_5_7_0 -)
+        SE_TabBarTearIndicatorLeft,
+%End
+%If (Qt_5_7_0 -)
+        SE_TabBarScrollLeftButton,
+%End
+%If (Qt_5_7_0 -)
+        SE_TabBarScrollRightButton,
+%End
+%If (Qt_5_7_0 -)
+        SE_TabBarTearIndicatorRight,
+%End
         SE_CustomBase,
     };
 
@@ -592,6 +610,9 @@ public:
 %End
 %If (Qt_5_5_0 -)
         SH_Menu_SubMenuDontStartSloppyOnLeave,
+%End
+%If (Qt_5_7_0 -)
+        SH_ItemView_ScrollMode,
 %End
         SH_CustomBase,
     };

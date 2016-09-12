@@ -5,4 +5,4 @@ QMessageLogger
 
 .. class:: QMessageLogger
 
-    `C++ documentation <http://doc.qt.io/qt-5/qmessagelogger.html>`_
+    `C++ documentation <https://doc.qt.io/qt-5/qmessagelogger.html>`_

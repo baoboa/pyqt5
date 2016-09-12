@@ -5,4 +5,4 @@ QMediaPlayer
 
 .. class:: QMediaPlayer
 
-    `C++ documentation <http://doc.qt.io/qt-5/qmediaplayer.html>`_
+    `C++ documentation <https://doc.qt.io/qt-5/qmediaplayer.html>`_

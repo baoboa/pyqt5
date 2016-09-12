@@ -5,4 +5,4 @@ QProgressBar
 
 .. class:: QProgressBar
 
-    `C++ documentation <http://doc.qt.io/qt-5/qprogressbar.html>`_
+    `C++ documentation <https://doc.qt.io/qt-5/qprogressbar.html>`_

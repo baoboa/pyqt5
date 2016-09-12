@@ -5,4 +5,4 @@ QDockWidget
 
 .. class:: QDockWidget
 
-    `C++ documentation <http://doc.qt.io/qt-5/qdockwidget.html>`_
+    `C++ documentation <https://doc.qt.io/qt-5/qdockwidget.html>`_

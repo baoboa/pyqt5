@@ -5,4 +5,4 @@ QSize
 
 .. class:: QSize
 
-    `C++ documentation <http://doc.qt.io/qt-5/qsize.html>`_
+    `C++ documentation <https://doc.qt.io/qt-5/qsize.html>`_

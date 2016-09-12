@@ -5,4 +5,4 @@ QDesignerCustomWidgetCollectionInterface
 
 .. class:: QDesignerCustomWidgetCollectionInterface
 
-    `C++ documentation <http://doc.qt.io/qt-5/qdesignercustomwidgetcollectioninterface.html>`_
+    `C++ documentation <https://doc.qt.io/qt-5/qdesignercustomwidgetcollectioninterface.html>`_

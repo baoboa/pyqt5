@@ -51,7 +51,12 @@ public:
         UnknownError,
     };
 
+%If (Qt_5_6_1 -)
+    explicit QBluetoothLocalDevice(QObject *parent /TransferThis/ = 0);
+%End
+%If (- Qt_5_6_1)
     QBluetoothLocalDevice(QObject *parent /TransferThis/ = 0);
+%End
     QBluetoothLocalDevice(const QBluetoothAddress &address, QObject *parent /TransferThis/ = 0);
     virtual ~QBluetoothLocalDevice();
     bool isValid() const;

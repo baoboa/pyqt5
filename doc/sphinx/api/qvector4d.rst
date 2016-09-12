@@ -5,4 +5,4 @@ QVector4D
 
 .. class:: QVector4D
 
-    `C++ documentation <http://doc.qt.io/qt-5/qvector4d.html>`_
+    `C++ documentation <https://doc.qt.io/qt-5/qvector4d.html>`_

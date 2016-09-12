@@ -5,4 +5,4 @@ QWebHistoryItem
 
 .. class:: QWebHistoryItem
 
-    `C++ documentation <http://doc.qt.io/qt-5/qwebhistoryitem.html>`_
+    `C++ documentation <https://doc.qt.io/qt-5/qwebhistoryitem.html>`_

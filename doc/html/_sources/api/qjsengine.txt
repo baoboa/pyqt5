@@ -5,4 +5,4 @@ QJSEngine
 
 .. class:: QJSEngine
 
-    `C++ documentation <http://doc.qt.io/qt-5/qjsengine.html>`_
+    `C++ documentation <https://doc.qt.io/qt-5/qjsengine.html>`_

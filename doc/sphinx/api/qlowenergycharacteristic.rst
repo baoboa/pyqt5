@@ -5,4 +5,4 @@ QLowEnergyCharacteristic
 
 .. class:: QLowEnergyCharacteristic
 
-    `C++ documentation <http://doc.qt.io/qt-5/qlowenergycharacteristic.html>`_
+    `C++ documentation <https://doc.qt.io/qt-5/qlowenergycharacteristic.html>`_

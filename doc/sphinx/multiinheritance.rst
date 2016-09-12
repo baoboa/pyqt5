@@ -61,7 +61,7 @@ The difference is that we only handle arguments that are used by the ``Person``
 class itself and we punt all the other arguments to the super-classes by
 calling ``super()``.
 
-With this implementation an instance would normally created in one of the
+With this implementation an instance would normally be created in one of the
 following ways::
 
     person = Person("Joe")

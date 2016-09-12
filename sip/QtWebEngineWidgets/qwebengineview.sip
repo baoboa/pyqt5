@@ -148,6 +148,30 @@ protected:
     virtual void hideEvent(QHideEvent *);
 %End
 
+public:
+%If (Qt_5_7_0 -)
+    QIcon icon() const;
+%End
+
+signals:
+%If (Qt_5_7_0 -)
+    void iconChanged(const QIcon &);
+%End
+
+protected:
+%If (Qt_5_7_0 -)
+    virtual void dragEnterEvent(QDragEnterEvent *e);
+%End
+%If (Qt_5_7_0 -)
+    virtual void dragLeaveEvent(QDragLeaveEvent *e);
+%End
+%If (Qt_5_7_0 -)
+    virtual void dragMoveEvent(QDragMoveEvent *e);
+%End
+%If (Qt_5_7_0 -)
+    virtual void dropEvent(QDropEvent *e);
+%End
+
 private:
 %If (Qt_5_6_0 -)
     QWebEngineView(const QWebEngineView &);

@@ -5,4 +5,4 @@ QExtensionFactory
 
 .. class:: QExtensionFactory
 
-    `C++ documentation <http://doc.qt.io/qt-5/qextensionfactory.html>`_
+    `C++ documentation <https://doc.qt.io/qt-5/qextensionfactory.html>`_

@@ -5,4 +5,4 @@ QWindow
 
 .. class:: QWindow
 
-    `C++ documentation <http://doc.qt.io/qt-5/qwindow.html>`_
+    `C++ documentation <https://doc.qt.io/qt-5/qwindow.html>`_

@@ -5,4 +5,4 @@ QDomEntity
 
 .. class:: QDomEntity
 
-    `C++ documentation <http://doc.qt.io/qt-5/qdomentity.html>`_
+    `C++ documentation <https://doc.qt.io/qt-5/qdomentity.html>`_

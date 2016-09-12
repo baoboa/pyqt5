@@ -5,4 +5,4 @@ QDBusInterface
 
 .. class:: QDBusInterface
 
-    `C++ documentation <http://doc.qt.io/qt-5/qdbusinterface.html>`_
+    `C++ documentation <https://doc.qt.io/qt-5/qdbusinterface.html>`_

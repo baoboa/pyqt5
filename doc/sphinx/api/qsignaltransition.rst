@@ -5,4 +5,4 @@ QSignalTransition
 
 .. class:: QSignalTransition
 
-    `C++ documentation <http://doc.qt.io/qt-5/qsignaltransition.html>`_
+    `C++ documentation <https://doc.qt.io/qt-5/qsignaltransition.html>`_

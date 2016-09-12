@@ -184,6 +184,10 @@ public:
         Py_END_ALLOW_THREADS
 %End
 
+%If (Qt_5_7_0 -)
+    virtual void setSelectionModel(QItemSelectionModel *selectionModel);
+%End
+
 private:
     virtual void setModel(QAbstractItemModel *model /KeepReference/);
     QListWidget(const QListWidget &);

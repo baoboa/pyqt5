@@ -5,4 +5,4 @@ QStyleOptionToolBar
 
 .. class:: QStyleOptionToolBar
 
-    `C++ documentation <http://doc.qt.io/qt-5/qstyleoptiontoolbar.html>`_
+    `C++ documentation <https://doc.qt.io/qt-5/qstyleoptiontoolbar.html>`_

@@ -1,38 +1,169 @@
 Installing PyQt5
 ================
 
+Both the GPL and commercial versions of PyQt5 can be built from source packages
+or installed from binary wheels.
+
+
+Installing from Wheels
+----------------------
+
+Wheels are the standard Python packaging format for pure Python or binary
+extension modules such as PyQt5.  PyQt5 wheels are specific to a particular
+version of Python.  Only Python v3.5 and later is supported.  Wheels are
+provide for 32- and 64-bit Windows, 64-bit OS X and 64-bit Linux.  These
+correspond with the platforms for which The Qt Company provide binary
+installers.
+
+Wheels are installed using the :program:`pip3` program that is included with
+current versions of Python.
+
+
+Installing the GPL Version
+..........................
+
+To install the wheel for the GPL version of PyQt5, run::
+
+    pip3 install pyqt5
+
+This will install the wheel for your platform and your version of Python
+(assuming both are supported).  The wheel will be automatically downloaded from
+the Python Package Index.
+
+If you get an error message saying that no downloads could be found that
+satisfy the rquirement then you are probably using an unsupported version of
+Python.
+
+The PyQt5 wheel includes the necessary parts of the LGPL version of Qt.  There
+is no need to install Qt yourself.
+
+sip is packaged as a separate wheel which will be downloaded and installed
+automatically.
+
+To uninstall the GPL version, run::
+
+    pip3 uninstall pyqt5
+
+
+Installing the Commercial Version
+.................................
+
+.. program:: pyqtlicense
+
+It is not possible to provide wheels for the commercial version in the same way
+they are provided for the GPL version:
+
+- the user's license information has to be applied
+
+- it is not possble to distribute a copy of the commercial version of Qt.
+
+Instead *unlicensed* wheels are provided which do not include a copy of Qt.
+The program :program:`pyqtlicense` is provided which takes the unlicensed
+wheel, the ``pyqt-commercial.sip`` license file and the location of the Qt
+installation and generates a *licensed* wheel.  The licensed wheel contains a
+copy of the necessary parts of Qt and can be installed using :program:`pip3`.
+
+:program:`pyqtlicense` assumes that the Qt installation has been created from
+one of the LGPL or commercial binary installers provided by The Qt Company.  It
+may also work with a Qt installation built from source but this is unsupported.
+
+On Windows the binary installer for MSVC 2015 must be used.
+
+The following describes the command line options of :program:`pyqtlicense`.
+
+.. cmdoption:: -h, --help
+
+    Display a help message and exit.
+
+.. cmdoption:: -V, --version
+
+    Display the version number and exit.
+
+.. cmdoption:: --license FILE
+
+    This specifies that ``FILE`` is the license file.
+
+.. cmdoption:: --no-msvc-runtime
+
+    The unlicensed wheels for 32- and 64-bit Python includes ``msvcp140.dll``
+    (part of the MSVC2015 C++ runtime).  This specifies that the DLL should be
+    omitted from the licensed wheel.
+
+.. cmdoption:: --no-openssl
+
+    The unlicensed wheels for 32- and 64-bit Python includes ``libeay32.dll``
+    and ``ssleay32.dll`` (i.e the OpenSSL DLLs).  This specifies that the DLLs
+    should be omitted from the licensed wheel.
+
+.. cmdoption:: --openssl DIR
+
+    This specifies that the ``libeay32.dll`` and ``ssleay32.dll`` DLLs included
+    in the unlicensed wheels for 32- and 64-bit Python should be replaced by
+    the DLLs of the same name in the directory ``DIR``.
+
+.. cmdoption:: --output DIR
+
+    This specifies that the licensed wheel will be written to the directory
+    ``DIR``.
+
+.. cmdoption:: --qt DIR
+
+    This specifies that ``DIR`` contains the LGPL or commercial Qt installation
+    to be included in the licensed wheel.  It must be specified.
+
+.. cmdoption:: --quiet
+
+    This specifies that all progress messages should be suppressed.
+
+.. cmdoption:: --verbose
+
+    This specifies that additional progress messages should be displayed.
+
+The remaining arguments are the names of the unlicensed wheel files to license.
+
+To uninstall the commercial version, run::
+
+    pip3 uninstall pyqt5-commercial
+
+
+Building and Installing from Source
+-----------------------------------
+
+.. program:: configure.py
+
 Downloading SIP
----------------
+...............
 
 SIP must be installed before building and using PyQt5.  You can get the latest
 release of the SIP source code from
 http://www.riverbankcomputing.com/software/sip/download.
 
-The SIP documentation can be found at http://pyqt.sourceforge.net/Docs/sip4/.
+The SIP installation instructions can be found at
+http://pyqt.sourceforge.net/Docs/sip4/installation.html.
 
 
 Downloading PyQt5
------------------
+.................
 
 You can get the latest release of the GPL version of the PyQt5 source code from
 http://www.riverbankcomputing.com/software/pyqt/download5.
 
 If you are using the commercial version of PyQt5 then you should use the
 download instructions which were sent to you when you made your purchase.  You
-must also download your license file.
+must also download your ``pyqt-commercial.sip`` license file.
 
 
 Configuring PyQt5
------------------
+.................
 
 After unpacking the source package (either a ``.tar.gz`` or a ``.zip`` file
 depending on your platform) you should then check for any :file:`README` files
 that relate to your platform.
 
 If you are using the commercial version of PyQt5 then you must copy your
-license file to the :file:`sip` directory, or to the directory specified by the
-:option:`--license-dir <configure.py --license-dir>` option of
-:program:`configure.py`.
+``pyqt-commercial.sip`` license file to the :file:`sip` directory, or to the
+directory specified by the :option:`--license-dir <configure.py --license-dir>`
+option of :program:`configure.py`.
 
 You need to make sure your environment variables are set properly for your
 development environment.
@@ -40,7 +171,7 @@ development environment.
 In order to configure the build of PyQt5 you need to run the
 :program:`configure.py` script as follows::
 
-    python configure.py
+    python3 configure.py
 
 This assumes that the Python interpreter is on your path.  Something like the
 following may be appropriate on Windows::
@@ -52,7 +183,9 @@ interpreter for which you wish to build PyQt5 for.
 
 The full set of command line options is:
 
-.. program:: configure.py
+.. cmdoption:: -h, --help
+
+    Display a help message and exit.
 
 .. cmdoption:: --assume-shared
 
@@ -126,10 +259,6 @@ The full set of command line options is:
     Qt library can be found.  Using this option only those modules specifically
     enabled will be checked for and built.  The option may be specified any
     number of times.
-
-.. cmdoption:: --help, -h
-
-    Display a help message.
 
 .. cmdoption:: --license-dir <DIR>
 
@@ -302,7 +431,7 @@ The full set of command line options is:
 
 .. cmdoption:: --version
 
-    Display the PyQt5 version number.
+    Display the version number and exit.
 
 Any remaining command line arguments are expected to be in the form
 ``name=value`` or ``name+=value``.  Such arguments are added to any
@@ -310,7 +439,7 @@ Any remaining command line arguments are expected to be in the form
 
 
 Building PyQt5
---------------
+..............
 
 The next step is to build PyQt5 by running your platform's :program:`make`
 command.  For example::
@@ -326,17 +455,10 @@ The final step is to install PyQt5 by running the following command::
 This will install the various PyQt5 components.
 
 
-Co-existence with PyQt4
------------------------
-
-PyQt5 can be installed alongside PyQt4 using the same Python interpreter
-without any problems so long as they are built with the same version of SIP.
-
-
 .. _ref-configuration-files:
 
 Configuring with Configuration Files
-------------------------------------
+....................................
 
 The :program:`configure.py` script normally introspects the Python installation
 of the interpreter running it in order to determine the names of the various
@@ -460,3 +582,10 @@ The following values can be specified in the configuration file:
     is the name of the Python interpreter (as it would be called from the
     target system) that will be used to run :program:`pyuic5`.  It can be
     overridden by the :option:`--pyuic5-interpreter` option.
+
+
+Co-existence with PyQt4
+-----------------------
+
+PyQt5 can be installed alongside PyQt4 using the same Python interpreter
+without any problems so long as they are built with the same version of SIP.

@@ -65,6 +65,13 @@ public:
     qreal azimuthTo(const QGeoCoordinate &other) const;
     QGeoCoordinate atDistanceAndAzimuth(qreal distance, qreal azimuth, qreal distanceUp = 0.0) const;
     QString toString(QGeoCoordinate::CoordinateFormat format = QGeoCoordinate::DegreesMinutesSecondsWithHemisphere) const;
+%If (Qt_5_7_0 -)
+    long __hash__() const;
+%MethodCode
+        sipRes = qHash(*sipCpp);
+%End
+
+%End
 };
 
 %End

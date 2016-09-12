@@ -5,4 +5,4 @@ QTreeView
 
 .. class:: QTreeView
 
-    `C++ documentation <http://doc.qt.io/qt-5/qtreeview.html>`_
+    `C++ documentation <https://doc.qt.io/qt-5/qtreeview.html>`_

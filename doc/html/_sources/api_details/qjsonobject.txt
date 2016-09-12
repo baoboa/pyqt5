@@ -1,0 +1,2 @@
+:class:`QJsonObject` is implemented as a Python dict of str keys and
+:class:`QJsonValue` values.

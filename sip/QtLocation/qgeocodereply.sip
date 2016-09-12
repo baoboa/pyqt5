@@ -56,7 +56,12 @@ signals:
     void error(QGeoCodeReply::Error error, const QString &errorString = QString());
 
 protected:
+%If (Qt_5_6_1 -)
+    explicit QGeoCodeReply(QObject *parent /TransferThis/ = 0);
+%End
+%If (- Qt_5_6_1)
     QGeoCodeReply(QObject *parent /TransferThis/ = 0);
+%End
     void setError(QGeoCodeReply::Error error, const QString &errorString);
     void setFinished(bool finished);
     void setViewport(const QGeoShape &viewport);

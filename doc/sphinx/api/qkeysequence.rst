@@ -5,4 +5,4 @@ QKeySequence
 
 .. class:: QKeySequence
 
-    `C++ documentation <http://doc.qt.io/qt-5/qkeysequence.html>`_
+    `C++ documentation <https://doc.qt.io/qt-5/qkeysequence.html>`_

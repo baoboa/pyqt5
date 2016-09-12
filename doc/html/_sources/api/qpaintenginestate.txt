@@ -5,4 +5,4 @@ QPaintEngineState
 
 .. class:: QPaintEngineState
 
-    `C++ documentation <http://doc.qt.io/qt-5/qpaintenginestate.html>`_
+    `C++ documentation <https://doc.qt.io/qt-5/qpaintenginestate.html>`_

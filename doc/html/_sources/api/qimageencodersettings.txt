@@ -5,4 +5,4 @@ QImageEncoderSettings
 
 .. class:: QImageEncoderSettings
 
-    `C++ documentation <http://doc.qt.io/qt-5/qimageencodersettings.html>`_
+    `C++ documentation <https://doc.qt.io/qt-5/qimageencodersettings.html>`_

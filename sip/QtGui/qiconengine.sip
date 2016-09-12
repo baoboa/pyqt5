@@ -45,6 +45,9 @@ public:
     {
         AvailableSizesHook,
         IconNameHook,
+%If (Qt_5_7_0 -)
+        IsNullHook,
+%End
     };
 
     struct AvailableSizesArgument
@@ -60,4 +63,7 @@ public:
 
     virtual QList<QSize> availableSizes(QIcon::Mode mode = QIcon::Normal, QIcon::State state = QIcon::Off) const;
     virtual QString iconName() const;
+%If (Qt_5_7_0 -)
+    bool isNull() const;
+%End
 };

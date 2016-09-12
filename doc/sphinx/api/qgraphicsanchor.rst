@@ -5,4 +5,4 @@ QGraphicsAnchor
 
 .. class:: QGraphicsAnchor
 
-    `C++ documentation <http://doc.qt.io/qt-5/qgraphicsanchor.html>`_
+    `C++ documentation <https://doc.qt.io/qt-5/qgraphicsanchor.html>`_

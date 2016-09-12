@@ -5,4 +5,4 @@ QDomDocumentType
 
 .. class:: QDomDocumentType
 
-    `C++ documentation <http://doc.qt.io/qt-5/qdomdocumenttype.html>`_
+    `C++ documentation <https://doc.qt.io/qt-5/qdomdocumenttype.html>`_

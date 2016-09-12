@@ -210,7 +210,7 @@ protected:
         }
         
         QByteArray signal_signature;
-        const char *signal;
+        const char *signal = 0;
         
         if (a3 && a3 != Py_None)
         {
@@ -222,10 +222,6 @@ protected:
             {
                 sipError = sipBadCallableArg(3, a3);
             }
-        }
-        else
-        {
-            signal = 0;
         }
         
         if (sipError == sipErrorNone)

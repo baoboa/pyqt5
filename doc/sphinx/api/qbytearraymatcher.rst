@@ -5,4 +5,4 @@ QByteArrayMatcher
 
 .. class:: QByteArrayMatcher
 
-    `C++ documentation <http://doc.qt.io/qt-5/qbytearraymatcher.html>`_
+    `C++ documentation <https://doc.qt.io/qt-5/qbytearraymatcher.html>`_

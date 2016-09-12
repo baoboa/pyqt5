@@ -5,4 +5,4 @@ QXmlParseException
 
 .. class:: QXmlParseException
 
-    `C++ documentation <http://doc.qt.io/qt-5/qxmlparseexception.html>`_
+    `C++ documentation <https://doc.qt.io/qt-5/qxmlparseexception.html>`_

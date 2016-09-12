@@ -5,4 +5,4 @@ QListWidget
 
 .. class:: QListWidget
 
-    `C++ documentation <http://doc.qt.io/qt-5/qlistwidget.html>`_
+    `C++ documentation <https://doc.qt.io/qt-5/qlistwidget.html>`_

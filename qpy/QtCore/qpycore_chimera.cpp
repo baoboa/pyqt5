@@ -416,6 +416,11 @@ bool Chimera::parse_py_type(PyTypeObject *type_obj)
         _type = sipType_QString;
         _metatype = QMetaType::QString;
     }
+    else if (type_obj == &PyBytes_Type)
+    {
+        _metatype = -1;
+        _name = "const char*";
+    }
 #else
     else if (type_obj == &PyString_Type || type_obj == &PyUnicode_Type)
     {
@@ -453,6 +458,11 @@ bool Chimera::parse_py_type(PyTypeObject *type_obj)
     else if (type_obj == &PyFloat_Type)
     {
         _metatype = QMetaType::Double;
+    }
+    else if (type_obj == sipVoidPtr_Type)
+    {
+        _metatype = QMetaType::VoidStar;
+        _name = "void*";
     }
 
     // Fallback to using a PyQt_PyObject.
@@ -813,7 +823,7 @@ bool Chimera::fromPyObject(PyObject *py, void *cpp) const
 
     case -1:
         {
-            char **ptr = reinterpret_cast<char **>(cpp);
+            const char **ptr = reinterpret_cast<const char **>(cpp);
 
             if (SIPBytes_Check(py))
                 *ptr = SIPBytes_AS_STRING(py);
@@ -908,13 +918,18 @@ bool Chimera::fromPyObject(PyObject *py, QVariant *var, bool strict) const
         return true;
     }
 
-    // Let any registered convertors have a go first.
-    for (int i = 0; i < registeredToQVariantConvertors.count(); ++i)
+    // Let any registered convertors have a go first.  However don't invoke
+    // then for None because that is effectively reserved for representing a
+    // null QString.
+    if (py != Py_None)
     {
-        bool ok;
+        for (int i = 0; i < registeredToQVariantConvertors.count(); ++i)
+        {
+            bool ok;
 
-        if (registeredToQVariantConvertors.at(i)(py, *var, &ok))
-            return ok;
+            if (registeredToQVariantConvertors.at(i)(py, *var, &ok))
+                return ok;
+        }
     }
 
     int iserr = 0, value_class_state;
@@ -1201,6 +1216,20 @@ QVariant Chimera::fromAnyPyObject(PyObject *py, int *is_err)
 
     if (py != Py_None)
     {
+        // Let any registered convertors have a go first.
+        for (int i = 0; i < registeredToQVariantConvertors.count(); ++i)
+        {
+            QVariant var;
+            bool ok;
+
+            if (registeredToQVariantConvertors.at(i)(py, var, &ok))
+            {
+                *is_err = !ok;
+
+                return var;
+            }
+        }
+
         Chimera ct;
 
         if (ct.parse_py_type(Py_TYPE(py)))

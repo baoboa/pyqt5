@@ -5,4 +5,4 @@ QDBusPendingReply
 
 .. class:: QDBusPendingReply
 
-    `C++ documentation <http://doc.qt.io/qt-5/qdbuspendingreply.html>`_
+    `C++ documentation <https://doc.qt.io/qt-5/qdbuspendingreply.html>`_

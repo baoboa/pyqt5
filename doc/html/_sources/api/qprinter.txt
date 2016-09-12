@@ -5,4 +5,4 @@ QPrinter
 
 .. class:: QPrinter
 
-    `C++ documentation <http://doc.qt.io/qt-5/qprinter.html>`_
+    `C++ documentation <https://doc.qt.io/qt-5/qprinter.html>`_

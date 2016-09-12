@@ -5,4 +5,4 @@ QPagedPaintDevice
 
 .. class:: QPagedPaintDevice
 
-    `C++ documentation <http://doc.qt.io/qt-5/qpagedpaintdevice.html>`_
+    `C++ documentation <https://doc.qt.io/qt-5/qpagedpaintdevice.html>`_

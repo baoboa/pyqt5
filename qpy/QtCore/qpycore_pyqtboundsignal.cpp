@@ -67,18 +67,16 @@ static bool do_emit(QObject *qtx, int signal_index,
 static bool get_receiver(PyObject *slot,
         const Chimera::Signature *signal_signature, QObject **receiver,
         QByteArray &slot_signature);
-static QByteArray slot_signature_from_decorations(
-        const Chimera::Signature *signal_signature, PyObject *decorations,
-        int nr_args);
-static QByteArray slot_signature_from_metaobject(
-        const Chimera::Signature *signal_signature, const QMetaObject *slot_mo,
-        const QByteArray &slot_name, int nr_args);
-static QByteArray slot_signature(const Chimera::Signature *signal_signature,
+static void slot_signature_from_decorations(QByteArray &slot_signature,
+        const Chimera::Signature *signal_signature, PyObject *decorations);
+static QByteArray slot_signature_from_signal(
+        const Chimera::Signature *signal_signature,
         const QByteArray &slot_name, int nr_args);
 static sipErrorState get_receiver_slot_signature(PyObject *slot,
         QObject *transmitter, const Chimera::Signature *signal_signature,
         bool single_shot, QObject **receiver, QByteArray &slot_signature,
         bool unique_connection_check, int no_receiver_check);
+static void add_slot_prefix(QByteArray &slot_signature);
 
 
 // Doc-strings.
@@ -736,9 +734,9 @@ static bool get_receiver(PyObject *slot,
         const Chimera::Signature *signal_signature, QObject **receiver,
         QByteArray &slot_signature)
 {
-    PyObject *rx_self = 0, *decorations = 0;
-    QByteArray rx_name;
     bool try_qt_slot = false;
+    PyObject *rx_self = 0;
+    QByteArray rx_name;
 
     // Assume there isn't a QObject receiver.
     *receiver = 0;
@@ -758,14 +756,24 @@ static bool get_receiver(PyObject *slot,
         Py_DECREF(f_name_obj);
 
         // See if this has been decorated.
-        decorations = PyObject_GetAttr(f, qpycore_dunder_pyqtsignature);
+        PyObject *decorations = PyObject_GetAttr(f,
+                qpycore_dunder_pyqtsignature);
 
         if (decorations)
         {
-            try_qt_slot = true;
+            // Choose from the decorations.
+            slot_signature_from_decorations(slot_signature, signal_signature,
+                    decorations);
 
-            // It's convenient to do this here as it's not going to disappear.
             Py_DECREF(decorations);
+
+            if (slot_signature.isEmpty())
+            {
+                PyErr_Format(PyExc_TypeError,
+                        "decorated slot has no signature compatible with %s",
+                        signal_signature->py_signature.constData());
+                return false;
+            }
         }
 
         Py_XINCREF(rx_self);
@@ -853,40 +861,20 @@ static bool get_receiver(PyObject *slot,
     // of them) then use it.  Otherwise we will fallback to using a proxy.
     if (try_qt_slot)
     {
+        const QMetaObject *mo = (*receiver)->metaObject();
+
         for (int ol = signal_signature->parsed_arguments.count(); ol >= 0; --ol)
         {
-            // If there are decorations then we compare the signal's signature
-            // against them so that we distinguish between Python types that
-            // are passed to Qt as PyQt_PyObject objects.  Qt will not make the
-            // distinction.  If there are no decorations then let Qt determine
-            // if a slot is available.
-            if (decorations)
-                slot_signature = slot_signature_from_decorations(
-                        signal_signature, decorations, ol);
-            else
-                slot_signature = slot_signature_from_metaobject(
-                        signal_signature, (*receiver)->metaObject(), rx_name,
-                        ol);
+            slot_signature = slot_signature_from_signal(signal_signature,
+                    rx_name, ol);
 
-            if (!slot_signature.isEmpty())
-                break;
-        }
-
-        if (slot_signature.isEmpty())
-        {
-            // If the method is decorated then there must be a match.
-            if (decorations)
+            if (mo->indexOfSlot(slot_signature.constData()) >= 0)
             {
-                PyErr_Format(PyExc_TypeError,
-                        "decorated slot has no signature compatible with %s",
-                        signal_signature->py_signature.constData());
-                return false;
+                add_slot_prefix(slot_signature);
+                break;
             }
-        }
-        else
-        {
-            // Prepend the magic slot marker.
-            slot_signature.prepend('1');
+
+            slot_signature.clear();
         }
     }
 
@@ -896,92 +884,59 @@ static bool get_receiver(PyObject *slot,
 
 // Return the full name and signature of a Qt slot that a signal can be
 // connected to, taking the slot decorators into account.
-static QByteArray slot_signature_from_decorations(
-        const Chimera::Signature *signal, PyObject *decorations, int nr_args)
+static void slot_signature_from_decorations(QByteArray &slot_signature,
+        const Chimera::Signature *signal, PyObject *decorations)
 {
+    Chimera::Signature *candidate = 0;
+    int signal_nr_args = signal->parsed_arguments.count();
+
     for (Py_ssize_t i = 0; i < PyList_GET_SIZE(decorations); ++i)
     {
         Chimera::Signature *slot = Chimera::Signature::fromPyObject(
                 PyList_GET_ITEM(decorations, i));
 
-        if (slot->parsed_arguments.count() != nr_args)
+        int slot_nr_args = slot->parsed_arguments.count();
+
+        // Ignore the slot if it requires more arguments than the signal will
+        // provide.
+        if (slot_nr_args > signal_nr_args)
             continue;
 
-        int a;
+        // Ignore the slot if any current candidate will accept more arguments.
+        if (candidate && candidate->parsed_arguments.count() >= slot_nr_args)
+            continue;
 
-        for (a = 0; a < nr_args; ++a)
+        for (int a = 0; a < slot_nr_args; ++a)
         {
             const Chimera *sig_arg = signal->parsed_arguments.at(a);
             const Chimera *slot_arg = slot->parsed_arguments.at(a);
 
-            // The same type names must be compatible.
-            if (sig_arg->name() == slot_arg->name())
-                continue;
-
-            enum Match {
-                // The type is PyQt_PyObject because it was explicitly
-                // specified as such as a string.
-                MatchesAll,
-
-                // The type is PyQt_PyObject because it was specified as a type
-                // object that needed wrapping.
-                MatchesPyType,
-
-                // The type is something other than PyQt_PyObject.
-                MatchesName
-            };
-
-            Match sig_match, slot_match;
-
-            if (sig_arg->name() != "PyQt_PyObject")
-                sig_match = MatchesName;
-            else
-                sig_match = sig_arg->py_type() ? MatchesPyType : MatchesAll;
-
-            if (slot_arg->name() != "PyQt_PyObject")
-                slot_match = MatchesName;
-            else
-                slot_match = slot_arg->py_type() ? MatchesPyType : MatchesAll;
-
-            // They are incompatible unless one is called PyQt_PyObject.
-            if (sig_match == MatchesName || slot_match == MatchesName)
+            // We simply compare meta-types.
+            if (sig_arg->metatype() != slot_arg->metatype())
+            {
+                slot = 0;
                 break;
-
-            // They are compatible if neither was a Python type.
-            if (sig_match == MatchesAll || slot_match == MatchesAll)
-                continue;
-
-            // The signal type can be a sub-type of the slot type.
-            if (!PyType_IsSubtype((PyTypeObject *)sig_arg->py_type(), (PyTypeObject *)slot_arg->py_type()))
-                break;
+            }
         }
 
-        if (a == nr_args)
-            return slot_signature(signal, slot->name(), nr_args);
+        // If all of the slot's arguments were Ok then this will be the best
+        // candidate so far.
+        if (slot)
+            candidate = slot;
     }
 
-    return QByteArray();
-}
-
-
-// Return the full name and signature of a Qt slot that a signal can be
-// connected to, taking the Qt meta-object into account.
-static QByteArray slot_signature_from_metaobject(
-        const Chimera::Signature *signal_signature, const QMetaObject *slot_mo,
-        const QByteArray &slot_name, int nr_args)
-{
-    QByteArray slot_sig = slot_signature(signal_signature, slot_name, nr_args);
-
-    if (slot_mo->indexOfSlot(slot_sig.constData()) < 0)
-        slot_sig.clear();
-
-    return slot_sig;
+    if (candidate)
+    {
+        slot_signature = candidate->signature;
+        add_slot_prefix(slot_signature);
+    }
 }
 
 
 // Return the full name and signature of the Qt slot that a signal would be
 // connected to.
-static QByteArray slot_signature(const Chimera::Signature *signal_signature,
+static QByteArray slot_signature_from_signal(
+        const Chimera::Signature *signal_signature,
         const QByteArray &slot_name, int nr_args)
 {
     QByteArray slot_sig = slot_name;
@@ -999,4 +954,11 @@ static QByteArray slot_signature(const Chimera::Signature *signal_signature,
     slot_sig.append(')');
 
     return slot_sig;
+}
+
+
+// Add the prefix to a signaturethat tells Qt it is a slot.
+static void add_slot_prefix(QByteArray &slot_signature)
+{
+    slot_signature.prepend('1');
 }

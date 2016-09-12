@@ -5,4 +5,4 @@ QShortcutEvent
 
 .. class:: QShortcutEvent
 
-    `C++ documentation <http://doc.qt.io/qt-5/qshortcutevent.html>`_
+    `C++ documentation <https://doc.qt.io/qt-5/qshortcutevent.html>`_

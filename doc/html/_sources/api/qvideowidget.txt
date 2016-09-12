@@ -5,4 +5,4 @@ QVideoWidget
 
 .. class:: QVideoWidget
 
-    `C++ documentation <http://doc.qt.io/qt-5/qvideowidget.html>`_
+    `C++ documentation <https://doc.qt.io/qt-5/qvideowidget.html>`_

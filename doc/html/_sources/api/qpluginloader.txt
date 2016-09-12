@@ -5,4 +5,4 @@ QPluginLoader
 
 .. class:: QPluginLoader
 
-    `C++ documentation <http://doc.qt.io/qt-5/qpluginloader.html>`_
+    `C++ documentation <https://doc.qt.io/qt-5/qpluginloader.html>`_

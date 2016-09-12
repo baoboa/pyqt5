@@ -5,4 +5,4 @@ QBackingStore
 
 .. class:: QBackingStore
 
-    `C++ documentation <http://doc.qt.io/qt-5/qbackingstore.html>`_
+    `C++ documentation <https://doc.qt.io/qt-5/qbackingstore.html>`_

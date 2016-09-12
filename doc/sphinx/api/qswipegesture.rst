@@ -5,4 +5,4 @@ QSwipeGesture
 
 .. class:: QSwipeGesture
 
-    `C++ documentation <http://doc.qt.io/qt-5/qswipegesture.html>`_
+    `C++ documentation <https://doc.qt.io/qt-5/qswipegesture.html>`_

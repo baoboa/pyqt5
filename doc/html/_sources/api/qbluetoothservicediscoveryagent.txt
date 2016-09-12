@@ -5,4 +5,4 @@ QBluetoothServiceDiscoveryAgent
 
 .. class:: QBluetoothServiceDiscoveryAgent
 
-    `C++ documentation <http://doc.qt.io/qt-5/qbluetoothservicediscoveryagent.html>`_
+    `C++ documentation <https://doc.qt.io/qt-5/qbluetoothservicediscoveryagent.html>`_

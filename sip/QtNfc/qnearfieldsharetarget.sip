@@ -30,7 +30,7 @@ class QNearFieldShareTarget : QObject
 
 public:
     virtual ~QNearFieldShareTarget();
-    QFlags<QNearFieldShareManager::ShareMode> shareModes() const;
+    QNearFieldShareManager::ShareModes shareModes() const;
     bool share(const QNdefMessage &message);
     bool share(const QList<QFileInfo> &files);
     void cancel();

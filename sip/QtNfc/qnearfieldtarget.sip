@@ -84,7 +84,7 @@ public:
     virtual QByteArray uid() const = 0;
     virtual QUrl url() const;
     virtual QNearFieldTarget::Type type() const = 0;
-    virtual QFlags<QNearFieldTarget::AccessMethod> accessMethods() const = 0;
+    virtual QNearFieldTarget::AccessMethods accessMethods() const = 0;
     bool isProcessingCommand() const;
     virtual bool hasNdefMessage();
     virtual QNearFieldTarget::RequestId readNdefMessages();

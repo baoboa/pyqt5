@@ -5,4 +5,4 @@ QSGBasicGeometryNode
 
 .. class:: QSGBasicGeometryNode
 
-    `C++ documentation <http://doc.qt.io/qt-5/qsgbasicgeometrynode.html>`_
+    `C++ documentation <https://doc.qt.io/qt-5/qsgbasicgeometrynode.html>`_

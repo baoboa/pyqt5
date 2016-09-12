@@ -62,6 +62,23 @@ public:
 %If (Qt_5_6_0 -)
     QString mimeType() const;
 %End
+%If (Qt_5_7_0 -)
+
+    enum SavePageFormat
+    {
+        UnknownSaveFormat,
+        SingleHtmlSaveFormat,
+        CompleteHtmlSaveFormat,
+        MimeHtmlSaveFormat,
+    };
+
+%End
+%If (Qt_5_7_0 -)
+    QWebEngineDownloadItem::SavePageFormat savePageFormat() const;
+%End
+%If (Qt_5_7_0 -)
+    void setSavePageFormat(QWebEngineDownloadItem::SavePageFormat format);
+%End
 
 private:
     QWebEngineDownloadItem(const QWebEngineDownloadItem &);

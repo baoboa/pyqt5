@@ -5,4 +5,4 @@ QPlaceEditorial
 
 .. class:: QPlaceEditorial
 
-    `C++ documentation <http://doc.qt.io/qt-5/qplaceeditorial.html>`_
+    `C++ documentation <https://doc.qt.io/qt-5/qplaceeditorial.html>`_

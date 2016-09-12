@@ -5,4 +5,4 @@ QMultimedia
 
 .. class:: QMultimedia
 
-    `C++ documentation <http://doc.qt.io/qt-5/qmultimedia.html>`_
+    `C++ documentation <https://doc.qt.io/qt-5/qmultimedia.html>`_

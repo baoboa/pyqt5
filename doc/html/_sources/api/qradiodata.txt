@@ -5,4 +5,4 @@ QRadioData
 
 .. class:: QRadioData
 
-    `C++ documentation <http://doc.qt.io/qt-5/qradiodata.html>`_
+    `C++ documentation <https://doc.qt.io/qt-5/qradiodata.html>`_

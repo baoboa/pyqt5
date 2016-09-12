@@ -279,6 +279,14 @@ signals:
     void primaryScreenChanged(QScreen *screen);
 %End
 
+public:
+%If (Qt_5_7_0 -)
+    static void setDesktopFileName(const QString &name);
+%End
+%If (Qt_5_7_0 -)
+    static QString desktopFileName();
+%End
+
 private:
     QGuiApplication(const QGuiApplication &);
 };

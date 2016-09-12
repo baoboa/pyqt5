@@ -47,7 +47,7 @@ public slots:
 
 protected:
     void initStyleOption(QStyleOptionButton *option) const;
-    virtual bool event(QEvent *e);
+    virtual bool event(QEvent *e) /ReleaseGIL/;
     virtual void paintEvent(QPaintEvent *);
     virtual void keyPressEvent(QKeyEvent *);
     virtual void focusInEvent(QFocusEvent *);

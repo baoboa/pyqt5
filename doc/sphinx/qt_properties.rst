@@ -44,28 +44,27 @@ properties.
         the optional callable used to set the value of the property.
     :param freset:
         the optional callable used to reset the value of the property to its
-        default value.  It is ignored by Python
+        default value.
     :param fdel:
-        the optional callable used to delete the property.  It is ignored by
-        Qt.
+        the optional callable used to delete the property.
     :param doc:
-        the optional docstring of the property.  It is ignored by Qt.
+        the optional docstring of the property.
     :param designable:
-        optionally sets the Qt ``DESIGNABLE`` flag.  It is ignored by Python
+        optionally sets the Qt ``DESIGNABLE`` flag.
     :param scriptable:
-        optionally sets the Qt ``SCRIPTABLE`` flag.  It is ignored by Python
+        optionally sets the Qt ``SCRIPTABLE`` flag.
     :param stored:
-        optionally sets the Qt ``STORED`` flag.  It is ignored by Python
+        optionally sets the Qt ``STORED`` flag.
     :param user:
-        optionally sets the Qt ``USER`` flag.  It is ignored by Python
+        optionally sets the Qt ``USER`` flag.
     :param constant:
-        optionally sets the Qt ``CONSTANT`` flag.  It is ignored by Python
+        optionally sets the Qt ``CONSTANT`` flag.
     :param final:
-        optionally sets the Qt ``FINAL`` flag.  It is ignored by Python
+        optionally sets the Qt ``FINAL`` flag.
     :param notify:
-        the optional unbound notify signal.  It is ignored by Python
+        the optional unbound notify signal.
     :param revision:
-        the revision exported to QML.  It is ignored by Python
+        the revision exported to QML.
     :rtype:
         the property object.
       

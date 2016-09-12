@@ -69,7 +69,12 @@ class QExtensionManager : QObject, QAbstractExtensionManager
 %End
 
 public:
+%If (Qt_5_6_1 -)
+    explicit QExtensionManager(QObject *parent /TransferThis/ = 0);
+%End
+%If (- Qt_5_6_1)
     QExtensionManager(QObject *parent /TransferThis/ = 0);
+%End
     virtual ~QExtensionManager();
     virtual void registerExtensions(QAbstractExtensionFactory *factory, const QString &iid = QString());
     virtual void unregisterExtensions(QAbstractExtensionFactory *factory, const QString &iid = QString());

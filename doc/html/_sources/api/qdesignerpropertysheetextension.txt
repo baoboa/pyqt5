@@ -5,4 +5,4 @@ QDesignerPropertySheetExtension
 
 .. class:: QDesignerPropertySheetExtension
 
-    `C++ documentation <http://doc.qt.io/qt-5/qdesignerpropertysheetextension.html>`_
+    `C++ documentation <https://doc.qt.io/qt-5/qdesignerpropertysheetextension.html>`_

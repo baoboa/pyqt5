@@ -5,4 +5,4 @@ QHolsterFilter
 
 .. class:: QHolsterFilter
 
-    `C++ documentation <http://doc.qt.io/qt-5/qholsterfilter.html>`_
+    `C++ documentation <https://doc.qt.io/qt-5/qholsterfilter.html>`_

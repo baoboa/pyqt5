@@ -5,4 +5,4 @@ QOpenGLDebugLogger
 
 .. class:: QOpenGLDebugLogger
 
-    `C++ documentation <http://doc.qt.io/qt-5/qopengldebuglogger.html>`_
+    `C++ documentation <https://doc.qt.io/qt-5/qopengldebuglogger.html>`_

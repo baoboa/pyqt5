@@ -28,7 +28,7 @@ import sys
 
 
 # Initialise the constants.
-PYQT_VERSION_STR = "5.6"
+PYQT_VERSION_STR = "5.7"
 
 SIP_MIN_VERSION = '4.18'
 
@@ -40,7 +40,7 @@ OPEN_SOURCE_LICENSEES = ('Open Source', 'Builder Qt')
 class ModuleMetadata:
     """ This class encapsulates the meta-data about a PyQt5 module. """
 
-    def __init__(self, qmake_QT=None, qmake_TARGET='', qpy_lib=False, cpp11=False):
+    def __init__(self, qmake_QT=None, qmake_TARGET='', qpy_lib=False, cpp11=False, public=True):
         """ Initialise the meta-data. """
 
         # The values to update qmake's QT variable.
@@ -55,6 +55,9 @@ class ModuleMetadata:
 
         # Set if C++11 support is required.
         self.cpp11 = cpp11
+
+        # Set if the module is public.
+        self.public = public
 
 
 # The module meta-data.
@@ -113,33 +116,39 @@ MODULE_METADATA = {
                                             'network']),
 
     # The OpenGL wrappers.
-    '_QOpenGLFunctions_1_0':                ModuleMetadata(),
-    '_QOpenGLFunctions_1_1':                ModuleMetadata(),
-    '_QOpenGLFunctions_1_2':                ModuleMetadata(),
-    '_QOpenGLFunctions_1_3':                ModuleMetadata(),
-    '_QOpenGLFunctions_1_4':                ModuleMetadata(),
-    '_QOpenGLFunctions_1_5':                ModuleMetadata(),
-    '_QOpenGLFunctions_2_0':                ModuleMetadata(),
-    '_QOpenGLFunctions_2_1':                ModuleMetadata(),
-    '_QOpenGLFunctions_3_0':                ModuleMetadata(),
-    '_QOpenGLFunctions_3_1':                ModuleMetadata(),
-    '_QOpenGLFunctions_3_2_Compatibility':  ModuleMetadata(),
-    '_QOpenGLFunctions_3_2_Core':           ModuleMetadata(),
-    '_QOpenGLFunctions_3_3_Compatibility':  ModuleMetadata(),
-    '_QOpenGLFunctions_3_3_Core':           ModuleMetadata(),
-    '_QOpenGLFunctions_4_0_Compatibility':  ModuleMetadata(),
-    '_QOpenGLFunctions_4_0_Core':           ModuleMetadata(),
-    '_QOpenGLFunctions_4_1_Compatibility':  ModuleMetadata(),
-    '_QOpenGLFunctions_4_1_Core':           ModuleMetadata(),
-    '_QOpenGLFunctions_4_2_Compatibility':  ModuleMetadata(),
-    '_QOpenGLFunctions_4_2_Core':           ModuleMetadata(),
-    '_QOpenGLFunctions_4_3_Compatibility':  ModuleMetadata(),
-    '_QOpenGLFunctions_4_3_Core':           ModuleMetadata(),
-    '_QOpenGLFunctions_4_4_Compatibility':  ModuleMetadata(),
-    '_QOpenGLFunctions_4_4_Core':           ModuleMetadata(),
-    '_QOpenGLFunctions_4_5_Compatibility':  ModuleMetadata(),
-    '_QOpenGLFunctions_4_5_Core':           ModuleMetadata(),
-    '_QOpenGLFunctions_ES2':                ModuleMetadata()
+    '_QOpenGLFunctions_1_0':                ModuleMetadata(public=False),
+    '_QOpenGLFunctions_1_1':                ModuleMetadata(public=False),
+    '_QOpenGLFunctions_1_2':                ModuleMetadata(public=False),
+    '_QOpenGLFunctions_1_3':                ModuleMetadata(public=False),
+    '_QOpenGLFunctions_1_4':                ModuleMetadata(public=False),
+    '_QOpenGLFunctions_1_5':                ModuleMetadata(public=False),
+    '_QOpenGLFunctions_2_0':                ModuleMetadata(public=False),
+    '_QOpenGLFunctions_2_1':                ModuleMetadata(public=False),
+    '_QOpenGLFunctions_3_0':                ModuleMetadata(public=False),
+    '_QOpenGLFunctions_3_1':                ModuleMetadata(public=False),
+    '_QOpenGLFunctions_3_2_Compatibility':  ModuleMetadata(public=False),
+    '_QOpenGLFunctions_3_2_Core':           ModuleMetadata(public=False),
+    '_QOpenGLFunctions_3_3_Compatibility':  ModuleMetadata(public=False),
+    '_QOpenGLFunctions_3_3_Core':           ModuleMetadata(public=False),
+    '_QOpenGLFunctions_4_0_Compatibility':  ModuleMetadata(public=False),
+    '_QOpenGLFunctions_4_0_Core':           ModuleMetadata(public=False),
+    '_QOpenGLFunctions_4_1_Compatibility':  ModuleMetadata(public=False),
+    '_QOpenGLFunctions_4_1_Core':           ModuleMetadata(public=False),
+    '_QOpenGLFunctions_4_2_Compatibility':  ModuleMetadata(public=False),
+    '_QOpenGLFunctions_4_2_Core':           ModuleMetadata(public=False),
+    '_QOpenGLFunctions_4_3_Compatibility':  ModuleMetadata(public=False),
+    '_QOpenGLFunctions_4_3_Core':           ModuleMetadata(public=False),
+    '_QOpenGLFunctions_4_4_Compatibility':  ModuleMetadata(public=False),
+    '_QOpenGLFunctions_4_4_Core':           ModuleMetadata(public=False),
+    '_QOpenGLFunctions_4_5_Compatibility':  ModuleMetadata(public=False),
+    '_QOpenGLFunctions_4_5_Core':           ModuleMetadata(public=False),
+    '_QOpenGLFunctions_ES2':                ModuleMetadata(public=False),
+
+    # Internal modules.
+    'pylupdate':            ModuleMetadata(qmake_QT=['xml', '-gui'],
+                                    qpy_lib=True, public=False),
+    'pyrcc':                ModuleMetadata(qmake_QT=['xml', '-gui'],
+                                    qpy_lib=True, public=False),
 }
 
 
@@ -854,6 +863,13 @@ int main(int argc, char **argv)
         if opts.qmake is not None:
             self.qmake = opts.qmake
 
+            # On Windows add the directory that probably contains the Qt DLLs
+            # to PATH.
+            if sys.platform == 'win32':
+                path = os.environ['PATH']
+                path = os.path.dirname(self.qmake) + ';' + path
+                os.environ['PATH'] = path
+
         if self.qmake is None:
             error(
                     "Use the --qmake argument to explicitly specify a working "
@@ -1126,8 +1142,8 @@ def create_optparser(target_config):
     g.add_option("--pyuic5-interpreter", dest='pyuicinterpreter',
             type='string', default=None, action='callback',
             callback=store_abspath_exe, metavar="FILE",
-            help="the name of the Python interpreter to run the pyuic5 "
-                    "wrapper is FILE [default: %s]" %
+            help="the name of the Python interpreter to run the pylupdate5, "
+                    "pyrcc5 and pyuic5 wrappers is FILE [default: %s]" %
                             target_config.pyuic_interpreter)
 
     g.add_option("--qmake", "-q", dest='qmake', type='string', default=None,
@@ -1425,12 +1441,11 @@ def check_5_6_modules(target_config, disabled_modules, verbose):
             'const char *v = QTWEBENGINECORE_VERSION_STR')
 
 
-def generate_makefiles(target_config, verbose, no_timestamp, parts, tracing):
+def generate_makefiles(target_config, verbose, parts, tracing):
     """ Generate the makefiles to build everything.  target_config is the
     target configuration.  verbose is set if the output is to be displayed.
-    no_timestamp is set if the .sip files should exclude the timestamp.  parts
-    is the number of parts the generated code should be split into.  tracing is
-    set if the generated code should include tracing calls.
+    parts is the number of parts the generated code should be split into.
+    tracing is set if the generated code should include tracing calls.
     """
 
     # For the top-level .pro file.
@@ -1441,7 +1456,14 @@ def generate_makefiles(target_config, verbose, no_timestamp, parts, tracing):
     sip_flags = get_sip_flags(target_config)
 
     # Go through the modules.
-    for mname in target_config.pyqt_modules:
+    pyqt_modules = list(target_config.pyqt_modules)
+
+    # Add the internal modules if they are required.
+    if not target_config.no_tools:
+        pyqt_modules.append('pylupdate')
+        pyqt_modules.append('pyrcc')
+
+    for mname in pyqt_modules:
         metadata = MODULE_METADATA[mname]
 
         if metadata.qpy_lib:
@@ -1459,8 +1481,8 @@ def generate_makefiles(target_config, verbose, no_timestamp, parts, tracing):
             qpy_sources = []
             qpy_headers = []
 
-        generate_sip_module_code(target_config, verbose, no_timestamp, parts,
-                tracing, mname, sip_flags, qpy_sources, qpy_headers)
+        generate_sip_module_code(target_config, verbose, parts, tracing, mname,
+                sip_flags, metadata.public, qpy_sources, qpy_headers)
         subdirs.append(mname)
 
     # Generate the composite module.
@@ -1480,18 +1502,22 @@ def generate_makefiles(target_config, verbose, no_timestamp, parts, tracing):
 
     f.close()
 
-    generate_sip_module_code(target_config, verbose, no_timestamp, parts,
-            tracing, 'Qt', sip_flags)
+    generate_sip_module_code(target_config, verbose, parts, tracing, 'Qt',
+            sip_flags, False)
     subdirs.append('Qt')
 
+    wrappers = []
     if not target_config.no_tools:
-        # Generate pylupdate5 and pyrcc5.
+        # Generate the pylupdate5 and pyrcc5 wrappers.
         for tool in ('pylupdate', 'pyrcc'):
-            generate_application_makefile(target_config, verbose, tool)
-            subdirs.append(tool)
+            wrappers.append((tool,
+                    generate_tool_wrapper(target_config, tool + '5',
+                            'PyQt5.%s_main' % tool)))
 
         # Generate the pyuic5 wrapper.
-        pyuic_wrapper = generate_pyuic5_wrapper(target_config)
+        wrappers.append(('pyuic',
+                generate_tool_wrapper(target_config, 'pyuic5',
+                        'PyQt5.uic.pyuic')))
 
     # Generate the Qt Designer plugin.
     if not target_config.no_designer_plugin and 'QtDesigner' in target_config.pyqt_modules:
@@ -1513,13 +1539,14 @@ def generate_makefiles(target_config, verbose, no_timestamp, parts, tracing):
         f = open_for_writing('PyQt5.api')
 
         for mname in target_config.pyqt_modules:
-            api = open(mname + '.api')
+            if MODULE_METADATA[mname].public:
+                api = open(mname + '.api')
 
-            for l in api:
-                f.write('PyQt5.' + l)
+                for l in api:
+                    f.write('PyQt5.' + l)
 
-            api.close()
-            os.remove(mname + '.api')
+                api.close()
+                os.remove(mname + '.api')
 
         f.close()
 
@@ -1545,6 +1572,8 @@ def generate_makefiles(target_config, verbose, no_timestamp, parts, tracing):
     inform("Generating the top-level .pro file...")
     out_f = open_for_writing(toplevel_pro)
 
+    root_dir = qmake_quote(target_config.pyqt_module_dir + '/PyQt5')
+
     out_f.write('''TEMPLATE = subdirs
 CONFIG += ordered nostrip
 SUBDIRS = %s
@@ -1552,21 +1581,33 @@ SUBDIRS = %s
 init_py.files = %s
 init_py.path = %s
 INSTALLS += init_py
-''' % (' '.join(subdirs), source_path('__init__.py'), qmake_quote(target_config.pyqt_module_dir + '/PyQt5')))
+''' % (' '.join(subdirs), source_path('__init__.py'), root_dir))
 
-    # Install the uic module and the pyuic5 wrapper.
+    # Install the uic module.
     out_f.write('''
 uic_package.files = %s
 uic_package.path = %s
 INSTALLS += uic_package
-''' % (source_path('pyuic', 'uic'), qmake_quote(target_config.pyqt_module_dir + '/PyQt5')))
+''' % (source_path('pyuic', 'uic'), root_dir))
 
-    if not target_config.no_tools:
+    # Install the tool main scripts and wrappers.
+    if wrappers:
+        wrapper_exes = []
+        for tool, wrapper in wrappers:
+            if tool != 'pyuic':
+                out_f.write('''
+%s.files = %s
+%s.path = %s
+INSTALLS += %s
+''' % (tool, source_path('sip', tool, tool + '_main.py'), tool, root_dir, tool))
+
+            wrapper_exes.append(wrapper)
+
         out_f.write('''
-pyuic5.files = %s
-pyuic5.path = %s
-INSTALLS += pyuic5
-''' % (pyuic_wrapper, qmake_quote(target_config.pyqt_bin_dir)))
+tools.files = %s
+tools.path = %s
+INSTALLS += tools
+''' % (' '.join(wrapper_exes), qmake_quote(target_config.pyqt_bin_dir)))
 
     # Install the stub files.
     if target_config.py_version >= 0x030500 and target_config.pyqt_stubs_dir:
@@ -1587,16 +1628,17 @@ INSTALLS += qscintilla_api
 
     out_f.close()
 
-    # Make the pyuic5 wrapper executable on platforms that support it.  If we
-    # did it after running qmake then (on Linux) the execute bits would be
-    # stripped on installation.
-    if not target_config.no_tools and target_config.py_platform != 'win32':
-        inform("Making the %s wrapper executable..." % pyuic_wrapper)
+    # Make the wrappers executable on platforms that support it.  If we did it
+    # after running qmake then (on Linux) the execute bits would be stripped on
+    # installation.
+    if target_config.py_platform != 'win32':
+        for tool, wrapper in wrappers:
+            inform("Making the %s wrapper executable..." % wrapper)
 
-        sbuf = os.stat(pyuic_wrapper)
-        mode = sbuf.st_mode
-        mode |= (stat.S_IXUSR | stat.S_IXGRP | stat.S_IXOTH)
-        os.chmod(pyuic_wrapper, mode)
+            sbuf = os.stat(wrapper)
+            mode = sbuf.st_mode
+            mode |= (stat.S_IXUSR | stat.S_IXGRP | stat.S_IXOTH)
+            os.chmod(wrapper, mode)
 
     # Generate the makefiles.
     inform("Generating the Makefiles...")
@@ -1654,52 +1696,6 @@ VPATH = %s
     return True
 
 
-def generate_application_makefile(target_config, verbose, src_dir):
-    """ Create the makefile for a QtXml based application.  target_config is
-    the target configuration.  verbose is set if the output is to be displayed.
-    src_dir is the name of the directory containing the source files.  (It is
-    assumed that it is not a path.)
-    """
-
-    mk_dir(src_dir)
-    sp_src_dir = source_path(src_dir)
-
-    # The standard naming convention.
-    app = src_dir + '5'
-
-    inform("Generating the .pro file for %s..." % app)
-
-    pro_lines = ['TARGET = %s' % app]
-    pro_lines.extend(['TEMPLATE = app', 'QT -= gui', 'QT += xml'])
-    pro_lines.append(
-            'CONFIG += warn_on %s' %
-                    ('debug' if target_config.debug else 'release'))
-
-    if target_config.py_platform == 'win32':
-        pro_lines.append('CONFIG += console')
-    elif target_config.py_platform == 'darwin':
-        pro_lines.append('CONFIG -= app_bundle')
-
-    # Work around QTBUG-39300.
-    pro_lines.append('CONFIG -= android_install')
-
-    pro_lines.append('target.path = %s' % qmake_quote(target_config.pyqt_bin_dir))
-    pro_lines.append('INSTALLS += target')
-
-    if sp_src_dir != src_dir:
-        pro_lines.append('INCLUDEPATH += %s' % qmake_quote(sp_src_dir))
-        pro_lines.append('VPATH = %s' % qmake_quote(sp_src_dir))
-
-    pro_lines.extend(pro_sources(sp_src_dir))
-    pro_lines.extend(target_config.qmake_variables)
-
-    pro_name = os.path.join(src_dir, src_dir + '.pro')
-
-    pro = open_for_writing(pro_name)
-    pro.write('\n'.join(pro_lines))
-    pro.close()
-
-
 def pro_sources(src_dir, other_headers=None, other_sources=None):
     """ Return the HEADERS, SOURCES and OBJECTIVE_SOURCES variables for a .pro
     file by introspecting a directory.  src_dir is the name of the directory.
@@ -1742,13 +1738,15 @@ def pro_sources(src_dir, other_headers=None, other_sources=None):
     return pro_lines
 
 
-def generate_pyuic5_wrapper(target_config):
-    """ Create a platform dependent executable wrapper for the pyuic.py script.
-    target_config is the target configuration.  Returns the platform specific
-    name of the wrapper.
+def generate_tool_wrapper(target_config, wrapper, module):
+    """ Create a platform dependent executable wrapper for a tool module.
+    target_config is the target configuration.  wrapper is the name of the
+    wrapper without any extension.  module is the tool module.  Returns the
+    platform specific name of the wrapper.
     """
 
-    wrapper = 'pyuic5.bat' if target_config.py_platform == 'win32' else 'pyuic5'
+    if target_config.py_platform == 'win32':
+        wrapper += '.bat'
 
     inform("Generating the %s wrapper..." % wrapper)
 
@@ -1757,10 +1755,10 @@ def generate_pyuic5_wrapper(target_config):
     wf = open_for_writing(wrapper)
 
     if target_config.py_platform == 'win32':
-        wf.write('@%s -m PyQt5.uic.pyuic %%1 %%2 %%3 %%4 %%5 %%6 %%7 %%8 %%9\n' % exe)
+        wf.write('@%s -m %s %%1 %%2 %%3 %%4 %%5 %%6 %%7 %%8 %%9\n' % (exe, module))
     else:
         wf.write('#!/bin/sh\n')
-        wf.write('exec %s -m PyQt5.uic.pyuic ${1+"$@"}\n' % exe)
+        wf.write('exec %s -m %s ${1+"$@"}\n' % (exe, module))
 
     wf.close()
 
@@ -2136,17 +2134,10 @@ def check_dbus(target_config, verbose):
     # Instead we look where DBus itself is installed - which in most cases will
     # be where dbus-python is also installed.
     if target_config.pydbus_inc_dir != '':
-        dlist = [target_config.pydbus_inc_dir]
-    else:
-        dlist = target_config.dbus_inc_dirs
+        target_config.dbus_inc_dirs = [target_config.pydbus_inc_dir]
 
-    target_config.dbus_inc_dirs = []
-
-    for d in dlist:
+    for d in target_config.dbus_inc_dirs:
         if os.access(os.path.join(d, 'dbus', 'dbus-python.h'), os.F_OK):
-            if d not in target_config.dbus_inc_dirs:
-                target_config.dbus_inc_dirs.append(d)
-
             break
     else:
         inform(
@@ -2329,16 +2320,16 @@ def mk_dir(name):
         pass
 
 
-def generate_sip_module_code(target_config, verbose, no_timestamp, parts, tracing, mname, sip_flags, qpy_sources=None, qpy_headers=None):
+def generate_sip_module_code(target_config, verbose, parts, tracing, mname, sip_flags, doc_support, qpy_sources=None, qpy_headers=None):
     """ Generate the code for a module.  target_config is the target
-    configuration.  verbose is set if the output is to be displayed.
-    no_timestamp is set if the .sip files should exclude the timestamp.  parts
-    is the number of parts the generated code should be split into.  tracing is
+    configuration.  verbose is set if the output is to be displayed.  parts is
+    the number of parts the generated code should be split into.  tracing is
     set if the generated code should include tracing calls.  mname is the name
     of the module to generate the code for.  sip_flags is the string of flags
-    to pass to sip.  qpy_sources is the optional list of QPy support code
-    source files.  qpy_headers is the optional list of QPy support code header
-    files.
+    to pass to sip.  doc_support is set if documentation support is to be
+    generated for the module.  qpy_sources is the optional list of QPy support
+    code source files.  qpy_headers is the optional list of QPy support code
+    header files.
     """
 
     inform("Generating the C++ source for the %s module..." % mname)
@@ -2352,12 +2343,6 @@ def generate_sip_module_code(target_config, verbose, no_timestamp, parts, tracin
     argv.append('-B')
     argv.append('Qt_6_0_0')
 
-    if no_timestamp:
-        argv.append('-T')
-
-    if not target_config.no_docstrings:
-        argv.append('-o');
-
     if target_config.prot_is_public:
         argv.append('-P');
 
@@ -2368,13 +2353,17 @@ def generate_sip_module_code(target_config, verbose, no_timestamp, parts, tracin
     if tracing:
         argv.append('-r')
 
-    if target_config.qsci_api and mname != 'Qt':
-        argv.append('-a')
-        argv.append(mname + '.api')
+    if doc_support:
+        if not target_config.no_docstrings:
+            argv.append('-o');
 
-    if target_config.py_version >= 0x030500 and target_config.pyqt_stubs_dir:
-        argv.append('-y')
-        argv.append(mname + '.pyi')
+        if target_config.qsci_api:
+            argv.append('-a')
+            argv.append(mname + '.api')
+
+        if target_config.py_version >= 0x030500 and target_config.pyqt_stubs_dir:
+            argv.append('-y')
+            argv.append(mname + '.pyi')
 
     # Pass the absolute pathname so that #line files are absolute.
     argv.append('-c')
@@ -2895,7 +2884,7 @@ def main(argv):
     inform_user(target_config, sip_version)
 
     # Generate the makefiles.
-    generate_makefiles(target_config, opts.verbose, opts.notimestamp,
+    generate_makefiles(target_config, opts.verbose,
             opts.split if opts.concat else 0, opts.tracing)
 
 

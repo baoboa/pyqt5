@@ -5,4 +5,4 @@ QMediaTimeRange
 
 .. class:: QMediaTimeRange
 
-    `C++ documentation <http://doc.qt.io/qt-5/qmediatimerange.html>`_
+    `C++ documentation <https://doc.qt.io/qt-5/qmediatimerange.html>`_

@@ -5,4 +5,4 @@ QHelpIndexModel
 
 .. class:: QHelpIndexModel
 
-    `C++ documentation <http://doc.qt.io/qt-5/qhelpindexmodel.html>`_
+    `C++ documentation <https://doc.qt.io/qt-5/qhelpindexmodel.html>`_

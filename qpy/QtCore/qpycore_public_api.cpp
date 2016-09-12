@@ -38,6 +38,13 @@ void pyqt5_err_print()
 #define CONST_CAST(s)   const_cast<char *>(s)
 #endif
 
+    static bool recursing = false;
+
+    if (recursing)
+        return;
+
+    recursing = true;
+
     // Save the exception in case of new exceptions raised here.
     PyObject *exception, *value, *traceback;
 
@@ -100,8 +107,13 @@ void pyqt5_err_print()
 
                 if (new_stderr)
                 {
+                    // Make sure the old stderr doesn't get garbage collected
+                    // when it is replaced.
+                    Py_INCREF(old_stderr);
+
                     if (PySys_SetObject(CONST_CAST("stderr"), new_stderr) < 0)
                     {
+                        Py_DECREF(old_stderr);
                         Py_DECREF(new_stderr);
                         new_stderr = 0;
                     }
@@ -121,6 +133,7 @@ void pyqt5_err_print()
         {
             // Restore sys.stderr.
             PySys_SetObject(CONST_CAST("stderr"), old_stderr);
+            Py_DECREF(old_stderr);
 
             // Extract the text.
             PyObject *text = PyObject_CallMethod(new_stderr,
@@ -191,6 +204,8 @@ void pyqt5_err_print()
         qFatal("%s", message.data());
         Py_END_ALLOW_THREADS
     }
+
+    recursing = false;
 }
 
 

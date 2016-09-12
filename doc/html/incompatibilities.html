@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Incompatibilities with Earlier Versions &mdash; PyQt 5.6 Reference Guide</title>
+    <title>Incompatibilities with Earlier Versions &mdash; PyQt 5.7 Reference Guide</title>
     
     <link rel="stylesheet" href="_static/classic.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '5.6',
+        VERSION:     '5.7',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -24,7 +24,7 @@
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
     <link rel="shortcut icon" href="_static/logo_tn.ico"/>
-    <link rel="top" title="PyQt 5.6 Reference Guide" href="index.html" />
+    <link rel="top" title="PyQt 5.7 Reference Guide" href="index.html" />
     <link rel="next" title="Installing PyQt5" href="installation.html" />
     <link rel="prev" title="Deprecated Features and Behaviours" href="deprecations.html" /> 
   </head>
@@ -44,7 +44,7 @@
         <li class="right" >
           <a href="deprecations.html" title="Deprecated Features and Behaviours"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">PyQt 5.6 Reference Guide</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">PyQt 5.7 Reference Guide</a> &raquo;</li> 
       </ul>
     </div>  
 
@@ -55,6 +55,18 @@
             
   <div class="section" id="incompatibilities-with-earlier-versions">
 <h1>Incompatibilities with Earlier Versions<a class="headerlink" href="#incompatibilities-with-earlier-versions" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="pyqt-v5-6">
+<h2>PyQt v5.6<a class="headerlink" href="#pyqt-v5-6" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="enforcement-of-pyqtslot-signatures">
+<h3>Enforcement of <a class="reference internal" href="signals_slots.html#PyQt5.QtCore.pyqtSlot" title="PyQt5.QtCore.pyqtSlot"><code class="xref py py-func docutils literal"><span class="pre">pyqtSlot()</span></code></a> Signatures<a class="headerlink" href="#enforcement-of-pyqtslot-signatures" title="Permalink to this headline">¶</a></h3>
+<p>In previous versions if a signal was connected to a method that was decorated
+by <a class="reference internal" href="signals_slots.html#PyQt5.QtCore.pyqtSlot" title="PyQt5.QtCore.pyqtSlot"><code class="xref py py-func docutils literal"><span class="pre">pyqtSlot()</span></code></a>, and the signatures of the signal and slot
+were incompatible, then the connection was made anyway as if the method had not
+been decorated.  This behaviour was a bug and not a feature.</p>
+<p>This version ensures that the signatures are compatible and will raise an
+exception if they are not.</p>
+</div>
+</div>
 <div class="section" id="pyqt-v5-5">
 <h2>PyQt v5.5<a class="headerlink" href="#pyqt-v5-5" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="conversion-of-latin-1-strings-to-qbytearray">
@@ -132,6 +144,10 @@ i.e. when used normally the change should not be noticed.</p>
   <h3><a href="index.html">Table Of Contents</a></h3>
   <ul>
 <li><a class="reference internal" href="#">Incompatibilities with Earlier Versions</a><ul>
+<li><a class="reference internal" href="#pyqt-v5-6">PyQt v5.6</a><ul>
+<li><a class="reference internal" href="#enforcement-of-pyqtslot-signatures">Enforcement of <code class="docutils literal"><span class="pre">pyqtSlot()</span></code> Signatures</a></li>
+</ul>
+</li>
 <li><a class="reference internal" href="#pyqt-v5-5">PyQt v5.5</a><ul>
 <li><a class="reference internal" href="#conversion-of-latin-1-strings-to-qbytearray">Conversion of Latin-1 Strings to <code class="docutils literal"><span class="pre">QByteArray</span></code></a></li>
 <li><a class="reference internal" href="#unhandled-python-exceptions">Unhandled Python Exceptions</a></li>
@@ -155,8 +171,8 @@ i.e. when used normally the change should not be noticed.</p>
 <div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
     <form class="search" action="search.html" method="get">
-      <input type="text" name="q" />
-      <input type="submit" value="Go" />
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
       <input type="hidden" name="check_keywords" value="yes" />
       <input type="hidden" name="area" value="default" />
     </form>
@@ -181,12 +197,12 @@ i.e. when used normally the change should not be noticed.</p>
         <li class="right" >
           <a href="deprecations.html" title="Deprecated Features and Behaviours"
              >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">PyQt 5.6 Reference Guide</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">PyQt 5.7 Reference Guide</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
         &copy; Copyright 2015 Riverbank Computing Limited.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.4.1.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.4.5.
     </div>
   </body>
 </html>

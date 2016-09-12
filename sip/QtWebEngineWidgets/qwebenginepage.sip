@@ -95,6 +95,15 @@ public:
 %If (Qt_5_6_0 -)
         RequestClose,
 %End
+%If (Qt_5_7_0 -)
+        Unselect,
+%End
+%If (Qt_5_7_0 -)
+        SavePage,
+%End
+%If (Qt_5_7_0 -)
+        OpenLinkInNewBackgroundTab,
+%End
     };
 
     enum FindFlag
@@ -110,6 +119,9 @@ public:
         WebBrowserWindow,
         WebBrowserTab,
         WebDialog,
+%If (Qt_5_7_0 -)
+        WebBrowserBackgroundTab,
+%End
     };
 
     enum PermissionPolicy
@@ -252,6 +264,38 @@ public:
     QUrl iconUrl() const;
     qreal zoomFactor() const;
     void setZoomFactor(qreal factor);
+%If (Qt_5_7_0 -)
+    void runJavaScript(const QString &scriptSource, quint32 worldId);
+%End
+%If (Qt_5_7_0 -)
+    void runJavaScript(const QString &scriptSource, quint32 worldId, SIP_PYCALLABLE resultCallback);
+%MethodCode
+        // Make sure the callable doesn't get garbage collected.
+        Py_INCREF(a2);
+        
+        Py_BEGIN_ALLOW_THREADS
+        
+        sipCpp->runJavaScript(*a0, a1, [a2](const QVariant &arg) {
+            SIP_BLOCK_THREADS
+            
+            PyObject *res;
+        
+            res = sipCallMethod(NULL, a2, "N", new QVariant(arg), sipType_QVariant, NULL);
+        
+            Py_DECREF(a2);
+        
+            if (!res)
+                pyqt5_qtwebenginewidgets_err_print();
+            else
+                Py_DECREF(res);
+        
+            SIP_UNBLOCK_THREADS
+        });
+        
+        Py_END_ALLOW_THREADS
+%End
+
+%End
     void runJavaScript(const QString &scriptSource);
     void runJavaScript(const QString &scriptSource, SIP_PYCALLABLE resultCallback);
 %MethodCode
@@ -333,6 +377,9 @@ public:
 %If (Qt_5_5_0 -)
     void setWebChannel(QWebChannel *);
 %End
+%If (Qt_5_7_0 -)
+    void setWebChannel(QWebChannel *, uint worldId);
+%End
 
 protected:
 %If (Qt_5_5_0 -)
@@ -364,6 +411,78 @@ signals:
 %End
 %If (Qt_5_6_0 -)
     void renderProcessTerminated(QWebEnginePage::RenderProcessTerminationStatus terminationStatus, int exitCode);
+%End
+
+public:
+%If (Qt_5_7_0 -)
+    QIcon icon() const;
+%End
+%If (Qt_5_7_0 -)
+    QPointF scrollPosition() const;
+%End
+%If (Qt_5_7_0 -)
+    QSizeF contentsSize() const;
+%End
+%If (Qt_5_7_0 -)
+    bool isAudioMuted() const;
+%End
+%If (Qt_5_7_0 -)
+    void setAudioMuted(bool muted);
+%End
+%If (Qt_5_7_0 -)
+    bool recentlyAudible() const;
+%End
+%If (Qt_5_7_0 -)
+    void printToPdf(const QString &filePath, const QPageLayout &pageLayout = QPageLayout(QPageSize(QPageSize::PageSizeId::A4), QPageLayout::Orientation::Portrait, QMarginsF()));
+%End
+%If (Qt_5_7_0 -)
+    void printToPdf(SIP_PYCALLABLE resultCallback, const QPageLayout &pageLayout = QPageLayout(QPageSize(QPageSize::PageSizeId::A4), QPageLayout::Orientation::Portrait, QMarginsF()));
+%MethodCode
+        // Make sure the callable doesn't get garbage collected.
+        Py_INCREF(a0);
+        
+        Py_BEGIN_ALLOW_THREADS
+        
+        sipCpp->printToPdf([a0](const QByteArray &arg) {
+            SIP_BLOCK_THREADS
+            
+            PyObject *res;
+        
+            res = sipCallMethod(NULL, a0, "N", new QByteArray(arg), sipType_QByteArray, NULL);
+        
+            Py_DECREF(a0);
+        
+            if (!res)
+                pyqt5_qtwebenginewidgets_err_print();
+            else
+                Py_DECREF(res);
+        
+            SIP_UNBLOCK_THREADS
+        }, *a1);
+        
+        Py_END_ALLOW_THREADS
+%End
+
+%End
+%If (Qt_5_7_0 -)
+    const QWebEngineContextMenuData &contextMenuData() const;
+%End
+
+signals:
+%If (Qt_5_7_0 -)
+    void iconChanged(const QIcon &icon);
+%End
+%If (Qt_5_7_0 -)
+    void scrollPositionChanged(const QPointF &position);
+%End
+%If (Qt_5_7_0 -)
+    void contentsSizeChanged(const QSizeF &size);
+%End
+%If (Qt_5_7_0 -)
+    void audioMutedChanged(bool muted);
+%End
+%If (Qt_5_7_0 -)
+    void recentlyAudibleChanged(bool recentlyAudible);
 %End
 
 private:

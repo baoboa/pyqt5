@@ -5,4 +5,4 @@ QSqlRelationalDelegate
 
 .. class:: QSqlRelationalDelegate
 
-    `C++ documentation <http://doc.qt.io/qt-5/qsqlrelationaldelegate.html>`_
+    `C++ documentation <https://doc.qt.io/qt-5/qsqlrelationaldelegate.html>`_

@@ -5,4 +5,4 @@ QGeoCodingManagerEngine
 
 .. class:: QGeoCodingManagerEngine
 
-    `C++ documentation <http://doc.qt.io/qt-5/qgeocodingmanagerengine.html>`_
+    `C++ documentation <https://doc.qt.io/qt-5/qgeocodingmanagerengine.html>`_

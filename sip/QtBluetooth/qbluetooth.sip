@@ -39,6 +39,22 @@ namespace QBluetooth
 
     typedef QFlags<QBluetooth::Security> SecurityFlags;
     QFlags<QBluetooth::Security> operator|(QBluetooth::Security f1, QFlags<QBluetooth::Security> f2);
+%If (Qt_5_7_0 -)
+
+    enum AttAccessConstraint
+    {
+        AttAuthorizationRequired,
+        AttAuthenticationRequired,
+        AttEncryptionRequired,
+    };
+
+%End
+%If (Qt_5_7_0 -)
+    typedef QFlags<QBluetooth::AttAccessConstraint> AttAccessConstraints;
+%End
+%If (Qt_5_7_0 -)
+    QFlags<QBluetooth::AttAccessConstraint> operator|(QBluetooth::AttAccessConstraint f1, QFlags<QBluetooth::AttAccessConstraint> f2);
+%End
 };
 
 %End

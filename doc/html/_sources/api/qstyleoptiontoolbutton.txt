@@ -5,4 +5,4 @@ QStyleOptionToolButton
 
 .. class:: QStyleOptionToolButton
 
-    `C++ documentation <http://doc.qt.io/qt-5/qstyleoptiontoolbutton.html>`_
+    `C++ documentation <https://doc.qt.io/qt-5/qstyleoptiontoolbutton.html>`_

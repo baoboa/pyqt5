@@ -5,4 +5,4 @@ QDesignerFormWindowInterface
 
 .. class:: QDesignerFormWindowInterface
 
-    `C++ documentation <http://doc.qt.io/qt-5/qdesignerformwindowinterface.html>`_
+    `C++ documentation <https://doc.qt.io/qt-5/qdesignerformwindowinterface.html>`_

@@ -5,4 +5,4 @@ QGLFormat
 
 .. class:: QGLFormat
 
-    `C++ documentation <http://doc.qt.io/qt-5/qglformat.html>`_
+    `C++ documentation <https://doc.qt.io/qt-5/qglformat.html>`_

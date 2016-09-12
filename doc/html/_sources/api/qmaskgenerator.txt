@@ -5,4 +5,4 @@ QMaskGenerator
 
 .. class:: QMaskGenerator
 
-    `C++ documentation <http://doc.qt.io/qt-5/qmaskgenerator.html>`_
+    `C++ documentation <https://doc.qt.io/qt-5/qmaskgenerator.html>`_

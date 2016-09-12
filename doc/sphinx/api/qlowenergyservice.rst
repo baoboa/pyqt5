@@ -5,4 +5,4 @@ QLowEnergyService
 
 .. class:: QLowEnergyService
 
-    `C++ documentation <http://doc.qt.io/qt-5/qlowenergyservice.html>`_
+    `C++ documentation <https://doc.qt.io/qt-5/qlowenergyservice.html>`_

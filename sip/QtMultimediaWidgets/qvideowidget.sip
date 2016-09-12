@@ -57,7 +57,12 @@ class QVideoWidget : QWidget, QMediaBindableInterface
 %End
 
 public:
+%If (Qt_5_6_1 -)
+    explicit QVideoWidget(QWidget *parent /TransferThis/ = 0);
+%End
+%If (- Qt_5_6_1)
     QVideoWidget(QWidget *parent /TransferThis/ = 0);
+%End
     virtual ~QVideoWidget();
     virtual QMediaObject *mediaObject() const;
     Qt::AspectRatioMode aspectRatioMode() const;

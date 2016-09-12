@@ -5,4 +5,4 @@ QMediaTimeInterval
 
 .. class:: QMediaTimeInterval
 
-    `C++ documentation <http://doc.qt.io/qt-5/qmediatimeinterval.html>`_
+    `C++ documentation <https://doc.qt.io/qt-5/qmediatimeinterval.html>`_

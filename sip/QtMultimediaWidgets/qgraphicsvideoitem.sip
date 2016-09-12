@@ -42,7 +42,12 @@ class QGraphicsVideoItem : QGraphicsObject, QMediaBindableInterface
 %End
 
 public:
+%If (Qt_5_6_1 -)
+    explicit QGraphicsVideoItem(QGraphicsItem *parent /TransferThis/ = 0);
+%End
+%If (- Qt_5_6_1)
     QGraphicsVideoItem(QGraphicsItem *parent /TransferThis/ = 0);
+%End
     virtual ~QGraphicsVideoItem();
     virtual QMediaObject *mediaObject() const;
     Qt::AspectRatioMode aspectRatioMode() const;

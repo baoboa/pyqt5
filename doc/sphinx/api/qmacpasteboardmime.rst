@@ -5,4 +5,4 @@ QMacPasteboardMime
 
 .. class:: QMacPasteboardMime
 
-    `C++ documentation <http://doc.qt.io/qt-5/qmacpasteboardmime.html>`_
+    `C++ documentation <https://doc.qt.io/qt-5/qmacpasteboardmime.html>`_

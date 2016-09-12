@@ -5,4 +5,4 @@ QTcpSocket
 
 .. class:: QTcpSocket
 
-    `C++ documentation <http://doc.qt.io/qt-5/qtcpsocket.html>`_
+    `C++ documentation <https://doc.qt.io/qt-5/qtcpsocket.html>`_

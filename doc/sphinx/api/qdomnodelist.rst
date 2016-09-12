@@ -5,4 +5,4 @@ QDomNodeList
 
 .. class:: QDomNodeList
 
-    `C++ documentation <http://doc.qt.io/qt-5/qdomnodelist.html>`_
+    `C++ documentation <https://doc.qt.io/qt-5/qdomnodelist.html>`_

@@ -1,7 +1,7 @@
 Introduction
 ============
 
-This is the reference guide for PyQt5 5.6.  PyQt5 is a set of
+This is the reference guide for PyQt5 5.7.  PyQt5 is a set of
 `Python <http://www.python.org>`__ bindings for v5 of the Qt application
 framework from `The Qt Company <http://www.qt.io>`__.
 

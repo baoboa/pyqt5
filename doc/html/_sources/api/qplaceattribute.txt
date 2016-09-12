@@ -5,4 +5,4 @@ QPlaceAttribute
 
 .. class:: QPlaceAttribute
 
-    `C++ documentation <http://doc.qt.io/qt-5/qplaceattribute.html>`_
+    `C++ documentation <https://doc.qt.io/qt-5/qplaceattribute.html>`_

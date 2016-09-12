@@ -5,4 +5,4 @@ QAmbientTemperatureReading
 
 .. class:: QAmbientTemperatureReading
 
-    `C++ documentation <http://doc.qt.io/qt-5/qambienttemperaturereading.html>`_
+    `C++ documentation <https://doc.qt.io/qt-5/qambienttemperaturereading.html>`_

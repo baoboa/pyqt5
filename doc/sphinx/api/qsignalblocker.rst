@@ -5,4 +5,4 @@ QSignalBlocker
 
 .. class:: QSignalBlocker
 
-    `C++ documentation <http://doc.qt.io/qt-5/qsignalblocker.html>`_
+    `C++ documentation <https://doc.qt.io/qt-5/qsignalblocker.html>`_

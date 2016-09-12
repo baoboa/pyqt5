@@ -168,7 +168,7 @@ public:
 
     int version;
     int type;
-    QFlags<QStyle::StateFlag> state;
+    QStyle::State state;
     Qt::LayoutDirection direction;
     QRect rect;
     QFontMetrics fontMetrics;
@@ -227,7 +227,7 @@ public:
     };
 
     typedef QFlags<QStyleOptionFrame::FrameFeature> FrameFeatures;
-    QFlags<QStyleOptionFrame::FrameFeature> features;
+    QStyleOptionFrame::FrameFeatures features;
     QFrame::Shape frameShape;
     int lineWidth;
     int midLineWidth;
@@ -372,7 +372,7 @@ public:
     };
 
     typedef QFlags<QStyleOptionButton::ButtonFeature> ButtonFeatures;
-    QFlags<QStyleOptionButton::ButtonFeature> features;
+    QStyleOptionButton::ButtonFeatures features;
     QString text;
     QIcon icon;
     QSize iconSize;
@@ -428,7 +428,7 @@ public:
     int row;
     QStyleOptionTab::TabPosition position;
     QStyleOptionTab::SelectedPosition selectedPosition;
-    QFlags<QStyleOptionTab::CornerWidget> cornerWidgets;
+    QStyleOptionTab::CornerWidgets cornerWidgets;
     QSize iconSize;
     bool documentMode;
     QSize leftButtonSize;
@@ -441,7 +441,7 @@ public:
     };
 
     typedef QFlags<QStyleOptionTab::TabFeature> TabFeatures;
-    QFlags<QStyleOptionTab::TabFeature> features;
+    QStyleOptionTab::TabFeatures features;
     QStyleOptionTab();
     QStyleOptionTab(const QStyleOptionTab &other);
 };
@@ -598,7 +598,7 @@ public:
     };
 
     typedef QFlags<QStyleOptionViewItem::ViewItemFeature> ViewItemFeatures;
-    QFlags<QStyleOptionViewItem::ViewItemFeature> features;
+    QStyleOptionViewItem::ViewItemFeatures features;
     QLocale locale;
     const QWidget *widget;
 
@@ -704,8 +704,8 @@ public:
         Version,
     };
 
-    QFlags<QStyle::SubControl> subControls;
-    QFlags<QStyle::SubControl> activeSubControls;
+    QStyle::SubControls subControls;
+    QStyle::SubControls activeSubControls;
     QStyleOptionComplex(int version = QStyleOptionComplex::Version, int type = SO_Complex);
     QStyleOptionComplex(const QStyleOptionComplex &other);
 };
@@ -761,7 +761,7 @@ public:
     };
 
     QAbstractSpinBox::ButtonSymbols buttonSymbols;
-    QFlags<QAbstractSpinBox::StepEnabledFlag> stepEnabled;
+    QAbstractSpinBox::StepEnabled stepEnabled;
     bool frame;
     QStyleOptionSpinBox();
     QStyleOptionSpinBox(const QStyleOptionSpinBox &other);
@@ -795,7 +795,7 @@ public:
     };
 
     typedef QFlags<QStyleOptionToolButton::ToolButtonFeature> ToolButtonFeatures;
-    QFlags<QStyleOptionToolButton::ToolButtonFeature> features;
+    QStyleOptionToolButton::ToolButtonFeatures features;
     QIcon icon;
     QSize iconSize;
     QString text;
@@ -948,7 +948,7 @@ public:
     QStyleOptionToolBar::ToolBarPosition positionOfLine;
     QStyleOptionToolBar::ToolBarPosition positionWithinLine;
     Qt::ToolBarArea toolBarArea;
-    QFlags<QStyleOptionToolBar::ToolBarFeature> features;
+    QStyleOptionToolBar::ToolBarFeatures features;
     int lineWidth;
     int midLineWidth;
     QStyleOptionToolBar();
@@ -974,7 +974,7 @@ public:
         Version,
     };
 
-    QFlags<QStyleOptionFrame::FrameFeature> features;
+    QStyleOptionFrame::FrameFeatures features;
     QString text;
     Qt::Alignment textAlignment;
     QColor textColor;

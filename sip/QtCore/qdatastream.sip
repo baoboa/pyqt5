@@ -64,6 +64,9 @@ public:
 %If (Qt_5_6_0 -)
         Qt_5_6,
 %End
+%If (Qt_5_7_0 -)
+        Qt_5_7,
+%End
     };
 
     enum ByteOrder
@@ -430,6 +433,18 @@ void writeQVariantHash(const QVariantHash &qvarhash) /ReleaseGIL/;
 
     QDataStream::FloatingPointPrecision floatingPointPrecision() const;
     void setFloatingPointPrecision(QDataStream::FloatingPointPrecision precision);
+%If (Qt_5_7_0 -)
+    void startTransaction();
+%End
+%If (Qt_5_7_0 -)
+    bool commitTransaction();
+%End
+%If (Qt_5_7_0 -)
+    void rollbackTransaction();
+%End
+%If (Qt_5_7_0 -)
+    void abortTransaction();
+%End
 
 private:
     QDataStream(const QDataStream &);

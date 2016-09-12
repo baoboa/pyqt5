@@ -5,4 +5,4 @@ QGeoPositionInfoSource
 
 .. class:: QGeoPositionInfoSource
 
-    `C++ documentation <http://doc.qt.io/qt-5/qgeopositioninfosource.html>`_
+    `C++ documentation <https://doc.qt.io/qt-5/qgeopositioninfosource.html>`_

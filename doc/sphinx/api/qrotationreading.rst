@@ -5,4 +5,4 @@ QRotationReading
 
 .. class:: QRotationReading
 
-    `C++ documentation <http://doc.qt.io/qt-5/qrotationreading.html>`_
+    `C++ documentation <https://doc.qt.io/qt-5/qrotationreading.html>`_

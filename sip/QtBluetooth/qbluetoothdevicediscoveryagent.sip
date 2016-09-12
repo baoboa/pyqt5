@@ -49,7 +49,12 @@ public:
         LimitedInquiry,
     };
 
+%If (Qt_5_6_1 -)
+    explicit QBluetoothDeviceDiscoveryAgent(QObject *parent /TransferThis/ = 0);
+%End
+%If (- Qt_5_6_1)
     QBluetoothDeviceDiscoveryAgent(QObject *parent /TransferThis/ = 0);
+%End
     QBluetoothDeviceDiscoveryAgent(const QBluetoothAddress &deviceAdapter, QObject *parent /TransferThis/ = 0);
     virtual ~QBluetoothDeviceDiscoveryAgent();
     QBluetoothDeviceDiscoveryAgent::InquiryType inquiryType() const;

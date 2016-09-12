@@ -35,12 +35,12 @@ public:
     int managerVersion() const;
     virtual QGeoRouteReply *calculateRoute(const QGeoRouteRequest &request) = 0 /Factory/;
     virtual QGeoRouteReply *updateRoute(const QGeoRoute &route, const QGeoCoordinate &position) /Factory/;
-    QFlags<QGeoRouteRequest::TravelMode> supportedTravelModes() const;
-    QFlags<QGeoRouteRequest::FeatureType> supportedFeatureTypes() const;
-    QFlags<QGeoRouteRequest::FeatureWeight> supportedFeatureWeights() const;
-    QFlags<QGeoRouteRequest::RouteOptimization> supportedRouteOptimizations() const;
-    QFlags<QGeoRouteRequest::SegmentDetail> supportedSegmentDetails() const;
-    QFlags<QGeoRouteRequest::ManeuverDetail> supportedManeuverDetails() const;
+    QGeoRouteRequest::TravelModes supportedTravelModes() const;
+    QGeoRouteRequest::FeatureTypes supportedFeatureTypes() const;
+    QGeoRouteRequest::FeatureWeights supportedFeatureWeights() const;
+    QGeoRouteRequest::RouteOptimizations supportedRouteOptimizations() const;
+    QGeoRouteRequest::SegmentDetails supportedSegmentDetails() const;
+    QGeoRouteRequest::ManeuverDetails supportedManeuverDetails() const;
     void setLocale(const QLocale &locale);
     QLocale locale() const;
     void setMeasurementSystem(QLocale::MeasurementSystem system);
@@ -51,12 +51,12 @@ signals:
     void error(QGeoRouteReply *reply, QGeoRouteReply::Error error, QString errorString = QString());
 
 protected:
-    void setSupportedTravelModes(QFlags<QGeoRouteRequest::TravelMode> travelModes);
-    void setSupportedFeatureTypes(QFlags<QGeoRouteRequest::FeatureType> featureTypes);
-    void setSupportedFeatureWeights(QFlags<QGeoRouteRequest::FeatureWeight> featureWeights);
-    void setSupportedRouteOptimizations(QFlags<QGeoRouteRequest::RouteOptimization> optimizations);
-    void setSupportedSegmentDetails(QFlags<QGeoRouteRequest::SegmentDetail> segmentDetails);
-    void setSupportedManeuverDetails(QFlags<QGeoRouteRequest::ManeuverDetail> maneuverDetails);
+    void setSupportedTravelModes(QGeoRouteRequest::TravelModes travelModes);
+    void setSupportedFeatureTypes(QGeoRouteRequest::FeatureTypes featureTypes);
+    void setSupportedFeatureWeights(QGeoRouteRequest::FeatureWeights featureWeights);
+    void setSupportedRouteOptimizations(QGeoRouteRequest::RouteOptimizations optimizations);
+    void setSupportedSegmentDetails(QGeoRouteRequest::SegmentDetails segmentDetails);
+    void setSupportedManeuverDetails(QGeoRouteRequest::ManeuverDetails maneuverDetails);
 
 private:
     QGeoRoutingManagerEngine(const QGeoRoutingManagerEngine &);

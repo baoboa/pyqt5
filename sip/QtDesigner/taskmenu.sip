@@ -28,6 +28,6 @@ class QDesignerTaskMenuExtension
 
 public:
     virtual ~QDesignerTaskMenuExtension();
-    virtual QList<QAction*> taskActions() const = 0;
+    virtual QList<QAction *> taskActions() const = 0;
     virtual QAction *preferredEditAction() const;
 };

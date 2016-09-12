@@ -5,4 +5,4 @@ QPlaceIdReply
 
 .. class:: QPlaceIdReply
 
-    `C++ documentation <http://doc.qt.io/qt-5/qplaceidreply.html>`_
+    `C++ documentation <https://doc.qt.io/qt-5/qplaceidreply.html>`_

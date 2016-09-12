@@ -5,4 +5,4 @@ QCommandLineParser
 
 .. class:: QCommandLineParser
 
-    `C++ documentation <http://doc.qt.io/qt-5/qcommandlineparser.html>`_
+    `C++ documentation <https://doc.qt.io/qt-5/qcommandlineparser.html>`_

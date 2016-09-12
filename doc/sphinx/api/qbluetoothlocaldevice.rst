@@ -5,4 +5,4 @@ QBluetoothLocalDevice
 
 .. class:: QBluetoothLocalDevice
 
-    `C++ documentation <http://doc.qt.io/qt-5/qbluetoothlocaldevice.html>`_
+    `C++ documentation <https://doc.qt.io/qt-5/qbluetoothlocaldevice.html>`_

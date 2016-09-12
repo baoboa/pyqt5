@@ -5,4 +5,4 @@ QQuickItemGrabResult
 
 .. class:: QQuickItemGrabResult
 
-    `C++ documentation <http://doc.qt.io/qt-5/qquickitemgrabresult.html>`_
+    `C++ documentation <https://doc.qt.io/qt-5/qquickitemgrabresult.html>`_

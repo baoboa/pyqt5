@@ -5,4 +5,4 @@ QSplitter
 
 .. class:: QSplitter
 
-    `C++ documentation <http://doc.qt.io/qt-5/qsplitter.html>`_
+    `C++ documentation <https://doc.qt.io/qt-5/qsplitter.html>`_

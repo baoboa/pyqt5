@@ -1,8 +1,415 @@
+2016-07-25  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* .hgtags:
+	Added tag 5.7 for changeset 5e459651a5cb
+	[bb3ddca217a0] [tip]
+
+	* NEWS:
+	Released as v5.7.
+	[5e459651a5cb] [5.7]
+
+	* lib/configure.py:
+	Simplified the setting of PATH to include the qmake directory.
+	[8b1b53bd60b1]
+
+2016-07-24  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* pylupdate/pylupdate_main.py, pyrcc/pyrcc_main.py,
+	pyuic/uic/pyuic.py:
+	Provided pylupdate, pyrcc and pyuic with main() wrappers that are
+	invoked by pip generated wrappers.
+	[0be6588d6b5c]
+
+2016-07-22  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* lib/configure.py:
+	When --qmake is used on Windows add the directory containing qmake
+	to PATH.
+	[c9fb16354936]
+
+	* NEWS:
+	Updated the NEWS file.
+	[fd3b3f3e721c]
+
+2016-07-19  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* METADATA.in:
+	Updates to METADATA.
+	[24491cc4092b]
+
+2016-07-17  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* qpy/QtCore/qpycore_pyqtboundsignal.cpp:
+	Fixed the error message when an attempt is made to connect to a
+	pyqtSlot decorated method of a non-QObject class.
+	[84bb348755e1]
+
+2016-07-12  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* pylupdate/pylupdate_main.py:
+	Make sure the progress messages from pylupdate appear in the right
+	order.
+	[975fc04a1d1d]
+
+	* qpy/QtCore/qpycore_pyqtboundsignal.cpp:
+	Further fixes for choosing the right pyqtSlot decorator for a
+	signal.
+	[96281e6eb259]
+
+2016-07-11  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* qpy/QtCore/qpycore_pyqtboundsignal.cpp:
+	Fixed an out-of-bound index regression.
+	[d4fcde1ad4e1]
+
+2016-07-07  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* PyQt5.msp:
+	Completed the support for Qt v5.7.0.
+	[877c3a8a6cbd]
+
+	* PyQt5.msp:
+	Updated QtWidgets for Qt v5.7.0.
+	[4f59eafc77cf]
+
+2016-07-06  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* PyQt5.msp, sphinx/api_metadata.cfg:
+	Updated most of QtWebEngineWidgets for Qt v5.7.0.
+	[ca2289d9d0d0]
+
+	* PyQt5.msp:
+	Updated QtGui for Qt v5.7.0.
+	[02bfa6bb3c5d]
+
+	* PyQt5.msp:
+	Updated QtCore for Qt v5.7.0.
+	[d9bf4daa7994]
+
+2016-07-05  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* PyQt5.msp:
+	Added some Qt v5.7.0 support.
+	[7e56302498df]
+
+2016-06-30  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* PyQt5.msp:
+	Initial scan of Qt v5.7.0.
+	[659af5655c90]
+
+	* build.py, installers/AddToPath.nsh, installers/BuildGPL.txt,
+	installers/PyQt5-Qt5-gpl.nsi, installers/StrSlash.nsh, installers
+	/mysql-config.bat, installers/psql-config.bat,
+	installers/pyqt5-check.py, installers/pyqt5-config.bat, installers
+	/qsci-pyqt5-config.bat, installers/qt5-config.bat, installers/sip-
+	pyqt5-config.bat:
+	Removed the old .nsi installers.
+	[22449f1b0af2]
+
+	* lib/PlansForWheels.txt, pylupdate/fetchtr.cpp, pylupdate/main.cpp,
+	pylupdate/merge.cpp, pylupdate/metatranslator.cpp,
+	pylupdate/metatranslator.h, pylupdate/numberh.cpp,
+	pylupdate/proparser.cpp, pylupdate/proparser.h,
+	pylupdate/sametexth.cpp, pylupdate/simtexth.cpp,
+	pylupdate/simtexth.h, pylupdate/translator.cpp,
+	pylupdate/translator.h, pyrcc/main.cpp, pyrcc/rcc.cpp, pyrcc/rcc.h,
+	rbproduct.py:
+	Merged the v5.6 maintenance branch into the trunk.
+	[7b8de1cc9585]
+
+	* qpy/QtCore/qpycore_qt_conf.cpp:
+	Removed the (now unnecessary) special handling of qt.conf on
+	Windows.
+	[1ada2bed3c1d] <5.6-maint>
+
+2016-06-28  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* sphinx/multiinheritance.rst:
+	Fixed a typo in the docs.
+	[129e481a1ef1] <5.6-maint>
+
+2016-06-27  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* lib/configure.py:
+	Fixed the creation of the .api file.
+	[8374c4c770c2] <5.6-maint>
+
+2016-06-23  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* qpy/QtCore/qpycore_chimera.cpp:
+	Fixed a regression in the special handling of QGraphicsItem.
+	[02bc5a7d40d6] <5.6-maint>
+
+2016-06-22  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* PyQt5.msp:
+	Add some %Imports so that a module imports all the modules it
+	explicitly references.
+	[bb6823120280] <5.6-maint>
+
+	* PyQt5.msp:
+	Updated for Qt v5.6.1.
+	[0ce20a30a8a1] <5.6-maint>
+
+2016-06-21  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* .hgignore, PyQt5.msp:
+	Updated QtBluetooth for Qt v5.6.1.
+	[db0d3198b0da] <5.6-maint>
+
+	* rb-product, rbproduct.py:
+	Replaced the product plugin with a product file.
+	[a027ea04a02f] <5.6-maint>
+
+2016-06-20  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* rbproduct.py:
+	Implemented the minimal-build.
+	[cff7f5006501] <5.6-maint>
+
+	* rbproduct.py:
+	The product plugin uses the sip from a minimal sip build.
+	[342d116ba9d6] <5.6-maint>
+
+	* commercial/pyqt-commercial.sip, lib/pyqt-commercial.sip,
+	rbproduct.py:
+	More product plugin refactoring.
+	[674b4a8b867f] <5.6-maint>
+
+2016-06-18  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* rbproduct.py:
+	Updates to the product plugin in preparation for replacing build.py.
+	[2c314a5a11df] <5.6-maint>
+
+2016-05-30  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* sphinx/qt_properties.rst:
+	Removed some (aparant) ambibuity in the docus related to
+	pyqtProperty.
+	[62540c04cb07] <5.6-maint>
+
+2016-05-27  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* rbproduct.py:
+	Updated the product plugin to add pylupdate5 and pyrcc5 to wheels.
+	[117c4d6d7ed5] <5.6-maint>
+
+	* Makefile, build.py, lib/configure.py, pylupdate/fetchtr.cpp,
+	pylupdate/main.cpp, pylupdate/merge.cpp,
+	pylupdate/metatranslator.cpp, pylupdate/metatranslator.h,
+	pylupdate/numberh.cpp, pylupdate/proparser.cpp,
+	pylupdate/proparser.h, pylupdate/pylupdate_main.py,
+	pylupdate/pylupdatemod.sip, pylupdate/sametexth.cpp,
+	pylupdate/simtexth.cpp, pylupdate/simtexth.h,
+	pylupdate/translator.cpp, pylupdate/translator.h,
+	pyrcc/pyrcc_main.py, qpy/pylupdate/fetchtr.cpp,
+	qpy/pylupdate/merge.cpp, qpy/pylupdate/metatranslator.cpp,
+	qpy/pylupdate/metatranslator.h, qpy/pylupdate/numberh.cpp,
+	qpy/pylupdate/proparser.cpp, qpy/pylupdate/proparser.h,
+	qpy/pylupdate/pylupdate.h, qpy/pylupdate/sametexth.cpp,
+	qpy/pylupdate/simtexth.cpp, qpy/pylupdate/simtexth.h,
+	qpy/pylupdate/translator.cpp, qpy/pylupdate/translator.h:
+	Refactored pylupdate5 to be a wrapper around a Python extension
+	module.
+	[2793a3f7cd3d] <5.6-maint>
+
+	* Makefile, build.py, lib/configure.py, pyrcc/main.cpp,
+	pyrcc/pyrcc_main.py, pyrcc/pyrccmod.sip, pyrcc/rcc.cpp, pyrcc/rcc.h,
+	qpy/pyrcc/rcc.cpp, qpy/pyrcc/rcc.h:
+	Refactored pyrcc5 so that it is a Python wrapper around a C++
+	extension module.
+	[7f2ffc54b8b7] <5.6-maint>
+
+2016-05-23  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* rbproduct.py:
+	Removed a duplicated import in the product plugin.
+	[8b00d4415e7d] <5.6-maint>
+
+2016-05-21  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* qpy/QtCore/qpycore_public_api.cpp:
+	Fixed a reference count problem in py_err_print().
+	[427d33257f8b] <5.6-maint>
+
+2016-05-20  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* sphinx/installation.rst:
+	Installation docs updates regarding MSVC 2015.
+	[43f7f646b5f1] <5.6-maint>
+
+	* PyQt5.msp:
+	Added some /ReleaseGIL/ annotations to potentially time consuming
+	methods of QSvgRenderer.
+	[9926569b7c70] <5.6-maint>
+
+	* qpy/QtCore/qpycore_public_api.cpp:
+	Fixed a recursion problem when handling uncaught Python exceptions.
+	[2bb4251641d5] <5.6-maint>
+
+2016-05-16  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* sphinx/installation.rst:
+	More documentation updates.
+	[99509478d73f] <5.6-maint>
+
+2016-05-15  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* sphinx/installation.rst:
+	Updated the installation instruction to cover wheels and
+	pyqtlicense.
+	[d59c0d20804e] <5.6-maint>
+
+2016-05-12  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* METADATA.in, rbproduct.py:
+	Try to prevent the GPL and commercial versions being installed at
+	the same time. (Although it doesn't seem to work.)
+	[43e83a4358f7] <5.6-maint>
+
+	* METADATA.in, rbproduct.py:
+	Configure the PKG-INFO meta-data according to the license.
+	[fab20f18cc82] <5.6-maint>
+
+	* lib/PlansForWheels.txt:
+	Removed the plan for implementing wheels as it is now implemented.
+	[fe01c4744c57] <5.6-maint>
+
+2016-05-11  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* PyQt5.msp:
+	Eliminate a compiler warning message.
+	[988950701a58] <5.6-maint>
+
+2016-05-10  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* rbproduct.py:
+	More changes to the product plugin required by rbtools.
+	[1a1f56ebde3a] <5.6-maint>
+
+2016-05-09  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* rbproduct.py:
+	Updates to the product plugin for the latest rbtools changes.
+	[f9f06f093901] <5.6-maint>
+
+	* rbproduct.py:
+	Give commercial unlicensed wheels a non-standard extension.
+	[a24e4ce279f6] <5.6-maint>
+
+	* commercial/BuildNotes.txt, commercial/pyqtlicense.pdy,
+	commercial/pyqtlicense.py:
+	Moved pyqtlicense to a separate repo.
+	[7ccc7256c707] <5.6-maint>
+
+2016-05-08  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* commercial/BuildNotes.txt, commercial/pyqtlicense.pdy:
+	pyqtlicense can now be built for OS X.
+	[8b303294336e] <5.6-maint>
+
+	* pyuic/uic/pyuic.py:
+	Fixed misleading help text in pyuic5.
+	[b5b8f9ddca13] <5.6-maint>
+
+	* commercial/BuildNotes.txt, commercial/pyqtlicense.pdy:
+	Added the initial .pdy file for pyqtlicense.
+	[8b0724883824] <5.6-maint>
+
+2016-05-05  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* METADATA.in:
+	Fixed out of date information in the meta-data.
+	[c1e0ebea4ad4] <5.6-maint>
+
+2016-05-03  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* sphinx/incompatibilities.rst:
+	Documented the slot signature checking as a potential
+	incompatibility.
+	[12c3868cce84] <5.6-maint>
+
+	* qpy/QtCore/qpycore_chimera.cpp,
+	qpy/QtCore/qpycore_pyqtboundsignal.cpp:
+	Fixed connections to decorated slots to enforce the slot signature
+	and not silently ignore the decorator. sip.voidptr and bytes
+	arguments to the decorator now generate an appropriate C++ type.
+	[2a1416f9a2d3] <5.6-maint>
+
+2016-04-30  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* examples/multimediawidgets/camera/camera.py:
+	Fixed a bug in the camera.py example.
+	[20f251a709d4] <5.6-maint>
+
+2016-04-29  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* qpy/QtCore/qpycore_chimera.cpp:
+	Don't expect QVariant convertor helpers to handle None.
+	[145437cb0acf] <5.6-maint>
+
+2016-04-28  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* PyQt5.msp:
+	Added /ReleaseGIL/ to QPushButton.event() because it can trigger the
+	display of a QMenu which will enter its own event loop.
+	[9c50925525e4] <5.6-maint>
+
+2016-04-27  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* commercial/pyqtlicense.py:
+	Added the --qt option to pyqtlicense.
+	[8054d2d4db90] <5.6-maint>
+
+	* commercial/pyqtlicense.py:
+	Implemented the --openssl option of pyqtlicense.
+	[c4fb07c17181] <5.6-maint>
+
+	* commercial/pyqtlicense.py:
+	Implemented the --no-msvc-runtime and --no-openssl options to
+	pyqtlicense.
+	[4591c0e28b5a] <5.6-maint>
+
+2016-04-26  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* commercial/pyqt-commercial.sip:
+	Licensing on OS X now works.
+	[a3b0438a540f] <5.6-maint>
+
+2016-04-25  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* commercial/pyqt-commercial.sip:
+	Debugged the license check code.
+	[5f579e057d18] <5.6-maint>
+
+	* commercial/pyqt-commercial.sip, commercial/pyqtlicense.py:
+	Initial implementation of pyqtlicense.
+	[93328b3c897a] <5.6-maint>
+
+	* Makefile, commercial/pyqt-commercial.sip, rbproduct.py:
+	Implemented the creation of unlicensed commercial wheels.
+	[f042971d28ec] <5.6-maint>
+
+	* lib/configure.py:
+	--no-timestamps no longer passes the (redundant) -T flag to sip.
+	[77bff7d59668] <5.6-maint>
+
+	* lib/configure.py:
+	Fixed the handling of dbus-python if it has multiple include
+	directories.
+	[db626499ded9] <5.6-maint>
+
+	* installers/PyQt5-Qt5-gpl.nsi:
+	Fixed the Windows installers so that QtWebEngineProcess works.
+	[06ecf8131050] <5.6-maint>
+
 2016-04-24  Phil Thompson  <phil@riverbankcomputing.com>
 
 	* .hgtags:
 	Added tag 5.6 for changeset ae50bac2ef88
-	[b1939581dab4] [tip]
+	[b1939581dab4]
 
 	* NEWS:
 	Released as v5.6.
@@ -7887,4 +8294,3 @@
 	test/v3_unicode.py:
 	Initial import of PyQt5 based on a stripped down PyQt4.
 	[b135a1e082d2]
-

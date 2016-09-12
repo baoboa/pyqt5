@@ -5,4 +5,4 @@ QGraphicsOpacityEffect
 
 .. class:: QGraphicsOpacityEffect
 
-    `C++ documentation <http://doc.qt.io/qt-5/qgraphicsopacityeffect.html>`_
+    `C++ documentation <https://doc.qt.io/qt-5/qgraphicsopacityeffect.html>`_

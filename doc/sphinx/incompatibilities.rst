@@ -1,6 +1,21 @@
 Incompatibilities with Earlier Versions
 =======================================
 
+PyQt v5.6
+---------
+
+Enforcement of :func:`~PyQt5.QtCore.pyqtSlot` Signatures
+********************************************************
+
+In previous versions if a signal was connected to a method that was decorated
+by :func:`~PyQt5.QtCore.pyqtSlot`, and the signatures of the signal and slot
+were incompatible, then the connection was made anyway as if the method had not
+been decorated.  This behaviour was a bug and not a feature.
+
+This version ensures that the signatures are compatible and will raise an
+exception if they are not.
+
+
 PyQt v5.5
 ---------
 

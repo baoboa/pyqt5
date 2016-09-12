@@ -5,4 +5,4 @@ QTabletEvent
 
 .. class:: QTabletEvent
 
-    `C++ documentation <http://doc.qt.io/qt-5/qtabletevent.html>`_
+    `C++ documentation <https://doc.qt.io/qt-5/qtabletevent.html>`_

@@ -5,4 +5,4 @@ QPicture
 
 .. class:: QPicture
 
-    `C++ documentation <http://doc.qt.io/qt-5/qpicture.html>`_
+    `C++ documentation <https://doc.qt.io/qt-5/qpicture.html>`_

@@ -5,4 +5,4 @@ QToolButton
 
 .. class:: QToolButton
 
-    `C++ documentation <http://doc.qt.io/qt-5/qtoolbutton.html>`_
+    `C++ documentation <https://doc.qt.io/qt-5/qtoolbutton.html>`_

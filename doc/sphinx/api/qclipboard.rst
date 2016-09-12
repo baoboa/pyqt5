@@ -5,4 +5,4 @@ QClipboard
 
 .. class:: QClipboard
 
-    `C++ documentation <http://doc.qt.io/qt-5/qclipboard.html>`_
+    `C++ documentation <https://doc.qt.io/qt-5/qclipboard.html>`_

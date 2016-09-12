@@ -5,4 +5,4 @@ QWebEngineDownloadItem
 
 .. class:: QWebEngineDownloadItem
 
-    `C++ documentation <http://doc.qt.io/qt-5/qwebenginedownloaditem.html>`_
+    `C++ documentation <https://doc.qt.io/qt-5/qwebenginedownloaditem.html>`_

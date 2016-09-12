@@ -148,6 +148,9 @@ public:
 %If (Qt_5_2_0 -)
     QVariant currentData(int role = Qt::UserRole) const;
 %End
+%If (Qt_5_7_0 -)
+    QVariant inputMethodQuery(Qt::InputMethodQuery query, const QVariant &argument) const;
+%End
 
 private:
     QComboBox(const QComboBox &);

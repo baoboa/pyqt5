@@ -5,4 +5,4 @@ QMagnetometer
 
 .. class:: QMagnetometer
 
-    `C++ documentation <http://doc.qt.io/qt-5/qmagnetometer.html>`_
+    `C++ documentation <https://doc.qt.io/qt-5/qmagnetometer.html>`_

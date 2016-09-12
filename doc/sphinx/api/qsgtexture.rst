@@ -5,4 +5,4 @@ QSGTexture
 
 .. class:: QSGTexture
 
-    `C++ documentation <http://doc.qt.io/qt-5/qsgtexture.html>`_
+    `C++ documentation <https://doc.qt.io/qt-5/qsgtexture.html>`_

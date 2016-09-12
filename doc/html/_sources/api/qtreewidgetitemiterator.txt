@@ -5,4 +5,4 @@ QTreeWidgetItemIterator
 
 .. class:: QTreeWidgetItemIterator
 
-    `C++ documentation <http://doc.qt.io/qt-5/qtreewidgetitemiterator.html>`_
+    `C++ documentation <https://doc.qt.io/qt-5/qtreewidgetitemiterator.html>`_

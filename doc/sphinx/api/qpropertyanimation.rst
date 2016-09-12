@@ -5,4 +5,4 @@ QPropertyAnimation
 
 .. class:: QPropertyAnimation
 
-    `C++ documentation <http://doc.qt.io/qt-5/qpropertyanimation.html>`_
+    `C++ documentation <https://doc.qt.io/qt-5/qpropertyanimation.html>`_

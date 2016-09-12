@@ -5,4 +5,4 @@ QAbstractXmlNodeModel
 
 .. class:: QAbstractXmlNodeModel
 
-    `C++ documentation <http://doc.qt.io/qt-5/qabstractxmlnodemodel.html>`_
+    `C++ documentation <https://doc.qt.io/qt-5/qabstractxmlnodemodel.html>`_

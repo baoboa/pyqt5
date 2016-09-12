@@ -148,6 +148,9 @@ public:
 %If (Qt_5_1_0 -)
     QRect &operator-=(const QMargins &margins);
 %End
+%If (Qt_5_7_0 -)
+    QRect transposed() const;
+%End
 };
 
 QDataStream &operator<<(QDataStream &, const QRect & /Constrained/) /ReleaseGIL/;
@@ -303,6 +306,9 @@ public:
 %End
 %If (Qt_5_3_0 -)
     QRectF &operator-=(const QMarginsF &margins);
+%End
+%If (Qt_5_7_0 -)
+    QRectF transposed() const;
 %End
 };
 

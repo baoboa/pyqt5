@@ -5,4 +5,4 @@ QBasicTimer
 
 .. class:: QBasicTimer
 
-    `C++ documentation <http://doc.qt.io/qt-5/qbasictimer.html>`_
+    `C++ documentation <https://doc.qt.io/qt-5/qbasictimer.html>`_

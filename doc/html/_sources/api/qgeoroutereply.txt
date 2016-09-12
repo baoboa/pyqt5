@@ -5,4 +5,4 @@ QGeoRouteReply
 
 .. class:: QGeoRouteReply
 
-    `C++ documentation <http://doc.qt.io/qt-5/qgeoroutereply.html>`_
+    `C++ documentation <https://doc.qt.io/qt-5/qgeoroutereply.html>`_

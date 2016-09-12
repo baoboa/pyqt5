@@ -5,4 +5,4 @@ QHelpEngineCore
 
 .. class:: QHelpEngineCore
 
-    `C++ documentation <http://doc.qt.io/qt-5/qhelpenginecore.html>`_
+    `C++ documentation <https://doc.qt.io/qt-5/qhelpenginecore.html>`_

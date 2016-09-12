@@ -5,4 +5,4 @@ QWebChannelAbstractTransport
 
 .. class:: QWebChannelAbstractTransport
 
-    `C++ documentation <http://doc.qt.io/qt-5/qwebchannelabstracttransport.html>`_
+    `C++ documentation <https://doc.qt.io/qt-5/qwebchannelabstracttransport.html>`_

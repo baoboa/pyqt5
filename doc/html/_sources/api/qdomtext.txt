@@ -5,4 +5,4 @@ QDomText
 
 .. class:: QDomText
 
-    `C++ documentation <http://doc.qt.io/qt-5/qdomtext.html>`_
+    `C++ documentation <https://doc.qt.io/qt-5/qdomtext.html>`_

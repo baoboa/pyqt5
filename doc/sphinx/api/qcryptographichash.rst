@@ -5,4 +5,4 @@ QCryptographicHash
 
 .. class:: QCryptographicHash
 
-    `C++ documentation <http://doc.qt.io/qt-5/qcryptographichash.html>`_
+    `C++ documentation <https://doc.qt.io/qt-5/qcryptographichash.html>`_

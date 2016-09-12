@@ -48,6 +48,9 @@ public:
     QTransform();
     QTransform(qreal m11, qreal m12, qreal m13, qreal m21, qreal m22, qreal m23, qreal m31, qreal m32, qreal m33 = 1.0e+0);
     QTransform(qreal h11, qreal h12, qreal h13, qreal h21, qreal h22, qreal h23);
+%If (Qt_5_7_0 -)
+    QTransform(const QTransform &other);
+%End
     QTransform::TransformationType type() const;
     void setMatrix(qreal m11, qreal m12, qreal m13, qreal m21, qreal m22, qreal m23, qreal m31, qreal m32, qreal m33);
     QTransform inverted(bool *invertible = 0) const;

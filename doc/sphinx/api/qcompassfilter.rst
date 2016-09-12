@@ -5,4 +5,4 @@ QCompassFilter
 
 .. class:: QCompassFilter
 
-    `C++ documentation <http://doc.qt.io/qt-5/qcompassfilter.html>`_
+    `C++ documentation <https://doc.qt.io/qt-5/qcompassfilter.html>`_

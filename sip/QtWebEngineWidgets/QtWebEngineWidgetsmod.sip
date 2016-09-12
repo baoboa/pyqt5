@@ -53,6 +53,7 @@ WARRANTY OF DESIGN, MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE.
 %End
 
 %Include qwebenginecertificateerror.sip
+%Include qwebenginecontextmenudata.sip
 %Include qwebenginedownloaditem.sip
 %Include qwebenginefullscreenrequest.sip
 %Include qwebenginehistory.sip

@@ -5,4 +5,4 @@ QTextDocumentWriter
 
 .. class:: QTextDocumentWriter
 
-    `C++ documentation <http://doc.qt.io/qt-5/qtextdocumentwriter.html>`_
+    `C++ documentation <https://doc.qt.io/qt-5/qtextdocumentwriter.html>`_

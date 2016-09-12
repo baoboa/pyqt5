@@ -195,7 +195,7 @@ public:
     bool operator!=(const QBluetoothDeviceInfo &other) const;
     QBluetoothAddress address() const;
     QString name() const;
-    QFlags<QBluetoothDeviceInfo::ServiceClass> serviceClasses() const;
+    QBluetoothDeviceInfo::ServiceClasses serviceClasses() const;
     QBluetoothDeviceInfo::MajorDeviceClass majorDeviceClass() const;
     quint8 minorDeviceClass() const;
     qint16 rssi() const;
@@ -218,10 +218,10 @@ public:
     typedef QFlags<QBluetoothDeviceInfo::CoreConfiguration> CoreConfigurations;
 %End
 %If (Qt_5_4_0 -)
-    void setCoreConfigurations(QFlags<QBluetoothDeviceInfo::CoreConfiguration> coreConfigs);
+    void setCoreConfigurations(QBluetoothDeviceInfo::CoreConfigurations coreConfigs);
 %End
 %If (Qt_5_4_0 -)
-    QFlags<QBluetoothDeviceInfo::CoreConfiguration> coreConfigurations() const;
+    QBluetoothDeviceInfo::CoreConfigurations coreConfigurations() const;
 %End
 %If (Qt_5_5_0 -)
     void setDeviceUuid(const QBluetoothUuid &uuid);

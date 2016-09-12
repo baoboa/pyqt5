@@ -5,4 +5,4 @@ QSystemTrayIcon
 
 .. class:: QSystemTrayIcon
 
-    `C++ documentation <http://doc.qt.io/qt-5/qsystemtrayicon.html>`_
+    `C++ documentation <https://doc.qt.io/qt-5/qsystemtrayicon.html>`_

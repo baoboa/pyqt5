@@ -36,7 +36,7 @@ public:
 
     typedef QFlags<QVideoFilterRunnable::RunFlag> RunFlags;
     virtual ~QVideoFilterRunnable() /ReleaseGIL/;
-    virtual QVideoFrame run(QVideoFrame *input, const QVideoSurfaceFormat &surfaceFormat, QFlags<QVideoFilterRunnable::RunFlag> flags) = 0 /ReleaseGIL/;
+    virtual QVideoFrame run(QVideoFrame *input, const QVideoSurfaceFormat &surfaceFormat, QVideoFilterRunnable::RunFlags flags) = 0 /ReleaseGIL/;
 };
 
 %End
