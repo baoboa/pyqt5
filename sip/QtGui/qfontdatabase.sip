@@ -2,7 +2,7 @@
 //
 // This file is part of the QtGui Python extension module.
 //
-// Copyright (c) 2015 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2016 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -72,15 +72,15 @@ public:
     QList<QFontDatabase::WritingSystem> writingSystems(const QString &family) const;
     QStringList families(QFontDatabase::WritingSystem writingSystem = QFontDatabase::Any) const;
     QStringList styles(const QString &family) const;
-    QList<int> pointSizes(const QString &family, const QString &style /DocValue="''"/ = QString());
+    QList<int> pointSizes(const QString &family, const QString &style = QString());
     QList<int> smoothSizes(const QString &family, const QString &style);
     QString styleString(const QFont &font);
     QString styleString(const QFontInfo &fontInfo);
     QFont font(const QString &family, const QString &style, int pointSize) const;
-    bool isBitmapScalable(const QString &family, const QString &style /DocValue="''"/ = QString()) const;
-    bool isSmoothlyScalable(const QString &family, const QString &style /DocValue="''"/ = QString()) const;
-    bool isScalable(const QString &family, const QString &style /DocValue="''"/ = QString()) const;
-    bool isFixedPitch(const QString &family, const QString &style /DocValue="''"/ = QString()) const;
+    bool isBitmapScalable(const QString &family, const QString &style = QString()) const;
+    bool isSmoothlyScalable(const QString &family, const QString &style = QString()) const;
+    bool isScalable(const QString &family, const QString &style = QString()) const;
+    bool isFixedPitch(const QString &family, const QString &style = QString()) const;
     bool italic(const QString &family, const QString &style) const;
     bool bold(const QString &family, const QString &style) const;
     int weight(const QString &family, const QString &style) const;

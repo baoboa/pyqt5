@@ -2,7 +2,7 @@
 //
 // This file is part of the QtNetwork Python extension module.
 //
-// Copyright (c) 2015 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2016 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -47,7 +47,7 @@ public:
     QString encryptionMethod() const;
     QString protocolString() const;
     QSsl::SslProtocol protocol() const;
-    void swap(QSslCipher &other);
+    void swap(QSslCipher &other /Constrained/);
 };
 
 %End

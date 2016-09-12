@@ -1,6 +1,6 @@
 // This contains the support for QOpenGL value arrays.
 //
-// Copyright (c) 2015 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2016 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -36,15 +36,15 @@
 static qpyopengl_dataCache *get_cache(PyObject *bindings);
 static void *convert_values(Array *cache, PyObject *values,
         GLenum gl_type, sipErrorState *estate);
-static void convert_byte(PyObject *itm, void *array, SIP_SSIZE_T i);
-static void convert_ubyte(PyObject *itm, void *array, SIP_SSIZE_T i);
-static void convert_short(PyObject *itm, void *array, SIP_SSIZE_T i);
-static void convert_ushort(PyObject *itm, void *array, SIP_SSIZE_T i);
-static void convert_int(PyObject *itm, void *array, SIP_SSIZE_T i);
-static void convert_uint(PyObject *itm, void *array, SIP_SSIZE_T i);
-static void convert_float(PyObject *itm, void *array, SIP_SSIZE_T i);
+static void convert_byte(PyObject *itm, void *array, Py_ssize_t i);
+static void convert_ubyte(PyObject *itm, void *array, Py_ssize_t i);
+static void convert_short(PyObject *itm, void *array, Py_ssize_t i);
+static void convert_ushort(PyObject *itm, void *array, Py_ssize_t i);
+static void convert_int(PyObject *itm, void *array, Py_ssize_t i);
+static void convert_uint(PyObject *itm, void *array, Py_ssize_t i);
+static void convert_float(PyObject *itm, void *array, Py_ssize_t i);
 #if defined(SIP_FEATURE_PyQt_Desktop_OpenGL)
-static void convert_double(PyObject *itm, void *array, SIP_SSIZE_T i);
+static void convert_double(PyObject *itm, void *array, Py_ssize_t i);
 #endif
 
 
@@ -261,7 +261,7 @@ static void *convert_values(Array *array, PyObject *values, GLenum gl_type,
         return 0;
     }
 
-    SIP_SSIZE_T nr_items = PySequence_Fast_GET_SIZE(seq);
+    Py_ssize_t nr_items = PySequence_Fast_GET_SIZE(seq);
 
     if (nr_items < 1)
     {
@@ -273,7 +273,7 @@ static void *convert_values(Array *array, PyObject *values, GLenum gl_type,
         return 0;
     }
 
-    void (*convertor)(PyObject *, void *, SIP_SSIZE_T);
+    void (*convertor)(PyObject *, void *, Py_ssize_t);
     size_t element_size;
 
     switch (gl_type)
@@ -340,7 +340,7 @@ static void *convert_values(Array *array, PyObject *values, GLenum gl_type,
         return 0;
     }
 
-    for (SIP_SSIZE_T i = 0; i < nr_items; ++i)
+    for (Py_ssize_t i = 0; i < nr_items; ++i)
     {
         PyErr_Clear();
 
@@ -372,49 +372,49 @@ static void *convert_values(Array *array, PyObject *values, GLenum gl_type,
 
 
 // Convert a Python object to a GLbyte.
-static void convert_byte(PyObject *itm, void *array, SIP_SSIZE_T i)
+static void convert_byte(PyObject *itm, void *array, Py_ssize_t i)
 {
     reinterpret_cast<GLbyte *>(array)[i] = SIPLong_AsLong(itm);
 }
 
 
 // Convert a Python object to a GLubyte.
-static void convert_ubyte(PyObject *itm, void *array, SIP_SSIZE_T i)
+static void convert_ubyte(PyObject *itm, void *array, Py_ssize_t i)
 {
     reinterpret_cast<GLubyte *>(array)[i] = Long_AsUnsignedLong(itm);
 }
 
 
 // Convert a Python object to a GLshort.
-static void convert_short(PyObject *itm, void *array, SIP_SSIZE_T i)
+static void convert_short(PyObject *itm, void *array, Py_ssize_t i)
 {
     reinterpret_cast<GLshort *>(array)[i] = SIPLong_AsLong(itm);
 }
 
 
 // Convert a Python object to a GLushort.
-static void convert_ushort(PyObject *itm, void *array, SIP_SSIZE_T i)
+static void convert_ushort(PyObject *itm, void *array, Py_ssize_t i)
 {
     reinterpret_cast<GLushort *>(array)[i] = Long_AsUnsignedLong(itm);
 }
 
 
 // Convert a Python object to a GLint.
-static void convert_int(PyObject *itm, void *array, SIP_SSIZE_T i)
+static void convert_int(PyObject *itm, void *array, Py_ssize_t i)
 {
     reinterpret_cast<GLint *>(array)[i] = SIPLong_AsLong(itm);
 }
 
 
 // Convert a Python object to a GLuint.
-static void convert_uint(PyObject *itm, void *array, SIP_SSIZE_T i)
+static void convert_uint(PyObject *itm, void *array, Py_ssize_t i)
 {
     reinterpret_cast<GLuint *>(array)[i] = Long_AsUnsignedLong(itm);
 }
 
 
 // Convert a Python object to a GLfloat.
-static void convert_float(PyObject *itm, void *array, SIP_SSIZE_T i)
+static void convert_float(PyObject *itm, void *array, Py_ssize_t i)
 {
     reinterpret_cast<GLfloat *>(array)[i] = PyFloat_AsDouble(itm);
 }
@@ -422,7 +422,7 @@ static void convert_float(PyObject *itm, void *array, SIP_SSIZE_T i)
 
 #if defined(SIP_FEATURE_PyQt_Desktop_OpenGL)
 // Convert a Python object to a GLdouble.
-static void convert_double(PyObject *itm, void *array, SIP_SSIZE_T i)
+static void convert_double(PyObject *itm, void *array, Py_ssize_t i)
 {
     reinterpret_cast<GLdouble *>(array)[i] = PyFloat_AsDouble(itm);
 }

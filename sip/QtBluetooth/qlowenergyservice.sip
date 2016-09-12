@@ -2,7 +2,7 @@
 //
 // This file is part of the QtBluetooth Python extension module.
 //
-// Copyright (c) 2015 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2016 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -70,7 +70,7 @@ public:
 
     virtual ~QLowEnergyService();
     QList<QBluetoothUuid> includedServices() const;
-    QFlags<QLowEnergyService::ServiceType> type() const;
+    QLowEnergyService::ServiceTypes type() const;
     QLowEnergyService::ServiceState state() const;
     QLowEnergyCharacteristic characteristic(const QBluetoothUuid &uuid) const;
     QList<QLowEnergyCharacteristic> characteristics() const;

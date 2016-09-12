@@ -2,7 +2,7 @@
 //
 // This file is part of the QtNetwork Python extension module.
 //
-// Copyright (c) 2015 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2016 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -66,6 +66,9 @@ public:
 %If (Qt_5_5_0 -)
         EmitAllUploadProgressSignalsAttribute,
 %End
+%If (Qt_5_6_0 -)
+        FollowRedirectsAttribute,
+%End
         User,
         UserMax,
     };
@@ -102,7 +105,7 @@ public:
     QList<QByteArray> rawHeaderList() const;
     QByteArray rawHeader(const QByteArray &headerName) const;
     void setRawHeader(const QByteArray &headerName, const QByteArray &value);
-    QVariant attribute(QNetworkRequest::Attribute code, const QVariant &defaultValue /DocValue="None"/ = QVariant()) const;
+    QVariant attribute(QNetworkRequest::Attribute code, const QVariant &defaultValue = QVariant()) const;
     void setAttribute(QNetworkRequest::Attribute code, const QVariant &value);
 %If (PyQt_SSL)
     QSslConfiguration sslConfiguration() const;
@@ -116,5 +119,11 @@ public:
     QObject *originatingObject() const;
     QNetworkRequest::Priority priority() const;
     void setPriority(QNetworkRequest::Priority priority);
-    void swap(QNetworkRequest &other);
+    void swap(QNetworkRequest &other /Constrained/);
+%If (Qt_5_6_0 -)
+    int maximumRedirectsAllowed() const;
+%End
+%If (Qt_5_6_0 -)
+    void setMaximumRedirectsAllowed(int maximumRedirectsAllowed);
+%End
 };

@@ -2,7 +2,7 @@
 //
 // This file is part of the QtSerialPort Python extension module.
 //
-// Copyright (c) 2015 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2016 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -34,7 +34,7 @@ public:
     explicit QSerialPortInfo(const QString &name);
     QSerialPortInfo(const QSerialPortInfo &other);
     ~QSerialPortInfo();
-    void swap(QSerialPortInfo &other);
+    void swap(QSerialPortInfo &other /Constrained/);
     QString portName() const;
     QString systemLocation() const;
     QString description() const;

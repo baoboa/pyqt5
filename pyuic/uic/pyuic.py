@@ -1,6 +1,6 @@
 #############################################################################
 ##
-## Copyright (c) 2015 Riverbank Computing Limited <info@riverbankcomputing.com>
+## Copyright (c) 2016 Riverbank Computing Limited <info@riverbankcomputing.com>
 ## 
 ## This file is part of PyQt5.
 ## 
@@ -54,8 +54,10 @@ parser.add_option("-i", "--indent", dest="indent", action="store", type="int",
         help="set indent width to N spaces, tab if N is 0 [default: 4]")
 
 g = optparse.OptionGroup(parser, title="Code generation options")
+g.add_option("--import-from", dest="import_from", metavar="PACKAGE",
+        help="generate imports in the style 'from PACKAGE import ...'")
 g.add_option("--from-imports", dest="from_imports", action="store_true",
-        default=False, help="generate imports relative to '.'")
+        default=False, help="the equivalent of '--import-from=.'")
 g.add_option("--resource-suffix", dest="resource_suffix", action="store",
         type="string", default="_rc", metavar="SUFFIX",
         help="append SUFFIX to the basename of resource files [default: _rc]")

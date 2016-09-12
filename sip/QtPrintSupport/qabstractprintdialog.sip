@@ -2,7 +2,7 @@
 //
 // This file is part of the QtPrintSupport Python extension module.
 //
-// Copyright (c) 2015 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2016 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -136,7 +136,13 @@ enum PrintDialogOption {
     int fromPage() const;
     int toPage() const;
     QPrinter *printer() const;
-    void setOptionTabs(const QList<QWidget*> &tabs);
+    void setOptionTabs(const QList<QWidget *> &tabs);
+%If (Qt_5_6_0 -)
+    void setEnabledOptions(QAbstractPrintDialog::PrintDialogOptions options);
+%End
+%If (Qt_5_6_0 -)
+    QAbstractPrintDialog::PrintDialogOptions enabledOptions() const;
+%End
 
 private:
     QAbstractPrintDialog(const QAbstractPrintDialog &);
@@ -164,4 +170,5 @@ pyqt5_qtprintsupport_get_connection_parts_t pyqt5_qtprintsupport_get_connection_
 %PostInitialisationCode
 // Imports from QtCore.
 pyqt5_qtprintsupport_get_connection_parts = (pyqt5_qtprintsupport_get_connection_parts_t)sipImportSymbol("pyqt5_get_connection_parts");
+Q_ASSERT(pyqt5_qtprintsupport_get_connection_parts);
 %End

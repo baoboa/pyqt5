@@ -2,7 +2,7 @@
 //
 // This file is part of the QtCore Python extension module.
 //
-// Copyright (c) 2015 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2016 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -49,7 +49,7 @@ public:
 %End
     QCommandLineOption(const QCommandLineOption &other);
     ~QCommandLineOption();
-    void swap(QCommandLineOption &other);
+    void swap(QCommandLineOption &other /Constrained/);
     QStringList names() const;
     void setValueName(const QString &name);
     QString valueName() const;
@@ -58,6 +58,12 @@ public:
     void setDefaultValue(const QString &defaultValue);
     void setDefaultValues(const QStringList &defaultValues);
     QStringList defaultValues() const;
+%If (Qt_5_6_0 -)
+    void setHidden(bool hidden);
+%End
+%If (Qt_5_6_0 -)
+    bool isHidden() const;
+%End
 };
 
 %End

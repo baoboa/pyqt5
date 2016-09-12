@@ -2,7 +2,7 @@
 //
 // This file is part of the QtPrintSupport Python extension module.
 //
-// Copyright (c) 2015 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2016 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -43,8 +43,8 @@ public:
         FitInView,
     };
 
-    QPrintPreviewWidget(QPrinter *printer, QWidget *parent /TransferThis/ = 0, Qt::WindowFlags flags = 0);
-    QPrintPreviewWidget(QWidget *parent /TransferThis/ = 0, Qt::WindowFlags flags = 0);
+    QPrintPreviewWidget(QPrinter *printer, QWidget *parent /TransferThis/ = 0, Qt::WindowFlags flags = Qt::WindowFlags());
+    QPrintPreviewWidget(QWidget *parent /TransferThis/ = 0, Qt::WindowFlags flags = Qt::WindowFlags());
     virtual ~QPrintPreviewWidget();
     qreal zoomFactor() const;
     QPrinter::Orientation orientation() const;

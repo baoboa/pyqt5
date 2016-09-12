@@ -2,7 +2,7 @@
 //
 // This file is part of the QtBluetooth Python extension module.
 //
-// Copyright (c) 2015 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2016 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -62,9 +62,9 @@ public:
     virtual qint64 bytesAvailable() const;
     virtual qint64 bytesToWrite() const;
     virtual bool canReadLine() const;
-    void connectToService(const QBluetoothServiceInfo &service, QFlags<QIODevice::OpenModeFlag> mode = QIODevice::ReadWrite) /ReleaseGIL/;
-    void connectToService(const QBluetoothAddress &address, const QBluetoothUuid &uuid, QFlags<QIODevice::OpenModeFlag> mode = QIODevice::ReadWrite) /ReleaseGIL/;
-    void connectToService(const QBluetoothAddress &address, quint16 port, QFlags<QIODevice::OpenModeFlag> mode = QIODevice::ReadWrite) /ReleaseGIL/;
+    void connectToService(const QBluetoothServiceInfo &service, QIODevice::OpenMode mode = QIODevice::ReadWrite) /ReleaseGIL/;
+    void connectToService(const QBluetoothAddress &address, const QBluetoothUuid &uuid, QIODevice::OpenMode mode = QIODevice::ReadWrite) /ReleaseGIL/;
+    void connectToService(const QBluetoothAddress &address, quint16 port, QIODevice::OpenMode mode = QIODevice::ReadWrite) /ReleaseGIL/;
     void disconnectFromService() /ReleaseGIL/;
     QString localName() const;
     QBluetoothAddress localAddress() const;
@@ -72,7 +72,7 @@ public:
     QString peerName() const;
     QBluetoothAddress peerAddress() const;
     quint16 peerPort() const;
-    bool setSocketDescriptor(int socketDescriptor, QBluetoothServiceInfo::Protocol socketType, QBluetoothSocket::SocketState state = QBluetoothSocket::ConnectedState, QFlags<QIODevice::OpenModeFlag> mode = QIODevice::ReadWrite);
+    bool setSocketDescriptor(int socketDescriptor, QBluetoothServiceInfo::Protocol socketType, QBluetoothSocket::SocketState state = QBluetoothSocket::ConnectedState, QIODevice::OpenMode mode = QIODevice::ReadWrite);
     int socketDescriptor() const;
     QBluetoothServiceInfo::Protocol socketType() const;
     QBluetoothSocket::SocketState state() const;
@@ -86,7 +86,7 @@ signals:
     void stateChanged(QBluetoothSocket::SocketState state);
 
 protected:
-    virtual SIP_PYOBJECT readData(qint64 maxlen) /DocType="Py_v3:bytes;str",ReleaseGIL/ [qint64 (char *data, qint64 maxSize)];
+    virtual SIP_PYOBJECT readData(qint64 maxlen) /TypeHint="Py_v3:bytes;str",ReleaseGIL/ [qint64 (char *data, qint64 maxSize)];
 %MethodCode
         // Return the data read or None if there was an error.
         if (a0 < 0)
@@ -127,7 +127,15 @@ protected:
     virtual qint64 writeData(const char *data /Array/, qint64 maxSize /ArraySize/) /ReleaseGIL/;
     void setSocketState(QBluetoothSocket::SocketState state);
     void setSocketError(QBluetoothSocket::SocketError error);
-    void doDeviceDiscovery(const QBluetoothServiceInfo &service, QFlags<QIODevice::OpenModeFlag> openMode);
+    void doDeviceDiscovery(const QBluetoothServiceInfo &service, QIODevice::OpenMode openMode);
+
+public:
+%If (Qt_5_6_0 -)
+    void setPreferredSecurityFlags(QBluetooth::SecurityFlags flags);
+%End
+%If (Qt_5_6_0 -)
+    QBluetooth::SecurityFlags preferredSecurityFlags() const;
+%End
 };
 
 %End

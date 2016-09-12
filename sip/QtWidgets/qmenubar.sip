@@ -2,7 +2,7 @@
 //
 // This file is part of the QtWidgets Python extension module.
 //
-// Copyright (c) 2015 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2016 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -31,7 +31,7 @@ public:
     virtual ~QMenuBar();
     void addAction(QAction *action);
     QAction *addAction(const QString &text) /Transfer/;
-    QAction *addAction(const QString &text, SIP_PYOBJECT slot /DocType="slot"/) /Transfer/;
+    QAction *addAction(const QString &text, SIP_PYOBJECT slot /TypeHint="PYQT_SLOT"/) /Transfer/;
 %MethodCode
         QObject *receiver;
         QByteArray slot_signature;

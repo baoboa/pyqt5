@@ -2,7 +2,7 @@
 //
 // This file is part of the QtCore Python extension module.
 //
-// Copyright (c) 2015 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2016 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -882,8 +882,8 @@ public:
     QChar exponential() const;
     QString monthName(int, QLocale::FormatType format = QLocale::LongFormat) const;
     QString dayName(int, QLocale::FormatType format = QLocale::LongFormat) const;
-    void setNumberOptions(QFlags<QLocale::NumberOption> options);
-    QFlags<QLocale::NumberOption> numberOptions() const;
+    void setNumberOptions(QLocale::NumberOptions options);
+    QLocale::NumberOptions numberOptions() const;
 
     enum MeasurementSystem
     {
@@ -1236,10 +1236,10 @@ public:
     QString toUpper(const QString &str) const;
     QString toLower(const QString &str) const;
     QString currencySymbol(QLocale::CurrencySymbolFormat format = QLocale::CurrencySymbol) const;
-    QString toCurrencyString(int value /Constrained/, const QString &symbol /DocValue="''"/ = QString()) const;
-    QString toCurrencyString(double value /Constrained/, const QString &symbol /DocValue="''"/ = QString()) const;
-    QString toCurrencyString(qlonglong value, const QString &symbol /DocValue="''"/ = QString()) const;
-    QString toCurrencyString(qulonglong value, const QString &symbol /DocValue="''"/ = QString()) const;
+    QString toCurrencyString(int value /Constrained/, const QString &symbol = QString()) const;
+    QString toCurrencyString(double value /Constrained/, const QString &symbol = QString()) const;
+    QString toCurrencyString(qlonglong value, const QString &symbol = QString()) const;
+    QString toCurrencyString(qulonglong value, const QString &symbol = QString()) const;
     QStringList uiLanguages() const;
     static QString scriptToString(QLocale::Script script);
     static QList<QLocale> matchingLocales(QLocale::Language language, QLocale::Script script, QLocale::Country country);
@@ -1252,6 +1252,13 @@ public:
 
     QString quoteString(const QString &str, QLocale::QuotationStyle style = QLocale::StandardQuotation) const;
     QString createSeparatedList(const QStringList &list) const;
+%If (Qt_5_6_0 -)
+    long __hash__() const;
+%MethodCode
+        sipRes = qHash(*sipCpp);
+%End
+
+%End
 };
 
 QDataStream &operator<<(QDataStream &, const QLocale & /Constrained/) /ReleaseGIL/;

@@ -2,7 +2,7 @@
 //
 // This file is part of the QtNetwork Python extension module.
 //
-// Copyright (c) 2015 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2016 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -47,7 +47,7 @@ public:
     void setErrorString(const QString &errorString);
     void setLookupId(int id);
     int lookupId() const;
-    static int lookupHost(const QString &name, SIP_PYOBJECT slot /DocType="callable-or-signal"/);
+    static int lookupHost(const QString &name, SIP_PYOBJECT slot /TypeHint="PYQT_SLOT"/);
 %MethodCode
         QObject *receiver;
         QByteArray slot_signature;
@@ -82,4 +82,5 @@ pyqt5_qtnetwork_get_connection_parts_t pyqt5_qtnetwork_get_connection_parts;
 %PostInitialisationCode
 // Imports from QtCore.
 pyqt5_qtnetwork_get_connection_parts = (pyqt5_qtnetwork_get_connection_parts_t)sipImportSymbol("pyqt5_get_connection_parts");
+Q_ASSERT(pyqt5_qtnetwork_get_connection_parts);
 %End

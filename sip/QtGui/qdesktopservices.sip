@@ -2,7 +2,7 @@
 //
 // This file is part of the QtGui Python extension module.
 //
-// Copyright (c) 2015 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2016 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -29,7 +29,7 @@ class QDesktopServices
 public:
     static bool openUrl(const QUrl &url) /ReleaseGIL/;
     static void setUrlHandler(const QString &scheme, QObject *receiver, const char *method);
-    static void setUrlHandler(const QString &scheme, SIP_PYCALLABLE method);
+    static void setUrlHandler(const QString &scheme, SIP_PYCALLABLE method /TypeHint="Callable[[QUrl], None]"/);
 %MethodCode
         // Allow a callable that must be a slot of a QObject, although we never tell
         // the user if it isn't.

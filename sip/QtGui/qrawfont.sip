@@ -2,7 +2,7 @@
 //
 // This file is part of the QtGui Python extension module.
 //
-// Copyright (c) 2015 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2016 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -50,7 +50,7 @@ public:
     QVector<unsigned int> glyphIndexesForString(const QString &text) const;
     QVector<QPointF> advancesForGlyphIndexes(const QVector<unsigned int> &glyphIndexes) const;
 %If (Qt_5_1_0 -)
-    QVector<QPointF> advancesForGlyphIndexes(const QVector<unsigned int> &glyphIndexes, QFlags<QRawFont::LayoutFlag> layoutFlags) const;
+    QVector<QPointF> advancesForGlyphIndexes(const QVector<unsigned int> &glyphIndexes, QRawFont::LayoutFlags layoutFlags) const;
 %End
     QImage alphaMapForGlyph(quint32 glyphIndex, QRawFont::AntialiasingType antialiasingType = QRawFont::SubPixelAntialiasing, const QTransform &transform = QTransform()) const;
     QPainterPath pathForGlyph(quint32 glyphIndex) const;
@@ -74,7 +74,7 @@ public:
     QRectF boundingRect(quint32 glyphIndex) const;
     qreal lineThickness() const;
     qreal underlinePosition() const;
-    void swap(QRawFont &other);
+    void swap(QRawFont &other /Constrained/);
 %If (Qt_5_1_0 -)
 
     enum LayoutFlag

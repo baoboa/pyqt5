@@ -1,6 +1,6 @@
 // This is the implementation of the pyqtSlot decorator.
 //
-// Copyright (c) 2015 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2016 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -86,7 +86,11 @@ PyObject *qpycore_pyqtslot(PyObject *args, PyObject *kwds)
     // Create the decorator function itself.  We stash the arguments in "self".
     // This may be an abuse, but it seems to be Ok.
     static PyMethodDef deco_method = {
-        SIP_MLNAME_CAST("_deco"), decorator, METH_O, 0
+#if PY_VERSION_HEX >= 0x02050000
+        "_deco", decorator, METH_O, 0
+#else
+        const_cast<char *>("_deco"), decorator, METH_O, 0
+#endif
     };
 
     PyObject *obj = PyCFunction_New(&deco_method, sig_obj);

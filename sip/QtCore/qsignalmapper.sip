@@ -2,7 +2,7 @@
 //
 // This file is part of the QtCore Python extension module.
 //
-// Copyright (c) 2015 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2016 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -24,6 +24,10 @@ class QWidget /External/;
 
 class QSignalMapper : QObject
 {
+%TypeHintCode
+from PyQt5.QtWidgets import QWidget
+%End
+
 %TypeHeaderCode
 #include <qsignalmapper.h>
 %End

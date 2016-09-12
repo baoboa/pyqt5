@@ -1,6 +1,6 @@
 #############################################################################
 ##
-## Copyright (c) 2015 Riverbank Computing Limited <info@riverbankcomputing.com>
+## Copyright (c) 2016 Riverbank Computing Limited <info@riverbankcomputing.com>
 ## 
 ## This file is part of PyQt5.
 ## 
@@ -93,8 +93,18 @@ class Driver(object):
                 pyfile = open(self._opts.output, 'wt')
                 needs_close = True
 
+        import_from = self._opts.import_from
+
+        if import_from:
+            from_imports = True
+        elif self._opts.from_imports:
+            from_imports = True
+            import_from = '.'
+        else:
+            from_imports = False
+
         compileUi(self._ui_file, pyfile, self._opts.execute, self._opts.indent,
-                self._opts.from_imports, self._opts.resource_suffix)
+                from_imports, self._opts.resource_suffix, import_from)
 
         if needs_close:
             pyfile.close()

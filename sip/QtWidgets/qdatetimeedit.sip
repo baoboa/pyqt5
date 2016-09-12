@@ -2,7 +2,7 @@
 //
 // This file is part of the QtWidgets Python extension module.
 //
-// Copyright (c) 2015 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2016 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -65,7 +65,7 @@ public:
     void setMaximumTime(const QTime &max);
     void clearMaximumTime();
     void setTimeRange(const QTime &min, const QTime &max);
-    QFlags<QDateTimeEdit::Section> displayedSections() const;
+    QDateTimeEdit::Sections displayedSections() const;
     QDateTimeEdit::Section currentSection() const;
     void setCurrentSection(QDateTimeEdit::Section section);
     QString sectionText(QDateTimeEdit::Section s) const;
@@ -105,7 +105,7 @@ protected:
     virtual void fixup(QString &input /In,Out/) const;
     virtual QDateTime dateTimeFromText(const QString &text) const;
     virtual QString textFromDateTime(const QDateTime &dt) const;
-    virtual QFlags<QAbstractSpinBox::StepEnabledFlag> stepEnabled() const;
+    virtual QAbstractSpinBox::StepEnabled stepEnabled() const;
 
 public:
     QDateTime minimumDateTime() const;

@@ -2,7 +2,7 @@
 //
 // This file is part of the QtWidgets Python extension module.
 //
-// Copyright (c) 2015 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2016 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -27,8 +27,8 @@ class QProgressDialog : QDialog
 %End
 
 public:
-    QProgressDialog(QWidget *parent /TransferThis/ = 0, Qt::WindowFlags flags = 0);
-    QProgressDialog(const QString &labelText, const QString &cancelButtonText, int minimum, int maximum, QWidget *parent /TransferThis/ = 0, Qt::WindowFlags flags = 0);
+    QProgressDialog(QWidget *parent /TransferThis/ = 0, Qt::WindowFlags flags = Qt::WindowFlags());
+    QProgressDialog(const QString &labelText, const QString &cancelButtonText, int minimum, int maximum, QWidget *parent /TransferThis/ = 0, Qt::WindowFlags flags = Qt::WindowFlags());
     virtual ~QProgressDialog();
     void setLabel(QLabel *label /Transfer/);
     void setCancelButton(QPushButton *button /Transfer/);
@@ -68,7 +68,7 @@ protected:
 
 public:
     void open();
-    void open(SIP_PYOBJECT slot /DocType="slot"/);
+    void open(SIP_PYOBJECT slot /TypeHint="PYQT_SLOT"/);
 %MethodCode
         QObject *receiver;
         QByteArray slot_signature;

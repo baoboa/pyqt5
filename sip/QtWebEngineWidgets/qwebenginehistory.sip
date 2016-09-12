@@ -2,7 +2,7 @@
 //
 // This file is part of the QtWebEngineWidgets Python extension module.
 //
-// Copyright (c) 2015 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2016 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -37,6 +37,9 @@ public:
     QDateTime lastVisited() const;
     QUrl iconUrl() const;
     bool isValid() const;
+%If (Qt_5_6_0 -)
+    void swap(QWebEngineHistoryItem &other /Constrained/);
+%End
 };
 
 %End

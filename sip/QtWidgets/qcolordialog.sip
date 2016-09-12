@@ -2,7 +2,7 @@
 //
 // This file is part of the QtWidgets Python extension module.
 //
-// Copyright (c) 2015 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2016 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -38,7 +38,7 @@ public:
     explicit QColorDialog(QWidget *parent /TransferThis/ = 0);
     QColorDialog(const QColor &initial, QWidget *parent /TransferThis/ = 0);
     virtual ~QColorDialog();
-    static QColor getColor(const QColor &initial = Qt::white, QWidget *parent = 0, const QString &title = QString(), QFlags<QColorDialog::ColorDialogOption> options = 0) /ReleaseGIL/;
+    static QColor getColor(const QColor &initial = Qt::white, QWidget *parent = 0, const QString &title = QString(), QColorDialog::ColorDialogOptions options = QColorDialog::ColorDialogOptions()) /ReleaseGIL/;
     static int customCount();
     static QColor customColor(int index);
     static void setCustomColor(int index, QColor color);
@@ -62,10 +62,10 @@ public:
     QColor selectedColor() const;
     void setOption(QColorDialog::ColorDialogOption option, bool on = true);
     bool testOption(QColorDialog::ColorDialogOption option) const;
-    void setOptions(QFlags<QColorDialog::ColorDialogOption> options);
-    QFlags<QColorDialog::ColorDialogOption> options() const;
+    void setOptions(QColorDialog::ColorDialogOptions options);
+    QColorDialog::ColorDialogOptions options() const;
     virtual void open();
-    void open(SIP_PYOBJECT slot /DocType="slot"/);
+    void open(SIP_PYOBJECT slot /TypeHint="PYQT_SLOT"/);
 %MethodCode
         QObject *receiver;
         QByteArray slot_signature;

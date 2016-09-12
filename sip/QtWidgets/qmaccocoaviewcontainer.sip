@@ -1,6 +1,6 @@
 // This is the SIP interface definition for the QMacCocoaViewContainer.
 //
-// Copyright (c) 2015 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2016 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -19,7 +19,7 @@
 
 
 %If (WS_MACX)
-%If (PyQt_MacCocoaViewContainer)
+%If (PyQt_MacOSXOnly)
 
 class QMacCocoaViewContainer : QWidget /FileExtension=".mm"/
 {

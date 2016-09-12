@@ -2,7 +2,7 @@
 //
 // This file is part of the QtGui Python extension module.
 //
-// Copyright (c) 2015 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2016 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -210,7 +210,7 @@ public:
     void setStyleName(const QString &styleName);
     void setHintingPreference(QFont::HintingPreference hintingPreference);
     QFont::HintingPreference hintingPreference() const;
-    void swap(QFont &other);
+    void swap(QFont &other /Constrained/);
 %If (Qt_5_3_0 -)
     long __hash__() const;
 %MethodCode

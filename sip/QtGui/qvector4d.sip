@@ -2,7 +2,7 @@
 //
 // This file is part of the QtGui Python extension module.
 //
-// Copyright (c) 2015 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2016 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -44,7 +44,7 @@ public:
     QVector4D(const QVector2D &vector, float zpos, float wpos);
     QVector4D(const QVector3D &vector);
     QVector4D(const QVector3D &vector, float wpos);
-    SIP_PYOBJECT __repr__() const /DocType="str"/;
+    SIP_PYOBJECT __repr__() const /TypeHint="str"/;
 %MethodCode
         PyObject *x = PyFloat_FromDouble(sipCpp->x());
         PyObject *y = PyFloat_FromDouble(sipCpp->y());

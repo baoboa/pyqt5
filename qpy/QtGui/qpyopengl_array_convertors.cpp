@@ -1,6 +1,6 @@
 // This contains the support for converting QOpenGL arrays to Python objects.
 //
-// Copyright (c) 2015 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2016 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -30,7 +30,7 @@
 #if QT_VERSION >= 0x050100
 
 // Convert a GLint array to a Python object.
-PyObject *qpyopengl_from_GLint(int *eflag, const GLint *array, SIP_SSIZE_T len)
+PyObject *qpyopengl_from_GLint(int *eflag, const GLint *array, Py_ssize_t len)
 {
     if (len == 1)
         return SIPLong_FromLong(array[0]);
@@ -43,7 +43,7 @@ PyObject *qpyopengl_from_GLint(int *eflag, const GLint *array, SIP_SSIZE_T len)
         return 0;
     }
 
-    for (SIP_SSIZE_T i = 0; i < len; ++i)
+    for (Py_ssize_t i = 0; i < len; ++i)
     {
         PyObject *itm = SIPLong_FromLong(array[i]);
 
@@ -63,7 +63,7 @@ PyObject *qpyopengl_from_GLint(int *eflag, const GLint *array, SIP_SSIZE_T len)
 
 // Convert a GLuint array to a Python object.
 PyObject *qpyopengl_from_GLuint(int *eflag, const GLuint *array,
-        SIP_SSIZE_T len)
+        Py_ssize_t len)
 {
     if (len == 1)
         return PyLong_FromUnsignedLong(array[0]);
@@ -76,7 +76,7 @@ PyObject *qpyopengl_from_GLuint(int *eflag, const GLuint *array,
         return 0;
     }
 
-    for (SIP_SSIZE_T i = 0; i < len; ++i)
+    for (Py_ssize_t i = 0; i < len; ++i)
     {
         PyObject *itm = PyLong_FromUnsignedLong(array[i]);
 
@@ -96,7 +96,7 @@ PyObject *qpyopengl_from_GLuint(int *eflag, const GLuint *array,
 
 // Convert a GLboolean array to a Python object.
 PyObject *qpyopengl_from_GLboolean(int *eflag, const GLboolean *array,
-        SIP_SSIZE_T len)
+        Py_ssize_t len)
 {
     if (len == 1)
         return PyBool_FromLong(array[0]);
@@ -109,7 +109,7 @@ PyObject *qpyopengl_from_GLboolean(int *eflag, const GLboolean *array,
         return 0;
     }
 
-    for (SIP_SSIZE_T i = 0; i < len; ++i)
+    for (Py_ssize_t i = 0; i < len; ++i)
     {
         PyObject *itm = PyBool_FromLong(array[i]);
 
@@ -129,7 +129,7 @@ PyObject *qpyopengl_from_GLboolean(int *eflag, const GLboolean *array,
 
 // Convert a GLfloat array to a Python object.
 PyObject *qpyopengl_from_GLfloat(int *eflag, const GLfloat *array,
-        SIP_SSIZE_T len)
+        Py_ssize_t len)
 {
     if (len == 1)
         return PyFloat_FromDouble(array[0]);
@@ -142,7 +142,7 @@ PyObject *qpyopengl_from_GLfloat(int *eflag, const GLfloat *array,
         return 0;
     }
 
-    for (SIP_SSIZE_T i = 0; i < len; ++i)
+    for (Py_ssize_t i = 0; i < len; ++i)
     {
         PyObject *itm = PyFloat_FromDouble(array[i]);
 
@@ -163,7 +163,7 @@ PyObject *qpyopengl_from_GLfloat(int *eflag, const GLfloat *array,
 #if defined(SIP_FEATURE_PyQt_Desktop_OpenGL)
 // Convert a GLdouble array to a Python object.
 PyObject *qpyopengl_from_GLdouble(int *eflag, const GLdouble *array,
-        SIP_SSIZE_T len)
+        Py_ssize_t len)
 {
     if (len == 1)
         return PyFloat_FromDouble(array[0]);
@@ -176,7 +176,7 @@ PyObject *qpyopengl_from_GLdouble(int *eflag, const GLdouble *array,
         return 0;
     }
 
-    for (SIP_SSIZE_T i = 0; i < len; ++i)
+    for (Py_ssize_t i = 0; i < len; ++i)
     {
         PyObject *itm = PyFloat_FromDouble(array[i]);
 

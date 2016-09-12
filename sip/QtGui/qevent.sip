@@ -2,7 +2,7 @@
 //
 // This file is part of the QtGui Python extension module.
 //
-// Copyright (c) 2015 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2016 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -155,6 +155,7 @@ class QInputEvent : QEvent /NoDefaultCtors/
     case QEvent::TouchBegin:
     case QEvent::TouchUpdate:
     case QEvent::TouchEnd:
+    case QEvent::TouchCancel:
         sipType = sipType_QTouchEvent;
         break;
     
@@ -208,6 +209,9 @@ public:
     QMouseEvent(QEvent::Type type, const QPointF &pos, Qt::MouseButton button, Qt::MouseButtons buttons, Qt::KeyboardModifiers modifiers);
     QMouseEvent(QEvent::Type type, const QPointF &pos, const QPointF &globalPos, Qt::MouseButton button, Qt::MouseButtons buttons, Qt::KeyboardModifiers modifiers);
     QMouseEvent(QEvent::Type type, const QPointF &pos, const QPointF &windowPos, const QPointF &globalPos, Qt::MouseButton button, Qt::MouseButtons buttons, Qt::KeyboardModifiers modifiers);
+%If (Qt_5_6_0 -)
+    QMouseEvent(QEvent::Type type, const QPointF &localPos, const QPointF &windowPos, const QPointF &screenPos, Qt::MouseButton button, Qt::MouseButtons buttons, Qt::KeyboardModifiers modifiers, Qt::MouseEventSource source);
+%End
     virtual ~QMouseEvent();
     QPoint pos() const;
     QPoint globalPos() const;
@@ -343,7 +347,7 @@ class QKeyEvent : QInputEvent
 
 public:
     QKeyEvent(QEvent::Type type, int key, Qt::KeyboardModifiers modifiers, quint32 nativeScanCode, quint32 nativeVirtualKey, quint32 nativeModifiers, const QString &text = QString(), bool autorep = false, ushort count = 1);
-    QKeyEvent(QEvent::Type type, int key, Qt::KeyboardModifiers modifiers, const QString &text /DocValue="''"/ = QString(), bool autorep = false, ushort count = 1);
+    QKeyEvent(QEvent::Type type, int key, Qt::KeyboardModifiers modifiers, const QString &text = QString(), bool autorep = false, ushort count = 1);
     virtual ~QKeyEvent();
     int key() const;
     Qt::KeyboardModifiers modifiers() const;
@@ -514,6 +518,9 @@ public:
     QInputMethodEvent();
     QInputMethodEvent(const QString &preeditText, const QList<QInputMethodEvent::Attribute> &attributes);
     QInputMethodEvent(const QInputMethodEvent &other);
+%If (Qt_5_6_0 -)
+    virtual ~QInputMethodEvent();
+%End
     void setCommitString(const QString &commitString, int from = 0, int length = 0);
     const QList<QInputMethodEvent::Attribute> &attributes() const;
     const QString &preeditString() const;
@@ -639,6 +646,10 @@ public:
 
 class QActionEvent : QEvent
 {
+%TypeHintCode
+from PyQt5.QtWidgets import QAction
+%End
+
 %TypeHeaderCode
 #include <qevent.h>
 %End
@@ -660,7 +671,7 @@ public:
     virtual ~QFileOpenEvent();
     QString file() const;
     QUrl url() const;
-    bool openFile(QFile &file, QFlags<QIODevice::OpenModeFlag> flags) const;
+    bool openFile(QFile &file, QIODevice::OpenMode flags) const;
 };
 
 class QShortcutEvent : QEvent
@@ -728,7 +739,7 @@ public:
 
         typedef QFlags<QTouchEvent::TouchPoint::InfoFlag> InfoFlags;
         QVector2D velocity() const;
-        QFlags<QTouchEvent::TouchPoint::InfoFlag> flags() const;
+        QTouchEvent::TouchPoint::InfoFlags flags() const;
         QVector<QPointF> rawScreenPositions() const;
     };
 

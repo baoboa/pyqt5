@@ -2,7 +2,7 @@
 //
 // This file is part of the QtWidgets Python extension module.
 //
-// Copyright (c) 2015 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2016 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -46,6 +46,9 @@ signals:
     void resized(int);
     void workAreaResized(int);
     void screenCountChanged(int);
+%If (Qt_5_6_0 -)
+    void primaryScreenChanged();
+%End
 
 protected:
     virtual void resizeEvent(QResizeEvent *e);

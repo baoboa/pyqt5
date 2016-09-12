@@ -1,7 +1,7 @@
 // This is the SIP interface definition for the QList based mapped types
 // specific to the QtPrintSupport module.
 //
-// Copyright (c) 2015 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2016 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -20,7 +20,8 @@
 
 
 %MappedType QList<QPagedPaintDevice::PageSize>
-        /DocType="list-of-QPagedPaintDevice.PageSize"/
+        /TypeHintIn="Iterable[QPagedPaintDevice.PageSize]",
+        TypeHintOut="List[QPagedPaintDevice.PageSize]", TypeHintValue="[]"/
 {
 %TypeHeaderCode
 #include <qprinterinfo.h>
@@ -73,7 +74,7 @@
 
     QList<QPagedPaintDevice::PageSize> *ql = new QList<QPagedPaintDevice::PageSize>;
 
-    for (SIP_SSIZE_T i = 0; ; ++i)
+    for (Py_ssize_t i = 0; ; ++i)
     {
         PyErr_Clear();
         PyObject *itm = PyIter_Next(iter);
@@ -95,7 +96,7 @@
         if (!sipCanConvertToEnum(itm, sipType_QPagedPaintDevice_PageSize))
         {
             PyErr_Format(PyExc_TypeError,
-                    "index " SIP_SSIZE_T_FORMAT " has type '%s' but 'QPagedPaintDevice.PageSize' is expected",
+                    "index %zd has type '%s' but 'QPagedPaintDevice.PageSize' is expected",
                     i, Py_TYPE(itm)->tp_name);
 
             Py_DECREF(itm);
@@ -123,7 +124,9 @@
 
 %If (Qt_5_4_0 -)
 
-%MappedType QList<QPrinter::DuplexMode> /DocType="list-of-QPrinter.DuplexMode"/
+%MappedType QList<QPrinter::DuplexMode>
+        /TypeHintIn="Iterable[QPrinter.DuplexMode]",
+        TypeHintOut="List[QPrinter.DuplexMode]", TypeHintValue="[]"/
 {
 %TypeHeaderCode
 #include <qprinterinfo.h>
@@ -176,7 +179,7 @@
 
     QList<QPrinter::DuplexMode> *ql = new QList<QPrinter::DuplexMode>;
 
-    for (SIP_SSIZE_T i = 0; ; ++i)
+    for (Py_ssize_t i = 0; ; ++i)
     {
         PyErr_Clear();
         PyObject *itm = PyIter_Next(iter);
@@ -198,7 +201,7 @@
         if (!sipCanConvertToEnum(itm, sipType_QPrinter_DuplexMode))
         {
             PyErr_Format(PyExc_TypeError,
-                    "index " SIP_SSIZE_T_FORMAT " has type '%s' but 'QPrinter.DuplexMode' is expected",
+                    "index %zd has type '%s' but 'QPrinter.DuplexMode' is expected",
                     i, Py_TYPE(itm)->tp_name);
 
             Py_DECREF(itm);

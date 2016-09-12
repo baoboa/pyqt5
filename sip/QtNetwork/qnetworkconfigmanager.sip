@@ -2,7 +2,7 @@
 //
 // This file is part of the QtNetwork Python extension module.
 //
-// Copyright (c) 2015 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2016 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -41,9 +41,9 @@ public:
     typedef QFlags<QNetworkConfigurationManager::Capability> Capabilities;
     explicit QNetworkConfigurationManager(QObject *parent /TransferThis/ = 0);
     virtual ~QNetworkConfigurationManager();
-    QFlags<QNetworkConfigurationManager::Capability> capabilities() const;
+    QNetworkConfigurationManager::Capabilities capabilities() const;
     QNetworkConfiguration defaultConfiguration() const;
-    QList<QNetworkConfiguration> allConfigurations(QFlags<QNetworkConfiguration::StateFlag> flags = 0) const;
+    QList<QNetworkConfiguration> allConfigurations(QNetworkConfiguration::StateFlags flags = QNetworkConfiguration::StateFlags()) const;
     QNetworkConfiguration configurationFromIdentifier(const QString &identifier) const;
     void updateConfigurations();
     bool isOnline() const;

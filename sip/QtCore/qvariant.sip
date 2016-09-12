@@ -2,7 +2,7 @@
 //
 // This file is part of the QtCore Python extension module.
 //
-// Copyright (c) 2015 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2016 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -20,7 +20,7 @@
 // WARRANTY OF DESIGN, MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE.
 
 
-class QVariant /AllowNone/
+class QVariant /AllowNone,TypeHint="Any",TypeHintValue="None"/
 {
 %TypeHeaderCode
 #include <qvariant.h>
@@ -123,7 +123,7 @@ public:
 
     QVariant();
     QVariant(QVariant::Type type /Constrained/);
-    QVariant(SIP_PYOBJECT);
+    QVariant(SIP_PYOBJECT obj);
 %MethodCode
         int is_err = 0;
         QVariant var = qpycore_PyObject_AsQVariant(a0, &is_err);
@@ -134,7 +134,6 @@ public:
             sipCpp = new QVariant(var);
 %End
 
-    QVariant(const QVariant &other);
     ~QVariant();
     SIP_PYOBJECT value() const;
 %MethodCode
@@ -155,7 +154,7 @@ public:
     static QVariant::Type nameToType(const char *name);
     bool operator==(const QVariant &v) const;
     bool operator!=(const QVariant &v) const;
-    void swap(QVariant &other);
+    void swap(QVariant &other /Constrained/);
 %If (Qt_5_2_0 -)
     bool operator<(const QVariant &v) const;
 %End
@@ -170,9 +169,9 @@ public:
 %End
 };
 
-typedef QList<QVariant> QVariantList /DocType="list-of-object"/;
-typedef QHash<QString, QVariant> QVariantHash /DocType="dict-of-str-object"/;
-typedef QMap<QString, QVariant> QVariantMap /DocType="dict-of-str-object"/;
+typedef QList<QVariant> QVariantList /TypeHint="List[QVariant]"/;
+typedef QHash<QString, QVariant> QVariantHash /TypeHint="Dict[QString, QVariant]"/;
+typedef QMap<QString, QVariant> QVariantMap /TypeHint="Dict[QString, QVariant]"/;
 QDataStream &operator>>(QDataStream &s, QVariant &p /Constrained/) /ReleaseGIL/;
 QDataStream &operator<<(QDataStream &s, const QVariant &p /Constrained/) /ReleaseGIL/;
 QDataStream &operator>>(QDataStream &s, QVariant::Type &p /Constrained,In/) /ReleaseGIL/;

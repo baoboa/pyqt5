@@ -2,7 +2,7 @@
 //
 // This file is part of the QtCore Python extension module.
 //
-// Copyright (c) 2015 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2016 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -59,7 +59,7 @@ public:
     bool toggleBit(int i);
     bool operator[](int i) const;
 %MethodCode
-        SIP_SSIZE_T idx = sipConvertFromSequenceIndex(a0, sipCpp->count());
+        Py_ssize_t idx = sipConvertFromSequenceIndex(a0, sipCpp->count());
         
         if (idx < 0)
             sipIsErr = 1;
@@ -74,7 +74,7 @@ public:
         sipRes = qHash(*sipCpp);
 %End
 
-    void swap(QBitArray &other);
+    void swap(QBitArray &other /Constrained/);
 };
 
 QBitArray operator&(const QBitArray &, const QBitArray &);

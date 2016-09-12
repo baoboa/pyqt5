@@ -1,7 +1,7 @@
 // This is the SIP interface definition for the QMap and QMultiMap based mapped
 // types specific to the QtNetwork module.
 //
-// Copyright (c) 2015 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2016 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -22,7 +22,8 @@
 %If (PyQt_SSL)
 
 %MappedType QMultiMap<QSsl::AlternativeNameEntryType, QString>
-        /DocType="dict-of-QSsl.AlternativeNameEntryType-list-of-str"/
+        /TypeHintOut="Dict[QSsl.AlternativeNameEntryType, List[QString]]",
+        TypeHintValue="[]"/
 {
 %TypeHeaderCode
 #include <qmap.h>

@@ -2,7 +2,7 @@
 //
 // This file is part of the QtWidgets Python extension module.
 //
-// Copyright (c) 2015 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2016 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -84,7 +84,7 @@ public:
     typedef QFlags<QMessageBox::StandardButton> StandardButtons;
     typedef QMessageBox::StandardButton Button;
     explicit QMessageBox(QWidget *parent /TransferThis/ = 0);
-    QMessageBox(QMessageBox::Icon icon, const QString &title, const QString &text, QMessageBox::StandardButtons buttons = QMessageBox::NoButton, QWidget *parent /TransferThis/ = 0, Qt::WindowFlags flags = Qt::Dialog|Qt::MSWindowsFixedSizeDialogHint);
+    QMessageBox(QMessageBox::Icon icon, const QString &title, const QString &text, QMessageBox::StandardButtons buttons = QMessageBox::NoButton, QWidget *parent /TransferThis/ = 0, Qt::WindowFlags flags = Qt::Dialog | Qt::MSWindowsFixedSizeDialogHint);
     virtual ~QMessageBox();
     QString text() const;
     void setText(const QString &);
@@ -94,12 +94,12 @@ public:
     void setIconPixmap(const QPixmap &);
     Qt::TextFormat textFormat() const;
     void setTextFormat(Qt::TextFormat);
-    static QMessageBox::StandardButton information(QWidget *parent, const QString &title, const QString &text, QFlags<QMessageBox::StandardButton> buttons = QMessageBox::Ok, QMessageBox::StandardButton defaultButton = QMessageBox::NoButton) /ReleaseGIL/;
-    static QMessageBox::StandardButton question(QWidget *parent, const QString &title, const QString &text, QFlags<QMessageBox::StandardButton> buttons = QFlags<QMessageBox::StandardButton>(QFlag(81920)), QMessageBox::StandardButton defaultButton = QMessageBox::NoButton) /ReleaseGIL/;
-    static QMessageBox::StandardButton warning(QWidget *parent, const QString &title, const QString &text, QFlags<QMessageBox::StandardButton> buttons = QMessageBox::Ok, QMessageBox::StandardButton defaultButton = QMessageBox::NoButton) /ReleaseGIL/;
-    static QMessageBox::StandardButton critical(QWidget *parent, const QString &title, const QString &text, QFlags<QMessageBox::StandardButton> buttons = QMessageBox::Ok, QMessageBox::StandardButton defaultButton = QMessageBox::NoButton) /ReleaseGIL/;
+    static QMessageBox::StandardButton information(QWidget *parent, const QString &title, const QString &text, QMessageBox::StandardButtons buttons = QMessageBox::Ok, QMessageBox::StandardButton defaultButton = QMessageBox::NoButton) /ReleaseGIL/;
+    static QMessageBox::StandardButton question(QWidget *parent, const QString &title, const QString &text, QMessageBox::StandardButtons buttons = QMessageBox::StandardButtons(QMessageBox::Yes | QMessageBox::No), QMessageBox::StandardButton defaultButton = QMessageBox::NoButton) /ReleaseGIL/;
+    static QMessageBox::StandardButton warning(QWidget *parent, const QString &title, const QString &text, QMessageBox::StandardButtons buttons = QMessageBox::Ok, QMessageBox::StandardButton defaultButton = QMessageBox::NoButton) /ReleaseGIL/;
+    static QMessageBox::StandardButton critical(QWidget *parent, const QString &title, const QString &text, QMessageBox::StandardButtons buttons = QMessageBox::Ok, QMessageBox::StandardButton defaultButton = QMessageBox::NoButton) /ReleaseGIL/;
     static void about(QWidget *parent, const QString &caption, const QString &text) /ReleaseGIL/;
-    static void aboutQt(QWidget *parent, const QString &title /DocValue="''"/ = QString()) /ReleaseGIL/;
+    static void aboutQt(QWidget *parent, const QString &title = QString()) /ReleaseGIL/;
     static QPixmap standardIcon(QMessageBox::Icon icon);
 
 protected:
@@ -115,8 +115,8 @@ public:
     QPushButton *addButton(const QString &text, QMessageBox::ButtonRole role) /Transfer/;
     QPushButton *addButton(QMessageBox::StandardButton button) /Transfer/;
     void removeButton(QAbstractButton *button /TransferBack/);
-    void setStandardButtons(QFlags<QMessageBox::StandardButton> buttons);
-    QFlags<QMessageBox::StandardButton> standardButtons() const;
+    void setStandardButtons(QMessageBox::StandardButtons buttons);
+    QMessageBox::StandardButtons standardButtons() const;
     QMessageBox::StandardButton standardButton(QAbstractButton *button) const;
     QAbstractButton *button(QMessageBox::StandardButton which) const;
     QPushButton *defaultButton() const;
@@ -133,7 +133,7 @@ public:
     void setWindowTitle(const QString &title);
     void setWindowModality(Qt::WindowModality windowModality);
     virtual void open();
-    void open(SIP_PYOBJECT slot /DocType="slot"/);
+    void open(SIP_PYOBJECT slot /TypeHint="PYQT_SLOT"/);
 %MethodCode
         QObject *receiver;
         QByteArray slot_signature;
@@ -148,7 +148,7 @@ public:
         }
 %End
 
-    QList<QAbstractButton*> buttons() const;
+    QList<QAbstractButton *> buttons() const;
     QMessageBox::ButtonRole buttonRole(QAbstractButton *button) const;
 
 signals:

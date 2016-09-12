@@ -2,7 +2,7 @@
 //
 // This file is part of the QtGui Python extension module.
 //
-// Copyright (c) 2015 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2016 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -36,7 +36,7 @@ static TYPE *qtgui_inst_array(const TYPE *first, PyObject *t, sipTypeDef *td)
 
     arr[0] = *first;
 
-    for (SIP_SSIZE_T i = 0; i < PyTuple_GET_SIZE(t); ++i)
+    for (Py_ssize_t i = 0; i < PyTuple_GET_SIZE(t); ++i)
     {
         int iserr = 0, state;
         TYPE *itm;
@@ -403,8 +403,8 @@ public:
     void fillRect(const QRect &, const QBrush &);
     void eraseRect(const QRectF &);
     void setRenderHint(QPainter::RenderHint hint, bool on = true);
-    QFlags<QPainter::RenderHint> renderHints() const;
-    void setRenderHints(QFlags<QPainter::RenderHint> hints, bool on = true);
+    QPainter::RenderHints renderHints() const;
+    void setRenderHints(QPainter::RenderHints hints, bool on = true);
     QPaintEngine *paintEngine() const;
     void drawLine(const QLineF &l);
     void drawLine(const QLine &line);
@@ -517,14 +517,14 @@ public:
     };
 
     typedef QFlags<QPainter::PixmapFragmentHint> PixmapFragmentHints;
-    void drawPixmapFragments(SIP_PYLIST fragments /DocType="list-of-QPainter.PixmapFragment"/, const QPixmap &pixmap, QFlags<QPainter::PixmapFragmentHint> hints = 0);
+    void drawPixmapFragments(SIP_PYLIST fragments /TypeHint="List[QPainter.PixmapFragment]"/, const QPixmap &pixmap, QFlags<QPainter::PixmapFragmentHint> hints = 0);
 %MethodCode
         // Allocate temporary storage for the C++ conversions.
-        SIP_SSIZE_T numFragments = PyList_GET_SIZE(a0);
+        Py_ssize_t numFragments = PyList_GET_SIZE(a0);
         QPainter::PixmapFragment *fragments = new QPainter::PixmapFragment[numFragments];
         
         // Convert the fragments.
-        for (SIP_SSIZE_T i = 0; i < numFragments; ++i)
+        for (Py_ssize_t i = 0; i < numFragments; ++i)
         {
             void *cpp = sipForceConvertToType(PyList_GET_ITEM(a0, i), sipType_QPainter_PixmapFragment, NULL, SIP_NO_CONVERTORS, NULL, &sipIsErr);
         

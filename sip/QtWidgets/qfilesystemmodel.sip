@@ -2,7 +2,7 @@
 //
 // This file is part of the QtWidgets Python extension module.
 //
-// Copyright (c) 2015 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2016 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -60,8 +60,8 @@ public:
     QDir rootDirectory() const;
     void setIconProvider(QFileIconProvider *provider /KeepReference/);
     QFileIconProvider *iconProvider() const;
-    void setFilter(QFlags<QDir::Filter> filters);
-    QFlags<QDir::Filter> filter() const;
+    void setFilter(QDir::Filters filters);
+    QDir::Filters filter() const;
     void setResolveSymlinks(bool enable);
     bool resolveSymlinks() const;
     void setReadOnly(bool enable);
@@ -76,7 +76,7 @@ public:
     QString type(const QModelIndex &index) const;
     QDateTime lastModified(const QModelIndex &index) const;
     QModelIndex mkdir(const QModelIndex &parent, const QString &name);
-    QFlags<QFileDevice::Permission> permissions(const QModelIndex &index) const;
+    QFileDevice::Permissions permissions(const QModelIndex &index) const;
     bool rmdir(const QModelIndex &index);
     QString fileName(const QModelIndex &aindex) const;
     QIcon fileIcon(const QModelIndex &aindex) const;

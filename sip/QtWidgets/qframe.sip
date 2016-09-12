@@ -2,7 +2,7 @@
 //
 // This file is part of the QtWidgets Python extension module.
 //
-// Copyright (c) 2015 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2016 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -51,7 +51,7 @@ public:
         Shape_Mask,
     };
 
-    QFrame(QWidget *parent /TransferThis/ = 0, Qt::WindowFlags flags = 0);
+    QFrame(QWidget *parent /TransferThis/ = 0, Qt::WindowFlags flags = Qt::WindowFlags());
     virtual ~QFrame();
     int frameStyle() const;
     void setFrameStyle(int);

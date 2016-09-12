@@ -2,7 +2,7 @@
 //
 // This file is part of the QtWebSockets Python extension module.
 //
-// Copyright (c) 2015 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2016 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -32,7 +32,7 @@ public:
     explicit QWebSocketCorsAuthenticator(const QString &origin);
     explicit QWebSocketCorsAuthenticator(const QWebSocketCorsAuthenticator &other);
     ~QWebSocketCorsAuthenticator();
-    void swap(QWebSocketCorsAuthenticator &other);
+    void swap(QWebSocketCorsAuthenticator &other /Constrained/);
     QString origin() const;
     void setAllowed(bool allowed);
     bool allowed() const;

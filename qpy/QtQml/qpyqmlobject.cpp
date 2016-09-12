@@ -1,6 +1,6 @@
 // This is the implementation of the QPyQmlObject classes.
 //
-// Copyright (c) 2015 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2016 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -55,7 +55,11 @@ QPyQmlObjectProxy::~QPyQmlObjectProxy()
 }
 
 
-// Called when QML has connected to a signal of the proxied object.
+// Called when QML has connected to a signal of the proxied object.  Note that
+// we also used to implement the corresponding disconnectNotify() to
+// disconnect the signal.  However this resulted in deadlocks and shouldn't be
+// necessary anyway because it was only happening when the object that made the
+// connection was itself being destroyed.
 void QPyQmlObjectProxy::connectNotify(const QMetaMethod &sig)
 {
     QByteArray signal_sig = signalSignature(sig);
@@ -63,18 +67,6 @@ void QPyQmlObjectProxy::connectNotify(const QMetaMethod &sig)
     // The signal has actually been connected to the proxy, so do the same from
     // the proxied object to the proxy.
     QObject::connect(proxied, signal_sig.constData(), this,
-            signal_sig.constData());
-}
-
-
-// Called when QML has disconnected to a signal of the proxied object.
-void QPyQmlObjectProxy::disconnectNotify(const QMetaMethod &sig)
-{
-    QByteArray signal_sig = signalSignature(sig);
-
-    // The signal has actually been disconnected from the proxy, so do the same
-    // from the proxied object to the proxy.
-    QObject::disconnect(proxied, signal_sig.constData(), this,
             signal_sig.constData());
 }
 

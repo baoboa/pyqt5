@@ -1,6 +1,6 @@
 // This contains the implementation of the pyqtSignal type.
 //
-// Copyright (c) 2015 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2016 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -59,13 +59,13 @@ static PyMappingMethods pyqtSignal_as_mapping = {
 
 // The getters/setters.
 static PyGetSetDef pyqtSignal_getsets[] = {
-    {(char *)"__doc__", pyqtSignal_get_doc, NULL, NULL, NULL},
+    {const_cast<char *>("__doc__"), pyqtSignal_get_doc, NULL, NULL, NULL},
     {NULL, NULL, NULL, NULL, NULL}
 };
 
 
 PyDoc_STRVAR(pyqtSignal_doc,
-"pyqtSignal(*types, name=str, revision=0, arguments=[]) -> signal\n"
+"pyqtSignal(*types, name: str = ..., revision: int = ..., arguments: Sequence = ...) -> PYQT_SIGNAL\n"
 "\n"
 "types is normally a sequence of individual types.  Each type is either a\n"
 "type object or a string that is the name of a C++ type.  Alternatively\n"
@@ -74,13 +74,18 @@ PyDoc_STRVAR(pyqtSignal_doc,
 "name is the optional C++ name of the signal.  If it is not specified then\n"
 "the name of the class attribute that is bound to the signal is used.\n"
 "revision is the optional revision of the signal that is exported to QML.\n"
-"arguments is the option sequence of the names of the signal's arguments.\n");
+"If it is not specified then 0 is used.\n"
+"arguments is the optional sequence of the names of the signal's arguments.\n");
 
 
 // The pyqtSignal type object.
 PyTypeObject qpycore_pyqtSignal_Type = {
     PyVarObject_HEAD_INIT(NULL, 0)
-    SIP_TPNAME_CAST("PyQt5.QtCore.pyqtSignal"), /* tp_name */
+#if PY_VERSION_HEX >= 0x02050000
+    "PyQt5.QtCore.pyqtSignal",  /* tp_name */
+#else
+    const_cast<char *>("PyQt5.QtCore.pyqtSignal"),  /* tp_name */
+#endif
     sizeof (qpycore_pyqtSignal),    /* tp_basicsize */
     0,                      /* tp_itemsize */
     pyqtSignal_dealloc,     /* tp_dealloc */
@@ -195,7 +200,7 @@ static PyObject *pyqtSignal_repr(PyObject *self)
 #else
         PyString_FromFormat
 #endif
-            ("<unbound signal %s>", ps->parsed_signature->name().constData() + 1);
+            ("<unbound PYQT_SIGNAL %s>", ps->parsed_signature->py_signature.constData());
 }
 
 
@@ -275,7 +280,7 @@ static int pyqtSignal_init(PyObject *self, PyObject *args, PyObject *kwd_args)
 
     if (kwd_args)
     {
-        SIP_SSIZE_T pos = 0;
+        Py_ssize_t pos = 0;
         PyObject *key, *value;
 
         while (PyDict_Next(kwd_args, &pos, &key, &value))
@@ -330,11 +335,11 @@ static int pyqtSignal_init(PyObject *self, PyObject *args, PyObject *kwd_args)
 
                 if (PySequence_Check(value))
                 {
-                    SIP_SSIZE_T len = PySequence_Size(value);
+                    Py_ssize_t len = PySequence_Size(value);
 
                     parameter_names = new QList<QByteArray>;
 
-                    for (SIP_SSIZE_T i = 0; i < len; ++i)
+                    for (Py_ssize_t i = 0; i < len; ++i)
                     {
                         PyObject *py_attr = PySequence_ITEM(value, i);
 
@@ -402,7 +407,7 @@ static int pyqtSignal_init(PyObject *self, PyObject *args, PyObject *kwd_args)
     // check for tuples and lists explicitly.
     if (PyTuple_GET_SIZE(args) > 0 && (PyTuple_Check(PyTuple_GET_ITEM(args, 0)) || PyList_Check(PyTuple_GET_ITEM(args, 0))))
     {
-        for (SIP_SSIZE_T i = 0; i < PyTuple_GET_SIZE(args); ++i)
+        for (Py_ssize_t i = 0; i < PyTuple_GET_SIZE(args); ++i)
         {
             PyObject *types = PySequence_Tuple(PyTuple_GET_ITEM(args, i));
 

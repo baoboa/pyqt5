@@ -1,6 +1,6 @@
 // This is the implementation of dataCache.
 //
-// Copyright (c) 2015 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2016 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -38,7 +38,11 @@ static int dataCache_traverse(PyObject *self, visitproc visit, void *arg);
 // This implements the Python type of a data cache.
 PyTypeObject qpyopengl_dataCache_Type = {
     PyVarObject_HEAD_INIT(NULL, 0)
-    SIP_TPNAME_CAST("PyQt5.QtGui.dataCache"),
+#if PY_VERSION_HEX >= 0x02050000
+    "PyQt5.QtGui.dataCache",
+#else
+    const_cast<char *>("PyQt5.QtGui.dataCache"),
+#endif
     sizeof (qpyopengl_dataCache),
     0,
     dataCache_dealloc,

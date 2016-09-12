@@ -1,6 +1,6 @@
 // This is the SIP specification of the QPyDBusPendingReply class.
 //
-// Copyright (c) 2015 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2016 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -40,5 +40,5 @@ public:
     QDBusMessage reply() const /ReleaseGIL/;
     void waitForFinished() /ReleaseGIL/;
 
-    SIP_PYOBJECT value(SIP_PYOBJECT type /DocValue="None"/ = 0) const /HoldGIL/;
+    SIP_PYOBJECT value(SIP_PYOBJECT type /TypeHintValue="None"/ = 0) const /HoldGIL/;
 };

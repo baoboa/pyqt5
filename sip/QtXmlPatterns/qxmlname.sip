@@ -2,7 +2,7 @@
 //
 // This file is part of the QtXmlPatterns Python extension module.
 //
-// Copyright (c) 2015 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2016 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -28,7 +28,7 @@ class QXmlName
 
 public:
     QXmlName();
-    QXmlName(QXmlNamePool &namePool, const QString &localName, const QString &namespaceUri /DocValue="''"/ = QString(), const QString &prefix /DocValue="''"/ = QString());
+    QXmlName(QXmlNamePool &namePool, const QString &localName, const QString &namespaceUri = QString(), const QString &prefix = QString());
     QString namespaceUri(const QXmlNamePool &query) const;
     QString prefix(const QXmlNamePool &query) const;
     QString localName(const QXmlNamePool &query) const;

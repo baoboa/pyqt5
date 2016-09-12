@@ -24,16 +24,14 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 """
 
 import math
-from OpenGL import GL
 
 from PyQt5.QtCore import pyqtProperty, pyqtSignal, pyqtSlot, QPoint, QSize, Qt
 from PyQt5.QtGui import QColor
-from PyQt5.QtWidgets import QApplication
-from PyQt5.QtOpenGL import QGLWidget
+from PyQt5.QtWidgets import QApplication, QOpenGLWidget
 
 
-class HelloGLWidget(QGLWidget):
-    """HelloGLWidget(QGLWidget)
+class HelloGLWidget(QOpenGLWidget):
+    """HelloGLWidget(QOpenGLWidget)
 
     Provides a custom widget to display an OpenGL-rendered Qt logo.
     Various properties and slots are defined so that the user can rotate
@@ -76,7 +74,7 @@ class HelloGLWidget(QGLWidget):
         if angle != self.xRot:
             self.xRot = angle
             self.xRotationChanged.emit(angle)
-            self.updateGL()
+            self.update()
 
     xRotation = pyqtProperty(int, getXRotation, setXRotation)
 
@@ -94,7 +92,7 @@ class HelloGLWidget(QGLWidget):
         if angle != self.yRot:
             self.yRot = angle
             self.yRotationChanged.emit(angle)
-            self.updateGL()
+            self.update()
 
     yRotation = pyqtProperty(int, getYRotation, setYRotation)
 
@@ -112,7 +110,7 @@ class HelloGLWidget(QGLWidget):
         if angle != self.zRot:
             self.zRot = angle
             self.zRotationChanged.emit(angle)
-            self.updateGL()
+            self.update()
 
     zRotation = pyqtProperty(int, getZRotation, setZRotation)
 
@@ -123,29 +121,32 @@ class HelloGLWidget(QGLWidget):
         return QSize(200, 200)
 
     def initializeGL(self):
-        self.qglClearColor(self.trolltechPurple.darker())
+        self.gl = self.context().versionFunctions()
+        self.gl.initializeOpenGLFunctions()
+
+        self.setClearColor(self.trolltechPurple.darker())
         self.object = self.makeObject()
-        GL.glShadeModel(GL.GL_SMOOTH)
-        GL.glEnable(GL.GL_DEPTH_TEST)
-        GL.glEnable(GL.GL_CULL_FACE)
+        self.gl.glShadeModel(self.gl.GL_SMOOTH)
+        self.gl.glEnable(self.gl.GL_DEPTH_TEST)
+        self.gl.glEnable(self.gl.GL_CULL_FACE)
 
     def paintGL(self):
-        GL.glClear(GL.GL_COLOR_BUFFER_BIT | GL.GL_DEPTH_BUFFER_BIT)
-        GL.glLoadIdentity()
-        GL.glTranslated(0.0, 0.0, -10.0)
-        GL.glRotated(self.xRot / 16.0, 1.0, 0.0, 0.0)
-        GL.glRotated(self.yRot / 16.0, 0.0, 1.0, 0.0)
-        GL.glRotated(self.zRot / 16.0, 0.0, 0.0, 1.0)
-        GL.glCallList(self.object)
+        self.gl.glClear(self.gl.GL_COLOR_BUFFER_BIT | self.gl.GL_DEPTH_BUFFER_BIT)
+        self.gl.glLoadIdentity()
+        self.gl.glTranslated(0.0, 0.0, -10.0)
+        self.gl.glRotated(self.xRot / 16.0, 1.0, 0.0, 0.0)
+        self.gl.glRotated(self.yRot / 16.0, 0.0, 1.0, 0.0)
+        self.gl.glRotated(self.zRot / 16.0, 0.0, 0.0, 1.0)
+        self.gl.glCallList(self.object)
 
     def resizeGL(self, width, height):
         side = min(width, height)
-        GL.glViewport((width - side) / 2, (height - side) / 2, side, side)
+        self.gl.glViewport((width - side) / 2, (height - side) / 2, side, side)
 
-        GL.glMatrixMode(GL.GL_PROJECTION)
-        GL.glLoadIdentity()
-        GL.glOrtho(-0.5, +0.5, +0.5, -0.5, 4.0, 15.0)
-        GL.glMatrixMode(GL.GL_MODELVIEW)
+        self.gl.glMatrixMode(self.gl.GL_PROJECTION)
+        self.gl.glLoadIdentity()
+        self.gl.glOrtho(-0.5, +0.5, +0.5, -0.5, 4.0, 15.0)
+        self.gl.glMatrixMode(self.gl.GL_MODELVIEW)
 
     def mousePressEvent(self, event):
         self.lastPos = QPoint(event.pos())
@@ -164,10 +165,10 @@ class HelloGLWidget(QGLWidget):
         self.lastPos = QPoint(event.pos())
 
     def makeObject(self):
-        genList = GL.glGenLists(1)
-        GL.glNewList(genList, GL.GL_COMPILE)
+        genList = self.gl.glGenLists(1)
+        self.gl.glNewList(genList, self.gl.GL_COMPILE)
 
-        GL.glBegin(GL.GL_QUADS)
+        self.gl.glBegin(self.gl.GL_QUADS)
 
         x1 = +0.06
         y1 = -0.14
@@ -210,31 +211,31 @@ class HelloGLWidget(QGLWidget):
             self.extrude(x6, y6, x7, y7)
             self.extrude(x8, y8, x5, y5)
 
-        GL.glEnd()
-        GL.glEndList()
+        self.gl.glEnd()
+        self.gl.glEndList()
 
         return genList
 
     def quad(self, x1, y1, x2, y2, x3, y3, x4, y4):
-        self.qglColor(self.trolltechGreen)
+        self.setColor(self.trolltechGreen)
 
-        GL.glVertex3d(x1, y1, -0.05)
-        GL.glVertex3d(x2, y2, -0.05)
-        GL.glVertex3d(x3, y3, -0.05)
-        GL.glVertex3d(x4, y4, -0.05)
+        self.gl.glVertex3d(x1, y1, -0.05)
+        self.gl.glVertex3d(x2, y2, -0.05)
+        self.gl.glVertex3d(x3, y3, -0.05)
+        self.gl.glVertex3d(x4, y4, -0.05)
 
-        GL.glVertex3d(x4, y4, +0.05)
-        GL.glVertex3d(x3, y3, +0.05)
-        GL.glVertex3d(x2, y2, +0.05)
-        GL.glVertex3d(x1, y1, +0.05)
+        self.gl.glVertex3d(x4, y4, +0.05)
+        self.gl.glVertex3d(x3, y3, +0.05)
+        self.gl.glVertex3d(x2, y2, +0.05)
+        self.gl.glVertex3d(x1, y1, +0.05)
 
     def extrude(self, x1, y1, x2, y2):
-        self.qglColor(self.trolltechGreen.darker(250 + int(100 * x1)))
+        self.setColor(self.trolltechGreen.darker(250 + int(100 * x1)))
 
-        GL.glVertex3d(x1, y1, +0.05)
-        GL.glVertex3d(x2, y2, +0.05)
-        GL.glVertex3d(x2, y2, -0.05)
-        GL.glVertex3d(x1, y1, -0.05)
+        self.gl.glVertex3d(x1, y1, +0.05)
+        self.gl.glVertex3d(x2, y2, +0.05)
+        self.gl.glVertex3d(x2, y2, -0.05)
+        self.gl.glVertex3d(x1, y1, -0.05)
 
     def normalizeAngle(self, angle):
         while angle < 0:
@@ -242,6 +243,12 @@ class HelloGLWidget(QGLWidget):
         while angle > 360 * 16:
             angle -= 360 * 16
         return angle
+
+    def setClearColor(self, c):
+        self.gl.glClearColor(c.redF(), c.greenF(), c.blueF(), c.alphaF())
+
+    def setColor(self, c):
+        self.gl.glColor4f(c.redF(), c.greenF(), c.blueF(), c.alphaF())
 
 
 if __name__ == "__main__":

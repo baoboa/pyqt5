@@ -2,7 +2,7 @@
 //
 // This file is part of the QtCore Python extension module.
 //
-// Copyright (c) 2015 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2016 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -26,7 +26,7 @@
 
 quint16 qChecksum(const char *s /Array/, uint len /ArraySize/);
 
-class QByteArray
+class QByteArray /TypeHintIn="Union[QByteArray, bytes, bytearray]"/
 {
 %TypeHeaderCode
 #include <qbytearray.h>
@@ -221,7 +221,7 @@ public:
     char at(int i) const;
     char operator[](int i) const;
 %MethodCode
-        SIP_SSIZE_T idx = sipConvertFromSequenceIndex(a0, sipCpp->count());
+        Py_ssize_t idx = sipConvertFromSequenceIndex(a0, sipCpp->count());
         
         if (idx < 0)
             sipIsErr = 1;
@@ -231,7 +231,7 @@ public:
 
     QByteArray operator[](SIP_PYSLICE slice) const;
 %MethodCode
-        SIP_SSIZE_T len, start, stop, step, slicelength, i;
+        Py_ssize_t len, start, stop, step, slicelength, i;
         
         len = sipCpp->length();
         
@@ -264,7 +264,7 @@ public:
         sipRes = qHash(*sipCpp);
 %End
 
-    SIP_PYOBJECT __str__() const /DocType="str"/;
+    SIP_PYOBJECT __str__() const /TypeHint="str"/;
 %MethodCode
         sipRes = QByteArrayToPyStr(sipCpp);
         
@@ -279,7 +279,7 @@ public:
         #endif
 %End
 
-    SIP_PYOBJECT __repr__() const /DocType="str"/;
+    SIP_PYOBJECT __repr__() const /TypeHint="str"/;
 %MethodCode
         if (sipCpp->isNull())
         {
@@ -327,7 +327,7 @@ public:
 %End
 
     bool isEmpty() const;
-    SIP_PYOBJECT data() /DocType="Py_v3:bytes;str"/;
+    SIP_PYOBJECT data() /TypeHint="Py_v3:bytes;str"/;
 %MethodCode
         // QByteArrays may contain embedded '\0's so set the size explicitly.
         
@@ -356,7 +356,7 @@ public:
     QByteArray toPercentEncoding(const QByteArray &exclude = QByteArray(), const QByteArray &include = QByteArray(), char percent = '%') const;
     static QByteArray fromPercentEncoding(const QByteArray &input, char percent = '%');
     QByteArray repeated(int times) const;
-    void swap(QByteArray &other);
+    void swap(QByteArray &other /Constrained/);
 %If (Qt_5_2_0 -)
 
     enum Base64Option
@@ -372,10 +372,10 @@ public:
     typedef QFlags<QByteArray::Base64Option> Base64Options;
 %End
 %If (Qt_5_2_0 -)
-    QByteArray toBase64(QFlags<QByteArray::Base64Option> options) const;
+    QByteArray toBase64(QByteArray::Base64Options options) const;
 %End
 %If (Qt_5_2_0 -)
-    static QByteArray fromBase64(const QByteArray &base64, QFlags<QByteArray::Base64Option> options);
+    static QByteArray fromBase64(const QByteArray &base64, QByteArray::Base64Options options);
 %End
 };
 

@@ -2,7 +2,7 @@
 //
 // This file is part of the QtGui Python extension module.
 //
-// Copyright (c) 2015 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2016 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -132,7 +132,7 @@ public:
     bool intersects(const QRegion &r) const;
     bool intersects(const QRect &r) const;
     int rectCount() const;
-    void swap(QRegion &other);
+    void swap(QRegion &other /Constrained/);
     bool isNull() const;
 };
 

@@ -2,7 +2,7 @@
 //
 // This file is part of the QtWidgets Python extension module.
 //
-// Copyright (c) 2015 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2016 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -33,7 +33,7 @@ public:
     void addAction(QAction *action);
     QAction *addAction(const QString &text) /Transfer/;
     QAction *addAction(const QIcon &icon, const QString &text) /Transfer/;
-    QAction *addAction(const QString &text, SIP_PYOBJECT slot /DocType="slot"/, const QKeySequence &shortcut = 0) /Transfer/;
+    QAction *addAction(const QString &text, SIP_PYOBJECT slot /TypeHint="PYQT_SLOT"/, const QKeySequence &shortcut = 0) /Transfer/;
 %MethodCode
         QObject *receiver;
         QByteArray slot_signature;
@@ -48,7 +48,7 @@ public:
         }
 %End
 
-    QAction *addAction(const QIcon &icon, const QString &text, SIP_PYOBJECT slot /DocType="slot"/, const QKeySequence &shortcut = 0) /Transfer/;
+    QAction *addAction(const QIcon &icon, const QString &text, SIP_PYOBJECT slot /TypeHint="PYQT_SLOT"/, const QKeySequence &shortcut = 0) /Transfer/;
 %MethodCode
         QObject *receiver;
         QByteArray slot_signature;
@@ -146,6 +146,13 @@ public:
 %End
 %If (Qt_5_1_0 -)
     void setToolTipsVisible(bool visible);
+%End
+%If (Qt_5_2_0 -)
+%If (WS_MACX)
+%If (PyQt_MacOSXOnly)
+    void setAsDockMenu();
+%End
+%End
 %End
 
 private:

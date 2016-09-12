@@ -1,6 +1,6 @@
 // This is the SIP interface definition for QAxBase.
 //
-// Copyright (c) 2015 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2016 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -62,14 +62,14 @@ public:
 %End
 
     QVariant dynamicCall(const char *,
-            const QVariant &value1 /DocValue="Py_v3:None"/ = QVariant(),
-            const QVariant &value2 /DocValue="Py_v3:None"/ = QVariant(),
-            const QVariant &value3 /DocValue="Py_v3:None"/ = QVariant(),
-            const QVariant &value4 /DocValue="Py_v3:None"/ = QVariant(),
-            const QVariant &value5 /DocValue="Py_v3:None"/ = QVariant(),
-            const QVariant &value6 /DocValue="Py_v3:None"/ = QVariant(),
-            const QVariant &value7 /DocValue="Py_v3:None"/ = QVariant(),
-            const QVariant &value8 /DocValue="Py_v3:None"/ = QVariant());
+            const QVariant &value1 = QVariant(),
+            const QVariant &value2 = QVariant(),
+            const QVariant &value3 = QVariant(),
+            const QVariant &value4 = QVariant(),
+            const QVariant &value5 = QVariant(),
+            const QVariant &value6 = QVariant(),
+            const QVariant &value7 = QVariant(),
+            const QVariant &value8 = QVariant());
 
     // Note that the order of these overloads is significant.
     QAxObject *querySubObject(const char *, QList<QVariant> & /GetWrapper/);
@@ -101,14 +101,14 @@ public:
 %End
 
     QAxObject *querySubObject(const char *,
-            const QVariant &value1 /DocValue="Py_v3:None"/ = QVariant(),
-            const QVariant &value2 /DocValue="Py_v3:None"/ = QVariant(),
-            const QVariant &value3 /DocValue="Py_v3:None"/ = QVariant(),
-            const QVariant &value4 /DocValue="Py_v3:None"/ = QVariant(),
-            const QVariant &value5 /DocValue="Py_v3:None"/ = QVariant(),
-            const QVariant &value6 /DocValue="Py_v3:None"/ = QVariant(),
-            const QVariant &value7 /DocValue="Py_v3:None"/ = QVariant(),
-            const QVariant &value8 /DocValue="Py_v3:None"/ = QVariant());
+            const QVariant &value1 = QVariant(),
+            const QVariant &value2 = QVariant(),
+            const QVariant &value3 = QVariant(),
+            const QVariant &value4 = QVariant(),
+            const QVariant &value5 = QVariant(),
+            const QVariant &value6 = QVariant(),
+            const QVariant &value7 = QVariant(),
+            const QVariant &value8 = QVariant());
 
     // SIP has a bug triggered by a template definition being the subject of
     // multiple typedefs.  It only really matters when building everything as

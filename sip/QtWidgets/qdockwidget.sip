@@ -2,7 +2,7 @@
 //
 // This file is part of the QtWidgets Python extension module.
 //
-// Copyright (c) 2015 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2016 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -27,8 +27,8 @@ class QDockWidget : QWidget
 %End
 
 public:
-    QDockWidget(const QString &title, QWidget *parent /TransferThis/ = 0, Qt::WindowFlags flags = 0);
-    QDockWidget(QWidget *parent /TransferThis/ = 0, Qt::WindowFlags flags = 0);
+    QDockWidget(const QString &title, QWidget *parent /TransferThis/ = 0, Qt::WindowFlags flags = Qt::WindowFlags());
+    QDockWidget(QWidget *parent /TransferThis/ = 0, Qt::WindowFlags flags = Qt::WindowFlags());
     virtual ~QDockWidget();
     QWidget *widget() const;
     void setWidget(QWidget *widget /Transfer/);
@@ -44,8 +44,8 @@ public:
     };
 
     typedef QFlags<QDockWidget::DockWidgetFeature> DockWidgetFeatures;
-    void setFeatures(QFlags<QDockWidget::DockWidgetFeature> features);
-    QFlags<QDockWidget::DockWidgetFeature> features() const;
+    void setFeatures(QDockWidget::DockWidgetFeatures features);
+    QDockWidget::DockWidgetFeatures features() const;
     void setFloating(bool floating);
     bool isFloating() const;
     void setAllowedAreas(Qt::DockWidgetAreas areas);
@@ -56,7 +56,7 @@ public:
     QWidget *titleBarWidget() const;
 
 signals:
-    void featuresChanged(QFlags<QDockWidget::DockWidgetFeature> features);
+    void featuresChanged(QDockWidget::DockWidgetFeatures features);
     void topLevelChanged(bool topLevel);
     void allowedAreasChanged(Qt::DockWidgetAreas allowedAreas);
     void dockLocationChanged(Qt::DockWidgetArea area);

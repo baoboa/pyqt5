@@ -1,6 +1,6 @@
 // This contains the meta-type used by PyQt.
 //
-// Copyright (c) 2015 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2016 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -93,7 +93,11 @@ static const QMetaObject *get_qmetaobject(pyqtWrapperType *pyqt_wt);
 // The meta-type for PyQt classes.
 PyTypeObject qpycore_pyqtWrapperType_Type = {
     PyVarObject_HEAD_INIT(NULL, 0)
-    SIP_TPNAME_CAST("PyQt5.QtCore.pyqtWrapperType"),    /* tp_name */
+#if PY_VERSION_HEX >= 0x02050000
+    "PyQt5.QtCore.pyqtWrapperType", /* tp_name */
+#else
+    const_cast<char *>("PyQt5.QtCore.pyqtWrapperType"), /* tp_name */
+#endif
     sizeof (pyqtWrapperType),   /* tp_basicsize */
     0,                      /* tp_itemsize */
     0,                      /* tp_dealloc */
@@ -222,11 +226,7 @@ static int create_dynamic_metaobject(pyqtWrapperType *pyqt_wt)
     {
         const EnumsFlags &ef = enums_flags_list.at(i);
 
-        QByteArray scoped_name(pytype->tp_name);
-        scoped_name.append("::");
-        scoped_name.append(ef.name);
-        QMetaEnumBuilder enum_builder = builder.addEnumerator(scoped_name);
-
+        QMetaEnumBuilder enum_builder = builder.addEnumerator(ef.name);
         enum_builder.setIsFlag(ef.isFlag);
 
         QHash<QByteArray, int>::const_iterator it = ef.keys.constBegin();
@@ -333,15 +333,15 @@ static int create_dynamic_metaobject(pyqtWrapperType *pyqt_wt)
             prop_type = pp->pyqtprop_parsed_type->name();
         }
 
-        QMetaPropertyBuilder prop_builder = builder.addProperty(prop_name,
-                prop_type, notifier_id);
+        QMetaPropertyBuilder prop_builder = builder.addProperty(
+                QByteArray(prop_name), prop_type, notifier_id);
 
         // Reset the defaults.
         prop_builder.setReadable(false);
         prop_builder.setWritable(false);
 
         // Enum or flag.
-        if (pp->pyqtprop_parsed_type->isEnum() || pp->pyqtprop_parsed_type->isFlag())
+        if (pp->pyqtprop_parsed_type->isEnum())
         {
             prop_builder.setEnumOrFlag(true);
         }
@@ -432,7 +432,7 @@ static int trawl_hierarchy(PyTypeObject *pytype, qpycore_metaobject *qo,
 
     Q_ASSERT(PyTuple_Check(pytype->tp_bases));
 
-    for (SIP_SSIZE_T i = 0; i < PyTuple_GET_SIZE(pytype->tp_bases); ++i)
+    for (Py_ssize_t i = 0; i < PyTuple_GET_SIZE(pytype->tp_bases); ++i)
     {
         PyTypeObject *sup = (PyTypeObject *)PyTuple_GET_ITEM(pytype->tp_bases, i);
 
@@ -458,7 +458,7 @@ static int trawl_type(PyTypeObject *pytype, qpycore_metaobject *qo,
         QMetaObjectBuilder &builder, QList<const qpycore_pyqtSignal *> &psigs,
         QMap<uint, PropertyData> &pprops)
 {
-    SIP_SSIZE_T pos = 0;
+    Py_ssize_t pos = 0;
     PyObject *key, *value;
 
     while (PyDict_Next(pytype->tp_dict, &pos, &key, &value))
@@ -473,7 +473,7 @@ static int trawl_type(PyTypeObject *pytype, qpycore_metaobject *qo,
             // happens to use our special name.
             if (PyList_Check(sig_obj))
             {
-                for (SIP_SSIZE_T i = 0; i < PyList_GET_SIZE(sig_obj); ++i)
+                for (Py_ssize_t i = 0; i < PyList_GET_SIZE(sig_obj); ++i)
                 {
                     // Set up the skeleton slot.
                     PyObject *decoration = PyList_GET_ITEM(sig_obj, i);
@@ -559,6 +559,9 @@ static const QMetaObject *get_scope_qmetaobject(const Chimera *ct)
         return 0;
 
     // Check it has a scope.
+    if (!ct->typeDef())
+        return 0;
+
     const sipTypeDef *td = sipTypeScope(ct->typeDef());
 
     if (!td)

@@ -2,7 +2,7 @@
 //
 // This file is part of the QtWidgets Python extension module.
 //
-// Copyright (c) 2015 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2016 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -27,7 +27,7 @@ class QGraphicsProxyWidget : QGraphicsWidget
 %End
 
 public:
-    QGraphicsProxyWidget(QGraphicsItem *parent /TransferThis/ = 0, Qt::WindowFlags flags = 0);
+    QGraphicsProxyWidget(QGraphicsItem *parent /TransferThis/ = 0, Qt::WindowFlags flags = Qt::WindowFlags());
     virtual ~QGraphicsProxyWidget();
     void setWidget(QWidget *widget /Transfer/);
 %MethodCode

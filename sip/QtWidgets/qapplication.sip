@@ -2,7 +2,7 @@
 //
 // This file is part of the QtWidgets Python extension module.
 //
-// Copyright (c) 2015 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2016 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -104,7 +104,7 @@ class QApplication : QGuiApplication
         {sipName_QMenu, &sipType_QMenu, -1, 56},
         {sipName_QMdiSubWindow, &sipType_QMdiSubWindow, -1, 57},
         {sipName_QTabWidget, &sipType_QTabWidget, -1, 58},
-    #if defined(Q_OS_MAC) && defined(SIP_FEATURE_PyQt_MacCocoaViewContainer)
+    #if defined(Q_OS_MAC) && defined(SIP_FEATURE_PyQt_MacOSXOnly)
         {sipName_QMacCocoaViewContainer, &sipType_QMacCocoaViewContainer, -1, 59},
     #else
         {0, 0, -1, 59},
@@ -201,7 +201,7 @@ class QApplication : QGuiApplication
 %End
 
 public:
-    QApplication(SIP_PYLIST argv /DocType="list-of-str"/) /PostHook=__pyQtQAppHook__/ [(int &argc, char **argv, int = ApplicationFlags)];
+    QApplication(SIP_PYLIST argv /TypeHint="List[str]"/) /PostHook=__pyQtQAppHook__/ [(int &argc, char **argv, int = ApplicationFlags)];
 %MethodCode
         // The Python interface is a list of argument strings that is modified.
         
@@ -229,7 +229,10 @@ public:
     virtual ~QApplication() /ReleaseGIL/;
 %MethodCode
         // Make sure all top level widgets are not owned by Python and so won't be
-        // destroyed by the garbage collector after QApplication is destroyed.
+        // destroyed by the garbage collector after QApplication is destroyed.  Note
+        // that it could still mean that widgets outlive the QApplication (which is
+        // probably not good).  However experimentation shows that deleting top level
+        // widgets in the wrong order can cause crashes (so we don't try and do that).
         QWidgetList tlw = QApplication::topLevelWidgets();
         
         for (int i = 0; i < tlw.count(); ++i)
@@ -327,8 +330,8 @@ extern pyqt5_qtwidgets_from_argv_list_t pyqt5_qtwidgets_from_argv_list;
 typedef sipErrorState (*pyqt5_qtwidgets_get_connection_parts_t)(PyObject *, QObject *, const char *, bool, QObject **, QByteArray &);
 extern pyqt5_qtwidgets_get_connection_parts_t pyqt5_qtwidgets_get_connection_parts;
 
-typedef sipErrorState (*pyqt5_qtwidgets_get_pyqtsignal_parts_t)(PyObject *, QObject **, QByteArray &);
-extern pyqt5_qtwidgets_get_pyqtsignal_parts_t pyqt5_qtwidgets_get_pyqtsignal_parts;
+typedef sipErrorState (*pyqt5_qtwidgets_get_signal_signature_t)(PyObject *, QObject *, QByteArray &);
+extern pyqt5_qtwidgets_get_signal_signature_t pyqt5_qtwidgets_get_signal_signature;
 
 typedef void (*pyqt5_qtwidgets_update_argv_list_t)(PyObject *, int, char **);
 extern pyqt5_qtwidgets_update_argv_list_t pyqt5_qtwidgets_update_argv_list;
@@ -340,17 +343,28 @@ extern pyqt5_qtwidgets_update_argv_list_t pyqt5_qtwidgets_update_argv_list;
 %End
 
 %ModuleCode
+#include "qpywidgets_api.h"
+
 // Imports from QtCore.
 pyqt5_qtwidgets_from_argv_list_t pyqt5_qtwidgets_from_argv_list;
 pyqt5_qtwidgets_get_connection_parts_t pyqt5_qtwidgets_get_connection_parts;
-pyqt5_qtwidgets_get_pyqtsignal_parts_t pyqt5_qtwidgets_get_pyqtsignal_parts;
+pyqt5_qtwidgets_get_signal_signature_t pyqt5_qtwidgets_get_signal_signature;
 pyqt5_qtwidgets_update_argv_list_t pyqt5_qtwidgets_update_argv_list;
 %End
 
 %PostInitialisationCode
 // Imports from QtCore.
 pyqt5_qtwidgets_from_argv_list = (pyqt5_qtwidgets_from_argv_list_t)sipImportSymbol("pyqt5_from_argv_list");
+Q_ASSERT(pyqt5_qtwidgets_from_argv_list);
+
 pyqt5_qtwidgets_get_connection_parts = (pyqt5_qtwidgets_get_connection_parts_t)sipImportSymbol("pyqt5_get_connection_parts");
-pyqt5_qtwidgets_get_pyqtsignal_parts = (pyqt5_qtwidgets_get_pyqtsignal_parts_t)sipImportSymbol("pyqt5_get_pyqtsignal_parts");
+Q_ASSERT(pyqt5_qtwidgets_get_connection_parts);
+
+pyqt5_qtwidgets_get_signal_signature = (pyqt5_qtwidgets_get_signal_signature_t)sipImportSymbol("pyqt5_get_signal_signature");
+Q_ASSERT(pyqt5_qtwidgets_get_signal_signature);
+
 pyqt5_qtwidgets_update_argv_list = (pyqt5_qtwidgets_update_argv_list_t)sipImportSymbol("pyqt5_update_argv_list");
+Q_ASSERT(pyqt5_qtwidgets_update_argv_list);
+
+qpywidgets_post_init();
 %End

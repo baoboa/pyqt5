@@ -1,6 +1,6 @@
 // This contains the main implementation of qmlRegisterType.
 //
-// Copyright (c) 2015 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2016 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -272,7 +272,8 @@ static QQmlPrivate::RegisterType *init_type(PyTypeObject *py_type, bool ctor,
 
     if (qquickitem_register)
     {
-        sipErrorState estate = qquickitem_register(py_type, mo, ptr_name, list_name, &rt);
+        sipErrorState estate = qquickitem_register(py_type, mo, ptr_name,
+                list_name, &rt);
 
         if (estate == sipErrorFail)
             return 0;

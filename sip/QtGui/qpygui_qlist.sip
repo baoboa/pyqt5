@@ -1,7 +1,7 @@
 // This is the SIP interface definition for the QList based mapped types
 // specific to the QtGui module.
 //
-// Copyright (c) 2015 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2016 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -20,7 +20,9 @@
 
 
 %MappedType QList<QFontDatabase::WritingSystem>
-        /DocType="list-of-QFontDatabase.WritingSystem"/
+        /TypeHintIn="Sequence[QFontDatabase.WritingSystem]",
+        TypeHintOut="List[QFontDatabase.WritingSystem]",
+        TypeHintValue="[]"/
 {
 %TypeHeaderCode
 #include <qfontdatabase.h>
@@ -58,14 +60,14 @@
 #endif
                 && !PyUnicode_Check(sipPy));
 
-    SIP_SSIZE_T len = PySequence_Size(sipPy);
+    Py_ssize_t len = PySequence_Size(sipPy);
 
     if (len < 0)
         return 0;
 
     QList<QFontDatabase::WritingSystem> *ql = new QList<QFontDatabase::WritingSystem>;
 
-    for (SIP_SSIZE_T i = 0; i < len; ++i)
+    for (Py_ssize_t i = 0; i < len; ++i)
     {
         PyObject *itm = PySequence_ITEM(sipPy, i);
 
@@ -80,7 +82,7 @@
         if (!sipCanConvertToEnum(itm, sipType_QFontDatabase_WritingSystem))
         {
             PyErr_Format(PyExc_TypeError,
-                    "element " SIP_SSIZE_T_FORMAT " has type '%s' but 'QFontDatabase.WritingSystem' is expected",
+                    "element %zd has type '%s' but 'QFontDatabase.WritingSystem' is expected",
                     i, Py_TYPE(itm)->tp_name);
 
             Py_DECREF(itm);

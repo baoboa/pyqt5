@@ -2,7 +2,7 @@
 //
 // This file is part of the QtGui Python extension module.
 //
-// Copyright (c) 2015 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2016 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -96,7 +96,7 @@ public:
     typedef QFlags<QOpenGLBuffer::RangeAccessFlag> RangeAccessFlags;
 %End
 %If (Qt_5_4_0 -)
-    void *mapRange(int offset, int count, QFlags<QOpenGLBuffer::RangeAccessFlag> access);
+    void *mapRange(int offset, int count, QOpenGLBuffer::RangeAccessFlags access);
 %End
 };
 

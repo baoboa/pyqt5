@@ -1,6 +1,6 @@
 // This is the implementation of the various Chimera helpers.
 //
-// Copyright (c) 2015 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2016 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -135,7 +135,7 @@ static bool to_QList_QObject(PyObject *obj, QList<QObject *>&cpp)
     if (!PyList_CheckExact(obj) || PyList_GET_SIZE(obj) == 0)
         return false;
 
-    for (SIP_SSIZE_T i = 0; i < PyList_GET_SIZE(obj); ++i)
+    for (Py_ssize_t i = 0; i < PyList_GET_SIZE(obj); ++i)
     {
         PyObject *val_obj = PyList_GET_ITEM(obj, i);
 

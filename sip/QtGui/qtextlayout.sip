@@ -2,7 +2,7 @@
 //
 // This file is part of the QtGui Python extension module.
 //
-// Copyright (c) 2015 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2016 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -96,7 +96,7 @@ public:
     bool isValidCursorPosition(int pos) const;
     int nextCursorPosition(int oldPos, QTextLayout::CursorMode mode = QTextLayout::SkipCharacters) const;
     int previousCursorPosition(int oldPos, QTextLayout::CursorMode mode = QTextLayout::SkipCharacters) const;
-    void draw(QPainter *p, const QPointF &pos, const QVector<QTextLayout::FormatRange> &selections /DocValue="list-of-QTextLayout.FormatRange"/ = QVector<QTextLayout::FormatRange>(), const QRectF &clip = QRectF()) const;
+    void draw(QPainter *p, const QPointF &pos, const QVector<QTextLayout::FormatRange> &selections = QVector<QTextLayout::FormatRange>(), const QRectF &clip = QRectF()) const;
     void drawCursor(QPainter *p, const QPointF &pos, int cursorPosition) const;
     void drawCursor(QPainter *p, const QPointF &pos, int cursorPosition, int width) const;
     QPointF position() const;
@@ -111,6 +111,15 @@ public:
     int rightCursorPosition(int oldPos) const;
 %If (PyQt_RawFont)
     QList<QGlyphRun> glyphRuns(int from = -1, int length = -1) const;
+%End
+%If (Qt_5_6_0 -)
+    void setFormats(const QVector<QTextLayout::FormatRange> &overrides);
+%End
+%If (Qt_5_6_0 -)
+    QVector<QTextLayout::FormatRange> formats() const;
+%End
+%If (Qt_5_6_0 -)
+    void clearFormats();
 %End
 
 private:
@@ -167,3 +176,10 @@ public:
     QList<QGlyphRun> glyphRuns(int from = -1, int length = -1) const;
 %End
 };
+
+%If (Qt_5_6_0 -)
+bool operator==(const QTextLayout::FormatRange &lhs, const QTextLayout::FormatRange &rhs);
+%End
+%If (Qt_5_6_0 -)
+bool operator!=(const QTextLayout::FormatRange &lhs, const QTextLayout::FormatRange &rhs);
+%End

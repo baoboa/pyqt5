@@ -1,6 +1,6 @@
 // This is the SIP specification of the QPyDBusReply class.
 //
-// Copyright (c) 2015 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2016 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -33,12 +33,12 @@ public:
 
     const QDBusError &error() const /HoldGIL/;
     bool isValid() const /HoldGIL/;
-    SIP_PYOBJECT value(SIP_PYOBJECT type /DocValue="None"/ = 0) const /HoldGIL/;
+    SIP_PYOBJECT value(SIP_PYOBJECT type /TypeHintValue="None"/ = 0) const /HoldGIL/;
 };
 
 
 template<TYPE>
-%MappedType QDBusReply<TYPE> /DocType="QDBusReply"/
+%MappedType QDBusReply<TYPE> /TypeHint="QDBusReply"/
 {
 %TypeHeaderCode
 #include <qdbusreply.h>
@@ -85,7 +85,7 @@ template<TYPE>
 };
 
 
-%MappedType QDBusReply<void> /DocType="QDBusReply"/
+%MappedType QDBusReply<void> /TypeHint="QDBusReply"/
 {
 %TypeHeaderCode
 #include <qdbusreply.h>
@@ -115,7 +115,7 @@ template<TYPE>
 };
 
 
-%MappedType QDBusReply<bool> /DocType="QDBusReply"/
+%MappedType QDBusReply<bool> /TypeHint="QDBusReply"/
 {
 %TypeHeaderCode
 #include <qdbusreply.h>
@@ -156,7 +156,7 @@ template<TYPE>
 };
 
 
-%MappedType QDBusReply<unsigned> /DocType="QDBusReply"/
+%MappedType QDBusReply<unsigned> /TypeHint="QDBusReply"/
 {
 %TypeHeaderCode
 #include <qdbusreply.h>
@@ -197,7 +197,7 @@ template<TYPE>
 };
 
 
-%MappedType QDBusReply<QDBusConnectionInterface::RegisterServiceReply> /DocType="QDBusReply"/
+%MappedType QDBusReply<QDBusConnectionInterface::RegisterServiceReply> /TypeHint="QDBusReply"/
 {
 %TypeHeaderCode
 #include <qdbusreply.h>

@@ -2,7 +2,7 @@
 //
 // This file is part of the QtNetwork Python extension module.
 //
-// Copyright (c) 2015 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2016 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -38,17 +38,17 @@ public:
     bool isValid() const;
     QUrl url() const;
     void setUrl(const QUrl &url);
-    RawHeaderList rawHeaders() const;
-    void setRawHeaders(const RawHeaderList &headers);
+    QNetworkCacheMetaData::RawHeaderList rawHeaders() const;
+    void setRawHeaders(const QNetworkCacheMetaData::RawHeaderList &headers);
     QDateTime lastModified() const;
     void setLastModified(const QDateTime &dateTime);
     QDateTime expirationDate() const;
     void setExpirationDate(const QDateTime &dateTime);
     bool saveToDisk() const;
     void setSaveToDisk(bool allow);
-    AttributesMap attributes() const;
-    void setAttributes(const AttributesMap &attributes);
-    void swap(QNetworkCacheMetaData &other);
+    QNetworkCacheMetaData::AttributesMap attributes() const;
+    void setAttributes(const QNetworkCacheMetaData::AttributesMap &attributes);
+    void swap(QNetworkCacheMetaData &other /Constrained/);
 };
 
 QDataStream &operator<<(QDataStream &, const QNetworkCacheMetaData & /Constrained/) /ReleaseGIL/;

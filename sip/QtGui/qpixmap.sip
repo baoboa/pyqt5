@@ -2,7 +2,7 @@
 //
 // This file is part of the QtGui Python extension module.
 //
-// Copyright (c) 2015 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2016 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -31,7 +31,7 @@ public:
     QPixmap(int w, int h);
     explicit QPixmap(const QSize &);
     QPixmap(const QString &fileName, const char *format = 0, Qt::ImageConversionFlags flags = Qt::AutoColor);
-    QPixmap(SIP_PYLIST xpm /DocType="list-of-str"/) [(const char **xpm)];
+    QPixmap(SIP_PYLIST xpm /TypeHint="List[str]"/) [(const char **xpm)];
 %MethodCode
         // The Python interface is a list of strings that make up the image.
         
@@ -99,7 +99,7 @@ public:
     qint64 cacheKey() const;
     void scroll(int dx, int dy, const QRect &rect, QRegion *exposed /Out/ = 0);
     void scroll(int dx, int dy, int x, int y, int width, int height, QRegion *exposed /Out/ = 0);
-    void swap(QPixmap &other);
+    void swap(QPixmap &other /Constrained/);
     qreal devicePixelRatio() const;
     void setDevicePixelRatio(qreal scaleFactor);
 };

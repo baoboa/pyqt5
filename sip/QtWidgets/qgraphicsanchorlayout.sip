@@ -2,7 +2,7 @@
 //
 // This file is part of the QtWidgets Python extension module.
 //
-// Copyright (c) 2015 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2016 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -50,7 +50,7 @@ public:
     QGraphicsAnchor *addAnchor(QGraphicsLayoutItem *firstItem /Transfer/, Qt::AnchorPoint firstEdge, QGraphicsLayoutItem *secondItem /Transfer/, Qt::AnchorPoint secondEdge);
     QGraphicsAnchor *anchor(QGraphicsLayoutItem *firstItem, Qt::AnchorPoint firstEdge, QGraphicsLayoutItem *secondItem, Qt::AnchorPoint secondEdge);
     void addCornerAnchors(QGraphicsLayoutItem *firstItem /Transfer/, Qt::Corner firstCorner, QGraphicsLayoutItem *secondItem /Transfer/, Qt::Corner secondCorner);
-    void addAnchors(QGraphicsLayoutItem *firstItem /Transfer/, QGraphicsLayoutItem *secondItem /Transfer/, Qt::Orientations orientations = Qt::Horizontal|Qt::Vertical);
+    void addAnchors(QGraphicsLayoutItem *firstItem /Transfer/, QGraphicsLayoutItem *secondItem /Transfer/, Qt::Orientations orientations = Qt::Horizontal | Qt::Vertical);
     void setHorizontalSpacing(qreal spacing);
     void setVerticalSpacing(qreal spacing);
     void setSpacing(qreal spacing);

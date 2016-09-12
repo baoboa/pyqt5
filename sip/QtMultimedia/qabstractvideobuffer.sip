@@ -2,7 +2,7 @@
 //
 // This file is part of the QtMultimedia Python extension module.
 //
-// Copyright (c) 2015 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2016 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -52,7 +52,7 @@ public:
     virtual ~QAbstractVideoBuffer();
     QAbstractVideoBuffer::HandleType handleType() const;
     virtual QAbstractVideoBuffer::MapMode mapMode() const = 0;
-    virtual SIP_PYOBJECT map(QAbstractVideoBuffer::MapMode mode, int *numBytes, int *bytesPerLine) = 0 /DocType="sip.voidptr"/ [uchar * (QAbstractVideoBuffer::MapMode mode, int *numBytes, int *bytesPerLine)];
+    virtual SIP_PYOBJECT map(QAbstractVideoBuffer::MapMode mode, int *numBytes, int *bytesPerLine) = 0 /TypeHint="sip.voidptr"/ [uchar * (QAbstractVideoBuffer::MapMode mode, int *numBytes, int *bytesPerLine)];
 %MethodCode
         uchar *mem;
         

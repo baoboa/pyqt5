@@ -1,6 +1,6 @@
 // This defines the API provided by this library.
 //
-// Copyright (c) 2015 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2016 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -94,6 +94,11 @@ int qpycore_visitSlotProxies(const QObject *transmitter, visitproc visit,
 int qpycore_canConvertTo_QJsonValue(PyObject *py);
 int qpycore_convertTo_QJsonValue(PyObject *py, PyObject *transferObj,
         QJsonValue **cpp, int *isErr);
+
+#if defined(PYQT_QTCONF_PREFIX)
+// Support for an embedded qt.conf.
+bool qpycore_qt_conf();
+#endif
 
 // Utilities.
 #if PY_MAJOR_VERSION >= 3

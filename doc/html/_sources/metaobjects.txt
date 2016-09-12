@@ -17,7 +17,8 @@ parts of a :class:`~PyQt5.QtCore.QMetaObject` are populated.
 The :func:`~PyQt5.QtCore.Q_ENUMS` and :func:`~PyQt5.QtCore.Q_FLAGS` functions
 declare enumerated types and flag types respectively that are published in the
 :class:`~PyQt5.QtCore.QMetaObject`.  The typical use in PyQt5 is to declare
-symbolic constants that can be used by QML.
+symbolic constants that can be used by QML, and as type of properties that can
+be set in Qt Designer.
 
 Each function takes a number of Python type objects that implement the
 enumerated or flag type.  For example::

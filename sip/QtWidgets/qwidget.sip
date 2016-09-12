@@ -2,7 +2,7 @@
 //
 // This file is part of the QtWidgets Python extension module.
 //
-// Copyright (c) 2015 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2016 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -70,7 +70,7 @@ static void qtwidgets_TransferLayoutWidgets(QLayout *lay, PyObject *pw)
 %End
 
 public:
-    QWidget(QWidget *parent /TransferThis/ = 0, Qt::WindowFlags flags = 0);
+    QWidget(QWidget *parent /TransferThis/ = 0, Qt::WindowFlags flags = Qt::WindowFlags());
     virtual ~QWidget();
     virtual int devType() const;
     QStyle *style() const;
@@ -259,11 +259,11 @@ public:
     bool acceptDrops() const;
     void setAcceptDrops(bool on);
     void addAction(QAction *action);
-    void addActions(QList<QAction*> actions);
+    void addActions(QList<QAction *> actions);
     void insertAction(QAction *before, QAction *action);
-    void insertActions(QAction *before, QList<QAction*> actions);
+    void insertActions(QAction *before, QList<QAction *> actions);
     void removeAction(QAction *action);
-    QList<QAction*> actions() const;
+    QList<QAction *> actions() const;
     void setWindowFlags(Qt::WindowFlags type);
     void overrideWindowFlags(Qt::WindowFlags type);
     static QWidget *find(WId);
@@ -372,8 +372,8 @@ public:
     };
 
     typedef QFlags<QWidget::RenderFlag> RenderFlags;
-    void render(QPaintDevice *target, const QPoint &targetOffset = QPoint(), const QRegion &sourceRegion = QRegion(), QFlags<QWidget::RenderFlag> flags = QWidget::DrawWindowBackground|QWidget::DrawChildren);
-    void render(QPainter *painter, const QPoint &targetOffset = QPoint(), const QRegion &sourceRegion = QRegion(), QFlags<QWidget::RenderFlag> flags = QWidget::DrawWindowBackground|QWidget::DrawChildren);
+    void render(QPaintDevice *target, const QPoint &targetOffset = QPoint(), const QRegion &sourceRegion = QRegion(), QWidget::RenderFlags flags = QWidget::RenderFlags(QWidget::DrawWindowBackground | QWidget::DrawChildren));
+    void render(QPainter *painter, const QPoint &targetOffset = QPoint(), const QRegion &sourceRegion = QRegion(), QWidget::RenderFlags flags = QWidget::RenderFlags(QWidget::DrawWindowBackground | QWidget::DrawChildren));
     void setLocale(const QLocale &locale);
     QLocale locale() const;
     void unsetLocale();
@@ -384,7 +384,7 @@ public:
     QGraphicsProxyWidget *graphicsProxyWidget() const;
     QGraphicsEffect *graphicsEffect() const;
     void setGraphicsEffect(QGraphicsEffect *effect /Transfer/);
-    void grabGesture(Qt::GestureType type, Qt::GestureFlags flags = Qt::GestureFlags(0));
+    void grabGesture(Qt::GestureType type, Qt::GestureFlags flags = Qt::GestureFlags());
     void ungrabGesture(Qt::GestureType type);
     void setContentsMargins(const QMargins &margins);
     QMargins contentsMargins() const;
@@ -394,7 +394,7 @@ public:
     virtual bool hasHeightForWidth() const;
     QPixmap grab(const QRect &rectangle = QRect(QPoint(0, 0), QSize(-1, -1)));
 %If (Qt_5_1_0 -)
-    static SIP_PYOBJECT createWindowContainer(QWindow *window /GetWrapper/, QWidget *parent /GetWrapper/ = 0, Qt::WindowFlags flags = 0) /DocType="QWidget",Factory/;
+    static SIP_PYOBJECT createWindowContainer(QWindow *window /GetWrapper/, QWidget *parent /GetWrapper/ = 0, Qt::WindowFlags flags = 0) /TypeHint="QWidget",Factory/;
 %MethodCode
         // Ownersip issues are complicated so we handle them explicitly.
         

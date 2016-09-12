@@ -2,7 +2,7 @@
 //
 // This file is part of the QtDBus Python extension module.
 //
-// Copyright (c) 2015 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2016 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -65,4 +65,7 @@ public:
     QString message() const;
     bool isValid() const;
     static QString errorString(QDBusError::ErrorType error);
+%If (Qt_5_6_0 -)
+    void swap(QDBusError &other /Constrained/);
+%End
 };

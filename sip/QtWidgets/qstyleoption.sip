@@ -2,7 +2,7 @@
 //
 // This file is part of the QtWidgets Python extension module.
 //
-// Copyright (c) 2015 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2016 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -221,7 +221,7 @@ public:
 
     enum FrameFeature
     {
-        None,
+        None /PyName=None_/,
         Flat,
         Rounded,
     };
@@ -326,7 +326,7 @@ public:
 
     enum SortIndicator
     {
-        None,
+        None /PyName=None_/,
         SortUp,
         SortDown,
     };
@@ -363,7 +363,7 @@ public:
 
     enum ButtonFeature
     {
-        None,
+        None /PyName=None_/,
         Flat,
         HasMenu,
         DefaultButton,
@@ -436,7 +436,7 @@ public:
 
     enum TabFeature
     {
-        None,
+        None /PyName=None_/,
         HasFrame,
     };
 
@@ -589,7 +589,7 @@ public:
 
     enum ViewItemFeature
     {
-        None,
+        None /PyName=None_/,
         WrapText,
         Alternate,
         HasCheckIndicator,
@@ -786,7 +786,7 @@ public:
 
     enum ToolButtonFeature
     {
-        None,
+        None /PyName=None_/,
         Arrow,
         Menu,
         PopupDelay,
@@ -940,7 +940,7 @@ public:
 
     enum ToolBarFeature
     {
-        None,
+        None /PyName=None_/,
         Movable,
     };
 

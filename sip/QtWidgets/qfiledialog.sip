@@ -2,7 +2,7 @@
 //
 // This file is part of the QtWidgets Python extension module.
 //
-// Copyright (c) 2015 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2016 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -73,7 +73,7 @@ public:
 
     typedef QFlags<QFileDialog::Option> Options;
     QFileDialog(QWidget *parent /TransferThis/, Qt::WindowFlags f);
-    QFileDialog(QWidget *parent /TransferThis/ = 0, const QString &caption /DocValue="''"/ = QString(), const QString &directory /DocValue="''"/ = QString(), const QString &filter /DocValue="''"/ = QString());
+    QFileDialog(QWidget *parent /TransferThis/ = 0, const QString &caption = QString(), const QString &directory = QString(), const QString &filter = QString());
     virtual ~QFileDialog();
     void setDirectory(const QString &directory);
     void setDirectory(const QDir &adirectory);
@@ -105,8 +105,11 @@ signals:
     void fileSelected(const QString &file);
 
 public:
-    static QString getExistingDirectory(QWidget *parent = 0, const QString &caption /DocValue="''"/ = QString(), const QString &directory /DocValue="''"/ = QString(), QFlags<QFileDialog::Option> options = QFileDialog::ShowDirsOnly) /ReleaseGIL/;
-    static SIP_PYTUPLE getOpenFileName(QWidget *parent = 0, const QString &caption /DocValue="''"/ = QString(), const QString &directory /DocValue="''"/ = QString(), const QString &filter /DocValue="''"/ = QString(), const QString &initialFilter /DocValue="''"/ = QString(), Options options = 0) /DocType="(str, str)", ReleaseGIL/;
+    static QString getExistingDirectory(QWidget *parent = 0, const QString &caption = QString(), const QString &directory = QString(), QFileDialog::Options options = QFileDialog::ShowDirsOnly) /ReleaseGIL/;
+%If (Qt_5_2_0 -)
+    static QUrl getExistingDirectoryUrl(QWidget *parent = 0, const QString &caption = QString(), const QUrl &directory = QUrl(), QFileDialog::Options options = QFileDialog::ShowDirsOnly, const QStringList &supportedSchemes = QStringList()) /ReleaseGIL/;
+%End
+    static SIP_PYTUPLE getOpenFileName(QWidget *parent = 0, const QString &caption = QString(), const QString &directory = QString(), const QString &filter = QString(), const QString &initialFilter = QString(), Options options = 0) /TypeHint="Tuple[QString, QString]", ReleaseGIL/;
 %MethodCode
         QString *name;
         QString *filter = new QString(*a4);
@@ -127,7 +130,7 @@ public:
         Py_XDECREF(filter_obj);
 %End
 
-    static SIP_PYTUPLE getOpenFileNames(QWidget *parent = 0, const QString &caption /DocValue="''"/ = QString(), const QString &directory /DocValue="''"/ = QString(), const QString &filter /DocValue="''"/ = QString(), const QString &initialFilter /DocValue="''"/ = QString(), Options options = 0) /DocType="(list-of-str, str)", ReleaseGIL/;
+    static SIP_PYTUPLE getOpenFileNames(QWidget *parent = 0, const QString &caption = QString(), const QString &directory = QString(), const QString &filter = QString(), const QString &initialFilter = QString(), Options options = 0) /TypeHint="Tuple[QStringList, QString]", ReleaseGIL/;
 %MethodCode
         QStringList *names;
         QString *filter = new QString(*a4);
@@ -148,7 +151,7 @@ public:
         Py_XDECREF(filter_obj);
 %End
 
-    static SIP_PYTUPLE getSaveFileName(QWidget *parent = 0, const QString &caption /DocValue="''"/ = QString(), const QString &directory /DocValue="''"/ = QString(), const QString &filter /DocValue="''"/ = QString(), const QString &initialFilter /DocValue="''"/ = QString(), Options options = 0) /DocType="(str, str)", ReleaseGIL/;
+    static SIP_PYTUPLE getSaveFileName(QWidget *parent = 0, const QString &caption = QString(), const QString &directory = QString(), const QString &filter = QString(), const QString &initialFilter = QString(), Options options = 0) /TypeHint="Tuple[QString, QString]", ReleaseGIL/;
 %MethodCode
         QString *name;
         QString *filter = new QString(*a4);
@@ -186,14 +189,14 @@ public:
     QStringList nameFilters() const;
     void selectNameFilter(const QString &filter);
     QString selectedNameFilter() const;
-    QFlags<QDir::Filter> filter() const;
-    void setFilter(QFlags<QDir::Filter> filters);
+    QDir::Filters filter() const;
+    void setFilter(QDir::Filters filters);
     void setOption(QFileDialog::Option option, bool on = true);
     bool testOption(QFileDialog::Option option) const;
-    void setOptions(QFlags<QFileDialog::Option> options);
-    QFlags<QFileDialog::Option> options() const;
+    void setOptions(QFileDialog::Options options);
+    QFileDialog::Options options() const;
     virtual void open();
-    void open(SIP_PYOBJECT slot /DocType="slot"/);
+    void open(SIP_PYOBJECT slot /TypeHint="PYQT_SLOT"/);
 %MethodCode
         QObject *receiver;
         QByteArray slot_signature;
@@ -247,10 +250,7 @@ signals:
 
 public:
 %If (Qt_5_2_0 -)
-    static QUrl getExistingDirectoryUrl(QWidget *parent = 0, const QString &caption /DocValue="''"/ = QString(), const QUrl &directory = QUrl(), QFlags<QFileDialog::Option> options = QFileDialog::ShowDirsOnly, const QStringList &supportedSchemes /DocValue="[]"/ = QStringList()) /ReleaseGIL/;
-%End
-%If (Qt_5_2_0 -)
-    static SIP_PYTUPLE getOpenFileUrl(QWidget *parent = 0, const QString &caption /DocValue="''"/ = QString(), const QString &directory /DocValue="''"/ = QString(), const QString &filter /DocValue="''"/ = QString(), const QString &initialFilter /DocValue="''"/ = QString(), Options options = 0, const QStringList &supportedSchemes /DocValue="[]"/ = QStringList()) /DocType="(QUrl, str)", ReleaseGIL/;
+    static SIP_PYTUPLE getOpenFileUrl(QWidget *parent = 0, const QString &caption = QString(), const QString &directory = QString(), const QString &filter = QString(), const QString &initialFilter = QString(), Options options = 0, const QStringList &supportedSchemes = QStringList()) /TypeHint="Tuple[QUrl, QString]", ReleaseGIL/;
 %MethodCode
         QUrl *url;
         QString *filter = new QString(*a4);
@@ -273,7 +273,7 @@ public:
 
 %End
 %If (Qt_5_2_0 -)
-    static SIP_PYTUPLE getOpenFileUrls(QWidget *parent = 0, const QString &caption /DocValue="''"/ = QString(), const QString &directory /DocValue="''"/ = QString(), const QString &filter /DocValue="''"/ = QString(), const QString &initialFilter /DocValue="''"/ = QString(), Options options = 0, const QStringList &supportedSchemes /DocValue="[]"/ = QStringList()) /DocType="(list-of-QUrl, str)", ReleaseGIL/;
+    static SIP_PYTUPLE getOpenFileUrls(QWidget *parent = 0, const QString &caption = QString(), const QString &directory = QString(), const QString &filter = QString(), const QString &initialFilter = QString(), Options options = 0, const QStringList &supportedSchemes = QStringList()) /TypeHint="Tuple[List[QUrl], QString]", ReleaseGIL/;
 %MethodCode
         QList<QUrl> url_list;
         QString *filter = new QString(*a4);
@@ -316,7 +316,7 @@ public:
 
 %End
 %If (Qt_5_2_0 -)
-    static SIP_PYTUPLE getSaveFileUrl(QWidget *parent = 0, const QString &caption /DocValue="''"/ = QString(), const QString &directory /DocValue="''"/ = QString(), const QString &filter /DocValue="''"/ = QString(), const QString &initialFilter /DocValue="''"/ = QString(), Options options = 0, const QStringList &supportedSchemes /DocValue="[]"/ = QStringList()) /DocType="(QUrl, str)", ReleaseGIL/;
+    static SIP_PYTUPLE getSaveFileUrl(QWidget *parent = 0, const QString &caption = QString(), const QString &directory = QString(), const QString &filter = QString(), const QString &initialFilter = QString(), Options options = 0, const QStringList &supportedSchemes = QStringList()) /TypeHint="Tuple[QUrl, QString]", ReleaseGIL/;
 %MethodCode
         QUrl *url;
         QString *filter = new QString(*a4);
@@ -337,6 +337,12 @@ public:
         Py_XDECREF(filter_obj);
 %End
 
+%End
+%If (Qt_5_6_0 -)
+    void setSupportedSchemes(const QStringList &schemes);
+%End
+%If (Qt_5_6_0 -)
+    QStringList supportedSchemes() const;
 %End
 
 private:

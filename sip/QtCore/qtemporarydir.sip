@@ -2,7 +2,7 @@
 //
 // This file is part of the QtCore Python extension module.
 //
-// Copyright (c) 2015 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2016 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -35,6 +35,9 @@ public:
     void setAutoRemove(bool b);
     bool remove();
     QString path() const;
+%If (Qt_5_6_0 -)
+    QString errorString() const;
+%End
 
 private:
     QTemporaryDir(const QTemporaryDir &);

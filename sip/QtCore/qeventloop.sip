@@ -2,7 +2,7 @@
 //
 // This file is part of the QtCore Python extension module.
 //
-// Copyright (c) 2015 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2016 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -40,8 +40,8 @@ public:
     };
 
     typedef QFlags<QEventLoop::ProcessEventsFlag> ProcessEventsFlags;
-    bool processEvents(QFlags<QEventLoop::ProcessEventsFlag> flags = AllEvents) /ReleaseGIL/;
-    void processEvents(QFlags<QEventLoop::ProcessEventsFlag> flags, int maximumTime) /ReleaseGIL/;
+    bool processEvents(QEventLoop::ProcessEventsFlags flags = QEventLoop::AllEvents) /ReleaseGIL/;
+    void processEvents(QEventLoop::ProcessEventsFlags flags, int maximumTime) /ReleaseGIL/;
     int exec(QFlags<QEventLoop::ProcessEventsFlag> flags = AllEvents) /PostHook=__pyQtPostEventLoopHook__,PreHook=__pyQtPreEventLoopHook__,PyName=exec_,ReleaseGIL/;
 %If (Py_v3)
     int exec(QFlags<QEventLoop::ProcessEventsFlag> flags = AllEvents) /PostHook=__pyQtPostEventLoopHook__,PreHook=__pyQtPreEventLoopHook__,ReleaseGIL/;

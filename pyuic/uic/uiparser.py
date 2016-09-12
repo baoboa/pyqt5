@@ -136,6 +136,19 @@ class WidgetStack(list):
     def topIsLayout(self):
         return isinstance(self[-1], QtWidgets.QLayout)
 
+    def topIsLayoutWidget(self):
+        # A plain QWidget is a layout widget unless it's parent is a
+        # QMainWindow.  Note that the corresponding uic test is a little more
+        # complicated as it involves features not supported by pyuic.
+
+        if type(self[-1]) is not QtWidgets.QWidget:
+            return False
+
+        if len(self) < 2:
+            return False
+
+        return type(self[-2]) is not QtWidgets.QMainWindow
+
 
 class ButtonGroup(object):
     """ Encapsulate the configuration of a button group and its implementation.
@@ -426,6 +439,13 @@ class UIParser(object):
         top = self.wprops.getProperty(elem, 'topMargin', margin)
         right = self.wprops.getProperty(elem, 'rightMargin', margin)
         bottom = self.wprops.getProperty(elem, 'bottomMargin', margin)
+
+        # A layout widget should, by default, have no margins.
+        if self.stack.topIsLayoutWidget():
+            if left < 0: left = 0
+            if top < 0: top = 0
+            if right < 0: right = 0
+            if bottom < 0: bottom = 0
 
         if left >= 0 or top >= 0 or right >= 0 or bottom >= 0:
             # We inject the new internal property.

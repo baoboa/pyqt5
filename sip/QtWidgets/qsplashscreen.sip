@@ -2,7 +2,7 @@
 //
 // This file is part of the QtWidgets Python extension module.
 //
-// Copyright (c) 2015 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2016 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -27,8 +27,8 @@ class QSplashScreen : QWidget
 %End
 
 public:
-    QSplashScreen(const QPixmap &pixmap = QPixmap(), Qt::WindowFlags flags = 0);
-    QSplashScreen(QWidget *parent /TransferThis/, const QPixmap &pixmap = QPixmap(), Qt::WindowFlags flags = 0);
+    QSplashScreen(const QPixmap &pixmap = QPixmap(), Qt::WindowFlags flags = Qt::WindowFlags());
+    QSplashScreen(QWidget *parent /TransferThis/, const QPixmap &pixmap = QPixmap(), Qt::WindowFlags flags = Qt::WindowFlags());
     virtual ~QSplashScreen();
     void setPixmap(const QPixmap &pixmap);
     const QPixmap pixmap() const;

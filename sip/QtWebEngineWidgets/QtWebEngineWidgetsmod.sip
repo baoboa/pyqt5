@@ -2,7 +2,7 @@
 //
 // This file is part of the QtWebEngineWidgets Python extension module.
 //
-// Copyright (c) 2015 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2016 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -28,7 +28,7 @@
 %Import QtWidgets/QtWidgetsmod.sip
 
 %Copying
-Copyright (c) 2015 Riverbank Computing Limited <info@riverbankcomputing.com>
+Copyright (c) 2016 Riverbank Computing Limited <info@riverbankcomputing.com>
 
 This file is part of PyQt5.
 
@@ -48,12 +48,17 @@ WARRANTY OF DESIGN, MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE.
 
 %DefaultSupertype sip.simplewrapper
 
+%If (Qt_5_6_0 -)
+%Import QtWebEngineCore/QtWebEngineCoremod.sip
+%End
+
 %Include qwebenginecertificateerror.sip
+%Include qwebenginedownloaditem.sip
+%Include qwebenginefullscreenrequest.sip
 %Include qwebenginehistory.sip
 %Include qwebenginepage.sip
-%Include qwebenginesettings.sip
-%Include qwebengineview.sip
-%Include qwebenginedownloaditem.sip
 %Include qwebengineprofile.sip
 %Include qwebenginescript.sip
 %Include qwebenginescriptcollection.sip
+%Include qwebenginesettings.sip
+%Include qwebengineview.sip

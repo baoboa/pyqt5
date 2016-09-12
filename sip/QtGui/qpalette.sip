@@ -2,7 +2,7 @@
 //
 // This file is part of the QtGui Python extension module.
 //
-// Copyright (c) 2015 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2016 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -120,7 +120,7 @@ public:
     void setBrush(QPalette::ColorRole acr, const QBrush &abrush);
     bool isBrushSet(QPalette::ColorGroup cg, QPalette::ColorRole cr) const;
     qint64 cacheKey() const;
-    void swap(QPalette &other);
+    void swap(QPalette &other /Constrained/);
 };
 
 QDataStream &operator<<(QDataStream &s, const QPalette &p /Constrained/) /ReleaseGIL/;

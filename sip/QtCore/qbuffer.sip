@@ -2,7 +2,7 @@
 //
 // This file is part of the QtCore Python extension module.
 //
-// Copyright (c) 2015 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2016 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -35,7 +35,7 @@ public:
     void setBuffer(QByteArray *a);
     void setData(const QByteArray &data);
     void setData(const char *adata /Array/, int alen /ArraySize/);
-    virtual bool open(QFlags<QIODevice::OpenModeFlag> openMode);
+    virtual bool open(QIODevice::OpenMode openMode);
     virtual void close();
     virtual qint64 size() const;
     virtual qint64 pos() const;
@@ -44,7 +44,7 @@ public:
     virtual bool canReadLine() const;
 
 protected:
-    virtual SIP_PYOBJECT readData(qint64 maxlen) /DocType="Py_v3:bytes;str",ReleaseGIL/ [qint64 (char *data, qint64 maxlen)];
+    virtual SIP_PYOBJECT readData(qint64 maxlen) /TypeHint="Py_v3:bytes;str",ReleaseGIL/ [qint64 (char *data, qint64 maxlen)];
 %MethodCode
         // Return the data read or None if there was an error.
         if (a0 < 0)

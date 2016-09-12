@@ -2,7 +2,7 @@
 //
 // This file is part of the QtQuick Python extension module.
 //
-// Copyright (c) 2015 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2016 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -32,43 +32,48 @@ class QQuickWindow : QWindow
         sipTypeDef **type;
         int yes, no;
     } graph[] = {
-        {sipName_QSGTextureProvider, &sipType_QSGTextureProvider, -1, 1},
-        {sipName_QSGTexture, &sipType_QSGTexture, 10, 2},
     #if QT_VERSION >= 0x050400
-        {sipName_QQuickRenderControl, &sipType_QQuickRenderControl, -1, 3},
+        {sipName_QSGEngine, &sipType_QSGEngine, -1, 1},
+    #else
+        {0, 0, -1, 1},
+    #endif
+        {sipName_QQuickItem, &sipType_QQuickItem, 11, 2},
+    #if QT_VERSION >= 0x050400
+        {sipName_QQuickItemGrabResult, &sipType_QQuickItemGrabResult, -1, 3},
     #else
         {0, 0, -1, 3},
     #endif
-        {sipName_QQuickItem, &sipType_QQuickItem, 11, 4},
-        {sipName_QQuickTextureFactory, &sipType_QQuickTextureFactory, -1, 5},
+        {sipName_QSGTexture, &sipType_QSGTexture, 13, 4},
+    #if QT_VERSION >= 0x050100
+        {sipName_QQuickTextDocument, &sipType_QQuickTextDocument, -1, 5},
+    #else
+        {0, 0, -1, 5},
+    #endif
     #if QT_VERSION >= 0x050400
         {sipName_QSGAbstractRenderer, &sipType_QSGAbstractRenderer, -1, 6},
     #else
         {0, 0, -1, 6},
     #endif
-    #if QT_VERSION >= 0x050400
-        {sipName_QQuickItemGrabResult, &sipType_QQuickItemGrabResult, -1, 7},
+    #if QT_VERSION >= 0x050600
+        {sipName_QQuickImageResponse, &sipType_QQuickImageResponse, -1, 7},
     #else
         {0, 0, -1, 7},
     #endif
+        {sipName_QQuickTextureFactory, &sipType_QQuickTextureFactory, -1, 8},
     #if QT_VERSION >= 0x050400
-        {sipName_QSGEngine, &sipType_QSGEngine, -1, 8},
+        {sipName_QQuickRenderControl, &sipType_QQuickRenderControl, -1, 9},
     #else
-        {0, 0, -1, 8},
+        {0, 0, -1, 9},
     #endif
-        {sipName_QQuickWindow, &sipType_QQuickWindow, 13, 9},
-    #if QT_VERSION >= 0x050100
-        {sipName_QQuickTextDocument, &sipType_QQuickTextDocument, -1, -1},
-    #else
-        {0, 0, -1, -1},
-    #endif
-        {sipName_QSGDynamicTexture, &sipType_QSGDynamicTexture, -1, -1},
+        {sipName_QSGTextureProvider, &sipType_QSGTextureProvider, -1, 10},
+        {sipName_QQuickWindow, &sipType_QQuickWindow, 14, -1},
     #if QT_VERSION >= 0x050200
         {sipName_QQuickFramebufferObject, &sipType_QQuickFramebufferObject, -1, 12},
     #else
         {0, 0, -1, 12},
     #endif
         {sipName_QQuickPaintedItem, &sipType_QQuickPaintedItem, -1, -1},
+        {sipName_QSGDynamicTexture, &sipType_QSGDynamicTexture, -1, -1},
         {sipName_QQuickView, &sipType_QQuickView, -1, -1},
     };
     
@@ -100,6 +105,9 @@ public:
 %If (Qt_5_2_0 -)
         TextureCanUseAtlas,
 %End
+%If (Qt_5_6_0 -)
+        TextureIsOpaque,
+%End
     };
 
     typedef QFlags<QQuickWindow::CreateTextureOption> CreateTextureOptions;
@@ -119,9 +127,9 @@ public:
     QQmlIncubationController *incubationController() const;
     QSGTexture *createTextureFromImage(const QImage &image) const /Factory/;
 %If (Qt_5_2_0 -)
-    QSGTexture *createTextureFromImage(const QImage &image, QFlags<QQuickWindow::CreateTextureOption> options) const /Factory/;
+    QSGTexture *createTextureFromImage(const QImage &image, QQuickWindow::CreateTextureOptions options) const /Factory/;
 %End
-    QSGTexture *createTextureFromId(uint id, const QSize &size, QFlags<QQuickWindow::CreateTextureOption> options = (QQuickWindow::CreateTextureOption)0u) const /Factory/;
+    QSGTexture *createTextureFromId(uint id, const QSize &size, QQuickWindow::CreateTextureOptions options = QQuickWindow::CreateTextureOption(0)) const /Factory/;
     void setClearBeforeRendering(bool enabled);
     bool clearBeforeRendering() const;
     void setColor(const QColor &color);
@@ -171,6 +179,9 @@ public:
 
 signals:
 %If (Qt_5_1_0 -)
+    void closing(QQuickCloseEvent *close);
+%End
+%If (Qt_5_1_0 -)
     void activeFocusItemChanged();
 %End
 
@@ -214,6 +225,9 @@ public:
         BeforeRenderingStage,
         AfterRenderingStage,
         AfterSwapStage,
+%If (Qt_5_6_0 -)
+        NoStage,
+%End
     };
 
 %End
@@ -230,6 +244,10 @@ public:
 private:
     QQuickWindow(const QQuickWindow &);
 };
+
+%If (Qt_5_1_0 -)
+class QQuickCloseEvent;
+%End
 
 %ModuleHeaderCode
 #include "qpyquick_api.h"

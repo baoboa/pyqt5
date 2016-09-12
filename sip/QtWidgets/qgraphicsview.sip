@@ -2,7 +2,7 @@
 //
 // This file is part of the QtWidgets Python extension module.
 //
-// Copyright (c) 2015 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2016 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -53,9 +53,9 @@ public:
     QGraphicsView(QGraphicsScene *scene /KeepReference/, QWidget *parent /TransferThis/ = 0);
     virtual ~QGraphicsView();
     virtual QSize sizeHint() const;
-    QFlags<QPainter::RenderHint> renderHints() const;
+    QPainter::RenderHints renderHints() const;
     void setRenderHint(QPainter::RenderHint hint, bool on = true);
-    void setRenderHints(QFlags<QPainter::RenderHint> hints);
+    void setRenderHints(QPainter::RenderHints hints);
     Qt::Alignment alignment() const;
     void setAlignment(Qt::Alignment alignment);
     QGraphicsView::ViewportAnchor transformationAnchor() const;
@@ -64,8 +64,8 @@ public:
     void setResizeAnchor(QGraphicsView::ViewportAnchor anchor);
     QGraphicsView::DragMode dragMode() const;
     void setDragMode(QGraphicsView::DragMode mode);
-    QFlags<QGraphicsView::CacheModeFlag> cacheMode() const;
-    void setCacheMode(QFlags<QGraphicsView::CacheModeFlag> mode);
+    QGraphicsView::CacheMode cacheMode() const;
+    void setCacheMode(QGraphicsView::CacheMode mode);
     void resetCachedContent();
     bool isInteractive() const;
     void setInteractive(bool allowed);
@@ -84,13 +84,13 @@ public:
     void fitInView(const QRectF &rect, Qt::AspectRatioMode mode = Qt::IgnoreAspectRatio);
     void fitInView(const QGraphicsItem *item, Qt::AspectRatioMode mode = Qt::IgnoreAspectRatio);
     void render(QPainter *painter, const QRectF &target = QRectF(), const QRect &source = QRect(), Qt::AspectRatioMode mode = Qt::KeepAspectRatio);
-    QList<QGraphicsItem*> items() const;
-    QList<QGraphicsItem*> items(const QPoint &pos) const;
-    QList<QGraphicsItem*> items(int ax, int ay) const;
-    QList<QGraphicsItem*> items(int x, int y, int w, int h, Qt::ItemSelectionMode mode = Qt::IntersectsItemShape) const;
-    QList<QGraphicsItem*> items(const QRect &rect, Qt::ItemSelectionMode mode = Qt::IntersectsItemShape) const;
-    QList<QGraphicsItem*> items(const QPolygon &polygon, Qt::ItemSelectionMode mode = Qt::IntersectsItemShape) const;
-    QList<QGraphicsItem*> items(const QPainterPath &path, Qt::ItemSelectionMode mode = Qt::IntersectsItemShape) const;
+    QList<QGraphicsItem *> items() const;
+    QList<QGraphicsItem *> items(const QPoint &pos) const;
+    QList<QGraphicsItem *> items(int x, int y) const;
+    QList<QGraphicsItem *> items(int x, int y, int w, int h, Qt::ItemSelectionMode mode = Qt::IntersectsItemShape) const;
+    QList<QGraphicsItem *> items(const QRect &rect, Qt::ItemSelectionMode mode = Qt::IntersectsItemShape) const;
+    QList<QGraphicsItem *> items(const QPolygon &polygon, Qt::ItemSelectionMode mode = Qt::IntersectsItemShape) const;
+    QList<QGraphicsItem *> items(const QPainterPath &path, Qt::ItemSelectionMode mode = Qt::IntersectsItemShape) const;
     QGraphicsItem *itemAt(const QPoint &pos) const;
     QPointF mapToScene(const QPoint &point) const;
     QPolygonF mapToScene(const QRect &rect) const;
@@ -107,7 +107,7 @@ public:
     void setForegroundBrush(const QBrush &brush);
 
 public slots:
-    void invalidateScene(const QRectF &rect = QRectF(), QFlags<QGraphicsScene::SceneLayer> layers = QGraphicsScene::AllLayers);
+    void invalidateScene(const QRectF &rect = QRectF(), QGraphicsScene::SceneLayers layers = QGraphicsScene::AllLayers);
     void updateScene(const QList<QRectF> &rects);
     void updateSceneRect(const QRectF &rect);
 
@@ -170,9 +170,9 @@ public:
     typedef QFlags<QGraphicsView::OptimizationFlag> OptimizationFlags;
     QGraphicsView::ViewportUpdateMode viewportUpdateMode() const;
     void setViewportUpdateMode(QGraphicsView::ViewportUpdateMode mode);
-    QFlags<QGraphicsView::OptimizationFlag> optimizationFlags() const;
+    QGraphicsView::OptimizationFlags optimizationFlags() const;
     void setOptimizationFlag(QGraphicsView::OptimizationFlag flag, bool enabled = true);
-    void setOptimizationFlags(QFlags<QGraphicsView::OptimizationFlag> flags);
+    void setOptimizationFlags(QGraphicsView::OptimizationFlags flags);
     Qt::ItemSelectionMode rubberBandSelectionMode() const;
     void setRubberBandSelectionMode(Qt::ItemSelectionMode mode);
     QTransform transform() const;

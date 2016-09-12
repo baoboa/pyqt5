@@ -40,8 +40,8 @@ function required.
 
 Several of the functions are provided as a replacement for SIP v4 features
 (i.e. ``SIP_ANYSLOT``, ``SIP_QOBJECT``, ``SIP_RXOBJ_CON``, ``SIP_RXOBJ_DIS``,
-``SIP_SIGNAL``, ``SIP_SLOT``, ``SIP_SLOT_CON`` and ``SIP_SLOT_DIS``) that will
-not be supported by SIP v5.
+``SIP_SIGNAL``, ``SIP_SLOT``, ``SIP_SLOT_CON`` and ``SIP_SLOT_DIS``) that are
+not supported by SIP v5.
 
 The functions exported by PyQt5 are as follows:
 
@@ -146,12 +146,13 @@ The functions exported by PyQt5 are as follows:
 .. cpp:function:: sipErrorState pyqt5_get_signal_signature(PyObject *signal, const QObject *transmitter, QByteArray &signal_signature)
 
     Get the signature string for a bound or unbound signal.  If the signal is
-    bound then it must be bound to the given transmitter.
+    bound, and the given transmitter is specified, then it must be bound to the
+    transmitter.
 
     :param signal:
         is the signal.
     :param transmitter:
-        is the :class:`~PyQt5.QtCore.QObject` transmitter.
+        is the optional :class:`~PyQt5.QtCore.QObject` transmitter.
     :param signal_signature:
         is updated with the signature of the signal.
     :return:

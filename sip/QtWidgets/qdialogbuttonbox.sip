@@ -2,7 +2,7 @@
 //
 // This file is part of the QtWidgets Python extension module.
 //
-// Copyright (c) 2015 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2016 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -76,10 +76,10 @@ public:
     QDialogButtonBox(QWidget *parent /TransferThis/ = 0);
     QDialogButtonBox(Qt::Orientation orientation, QWidget *parent /TransferThis/ = 0);
 %If (Qt_5_2_0 -)
-    QDialogButtonBox(QFlags<QDialogButtonBox::StandardButton> buttons, QWidget *parent /TransferThis/ = 0);
+    QDialogButtonBox(QDialogButtonBox::StandardButtons buttons, QWidget *parent /TransferThis/ = 0);
 %End
 %If (Qt_5_2_0 -)
-    QDialogButtonBox(QFlags<QDialogButtonBox::StandardButton> buttons, Qt::Orientation orientation, QWidget *parent /TransferThis/ = 0);
+    QDialogButtonBox(QDialogButtonBox::StandardButtons buttons, Qt::Orientation orientation, QWidget *parent /TransferThis/ = 0);
 %End
 %If (- Qt_5_2_0)
     QDialogButtonBox(QFlags<QDialogButtonBox::StandardButton> buttons, Qt::Orientation orientation = Qt::Horizontal, QWidget *parent /TransferThis/ = 0);
@@ -92,10 +92,10 @@ public:
     QPushButton *addButton(QDialogButtonBox::StandardButton button) /Transfer/;
     void removeButton(QAbstractButton *button /TransferBack/);
     void clear();
-    QList<QAbstractButton*> buttons() const;
+    QList<QAbstractButton *> buttons() const;
     QDialogButtonBox::ButtonRole buttonRole(QAbstractButton *button) const;
-    void setStandardButtons(QFlags<QDialogButtonBox::StandardButton> buttons);
-    QFlags<QDialogButtonBox::StandardButton> standardButtons() const;
+    void setStandardButtons(QDialogButtonBox::StandardButtons buttons);
+    QDialogButtonBox::StandardButtons standardButtons() const;
     QDialogButtonBox::StandardButton standardButton(QAbstractButton *button) const;
     QPushButton *button(QDialogButtonBox::StandardButton which) const;
     void setCenterButtons(bool center);

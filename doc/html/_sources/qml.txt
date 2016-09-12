@@ -296,7 +296,7 @@ of :attr:`sys.path`.
     searches some standard locations and locations specified by the
     :envvar:`QML2_IMPORT_PATH` environment variable.  When using
     :program:`qmlscene`, ``pyqt5qmlplugin`` will not know about any additional
-    locations specified by its :option:`-I` option.  Therefore,
+    locations specified by its ``-I`` option.  Therefore,
     :envvar:`QML2_IMPORT_PATH` should always be used to specify additional
     locations to search.
 

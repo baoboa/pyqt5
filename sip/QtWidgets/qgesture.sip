@@ -2,7 +2,7 @@
 //
 // This file is part of the QtWidgets Python extension module.
 //
-// Copyright (c) 2015 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2016 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -81,10 +81,10 @@ public:
     typedef QFlags<QPinchGesture::ChangeFlag> ChangeFlags;
     explicit QPinchGesture(QObject *parent /TransferThis/ = 0);
     virtual ~QPinchGesture();
-    QFlags<QPinchGesture::ChangeFlag> totalChangeFlags() const;
-    void setTotalChangeFlags(QFlags<QPinchGesture::ChangeFlag> value);
-    QFlags<QPinchGesture::ChangeFlag> changeFlags() const;
-    void setChangeFlags(QFlags<QPinchGesture::ChangeFlag> value);
+    QPinchGesture::ChangeFlags totalChangeFlags() const;
+    void setTotalChangeFlags(QPinchGesture::ChangeFlags value);
+    QPinchGesture::ChangeFlags changeFlags() const;
+    void setChangeFlags(QPinchGesture::ChangeFlags value);
     QPointF startCenterPoint() const;
     QPointF lastCenterPoint() const;
     QPointF centerPoint() const;
@@ -168,12 +168,12 @@ class QGestureEvent : QEvent
 %End
 
 public:
-    explicit QGestureEvent(const QList<QGesture*> &gestures);
+    explicit QGestureEvent(const QList<QGesture *> &gestures);
     virtual ~QGestureEvent();
-    QList<QGesture*> gestures() const;
+    QList<QGesture *> gestures() const;
     QGesture *gesture(Qt::GestureType type) const;
-    QList<QGesture*> activeGestures() const;
-    QList<QGesture*> canceledGestures() const;
+    QList<QGesture *> activeGestures() const;
+    QList<QGesture *> canceledGestures() const;
     void setAccepted(bool accepted);
     bool isAccepted() const;
     void accept();

@@ -2,7 +2,7 @@
 //
 // This file is part of the QtXml Python extension module.
 //
-// Copyright (c) 2015 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2016 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -140,10 +140,10 @@ public:
     QDomCharacterData toCharacterData() const;
     QDomComment toComment() const;
     void save(QTextStream &, int, QDomNode::EncodingPolicy = QDomNode::EncodingFromDocument) const /ReleaseGIL/;
-    QDomElement firstChildElement(const QString &tagName /DocValue="Py_v3:''"/ = QString()) const;
-    QDomElement lastChildElement(const QString &tagName /DocValue="Py_v3:''"/ = QString()) const;
-    QDomElement previousSiblingElement(const QString &tagName /DocValue="Py_v3:''"/ = QString()) const;
-    QDomElement nextSiblingElement(const QString &taName /DocValue="Py_v3:''"/ = QString()) const;
+    QDomElement firstChildElement(const QString &tagName = QString()) const;
+    QDomElement lastChildElement(const QString &tagName = QString()) const;
+    QDomElement previousSiblingElement(const QString &tagName = QString()) const;
+    QDomElement nextSiblingElement(const QString &taName = QString()) const;
     int lineNumber() const;
     int columnNumber() const;
 };
@@ -312,7 +312,7 @@ class QDomElement : QDomNode
 public:
     QDomElement();
     QDomElement(const QDomElement &x);
-    QString attribute(const QString &name, const QString &defaultValue /DocValue="Py_v3:''"/ = QString()) const;
+    QString attribute(const QString &name, const QString &defaultValue = QString()) const;
     void setAttribute(const QString &name, const QString &value);
     void setAttribute(const QString &name, qlonglong value);
     void setAttribute(const QString &name, qulonglong value);
@@ -324,7 +324,7 @@ public:
     QDomAttr removeAttributeNode(const QDomAttr &oldAttr);
     QDomNodeList elementsByTagName(const QString &tagname) const;
     bool hasAttribute(const QString &name) const;
-    QString attributeNS(const QString nsURI, const QString &localName, const QString &defaultValue /DocValue="Py_v3:''"/ = QString()) const;
+    QString attributeNS(const QString nsURI, const QString &localName, const QString &defaultValue = QString()) const;
     void setAttributeNS(const QString nsURI, const QString &qName, const QString &value);
     void setAttributeNS(const QString nsURI, const QString &qName, qlonglong value);
     void setAttributeNS(const QString nsURI, const QString &qName, qulonglong value);

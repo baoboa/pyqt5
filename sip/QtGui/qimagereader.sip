@@ -2,7 +2,7 @@
 //
 // This file is part of the QtGui Python extension module.
 //
-// Copyright (c) 2015 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2016 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -91,13 +91,19 @@ public:
     QList<QByteArray> supportedSubTypes() const;
 %End
 %If (Qt_5_5_0 -)
-    QFlags<QImageIOHandler::Transformation> transformation() const;
+    QImageIOHandler::Transformations transformation() const;
 %End
 %If (Qt_5_5_0 -)
     void setAutoTransform(bool enabled);
 %End
 %If (Qt_5_5_0 -)
     bool autoTransform() const;
+%End
+%If (Qt_5_6_0 -)
+    void setGamma(float gamma);
+%End
+%If (Qt_5_6_0 -)
+    float gamma() const;
 %End
 
 private:

@@ -1,7 +1,7 @@
 // This is the SIP interface definition for the majority of the QHash based
 // mapped types.
 //
-// Copyright (c) 2015 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2016 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -20,7 +20,8 @@
 
 
 template<_TYPE1_, _TYPE2_>
-%MappedType QHash<_TYPE1_, _TYPE2_> /DocType="dict-of-_TYPE1_-_TYPE2_"/
+%MappedType QHash<_TYPE1_, _TYPE2_>
+        /TypeHint="Dict[_TYPE1_, _TYPE2_]", TypeHintValue="{}"/
 {
 %TypeHeaderCode
 #include <qhash.h>
@@ -86,7 +87,7 @@ template<_TYPE1_, _TYPE2_>
 
     QHash<_TYPE1_, _TYPE2_> *qh = new QHash<_TYPE1_, _TYPE2_>;
 
-    SIP_SSIZE_T pos = 0;
+    Py_ssize_t pos = 0;
     PyObject *kobj, *vobj;
  
     while (PyDict_Next(sipPy, &pos, &kobj, &vobj))
@@ -143,7 +144,8 @@ template<_TYPE1_, _TYPE2_>
 // include it here.
 
 template<_TYPE1_, _TYPE2_ *>
-%MappedType QHash<_TYPE1_, _TYPE2_ *> /DocType="dict-of-_TYPE1_-_TYPE2_"/
+%MappedType QHash<_TYPE1_, _TYPE2_ *>
+        /TypeHint="Dict[_TYPE1_, _TYPE2_]", TypeHintValue="{}"/
 {
 %TypeHeaderCode
 #include <qhash.h>
@@ -208,7 +210,7 @@ template<_TYPE1_, _TYPE2_ *>
 
     QHash<_TYPE1_, _TYPE2_ *> *qh = new QHash<_TYPE1_, _TYPE2_ *>;
 
-    SIP_SSIZE_T pos = 0;
+    Py_ssize_t pos = 0;
     PyObject *kobj, *vobj;
  
     while (PyDict_Next(sipPy, &pos, &kobj, &vobj))
@@ -260,7 +262,8 @@ template<_TYPE1_, _TYPE2_ *>
 
 
 template<int, _TYPE_>
-%MappedType QHash<int, _TYPE_> /DocType="dict-of-int-_TYPE_"/
+%MappedType QHash<int, _TYPE_>
+        /TypeHint="Dict[int, _TYPE_]", TypeHintValue="{}"/
 {
 %TypeHeaderCode
 #include <qhash.h>
@@ -323,7 +326,7 @@ template<int, _TYPE_>
 
     QHash<int, _TYPE_> *qh = new QHash<int, _TYPE_>;
 
-    SIP_SSIZE_T pos = 0;
+    Py_ssize_t pos = 0;
     PyObject *kobj, *vobj;
  
     while (PyDict_Next(sipPy, &pos, &kobj, &vobj))

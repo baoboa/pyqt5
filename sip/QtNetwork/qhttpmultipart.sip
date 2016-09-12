@@ -2,7 +2,7 @@
 //
 // This file is part of the QtNetwork Python extension module.
 //
-// Copyright (c) 2015 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2016 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -36,7 +36,7 @@ public:
     void setRawHeader(const QByteArray &headerName, const QByteArray &headerValue);
     void setBody(const QByteArray &body);
     void setBodyDevice(QIODevice *device);
-    void swap(QHttpPart &other);
+    void swap(QHttpPart &other /Constrained/);
 };
 
 class QHttpMultiPart : QObject

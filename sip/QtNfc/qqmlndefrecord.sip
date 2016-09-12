@@ -2,7 +2,7 @@
 //
 // This file is part of the QtNfc Python extension module.
 //
-// Copyright (c) 2015 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2016 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -41,6 +41,9 @@ public:
 
     explicit QQmlNdefRecord(QObject *parent /TransferThis/ = 0);
     QQmlNdefRecord(const QNdefRecord &record, QObject *parent /TransferThis/ = 0);
+%If (Qt_5_6_0 -)
+    virtual ~QQmlNdefRecord();
+%End
     QString type() const;
     void setType(const QString &t);
     void setTypeNameFormat(QQmlNdefRecord::TypeNameFormat typeNameFormat);

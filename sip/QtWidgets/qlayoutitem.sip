@@ -2,7 +2,7 @@
 //
 // This file is part of the QtWidgets Python extension module.
 //
-// Copyright (c) 2015 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2016 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -44,7 +44,7 @@ class QLayoutItem /Supertype=sip.wrapper/
 %End
 
 public:
-    explicit QLayoutItem(Qt::Alignment alignment = 0);
+    explicit QLayoutItem(Qt::Alignment alignment = Qt::Alignment());
     virtual ~QLayoutItem();
     virtual QSize sizeHint() const = 0;
     virtual QSize minimumSize() const = 0;
@@ -62,7 +62,7 @@ public:
     virtual QSpacerItem *spacerItem();
     Qt::Alignment alignment() const;
     void setAlignment(Qt::Alignment a);
-    virtual QFlags<QSizePolicy::ControlType> controlTypes() const;
+    virtual QSizePolicy::ControlTypes controlTypes() const;
 };
 
 class QSpacerItem : QLayoutItem
@@ -107,7 +107,7 @@ public:
     virtual QWidget *widget();
     virtual bool hasHeightForWidth() const;
     virtual int heightForWidth(int) const;
-    virtual QFlags<QSizePolicy::ControlType> controlTypes() const;
+    virtual QSizePolicy::ControlTypes controlTypes() const;
 
 private:
     QWidgetItem(const QWidgetItem &);

@@ -2,7 +2,7 @@
 //
 // This file is part of the QtSerialPort Python extension module.
 //
-// Copyright (c) 2015 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2016 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -169,12 +169,12 @@ public:
     void setPortName(const QString &name);
     QString portName() const;
     void setPort(const QSerialPortInfo &info);
-    virtual bool open(QFlags<QIODevice::OpenModeFlag> mode);
+    virtual bool open(QIODevice::OpenMode mode);
     virtual void close() /ReleaseGIL/;
     void setSettingsRestoredOnClose(bool restore);
     bool settingsRestoredOnClose() const;
-    bool setBaudRate(qint32 baudRate, QFlags<QSerialPort::Direction> dir = QSerialPort::AllDirections);
-    qint32 baudRate(QFlags<QSerialPort::Direction> dir = QSerialPort::AllDirections) const;
+    bool setBaudRate(qint32 baudRate, QSerialPort::Directions dir = QSerialPort::AllDirections);
+    qint32 baudRate(QSerialPort::Directions dir = QSerialPort::AllDirections) const;
     bool setDataBits(QSerialPort::DataBits dataBits);
     QSerialPort::DataBits dataBits() const;
     bool setParity(QSerialPort::Parity parity);
@@ -187,9 +187,9 @@ public:
     bool isDataTerminalReady();
     bool setRequestToSend(bool set);
     bool isRequestToSend();
-    QFlags<QSerialPort::PinoutSignal> pinoutSignals();
+    QSerialPort::PinoutSignals pinoutSignals();
     bool flush() /ReleaseGIL/;
-    bool clear(QFlags<QSerialPort::Direction> dir = QSerialPort::AllDirections);
+    bool clear(QSerialPort::Directions dir = QSerialPort::AllDirections);
     virtual bool atEnd() const;
     bool setDataErrorPolicy(QSerialPort::DataErrorPolicy policy = QSerialPort::IgnorePolicy);
     QSerialPort::DataErrorPolicy dataErrorPolicy() const;
@@ -207,7 +207,7 @@ public:
     bool setBreakEnabled(bool enabled = true);
 
 signals:
-    void baudRateChanged(qint32 baudRate, QFlags<QSerialPort::Direction> dir);
+    void baudRateChanged(qint32 baudRate, QSerialPort::Directions directions);
     void dataBitsChanged(QSerialPort::DataBits dataBits);
     void parityChanged(QSerialPort::Parity parity);
     void stopBitsChanged(QSerialPort::StopBits stopBits);
@@ -219,7 +219,7 @@ signals:
     void settingsRestoredOnCloseChanged(bool restore);
 
 protected:
-    virtual SIP_PYOBJECT readData(qint64 maxlen) /DocType="Py_v3:bytes;str",ReleaseGIL/ [qint64 (char *data, qint64 maxSize)];
+    virtual SIP_PYOBJECT readData(qint64 maxlen) /TypeHint="Py_v3:bytes;str",ReleaseGIL/ [qint64 (char *data, qint64 maxSize)];
 %MethodCode
         // Return the data read or None if there was an error.
         if (a0 < 0)
@@ -257,7 +257,7 @@ protected:
         }
 %End
 
-    virtual SIP_PYOBJECT readLineData(qint64 maxlen) /DocType="Py_v3:bytes;str",ReleaseGIL/ [qint64 (char *data, qint64 maxSize)];
+    virtual SIP_PYOBJECT readLineData(qint64 maxlen) /TypeHint="Py_v3:bytes;str",ReleaseGIL/ [qint64 (char *data, qint64 maxSize)];
 %MethodCode
         // Return the data read or None if there was an error.
         if (a0 < 0)
@@ -299,13 +299,13 @@ protected:
 
 public:
 %If (Qt_5_2_0 -)
-%If (WS_X11 || WS_MACX)
-    int handle() const;
+%If (WS_WIN)
+    void *handle() const;
 %End
 %End
 %If (Qt_5_2_0 -)
-%If (WS_WIN)
-    void *handle() const;
+%If (WS_X11 || WS_MACX)
+    int handle() const;
 %End
 %End
 %If (Qt_5_5_0 -)

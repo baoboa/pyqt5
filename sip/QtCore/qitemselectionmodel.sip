@@ -2,7 +2,7 @@
 //
 // This file is part of the QtCore Python extension module.
 //
-// Copyright (c) 2015 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2016 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -56,6 +56,9 @@ public:
 
     bool isEmpty() const;
     bool operator<(const QItemSelectionRange &other) const;
+%If (Qt_5_6_0 -)
+    void swap(QItemSelectionRange &other /Constrained/);
+%End
 };
 
 class QItemSelectionModel : QObject
@@ -108,9 +111,9 @@ public slots:
     virtual void clear();
     void clearSelection();
     virtual void reset();
-    virtual void select(const QModelIndex &index, QFlags<QItemSelectionModel::SelectionFlag> command);
-    virtual void select(const QItemSelection &selection, QFlags<QItemSelectionModel::SelectionFlag> command);
-    virtual void setCurrentIndex(const QModelIndex &index, QFlags<QItemSelectionModel::SelectionFlag> command);
+    virtual void select(const QModelIndex &index, QItemSelectionModel::SelectionFlags command);
+    virtual void select(const QItemSelection &selection, QItemSelectionModel::SelectionFlags command);
+    virtual void setCurrentIndex(const QModelIndex &index, QItemSelectionModel::SelectionFlags command);
     virtual void clearCurrentIndex();
 
 signals:
@@ -159,7 +162,7 @@ public:
 %End
 
     QModelIndexList indexes() const;
-    void merge(const QItemSelection &other, QFlags<QItemSelectionModel::SelectionFlag> command);
+    void merge(const QItemSelection &other, QItemSelectionModel::SelectionFlags command);
     static void split(const QItemSelectionRange &range, const QItemSelectionRange &other, QItemSelection *result);
     void __setitem__(int i, const QItemSelectionRange &range);
 %MethodCode
@@ -175,7 +178,7 @@ public:
 
     void __setitem__(SIP_PYSLICE slice, const QItemSelection &list);
 %MethodCode
-        SIP_SSIZE_T len, start, stop, step, slicelength, i;
+        Py_ssize_t len, start, stop, step, slicelength, i;
         
         len = sipCpp->count();
         
@@ -222,7 +225,7 @@ public:
 
     void __delitem__(SIP_PYSLICE slice);
 %MethodCode
-        SIP_SSIZE_T len, start, stop, step, slicelength, i;
+        Py_ssize_t len, start, stop, step, slicelength, i;
         
         len = sipCpp->count();
         
@@ -242,7 +245,7 @@ public:
 
     QItemSelectionRange operator[](int i);
 %MethodCode
-        SIP_SSIZE_T idx = sipConvertFromSequenceIndex(a0, sipCpp->count());
+        Py_ssize_t idx = sipConvertFromSequenceIndex(a0, sipCpp->count());
         
         if (idx < 0)
             sipIsErr = 1;
@@ -252,7 +255,7 @@ public:
 
     QItemSelection operator[](SIP_PYSLICE slice);
 %MethodCode
-        SIP_SSIZE_T len, start, stop, step, slicelength, i;
+        Py_ssize_t len, start, stop, step, slicelength, i;
         
         len = sipCpp->count();
         

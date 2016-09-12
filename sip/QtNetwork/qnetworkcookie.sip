@@ -2,7 +2,7 @@
 //
 // This file is part of the QtNetwork Python extension module.
 //
-// Copyright (c) 2015 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2016 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -55,7 +55,7 @@ public:
     bool operator!=(const QNetworkCookie &other) const;
     bool isHttpOnly() const;
     void setHttpOnly(bool enable);
-    void swap(QNetworkCookie &other);
+    void swap(QNetworkCookie &other /Constrained/);
     bool hasSameIdentifier(const QNetworkCookie &other) const;
     void normalize(const QUrl &url);
 };

@@ -2,7 +2,7 @@
 //
 // This file is part of the QtDBus Python extension module.
 //
-// Copyright (c) 2015 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2016 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -92,9 +92,9 @@ public:
     QString baseService() const;
     QDBusError lastError() const;
     QString name() const;
-    QFlags<QDBusConnection::ConnectionCapability> connectionCapabilities() const;
+    QDBusConnection::ConnectionCapabilities connectionCapabilities() const;
     bool send(const QDBusMessage &message) const;
-    bool callWithCallback(const QDBusMessage &message, SIP_PYOBJECT returnMethod /DocType="slot"/, SIP_PYOBJECT errorMethod /DocType="slot"/, int timeout = -1) const;
+    bool callWithCallback(const QDBusMessage &message, SIP_PYOBJECT returnMethod /TypeHint="PYQT_SLOT"/, SIP_PYOBJECT errorMethod /TypeHint="PYQT_SLOT"/, int timeout = -1) const;
 %MethodCode
         QObject *receiver;
         QByteArray return_slot;
@@ -130,7 +130,7 @@ public:
 
     QDBusMessage call(const QDBusMessage &message, QDBus::CallMode mode = QDBus::Block, int timeout = -1) const /ReleaseGIL/;
     QDBusPendingCall asyncCall(const QDBusMessage &message, int timeout = -1) const;
-    bool connect(const QString &service, const QString &path, const QString &interface, const QString &name, SIP_PYOBJECT slot /DocType="slot"/);
+    bool connect(const QString &service, const QString &path, const QString &interface, const QString &name, SIP_PYOBJECT slot /TypeHint="PYQT_SLOT"/);
 %MethodCode
         QObject *receiver;
         QByteArray slot;
@@ -145,7 +145,7 @@ public:
         }
 %End
 
-    bool connect(const QString &service, const QString &path, const QString &interface, const QString &name, const QString &signature, SIP_PYOBJECT slot /DocType="slot"/);
+    bool connect(const QString &service, const QString &path, const QString &interface, const QString &name, const QString &signature, SIP_PYOBJECT slot /TypeHint="PYQT_SLOT"/);
 %MethodCode
         QObject *receiver;
         QByteArray slot;
@@ -160,7 +160,7 @@ public:
         }
 %End
 
-    bool connect(const QString &service, const QString &path, const QString &interface, const QString &name, const QStringList &argumentMatch, const QString &signature, SIP_PYOBJECT slot /DocType="slot"/);
+    bool connect(const QString &service, const QString &path, const QString &interface, const QString &name, const QStringList &argumentMatch, const QString &signature, SIP_PYOBJECT slot /TypeHint="PYQT_SLOT"/);
 %MethodCode
         QObject *receiver;
         QByteArray slot;
@@ -175,7 +175,7 @@ public:
         }
 %End
 
-    bool disconnect(const QString &service, const QString &path, const QString &interface, const QString &name, SIP_PYOBJECT slot /DocType="slot"/);
+    bool disconnect(const QString &service, const QString &path, const QString &interface, const QString &name, SIP_PYOBJECT slot /TypeHint="PYQT_SLOT"/);
 %MethodCode
         QObject *receiver;
         QByteArray slot;
@@ -190,7 +190,7 @@ public:
         }
 %End
 
-    bool disconnect(const QString &service, const QString &path, const QString &interface, const QString &name, const QString &signature, SIP_PYOBJECT slot /DocType="slot"/);
+    bool disconnect(const QString &service, const QString &path, const QString &interface, const QString &name, const QString &signature, SIP_PYOBJECT slot /TypeHint="PYQT_SLOT"/);
 %MethodCode
         QObject *receiver;
         QByteArray slot;
@@ -205,7 +205,7 @@ public:
         }
 %End
 
-    bool disconnect(const QString &service, const QString &path, const QString &interface, const QString &name, const QStringList &argumentMatch, const QString &signature, SIP_PYOBJECT slot /DocType="slot"/);
+    bool disconnect(const QString &service, const QString &path, const QString &interface, const QString &name, const QStringList &argumentMatch, const QString &signature, SIP_PYOBJECT slot /TypeHint="PYQT_SLOT"/);
 %MethodCode
         QObject *receiver;
         QByteArray slot;
@@ -238,7 +238,13 @@ public:
     static QDBusConnection sessionBus();
     static QDBusConnection systemBus();
     static QDBusConnection sender();
+%If (Qt_5_6_0 -)
+    void swap(QDBusConnection &other /Constrained/);
+%End
 };
 
 QFlags<QDBusConnection::RegisterOption> operator|(QDBusConnection::RegisterOption f1, QFlags<QDBusConnection::RegisterOption> f2);
 QFlags<QDBusConnection::RegisterOption> operator|(QDBusConnection::RegisterOption f1, QDBusConnection::RegisterOption f2);
+%If (Qt_5_6_0 -)
+QFlags<QDBusConnection::ConnectionCapability> operator|(QDBusConnection::ConnectionCapability f1, QFlags<QDBusConnection::ConnectionCapability> f2);
+%End

@@ -2,7 +2,7 @@
 //
 // This file is part of the QtWebChannel Python extension module.
 //
-// Copyright (c) 2015 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2016 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -60,8 +60,8 @@ class QWebChannel : QObject
 public:
     explicit QWebChannel(QObject *parent /TransferThis/ = 0);
     virtual ~QWebChannel();
-    void registerObjects(const QHash<QString, QObject*> &objects);
-    QHash<QString, QObject*> registeredObjects() const;
+    void registerObjects(const QHash<QString, QObject *> &objects);
+    QHash<QString, QObject *> registeredObjects() const;
     void registerObject(const QString &id, QObject *object);
     void deregisterObject(QObject *object);
     bool blockUpdates() const;

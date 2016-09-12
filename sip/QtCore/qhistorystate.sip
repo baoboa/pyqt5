@@ -2,7 +2,7 @@
 //
 // This file is part of the QtCore Python extension module.
 //
-// Copyright (c) 2015 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2016 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -37,7 +37,7 @@ public:
     QHistoryState(QHistoryState::HistoryType type, QState *parent /TransferThis/ = 0);
     virtual ~QHistoryState();
     QAbstractState *defaultState() const;
-    void setDefaultState(QAbstractState *state /KeepReference/);
+    void setDefaultState(QAbstractState *state /KeepReference=0/);
     QHistoryState::HistoryType historyType() const;
     void setHistoryType(QHistoryState::HistoryType type);
 
@@ -52,6 +52,19 @@ signals:
 %End
 %If (Qt_5_4_0 -)
     void historyTypeChanged();
+%End
+
+public:
+%If (Qt_5_6_0 -)
+    QAbstractTransition *defaultTransition() const;
+%End
+%If (Qt_5_6_0 -)
+    void setDefaultTransition(QAbstractTransition *transition /KeepReference=1/);
+%End
+
+signals:
+%If (Qt_5_6_0 -)
+    void defaultTransitionChanged();
 %End
 
 private:

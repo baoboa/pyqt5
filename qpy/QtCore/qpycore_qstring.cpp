@@ -1,6 +1,6 @@
 // This is the support for QString.
 //
-// Copyright (c) 2015 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2016 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -165,7 +165,7 @@ QString qpycore_PyObject_AsQString(PyObject *obj)
     if (PyUnicode_READY(obj) < 0)
         return QString();
 
-    SIP_SSIZE_T len = PyUnicode_GET_LENGTH(obj);
+    Py_ssize_t len = PyUnicode_GET_LENGTH(obj);
 
     switch (PyUnicode_KIND(obj))
     {

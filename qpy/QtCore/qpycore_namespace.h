@@ -1,7 +1,7 @@
 // This ensures that the Qt namespace macros are defined irrespective of the
 // version of Qt being used.
 //
-// Copyright (c) 2015 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2016 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 

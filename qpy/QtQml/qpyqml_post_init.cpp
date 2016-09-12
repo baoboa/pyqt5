@@ -1,6 +1,6 @@
 // This is the initialisation support code for the QtQml module.
 //
-// Copyright (c) 2015 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2016 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -38,6 +38,7 @@ void qpyqml_post_init(PyObject *module_dict)
     // QtCore imports.
     pyqt5_qtqml_err_print = (pyqt5_qtqml_err_print_t)sipImportSymbol(
             "pyqt5_err_print");
+    Q_ASSERT(pyqt5_qtqml_err_print);
 
     // Initialise the QQmlListProperty type.
 #if PY_MAJOR_VERSION >= 3

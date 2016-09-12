@@ -2,7 +2,7 @@
 //
 // This file is part of the QtWidgets Python extension module.
 //
-// Copyright (c) 2015 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2016 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -45,19 +45,14 @@ public:
         DoubleInput,
     };
 
-    static QString getText(QWidget *parent, const QString &title, const QString &label, QLineEdit::EchoMode echo = QLineEdit::Normal, const QString &text = QString(), bool *ok = 0, Qt::WindowFlags flags = 0, Qt::InputMethodHints inputMethodHints = Qt::ImhNone);
-    static int getInt(QWidget *parent, const QString &title, const QString &label, int value = 0, int min = -2147483647, int max = 2147483647, int step = 1, bool *ok = 0, Qt::WindowFlags flags = 0);
-    static double getDouble(QWidget *parent, const QString &title, const QString &label, double value = 0, double min = -2147483647, double max = 2147483647, int decimals = 1, bool *ok = 0, Qt::WindowFlags flags = 0) /ReleaseGIL/;
-    static QString getItem(QWidget *parent, const QString &title, const QString &label, const QStringList &items, int current = 0, bool editable = true, bool *ok = 0, Qt::WindowFlags flags = 0, Qt::InputMethodHints inputMethodHints = Qt::ImhNone);
+    static QString getText(QWidget *parent, const QString &title, const QString &label, QLineEdit::EchoMode echo = QLineEdit::Normal, const QString &text = QString(), bool *ok = 0, Qt::WindowFlags flags = Qt::WindowFlags(), Qt::InputMethodHints inputMethodHints = Qt::ImhNone) /ReleaseGIL/;
+    static int getInt(QWidget *parent, const QString &title, const QString &label, int value = 0, int min = -2147483647, int max = 2147483647, int step = 1, bool *ok = 0, Qt::WindowFlags flags = Qt::WindowFlags()) /ReleaseGIL/;
+    static double getDouble(QWidget *parent, const QString &title, const QString &label, double value = 0, double min = -2147483647, double max = 2147483647, int decimals = 1, bool *ok = 0, Qt::WindowFlags flags = Qt::WindowFlags()) /ReleaseGIL/;
+    static QString getItem(QWidget *parent, const QString &title, const QString &label, const QStringList &items, int current = 0, bool editable = true, bool *ok = 0, Qt::WindowFlags flags = Qt::WindowFlags(), Qt::InputMethodHints inputMethodHints = Qt::ImhNone) /ReleaseGIL/;
 %If (Qt_5_2_0 -)
-    static QString getMultiLineText(QWidget *parent, const QString &title, const QString &label, const QString &text /DocValue="''"/ = QString(), bool *ok = 0, Qt::WindowFlags flags = 0, Qt::InputMethodHints inputMethodHints = Qt::ImhNone);
+    static QString getMultiLineText(QWidget *parent, const QString &title, const QString &label, const QString &text = QString(), bool *ok = 0, Qt::WindowFlags flags = Qt::WindowFlags(), Qt::InputMethodHints inputMethodHints = Qt::ImhNone) /ReleaseGIL/;
 %End
-    QInputDialog(QWidget *parent /TransferThis/ = 0, Qt::WindowFlags flags = 0);
-
-private:
-    QInputDialog(const QInputDialog &);
-
-public:
+    QInputDialog(QWidget *parent /TransferThis/ = 0, Qt::WindowFlags flags = Qt::WindowFlags());
     virtual ~QInputDialog();
     void setInputMode(QInputDialog::InputMode mode);
     QInputDialog::InputMode inputMode() const;
@@ -65,8 +60,8 @@ public:
     QString labelText() const;
     void setOption(QInputDialog::InputDialogOption option, bool on = true);
     bool testOption(QInputDialog::InputDialogOption option) const;
-    void setOptions(QFlags<QInputDialog::InputDialogOption> options);
-    QFlags<QInputDialog::InputDialogOption> options() const;
+    void setOptions(QInputDialog::InputDialogOptions options);
+    QInputDialog::InputDialogOptions options() const;
     void setTextValue(const QString &text);
     QString textValue() const;
     void setTextEchoMode(QLineEdit::EchoMode mode);
@@ -98,7 +93,7 @@ public:
     void setCancelButtonText(const QString &text);
     QString cancelButtonText() const;
     virtual void open();
-    void open(SIP_PYOBJECT slot /DocType="slot"/);
+    void open(SIP_PYOBJECT slot /TypeHint="PYQT_SLOT"/);
 %MethodCode
         QObject *receiver;
         QByteArray slot_signature;
@@ -125,6 +120,9 @@ signals:
     void intValueSelected(int value);
     void doubleValueChanged(double value);
     void doubleValueSelected(double value);
+
+private:
+    QInputDialog(const QInputDialog &);
 };
 
 QFlags<QInputDialog::InputDialogOption> operator|(QInputDialog::InputDialogOption f1, QFlags<QInputDialog::InputDialogOption> f2);

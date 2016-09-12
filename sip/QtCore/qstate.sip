@@ -2,7 +2,7 @@
 //
 // This file is part of the QtCore Python extension module.
 //
-// Copyright (c) 2015 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2016 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -45,7 +45,7 @@ public:
     QAbstractState *errorState() const;
     void setErrorState(QAbstractState *state /KeepReference/);
     void addTransition(QAbstractTransition *transition /Transfer/);
-    QSignalTransition *addTransition(SIP_PYOBJECT signal /DocType="signal"/, QAbstractState *target);
+    QSignalTransition *addTransition(SIP_PYOBJECT signal /TypeHint="pyqtBoundSignal"/, QAbstractState *target);
 %MethodCode
         QObject *sender;
         QByteArray signal_signature;
@@ -62,7 +62,7 @@ public:
 
     QAbstractTransition *addTransition(QAbstractState *target /Transfer/);
     void removeTransition(QAbstractTransition *transition /TransferBack/);
-    QList<QAbstractTransition*> transitions() const;
+    QList<QAbstractTransition *> transitions() const;
     QAbstractState *initialState() const;
     void setInitialState(QAbstractState *state /KeepReference/);
     QState::ChildMode childMode() const;

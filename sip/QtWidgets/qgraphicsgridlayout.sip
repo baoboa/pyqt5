@@ -2,7 +2,7 @@
 //
 // This file is part of the QtWidgets Python extension module.
 //
-// Copyright (c) 2015 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2016 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -29,8 +29,8 @@ class QGraphicsGridLayout : QGraphicsLayout
 public:
     QGraphicsGridLayout(QGraphicsLayoutItem *parent /TransferThis/ = 0);
     virtual ~QGraphicsGridLayout();
-    void addItem(QGraphicsLayoutItem *item /Transfer/, int row, int column, int rowSpan, int columnSpan, Qt::Alignment alignment = 0);
-    void addItem(QGraphicsLayoutItem *aitem /TransferThis/, int arow, int acolumn, Qt::Alignment alignment = 0);
+    void addItem(QGraphicsLayoutItem *item /Transfer/, int row, int column, int rowSpan, int columnSpan, Qt::Alignment alignment = Qt::Alignment());
+    void addItem(QGraphicsLayoutItem *item /Transfer/, int row, int column, Qt::Alignment alignment = Qt::Alignment());
     void setHorizontalSpacing(qreal spacing);
     qreal horizontalSpacing() const;
     void setVerticalSpacing(qreal spacing);

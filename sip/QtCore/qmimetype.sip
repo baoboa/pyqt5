@@ -2,7 +2,7 @@
 //
 // This file is part of the QtCore Python extension module.
 //
-// Copyright (c) 2015 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2016 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -30,7 +30,7 @@ public:
     QMimeType();
     QMimeType(const QMimeType &other);
     ~QMimeType();
-    void swap(QMimeType &other);
+    void swap(QMimeType &other /Constrained/);
     bool operator==(const QMimeType &other) const;
     bool operator!=(const QMimeType &other) const;
     bool isValid() const;
@@ -47,4 +47,11 @@ public:
     QString preferredSuffix() const;
     bool inherits(const QString &mimeTypeName) const;
     QString filterString() const;
+%If (Qt_5_6_0 -)
+    long __hash__() const;
+%MethodCode
+        sipRes = qHash(*sipCpp);
+%End
+
+%End
 };

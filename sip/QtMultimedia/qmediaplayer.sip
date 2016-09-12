@@ -2,7 +2,7 @@
 //
 // This file is part of the QtMultimedia Python extension module.
 //
-// Copyright (c) 2015 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2016 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -69,10 +69,10 @@ public:
         ServiceMissingError,
     };
 
-    QMediaPlayer(QObject *parent /TransferThis/ = 0, QFlags<QMediaPlayer::Flag> flags = 0);
+    QMediaPlayer(QObject *parent /TransferThis/ = 0, QMediaPlayer::Flags flags = 0);
     virtual ~QMediaPlayer();
-    static QMultimedia::SupportEstimate hasSupport(const QString &mimeType, const QStringList &codecs = QStringList(), QFlags<QMediaPlayer::Flag> flags = 0);
-    static QStringList supportedMimeTypes(QFlags<QMediaPlayer::Flag> flags = 0);
+    static QMultimedia::SupportEstimate hasSupport(const QString &mimeType, const QStringList &codecs = QStringList(), QMediaPlayer::Flags flags = 0);
+    static QStringList supportedMimeTypes(QMediaPlayer::Flags flags = 0);
     void setVideoOutput(QVideoWidget *);
     void setVideoOutput(QGraphicsVideoItem *);
     void setVideoOutput(QAbstractVideoSurface *surface);
@@ -128,6 +128,20 @@ signals:
 public:
     virtual bool bind(QObject *);
     virtual void unbind(QObject *);
+%If (Qt_5_6_0 -)
+    QAudio::Role audioRole() const;
+%End
+%If (Qt_5_6_0 -)
+    void setAudioRole(QAudio::Role audioRole);
+%End
+%If (Qt_5_6_0 -)
+    QList<QAudio::Role> supportedAudioRoles() const;
+%End
+
+signals:
+%If (Qt_5_6_0 -)
+    void audioRoleChanged(QAudio::Role role);
+%End
 
 private:
     QMediaPlayer(const QMediaPlayer &);

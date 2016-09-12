@@ -2,7 +2,7 @@
 //
 // This file is part of the QtCore Python extension module.
 //
-// Copyright (c) 2015 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2016 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -71,8 +71,8 @@ public:
 
     typedef QFlags<QDir::SortFlag> SortFlags;
     QDir(const QDir &);
-    QDir(const QString &path /DocValue="''"/ = QString());
-    QDir(const QString &path, const QString &nameFilter, QFlags<QDir::SortFlag> sort /DocValue="QDir.Name|QDir.IgnoreCase"/ = QDir::SortFlags(QDir::Name|QDir::IgnoreCase), QFlags<QDir::Filter> filters = AllEntries);
+    QDir(const QString &path = QString());
+    QDir(const QString &path, const QString &nameFilter, QFlags<QDir::SortFlag> sort /TypeHintValue="QDir.Name|QDir.IgnoreCase"/ = QDir::SortFlags(QDir::Name|QDir::IgnoreCase), QFlags<QDir::Filter> filters = AllEntries);
     ~QDir();
     void setPath(const QString &path);
     QString path() const;
@@ -86,14 +86,14 @@ public:
     bool cdUp();
     QStringList nameFilters() const;
     void setNameFilters(const QStringList &nameFilters);
-    QFlags<QDir::Filter> filter() const;
-    void setFilter(QFlags<QDir::Filter> filter);
-    QFlags<QDir::SortFlag> sorting() const;
-    void setSorting(QFlags<QDir::SortFlag> sort);
+    QDir::Filters filter() const;
+    void setFilter(QDir::Filters filter);
+    QDir::SortFlags sorting() const;
+    void setSorting(QDir::SortFlags sort);
     uint count() const /__len__/;
     QString operator[](int) const;
 %MethodCode
-        SIP_SSIZE_T idx = sipConvertFromSequenceIndex(a0, sipCpp->count());
+        Py_ssize_t idx = sipConvertFromSequenceIndex(a0, sipCpp->count());
         
         if (idx < 0)
             sipIsErr = 1;
@@ -103,7 +103,7 @@ public:
 
     QStringList operator[](SIP_PYSLICE) const;
 %MethodCode
-        SIP_SSIZE_T len, start, stop, step, slicelength, i;
+        Py_ssize_t len, start, stop, step, slicelength, i;
         
         len = sipCpp->count();
         
@@ -131,10 +131,10 @@ public:
 %End
 
     static QStringList nameFiltersFromString(const QString &nameFilter);
-    QStringList entryList(QFlags<QDir::Filter> filters = NoFilter, QFlags<QDir::SortFlag> sort = NoSort) const;
-    QStringList entryList(const QStringList &nameFilters, QFlags<QDir::Filter> filters = NoFilter, QFlags<QDir::SortFlag> sort = NoSort) const;
-    QFileInfoList entryInfoList(QFlags<QDir::Filter> filters = NoFilter, QFlags<QDir::SortFlag> sort = NoSort) const;
-    QFileInfoList entryInfoList(const QStringList &nameFilters, QFlags<QDir::Filter> filters = NoFilter, QFlags<QDir::SortFlag> sort = NoSort) const;
+    QStringList entryList(QDir::Filters filters = QDir::NoFilter, QDir::SortFlags sort = QDir::NoSort) const;
+    QStringList entryList(const QStringList &nameFilters, QDir::Filters filters = QDir::NoFilter, QDir::SortFlags sort = QDir::NoSort) const;
+    QFileInfoList entryInfoList(QDir::Filters filters = QDir::NoFilter, QDir::SortFlags sort = QDir::NoSort) const;
+    QFileInfoList entryInfoList(const QStringList &nameFilters, QDir::Filters filters = QDir::NoFilter, QDir::SortFlags sort = QDir::NoSort) const;
     bool mkdir(const QString &dirName) const;
     bool rmdir(const QString &dirName) const;
     bool mkpath(const QString &dirPath) const;
@@ -173,7 +173,10 @@ public:
     static void addSearchPath(const QString &prefix, const QString &path);
     static QStringList searchPaths(const QString &prefix);
     bool removeRecursively();
-    void swap(QDir &other);
+    void swap(QDir &other /Constrained/);
+%If (Qt_5_6_0 -)
+    static QChar listSeparator();
+%End
 };
 
 QFlags<QDir::Filter> operator|(QDir::Filter f1, QFlags<QDir::Filter> f2);

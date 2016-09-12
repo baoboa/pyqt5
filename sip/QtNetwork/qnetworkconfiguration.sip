@@ -2,7 +2,7 @@
 //
 // This file is part of the QtNetwork Python extension module.
 //
-// Copyright (c) 2015 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2016 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -84,7 +84,7 @@ public:
 %End
     };
 
-    QFlags<QNetworkConfiguration::StateFlag> state() const;
+    QNetworkConfiguration::StateFlags state() const;
     QNetworkConfiguration::Type type() const;
     QNetworkConfiguration::Purpose purpose() const;
     QNetworkConfiguration::BearerType bearerType() const;
@@ -97,5 +97,5 @@ public:
     QList<QNetworkConfiguration> children() const;
     QString name() const;
     bool isValid() const;
-    void swap(QNetworkConfiguration &other);
+    void swap(QNetworkConfiguration &other /Constrained/);
 };

@@ -2,7 +2,7 @@
 //
 // This file is part of the QtWidgets Python extension module.
 //
-// Copyright (c) 2015 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2016 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -59,7 +59,7 @@ signals:
 
 protected:
     virtual void draw(QPainter *painter) = 0;
-    virtual void sourceChanged(QFlags<QGraphicsEffect::ChangeFlag> flags);
+    virtual void sourceChanged(QGraphicsEffect::ChangeFlags flags);
     void updateBoundingRect();
     bool sourceIsPixmap() const;
     QRectF sourceBoundingRect(Qt::CoordinateSystem system = Qt::LogicalCoordinates) const;
@@ -118,15 +118,15 @@ public:
     virtual ~QGraphicsBlurEffect();
     virtual QRectF boundingRectFor(const QRectF &rect) const;
     qreal blurRadius() const;
-    QFlags<QGraphicsBlurEffect::BlurHint> blurHints() const;
+    QGraphicsBlurEffect::BlurHints blurHints() const;
 
 public slots:
     void setBlurRadius(qreal blurRadius);
-    void setBlurHints(QFlags<QGraphicsBlurEffect::BlurHint> hints);
+    void setBlurHints(QGraphicsBlurEffect::BlurHints hints);
 
 signals:
     void blurRadiusChanged(qreal blurRadius);
-    void blurHintsChanged(QFlags<QGraphicsBlurEffect::BlurHint> hints);
+    void blurHintsChanged(QGraphicsBlurEffect::BlurHints hints);
 
 protected:
     virtual void draw(QPainter *painter);

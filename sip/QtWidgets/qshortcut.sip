@@ -2,7 +2,7 @@
 //
 // This file is part of the QtWidgets Python extension module.
 //
-// Copyright (c) 2015 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2016 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -28,7 +28,7 @@ class QShortcut : QObject
 
 public:
     explicit QShortcut(QWidget *parent /TransferThis/);
-    QShortcut(const QKeySequence &key, QWidget *parent /TransferThis/, SIP_PYOBJECT member /DocType="slot"/ = 0, SIP_PYOBJECT ambiguousMember /DocType="slot"/ = 0, Qt::ShortcutContext context = Qt::WindowShortcut) [(const QKeySequence &key, QWidget *parent, const char *member = 0, const char *ambiguousMember = 0, Qt::ShortcutContext context = Qt::WindowShortcut)];
+    QShortcut(const QKeySequence &key, QWidget *parent /TransferThis/, SIP_PYOBJECT member /TypeHint="PYQT_SLOT"/ = 0, SIP_PYOBJECT ambiguousMember /TypeHint="PYQT_SLOT"/ = 0, Qt::ShortcutContext context = Qt::WindowShortcut) [(const QKeySequence &key, QWidget *parent, const char *member = 0, const char *ambiguousMember = 0, Qt::ShortcutContext context = Qt::WindowShortcut)];
 %MethodCode
         // Construct the shortcut without any connections.
         Py_BEGIN_ALLOW_THREADS

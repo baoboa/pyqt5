@@ -1,6 +1,6 @@
 // This is the initialisation support code for the QtDBus module.
 //
-// Copyright (c) 2015 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2016 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -33,5 +33,6 @@ void qpydbus_post_init()
     void (*register_from_qvariant_convertor)(FromQVariantConvertorFn);
 
     register_from_qvariant_convertor = (void (*)(FromQVariantConvertorFn))sipImportSymbol("pyqt5_register_from_qvariant_convertor");
+    Q_ASSERT(register_from_qvariant_convertor);
     register_from_qvariant_convertor(qpydbus_from_qvariant_convertor);
 }

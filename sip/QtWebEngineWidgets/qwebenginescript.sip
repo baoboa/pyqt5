@@ -2,7 +2,7 @@
 //
 // This file is part of the QtWebEngineWidgets Python extension module.
 //
-// Copyright (c) 2015 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2016 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -59,7 +59,7 @@ public:
     void setRunsOnSubFrames(bool on);
     bool operator==(const QWebEngineScript &other) const;
     bool operator!=(const QWebEngineScript &other) const;
-    void swap(QWebEngineScript &other);
+    void swap(QWebEngineScript &other /Constrained/);
 };
 
 %End

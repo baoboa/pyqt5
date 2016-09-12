@@ -2,7 +2,7 @@
 //
 // This file is part of the _QOpenGLFunctions_2_0 Python extension module.
 //
-// Copyright (c) 2015 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2016 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -34,7 +34,7 @@ public:
     void glViewport(GLint x, GLint y, GLsizei width, GLsizei height);
     void glDepthRange(GLdouble nearVal, GLdouble farVal);
     GLboolean glIsEnabled(GLenum cap);
-    void glGetTexLevelParameteriv(GLenum target, GLint level, GLenum pname, SIP_PYOBJECT *params /DocType="int-or-tuple"/);
+    void glGetTexLevelParameteriv(GLenum target, GLint level, GLenum pname, SIP_PYOBJECT *params /TypeHint="int"/);
 %MethodCode
         GLint params[1];
             
@@ -43,7 +43,7 @@ public:
         a3 = qpyopengl_from_GLint(&sipIsErr, params, 1);
 %End
 
-    void glGetTexLevelParameterfv(GLenum target, GLint level, GLenum pname, SIP_PYOBJECT *params /DocType="float-or-tuple"/);
+    void glGetTexLevelParameterfv(GLenum target, GLint level, GLenum pname, SIP_PYOBJECT *params /TypeHint="float"/);
 %MethodCode
         GLfloat params[1];
             
@@ -52,10 +52,10 @@ public:
         a3 = qpyopengl_from_GLfloat(&sipIsErr, params, 1);
 %End
 
-    void glGetTexParameteriv(GLenum target, GLenum pname, SIP_PYOBJECT *params /DocType="int-or-tuple"/);
+    void glGetTexParameteriv(GLenum target, GLenum pname, SIP_PYOBJECT *params /TypeHint="Union[int, Tuple[int, int, int, int]]"/);
 %MethodCode
         GLint params[4];
-        SIP_SSIZE_T nr_params;
+        Py_ssize_t nr_params;
         
         switch (a1)
         {
@@ -79,10 +79,10 @@ public:
         a2 = qpyopengl_from_GLint(&sipIsErr, params, nr_params);
 %End
 
-    void glGetTexParameterfv(GLenum target, GLenum pname, SIP_PYOBJECT *params /DocType="float-or-tuple"/);
+    void glGetTexParameterfv(GLenum target, GLenum pname, SIP_PYOBJECT *params /TypeHint="Union[float, Tuple[float, float, float, float]]"/);
 %MethodCode
         GLfloat params[4];
-        SIP_SSIZE_T nr_params;
+        Py_ssize_t nr_params;
         
         switch (a1)
         {
@@ -111,7 +111,7 @@ public:
         sipRes = reinterpret_cast<const char *>(sipCpp->glGetString(a0));
 %End
 
-    void glGetIntegerv(GLenum pname, SIP_PYOBJECT *params /DocType="int-or-tuple"/);
+    void glGetIntegerv(GLenum pname, SIP_PYOBJECT *params /TypeHint="Union[int, Tuple[int, ...]]"/);
 %MethodCode
         GLint fixed_params[4], *params;
         GLint nr_params = 0;
@@ -180,7 +180,7 @@ public:
             delete[] params;
 %End
 
-    void glGetFloatv(GLenum pname, SIP_PYOBJECT *params /DocType="float-or-tuple"/);
+    void glGetFloatv(GLenum pname, SIP_PYOBJECT *params /TypeHint="Union[float, Tuple[float, ...]]"/);
 %MethodCode
         GLfloat fixed_params[4], *params;
         GLint nr_params = 0;
@@ -250,7 +250,7 @@ public:
 %End
 
     GLenum glGetError();
-    void glGetDoublev(GLenum pname, SIP_PYOBJECT *params /DocType="float-or-tuple"/);
+    void glGetDoublev(GLenum pname, SIP_PYOBJECT *params /TypeHint="Union[float, Tuple[float, ...]]"/);
 %MethodCode
         GLdouble fixed_params[4], *params;
         GLint nr_params = 0;
@@ -319,7 +319,7 @@ public:
             delete[] params;
 %End
 
-    void glGetBooleanv(GLenum pname, SIP_PYOBJECT *params /DocType="bool-or-tuple"/);
+    void glGetBooleanv(GLenum pname, SIP_PYOBJECT *params /TypeHint="Union[bool, Tuple[bool, ...]]"/);
 %MethodCode
         GLboolean fixed_params[4], *params;
         GLint nr_params = 0;
@@ -408,7 +408,7 @@ public:
     void glClearColor(GLfloat red, GLfloat green, GLfloat blue, GLfloat alpha);
     void glClear(GLbitfield mask);
     void glDrawBuffer(GLenum mode);
-    void glTexImage2D(GLenum target, GLint level, GLint internalformat, GLsizei width, GLsizei height, GLint border, GLenum format, GLenum type, SIP_PYOBJECT pixels /DocType="sequence-or-buffer"/);
+    void glTexImage2D(GLenum target, GLint level, GLint internalformat, GLsizei width, GLsizei height, GLint border, GLenum format, GLenum type, SIP_PYOBJECT pixels /TypeHint="PYQT_OPENGL_ARRAY"/);
 %MethodCode
         const GLvoid *array = qpyopengl_value_array(&sipError, a8, a7, sipSelf);
         
@@ -416,7 +416,7 @@ public:
             sipCpp->glTexImage2D(a0, a1, a2, a3, a4, a5, a6, a7, array);
 %End
 
-    void glTexImage1D(GLenum target, GLint level, GLint internalformat, GLsizei width, GLint border, GLenum format, GLenum type, SIP_PYOBJECT pixels /DocType="sequence-or-buffer"/);
+    void glTexImage1D(GLenum target, GLint level, GLint internalformat, GLsizei width, GLint border, GLenum format, GLenum type, SIP_PYOBJECT pixels /TypeHint="PYQT_OPENGL_ARRAY"/);
 %MethodCode
         const GLvoid *array = qpyopengl_value_array(&sipError, a7, a6, sipSelf);
         
@@ -424,7 +424,7 @@ public:
             sipCpp->glTexImage1D(a0, a1, a2, a3, a4, a5, a6, array);
 %End
 
-    void glTexParameteriv(GLenum target, GLenum pname, SIP_PYOBJECT params /DocType="sequence-or-buffer"/);
+    void glTexParameteriv(GLenum target, GLenum pname, SIP_PYOBJECT params /TypeHint="PYQT_OPENGL_ARRAY"/);
 %MethodCode
         const GLvoid *array = qpyopengl_value_array(&sipError, a2, GL_INT, sipSelf);
         
@@ -433,7 +433,7 @@ public:
 %End
 
     void glTexParameteri(GLenum target, GLenum pname, GLint param);
-    void glTexParameterfv(GLenum target, GLenum pname, SIP_PYOBJECT params /DocType="sequence-or-buffer"/);
+    void glTexParameterfv(GLenum target, GLenum pname, SIP_PYOBJECT params /TypeHint="PYQT_OPENGL_ARRAY"/);
 %MethodCode
         const GLvoid *array = qpyopengl_value_array(&sipError, a2, GL_FLOAT, sipSelf);
         
@@ -449,7 +449,7 @@ public:
     void glHint(GLenum target, GLenum mode);
     void glFrontFace(GLenum mode);
     void glCullFace(GLenum mode);
-    void glIndexubv(SIP_PYOBJECT c /DocType="sequence-or-buffer"/);
+    void glIndexubv(SIP_PYOBJECT c /TypeHint="PYQT_OPENGL_ARRAY"/);
 %MethodCode
         const GLvoid *array = qpyopengl_value_array(&sipError, a0, GL_UNSIGNED_BYTE,
                 sipSelf);
@@ -460,7 +460,7 @@ public:
 
     void glIndexub(GLubyte c);
     GLboolean glIsTexture(GLuint texture);
-    void glGenTextures(GLsizei n, SIP_PYOBJECT *textures /DocType="int-or-tuple"/);
+    void glGenTextures(GLsizei n, SIP_PYOBJECT *textures /TypeHint="Union[int, Tuple[int, ...]]"/);
 %MethodCode
         GLuint *params = new GLuint[a0];
             
@@ -471,7 +471,7 @@ public:
         delete[] params;
 %End
 
-    void glDeleteTextures(GLsizei n, SIP_PYOBJECT textures /DocType="sequence-or-buffer"/);
+    void glDeleteTextures(GLsizei n, SIP_PYOBJECT textures /TypeHint="PYQT_OPENGL_ARRAY"/);
 %MethodCode
         const GLvoid *array = qpyopengl_value_array(&sipError, a1, GL_UNSIGNED_INT,
                 sipSelf);
@@ -481,7 +481,7 @@ public:
 %End
 
     void glBindTexture(GLenum target, GLuint texture);
-    void glTexSubImage2D(GLenum target, GLint level, GLint xoffset, GLint yoffset, GLsizei width, GLsizei height, GLenum format, GLenum type, SIP_PYOBJECT pixels /DocType="sequence-or-buffer"/);
+    void glTexSubImage2D(GLenum target, GLint level, GLint xoffset, GLint yoffset, GLsizei width, GLsizei height, GLenum format, GLenum type, SIP_PYOBJECT pixels /TypeHint="PYQT_OPENGL_ARRAY"/);
 %MethodCode
         const GLvoid *array = qpyopengl_value_array(&sipError, a8, a7, sipSelf);
         
@@ -489,7 +489,7 @@ public:
             sipCpp->glTexSubImage2D(a0, a1, a2, a3, a4, a5, a6, a7, array);
 %End
 
-    void glTexSubImage1D(GLenum target, GLint level, GLint xoffset, GLsizei width, GLenum format, GLenum type, SIP_PYOBJECT pixels /DocType="sequence-or-buffer"/);
+    void glTexSubImage1D(GLenum target, GLint level, GLint xoffset, GLsizei width, GLenum format, GLenum type, SIP_PYOBJECT pixels /TypeHint="PYQT_OPENGL_ARRAY"/);
 %MethodCode
         const GLvoid *array = qpyopengl_value_array(&sipError, a6, a5, sipSelf);
         
@@ -502,7 +502,7 @@ public:
     void glCopyTexImage2D(GLenum target, GLint level, GLenum internalformat, GLint x, GLint y, GLsizei width, GLsizei height, GLint border);
     void glCopyTexImage1D(GLenum target, GLint level, GLenum internalformat, GLint x, GLint y, GLsizei width, GLint border);
     void glPolygonOffset(GLfloat factor, GLfloat units);
-    void glDrawElements(GLenum mode, GLsizei count, GLenum type, SIP_PYOBJECT indices /DocType="sequence-or-buffer"/);
+    void glDrawElements(GLenum mode, GLsizei count, GLenum type, SIP_PYOBJECT indices /TypeHint="PYQT_OPENGL_ARRAY"/);
 %MethodCode
         const GLvoid *array = qpyopengl_value_array(&sipError, a3, a2, sipSelf);
         
@@ -512,7 +512,7 @@ public:
 
     void glDrawArrays(GLenum mode, GLint first, GLsizei count);
     void glCopyTexSubImage3D(GLenum target, GLint level, GLint xoffset, GLint yoffset, GLint zoffset, GLint x, GLint y, GLsizei width, GLsizei height);
-    void glTexSubImage3D(GLenum target, GLint level, GLint xoffset, GLint yoffset, GLint zoffset, GLsizei width, GLsizei height, GLsizei depth, GLenum format, GLenum type, SIP_PYOBJECT pixels /DocType="sequence-or-buffer"/);
+    void glTexSubImage3D(GLenum target, GLint level, GLint xoffset, GLint yoffset, GLint zoffset, GLsizei width, GLsizei height, GLsizei depth, GLenum format, GLenum type, SIP_PYOBJECT pixels /TypeHint="PYQT_OPENGL_ARRAY"/);
 %MethodCode
         const GLvoid *array = qpyopengl_value_array(&sipError, a10, a9, sipSelf);
         
@@ -520,7 +520,7 @@ public:
             sipCpp->glTexSubImage3D(a0, a1, a2, a3, a4, a5, a6, a7, a8, a9, array);
 %End
 
-    void glTexImage3D(GLenum target, GLint level, GLint internalformat, GLsizei width, GLsizei height, GLsizei depth, GLint border, GLenum format, GLenum type, SIP_PYOBJECT pixels /DocType="sequence-or-buffer"/);
+    void glTexImage3D(GLenum target, GLint level, GLint internalformat, GLsizei width, GLsizei height, GLsizei depth, GLint border, GLenum format, GLenum type, SIP_PYOBJECT pixels /TypeHint="PYQT_OPENGL_ARRAY"/);
 %MethodCode
         const GLvoid *array = qpyopengl_value_array(&sipError, a9, a8, sipSelf);
         
@@ -528,7 +528,7 @@ public:
             sipCpp->glTexImage3D(a0, a1, a2, a3, a4, a5, a6, a7, a8, array);
 %End
 
-    void glDrawRangeElements(GLenum mode, GLuint start, GLuint end, GLsizei count, GLenum type, SIP_PYOBJECT indices /DocType="sequence-or-buffer"/);
+    void glDrawRangeElements(GLenum mode, GLuint start, GLuint end, GLsizei count, GLenum type, SIP_PYOBJECT indices /TypeHint="PYQT_OPENGL_ARRAY"/);
 %MethodCode
         const GLvoid *array = qpyopengl_value_array(&sipError, a5, a4, sipSelf);
         
@@ -538,7 +538,7 @@ public:
 
     void glBlendEquation(GLenum mode);
     void glBlendColor(GLfloat red, GLfloat green, GLfloat blue, GLfloat alpha);
-    void glCompressedTexSubImage1D(GLenum target, GLint level, GLint xoffset, GLsizei width, GLenum format, GLsizei imageSize, SIP_PYOBJECT data /DocType="sequence-or-buffer"/);
+    void glCompressedTexSubImage1D(GLenum target, GLint level, GLint xoffset, GLsizei width, GLenum format, GLsizei imageSize, SIP_PYOBJECT data /TypeHint="PYQT_OPENGL_ARRAY"/);
 %MethodCode
         const GLvoid *array = qpyopengl_value_array(&sipError, a6, GL_UNSIGNED_BYTE,
                 sipSelf);
@@ -547,7 +547,7 @@ public:
             sipCpp->glCompressedTexSubImage1D(a0, a1, a2, a3, a4, a5, array);
 %End
 
-    void glCompressedTexSubImage2D(GLenum target, GLint level, GLint xoffset, GLint yoffset, GLsizei width, GLsizei height, GLenum format, GLsizei imageSize, SIP_PYOBJECT data /DocType="sequence-or-buffer"/);
+    void glCompressedTexSubImage2D(GLenum target, GLint level, GLint xoffset, GLint yoffset, GLsizei width, GLsizei height, GLenum format, GLsizei imageSize, SIP_PYOBJECT data /TypeHint="PYQT_OPENGL_ARRAY"/);
 %MethodCode
         const GLvoid *array = qpyopengl_value_array(&sipError, a8, GL_UNSIGNED_BYTE,
                 sipSelf);
@@ -556,7 +556,7 @@ public:
             sipCpp->glCompressedTexSubImage2D(a0, a1, a2, a3, a4, a5, a6, a7, array);
 %End
 
-    void glCompressedTexSubImage3D(GLenum target, GLint level, GLint xoffset, GLint yoffset, GLint zoffset, GLsizei width, GLsizei height, GLsizei depth, GLenum format, GLsizei imageSize, SIP_PYOBJECT data /DocType="sequence-or-buffer"/);
+    void glCompressedTexSubImage3D(GLenum target, GLint level, GLint xoffset, GLint yoffset, GLint zoffset, GLsizei width, GLsizei height, GLsizei depth, GLenum format, GLsizei imageSize, SIP_PYOBJECT data /TypeHint="PYQT_OPENGL_ARRAY"/);
 %MethodCode
         const GLvoid *array = qpyopengl_value_array(&sipError, a10, GL_UNSIGNED_BYTE,
                 sipSelf);
@@ -566,7 +566,7 @@ public:
                 array);
 %End
 
-    void glCompressedTexImage1D(GLenum target, GLint level, GLenum internalformat, GLsizei width, GLint border, GLsizei imageSize, SIP_PYOBJECT data /DocType="sequence-or-buffer"/);
+    void glCompressedTexImage1D(GLenum target, GLint level, GLenum internalformat, GLsizei width, GLint border, GLsizei imageSize, SIP_PYOBJECT data /TypeHint="PYQT_OPENGL_ARRAY"/);
 %MethodCode
         const GLvoid *array = qpyopengl_value_array(&sipError, a6, GL_UNSIGNED_BYTE,
                 sipSelf);
@@ -575,7 +575,7 @@ public:
             sipCpp->glCompressedTexImage1D(a0, a1, a2, a3, a4, a5, array);
 %End
 
-    void glCompressedTexImage2D(GLenum target, GLint level, GLenum internalformat, GLsizei width, GLsizei height, GLint border, GLsizei imageSize, SIP_PYOBJECT data /DocType="sequence-or-buffer"/);
+    void glCompressedTexImage2D(GLenum target, GLint level, GLenum internalformat, GLsizei width, GLsizei height, GLint border, GLsizei imageSize, SIP_PYOBJECT data /TypeHint="PYQT_OPENGL_ARRAY"/);
 %MethodCode
         const GLvoid *array = qpyopengl_value_array(&sipError, a7, GL_UNSIGNED_BYTE,
                 sipSelf);
@@ -584,7 +584,7 @@ public:
             sipCpp->glCompressedTexImage2D(a0, a1, a2, a3, a4, a5, a6, array);
 %End
 
-    void glCompressedTexImage3D(GLenum target, GLint level, GLenum internalformat, GLsizei width, GLsizei height, GLsizei depth, GLint border, GLsizei imageSize, SIP_PYOBJECT data /DocType="sequence-or-buffer"/);
+    void glCompressedTexImage3D(GLenum target, GLint level, GLenum internalformat, GLsizei width, GLsizei height, GLsizei depth, GLint border, GLsizei imageSize, SIP_PYOBJECT data /TypeHint="PYQT_OPENGL_ARRAY"/);
 %MethodCode
         const GLvoid *array = qpyopengl_value_array(&sipError, a8, GL_UNSIGNED_BYTE,
                 sipSelf);
@@ -595,7 +595,7 @@ public:
 
     void glSampleCoverage(GLfloat value, GLboolean invert);
     void glActiveTexture(GLenum texture);
-    void glPointParameteriv(GLenum pname, SIP_PYOBJECT params /DocType="sequence-or-buffer"/);
+    void glPointParameteriv(GLenum pname, SIP_PYOBJECT params /TypeHint="PYQT_OPENGL_ARRAY"/);
 %MethodCode
         const GLvoid *array = qpyopengl_value_array(&sipError, a1, GL_INT, sipSelf);
         
@@ -604,7 +604,7 @@ public:
 %End
 
     void glPointParameteri(GLenum pname, GLint param);
-    void glPointParameterfv(GLenum pname, SIP_PYOBJECT params /DocType="sequence-or-buffer"/);
+    void glPointParameterfv(GLenum pname, SIP_PYOBJECT params /TypeHint="PYQT_OPENGL_ARRAY"/);
 %MethodCode
         const GLvoid *array = qpyopengl_value_array(&sipError, a1, GL_FLOAT, sipSelf);
         
@@ -616,7 +616,7 @@ public:
     void glBlendFuncSeparate(GLenum sfactorRGB, GLenum dfactorRGB, GLenum sfactorAlpha, GLenum dfactorAlpha);
     void glGetBufferParameteriv(GLenum target, GLenum pname, GLint *params);
     GLboolean glUnmapBuffer(GLenum target);
-    void glBufferSubData(GLenum target, GLintptr offset, GLsizeiptr size, SIP_PYOBJECT data /DocType="sequence-or-buffer"/);
+    void glBufferSubData(GLenum target, GLintptr offset, GLsizeiptr size, SIP_PYOBJECT data /TypeHint="PYQT_OPENGL_ARRAY"/);
 %MethodCode
         const GLvoid *array;
         
@@ -629,7 +629,7 @@ public:
             sipCpp->glBufferSubData(a0, a1, a2, array);
 %End
 
-    void glBufferData(GLenum target, GLsizeiptr size, SIP_PYOBJECT data /DocType="sequence-or-buffer"/, GLenum usage);
+    void glBufferData(GLenum target, GLsizeiptr size, SIP_PYOBJECT data /TypeHint="PYQT_OPENGL_ARRAY"/, GLenum usage);
 %MethodCode
         const GLvoid *array;
         
@@ -643,7 +643,7 @@ public:
 %End
 
     GLboolean glIsBuffer(GLuint buffer);
-    void glGenBuffers(GLsizei n, SIP_PYOBJECT *buffers /DocType="int-or-tuple"/);
+    void glGenBuffers(GLsizei n, SIP_PYOBJECT *buffers /TypeHint="Union[int, Tuple[int, ...]]"/);
 %MethodCode
         GLuint *params = new GLuint[a0];
             
@@ -654,7 +654,7 @@ public:
         delete[] params;
 %End
 
-    void glDeleteBuffers(GLsizei n, SIP_PYOBJECT buffers /DocType="sequence-or-buffer"/);
+    void glDeleteBuffers(GLsizei n, SIP_PYOBJECT buffers /TypeHint="PYQT_OPENGL_ARRAY"/);
 %MethodCode
         const GLvoid *array = qpyopengl_value_array(&sipError, a1, GL_UNSIGNED_INT,
                 sipSelf);
@@ -668,7 +668,7 @@ public:
     void glEndQuery(GLenum target);
     void glBeginQuery(GLenum target, GLuint id);
     GLboolean glIsQuery(GLuint id);
-    void glDeleteQueries(GLsizei n, SIP_PYOBJECT ids /DocType="sequence-or-buffer"/);
+    void glDeleteQueries(GLsizei n, SIP_PYOBJECT ids /TypeHint="PYQT_OPENGL_ARRAY"/);
 %MethodCode
         const GLvoid *array = qpyopengl_value_array(&sipError, a1, GL_UNSIGNED_INT,
                 sipSelf);
@@ -677,7 +677,7 @@ public:
             sipCpp->glDeleteQueries(a0, reinterpret_cast<const GLuint *>(array));
 %End
 
-    void glGenQueries(GLsizei n, SIP_PYOBJECT *ids /DocType="int-or-tuple"/);
+    void glGenQueries(GLsizei n, SIP_PYOBJECT *ids /TypeHint="Union[int, Tuple[int, ...]]"/);
 %MethodCode
         GLuint *params = new GLuint[a0];
             
@@ -688,7 +688,7 @@ public:
         delete[] params;
 %End
 
-    void glVertexAttribPointer(GLuint index, GLint size, GLenum type, GLboolean normalized, GLsizei stride, SIP_PYOBJECT pointer /DocType="sequence-or-buffer-or-offset"/);
+    void glVertexAttribPointer(GLuint index, GLint size, GLenum type, GLboolean normalized, GLsizei stride, SIP_PYOBJECT pointer /TypeHint="PYQT_OPENGL_BOUND_ARRAY"/);
 %MethodCode
         const GLvoid *array = qpyopengl_value_array_cached(&sipError, a5, a2, sipSelf,
                 "VertexAttribPointer", a0);
@@ -698,7 +698,7 @@ public:
 %End
 
     void glValidateProgram(GLuint program);
-    void glUniformMatrix4fv(GLint location, GLsizei count, GLboolean transpose, SIP_PYOBJECT value /DocType="sequence-or-buffer"/);
+    void glUniformMatrix4fv(GLint location, GLsizei count, GLboolean transpose, SIP_PYOBJECT value /TypeHint="PYQT_OPENGL_ARRAY"/);
 %MethodCode
         const GLvoid *array = qpyopengl_value_array(&sipError, a3, GL_FLOAT, sipSelf);
         
@@ -707,7 +707,7 @@ public:
                     reinterpret_cast<const GLfloat *>(array));
 %End
 
-    void glUniformMatrix3fv(GLint location, GLsizei count, GLboolean transpose, SIP_PYOBJECT value /DocType="sequence-or-buffer"/);
+    void glUniformMatrix3fv(GLint location, GLsizei count, GLboolean transpose, SIP_PYOBJECT value /TypeHint="PYQT_OPENGL_ARRAY"/);
 %MethodCode
         const GLvoid *array = qpyopengl_value_array(&sipError, a3, GL_FLOAT, sipSelf);
         
@@ -716,7 +716,7 @@ public:
                     reinterpret_cast<const GLfloat *>(array));
 %End
 
-    void glUniformMatrix2fv(GLint location, GLsizei count, GLboolean transpose, SIP_PYOBJECT value /DocType="sequence-or-buffer"/);
+    void glUniformMatrix2fv(GLint location, GLsizei count, GLboolean transpose, SIP_PYOBJECT value /TypeHint="PYQT_OPENGL_ARRAY"/);
 %MethodCode
         const GLvoid *array = qpyopengl_value_array(&sipError, a3, GL_FLOAT, sipSelf);
         
@@ -725,7 +725,7 @@ public:
                     reinterpret_cast<const GLfloat *>(array));
 %End
 
-    void glUniform4iv(GLint location, GLsizei count, SIP_PYOBJECT value /DocType="sequence-or-buffer"/);
+    void glUniform4iv(GLint location, GLsizei count, SIP_PYOBJECT value /TypeHint="PYQT_OPENGL_ARRAY"/);
 %MethodCode
         const GLvoid *array = qpyopengl_value_array(&sipError, a2, GL_INT, sipSelf);
         
@@ -733,7 +733,7 @@ public:
             sipCpp->glUniform4iv(a0, a1, reinterpret_cast<const GLint *>(array));
 %End
 
-    void glUniform3iv(GLint location, GLsizei count, SIP_PYOBJECT value /DocType="sequence-or-buffer"/);
+    void glUniform3iv(GLint location, GLsizei count, SIP_PYOBJECT value /TypeHint="PYQT_OPENGL_ARRAY"/);
 %MethodCode
         const GLvoid *array = qpyopengl_value_array(&sipError, a2, GL_INT, sipSelf);
         
@@ -741,7 +741,7 @@ public:
             sipCpp->glUniform3iv(a0, a1, reinterpret_cast<const GLint *>(array));
 %End
 
-    void glUniform2iv(GLint location, GLsizei count, SIP_PYOBJECT value /DocType="sequence-or-buffer"/);
+    void glUniform2iv(GLint location, GLsizei count, SIP_PYOBJECT value /TypeHint="PYQT_OPENGL_ARRAY"/);
 %MethodCode
         const GLvoid *array = qpyopengl_value_array(&sipError, a2, GL_INT, sipSelf);
         
@@ -749,7 +749,7 @@ public:
             sipCpp->glUniform2iv(a0, a1, reinterpret_cast<const GLint *>(array));
 %End
 
-    void glUniform1iv(GLint location, GLsizei count, SIP_PYOBJECT value /DocType="sequence-or-buffer"/);
+    void glUniform1iv(GLint location, GLsizei count, SIP_PYOBJECT value /TypeHint="PYQT_OPENGL_ARRAY"/);
 %MethodCode
         const GLvoid *array = qpyopengl_value_array(&sipError, a2, GL_INT, sipSelf);
         
@@ -757,7 +757,7 @@ public:
             sipCpp->glUniform1iv(a0, a1, reinterpret_cast<const GLint *>(array));
 %End
 
-    void glUniform4fv(GLint location, GLsizei count, SIP_PYOBJECT value /DocType="sequence-or-buffer"/);
+    void glUniform4fv(GLint location, GLsizei count, SIP_PYOBJECT value /TypeHint="PYQT_OPENGL_ARRAY"/);
 %MethodCode
         const GLvoid *array = qpyopengl_value_array(&sipError, a2, GL_FLOAT, sipSelf);
         
@@ -765,7 +765,7 @@ public:
             sipCpp->glUniform4fv(a0, a1, reinterpret_cast<const GLfloat *>(array));
 %End
 
-    void glUniform3fv(GLint location, GLsizei count, SIP_PYOBJECT value /DocType="sequence-or-buffer"/);
+    void glUniform3fv(GLint location, GLsizei count, SIP_PYOBJECT value /TypeHint="PYQT_OPENGL_ARRAY"/);
 %MethodCode
         const GLvoid *array = qpyopengl_value_array(&sipError, a2, GL_FLOAT, sipSelf);
         
@@ -773,7 +773,7 @@ public:
             sipCpp->glUniform3fv(a0, a1, reinterpret_cast<const GLfloat *>(array));
 %End
 
-    void glUniform2fv(GLint location, GLsizei count, SIP_PYOBJECT value /DocType="sequence-or-buffer"/);
+    void glUniform2fv(GLint location, GLsizei count, SIP_PYOBJECT value /TypeHint="PYQT_OPENGL_ARRAY"/);
 %MethodCode
         const GLvoid *array = qpyopengl_value_array(&sipError, a2, GL_FLOAT, sipSelf);
         
@@ -781,7 +781,7 @@ public:
             sipCpp->glUniform2fv(a0, a1, reinterpret_cast<const GLfloat *>(array));
 %End
 
-    void glUniform1fv(GLint location, GLsizei count, SIP_PYOBJECT value /DocType="sequence-or-buffer"/);
+    void glUniform1fv(GLint location, GLsizei count, SIP_PYOBJECT value /TypeHint="PYQT_OPENGL_ARRAY"/);
 %MethodCode
         const GLvoid *array = qpyopengl_value_array(&sipError, a2, GL_FLOAT, sipSelf);
         
@@ -801,10 +801,10 @@ public:
     void glLinkProgram(GLuint program);
     GLboolean glIsShader(GLuint shader);
     GLboolean glIsProgram(GLuint program);
-    void glGetVertexAttribiv(GLuint index, GLenum pname, SIP_PYOBJECT *params /DocType="int-or-tuple"/);
+    void glGetVertexAttribiv(GLuint index, GLenum pname, SIP_PYOBJECT *params /TypeHint="Union[int, Tuple[int, int, int, int]]"/);
 %MethodCode
         GLint params[4];
-        SIP_SSIZE_T nr_params;
+        Py_ssize_t nr_params;
         
         switch (a1)
         {
@@ -821,10 +821,10 @@ public:
         a2 = qpyopengl_from_GLint(&sipIsErr, params, nr_params);
 %End
 
-    void glGetVertexAttribfv(GLuint index, GLenum pname, SIP_PYOBJECT *params /DocType="float-or-tuple"/);
+    void glGetVertexAttribfv(GLuint index, GLenum pname, SIP_PYOBJECT *params /TypeHint="Union[float, Tuple[float, float, float, float]]"/);
 %MethodCode
         GLfloat params[4];
-        SIP_SSIZE_T nr_params;
+        Py_ssize_t nr_params;
         
         switch (a1)
         {
@@ -841,10 +841,10 @@ public:
         a2 = qpyopengl_from_GLfloat(&sipIsErr, params, nr_params);
 %End
 
-    void glGetVertexAttribdv(GLuint index, GLenum pname, SIP_PYOBJECT *params /DocType="double-or-tuple"/);
+    void glGetVertexAttribdv(GLuint index, GLenum pname, SIP_PYOBJECT *params /TypeHint="Union[float, Tuple[float, float, float, float]]"/);
 %MethodCode
         GLdouble params[4];
-        SIP_SSIZE_T nr_params;
+        Py_ssize_t nr_params;
         
         switch (a1)
         {
@@ -862,7 +862,7 @@ public:
 %End
 
     GLint glGetUniformLocation(GLuint program, const GLchar *name);
-    SIP_PYOBJECT glGetShaderSource(GLuint shader) /DocType="Py_v3:bytes;str"/;
+    SIP_PYOBJECT glGetShaderSource(GLuint shader) /TypeHint="Py_v3:bytes;str"/;
 %MethodCode
         GLint bufsize;
         
@@ -883,7 +883,7 @@ public:
         }
 %End
 
-    SIP_PYOBJECT glGetShaderInfoLog(GLuint shader) /DocType="Py_v3:bytes;str"/;
+    SIP_PYOBJECT glGetShaderInfoLog(GLuint shader) /TypeHint="Py_v3:bytes;str"/;
 %MethodCode
         GLint bufsize;
         
@@ -905,7 +905,7 @@ public:
 %End
 
     void glGetShaderiv(GLuint shader, GLenum pname, GLint *params);
-    SIP_PYOBJECT glGetProgramInfoLog(GLuint program) /DocType="Py_v3:bytes;str"/;
+    SIP_PYOBJECT glGetProgramInfoLog(GLuint program) /TypeHint="Py_v3:bytes;str"/;
 %MethodCode
         GLint bufsize;
         
@@ -926,10 +926,10 @@ public:
         }
 %End
 
-    void glGetProgramiv(GLuint program, GLenum pname, SIP_PYOBJECT *params /DocType="int-or-tuple"/);
+    void glGetProgramiv(GLuint program, GLenum pname, SIP_PYOBJECT *params /TypeHint="Union[int, Tuple[int, int, int]]"/);
 %MethodCode
         GLint params[3];
-        SIP_SSIZE_T nr_params;
+        Py_ssize_t nr_params;
         
         switch (a1)
         {
@@ -949,7 +949,7 @@ public:
 %End
 
     GLint glGetAttribLocation(GLuint program, const GLchar *name);
-    SIP_PYOBJECT glGetAttachedShaders(GLuint program) /DocType="tuple-of-int"/;
+    SIP_PYOBJECT glGetAttachedShaders(GLuint program) /TypeHint="Tuple[int, ...]"/;
 %MethodCode
         GLint nr_shaders;
         
@@ -991,7 +991,7 @@ public:
             sipIsErr = 1;
 %End
 
-    SIP_PYOBJECT glGetActiveUniform(GLuint program, GLuint index) /DocType="str, int, int"/;
+    SIP_PYOBJECT glGetActiveUniform(GLuint program, GLuint index) /TypeHint="Tuple[str, int, int]"/;
 %MethodCode
         GLint bufsize;
         
@@ -1011,7 +1011,7 @@ public:
         delete[] name;
 %End
 
-    SIP_PYOBJECT glGetActiveAttrib(GLuint program, GLuint index) /DocType="str, int, int"/;
+    SIP_PYOBJECT glGetActiveAttrib(GLuint program, GLuint index) /TypeHint="Tuple[str, int, int]"/;
 %MethodCode
         GLint bufsize;
         
@@ -1044,7 +1044,7 @@ public:
     void glStencilMaskSeparate(GLenum face, GLuint mask);
     void glStencilFuncSeparate(GLenum face, GLenum func, GLint ref, GLuint mask);
     void glStencilOpSeparate(GLenum face, GLenum sfail, GLenum dpfail, GLenum dppass);
-    void glDrawBuffers(GLsizei n, SIP_PYOBJECT bufs /DocType="sequence-or-buffer"/);
+    void glDrawBuffers(GLsizei n, SIP_PYOBJECT bufs /TypeHint="PYQT_OPENGL_ARRAY"/);
 %MethodCode
         const GLvoid *array = qpyopengl_value_array(&sipError, a1, GL_UNSIGNED_INT,
                 sipSelf);
@@ -1063,7 +1063,7 @@ public:
     void glPushMatrix();
     void glPopMatrix();
     void glOrtho(GLdouble left, GLdouble right, GLdouble bottom, GLdouble top, GLdouble zNear, GLdouble zFar);
-    void glMultMatrixd(SIP_PYOBJECT m /DocType="sequence-or-buffer"/);
+    void glMultMatrixd(SIP_PYOBJECT m /TypeHint="PYQT_OPENGL_ARRAY"/);
 %MethodCode
         const GLvoid *array = qpyopengl_value_array(&sipError, a0, GL_DOUBLE, sipSelf);
         
@@ -1071,7 +1071,7 @@ public:
             sipCpp->glMultMatrixd(reinterpret_cast<const GLdouble *>(array));
 %End
 
-    void glMultMatrixf(SIP_PYOBJECT m /DocType="sequence-or-buffer"/);
+    void glMultMatrixf(SIP_PYOBJECT m /TypeHint="PYQT_OPENGL_ARRAY"/);
 %MethodCode
         const GLvoid *array = qpyopengl_value_array(&sipError, a0, GL_FLOAT, sipSelf);
         
@@ -1080,7 +1080,7 @@ public:
 %End
 
     void glMatrixMode(GLenum mode);
-    void glLoadMatrixd(SIP_PYOBJECT m /DocType="sequence-or-buffer"/);
+    void glLoadMatrixd(SIP_PYOBJECT m /TypeHint="PYQT_OPENGL_ARRAY"/);
 %MethodCode
         const GLvoid *array = qpyopengl_value_array(&sipError, a0, GL_DOUBLE, sipSelf);
         
@@ -1088,7 +1088,7 @@ public:
             sipCpp->glLoadMatrixd(reinterpret_cast<const GLdouble *>(array));
 %End
 
-    void glLoadMatrixf(SIP_PYOBJECT m /DocType="sequence-or-buffer"/);
+    void glLoadMatrixf(SIP_PYOBJECT m /TypeHint="PYQT_OPENGL_ARRAY"/);
 %MethodCode
         const GLvoid *array = qpyopengl_value_array(&sipError, a0, GL_FLOAT, sipSelf);
         
@@ -1099,10 +1099,10 @@ public:
     void glLoadIdentity();
     void glFrustum(GLdouble left, GLdouble right, GLdouble bottom, GLdouble top, GLdouble zNear, GLdouble zFar);
     GLboolean glIsList(GLuint list);
-    void glGetTexGeniv(GLenum coord, GLenum pname, SIP_PYOBJECT *params /DocType="int-or-tuple"/);
+    void glGetTexGeniv(GLenum coord, GLenum pname, SIP_PYOBJECT *params /TypeHint="Union[int, Tuple[int, int, int, int]]"/);
 %MethodCode
         GLint params[4];
-        SIP_SSIZE_T nr_params;
+        Py_ssize_t nr_params;
         
         switch (a1)
         {
@@ -1120,10 +1120,10 @@ public:
         a2 = qpyopengl_from_GLint(&sipIsErr, params, nr_params);
 %End
 
-    void glGetTexGenfv(GLenum coord, GLenum pname, SIP_PYOBJECT *params /DocType="float-or-tuple"/);
+    void glGetTexGenfv(GLenum coord, GLenum pname, SIP_PYOBJECT *params /TypeHint="Union[float, Tuple[float, float, float, float]]"/);
 %MethodCode
         GLfloat params[4];
-        SIP_SSIZE_T nr_params;
+        Py_ssize_t nr_params;
         
         switch (a1)
         {
@@ -1141,10 +1141,10 @@ public:
         a2 = qpyopengl_from_GLfloat(&sipIsErr, params, nr_params);
 %End
 
-    void glGetTexGendv(GLenum coord, GLenum pname, SIP_PYOBJECT *params /DocType="float-or-tuple"/);
+    void glGetTexGendv(GLenum coord, GLenum pname, SIP_PYOBJECT *params /TypeHint="Union[float, Tuple[float, float, float, float]]"/);
 %MethodCode
         GLdouble params[4];
-        SIP_SSIZE_T nr_params;
+        Py_ssize_t nr_params;
         
         switch (a1)
         {
@@ -1162,10 +1162,10 @@ public:
         a2 = qpyopengl_from_GLdouble(&sipIsErr, params, nr_params);
 %End
 
-    void glGetTexEnviv(GLenum target, GLenum pname, SIP_PYOBJECT *params /DocType="int-or-tuple"/);
+    void glGetTexEnviv(GLenum target, GLenum pname, SIP_PYOBJECT *params /TypeHint="Union[int, Tuple[int, int, int, int]]"/);
 %MethodCode
         GLint params[4];
-        SIP_SSIZE_T nr_params;
+        Py_ssize_t nr_params;
         
         switch (a1)
         {
@@ -1182,10 +1182,10 @@ public:
         a2 = qpyopengl_from_GLint(&sipIsErr, params, nr_params);
 %End
 
-    void glGetTexEnvfv(GLenum target, GLenum pname, SIP_PYOBJECT *params /DocType="float-or-tuple"/);
+    void glGetTexEnvfv(GLenum target, GLenum pname, SIP_PYOBJECT *params /TypeHint="Union[float, Tuple[float, float, float, float]]"/);
 %MethodCode
         GLfloat params[4];
-        SIP_SSIZE_T nr_params;
+        Py_ssize_t nr_params;
         
         switch (a1)
         {
@@ -1202,10 +1202,10 @@ public:
         a2 = qpyopengl_from_GLfloat(&sipIsErr, params, nr_params);
 %End
 
-    void glGetMaterialiv(GLenum face, GLenum pname, SIP_PYOBJECT *params /DocType="int-or-tuple"/);
+    void glGetMaterialiv(GLenum face, GLenum pname, SIP_PYOBJECT *params /TypeHint="Union[int, Tuple[int, int, int], Tuple[int, int, int, int]]"/);
 %MethodCode
         GLint params[4];
-        SIP_SSIZE_T nr_params;
+        Py_ssize_t nr_params;
         
         switch (a1)
         {
@@ -1226,10 +1226,10 @@ public:
         a2 = qpyopengl_from_GLint(&sipIsErr, params, nr_params);
 %End
 
-    void glGetMaterialfv(GLenum face, GLenum pname, SIP_PYOBJECT *params /DocType="float-or-tuple"/);
+    void glGetMaterialfv(GLenum face, GLenum pname, SIP_PYOBJECT *params /TypeHint="Union[float, Tuple[float, float, float], Tuple[float, float, float, float]]"/);
 %MethodCode
         GLfloat params[4];
-        SIP_SSIZE_T nr_params;
+        Py_ssize_t nr_params;
         
         switch (a1)
         {
@@ -1250,10 +1250,10 @@ public:
         a2 = qpyopengl_from_GLfloat(&sipIsErr, params, nr_params);
 %End
 
-    void glGetLightiv(GLenum light, GLenum pname, SIP_PYOBJECT *params /DocType="int-or-tuple"/);
+    void glGetLightiv(GLenum light, GLenum pname, SIP_PYOBJECT *params /TypeHint="Union[int, Tuple[int, int, int], Tuple[int, int, int, int]]"/);
 %MethodCode
         GLint params[4];
-        SIP_SSIZE_T nr_params;
+        Py_ssize_t nr_params;
         
         switch (a1)
         {
@@ -1277,10 +1277,10 @@ public:
         a2 = qpyopengl_from_GLint(&sipIsErr, params, nr_params);
 %End
 
-    void glGetLightfv(GLenum light, GLenum pname, SIP_PYOBJECT *params /DocType="float-or-tuple"/);
+    void glGetLightfv(GLenum light, GLenum pname, SIP_PYOBJECT *params /TypeHint="Union[float, Tuple[float, float, float], Tuple[float, float, float, float]]"/);
 %MethodCode
         GLfloat params[4];
-        SIP_SSIZE_T nr_params;
+        Py_ssize_t nr_params;
         
         switch (a1)
         {
@@ -1304,7 +1304,7 @@ public:
         a2 = qpyopengl_from_GLfloat(&sipIsErr, params, nr_params);
 %End
 
-    void glGetClipPlane(GLenum plane, SIP_PYOBJECT *equation /DocType="tuple"/);
+    void glGetClipPlane(GLenum plane, SIP_PYOBJECT *equation /TypeHint="Tuple[float, float, float, float]"/);
 %MethodCode
         GLdouble params[4];
         
@@ -1313,7 +1313,7 @@ public:
         a1 = qpyopengl_from_GLdouble(&sipIsErr, params, 4);
 %End
 
-    void glDrawPixels(GLsizei width, GLsizei height, GLenum format, GLenum type, SIP_PYOBJECT pixels /DocType="sequence-or-buffer"/);
+    void glDrawPixels(GLsizei width, GLsizei height, GLenum format, GLenum type, SIP_PYOBJECT pixels /TypeHint="PYQT_OPENGL_ARRAY"/);
 %MethodCode
         const GLvoid *array = qpyopengl_value_array(&sipError, a4, a3, sipSelf);
         
@@ -1322,7 +1322,7 @@ public:
 %End
 
     void glCopyPixels(GLint x, GLint y, GLsizei width, GLsizei height, GLenum type);
-    void glPixelMapusv(GLenum map, GLint mapsize, SIP_PYOBJECT values /DocType="sequence-or-buffer"/);
+    void glPixelMapusv(GLenum map, GLint mapsize, SIP_PYOBJECT values /TypeHint="PYQT_OPENGL_ARRAY"/);
 %MethodCode
         const GLvoid *array = qpyopengl_value_array(&sipError, a2, GL_UNSIGNED_SHORT,
                 sipSelf);
@@ -1331,7 +1331,7 @@ public:
             sipCpp->glPixelMapusv(a0, a1, reinterpret_cast<const GLushort *>(array));
 %End
 
-    void glPixelMapuiv(GLenum map, GLint mapsize, SIP_PYOBJECT values /DocType="sequence-or-buffer"/);
+    void glPixelMapuiv(GLenum map, GLint mapsize, SIP_PYOBJECT values /TypeHint="PYQT_OPENGL_ARRAY"/);
 %MethodCode
         const GLvoid *array = qpyopengl_value_array(&sipError, a2, GL_UNSIGNED_INT,
                 sipSelf);
@@ -1340,7 +1340,7 @@ public:
             sipCpp->glPixelMapuiv(a0, a1, reinterpret_cast<const GLuint *>(array));
 %End
 
-    void glPixelMapfv(GLenum map, GLint mapsize, SIP_PYOBJECT values /DocType="sequence-or-buffer"/);
+    void glPixelMapfv(GLenum map, GLint mapsize, SIP_PYOBJECT values /TypeHint="PYQT_OPENGL_ARRAY"/);
 %MethodCode
         const GLvoid *array = qpyopengl_value_array(&sipError, a2, GL_FLOAT, sipSelf);
         
@@ -1356,7 +1356,7 @@ public:
     void glEvalMesh2(GLenum mode, GLint i1, GLint i2, GLint j1, GLint j2);
     void glEvalPoint1(GLint i);
     void glEvalMesh1(GLenum mode, GLint i1, GLint i2);
-    void glEvalCoord2fv(SIP_PYOBJECT u /DocType="sequence-or-buffer"/);
+    void glEvalCoord2fv(SIP_PYOBJECT u /TypeHint="PYQT_OPENGL_ARRAY"/);
 %MethodCode
         const GLvoid *array = qpyopengl_value_array(&sipError, a0, GL_FLOAT, sipSelf);
         
@@ -1365,7 +1365,7 @@ public:
 %End
 
     void glEvalCoord2f(GLfloat u, GLfloat v);
-    void glEvalCoord2dv(SIP_PYOBJECT u /DocType="sequence-or-buffer"/);
+    void glEvalCoord2dv(SIP_PYOBJECT u /TypeHint="PYQT_OPENGL_ARRAY"/);
 %MethodCode
         const GLvoid *array = qpyopengl_value_array(&sipError, a0, GL_DOUBLE, sipSelf);
         
@@ -1374,7 +1374,7 @@ public:
 %End
 
     void glEvalCoord2d(GLdouble u, GLdouble v);
-    void glEvalCoord1fv(SIP_PYOBJECT u /DocType="sequence-or-buffer"/);
+    void glEvalCoord1fv(SIP_PYOBJECT u /TypeHint="PYQT_OPENGL_ARRAY"/);
 %MethodCode
         const GLvoid *array = qpyopengl_value_array(&sipError, a0, GL_FLOAT, sipSelf);
         
@@ -1383,7 +1383,7 @@ public:
 %End
 
     void glEvalCoord1f(GLfloat u);
-    void glEvalCoord1dv(SIP_PYOBJECT u /DocType="sequence-or-buffer"/);
+    void glEvalCoord1dv(SIP_PYOBJECT u /TypeHint="PYQT_OPENGL_ARRAY"/);
 %MethodCode
         const GLvoid *array = qpyopengl_value_array(&sipError, a0, GL_DOUBLE, sipSelf);
         
@@ -1396,7 +1396,7 @@ public:
     void glMapGrid2d(GLint un, GLdouble u1, GLdouble u2, GLint vn, GLdouble v1, GLdouble v2);
     void glMapGrid1f(GLint un, GLfloat u1, GLfloat u2);
     void glMapGrid1d(GLint un, GLdouble u1, GLdouble u2);
-    void glMap2f(GLenum target, GLfloat u1, GLfloat u2, GLint ustride, GLint uorder, GLfloat v1, GLfloat v2, GLint vstride, GLint vorder, SIP_PYOBJECT points /DocType="sequence-or-buffer"/);
+    void glMap2f(GLenum target, GLfloat u1, GLfloat u2, GLint ustride, GLint uorder, GLfloat v1, GLfloat v2, GLint vstride, GLint vorder, SIP_PYOBJECT points /TypeHint="PYQT_OPENGL_ARRAY"/);
 %MethodCode
         const GLvoid *array = qpyopengl_value_array(&sipError, a9, GL_FLOAT, sipSelf);
         
@@ -1405,7 +1405,7 @@ public:
                     reinterpret_cast<const GLfloat *>(array));
 %End
 
-    void glMap2d(GLenum target, GLdouble u1, GLdouble u2, GLint ustride, GLint uorder, GLdouble v1, GLdouble v2, GLint vstride, GLint vorder, SIP_PYOBJECT points /DocType="sequence-or-buffer"/);
+    void glMap2d(GLenum target, GLdouble u1, GLdouble u2, GLint ustride, GLint uorder, GLdouble v1, GLdouble v2, GLint vstride, GLint vorder, SIP_PYOBJECT points /TypeHint="PYQT_OPENGL_ARRAY"/);
 %MethodCode
         const GLvoid *array = qpyopengl_value_array(&sipError, a9, GL_DOUBLE, sipSelf);
         
@@ -1414,7 +1414,7 @@ public:
                     reinterpret_cast<const GLdouble *>(array));
 %End
 
-    void glMap1f(GLenum target, GLfloat u1, GLfloat u2, GLint stride, GLint order, SIP_PYOBJECT points /DocType="sequence-or-buffer"/);
+    void glMap1f(GLenum target, GLfloat u1, GLfloat u2, GLint stride, GLint order, SIP_PYOBJECT points /TypeHint="PYQT_OPENGL_ARRAY"/);
 %MethodCode
         const GLvoid *array = qpyopengl_value_array(&sipError, a5, GL_FLOAT, sipSelf);
         
@@ -1423,7 +1423,7 @@ public:
                     reinterpret_cast<const GLfloat *>(array));
 %End
 
-    void glMap1d(GLenum target, GLdouble u1, GLdouble u2, GLint stride, GLint order, SIP_PYOBJECT points /DocType="sequence-or-buffer"/);
+    void glMap1d(GLenum target, GLdouble u1, GLdouble u2, GLint stride, GLint order, SIP_PYOBJECT points /TypeHint="PYQT_OPENGL_ARRAY"/);
 %MethodCode
         const GLvoid *array = qpyopengl_value_array(&sipError, a5, GL_DOUBLE, sipSelf);
         
@@ -1444,7 +1444,7 @@ public:
     void glLoadName(GLuint name);
     void glInitNames();
     GLint glRenderMode(GLenum mode);
-    void glTexGeniv(GLenum coord, GLenum pname, SIP_PYOBJECT params /DocType="sequence-or-buffer"/);
+    void glTexGeniv(GLenum coord, GLenum pname, SIP_PYOBJECT params /TypeHint="PYQT_OPENGL_ARRAY"/);
 %MethodCode
         const GLvoid *array = qpyopengl_value_array(&sipError, a2, GL_INT, sipSelf);
         
@@ -1453,7 +1453,7 @@ public:
 %End
 
     void glTexGeni(GLenum coord, GLenum pname, GLint param);
-    void glTexGenfv(GLenum coord, GLenum pname, SIP_PYOBJECT params /DocType="sequence-or-buffer"/);
+    void glTexGenfv(GLenum coord, GLenum pname, SIP_PYOBJECT params /TypeHint="PYQT_OPENGL_ARRAY"/);
 %MethodCode
         const GLvoid *array = qpyopengl_value_array(&sipError, a2, GL_FLOAT, sipSelf);
         
@@ -1462,7 +1462,7 @@ public:
 %End
 
     void glTexGenf(GLenum coord, GLenum pname, GLfloat param);
-    void glTexGendv(GLenum coord, GLenum pname, SIP_PYOBJECT params /DocType="sequence-or-buffer"/);
+    void glTexGendv(GLenum coord, GLenum pname, SIP_PYOBJECT params /TypeHint="PYQT_OPENGL_ARRAY"/);
 %MethodCode
         const GLvoid *array = qpyopengl_value_array(&sipError, a2, GL_DOUBLE, sipSelf);
         
@@ -1471,7 +1471,7 @@ public:
 %End
 
     void glTexGend(GLenum coord, GLenum pname, GLdouble param);
-    void glTexEnviv(GLenum target, GLenum pname, SIP_PYOBJECT params /DocType="sequence-or-buffer"/);
+    void glTexEnviv(GLenum target, GLenum pname, SIP_PYOBJECT params /TypeHint="PYQT_OPENGL_ARRAY"/);
 %MethodCode
         const GLvoid *array = qpyopengl_value_array(&sipError, a2, GL_INT, sipSelf);
         
@@ -1480,7 +1480,7 @@ public:
 %End
 
     void glTexEnvi(GLenum target, GLenum pname, GLint param);
-    void glTexEnvfv(GLenum target, GLenum pname, SIP_PYOBJECT params /DocType="sequence-or-buffer"/);
+    void glTexEnvfv(GLenum target, GLenum pname, SIP_PYOBJECT params /TypeHint="PYQT_OPENGL_ARRAY"/);
 %MethodCode
         const GLvoid *array = qpyopengl_value_array(&sipError, a2, GL_FLOAT, sipSelf);
         
@@ -1490,7 +1490,7 @@ public:
 
     void glTexEnvf(GLenum target, GLenum pname, GLfloat param);
     void glShadeModel(GLenum mode);
-    void glPolygonStipple(SIP_PYOBJECT mask /DocType="sequence-or-buffer"/);
+    void glPolygonStipple(SIP_PYOBJECT mask /TypeHint="PYQT_OPENGL_ARRAY"/);
 %MethodCode
         const GLvoid *array = qpyopengl_value_array(&sipError, a0, GL_UNSIGNED_BYTE,
                 sipSelf);
@@ -1499,7 +1499,7 @@ public:
             sipCpp->glPolygonStipple(reinterpret_cast<const GLubyte *>(array));
 %End
 
-    void glMaterialiv(GLenum face, GLenum pname, SIP_PYOBJECT params /DocType="sequence-or-buffer"/);
+    void glMaterialiv(GLenum face, GLenum pname, SIP_PYOBJECT params /TypeHint="PYQT_OPENGL_ARRAY"/);
 %MethodCode
         const GLvoid *array = qpyopengl_value_array(&sipError, a2, GL_INT, sipSelf);
         
@@ -1508,7 +1508,7 @@ public:
 %End
 
     void glMateriali(GLenum face, GLenum pname, GLint param);
-    void glMaterialfv(GLenum face, GLenum pname, SIP_PYOBJECT params /DocType="sequence-or-buffer"/);
+    void glMaterialfv(GLenum face, GLenum pname, SIP_PYOBJECT params /TypeHint="PYQT_OPENGL_ARRAY"/);
 %MethodCode
         const GLvoid *array = qpyopengl_value_array(&sipError, a2, GL_FLOAT, sipSelf);
         
@@ -1518,7 +1518,7 @@ public:
 
     void glMaterialf(GLenum face, GLenum pname, GLfloat param);
     void glLineStipple(GLint factor, GLushort pattern);
-    void glLightModeliv(GLenum pname, SIP_PYOBJECT params /DocType="sequence-or-buffer"/);
+    void glLightModeliv(GLenum pname, SIP_PYOBJECT params /TypeHint="PYQT_OPENGL_ARRAY"/);
 %MethodCode
         const GLvoid *array = qpyopengl_value_array(&sipError, a1, GL_INT, sipSelf);
         
@@ -1527,7 +1527,7 @@ public:
 %End
 
     void glLightModeli(GLenum pname, GLint param);
-    void glLightModelfv(GLenum pname, SIP_PYOBJECT params /DocType="sequence-or-buffer"/);
+    void glLightModelfv(GLenum pname, SIP_PYOBJECT params /TypeHint="PYQT_OPENGL_ARRAY"/);
 %MethodCode
         const GLvoid *array = qpyopengl_value_array(&sipError, a1, GL_FLOAT, sipSelf);
         
@@ -1536,7 +1536,7 @@ public:
 %End
 
     void glLightModelf(GLenum pname, GLfloat param);
-    void glLightiv(GLenum light, GLenum pname, SIP_PYOBJECT params /DocType="sequence-or-buffer"/);
+    void glLightiv(GLenum light, GLenum pname, SIP_PYOBJECT params /TypeHint="PYQT_OPENGL_ARRAY"/);
 %MethodCode
         const GLvoid *array = qpyopengl_value_array(&sipError, a2, GL_INT, sipSelf);
         
@@ -1545,7 +1545,7 @@ public:
 %End
 
     void glLighti(GLenum light, GLenum pname, GLint param);
-    void glLightfv(GLenum light, GLenum pname, SIP_PYOBJECT params /DocType="sequence-or-buffer"/);
+    void glLightfv(GLenum light, GLenum pname, SIP_PYOBJECT params /TypeHint="PYQT_OPENGL_ARRAY"/);
 %MethodCode
         const GLvoid *array = qpyopengl_value_array(&sipError, a2, GL_FLOAT, sipSelf);
         
@@ -1554,7 +1554,7 @@ public:
 %End
 
     void glLightf(GLenum light, GLenum pname, GLfloat param);
-    void glFogiv(GLenum pname, SIP_PYOBJECT params /DocType="sequence-or-buffer"/);
+    void glFogiv(GLenum pname, SIP_PYOBJECT params /TypeHint="PYQT_OPENGL_ARRAY"/);
 %MethodCode
         const GLvoid *array = qpyopengl_value_array(&sipError, a1, GL_INT, sipSelf);
         
@@ -1563,7 +1563,7 @@ public:
 %End
 
     void glFogi(GLenum pname, GLint param);
-    void glFogfv(GLenum pname, SIP_PYOBJECT params /DocType="sequence-or-buffer"/);
+    void glFogfv(GLenum pname, SIP_PYOBJECT params /TypeHint="PYQT_OPENGL_ARRAY"/);
 %MethodCode
         const GLvoid *array = qpyopengl_value_array(&sipError, a1, GL_FLOAT, sipSelf);
         
@@ -1573,7 +1573,7 @@ public:
 
     void glFogf(GLenum pname, GLfloat param);
     void glColorMaterial(GLenum face, GLenum mode);
-    void glClipPlane(GLenum plane, SIP_PYOBJECT equation /DocType="sequence-or-buffer"/);
+    void glClipPlane(GLenum plane, SIP_PYOBJECT equation /TypeHint="PYQT_OPENGL_ARRAY"/);
 %MethodCode
         const GLvoid *array = qpyopengl_value_array(&sipError, a1, GL_DOUBLE, sipSelf);
         
@@ -1581,7 +1581,7 @@ public:
             sipCpp->glClipPlane(a0, reinterpret_cast<const GLdouble *>(array));
 %End
 
-    void glVertex4sv(SIP_PYOBJECT v /DocType="sequence-or-buffer"/);
+    void glVertex4sv(SIP_PYOBJECT v /TypeHint="PYQT_OPENGL_ARRAY"/);
 %MethodCode
         const GLvoid *array = qpyopengl_value_array(&sipError, a0, GL_SHORT, sipSelf);
         
@@ -1590,7 +1590,7 @@ public:
 %End
 
     void glVertex4s(GLshort x, GLshort y, GLshort z, GLshort w);
-    void glVertex4iv(SIP_PYOBJECT v /DocType="sequence-or-buffer"/);
+    void glVertex4iv(SIP_PYOBJECT v /TypeHint="PYQT_OPENGL_ARRAY"/);
 %MethodCode
         const GLvoid *array = qpyopengl_value_array(&sipError, a0, GL_INT, sipSelf);
         
@@ -1599,7 +1599,7 @@ public:
 %End
 
     void glVertex4i(GLint x, GLint y, GLint z, GLint w);
-    void glVertex4fv(SIP_PYOBJECT v /DocType="sequence-or-buffer"/);
+    void glVertex4fv(SIP_PYOBJECT v /TypeHint="PYQT_OPENGL_ARRAY"/);
 %MethodCode
         const GLvoid *array = qpyopengl_value_array(&sipError, a0, GL_FLOAT, sipSelf);
         
@@ -1608,7 +1608,7 @@ public:
 %End
 
     void glVertex4f(GLfloat x, GLfloat y, GLfloat z, GLfloat w);
-    void glVertex4dv(SIP_PYOBJECT v /DocType="sequence-or-buffer"/);
+    void glVertex4dv(SIP_PYOBJECT v /TypeHint="PYQT_OPENGL_ARRAY"/);
 %MethodCode
         const GLvoid *array = qpyopengl_value_array(&sipError, a0, GL_DOUBLE, sipSelf);
         
@@ -1617,7 +1617,7 @@ public:
 %End
 
     void glVertex4d(GLdouble x, GLdouble y, GLdouble z, GLdouble w);
-    void glVertex3sv(SIP_PYOBJECT v /DocType="sequence-or-buffer"/);
+    void glVertex3sv(SIP_PYOBJECT v /TypeHint="PYQT_OPENGL_ARRAY"/);
 %MethodCode
         const GLvoid *array = qpyopengl_value_array(&sipError, a0, GL_SHORT, sipSelf);
         
@@ -1626,7 +1626,7 @@ public:
 %End
 
     void glVertex3s(GLshort x, GLshort y, GLshort z);
-    void glVertex3iv(SIP_PYOBJECT v /DocType="sequence-or-buffer"/);
+    void glVertex3iv(SIP_PYOBJECT v /TypeHint="PYQT_OPENGL_ARRAY"/);
 %MethodCode
         const GLvoid *array = qpyopengl_value_array(&sipError, a0, GL_INT, sipSelf);
         
@@ -1635,7 +1635,7 @@ public:
 %End
 
     void glVertex3i(GLint x, GLint y, GLint z);
-    void glVertex3fv(SIP_PYOBJECT v /DocType="sequence-or-buffer"/);
+    void glVertex3fv(SIP_PYOBJECT v /TypeHint="PYQT_OPENGL_ARRAY"/);
 %MethodCode
         const GLvoid *array = qpyopengl_value_array(&sipError, a0, GL_FLOAT, sipSelf);
         
@@ -1644,7 +1644,7 @@ public:
 %End
 
     void glVertex3f(GLfloat x, GLfloat y, GLfloat z);
-    void glVertex3dv(SIP_PYOBJECT v /DocType="sequence-or-buffer"/);
+    void glVertex3dv(SIP_PYOBJECT v /TypeHint="PYQT_OPENGL_ARRAY"/);
 %MethodCode
         const GLvoid *array = qpyopengl_value_array(&sipError, a0, GL_DOUBLE, sipSelf);
         
@@ -1653,7 +1653,7 @@ public:
 %End
 
     void glVertex3d(GLdouble x, GLdouble y, GLdouble z);
-    void glVertex2sv(SIP_PYOBJECT v /DocType="sequence-or-buffer"/);
+    void glVertex2sv(SIP_PYOBJECT v /TypeHint="PYQT_OPENGL_ARRAY"/);
 %MethodCode
         const GLvoid *array = qpyopengl_value_array(&sipError, a0, GL_SHORT, sipSelf);
         
@@ -1662,7 +1662,7 @@ public:
 %End
 
     void glVertex2s(GLshort x, GLshort y);
-    void glVertex2iv(SIP_PYOBJECT v /DocType="sequence-or-buffer"/);
+    void glVertex2iv(SIP_PYOBJECT v /TypeHint="PYQT_OPENGL_ARRAY"/);
 %MethodCode
         const GLvoid *array = qpyopengl_value_array(&sipError, a0, GL_INT, sipSelf);
         
@@ -1671,7 +1671,7 @@ public:
 %End
 
     void glVertex2i(GLint x, GLint y);
-    void glVertex2fv(SIP_PYOBJECT v /DocType="sequence-or-buffer"/);
+    void glVertex2fv(SIP_PYOBJECT v /TypeHint="PYQT_OPENGL_ARRAY"/);
 %MethodCode
         const GLvoid *array = qpyopengl_value_array(&sipError, a0, GL_FLOAT, sipSelf);
         
@@ -1680,7 +1680,7 @@ public:
 %End
 
     void glVertex2f(GLfloat x, GLfloat y);
-    void glVertex2dv(SIP_PYOBJECT v /DocType="sequence-or-buffer"/);
+    void glVertex2dv(SIP_PYOBJECT v /TypeHint="PYQT_OPENGL_ARRAY"/);
 %MethodCode
         const GLvoid *array = qpyopengl_value_array(&sipError, a0, GL_DOUBLE, sipSelf);
         
@@ -1689,7 +1689,7 @@ public:
 %End
 
     void glVertex2d(GLdouble x, GLdouble y);
-    void glTexCoord4sv(SIP_PYOBJECT v /DocType="sequence-or-buffer"/);
+    void glTexCoord4sv(SIP_PYOBJECT v /TypeHint="PYQT_OPENGL_ARRAY"/);
 %MethodCode
         const GLvoid *array = qpyopengl_value_array(&sipError, a0, GL_SHORT, sipSelf);
         
@@ -1698,7 +1698,7 @@ public:
 %End
 
     void glTexCoord4s(GLshort s, GLshort t, GLshort r, GLshort q);
-    void glTexCoord4iv(SIP_PYOBJECT v /DocType="sequence-or-buffer"/);
+    void glTexCoord4iv(SIP_PYOBJECT v /TypeHint="PYQT_OPENGL_ARRAY"/);
 %MethodCode
         const GLvoid *array = qpyopengl_value_array(&sipError, a0, GL_INT, sipSelf);
         
@@ -1707,7 +1707,7 @@ public:
 %End
 
     void glTexCoord4i(GLint s, GLint t, GLint r, GLint q);
-    void glTexCoord4fv(SIP_PYOBJECT v /DocType="sequence-or-buffer"/);
+    void glTexCoord4fv(SIP_PYOBJECT v /TypeHint="PYQT_OPENGL_ARRAY"/);
 %MethodCode
         const GLvoid *array = qpyopengl_value_array(&sipError, a0, GL_FLOAT, sipSelf);
         
@@ -1716,7 +1716,7 @@ public:
 %End
 
     void glTexCoord4f(GLfloat s, GLfloat t, GLfloat r, GLfloat q);
-    void glTexCoord4dv(SIP_PYOBJECT v /DocType="sequence-or-buffer"/);
+    void glTexCoord4dv(SIP_PYOBJECT v /TypeHint="PYQT_OPENGL_ARRAY"/);
 %MethodCode
         const GLvoid *array = qpyopengl_value_array(&sipError, a0, GL_DOUBLE, sipSelf);
         
@@ -1725,7 +1725,7 @@ public:
 %End
 
     void glTexCoord4d(GLdouble s, GLdouble t, GLdouble r, GLdouble q);
-    void glTexCoord3sv(SIP_PYOBJECT v /DocType="sequence-or-buffer"/);
+    void glTexCoord3sv(SIP_PYOBJECT v /TypeHint="PYQT_OPENGL_ARRAY"/);
 %MethodCode
         const GLvoid *array = qpyopengl_value_array(&sipError, a0, GL_SHORT, sipSelf);
         
@@ -1734,7 +1734,7 @@ public:
 %End
 
     void glTexCoord3s(GLshort s, GLshort t, GLshort r);
-    void glTexCoord3iv(SIP_PYOBJECT v /DocType="sequence-or-buffer"/);
+    void glTexCoord3iv(SIP_PYOBJECT v /TypeHint="PYQT_OPENGL_ARRAY"/);
 %MethodCode
         const GLvoid *array = qpyopengl_value_array(&sipError, a0, GL_INT, sipSelf);
         
@@ -1743,7 +1743,7 @@ public:
 %End
 
     void glTexCoord3i(GLint s, GLint t, GLint r);
-    void glTexCoord3fv(SIP_PYOBJECT v /DocType="sequence-or-buffer"/);
+    void glTexCoord3fv(SIP_PYOBJECT v /TypeHint="PYQT_OPENGL_ARRAY"/);
 %MethodCode
         const GLvoid *array = qpyopengl_value_array(&sipError, a0, GL_FLOAT, sipSelf);
         
@@ -1752,7 +1752,7 @@ public:
 %End
 
     void glTexCoord3f(GLfloat s, GLfloat t, GLfloat r);
-    void glTexCoord3dv(SIP_PYOBJECT v /DocType="sequence-or-buffer"/);
+    void glTexCoord3dv(SIP_PYOBJECT v /TypeHint="PYQT_OPENGL_ARRAY"/);
 %MethodCode
         const GLvoid *array = qpyopengl_value_array(&sipError, a0, GL_DOUBLE, sipSelf);
         
@@ -1761,7 +1761,7 @@ public:
 %End
 
     void glTexCoord3d(GLdouble s, GLdouble t, GLdouble r);
-    void glTexCoord2sv(SIP_PYOBJECT v /DocType="sequence-or-buffer"/);
+    void glTexCoord2sv(SIP_PYOBJECT v /TypeHint="PYQT_OPENGL_ARRAY"/);
 %MethodCode
         const GLvoid *array = qpyopengl_value_array(&sipError, a0, GL_SHORT, sipSelf);
         
@@ -1770,7 +1770,7 @@ public:
 %End
 
     void glTexCoord2s(GLshort s, GLshort t);
-    void glTexCoord2iv(SIP_PYOBJECT v /DocType="sequence-or-buffer"/);
+    void glTexCoord2iv(SIP_PYOBJECT v /TypeHint="PYQT_OPENGL_ARRAY"/);
 %MethodCode
         const GLvoid *array = qpyopengl_value_array(&sipError, a0, GL_INT, sipSelf);
         
@@ -1779,7 +1779,7 @@ public:
 %End
 
     void glTexCoord2i(GLint s, GLint t);
-    void glTexCoord2fv(SIP_PYOBJECT v /DocType="sequence-or-buffer"/);
+    void glTexCoord2fv(SIP_PYOBJECT v /TypeHint="PYQT_OPENGL_ARRAY"/);
 %MethodCode
         const GLvoid *array = qpyopengl_value_array(&sipError, a0, GL_FLOAT, sipSelf);
         
@@ -1788,7 +1788,7 @@ public:
 %End
 
     void glTexCoord2f(GLfloat s, GLfloat t);
-    void glTexCoord2dv(SIP_PYOBJECT v /DocType="sequence-or-buffer"/);
+    void glTexCoord2dv(SIP_PYOBJECT v /TypeHint="PYQT_OPENGL_ARRAY"/);
 %MethodCode
         const GLvoid *array = qpyopengl_value_array(&sipError, a0, GL_DOUBLE, sipSelf);
         
@@ -1797,7 +1797,7 @@ public:
 %End
 
     void glTexCoord2d(GLdouble s, GLdouble t);
-    void glTexCoord1sv(SIP_PYOBJECT v /DocType="sequence-or-buffer"/);
+    void glTexCoord1sv(SIP_PYOBJECT v /TypeHint="PYQT_OPENGL_ARRAY"/);
 %MethodCode
         const GLvoid *array = qpyopengl_value_array(&sipError, a0, GL_SHORT, sipSelf);
         
@@ -1806,7 +1806,7 @@ public:
 %End
 
     void glTexCoord1s(GLshort s);
-    void glTexCoord1iv(SIP_PYOBJECT v /DocType="sequence-or-buffer"/);
+    void glTexCoord1iv(SIP_PYOBJECT v /TypeHint="PYQT_OPENGL_ARRAY"/);
 %MethodCode
         const GLvoid *array = qpyopengl_value_array(&sipError, a0, GL_INT, sipSelf);
         
@@ -1815,7 +1815,7 @@ public:
 %End
 
     void glTexCoord1i(GLint s);
-    void glTexCoord1fv(SIP_PYOBJECT v /DocType="sequence-or-buffer"/);
+    void glTexCoord1fv(SIP_PYOBJECT v /TypeHint="PYQT_OPENGL_ARRAY"/);
 %MethodCode
         const GLvoid *array = qpyopengl_value_array(&sipError, a0, GL_FLOAT, sipSelf);
         
@@ -1824,7 +1824,7 @@ public:
 %End
 
     void glTexCoord1f(GLfloat s);
-    void glTexCoord1dv(SIP_PYOBJECT v /DocType="sequence-or-buffer"/);
+    void glTexCoord1dv(SIP_PYOBJECT v /TypeHint="PYQT_OPENGL_ARRAY"/);
 %MethodCode
         const GLvoid *array = qpyopengl_value_array(&sipError, a0, GL_DOUBLE, sipSelf);
         
@@ -1837,7 +1837,7 @@ public:
     void glRecti(GLint x1, GLint y1, GLint x2, GLint y2);
     void glRectf(GLfloat x1, GLfloat y1, GLfloat x2, GLfloat y2);
     void glRectd(GLdouble x1, GLdouble y1, GLdouble x2, GLdouble y2);
-    void glRasterPos4sv(SIP_PYOBJECT v /DocType="sequence-or-buffer"/);
+    void glRasterPos4sv(SIP_PYOBJECT v /TypeHint="PYQT_OPENGL_ARRAY"/);
 %MethodCode
         const GLvoid *array = qpyopengl_value_array(&sipError, a0, GL_SHORT, sipSelf);
         
@@ -1846,7 +1846,7 @@ public:
 %End
 
     void glRasterPos4s(GLshort x, GLshort y, GLshort z, GLshort w);
-    void glRasterPos4iv(SIP_PYOBJECT v /DocType="sequence-or-buffer"/);
+    void glRasterPos4iv(SIP_PYOBJECT v /TypeHint="PYQT_OPENGL_ARRAY"/);
 %MethodCode
         const GLvoid *array = qpyopengl_value_array(&sipError, a0, GL_INT, sipSelf);
         
@@ -1855,7 +1855,7 @@ public:
 %End
 
     void glRasterPos4i(GLint x, GLint y, GLint z, GLint w);
-    void glRasterPos4fv(SIP_PYOBJECT v /DocType="sequence-or-buffer"/);
+    void glRasterPos4fv(SIP_PYOBJECT v /TypeHint="PYQT_OPENGL_ARRAY"/);
 %MethodCode
         const GLvoid *array = qpyopengl_value_array(&sipError, a0, GL_FLOAT, sipSelf);
         
@@ -1864,7 +1864,7 @@ public:
 %End
 
     void glRasterPos4f(GLfloat x, GLfloat y, GLfloat z, GLfloat w);
-    void glRasterPos4dv(SIP_PYOBJECT v /DocType="sequence-or-buffer"/);
+    void glRasterPos4dv(SIP_PYOBJECT v /TypeHint="PYQT_OPENGL_ARRAY"/);
 %MethodCode
         const GLvoid *array = qpyopengl_value_array(&sipError, a0, GL_DOUBLE, sipSelf);
         
@@ -1873,7 +1873,7 @@ public:
 %End
 
     void glRasterPos4d(GLdouble x, GLdouble y, GLdouble z, GLdouble w);
-    void glRasterPos3sv(SIP_PYOBJECT v /DocType="sequence-or-buffer"/);
+    void glRasterPos3sv(SIP_PYOBJECT v /TypeHint="PYQT_OPENGL_ARRAY"/);
 %MethodCode
         const GLvoid *array = qpyopengl_value_array(&sipError, a0, GL_SHORT, sipSelf);
         
@@ -1882,7 +1882,7 @@ public:
 %End
 
     void glRasterPos3s(GLshort x, GLshort y, GLshort z);
-    void glRasterPos3iv(SIP_PYOBJECT v /DocType="sequence-or-buffer"/);
+    void glRasterPos3iv(SIP_PYOBJECT v /TypeHint="PYQT_OPENGL_ARRAY"/);
 %MethodCode
         const GLvoid *array = qpyopengl_value_array(&sipError, a0, GL_INT, sipSelf);
         
@@ -1891,7 +1891,7 @@ public:
 %End
 
     void glRasterPos3i(GLint x, GLint y, GLint z);
-    void glRasterPos3fv(SIP_PYOBJECT v /DocType="sequence-or-buffer"/);
+    void glRasterPos3fv(SIP_PYOBJECT v /TypeHint="PYQT_OPENGL_ARRAY"/);
 %MethodCode
         const GLvoid *array = qpyopengl_value_array(&sipError, a0, GL_FLOAT, sipSelf);
         
@@ -1900,7 +1900,7 @@ public:
 %End
 
     void glRasterPos3f(GLfloat x, GLfloat y, GLfloat z);
-    void glRasterPos3dv(SIP_PYOBJECT v /DocType="sequence-or-buffer"/);
+    void glRasterPos3dv(SIP_PYOBJECT v /TypeHint="PYQT_OPENGL_ARRAY"/);
 %MethodCode
         const GLvoid *array = qpyopengl_value_array(&sipError, a0, GL_DOUBLE, sipSelf);
         
@@ -1909,7 +1909,7 @@ public:
 %End
 
     void glRasterPos3d(GLdouble x, GLdouble y, GLdouble z);
-    void glRasterPos2sv(SIP_PYOBJECT v /DocType="sequence-or-buffer"/);
+    void glRasterPos2sv(SIP_PYOBJECT v /TypeHint="PYQT_OPENGL_ARRAY"/);
 %MethodCode
         const GLvoid *array = qpyopengl_value_array(&sipError, a0, GL_SHORT, sipSelf);
         
@@ -1918,7 +1918,7 @@ public:
 %End
 
     void glRasterPos2s(GLshort x, GLshort y);
-    void glRasterPos2iv(SIP_PYOBJECT v /DocType="sequence-or-buffer"/);
+    void glRasterPos2iv(SIP_PYOBJECT v /TypeHint="PYQT_OPENGL_ARRAY"/);
 %MethodCode
         const GLvoid *array = qpyopengl_value_array(&sipError, a0, GL_INT, sipSelf);
         
@@ -1927,7 +1927,7 @@ public:
 %End
 
     void glRasterPos2i(GLint x, GLint y);
-    void glRasterPos2fv(SIP_PYOBJECT v /DocType="sequence-or-buffer"/);
+    void glRasterPos2fv(SIP_PYOBJECT v /TypeHint="PYQT_OPENGL_ARRAY"/);
 %MethodCode
         const GLvoid *array = qpyopengl_value_array(&sipError, a0, GL_FLOAT, sipSelf);
         
@@ -1936,7 +1936,7 @@ public:
 %End
 
     void glRasterPos2f(GLfloat x, GLfloat y);
-    void glRasterPos2dv(SIP_PYOBJECT v /DocType="sequence-or-buffer"/);
+    void glRasterPos2dv(SIP_PYOBJECT v /TypeHint="PYQT_OPENGL_ARRAY"/);
 %MethodCode
         const GLvoid *array = qpyopengl_value_array(&sipError, a0, GL_DOUBLE, sipSelf);
         
@@ -1945,7 +1945,7 @@ public:
 %End
 
     void glRasterPos2d(GLdouble x, GLdouble y);
-    void glNormal3sv(SIP_PYOBJECT v /DocType="sequence-or-buffer"/);
+    void glNormal3sv(SIP_PYOBJECT v /TypeHint="PYQT_OPENGL_ARRAY"/);
 %MethodCode
         const GLvoid *array = qpyopengl_value_array(&sipError, a0, GL_SHORT, sipSelf);
         
@@ -1954,7 +1954,7 @@ public:
 %End
 
     void glNormal3s(GLshort nx, GLshort ny, GLshort nz);
-    void glNormal3iv(SIP_PYOBJECT v /DocType="sequence-or-buffer"/);
+    void glNormal3iv(SIP_PYOBJECT v /TypeHint="PYQT_OPENGL_ARRAY"/);
 %MethodCode
         const GLvoid *array = qpyopengl_value_array(&sipError, a0, GL_INT, sipSelf);
         
@@ -1963,7 +1963,7 @@ public:
 %End
 
     void glNormal3i(GLint nx, GLint ny, GLint nz);
-    void glNormal3fv(SIP_PYOBJECT v /DocType="sequence-or-buffer"/);
+    void glNormal3fv(SIP_PYOBJECT v /TypeHint="PYQT_OPENGL_ARRAY"/);
 %MethodCode
         const GLvoid *array = qpyopengl_value_array(&sipError, a0, GL_FLOAT, sipSelf);
         
@@ -1972,7 +1972,7 @@ public:
 %End
 
     void glNormal3f(GLfloat nx, GLfloat ny, GLfloat nz);
-    void glNormal3dv(SIP_PYOBJECT v /DocType="sequence-or-buffer"/);
+    void glNormal3dv(SIP_PYOBJECT v /TypeHint="PYQT_OPENGL_ARRAY"/);
 %MethodCode
         const GLvoid *array = qpyopengl_value_array(&sipError, a0, GL_DOUBLE, sipSelf);
         
@@ -1981,7 +1981,7 @@ public:
 %End
 
     void glNormal3d(GLdouble nx, GLdouble ny, GLdouble nz);
-    void glNormal3bv(SIP_PYOBJECT v /DocType="sequence-or-buffer"/);
+    void glNormal3bv(SIP_PYOBJECT v /TypeHint="PYQT_OPENGL_ARRAY"/);
 %MethodCode
         const GLvoid *array = qpyopengl_value_array(&sipError, a0, GL_BYTE, sipSelf);
         
@@ -1990,7 +1990,7 @@ public:
 %End
 
     void glNormal3b(GLbyte nx, GLbyte ny, GLbyte nz);
-    void glIndexsv(SIP_PYOBJECT c /DocType="sequence-or-buffer"/);
+    void glIndexsv(SIP_PYOBJECT c /TypeHint="PYQT_OPENGL_ARRAY"/);
 %MethodCode
         const GLvoid *array = qpyopengl_value_array(&sipError, a0, GL_SHORT, sipSelf);
         
@@ -1999,7 +1999,7 @@ public:
 %End
 
     void glIndexs(GLshort c);
-    void glIndexiv(SIP_PYOBJECT c /DocType="sequence-or-buffer"/);
+    void glIndexiv(SIP_PYOBJECT c /TypeHint="PYQT_OPENGL_ARRAY"/);
 %MethodCode
         const GLvoid *array = qpyopengl_value_array(&sipError, a0, GL_INT, sipSelf);
         
@@ -2008,7 +2008,7 @@ public:
 %End
 
     void glIndexi(GLint c);
-    void glIndexfv(SIP_PYOBJECT c /DocType="sequence-or-buffer"/);
+    void glIndexfv(SIP_PYOBJECT c /TypeHint="PYQT_OPENGL_ARRAY"/);
 %MethodCode
         const GLvoid *array = qpyopengl_value_array(&sipError, a0, GL_FLOAT, sipSelf);
         
@@ -2017,7 +2017,7 @@ public:
 %End
 
     void glIndexf(GLfloat c);
-    void glIndexdv(SIP_PYOBJECT c /DocType="sequence-or-buffer"/);
+    void glIndexdv(SIP_PYOBJECT c /TypeHint="PYQT_OPENGL_ARRAY"/);
 %MethodCode
         const GLvoid *array = qpyopengl_value_array(&sipError, a0, GL_DOUBLE, sipSelf);
         
@@ -2027,7 +2027,7 @@ public:
 
     void glIndexd(GLdouble c);
     void glEnd();
-    void glEdgeFlagv(SIP_PYOBJECT flag /DocType="sequence-or-buffer"/);
+    void glEdgeFlagv(SIP_PYOBJECT flag /TypeHint="PYQT_OPENGL_ARRAY"/);
 %MethodCode
         const GLvoid *array = qpyopengl_value_array(&sipError, a0, GL_UNSIGNED_BYTE,
                 sipSelf);
@@ -2037,7 +2037,7 @@ public:
 %End
 
     void glEdgeFlag(GLboolean flag);
-    void glColor4usv(SIP_PYOBJECT v /DocType="sequence-or-buffer"/);
+    void glColor4usv(SIP_PYOBJECT v /TypeHint="PYQT_OPENGL_ARRAY"/);
 %MethodCode
         const GLvoid *array = qpyopengl_value_array(&sipError, a0, GL_UNSIGNED_SHORT,
                 sipSelf);
@@ -2047,7 +2047,7 @@ public:
 %End
 
     void glColor4us(GLushort red, GLushort green, GLushort blue, GLushort alpha);
-    void glColor4uiv(SIP_PYOBJECT v /DocType="sequence-or-buffer"/);
+    void glColor4uiv(SIP_PYOBJECT v /TypeHint="PYQT_OPENGL_ARRAY"/);
 %MethodCode
         const GLvoid *array = qpyopengl_value_array(&sipError, a0, GL_UNSIGNED_INT,
                 sipSelf);
@@ -2057,7 +2057,7 @@ public:
 %End
 
     void glColor4ui(GLuint red, GLuint green, GLuint blue, GLuint alpha);
-    void glColor4ubv(SIP_PYOBJECT v /DocType="sequence-or-buffer"/);
+    void glColor4ubv(SIP_PYOBJECT v /TypeHint="PYQT_OPENGL_ARRAY"/);
 %MethodCode
         const GLvoid *array = qpyopengl_value_array(&sipError, a0, GL_UNSIGNED_BYTE,
                 sipSelf);
@@ -2067,7 +2067,7 @@ public:
 %End
 
     void glColor4ub(GLubyte red, GLubyte green, GLubyte blue, GLubyte alpha);
-    void glColor4sv(SIP_PYOBJECT v /DocType="sequence-or-buffer"/);
+    void glColor4sv(SIP_PYOBJECT v /TypeHint="PYQT_OPENGL_ARRAY"/);
 %MethodCode
         const GLvoid *array = qpyopengl_value_array(&sipError, a0, GL_SHORT, sipSelf);
         
@@ -2076,7 +2076,7 @@ public:
 %End
 
     void glColor4s(GLshort red, GLshort green, GLshort blue, GLshort alpha);
-    void glColor4iv(SIP_PYOBJECT v /DocType="sequence-or-buffer"/);
+    void glColor4iv(SIP_PYOBJECT v /TypeHint="PYQT_OPENGL_ARRAY"/);
 %MethodCode
         const GLvoid *array = qpyopengl_value_array(&sipError, a0, GL_INT, sipSelf);
         
@@ -2085,7 +2085,7 @@ public:
 %End
 
     void glColor4i(GLint red, GLint green, GLint blue, GLint alpha);
-    void glColor4fv(SIP_PYOBJECT v /DocType="sequence-or-buffer"/);
+    void glColor4fv(SIP_PYOBJECT v /TypeHint="PYQT_OPENGL_ARRAY"/);
 %MethodCode
         const GLvoid *array = qpyopengl_value_array(&sipError, a0, GL_FLOAT, sipSelf);
         
@@ -2094,7 +2094,7 @@ public:
 %End
 
     void glColor4f(GLfloat red, GLfloat green, GLfloat blue, GLfloat alpha);
-    void glColor4dv(SIP_PYOBJECT v /DocType="sequence-or-buffer"/);
+    void glColor4dv(SIP_PYOBJECT v /TypeHint="PYQT_OPENGL_ARRAY"/);
 %MethodCode
         const GLvoid *array = qpyopengl_value_array(&sipError, a0, GL_DOUBLE, sipSelf);
         
@@ -2103,7 +2103,7 @@ public:
 %End
 
     void glColor4d(GLdouble red, GLdouble green, GLdouble blue, GLdouble alpha);
-    void glColor4bv(SIP_PYOBJECT v /DocType="sequence-or-buffer"/);
+    void glColor4bv(SIP_PYOBJECT v /TypeHint="PYQT_OPENGL_ARRAY"/);
 %MethodCode
         const GLvoid *array = qpyopengl_value_array(&sipError, a0, GL_BYTE, sipSelf);
         
@@ -2112,7 +2112,7 @@ public:
 %End
 
     void glColor4b(GLbyte red, GLbyte green, GLbyte blue, GLbyte alpha);
-    void glColor3usv(SIP_PYOBJECT v /DocType="sequence-or-buffer"/);
+    void glColor3usv(SIP_PYOBJECT v /TypeHint="PYQT_OPENGL_ARRAY"/);
 %MethodCode
         const GLvoid *array = qpyopengl_value_array(&sipError, a0, GL_UNSIGNED_SHORT,
                 sipSelf);
@@ -2122,7 +2122,7 @@ public:
 %End
 
     void glColor3us(GLushort red, GLushort green, GLushort blue);
-    void glColor3uiv(SIP_PYOBJECT v /DocType="sequence-or-buffer"/);
+    void glColor3uiv(SIP_PYOBJECT v /TypeHint="PYQT_OPENGL_ARRAY"/);
 %MethodCode
         const GLvoid *array = qpyopengl_value_array(&sipError, a0, GL_UNSIGNED_INT,
                 sipSelf);
@@ -2132,7 +2132,7 @@ public:
 %End
 
     void glColor3ui(GLuint red, GLuint green, GLuint blue);
-    void glColor3ubv(SIP_PYOBJECT v /DocType="sequence-or-buffer"/);
+    void glColor3ubv(SIP_PYOBJECT v /TypeHint="PYQT_OPENGL_ARRAY"/);
 %MethodCode
         const GLvoid *array = qpyopengl_value_array(&sipError, a0, GL_UNSIGNED_BYTE,
                 sipSelf);
@@ -2142,7 +2142,7 @@ public:
 %End
 
     void glColor3ub(GLubyte red, GLubyte green, GLubyte blue);
-    void glColor3sv(SIP_PYOBJECT v /DocType="sequence-or-buffer"/);
+    void glColor3sv(SIP_PYOBJECT v /TypeHint="PYQT_OPENGL_ARRAY"/);
 %MethodCode
         const GLvoid *array = qpyopengl_value_array(&sipError, a0, GL_SHORT, sipSelf);
         
@@ -2151,7 +2151,7 @@ public:
 %End
 
     void glColor3s(GLshort red, GLshort green, GLshort blue);
-    void glColor3iv(SIP_PYOBJECT v /DocType="sequence-or-buffer"/);
+    void glColor3iv(SIP_PYOBJECT v /TypeHint="PYQT_OPENGL_ARRAY"/);
 %MethodCode
         const GLvoid *array = qpyopengl_value_array(&sipError, a0, GL_INT, sipSelf);
         
@@ -2160,7 +2160,7 @@ public:
 %End
 
     void glColor3i(GLint red, GLint green, GLint blue);
-    void glColor3fv(SIP_PYOBJECT v /DocType="sequence-or-buffer"/);
+    void glColor3fv(SIP_PYOBJECT v /TypeHint="PYQT_OPENGL_ARRAY"/);
 %MethodCode
         const GLvoid *array = qpyopengl_value_array(&sipError, a0, GL_FLOAT, sipSelf);
         
@@ -2169,7 +2169,7 @@ public:
 %End
 
     void glColor3f(GLfloat red, GLfloat green, GLfloat blue);
-    void glColor3dv(SIP_PYOBJECT v /DocType="sequence-or-buffer"/);
+    void glColor3dv(SIP_PYOBJECT v /TypeHint="PYQT_OPENGL_ARRAY"/);
 %MethodCode
         const GLvoid *array = qpyopengl_value_array(&sipError, a0, GL_DOUBLE, sipSelf);
         
@@ -2178,7 +2178,7 @@ public:
 %End
 
     void glColor3d(GLdouble red, GLdouble green, GLdouble blue);
-    void glColor3bv(SIP_PYOBJECT v /DocType="sequence-or-buffer"/);
+    void glColor3bv(SIP_PYOBJECT v /TypeHint="PYQT_OPENGL_ARRAY"/);
 %MethodCode
         const GLvoid *array = qpyopengl_value_array(&sipError, a0, GL_BYTE, sipSelf);
         
@@ -2187,7 +2187,7 @@ public:
 %End
 
     void glColor3b(GLbyte red, GLbyte green, GLbyte blue);
-    void glBitmap(GLsizei width, GLsizei height, GLfloat xorig, GLfloat yorig, GLfloat xmove, GLfloat ymove, SIP_PYOBJECT bitmap /DocType="sequence-or-buffer"/);
+    void glBitmap(GLsizei width, GLsizei height, GLfloat xorig, GLfloat yorig, GLfloat xmove, GLfloat ymove, SIP_PYOBJECT bitmap /TypeHint="PYQT_OPENGL_ARRAY"/);
 %MethodCode
         const GLvoid *array = qpyopengl_value_array(&sipError, a6, GL_UNSIGNED_BYTE,
                 sipSelf);
@@ -2206,7 +2206,7 @@ public:
     void glNewList(GLuint list, GLenum mode);
     void glPushClientAttrib(GLbitfield mask);
     void glPopClientAttrib();
-    void glVertexPointer(GLint size, GLenum type, GLsizei stride, SIP_PYOBJECT pointer /DocType="sequence-or-buffer-or-offset"/);
+    void glVertexPointer(GLint size, GLenum type, GLsizei stride, SIP_PYOBJECT pointer /TypeHint="PYQT_OPENGL_BOUND_ARRAY"/);
 %MethodCode
         const GLvoid *array = qpyopengl_value_array_cached(&sipError, a3, a1, sipSelf,
                 "VertexPointer", 0);
@@ -2215,7 +2215,7 @@ public:
             sipCpp->glVertexPointer(a0, a1, a2, array);
 %End
 
-    void glTexCoordPointer(GLint size, GLenum type, GLsizei stride, SIP_PYOBJECT pointer /DocType="sequence-or-buffer-or-offset"/);
+    void glTexCoordPointer(GLint size, GLenum type, GLsizei stride, SIP_PYOBJECT pointer /TypeHint="PYQT_OPENGL_BOUND_ARRAY"/);
 %MethodCode
         const GLvoid *array = qpyopengl_value_array_cached(&sipError, a3, a1, sipSelf,
                 "TexCoordPointer", 0);
@@ -2224,7 +2224,7 @@ public:
             sipCpp->glTexCoordPointer(a0, a1, a2, array);
 %End
 
-    void glNormalPointer(GLenum type, GLsizei stride, SIP_PYOBJECT pointer /DocType="sequence-or-buffer-or-offset"/);
+    void glNormalPointer(GLenum type, GLsizei stride, SIP_PYOBJECT pointer /TypeHint="PYQT_OPENGL_BOUND_ARRAY"/);
 %MethodCode
         const GLvoid *array = qpyopengl_value_array_cached(&sipError, a2, a0, sipSelf,
                 "NormalPointer", 0);
@@ -2233,7 +2233,7 @@ public:
             sipCpp->glNormalPointer(a0, a1, array);
 %End
 
-    void glIndexPointer(GLenum type, GLsizei stride, SIP_PYOBJECT pointer /DocType="sequence-or-buffer-or-offset"/);
+    void glIndexPointer(GLenum type, GLsizei stride, SIP_PYOBJECT pointer /TypeHint="PYQT_OPENGL_BOUND_ARRAY"/);
 %MethodCode
         const GLvoid *array = qpyopengl_value_array_cached(&sipError, a2, a0, sipSelf,
                 "IndexPointer", 0);
@@ -2243,7 +2243,7 @@ public:
 %End
 
     void glEnableClientState(GLenum array);
-    void glEdgeFlagPointer(GLsizei stride, SIP_PYOBJECT pointer /DocType="sequence-or-buffer-or-offset"/);
+    void glEdgeFlagPointer(GLsizei stride, SIP_PYOBJECT pointer /TypeHint="PYQT_OPENGL_BOUND_ARRAY"/);
 %MethodCode
         const GLvoid *array = qpyopengl_value_array_cached(&sipError, a1,
                 GL_UNSIGNED_BYTE, sipSelf, "EdgeFlagPointer", 0);
@@ -2253,7 +2253,7 @@ public:
 %End
 
     void glDisableClientState(GLenum array);
-    void glColorPointer(GLint size, GLenum type, GLsizei stride, SIP_PYOBJECT pointer /DocType="sequence-or-buffer-or-offset"/);
+    void glColorPointer(GLint size, GLenum type, GLsizei stride, SIP_PYOBJECT pointer /TypeHint="PYQT_OPENGL_BOUND_ARRAY"/);
 %MethodCode
         const GLvoid *array = qpyopengl_value_array_cached(&sipError, a3, a1, sipSelf,
                 "ColorPointer", 0);
@@ -2267,10 +2267,10 @@ public:
     void glResetHistogram(GLenum target);
     void glMinmax(GLenum target, GLenum internalformat, GLboolean sink);
     void glHistogram(GLenum target, GLsizei width, GLenum internalformat, GLboolean sink);
-    void glGetConvolutionParameteriv(GLenum target, GLenum pname, SIP_PYOBJECT *params /DocType="int-or-tuple"/);
+    void glGetConvolutionParameteriv(GLenum target, GLenum pname, SIP_PYOBJECT *params /TypeHint="Union[int, Tuple[int, int, int, int]]"/);
 %MethodCode
         GLint params[4];
-        SIP_SSIZE_T nr_params;
+        Py_ssize_t nr_params;
         
         switch (a1)
         {
@@ -2289,10 +2289,10 @@ public:
         a2 = qpyopengl_from_GLint(&sipIsErr, params, nr_params);
 %End
 
-    void glGetConvolutionParameterfv(GLenum target, GLenum pname, SIP_PYOBJECT *params /DocType="float-or-tuple"/);
+    void glGetConvolutionParameterfv(GLenum target, GLenum pname, SIP_PYOBJECT *params /TypeHint="Union[float, Tuple[float, float, float, float]]"/);
 %MethodCode
         GLfloat params[4];
-        SIP_SSIZE_T nr_params;
+        Py_ssize_t nr_params;
         
         switch (a1)
         {
@@ -2313,7 +2313,7 @@ public:
 
     void glCopyConvolutionFilter2D(GLenum target, GLenum internalformat, GLint x, GLint y, GLsizei width, GLsizei height);
     void glCopyConvolutionFilter1D(GLenum target, GLenum internalformat, GLint x, GLint y, GLsizei width);
-    void glConvolutionParameteriv(GLenum target, GLenum pname, SIP_PYOBJECT params /DocType="sequence-or-buffer"/);
+    void glConvolutionParameteriv(GLenum target, GLenum pname, SIP_PYOBJECT params /TypeHint="PYQT_OPENGL_ARRAY"/);
 %MethodCode
         const GLvoid *array = qpyopengl_value_array(&sipError, a2, GL_INT, sipSelf);
         
@@ -2323,7 +2323,7 @@ public:
 %End
 
     void glConvolutionParameteri(GLenum target, GLenum pname, GLint params);
-    void glConvolutionParameterfv(GLenum target, GLenum pname, SIP_PYOBJECT params /DocType="sequence-or-buffer"/);
+    void glConvolutionParameterfv(GLenum target, GLenum pname, SIP_PYOBJECT params /TypeHint="PYQT_OPENGL_ARRAY"/);
 %MethodCode
         const GLvoid *array = qpyopengl_value_array(&sipError, a2, GL_FLOAT, sipSelf);
         
@@ -2333,7 +2333,7 @@ public:
 %End
 
     void glConvolutionParameterf(GLenum target, GLenum pname, GLfloat params);
-    void glConvolutionFilter2D(GLenum target, GLenum internalformat, GLsizei width, GLsizei height, GLenum format, GLenum type, SIP_PYOBJECT image /DocType="sequence-or-buffer"/);
+    void glConvolutionFilter2D(GLenum target, GLenum internalformat, GLsizei width, GLsizei height, GLenum format, GLenum type, SIP_PYOBJECT image /TypeHint="PYQT_OPENGL_ARRAY"/);
 %MethodCode
         const GLvoid *array = qpyopengl_value_array(&sipError, a6, a5, sipSelf);
         
@@ -2341,7 +2341,7 @@ public:
             sipCpp->glConvolutionFilter2D(a0, a1, a2, a3, a4, a5, array);
 %End
 
-    void glConvolutionFilter1D(GLenum target, GLenum internalformat, GLsizei width, GLenum format, GLenum type, SIP_PYOBJECT image /DocType="sequence-or-buffer"/);
+    void glConvolutionFilter1D(GLenum target, GLenum internalformat, GLsizei width, GLenum format, GLenum type, SIP_PYOBJECT image /TypeHint="PYQT_OPENGL_ARRAY"/);
 %MethodCode
         const GLvoid *array = qpyopengl_value_array(&sipError, a5, a4, sipSelf);
         
@@ -2350,7 +2350,7 @@ public:
 %End
 
     void glCopyColorSubTable(GLenum target, GLsizei start, GLint x, GLint y, GLsizei width);
-    void glColorSubTable(GLenum target, GLsizei start, GLsizei count, GLenum format, GLenum type, SIP_PYOBJECT data /DocType="sequence-or-buffer"/);
+    void glColorSubTable(GLenum target, GLsizei start, GLsizei count, GLenum format, GLenum type, SIP_PYOBJECT data /TypeHint="PYQT_OPENGL_ARRAY"/);
 %MethodCode
         const GLvoid *array = qpyopengl_value_array(&sipError, a5, a4, sipSelf);
         
@@ -2358,10 +2358,10 @@ public:
             sipCpp->glColorSubTable(a0, a1, a2, a3, a4, array);
 %End
 
-    void glGetColorTableParameteriv(GLenum target, GLenum pname, SIP_PYOBJECT *params /DocType="int-or-tuple"/);
+    void glGetColorTableParameteriv(GLenum target, GLenum pname, SIP_PYOBJECT *params /TypeHint="Union[int, Tuple[int, int, int, int]]"/);
 %MethodCode
         GLint params[4];
-        SIP_SSIZE_T nr_params;
+        Py_ssize_t nr_params;
         
         switch (a1)
         {
@@ -2380,10 +2380,10 @@ public:
         a2 = qpyopengl_from_GLint(&sipIsErr, params, nr_params);
 %End
 
-    void glGetColorTableParameterfv(GLenum target, GLenum pname, SIP_PYOBJECT *params /DocType="float-or-tuple"/);
+    void glGetColorTableParameterfv(GLenum target, GLenum pname, SIP_PYOBJECT *params /TypeHint="Union[float, Tuple[float, float, float, float]]"/);
 %MethodCode
         GLfloat params[4];
-        SIP_SSIZE_T nr_params;
+        Py_ssize_t nr_params;
         
         switch (a1)
         {
@@ -2403,7 +2403,7 @@ public:
 %End
 
     void glCopyColorTable(GLenum target, GLenum internalformat, GLint x, GLint y, GLsizei width);
-    void glColorTableParameteriv(GLenum target, GLenum pname, SIP_PYOBJECT params /DocType="sequence-or-buffer"/);
+    void glColorTableParameteriv(GLenum target, GLenum pname, SIP_PYOBJECT params /TypeHint="PYQT_OPENGL_ARRAY"/);
 %MethodCode
         const GLvoid *array = qpyopengl_value_array(&sipError, a2, GL_INT, sipSelf);
         
@@ -2412,7 +2412,7 @@ public:
                     reinterpret_cast<const GLint *>(array));
 %End
 
-    void glColorTableParameterfv(GLenum target, GLenum pname, SIP_PYOBJECT params /DocType="sequence-or-buffer"/);
+    void glColorTableParameterfv(GLenum target, GLenum pname, SIP_PYOBJECT params /TypeHint="PYQT_OPENGL_ARRAY"/);
 %MethodCode
         const GLvoid *array = qpyopengl_value_array(&sipError, a2, GL_FLOAT, sipSelf);
         
@@ -2421,7 +2421,7 @@ public:
                     reinterpret_cast<const GLfloat *>(array));
 %End
 
-    void glColorTable(GLenum target, GLenum internalformat, GLsizei width, GLenum format, GLenum type, SIP_PYOBJECT table /DocType="sequence-or-buffer"/);
+    void glColorTable(GLenum target, GLenum internalformat, GLsizei width, GLenum format, GLenum type, SIP_PYOBJECT table /TypeHint="PYQT_OPENGL_ARRAY"/);
 %MethodCode
         const GLvoid *array = qpyopengl_value_array(&sipError, a5, a4, sipSelf);
         
@@ -2429,7 +2429,7 @@ public:
             sipCpp->glColorTable(a0, a1, a2, a3, a4, array);
 %End
 
-    void glMultTransposeMatrixd(SIP_PYOBJECT m /DocType="sequence-or-buffer"/);
+    void glMultTransposeMatrixd(SIP_PYOBJECT m /TypeHint="PYQT_OPENGL_ARRAY"/);
 %MethodCode
         const GLvoid *array = qpyopengl_value_array(&sipError, a0, GL_DOUBLE, sipSelf);
         
@@ -2437,7 +2437,7 @@ public:
             sipCpp->glMultTransposeMatrixd(reinterpret_cast<const GLdouble *>(array));
 %End
 
-    void glMultTransposeMatrixf(SIP_PYOBJECT m /DocType="sequence-or-buffer"/);
+    void glMultTransposeMatrixf(SIP_PYOBJECT m /TypeHint="PYQT_OPENGL_ARRAY"/);
 %MethodCode
         const GLvoid *array = qpyopengl_value_array(&sipError, a0, GL_FLOAT, sipSelf);
         
@@ -2445,7 +2445,7 @@ public:
             sipCpp->glMultTransposeMatrixf(reinterpret_cast<const GLfloat *>(array));
 %End
 
-    void glLoadTransposeMatrixd(SIP_PYOBJECT m /DocType="sequence-or-buffer"/);
+    void glLoadTransposeMatrixd(SIP_PYOBJECT m /TypeHint="PYQT_OPENGL_ARRAY"/);
 %MethodCode
         const GLvoid *array = qpyopengl_value_array(&sipError, a0, GL_DOUBLE, sipSelf);
         
@@ -2453,7 +2453,7 @@ public:
             sipCpp->glLoadTransposeMatrixd(reinterpret_cast<const GLdouble *>(array));
 %End
 
-    void glLoadTransposeMatrixf(SIP_PYOBJECT m /DocType="sequence-or-buffer"/);
+    void glLoadTransposeMatrixf(SIP_PYOBJECT m /TypeHint="PYQT_OPENGL_ARRAY"/);
 %MethodCode
         const GLvoid *array = qpyopengl_value_array(&sipError, a0, GL_FLOAT, sipSelf);
         
@@ -2461,7 +2461,7 @@ public:
             sipCpp->glLoadTransposeMatrixf(reinterpret_cast<const GLfloat *>(array));
 %End
 
-    void glMultiTexCoord4sv(GLenum target, SIP_PYOBJECT v /DocType="sequence-or-buffer"/);
+    void glMultiTexCoord4sv(GLenum target, SIP_PYOBJECT v /TypeHint="PYQT_OPENGL_ARRAY"/);
 %MethodCode
         const GLvoid *array = qpyopengl_value_array(&sipError, a1, GL_SHORT, sipSelf);
         
@@ -2470,7 +2470,7 @@ public:
 %End
 
     void glMultiTexCoord4s(GLenum target, GLshort s, GLshort t, GLshort r, GLshort q);
-    void glMultiTexCoord4iv(GLenum target, SIP_PYOBJECT v /DocType="sequence-or-buffer"/);
+    void glMultiTexCoord4iv(GLenum target, SIP_PYOBJECT v /TypeHint="PYQT_OPENGL_ARRAY"/);
 %MethodCode
         const GLvoid *array = qpyopengl_value_array(&sipError, a1, GL_INT, sipSelf);
         
@@ -2479,7 +2479,7 @@ public:
 %End
 
     void glMultiTexCoord4i(GLenum target, GLint s, GLint t, GLint r, GLint q);
-    void glMultiTexCoord4fv(GLenum target, SIP_PYOBJECT v /DocType="sequence-or-buffer"/);
+    void glMultiTexCoord4fv(GLenum target, SIP_PYOBJECT v /TypeHint="PYQT_OPENGL_ARRAY"/);
 %MethodCode
         const GLvoid *array = qpyopengl_value_array(&sipError, a1, GL_FLOAT, sipSelf);
         
@@ -2488,7 +2488,7 @@ public:
 %End
 
     void glMultiTexCoord4f(GLenum target, GLfloat s, GLfloat t, GLfloat r, GLfloat q);
-    void glMultiTexCoord4dv(GLenum target, SIP_PYOBJECT v /DocType="sequence-or-buffer"/);
+    void glMultiTexCoord4dv(GLenum target, SIP_PYOBJECT v /TypeHint="PYQT_OPENGL_ARRAY"/);
 %MethodCode
         const GLvoid *array = qpyopengl_value_array(&sipError, a1, GL_DOUBLE, sipSelf);
         
@@ -2497,7 +2497,7 @@ public:
 %End
 
     void glMultiTexCoord4d(GLenum target, GLdouble s, GLdouble t, GLdouble r, GLdouble q);
-    void glMultiTexCoord3sv(GLenum target, SIP_PYOBJECT v /DocType="sequence-or-buffer"/);
+    void glMultiTexCoord3sv(GLenum target, SIP_PYOBJECT v /TypeHint="PYQT_OPENGL_ARRAY"/);
 %MethodCode
         const GLvoid *array = qpyopengl_value_array(&sipError, a1, GL_SHORT, sipSelf);
         
@@ -2506,7 +2506,7 @@ public:
 %End
 
     void glMultiTexCoord3s(GLenum target, GLshort s, GLshort t, GLshort r);
-    void glMultiTexCoord3iv(GLenum target, SIP_PYOBJECT v /DocType="sequence-or-buffer"/);
+    void glMultiTexCoord3iv(GLenum target, SIP_PYOBJECT v /TypeHint="PYQT_OPENGL_ARRAY"/);
 %MethodCode
         const GLvoid *array = qpyopengl_value_array(&sipError, a1, GL_INT, sipSelf);
         
@@ -2515,7 +2515,7 @@ public:
 %End
 
     void glMultiTexCoord3i(GLenum target, GLint s, GLint t, GLint r);
-    void glMultiTexCoord3fv(GLenum target, SIP_PYOBJECT v /DocType="sequence-or-buffer"/);
+    void glMultiTexCoord3fv(GLenum target, SIP_PYOBJECT v /TypeHint="PYQT_OPENGL_ARRAY"/);
 %MethodCode
         const GLvoid *array = qpyopengl_value_array(&sipError, a1, GL_FLOAT, sipSelf);
         
@@ -2524,7 +2524,7 @@ public:
 %End
 
     void glMultiTexCoord3f(GLenum target, GLfloat s, GLfloat t, GLfloat r);
-    void glMultiTexCoord3dv(GLenum target, SIP_PYOBJECT v /DocType="sequence-or-buffer"/);
+    void glMultiTexCoord3dv(GLenum target, SIP_PYOBJECT v /TypeHint="PYQT_OPENGL_ARRAY"/);
 %MethodCode
         const GLvoid *array = qpyopengl_value_array(&sipError, a1, GL_DOUBLE, sipSelf);
         
@@ -2533,7 +2533,7 @@ public:
 %End
 
     void glMultiTexCoord3d(GLenum target, GLdouble s, GLdouble t, GLdouble r);
-    void glMultiTexCoord2sv(GLenum target, SIP_PYOBJECT v /DocType="sequence-or-buffer"/);
+    void glMultiTexCoord2sv(GLenum target, SIP_PYOBJECT v /TypeHint="PYQT_OPENGL_ARRAY"/);
 %MethodCode
         const GLvoid *array = qpyopengl_value_array(&sipError, a1, GL_SHORT, sipSelf);
         
@@ -2542,7 +2542,7 @@ public:
 %End
 
     void glMultiTexCoord2s(GLenum target, GLshort s, GLshort t);
-    void glMultiTexCoord2iv(GLenum target, SIP_PYOBJECT v /DocType="sequence-or-buffer"/);
+    void glMultiTexCoord2iv(GLenum target, SIP_PYOBJECT v /TypeHint="PYQT_OPENGL_ARRAY"/);
 %MethodCode
         const GLvoid *array = qpyopengl_value_array(&sipError, a1, GL_INT, sipSelf);
         
@@ -2551,7 +2551,7 @@ public:
 %End
 
     void glMultiTexCoord2i(GLenum target, GLint s, GLint t);
-    void glMultiTexCoord2fv(GLenum target, SIP_PYOBJECT v /DocType="sequence-or-buffer"/);
+    void glMultiTexCoord2fv(GLenum target, SIP_PYOBJECT v /TypeHint="PYQT_OPENGL_ARRAY"/);
 %MethodCode
         const GLvoid *array = qpyopengl_value_array(&sipError, a1, GL_FLOAT, sipSelf);
         
@@ -2560,7 +2560,7 @@ public:
 %End
 
     void glMultiTexCoord2f(GLenum target, GLfloat s, GLfloat t);
-    void glMultiTexCoord2dv(GLenum target, SIP_PYOBJECT v /DocType="sequence-or-buffer"/);
+    void glMultiTexCoord2dv(GLenum target, SIP_PYOBJECT v /TypeHint="PYQT_OPENGL_ARRAY"/);
 %MethodCode
         const GLvoid *array = qpyopengl_value_array(&sipError, a1, GL_DOUBLE, sipSelf);
         
@@ -2569,7 +2569,7 @@ public:
 %End
 
     void glMultiTexCoord2d(GLenum target, GLdouble s, GLdouble t);
-    void glMultiTexCoord1sv(GLenum target, SIP_PYOBJECT v /DocType="sequence-or-buffer"/);
+    void glMultiTexCoord1sv(GLenum target, SIP_PYOBJECT v /TypeHint="PYQT_OPENGL_ARRAY"/);
 %MethodCode
         const GLvoid *array = qpyopengl_value_array(&sipError, a1, GL_SHORT, sipSelf);
         
@@ -2578,7 +2578,7 @@ public:
 %End
 
     void glMultiTexCoord1s(GLenum target, GLshort s);
-    void glMultiTexCoord1iv(GLenum target, SIP_PYOBJECT v /DocType="sequence-or-buffer"/);
+    void glMultiTexCoord1iv(GLenum target, SIP_PYOBJECT v /TypeHint="PYQT_OPENGL_ARRAY"/);
 %MethodCode
         const GLvoid *array = qpyopengl_value_array(&sipError, a1, GL_INT, sipSelf);
         
@@ -2587,7 +2587,7 @@ public:
 %End
 
     void glMultiTexCoord1i(GLenum target, GLint s);
-    void glMultiTexCoord1fv(GLenum target, SIP_PYOBJECT v /DocType="sequence-or-buffer"/);
+    void glMultiTexCoord1fv(GLenum target, SIP_PYOBJECT v /TypeHint="PYQT_OPENGL_ARRAY"/);
 %MethodCode
         const GLvoid *array = qpyopengl_value_array(&sipError, a1, GL_FLOAT, sipSelf);
         
@@ -2596,7 +2596,7 @@ public:
 %End
 
     void glMultiTexCoord1f(GLenum target, GLfloat s);
-    void glMultiTexCoord1dv(GLenum target, SIP_PYOBJECT v /DocType="sequence-or-buffer"/);
+    void glMultiTexCoord1dv(GLenum target, SIP_PYOBJECT v /TypeHint="PYQT_OPENGL_ARRAY"/);
 %MethodCode
         const GLvoid *array = qpyopengl_value_array(&sipError, a1, GL_DOUBLE, sipSelf);
         
@@ -2606,7 +2606,7 @@ public:
 
     void glMultiTexCoord1d(GLenum target, GLdouble s);
     void glClientActiveTexture(GLenum texture);
-    void glWindowPos3sv(SIP_PYOBJECT v /DocType="sequence-or-buffer"/);
+    void glWindowPos3sv(SIP_PYOBJECT v /TypeHint="PYQT_OPENGL_ARRAY"/);
 %MethodCode
         const GLvoid *array = qpyopengl_value_array(&sipError, a0, GL_SHORT, sipSelf);
         
@@ -2615,7 +2615,7 @@ public:
 %End
 
     void glWindowPos3s(GLshort x, GLshort y, GLshort z);
-    void glWindowPos3iv(SIP_PYOBJECT v /DocType="sequence-or-buffer"/);
+    void glWindowPos3iv(SIP_PYOBJECT v /TypeHint="PYQT_OPENGL_ARRAY"/);
 %MethodCode
         const GLvoid *array = qpyopengl_value_array(&sipError, a0, GL_INT, sipSelf);
         
@@ -2624,7 +2624,7 @@ public:
 %End
 
     void glWindowPos3i(GLint x, GLint y, GLint z);
-    void glWindowPos3fv(SIP_PYOBJECT v /DocType="sequence-or-buffer"/);
+    void glWindowPos3fv(SIP_PYOBJECT v /TypeHint="PYQT_OPENGL_ARRAY"/);
 %MethodCode
         const GLvoid *array = qpyopengl_value_array(&sipError, a0, GL_FLOAT, sipSelf);
         
@@ -2633,7 +2633,7 @@ public:
 %End
 
     void glWindowPos3f(GLfloat x, GLfloat y, GLfloat z);
-    void glWindowPos3dv(SIP_PYOBJECT v /DocType="sequence-or-buffer"/);
+    void glWindowPos3dv(SIP_PYOBJECT v /TypeHint="PYQT_OPENGL_ARRAY"/);
 %MethodCode
         const GLvoid *array = qpyopengl_value_array(&sipError, a0, GL_DOUBLE, sipSelf);
         
@@ -2642,7 +2642,7 @@ public:
 %End
 
     void glWindowPos3d(GLdouble x, GLdouble y, GLdouble z);
-    void glWindowPos2sv(SIP_PYOBJECT v /DocType="sequence-or-buffer"/);
+    void glWindowPos2sv(SIP_PYOBJECT v /TypeHint="PYQT_OPENGL_ARRAY"/);
 %MethodCode
         const GLvoid *array = qpyopengl_value_array(&sipError, a0, GL_SHORT, sipSelf);
         
@@ -2651,7 +2651,7 @@ public:
 %End
 
     void glWindowPos2s(GLshort x, GLshort y);
-    void glWindowPos2iv(SIP_PYOBJECT v /DocType="sequence-or-buffer"/);
+    void glWindowPos2iv(SIP_PYOBJECT v /TypeHint="PYQT_OPENGL_ARRAY"/);
 %MethodCode
         const GLvoid *array = qpyopengl_value_array(&sipError, a0, GL_INT, sipSelf);
         
@@ -2660,7 +2660,7 @@ public:
 %End
 
     void glWindowPos2i(GLint x, GLint y);
-    void glWindowPos2fv(SIP_PYOBJECT v /DocType="sequence-or-buffer"/);
+    void glWindowPos2fv(SIP_PYOBJECT v /TypeHint="PYQT_OPENGL_ARRAY"/);
 %MethodCode
         const GLvoid *array = qpyopengl_value_array(&sipError, a0, GL_FLOAT, sipSelf);
         
@@ -2669,7 +2669,7 @@ public:
 %End
 
     void glWindowPos2f(GLfloat x, GLfloat y);
-    void glWindowPos2dv(SIP_PYOBJECT v /DocType="sequence-or-buffer"/);
+    void glWindowPos2dv(SIP_PYOBJECT v /TypeHint="PYQT_OPENGL_ARRAY"/);
 %MethodCode
         const GLvoid *array = qpyopengl_value_array(&sipError, a0, GL_DOUBLE, sipSelf);
         
@@ -2678,7 +2678,7 @@ public:
 %End
 
     void glWindowPos2d(GLdouble x, GLdouble y);
-    void glSecondaryColorPointer(GLint size, GLenum type, GLsizei stride, SIP_PYOBJECT pointer /DocType="sequence-or-buffer"/);
+    void glSecondaryColorPointer(GLint size, GLenum type, GLsizei stride, SIP_PYOBJECT pointer /TypeHint="PYQT_OPENGL_ARRAY"/);
 %MethodCode
         const GLvoid *array = qpyopengl_value_array(&sipError, a3, a1, sipSelf);
         
@@ -2686,7 +2686,7 @@ public:
             sipCpp->glSecondaryColorPointer(a0, a1, a2, array);
 %End
 
-    void glSecondaryColor3usv(SIP_PYOBJECT v /DocType="sequence-or-buffer"/);
+    void glSecondaryColor3usv(SIP_PYOBJECT v /TypeHint="PYQT_OPENGL_ARRAY"/);
 %MethodCode
         const GLvoid *array = qpyopengl_value_array(&sipError, a0, GL_UNSIGNED_SHORT,
                 sipSelf);
@@ -2696,7 +2696,7 @@ public:
 %End
 
     void glSecondaryColor3us(GLushort red, GLushort green, GLushort blue);
-    void glSecondaryColor3uiv(SIP_PYOBJECT v /DocType="sequence-or-buffer"/);
+    void glSecondaryColor3uiv(SIP_PYOBJECT v /TypeHint="PYQT_OPENGL_ARRAY"/);
 %MethodCode
         const GLvoid *array = qpyopengl_value_array(&sipError, a0, GL_UNSIGNED_INT,
                 sipSelf);
@@ -2706,7 +2706,7 @@ public:
 %End
 
     void glSecondaryColor3ui(GLuint red, GLuint green, GLuint blue);
-    void glSecondaryColor3ubv(SIP_PYOBJECT v /DocType="sequence-or-buffer"/);
+    void glSecondaryColor3ubv(SIP_PYOBJECT v /TypeHint="PYQT_OPENGL_ARRAY"/);
 %MethodCode
         const GLvoid *array = qpyopengl_value_array(&sipError, a0, GL_UNSIGNED_BYTE,
                 sipSelf);
@@ -2716,7 +2716,7 @@ public:
 %End
 
     void glSecondaryColor3ub(GLubyte red, GLubyte green, GLubyte blue);
-    void glSecondaryColor3sv(SIP_PYBUFFER v /DocType="sequence-or-buffer"/);
+    void glSecondaryColor3sv(SIP_PYBUFFER v /TypeHint="PYQT_OPENGL_ARRAY"/);
 %MethodCode
         const GLvoid *array = qpyopengl_value_array(&sipError, a0, GL_SHORT, sipSelf);
         
@@ -2725,7 +2725,7 @@ public:
 %End
 
     void glSecondaryColor3s(GLshort red, GLshort green, GLshort blue);
-    void glSecondaryColor3iv(SIP_PYOBJECT v /DocType="sequence-or-buffer"/);
+    void glSecondaryColor3iv(SIP_PYOBJECT v /TypeHint="PYQT_OPENGL_ARRAY"/);
 %MethodCode
         const GLvoid *array = qpyopengl_value_array(&sipError, a0, GL_INT, sipSelf);
         
@@ -2734,7 +2734,7 @@ public:
 %End
 
     void glSecondaryColor3i(GLint red, GLint green, GLint blue);
-    void glSecondaryColor3fv(SIP_PYOBJECT v /DocType="sequence-or-buffer"/);
+    void glSecondaryColor3fv(SIP_PYOBJECT v /TypeHint="PYQT_OPENGL_ARRAY"/);
 %MethodCode
         const GLvoid *array = qpyopengl_value_array(&sipError, a0, GL_FLOAT, sipSelf);
         
@@ -2743,7 +2743,7 @@ public:
 %End
 
     void glSecondaryColor3f(GLfloat red, GLfloat green, GLfloat blue);
-    void glSecondaryColor3dv(SIP_PYOBJECT v /DocType="sequence-or-buffer"/);
+    void glSecondaryColor3dv(SIP_PYOBJECT v /TypeHint="PYQT_OPENGL_ARRAY"/);
 %MethodCode
         const GLvoid *array = qpyopengl_value_array(&sipError, a0, GL_DOUBLE, sipSelf);
         
@@ -2752,7 +2752,7 @@ public:
 %End
 
     void glSecondaryColor3d(GLdouble red, GLdouble green, GLdouble blue);
-    void glSecondaryColor3bv(SIP_PYOBJECT v /DocType="sequence-or-buffer"/);
+    void glSecondaryColor3bv(SIP_PYOBJECT v /TypeHint="PYQT_OPENGL_ARRAY"/);
 %MethodCode
         const GLvoid *array = qpyopengl_value_array(&sipError, a0, GL_BYTE, sipSelf);
         
@@ -2761,7 +2761,7 @@ public:
 %End
 
     void glSecondaryColor3b(GLbyte red, GLbyte green, GLbyte blue);
-    void glFogCoordPointer(GLenum type, GLsizei stride, SIP_PYOBJECT pointer /DocType="sequence-or-buffer"/);
+    void glFogCoordPointer(GLenum type, GLsizei stride, SIP_PYOBJECT pointer /TypeHint="PYQT_OPENGL_ARRAY"/);
 %MethodCode
         const GLvoid *array = qpyopengl_value_array(&sipError, a2, a0, sipSelf);
         
@@ -2769,7 +2769,7 @@ public:
             sipCpp->glFogCoordPointer(a0, a1, array);
 %End
 
-    void glFogCoorddv(SIP_PYOBJECT coord /DocType="sequence-or-buffer"/);
+    void glFogCoorddv(SIP_PYOBJECT coord /TypeHint="PYQT_OPENGL_ARRAY"/);
 %MethodCode
         const GLvoid *array = qpyopengl_value_array(&sipError, a0, GL_DOUBLE, sipSelf);
         
@@ -2778,7 +2778,7 @@ public:
 %End
 
     void glFogCoordd(GLdouble coord);
-    void glFogCoordfv(SIP_PYOBJECT coord /DocType="sequence-or-buffer"/);
+    void glFogCoordfv(SIP_PYOBJECT coord /TypeHint="PYQT_OPENGL_ARRAY"/);
 %MethodCode
         const GLvoid *array = qpyopengl_value_array(&sipError, a0, GL_FLOAT, sipSelf);
         
@@ -2787,7 +2787,7 @@ public:
 %End
 
     void glFogCoordf(GLfloat coord);
-    void glVertexAttrib4usv(GLuint index, SIP_PYOBJECT v /DocType="sequence-or-buffer"/);
+    void glVertexAttrib4usv(GLuint index, SIP_PYOBJECT v /TypeHint="PYQT_OPENGL_ARRAY"/);
 %MethodCode
         const GLvoid *array = qpyopengl_value_array(&sipError, a1, GL_UNSIGNED_SHORT,
                 sipSelf);
@@ -2796,7 +2796,7 @@ public:
             sipCpp->glVertexAttrib4usv(a0, reinterpret_cast<const GLushort *>(array));
 %End
 
-    void glVertexAttrib4uiv(GLuint index, SIP_PYOBJECT v /DocType="sequence-or-buffer"/);
+    void glVertexAttrib4uiv(GLuint index, SIP_PYOBJECT v /TypeHint="PYQT_OPENGL_ARRAY"/);
 %MethodCode
         const GLvoid *array = qpyopengl_value_array(&sipError, a1, GL_UNSIGNED_INT,
                 sipSelf);
@@ -2805,7 +2805,7 @@ public:
             sipCpp->glVertexAttrib4uiv(a0, reinterpret_cast<const GLuint *>(array));
 %End
 
-    void glVertexAttrib4ubv(GLuint index, SIP_PYOBJECT v /DocType="sequence-or-buffer"/);
+    void glVertexAttrib4ubv(GLuint index, SIP_PYOBJECT v /TypeHint="PYQT_OPENGL_ARRAY"/);
 %MethodCode
         const GLvoid *array = qpyopengl_value_array(&sipError, a1, GL_UNSIGNED_BYTE,
                 sipSelf);
@@ -2814,7 +2814,7 @@ public:
             sipCpp->glVertexAttrib4ubv(a0, reinterpret_cast<const GLubyte *>(array));
 %End
 
-    void glVertexAttrib4sv(GLuint index, SIP_PYOBJECT v /DocType="sequence-or-buffer"/);
+    void glVertexAttrib4sv(GLuint index, SIP_PYOBJECT v /TypeHint="PYQT_OPENGL_ARRAY"/);
 %MethodCode
         const GLvoid *array = qpyopengl_value_array(&sipError, a1, GL_SHORT, sipSelf);
         
@@ -2823,7 +2823,7 @@ public:
 %End
 
     void glVertexAttrib4s(GLuint index, GLshort x, GLshort y, GLshort z, GLshort w);
-    void glVertexAttrib4iv(GLuint index, SIP_PYOBJECT v /DocType="sequence-or-buffer"/);
+    void glVertexAttrib4iv(GLuint index, SIP_PYOBJECT v /TypeHint="PYQT_OPENGL_ARRAY"/);
 %MethodCode
         const GLvoid *array = qpyopengl_value_array(&sipError, a1, GL_INT, sipSelf);
         
@@ -2831,7 +2831,7 @@ public:
             sipCpp->glVertexAttrib4iv(a0, reinterpret_cast<const GLint *>(array));
 %End
 
-    void glVertexAttrib4fv(GLuint index, SIP_PYOBJECT v /DocType="sequence-or-buffer"/);
+    void glVertexAttrib4fv(GLuint index, SIP_PYOBJECT v /TypeHint="PYQT_OPENGL_ARRAY"/);
 %MethodCode
         const GLvoid *array = qpyopengl_value_array(&sipError, a1, GL_FLOAT, sipSelf);
         
@@ -2840,7 +2840,7 @@ public:
 %End
 
     void glVertexAttrib4f(GLuint index, GLfloat x, GLfloat y, GLfloat z, GLfloat w);
-    void glVertexAttrib4dv(GLuint index, SIP_PYOBJECT v /DocType="sequence-or-buffer"/);
+    void glVertexAttrib4dv(GLuint index, SIP_PYOBJECT v /TypeHint="PYQT_OPENGL_ARRAY"/);
 %MethodCode
         const GLvoid *array = qpyopengl_value_array(&sipError, a1, GL_DOUBLE, sipSelf);
         
@@ -2849,7 +2849,7 @@ public:
 %End
 
     void glVertexAttrib4d(GLuint index, GLdouble x, GLdouble y, GLdouble z, GLdouble w);
-    void glVertexAttrib4bv(GLuint index, SIP_PYOBJECT v /DocType="sequence-or-buffer"/);
+    void glVertexAttrib4bv(GLuint index, SIP_PYOBJECT v /TypeHint="PYQT_OPENGL_ARRAY"/);
 %MethodCode
         const GLvoid *array = qpyopengl_value_array(&sipError, a1, GL_BYTE, sipSelf);
         
@@ -2857,7 +2857,7 @@ public:
             sipCpp->glVertexAttrib4bv(a0, reinterpret_cast<const GLbyte *>(array));
 %End
 
-    void glVertexAttrib4Nusv(GLuint index, SIP_PYOBJECT v /DocType="sequence-or-buffer"/);
+    void glVertexAttrib4Nusv(GLuint index, SIP_PYOBJECT v /TypeHint="PYQT_OPENGL_ARRAY"/);
 %MethodCode
         const GLvoid *array = qpyopengl_value_array(&sipError, a1, GL_UNSIGNED_SHORT,
                 sipSelf);
@@ -2866,7 +2866,7 @@ public:
             sipCpp->glVertexAttrib4Nusv(a0, reinterpret_cast<const GLushort *>(array));
 %End
 
-    void glVertexAttrib4Nuiv(GLuint index, SIP_PYOBJECT v /DocType="sequence-or-buffer"/);
+    void glVertexAttrib4Nuiv(GLuint index, SIP_PYOBJECT v /TypeHint="PYQT_OPENGL_ARRAY"/);
 %MethodCode
         const GLvoid *array = qpyopengl_value_array(&sipError, a1, GL_UNSIGNED_INT,
                 sipSelf);
@@ -2875,7 +2875,7 @@ public:
             sipCpp->glVertexAttrib4Nuiv(a0, reinterpret_cast<const GLuint *>(array));
 %End
 
-    void glVertexAttrib4Nubv(GLuint index, SIP_PYOBJECT v /DocType="sequence-or-buffer"/);
+    void glVertexAttrib4Nubv(GLuint index, SIP_PYOBJECT v /TypeHint="PYQT_OPENGL_ARRAY"/);
 %MethodCode
         const GLvoid *array = qpyopengl_value_array(&sipError, a1, GL_UNSIGNED_BYTE,
                 sipSelf);
@@ -2885,7 +2885,7 @@ public:
 %End
 
     void glVertexAttrib4Nub(GLuint index, GLubyte x, GLubyte y, GLubyte z, GLubyte w);
-    void glVertexAttrib4Nsv(GLuint index, SIP_PYOBJECT v /DocType="sequence-or-buffer"/);
+    void glVertexAttrib4Nsv(GLuint index, SIP_PYOBJECT v /TypeHint="PYQT_OPENGL_ARRAY"/);
 %MethodCode
         const GLvoid *array = qpyopengl_value_array(&sipError, a1, GL_SHORT, sipSelf);
         
@@ -2893,7 +2893,7 @@ public:
             sipCpp->glVertexAttrib4Nsv(a0, reinterpret_cast<const GLshort *>(array));
 %End
 
-    void glVertexAttrib4Niv(GLuint index, SIP_PYOBJECT v /DocType="sequence-or-buffer"/);
+    void glVertexAttrib4Niv(GLuint index, SIP_PYOBJECT v /TypeHint="PYQT_OPENGL_ARRAY"/);
 %MethodCode
         const GLvoid *array = qpyopengl_value_array(&sipError, a1, GL_INT, sipSelf);
         
@@ -2901,7 +2901,7 @@ public:
             sipCpp->glVertexAttrib4Niv(a0, reinterpret_cast<const GLint *>(array));
 %End
 
-    void glVertexAttrib4Nbv(GLuint index, SIP_PYOBJECT v /DocType="sequence-or-buffer"/);
+    void glVertexAttrib4Nbv(GLuint index, SIP_PYOBJECT v /TypeHint="PYQT_OPENGL_ARRAY"/);
 %MethodCode
         const GLvoid *array = qpyopengl_value_array(&sipError, a1, GL_BYTE, sipSelf);
         
@@ -2909,7 +2909,7 @@ public:
             sipCpp->glVertexAttrib4Nbv(a0, reinterpret_cast<const GLbyte *>(array));
 %End
 
-    void glVertexAttrib3sv(GLuint index, SIP_PYOBJECT v /DocType="sequence-or-buffer"/);
+    void glVertexAttrib3sv(GLuint index, SIP_PYOBJECT v /TypeHint="PYQT_OPENGL_ARRAY"/);
 %MethodCode
         const GLvoid *array = qpyopengl_value_array(&sipError, a1, GL_SHORT, sipSelf);
         
@@ -2918,7 +2918,7 @@ public:
 %End
 
     void glVertexAttrib3s(GLuint index, GLshort x, GLshort y, GLshort z);
-    void glVertexAttrib3fv(GLuint index, SIP_PYOBJECT v /DocType="sequence-or-buffer"/);
+    void glVertexAttrib3fv(GLuint index, SIP_PYOBJECT v /TypeHint="PYQT_OPENGL_ARRAY"/);
 %MethodCode
         const GLvoid *array = qpyopengl_value_array(&sipError, a1, GL_FLOAT, sipSelf);
         
@@ -2927,7 +2927,7 @@ public:
 %End
 
     void glVertexAttrib3f(GLuint index, GLfloat x, GLfloat y, GLfloat z);
-    void glVertexAttrib3dv(GLuint index, SIP_PYOBJECT v /DocType="sequence-or-buffer"/);
+    void glVertexAttrib3dv(GLuint index, SIP_PYOBJECT v /TypeHint="PYQT_OPENGL_ARRAY"/);
 %MethodCode
         const GLvoid *array = qpyopengl_value_array(&sipError, a1, GL_DOUBLE, sipSelf);
         
@@ -2936,7 +2936,7 @@ public:
 %End
 
     void glVertexAttrib3d(GLuint index, GLdouble x, GLdouble y, GLdouble z);
-    void glVertexAttrib2sv(GLuint index, SIP_PYOBJECT v /DocType="sequence-or-buffer"/);
+    void glVertexAttrib2sv(GLuint index, SIP_PYOBJECT v /TypeHint="PYQT_OPENGL_ARRAY"/);
 %MethodCode
         const GLvoid *array = qpyopengl_value_array(&sipError, a1, GL_SHORT, sipSelf);
         
@@ -2945,7 +2945,7 @@ public:
 %End
 
     void glVertexAttrib2s(GLuint index, GLshort x, GLshort y);
-    void glVertexAttrib2fv(GLuint index, SIP_PYOBJECT v /DocType="sequence-or-buffer"/);
+    void glVertexAttrib2fv(GLuint index, SIP_PYOBJECT v /TypeHint="PYQT_OPENGL_ARRAY"/);
 %MethodCode
         const GLvoid *array = qpyopengl_value_array(&sipError, a1, GL_FLOAT, sipSelf);
         
@@ -2954,7 +2954,7 @@ public:
 %End
 
     void glVertexAttrib2f(GLuint index, GLfloat x, GLfloat y);
-    void glVertexAttrib2dv(GLuint index, SIP_PYOBJECT v /DocType="sequence-or-buffer"/);
+    void glVertexAttrib2dv(GLuint index, SIP_PYOBJECT v /TypeHint="PYQT_OPENGL_ARRAY"/);
 %MethodCode
         const GLvoid *array = qpyopengl_value_array(&sipError, a1, GL_DOUBLE, sipSelf);
         
@@ -2963,7 +2963,7 @@ public:
 %End
 
     void glVertexAttrib2d(GLuint index, GLdouble x, GLdouble y);
-    void glVertexAttrib1sv(GLuint index, SIP_PYOBJECT v /DocType="sequence-or-buffer"/);
+    void glVertexAttrib1sv(GLuint index, SIP_PYOBJECT v /TypeHint="PYQT_OPENGL_ARRAY"/);
 %MethodCode
         const GLvoid *array = qpyopengl_value_array(&sipError, a1, GL_SHORT, sipSelf);
         
@@ -2972,7 +2972,7 @@ public:
 %End
 
     void glVertexAttrib1s(GLuint index, GLshort x);
-    void glVertexAttrib1fv(GLuint index, SIP_PYOBJECT v /DocType="sequence-or-buffer"/);
+    void glVertexAttrib1fv(GLuint index, SIP_PYOBJECT v /TypeHint="PYQT_OPENGL_ARRAY"/);
 %MethodCode
         const GLvoid *array = qpyopengl_value_array(&sipError, a1, GL_FLOAT, sipSelf);
         
@@ -2981,7 +2981,7 @@ public:
 %End
 
     void glVertexAttrib1f(GLuint index, GLfloat x);
-    void glVertexAttrib1dv(GLuint index, SIP_PYOBJECT v /DocType="sequence-or-buffer"/);
+    void glVertexAttrib1dv(GLuint index, SIP_PYOBJECT v /TypeHint="PYQT_OPENGL_ARRAY"/);
 %MethodCode
         const GLvoid *array = qpyopengl_value_array(&sipError, a1, GL_DOUBLE, sipSelf);
         
@@ -3004,19 +3004,19 @@ extern qpyopengl_value_array_t qpyopengl_value_array;
 typedef const GLvoid *(*qpyopengl_value_array_cached_t)(sipErrorState *, PyObject *, GLenum, PyObject *, const char *, GLuint);
 extern qpyopengl_value_array_cached_t qpyopengl_value_array_cached;
 
-typedef PyObject *(*qpyopengl_from_GLint_t)(int *, const GLint *, SIP_SSIZE_T);
+typedef PyObject *(*qpyopengl_from_GLint_t)(int *, const GLint *, Py_ssize_t);
 extern qpyopengl_from_GLint_t qpyopengl_from_GLint;
 
-typedef PyObject *(*qpyopengl_from_GLuint_t)(int *, const GLuint *, SIP_SSIZE_T);
+typedef PyObject *(*qpyopengl_from_GLuint_t)(int *, const GLuint *, Py_ssize_t);
 extern qpyopengl_from_GLuint_t qpyopengl_from_GLuint;
 
-typedef PyObject *(*qpyopengl_from_GLboolean_t)(int *, const GLboolean *, SIP_SSIZE_T);
+typedef PyObject *(*qpyopengl_from_GLboolean_t)(int *, const GLboolean *, Py_ssize_t);
 extern qpyopengl_from_GLboolean_t qpyopengl_from_GLboolean;
 
-typedef PyObject *(*qpyopengl_from_GLfloat_t)(int *, const GLfloat *, SIP_SSIZE_T);
+typedef PyObject *(*qpyopengl_from_GLfloat_t)(int *, const GLfloat *, Py_ssize_t);
 extern qpyopengl_from_GLfloat_t qpyopengl_from_GLfloat;
 
-typedef PyObject *(*qpyopengl_from_GLdouble_t)(int *, const GLdouble *, SIP_SSIZE_T);
+typedef PyObject *(*qpyopengl_from_GLdouble_t)(int *, const GLdouble *, Py_ssize_t);
 extern qpyopengl_from_GLdouble_t qpyopengl_from_GLdouble;
 %End
 
@@ -3034,10 +3034,23 @@ qpyopengl_from_GLdouble_t qpyopengl_from_GLdouble;
 %PostInitialisationCode
 // Imports from QtGui.
 qpyopengl_value_array = (qpyopengl_value_array_t)sipImportSymbol("qpyopengl_value_array");
+Q_ASSERT(qpyopengl_value_array);
+
 qpyopengl_value_array_cached = (qpyopengl_value_array_cached_t)sipImportSymbol("qpyopengl_value_array_cached");
+Q_ASSERT(qpyopengl_value_array_cached);
+
 qpyopengl_from_GLint = (qpyopengl_from_GLint_t)sipImportSymbol("qpyopengl_from_GLint");
+Q_ASSERT(qpyopengl_from_GLint);
+
 qpyopengl_from_GLuint = (qpyopengl_from_GLuint_t)sipImportSymbol("qpyopengl_from_GLuint");
+Q_ASSERT(qpyopengl_from_GLuint);
+
 qpyopengl_from_GLboolean = (qpyopengl_from_GLboolean_t)sipImportSymbol("qpyopengl_from_GLboolean");
+Q_ASSERT(qpyopengl_from_GLboolean);
+
 qpyopengl_from_GLfloat = (qpyopengl_from_GLfloat_t)sipImportSymbol("qpyopengl_from_GLfloat");
+Q_ASSERT(qpyopengl_from_GLfloat);
+
 qpyopengl_from_GLdouble = (qpyopengl_from_GLdouble_t)sipImportSymbol("qpyopengl_from_GLdouble");
+Q_ASSERT(qpyopengl_from_GLdouble);
 %End

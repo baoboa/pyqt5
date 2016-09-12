@@ -2,7 +2,7 @@
 //
 // This file is part of the QtWidgets Python extension module.
 //
-// Copyright (c) 2015 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2016 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -79,9 +79,9 @@ public:
     int indexOfChild(QTreeWidgetItem *achild) const;
     QSize sizeHint(int column) const;
     void setSizeHint(int column, const QSize &size);
-    void addChildren(const QList<QTreeWidgetItem*> &children /Transfer/);
-    void insertChildren(int index, const QList<QTreeWidgetItem*> &children /Transfer/);
-    QList<QTreeWidgetItem*> takeChildren() /TransferBack/;
+    void addChildren(const QList<QTreeWidgetItem *> &children /Transfer/);
+    void insertChildren(int index, const QList<QTreeWidgetItem *> &children /Transfer/);
+    QList<QTreeWidgetItem *> takeChildren() /TransferBack/;
     QBrush background(int column) const;
     void setBackground(int column, const QBrush &brush);
     QBrush foreground(int column) const;
@@ -136,8 +136,8 @@ public:
     void addTopLevelItem(QTreeWidgetItem *item /Transfer/);
     QTreeWidgetItem *takeTopLevelItem(int index) /TransferBack/;
     int indexOfTopLevelItem(QTreeWidgetItem *item) const;
-    void insertTopLevelItems(int index, const QList<QTreeWidgetItem*> &items /Transfer/);
-    void addTopLevelItems(const QList<QTreeWidgetItem*> &items /Transfer/);
+    void insertTopLevelItems(int index, const QList<QTreeWidgetItem *> &items /Transfer/);
+    void addTopLevelItems(const QList<QTreeWidgetItem *> &items /Transfer/);
     QTreeWidgetItem *headerItem() const;
     void setHeaderItem(QTreeWidgetItem *item /Transfer/);
     void setHeaderLabels(const QStringList &labels);
@@ -145,7 +145,7 @@ public:
     int currentColumn() const;
     void setCurrentItem(QTreeWidgetItem *item);
     void setCurrentItem(QTreeWidgetItem *item, int column);
-    void setCurrentItem(QTreeWidgetItem *item, int column, QFlags<QItemSelectionModel::SelectionFlag> command);
+    void setCurrentItem(QTreeWidgetItem *item, int column, QItemSelectionModel::SelectionFlags command);
     QTreeWidgetItem *itemAt(const QPoint &p) const;
     QTreeWidgetItem *itemAt(int ax, int ay) const;
     QRect visualItemRect(const QTreeWidgetItem *item) const;
@@ -177,8 +177,8 @@ public:
         Py_END_ALLOW_THREADS
 %End
 
-    QList<QTreeWidgetItem*> selectedItems() const;
-    QList<QTreeWidgetItem*> findItems(const QString &text, Qt::MatchFlags flags, int column = 0) const;
+    QList<QTreeWidgetItem *> selectedItems() const;
+    QList<QTreeWidgetItem *> findItems(const QString &text, Qt::MatchFlags flags, int column = 0) const;
 
 public slots:
     void scrollToItem(const QTreeWidgetItem *item, QAbstractItemView::ScrollHint hint = QAbstractItemView::EnsureVisible);
@@ -200,7 +200,7 @@ signals:
 
 protected:
     virtual QStringList mimeTypes() const;
-    virtual QMimeData *mimeData(const QList<QTreeWidgetItem*> items) const /TransferBack/;
+    virtual QMimeData *mimeData(const QList<QTreeWidgetItem *> items) const /TransferBack/;
     virtual bool dropMimeData(QTreeWidgetItem *parent, int index, const QMimeData *data, Qt::DropAction action);
     virtual Qt::DropActions supportedDropActions() const;
     QModelIndex indexFromItem(QTreeWidgetItem *item, int column = 0) const;

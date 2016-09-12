@@ -2,7 +2,7 @@
 //
 // This file is part of the QtDBus Python extension module.
 //
-// Copyright (c) 2015 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2016 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -42,8 +42,8 @@ public:
     void setWatchedServices(const QStringList &services);
     void addWatchedService(const QString &newService);
     bool removeWatchedService(const QString &service);
-    QFlags<QDBusServiceWatcher::WatchModeFlag> watchMode() const;
-    void setWatchMode(QFlags<QDBusServiceWatcher::WatchModeFlag> mode);
+    QDBusServiceWatcher::WatchMode watchMode() const;
+    void setWatchMode(QDBusServiceWatcher::WatchMode mode);
     QDBusConnection connection() const;
     void setConnection(const QDBusConnection &connection);
 

@@ -2,7 +2,7 @@
 //
 // This file is part of the QtQml Python extension module.
 //
-// Copyright (c) 2015 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2016 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -22,7 +22,7 @@
 
 typedef QList<QJSValue> QJSValueList;
 
-class QJSValue
+class QJSValue /TypeHintIn="Union[QJSValue, QJSValue.SpecialValue, bool, int, float, QString]"/
 {
 %TypeHeaderCode
 #include <qjsvalue.h>

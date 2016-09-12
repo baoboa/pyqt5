@@ -2,7 +2,7 @@
 //
 // This file is part of the QtGui Python extension module.
 //
-// Copyright (c) 2015 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2016 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -50,7 +50,7 @@ protected:
     virtual int metric(QPaintDevice::PaintDeviceMetric m) const;
 
 public:
-    void swap(QPicture &other);
+    void swap(QPicture &other /Constrained/);
 };
 
 class QPictureIO
@@ -138,7 +138,7 @@ public:
     static QByteArray pictureFormat(QIODevice *);
     static QList<QByteArray> inputFormats();
     static QList<QByteArray> outputFormats();
-    static void defineIOHandler(const char *format, const char *header, const char *flags, SIP_PYCALLABLE read_picture /AllowNone/, SIP_PYCALLABLE write_picture /AllowNone/);
+    static void defineIOHandler(const char *format, const char *header, const char *flags, SIP_PYCALLABLE read_picture /AllowNone,TypeHint="Optional[Callable[[QPictureIO], None]]"/, SIP_PYCALLABLE write_picture /AllowNone,TypeHint="Optional[Callable[[QPictureIO], None]]"/);
 %MethodCode
         // Convert None to NULL.
         if (a3 == Py_None)

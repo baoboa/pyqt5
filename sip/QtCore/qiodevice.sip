@@ -2,7 +2,7 @@
 //
 // This file is part of the QtCore Python extension module.
 //
-// Copyright (c) 2015 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2016 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -43,14 +43,14 @@ public:
     QIODevice();
     explicit QIODevice(QObject *parent /TransferThis/);
     virtual ~QIODevice();
-    QFlags<QIODevice::OpenModeFlag> openMode() const;
+    QIODevice::OpenMode openMode() const;
     void setTextModeEnabled(bool enabled);
     bool isTextModeEnabled() const;
     bool isOpen() const;
     bool isReadable() const;
     bool isWritable() const;
     virtual bool isSequential() const;
-    virtual bool open(QFlags<QIODevice::OpenModeFlag> mode) /ReleaseGIL/;
+    virtual bool open(QIODevice::OpenMode mode) /ReleaseGIL/;
     virtual void close() /ReleaseGIL/;
     virtual qint64 pos() const;
     virtual qint64 size() const;
@@ -59,7 +59,7 @@ public:
     virtual bool reset();
     virtual qint64 bytesAvailable() const;
     virtual qint64 bytesToWrite() const;
-    SIP_PYOBJECT read(qint64 maxlen) /DocType="Py_v3:bytes;str",ReleaseGIL/;
+    SIP_PYOBJECT read(qint64 maxlen) /TypeHint="Py_v3:bytes;str",ReleaseGIL/;
 %MethodCode
         // Return the data read or None if there was an error.
         if (a0 < 0)
@@ -94,7 +94,7 @@ public:
 %End
 
     QByteArray readAll() /ReleaseGIL/;
-    SIP_PYOBJECT readLine(qint64 maxlen=0) /DocType="Py_v3:bytes;str",ReleaseGIL/;
+    SIP_PYOBJECT readLine(qint64 maxlen=0) /TypeHint="Py_v3:bytes;str",ReleaseGIL/;
 %MethodCode
         // The two C++ overloads would have the same Python signature so we get most of
         // the combined functionality by treating an argument of 0 (the default) as
@@ -158,7 +158,7 @@ signals:
     void readChannelFinished();
 
 protected:
-    virtual SIP_PYOBJECT readData(qint64 maxlen) = 0 /DocType="Py_v3:bytes;str",ReleaseGIL/ [qint64 (char *data, qint64 maxlen)];
+    virtual SIP_PYOBJECT readData(qint64 maxlen) = 0 /TypeHint="Py_v3:bytes;str",ReleaseGIL/ [qint64 (char *data, qint64 maxlen)];
 %MethodCode
         // Return the data read or None if there was an error.
         if (a0 < 0)
@@ -223,7 +223,7 @@ protected:
         }
 %End
 
-    virtual SIP_PYOBJECT readLineData(qint64 maxlen) /DocType="Py_v3:bytes;str",ReleaseGIL/ [qint64 (char *data, qint64 maxlen)];
+    virtual SIP_PYOBJECT readLineData(qint64 maxlen) /TypeHint="Py_v3:bytes;str",ReleaseGIL/ [qint64 (char *data, qint64 maxlen)];
 %MethodCode
         // Return the data read or None if there was an error.
         if (a0 < 0)
@@ -289,7 +289,7 @@ protected:
 %End
 
     virtual qint64 writeData(const char *data /Array/, qint64 len /ArraySize/) = 0;
-    void setOpenMode(QFlags<QIODevice::OpenModeFlag> openMode);
+    void setOpenMode(QIODevice::OpenMode openMode);
     void setErrorString(const QString &errorString);
 
 private:

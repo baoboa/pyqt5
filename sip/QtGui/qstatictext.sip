@@ -2,7 +2,7 @@
 //
 // This file is part of the QtGui Python extension module.
 //
-// Copyright (c) 2015 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2016 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -51,5 +51,5 @@ public:
     QStaticText::PerformanceHint performanceHint() const;
     bool operator==(const QStaticText &) const;
     bool operator!=(const QStaticText &) const;
-    void swap(QStaticText &other);
+    void swap(QStaticText &other /Constrained/);
 };

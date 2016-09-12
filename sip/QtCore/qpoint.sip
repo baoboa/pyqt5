@@ -2,7 +2,7 @@
 //
 // This file is part of the QtCore Python extension module.
 //
-// Copyright (c) 2015 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2016 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -34,7 +34,7 @@ public:
     int manhattanLength() const;
     QPoint();
     QPoint(int xpos, int ypos);
-    SIP_PYOBJECT __repr__() const /DocType="str"/;
+    SIP_PYOBJECT __repr__() const /TypeHint="str"/;
 %MethodCode
         if (sipCpp->isNull())
         {
@@ -89,7 +89,7 @@ const QPoint operator*(double c, const QPoint &p);
 const QPoint operator-(const QPoint &p);
 const QPoint operator/(const QPoint &p, qreal c);
 
-class QPointF
+class QPointF /TypeHintIn="Union[QPointF, QPoint]"/
 {
 %TypeHeaderCode
 #include <qpoint.h>
@@ -135,7 +135,7 @@ public:
     QPointF();
     QPointF(qreal xpos, qreal ypos);
     QPointF(const QPoint &p);
-    SIP_PYOBJECT __repr__() const /DocType="str"/;
+    SIP_PYOBJECT __repr__() const /TypeHint="str"/;
 %MethodCode
         if (sipCpp->isNull())
         {

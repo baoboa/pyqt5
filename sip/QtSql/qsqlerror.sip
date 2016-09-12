@@ -2,7 +2,7 @@
 //
 // This file is part of the QtSql Python extension module.
 //
-// Copyright (c) 2015 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2016 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -37,13 +37,13 @@ public:
     };
 
 %If (Qt_5_3_0 -)
-    QSqlError(const QString &driverText /DocValue="''"/ = QString(), const QString &databaseText /DocValue="''"/ = QString(), QSqlError::ErrorType type = QSqlError::NoError, const QString &errorCode = QString());
+    QSqlError(const QString &driverText = QString(), const QString &databaseText = QString(), QSqlError::ErrorType type = QSqlError::NoError, const QString &errorCode = QString());
 %End
 %If (Qt_5_3_0 -)
     QSqlError(const QString &driverText, const QString &databaseText, QSqlError::ErrorType type, int number);
 %End
 %If (- Qt_5_3_0)
-    QSqlError(const QString &driverText /DocValue="''"/ = QString(), const QString &databaseText /DocValue="''"/ = QString(), QSqlError::ErrorType type = QSqlError::NoError, int number = -1);
+    QSqlError(const QString &driverText = QString(), const QString &databaseText = QString(), QSqlError::ErrorType type = QSqlError::NoError, int number = -1);
 %End
     QSqlError(const QSqlError &other);
     ~QSqlError();

@@ -2,7 +2,7 @@
 //
 // This file is part of the QtCore Python extension module.
 //
-// Copyright (c) 2015 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2016 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -31,7 +31,7 @@ class QCollatorSortKey
 public:
     QCollatorSortKey(const QCollatorSortKey &other);
     ~QCollatorSortKey();
-    void swap(QCollatorSortKey &other);
+    void swap(QCollatorSortKey &other /Constrained/);
     int compare(const QCollatorSortKey &key) const;
 
 private:
@@ -54,7 +54,7 @@ public:
     explicit QCollator(const QLocale &locale = QLocale());
     QCollator(const QCollator &);
     ~QCollator();
-    void swap(QCollator &other);
+    void swap(QCollator &other /Constrained/);
     void setLocale(const QLocale &locale);
     QLocale locale() const;
     Qt::CaseSensitivity caseSensitivity() const;

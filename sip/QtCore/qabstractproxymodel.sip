@@ -2,7 +2,7 @@
 //
 // This file is part of the QtCore Python extension module.
 //
-// Copyright (c) 2015 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2016 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -46,9 +46,9 @@ public:
     virtual QVariant headerData(int section, Qt::Orientation orientation, int role) const;
 %End
     virtual bool setHeaderData(int section, Qt::Orientation orientation, const QVariant &value, int role = Qt::EditRole);
-    virtual QMap<int, QVariant> itemData(const QModelIndex &index) const /DocType="dict-of-int-object"/;
+    virtual QMap<int, QVariant> itemData(const QModelIndex &index) const;
     virtual Qt::ItemFlags flags(const QModelIndex &index) const;
-    virtual bool setItemData(const QModelIndex &index, const QMap<int, QVariant> &roles /DocType="dict-of-int-object"/);
+    virtual bool setItemData(const QModelIndex &index, const QMap<int, QVariant> &roles);
     virtual QModelIndex buddy(const QModelIndex &index) const;
     virtual bool canFetchMore(const QModelIndex &parent) const;
     virtual void fetchMore(const QModelIndex &parent);

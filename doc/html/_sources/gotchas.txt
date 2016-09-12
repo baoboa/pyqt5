@@ -1,6 +1,61 @@
 Things to be Aware Of
 =====================
 
+Crashes On Exit
+---------------
+
+When the Python interpreter leaves a  *scope* (for example when it returns from
+a function) it will potentially garbage collect all objects local to that
+scope.  The order in which it is done is, in effect, random.  Theoretically
+this can cause problems because it may mean that the C++ destructors of any
+wrapped Qt instances are called in an order that Qt isn't expecting and may
+result in a crash.
+
+However, in practice, this is only likely to be a problem when the application
+is terminating.  For example, it is preferable that any
+:class:`~PyQt5.QtWidgets.QApplication` instance is destroyed only after all
+widgets are destroyed.
+
+As a way of mitigating this possiblity PyQt5 ensures that the destructors of
+any module level objects are not invoked when the application terminates.  This
+means that code that follows the pattern below is unlikely to crash on exit::
+
+    if __name__ == '__main__':
+        app = QApplication(sys.argv)
+
+        w = QWidget()
+        w.show()
+
+        app.exec()
+
+Another common pattern (and one that is required when using setuptool entry
+points) is that the above code in placed in a separate function, typically
+called ``main()``.  This then causes a problem when the function returns as the
+destructors of the :class:`~PyQt5.QtWidgets.QApplication` and
+:class:`~PyQt5.QtWidgets.QWidget` instances may be invoked in the wrong order.
+To minimise the chances of this happening, the following pattern is
+recommended::
+
+    app = None
+
+    def main():
+        global app
+        app = QApplication(sys.argv)
+
+        w = QWidget()
+        w.show()
+
+        app.exec()
+
+    if __name__ == '__main__':
+        main()
+
+The :class:`~PyQt5.QtWidgets.QWidget` destructor may be invoked when ``main()``
+returns but the module level reference to the
+:class:`~PyQt5.QtWidgets.QApplication` instance will prevent its destructor
+being invoked at all.
+
+
 Keyword Arguments
 -----------------
 
@@ -48,13 +103,12 @@ For Python v3 the following conversions are done by default.
   version) then PyQt5 will accept a ``bytes`` of length 1.
 
 - If Qt expects a ``QString`` then PyQt5 will accept a ``str``, a ``bytes``
-  that contains only ASCII characters or a ``QByteArray``.
+  that contains only ASCII characters, a ``QByteArray`` or ``None``.
 
 - If Qt expects a ``QByteArray`` then PyQt5 will also accept a ``bytes``.
 
 - If Qt expects a ``QByteArray`` then PyQt5 will also accept a ``str`` that
-  contains only Latin-1 characters.  **This is deprecated in PyQt v5.4 and will
-  be removed in PyQt v5.5.)**
+  contains only Latin-1 characters.
 
 For Python v2 the following conversions are done by default.
 
@@ -69,16 +123,22 @@ For Python v2 the following conversions are done by default.
   character is provided.
 
 - If Qt expects a ``QString`` then PyQt5 will accept a ``unicode``, a ``str``
-  that contains only ASCII characters or a ``QByteArray``.
+  that contains only ASCII characters, a ``QByteArray`` or ``None``.
 
 - If Qt expects a ``QByteArray`` then PyQt5 will accept a ``str``.
 
 - If Qt expects a ``QByteArray`` then PyQt5 will accept a ``unicode`` that
-  contains only Latin-1 characters.  **This is deprecated in PyQt v5.4 and will
-  be removed in PyQt v5.5.)**
+  contains only Latin-1 characters.
 
 Note that the different behaviour between Python v2 and v3 is due to v3's
 reduced support for the buffer protocol.
+
+Historically ``QString`` distinguishes between empty strings and null strings.
+Current versions of Qt treat null strings as empty strings but there may be
+other C++ code that PyQt5 applications call that maintains the distinction.
+Consequently PyQt5 will convert ``None`` to a null ``QString``.  The reverse
+conversion is not done and both a null and an empty ``QString`` will be
+converted to an empty (i.e. zero length) Python string.
 
 
 Garbage Collection

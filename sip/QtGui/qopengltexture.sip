@@ -2,7 +2,7 @@
 //
 // This file is part of the QtGui Python extension module.
 //
-// Copyright (c) 2015 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2016 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -209,6 +209,9 @@ public:
 %If (Qt_5_5_0 -)
         SRGB8_Alpha8_ETC2_EAC,
 %End
+%If (Qt_5_6_0 -)
+        RGB8_ETC1,
+%End
     };
 
     void setFormat(QOpenGLTexture::TextureFormat format);
@@ -308,66 +311,50 @@ public:
     void setData(int mipLevel, int layer, QOpenGLTexture::CubeMapFace cubeFace, QOpenGLTexture::PixelFormat sourceFormat, QOpenGLTexture::PixelType sourceType, const void *data, const QOpenGLPixelTransferOptions * const options = 0);
 %End
 %If (- Qt_5_3_0)
-%If (Qt_5_4_1 -)
     void setData(int mipLevel, int layer, QOpenGLTexture::CubeMapFace cubeFace, QOpenGLTexture::PixelFormat sourceFormat, QOpenGLTexture::PixelType sourceType, void *data, const QOpenGLPixelTransferOptions * const options = 0);
-%End
 %End
 %If (Qt_5_3_0 -)
     void setData(int mipLevel, int layer, QOpenGLTexture::PixelFormat sourceFormat, QOpenGLTexture::PixelType sourceType, const void *data, const QOpenGLPixelTransferOptions * const options = 0);
 %End
 %If (- Qt_5_3_0)
-%If (Qt_5_4_1 -)
     void setData(int mipLevel, int layer, QOpenGLTexture::PixelFormat sourceFormat, QOpenGLTexture::PixelType sourceType, void *data, const QOpenGLPixelTransferOptions * const options = 0);
-%End
 %End
 %If (Qt_5_3_0 -)
     void setData(int mipLevel, QOpenGLTexture::PixelFormat sourceFormat, QOpenGLTexture::PixelType sourceType, const void *data, const QOpenGLPixelTransferOptions * const options = 0);
 %End
 %If (- Qt_5_3_0)
-%If (Qt_5_4_1 -)
     void setData(int mipLevel, QOpenGLTexture::PixelFormat sourceFormat, QOpenGLTexture::PixelType sourceType, void *data, const QOpenGLPixelTransferOptions * const options = 0);
-%End
 %End
 %If (Qt_5_3_0 -)
     void setData(QOpenGLTexture::PixelFormat sourceFormat, QOpenGLTexture::PixelType sourceType, const void *data, const QOpenGLPixelTransferOptions * const options = 0);
 %End
 %If (- Qt_5_3_0)
-%If (Qt_5_4_1 -)
     void setData(QOpenGLTexture::PixelFormat sourceFormat, QOpenGLTexture::PixelType sourceType, void *data, const QOpenGLPixelTransferOptions * const options = 0);
-%End
 %End
     void setData(const QImage &image, QOpenGLTexture::MipMapGeneration genMipMaps = QOpenGLTexture::GenerateMipMaps);
 %If (Qt_5_3_0 -)
     void setCompressedData(int mipLevel, int layer, QOpenGLTexture::CubeMapFace cubeFace, int dataSize, const void *data, const QOpenGLPixelTransferOptions * const options = 0);
 %End
 %If (- Qt_5_3_0)
-%If (Qt_5_4_1 -)
     void setCompressedData(int mipLevel, int layer, QOpenGLTexture::CubeMapFace cubeFace, int dataSize, void *data, const QOpenGLPixelTransferOptions * const options = 0);
-%End
 %End
 %If (Qt_5_3_0 -)
     void setCompressedData(int mipLevel, int layer, int dataSize, const void *data, const QOpenGLPixelTransferOptions * const options = 0);
 %End
 %If (- Qt_5_3_0)
-%If (Qt_5_4_1 -)
     void setCompressedData(int mipLevel, int layer, int dataSize, void *data, const QOpenGLPixelTransferOptions * const options = 0);
-%End
 %End
 %If (Qt_5_3_0 -)
     void setCompressedData(int mipLevel, int dataSize, const void *data, const QOpenGLPixelTransferOptions * const options = 0);
 %End
 %If (- Qt_5_3_0)
-%If (Qt_5_4_1 -)
     void setCompressedData(int mipLevel, int dataSize, void *data, const QOpenGLPixelTransferOptions * const options = 0);
-%End
 %End
 %If (Qt_5_3_0 -)
     void setCompressedData(int dataSize, const void *data, const QOpenGLPixelTransferOptions * const options = 0);
 %End
 %If (- Qt_5_3_0)
-%If (Qt_5_4_1 -)
     void setCompressedData(int dataSize, void *data, const QOpenGLPixelTransferOptions * const options = 0);
-%End
 %End
 
     enum Feature

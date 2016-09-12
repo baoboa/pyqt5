@@ -2,7 +2,7 @@
 //
 // This file is part of the QtCore Python extension module.
 //
-// Copyright (c) 2015 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2016 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -56,12 +56,12 @@ public:
     bool attach(QSharedMemory::AccessMode mode = QSharedMemory::ReadWrite);
     bool isAttached() const;
     bool detach();
-    SIP_PYOBJECT data() /DocType="sip.voidptr"/;
+    SIP_PYOBJECT data() /TypeHint="sip.voidptr"/;
 %MethodCode
         sipRes = sipConvertFromVoidPtrAndSize(sipCpp->data(), sipCpp->size());
 %End
 
-    SIP_PYOBJECT constData() const /DocType="sip.voidptr"/;
+    SIP_PYOBJECT constData() const /TypeHint="sip.voidptr"/;
 %MethodCode
         sipRes = sipConvertFromConstVoidPtrAndSize(sipCpp->constData(), sipCpp->size());
 %End

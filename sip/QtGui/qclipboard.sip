@@ -2,7 +2,7 @@
 //
 // This file is part of the QtGui Python extension module.
 //
-// Copyright (c) 2015 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2016 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -44,7 +44,7 @@ public:
     bool ownsFindBuffer() const;
     bool ownsSelection() const;
     QString text(QClipboard::Mode mode = QClipboard::Clipboard) const;
-    SIP_PYTUPLE text(const QString &subtype, QClipboard::Mode mode = QClipboard::Clipboard) const /DocType="(str, str)"/;
+    SIP_PYTUPLE text(const QString &subtype, QClipboard::Mode mode = QClipboard::Clipboard) const /TypeHint="Tuple[QString, QString]"/;
 %MethodCode
         QString *text;
         QString *subtype = new QString(*a0);

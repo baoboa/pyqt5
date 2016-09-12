@@ -2,7 +2,7 @@
 //
 // This file is part of the QtSql Python extension module.
 //
-// Copyright (c) 2015 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2016 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -49,9 +49,9 @@ public:
     QStringList tables(QSql::TableType type = QSql::Tables) const;
     QSqlIndex primaryIndex(const QString &tablename) const;
     QSqlRecord record(const QString &tablename) const;
-    QSqlQuery exec(const QString &query /DocValue="''"/ = QString()) const /PyName=exec_,ReleaseGIL/;
+    QSqlQuery exec(const QString &query = QString()) const /PyName=exec_,ReleaseGIL/;
 %If (Py_v3)
-    QSqlQuery exec(const QString &query /DocValue="''"/ = QString()) const /ReleaseGIL/;
+    QSqlQuery exec(const QString &query = QString()) const /ReleaseGIL/;
 %End
     QSqlError lastError() const;
     bool isValid() const;
@@ -63,7 +63,7 @@ public:
     void setPassword(const QString &password);
     void setHostName(const QString &host);
     void setPort(int p);
-    void setConnectOptions(const QString &options /DocValue="''"/ = QString());
+    void setConnectOptions(const QString &options = QString());
     QString databaseName() const;
     QString userName() const;
     QString password() const;

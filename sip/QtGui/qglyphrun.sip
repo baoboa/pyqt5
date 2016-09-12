@@ -2,7 +2,7 @@
 //
 // This file is part of the QtGui Python extension module.
 //
-// Copyright (c) 2015 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2016 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -61,12 +61,12 @@ public:
     void setRightToLeft(bool on);
     bool isRightToLeft() const;
     void setFlag(QGlyphRun::GlyphRunFlag flag, bool enabled = true);
-    void setFlags(QFlags<QGlyphRun::GlyphRunFlag> flags);
-    QFlags<QGlyphRun::GlyphRunFlag> flags() const;
+    void setFlags(QGlyphRun::GlyphRunFlags flags);
+    QGlyphRun::GlyphRunFlags flags() const;
     void setBoundingRect(const QRectF &boundingRect);
     QRectF boundingRect() const;
     bool isEmpty() const;
-    void swap(QGlyphRun &other);
+    void swap(QGlyphRun &other /Constrained/);
 };
 
 %End

@@ -2,7 +2,7 @@
 //
 // This file is part of the QtWidgets Python extension module.
 //
-// Copyright (c) 2015 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2016 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -121,15 +121,15 @@ public:
         }
 %End
 
-    void addLayout(QLayout * /Transfer/, int row, int column, Qt::Alignment alignment = 0);
-    void addLayout(QLayout * /Transfer/, int row, int column, int rowSpan, int columnSpan, Qt::Alignment alignment = 0);
+    void addLayout(QLayout * /Transfer/, int row, int column, Qt::Alignment alignment = Qt::Alignment());
+    void addLayout(QLayout * /Transfer/, int row, int column, int rowSpan, int columnSpan, Qt::Alignment alignment = Qt::Alignment());
     void setOriginCorner(Qt::Corner);
     Qt::Corner originCorner() const;
     virtual QLayoutItem *itemAt(int) const;
     virtual QLayoutItem *takeAt(int) /TransferBack/;
     virtual int count() const;
     virtual void setGeometry(const QRect &);
-    void addItem(QLayoutItem *item /Transfer/, int row, int column, int rowSpan = 1, int columnSpan = 1, Qt::Alignment alignment = 0);
+    void addItem(QLayoutItem *item /Transfer/, int row, int column, int rowSpan = 1, int columnSpan = 1, Qt::Alignment alignment = Qt::Alignment());
     void setDefaultPositioning(int n, Qt::Orientation orient);
     void getItemPosition(int idx, int *row, int *column, int *rowSpan, int *columnSpan) const;
     void setHorizontalSpacing(int spacing);

@@ -1,6 +1,6 @@
 // This implements the helpers for QMetaObject.
 //
-// Copyright (c) 2015 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2016 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -50,7 +50,7 @@ void qpycore_qmetaobject_connectslotsbyname(QObject *qobj,
 
     PyObject *slot_obj = 0;
 
-    for (SIP_SSIZE_T li = 0; li < PyList_GET_SIZE(dir); ++li)
+    for (Py_ssize_t li = 0; li < PyList_GET_SIZE(dir); ++li)
     {
         PyObject *name_obj = PyList_GET_ITEM(dir, li);
 
@@ -71,7 +71,7 @@ void qpycore_qmetaobject_connectslotsbyname(QObject *qobj,
 
         if (sigattr)
         {
-            for (SIP_SSIZE_T i = 0; i < PyList_GET_SIZE(sigattr); ++i)
+            for (Py_ssize_t i = 0; i < PyList_GET_SIZE(sigattr); ++i)
             {
                 PyObject *decoration = PyList_GET_ITEM(sigattr, i);
                 Chimera::Signature *sig = Chimera::Signature::fromPyObject(decoration);

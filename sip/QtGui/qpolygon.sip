@@ -2,7 +2,7 @@
 //
 // This file is part of the QtGui Python extension module.
 //
-// Copyright (c) 2015 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2016 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -32,7 +32,7 @@ static bool setPointsFromList(QPolygon *poly, PyObject *l)
 {
     int *coords = new int[PyList_GET_SIZE(l)];
 
-    for (SIP_SSIZE_T i = 0; i < PyList_GET_SIZE(l); ++i)
+    for (Py_ssize_t i = 0; i < PyList_GET_SIZE(l); ++i)
     {
         coords[i] = SIPLong_AsLong(PyList_GET_ITEM(l, i));
 
@@ -73,7 +73,7 @@ public:
     QPolygon(const QVector<QPoint> &v);
     QPolygon(const QRect &rectangle, bool closed = false);
     explicit QPolygon(int asize);
-    QPolygon(SIP_PYLIST points /DocType="list-of-int"/) /NoDerived/;
+    QPolygon(SIP_PYLIST points /TypeHint="List[int]"/) /NoDerived/;
 %MethodCode
         sipCpp = new QPolygon();
         
@@ -96,7 +96,7 @@ public:
     void translate(int dx, int dy);
     QRect boundingRect() const;
     QPoint point(int index) const;
-    void setPoints(SIP_PYLIST points /DocType="list-of-int"/);
+    void setPoints(SIP_PYLIST points /TypeHint="List[int]"/);
 %MethodCode
         if (!setPointsFromList(sipCpp, a0))
             sipIsErr = 1;
@@ -112,7 +112,7 @@ public:
         points[0] = a0;
         points[1] = a1;
         
-        for (SIP_SSIZE_T i = 0; i < PyTuple_GET_SIZE(a2); ++i)
+        for (Py_ssize_t i = 0; i < PyTuple_GET_SIZE(a2); ++i)
             points[2 + i] = SIPLong_AsLong(PyTuple_GET_ITEM(a2, i));
         
         sipCpp->setPoints(nPoints, points);
@@ -130,7 +130,7 @@ public:
         points[0] = a1;
         points[1] = a2;
         
-        for (SIP_SSIZE_T i = 0; i < PyTuple_GET_SIZE(a3); ++i)
+        for (Py_ssize_t i = 0; i < PyTuple_GET_SIZE(a3); ++i)
             points[2 + i] = SIPLong_AsLong(PyTuple_GET_ITEM(a3, i));
         
         sipCpp->putPoints(a0, nPoints, points);
@@ -199,7 +199,7 @@ SIP_PYOBJECT operator<<(const QPoint &value);
 
 QPoint &operator[](int i);
 %MethodCode
-SIP_SSIZE_T idx = sipConvertFromSequenceIndex(a0, sipCpp->count());
+Py_ssize_t idx = sipConvertFromSequenceIndex(a0, sipCpp->count());
 
 if (idx < 0)
     sipIsErr = 1;
@@ -223,7 +223,7 @@ else
 
 void __setitem__(SIP_PYSLICE slice, const QPolygon &list);
 %MethodCode
-SIP_SSIZE_T len, start, stop, step, slicelength, i;
+Py_ssize_t len, start, stop, step, slicelength, i;
 
 len = sipCpp->count();
 
@@ -270,7 +270,7 @@ else
 
 void __delitem__(SIP_PYSLICE slice);
 %MethodCode
-SIP_SSIZE_T len, start, stop, step, slicelength, i;
+Py_ssize_t len, start, stop, step, slicelength, i;
 
 len = sipCpp->count();
 
@@ -290,7 +290,7 @@ else
 
 QPolygon &operator[](SIP_PYSLICE slice);
 %MethodCode
-SIP_SSIZE_T len, start, stop, step, slicelength, i;
+Py_ssize_t len, start, stop, step, slicelength, i;
 
 len = sipCpp->count();
 
@@ -317,7 +317,7 @@ int __contains__(const QPoint &value);
 // It looks like you can't assign QBool to int.
 sipRes = bool(sipCpp->contains(*a0));
 %End
-    void swap(QPolygon &other);
+    void swap(QPolygon &other /Constrained/);
 };
 
 class QPolygonF
@@ -396,7 +396,7 @@ SIP_PYOBJECT operator<<(const QPointF &value);
 
 QPointF &operator[](int i);
 %MethodCode
-SIP_SSIZE_T idx = sipConvertFromSequenceIndex(a0, sipCpp->count());
+Py_ssize_t idx = sipConvertFromSequenceIndex(a0, sipCpp->count());
 
 if (idx < 0)
     sipIsErr = 1;
@@ -420,7 +420,7 @@ else
 
 void __setitem__(SIP_PYSLICE slice, const QPolygonF &list);
 %MethodCode
-SIP_SSIZE_T len, start, stop, step, slicelength, i;
+Py_ssize_t len, start, stop, step, slicelength, i;
 
 len = sipCpp->count();
 
@@ -467,7 +467,7 @@ else
 
 void __delitem__(SIP_PYSLICE slice);
 %MethodCode
-SIP_SSIZE_T len, start, stop, step, slicelength, i;
+Py_ssize_t len, start, stop, step, slicelength, i;
 
 len = sipCpp->count();
 
@@ -487,7 +487,7 @@ else
 
 QPolygonF &operator[](SIP_PYSLICE slice);
 %MethodCode
-SIP_SSIZE_T len, start, stop, step, slicelength, i;
+Py_ssize_t len, start, stop, step, slicelength, i;
 
 len = sipCpp->count();
 
@@ -514,7 +514,7 @@ int __contains__(const QPointF &value);
 // It looks like you can't assign QBool to int.
 sipRes = bool(sipCpp->contains(*a0));
 %End
-    void swap(QPolygonF &other);
+    void swap(QPolygonF &other /Constrained/);
 };
 
 QDataStream &operator<<(QDataStream &stream, const QPolygonF &array /Constrained/) /ReleaseGIL/;

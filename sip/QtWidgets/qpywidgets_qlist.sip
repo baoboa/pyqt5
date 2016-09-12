@@ -1,7 +1,7 @@
 // This is the SIP interface definition for the QList based mapped types
 // specific to the QtWidgets module.
 //
-// Copyright (c) 2015 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2016 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -20,7 +20,8 @@
 
 
 %MappedType QList<QWizard::WizardButton>
-        /DocType="list-of-QWizard.WizardButton"/
+        /TypeHintIn="Iterable[QWizard.WizardButton]",
+        TypeHintOut="List[QWizard.WizardButton]", TypeHintValue="[]"/
 {
 %TypeHeaderCode
 #include <qwizard.h>
@@ -73,7 +74,7 @@
 
     QList<QWizard::WizardButton> *ql = new QList<QWizard::WizardButton>;
 
-    for (SIP_SSIZE_T i = 0; ; ++i)
+    for (Py_ssize_t i = 0; ; ++i)
     {
         PyErr_Clear();
         PyObject *itm = PyIter_Next(iter);
@@ -95,7 +96,7 @@
         if (!sipCanConvertToEnum(itm, sipType_QWizard_WizardButton))
         {
             PyErr_Format(PyExc_TypeError,
-                    "index " SIP_SSIZE_T_FORMAT " has type '%s' but 'QWizard.WizardButton' is expected",
+                    "index %zd has type '%s' but 'QWizard.WizardButton' is expected",
                     i, Py_TYPE(itm)->tp_name);
 
             Py_DECREF(itm);

@@ -2,7 +2,7 @@
 //
 // This file is part of the QtTest Python extension module.
 //
-// Copyright (c) 2015 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2016 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -31,7 +31,7 @@ class QSignalSpy : QObject
 %End
 
 public:
-    QSignalSpy(SIP_PYOBJECT signal /DocType="signal"/) [(const QObject *obj, const char *aSignal)];
+    QSignalSpy(SIP_PYOBJECT signal /TypeHint="pyqtBoundSignal"/) [(const QObject *obj, const char *aSignal)];
 %MethodCode
         QObject *sender;
         QByteArray signal_signature;
@@ -52,7 +52,7 @@ public:
 
     QList<QVariant> __getitem__(int i) const;
 %MethodCode
-        SIP_SSIZE_T idx = sipConvertFromSequenceIndex(a0, sipCpp->count());
+        Py_ssize_t idx = sipConvertFromSequenceIndex(a0, sipCpp->count());
         
         if (idx < 0)
             sipIsErr = 1;
@@ -97,4 +97,5 @@ pyqt5_qttest_get_pyqtsignal_parts_t pyqt5_qttest_get_pyqtsignal_parts;
 %PostInitialisationCode
 // Imports from QtCore.
 pyqt5_qttest_get_pyqtsignal_parts = (pyqt5_qttest_get_pyqtsignal_parts_t)sipImportSymbol("pyqt5_get_pyqtsignal_parts");
+Q_ASSERT(pyqt5_qttest_get_pyqtsignal_parts);
 %End

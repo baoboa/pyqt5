@@ -301,6 +301,24 @@ several times with different signatures.  For example::
             """ Two slots will be defined in the QMetaObject. """
 
 
+The ``PyQt_PyObject`` Signal Argument Type
+------------------------------------------
+
+It is possible to pass any Python object as a signal argument by specifying
+``PyQt_PyObject`` as the type of the argument in the signature.  For example::
+
+    finished = pyqtSignal('PyQt_PyObject')
+
+This would normally be used for passing objects where the actual Python type
+isn't known.  It can also be used to pass an integer, for example, so that the
+normal conversions from a Python object to a C++ integer and back again are not
+required.
+
+The reference count of the object being passed is maintained automatically.
+There is no need for the emitter of a signal to keep a reference to the object
+after the call to ``finished.emit()``, even if a connection is queued.
+
+
 Connecting Slots By Name
 ------------------------
 

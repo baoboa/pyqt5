@@ -2,7 +2,7 @@
 //
 // This file is part of the QtCore Python extension module.
 //
-// Copyright (c) 2015 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2016 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -29,8 +29,8 @@ int PYQT_VERSION;
 const char *PYQT_VERSION_STR;
 
 %ModuleCode
-static int PYQT_VERSION = 0x050501;
-static const char *PYQT_VERSION_STR = "5.5.1";
+static int PYQT_VERSION = 0x050600;
+static const char *PYQT_VERSION_STR = "5.6";
 %End
 const int QT_VERSION;
 const char *QT_VERSION_STR;
@@ -61,46 +61,38 @@ const char *qVersion();
 bool qSharedBuild();
 // Template definition for QFlags.
 template<ENUM>
-class QFlags /PyQtFlags=0x1/
+class QFlags /NoDefaultCtors, PyQtFlags=0x1, TypeHintIn="Union[QFlags, ENUM]"/
 {
 public:
-    QFlags(const QFlags &);
-    // This is handled by the %ConvertToTypeCode.
-    //QFlags(ENUM);
-    // This is a convenience, eg. to restore a set of flags from QSettings.
-    QFlags(int);
+    // QFlags is supposed to be a more type safe version of an int (even though
+    // Qt has cases where it expects multiple flag types to be or-ed together).
+    // Because of the C++ int() operator and because type(ENUM) is a sub-type
+    // of int, most of this is lost.  Therefore we only implement logical
+    // operators that take int arguments.
     QFlags();
+    QFlags(int f /TypeHint="QFlags"/);
 
-    QFlags &operator&=(int mask);
-    QFlags &operator|=(QFlags f);
-    //QFlags &operator|=(ENUM f);
-    QFlags &operator^=(QFlags f);
-    //QFlags &operator^=(ENUM f);
+    // This will never be called because the above ctor will be invoked first.
+    // However it's required for sip to generate assignment helpers.
+    QFlags(const QFlags &);
 
     operator int() const;
 
-    QFlags operator|(QFlags f) const;
-    //QFlags operator|(ENUM f) const;
-    QFlags operator^(QFlags f) const;
-    //QFlags operator^(ENUM f) const;
-    QFlags operator&(int mask) const;
-    //QFlags operator&(ENUM f) const;
     QFlags operator~() const;
 
-    // These are here to ensure consistency between, for example:
-    //   Qt.AlignLeft | Qt.AlignTop | Qt.TextWordWrap and
-    //   Qt.AlignLeft | Qt.TextWordWrap | Qt.AlignTop
-    // In the first of the above Qt.TextWordWrap is ored with a
-    // Qt.AlignmentFlag enum.  In the second it is being ored with a
-    // Qt.Alignment class.
-    QFlags operator|(int f);
+    QFlags operator&(int f /TypeHint="QFlags"/) const;
+    QFlags &operator&=(int f /TypeHint="QFlags"/);
+
+    QFlags operator|(int f /TypeHint="QFlags"/) const;
+    QFlags &operator|=(int f /TypeHint="QFlags"/);
 %MethodCode
-        sipRes = new QFlags(*a0 | a1);
+        *sipCpp = QFlags(*sipCpp | a0);
 %End
 
-    QFlags operator^(int f);
+    QFlags operator^(int f /TypeHint="QFlags"/) const;
+    QFlags &operator^=(int f /TypeHint="QFlags"/);
 %MethodCode
-        sipRes = new QFlags(*a0 ^ a1);
+        *sipCpp = QFlags(*sipCpp ^ a0);
 %End
 
     // These are necessary to prevent Python comparing object IDs.
@@ -157,7 +149,7 @@ typedef void *QFunctionPointer;
 // Mapped type for qintptr.
 // Map qintptr onto sip.voidptr.  This means either an address (on Windows) or
 // an integer file descriptor (on everything else) can be used.
-%MappedType qintptr /DocType="sip.voidptr"/
+%MappedType qintptr /TypeHint="sip.voidptr"/
 {
 %TypeHeaderCode
 #include <QtGlobal>
@@ -186,7 +178,7 @@ typedef void *QFunctionPointer;
 // Mapped type for quintptr.
 // Map quintptr onto sip.voidptr.  This means either an address (on Windows) or
 // an integer file descriptor (on everything else) can be used.
-%MappedType quintptr /DocType="sip.voidptr"/
+%MappedType quintptr /TypeHint="sip.voidptr"/
 {
 %TypeHeaderCode
 #include <QtGlobal>
@@ -213,14 +205,14 @@ typedef void *QFunctionPointer;
 %End
 };
 // Implementations of pyqt[Set]PickleProtocol().
-void pyqtSetPickleProtocol(SIP_PYOBJECT /DocType="int-or-None"/);
+void pyqtSetPickleProtocol(SIP_PYOBJECT /TypeHint="Optional[int]"/);
 %MethodCode
     Py_XDECREF(qpycore_pickle_protocol);
     qpycore_pickle_protocol = a0;
     Py_INCREF(qpycore_pickle_protocol);
 %End
 
-SIP_PYOBJECT pyqtPickleProtocol() /DocType="int-or-None"/;
+SIP_PYOBJECT pyqtPickleProtocol() /TypeHint="Optional[int]"/;
 %MethodCode
     sipRes = qpycore_pickle_protocol;
     if (!sipRes)

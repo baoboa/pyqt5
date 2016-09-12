@@ -2,7 +2,7 @@
 //
 // This file is part of the QtHelp Python extension module.
 //
-// Copyright (c) 2015 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2016 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -82,12 +82,12 @@ public:
     void setCurrentFilter(const QString &filterName);
     QStringList registeredDocumentations() const;
     QList<QStringList> filterAttributeSets(const QString &namespaceName) const;
-    QList<QUrl> files(const QString namespaceName, const QStringList &filterAttributes, const QString &extensionFilter /DocValue="''"/ = QString());
+    QList<QUrl> files(const QString namespaceName, const QStringList &filterAttributes, const QString &extensionFilter = QString());
     QUrl findFile(const QUrl &url) const;
     QByteArray fileData(const QUrl &url) const;
     QMap<QString, QUrl> linksForIdentifier(const QString &id) const;
     bool removeCustomValue(const QString &key);
-    QVariant customValue(const QString &key, const QVariant &defaultValue /DocValue="None"/ = QVariant()) const;
+    QVariant customValue(const QString &key, const QVariant &defaultValue = QVariant()) const;
     bool setCustomValue(const QString &key, const QVariant &value);
     static QVariant metaData(const QString &documentationFileName, const QString &name);
     QString error() const;

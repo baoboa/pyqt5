@@ -2,7 +2,7 @@
 //
 // This file is part of the QtWidgets Python extension module.
 //
-// Copyright (c) 2015 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2016 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -64,7 +64,7 @@ signals:
     void collapsed(const QModelIndex &index);
 
 public:
-    virtual void dataChanged(const QModelIndex &topLeft, const QModelIndex &bottomRight, const QVector<int> &roles /DocValue="[]"/ = QVector<int>());
+    virtual void dataChanged(const QModelIndex &topLeft, const QModelIndex &bottomRight, const QVector<int> &roles = QVector<int>());
 
 public slots:
     void hideColumn(int column);
@@ -90,7 +90,7 @@ protected:
     virtual QModelIndex moveCursor(QAbstractItemView::CursorAction cursorAction, Qt::KeyboardModifiers modifiers);
     virtual int horizontalOffset() const;
     virtual int verticalOffset() const;
-    virtual void setSelection(const QRect &rect, QFlags<QItemSelectionModel::SelectionFlag> command);
+    virtual void setSelection(const QRect &rect, QItemSelectionModel::SelectionFlags command);
     virtual QRegion visualRegionForSelection(const QItemSelection &selection) const;
     virtual QModelIndexList selectedIndexes() const;
     virtual void paintEvent(QPaintEvent *e);

@@ -1,3 +1,17 @@
+v5.6 24th April 2016
+  - Added full support for Qt v5.6.0.
+  - Python v3.5 wheels are available for 64-bit Linux, 64-bit OS X and 32 and
+    64-bit Windows.  (After this release Windows .exe installers will no longer
+    be produced.)
+  - Added the QtWebEngineCore module.
+  - Added the missing qt_set_sequence_auto_mnemonic() to QtGui.
+  - Added the missing MouseLock to QWebEnginePage.Feature.
+  - Added the missing WA_DontShowOnScreen.
+  - PEP 484 stub files are installed by default.
+  - Added the --import-from command line argument to pyuic5.
+  - Added the --no-stubs and --stubsdir options to configure.py.
+  - Added the --qtconf-prefix option to configure.py.
+
 v5.5.1 25th October 2015
   - Added support for Qt v5.5.1.
   - Added the --disable option to configure.py.

@@ -2,7 +2,7 @@
 //
 // This file is part of the QtCore Python extension module.
 //
-// Copyright (c) 2015 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2016 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -112,7 +112,7 @@ bool operator==(const QXmlStreamAttributes &other) const;
 
 QXmlStreamAttribute &operator[](int i);
 %MethodCode
-SIP_SSIZE_T idx = sipConvertFromSequenceIndex(a0, sipCpp->count());
+Py_ssize_t idx = sipConvertFromSequenceIndex(a0, sipCpp->count());
 
 if (idx < 0)
     sipIsErr = 1;
@@ -136,7 +136,7 @@ else
 
 void __setitem__(SIP_PYSLICE slice, const QXmlStreamAttributes &list);
 %MethodCode
-SIP_SSIZE_T len, start, stop, step, slicelength, i;
+Py_ssize_t len, start, stop, step, slicelength, i;
 
 len = sipCpp->count();
 
@@ -183,7 +183,7 @@ else
 
 void __delitem__(SIP_PYSLICE slice);
 %MethodCode
-SIP_SSIZE_T len, start, stop, step, slicelength, i;
+Py_ssize_t len, start, stop, step, slicelength, i;
 
 len = sipCpp->count();
 
@@ -203,7 +203,7 @@ else
 
 QXmlStreamAttributes &operator[](SIP_PYSLICE slice);
 %MethodCode
-SIP_SSIZE_T len, start, stop, step, slicelength, i;
+Py_ssize_t len, start, stop, step, slicelength, i;
 
 len = sipCpp->count();
 
@@ -392,7 +392,7 @@ public:
         PrematureEndOfDocumentError,
     };
 
-    void raiseError(const QString &message /DocValue="''"/ = QString());
+    void raiseError(const QString &message = QString());
     QString errorString() const;
     QXmlStreamReader::Error error() const;
     bool hasError() const;
@@ -440,9 +440,9 @@ public:
     void writeEndDocument();
     void writeEndElement();
     void writeEntityReference(const QString &name);
-    void writeNamespace(const QString &namespaceUri, const QString &prefix /DocValue="''"/ = QString());
+    void writeNamespace(const QString &namespaceUri, const QString &prefix = QString());
     void writeDefaultNamespace(const QString &namespaceUri);
-    void writeProcessingInstruction(const QString &target, const QString &data /DocValue="''"/ = QString());
+    void writeProcessingInstruction(const QString &target, const QString &data = QString());
     void writeStartDocument();
     void writeStartDocument(const QString &version);
     void writeStartDocument(const QString &version, bool standalone);

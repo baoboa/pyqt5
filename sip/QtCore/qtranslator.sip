@@ -2,7 +2,7 @@
 //
 // This file is part of the QtCore Python extension module.
 //
-// Copyright (c) 2015 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2016 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -31,8 +31,8 @@ public:
     virtual ~QTranslator();
     virtual QString translate(const char *context, const char *sourceText, const char *disambiguation = 0, int n = -1) const;
     virtual bool isEmpty() const;
-    bool load(const QString &fileName, const QString &directory /DocValue="''"/ = QString(), const QString &searchDelimiters /DocValue="''"/ = QString(), const QString &suffix /DocValue="''"/ = QString()) /ReleaseGIL/;
-    bool load(const QLocale &locale, const QString &fileName, const QString &prefix /DocValue="''"/ = QString(), const QString &directory /DocValue="''"/ = QString(), const QString &suffix /DocValue="''"/ = QString()) /ReleaseGIL/;
+    bool load(const QString &fileName, const QString &directory = QString(), const QString &searchDelimiters = QString(), const QString &suffix = QString()) /ReleaseGIL/;
+    bool load(const QLocale &locale, const QString &fileName, const QString &prefix = QString(), const QString &directory = QString(), const QString &suffix = QString()) /ReleaseGIL/;
     bool load(const uchar *data /Array/, int len /ArraySize/, const QString &directory = QString()) /PyName=loadFromData,ReleaseGIL/;
 
 private:

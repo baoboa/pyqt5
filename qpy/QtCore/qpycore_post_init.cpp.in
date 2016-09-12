@@ -1,6 +1,6 @@
 // This is the post-initialisation support code for the QtCore module.
 //
-// Copyright (c) 2015 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2016 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -136,4 +136,10 @@ void qpycore_post_init(PyObject *module_dict)
     // initialised first (at least for Windows) and this is the only way to
     // guarantee things are done in the right order.
     PyQtSlotProxy::mutex = new QMutex(QMutex::Recursive);
+
+#if defined(PYQT_QTCONF_PREFIX)
+    // Load the embedded qt.conf file.
+    if (!qpycore_qt_conf())
+        Py_FatalError("PyQt5.QtCore: Unable to embed qt.conf");
+#endif
 }

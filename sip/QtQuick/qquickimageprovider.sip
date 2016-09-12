@@ -2,7 +2,7 @@
 //
 // This file is part of the QtQuick Python extension module.
 //
-// Copyright (c) 2015 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2016 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -33,6 +33,9 @@ public:
     virtual QSize textureSize() const = 0;
     virtual int textureByteCount() const = 0;
     virtual QImage image() const;
+%If (Qt_5_6_0 -)
+    static QQuickTextureFactory *textureFactoryForImage(const QImage &image) /Factory/;
+%End
 };
 
 class QQuickImageProvider : QQmlImageProviderBase
@@ -42,11 +45,49 @@ class QQuickImageProvider : QQmlImageProviderBase
 %End
 
 public:
-    QQuickImageProvider(QQmlImageProviderBase::ImageType type, QFlags<QQmlImageProviderBase::Flag> flags = 0);
+    QQuickImageProvider(QQmlImageProviderBase::ImageType type, QQmlImageProviderBase::Flags flags = 0);
     virtual ~QQuickImageProvider();
     virtual QQmlImageProviderBase::ImageType imageType() const;
-    virtual QFlags<QQmlImageProviderBase::Flag> flags() const;
+    virtual QQmlImageProviderBase::Flags flags() const;
     virtual QImage requestImage(const QString &id, QSize *size /Out/, const QSize &requestedSize);
     virtual QPixmap requestPixmap(const QString &id, QSize *size /Out/, const QSize &requestedSize);
     virtual QQuickTextureFactory *requestTexture(const QString &id, QSize *size /Out/, const QSize &requestedSize) /Factory/;
 };
+
+%If (Qt_5_6_0 -)
+
+class QQuickImageResponse : QObject
+{
+%TypeHeaderCode
+#include <qquickimageprovider.h>
+%End
+
+public:
+    QQuickImageResponse();
+    virtual ~QQuickImageResponse();
+    virtual QQuickTextureFactory *textureFactory() const = 0 /Factory/;
+    virtual QString errorString() const;
+
+public slots:
+    virtual void cancel();
+
+signals:
+    void finished();
+};
+
+%End
+%If (Qt_5_6_0 -)
+
+class QQuickAsyncImageProvider : QQuickImageProvider
+{
+%TypeHeaderCode
+#include <qquickimageprovider.h>
+%End
+
+public:
+    QQuickAsyncImageProvider();
+    virtual ~QQuickAsyncImageProvider();
+    virtual QQuickImageResponse *requestImageResponse(const QString &id, const QSize &requestedSize) = 0 /Factory/;
+};
+
+%End

@@ -2,7 +2,7 @@
 //
 // This file is part of the QtCore Python extension module.
 //
-// Copyright (c) 2015 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2016 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -28,7 +28,7 @@ class QSignalTransition : QAbstractTransition
 
 public:
     QSignalTransition(QState *sourceState /TransferThis/ = 0);
-    QSignalTransition(SIP_PYOBJECT signal /DocType="signal"/, QState *sourceState /TransferThis/ = 0) /NoDerived/;
+    QSignalTransition(SIP_PYOBJECT signal /TypeHint="pyqtBoundSignal"/, QState *sourceState /TransferThis/ = 0) /NoDerived/;
 %MethodCode
         QObject *sender;
         QByteArray signal_signature;

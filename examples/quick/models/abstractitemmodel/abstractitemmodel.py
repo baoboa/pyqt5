@@ -3,7 +3,7 @@
 
 #############################################################################
 ##
-## Copyright (C) 2013 Riverbank Computing Limited.
+## Copyright (C) 2016 Riverbank Computing Limited.
 ## Copyright (C) 2013 Digia Plc and/or its subsidiary(-ies).
 ##
 ## This file is part of the examples of PyQt.
@@ -66,7 +66,7 @@ class AnimalModel(QAbstractListModel):
     TypeRole = Qt.UserRole + 1
     SizeRole = Qt.UserRole + 2
 
-    _roles = {TypeRole: "type", SizeRole: "size"}
+    _roles = {TypeRole: b"type", SizeRole: b"size"}
 
     def __init__(self, parent=None):
         super(AnimalModel, self).__init__(parent)

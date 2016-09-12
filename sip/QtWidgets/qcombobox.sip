@@ -2,7 +2,7 @@
 //
 // This file is part of the QtWidgets Python extension module.
 //
-// Copyright (c) 2015 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2016 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -90,10 +90,10 @@ public:
     QIcon itemIcon(int index) const;
     QVariant itemData(int index, int role = Qt::UserRole) const;
     void addItems(const QStringList &texts);
-    void addItem(const QString &text, const QVariant &userData /DocValue="None"/ = QVariant());
-    void addItem(const QIcon &icon, const QString &text, const QVariant &userData /DocValue="None"/ = QVariant());
-    void insertItem(int index, const QString &text, const QVariant &userData /DocValue="None"/ = QVariant());
-    void insertItem(int index, const QIcon &icon, const QString &text, const QVariant &userData /DocValue="None"/ = QVariant());
+    void addItem(const QString &text, const QVariant &userData = QVariant());
+    void addItem(const QIcon &icon, const QString &text, const QVariant &userData = QVariant());
+    void insertItem(int index, const QString &text, const QVariant &userData = QVariant());
+    void insertItem(int index, const QIcon &icon, const QString &text, const QVariant &userData = QVariant());
     void insertItems(int index, const QStringList &texts);
     void removeItem(int index);
     void setItemText(int index, const QString &text);

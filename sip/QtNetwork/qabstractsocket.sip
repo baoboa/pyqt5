@@ -2,7 +2,7 @@
 //
 // This file is part of the QtNetwork Python extension module.
 //
-// Copyright (c) 2015 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2016 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -130,8 +130,8 @@ public:
 
     QAbstractSocket(QAbstractSocket::SocketType socketType, QObject *parent /TransferThis/);
     virtual ~QAbstractSocket();
-    virtual void connectToHost(const QString &hostName, quint16 port, QFlags<QIODevice::OpenModeFlag> mode = QIODevice::ReadWrite, QAbstractSocket::NetworkLayerProtocol protocol = QAbstractSocket::AnyIPProtocol) /ReleaseGIL/;
-    virtual void connectToHost(const QHostAddress &address, quint16 port, QFlags<QIODevice::OpenModeFlag> mode = QIODevice::ReadWrite) /ReleaseGIL/;
+    virtual void connectToHost(const QString &hostName, quint16 port, QIODevice::OpenMode mode = QIODevice::ReadWrite, QAbstractSocket::NetworkLayerProtocol protocol = QAbstractSocket::AnyIPProtocol) /ReleaseGIL/;
+    virtual void connectToHost(const QHostAddress &address, quint16 port, QIODevice::OpenMode mode = QIODevice::ReadWrite) /ReleaseGIL/;
     virtual void disconnectFromHost() /ReleaseGIL/;
     bool isValid() const;
     virtual qint64 bytesAvailable() const;
@@ -145,7 +145,7 @@ public:
     qint64 readBufferSize() const;
     virtual void setReadBufferSize(qint64 size);
     void abort();
-    virtual bool setSocketDescriptor(qintptr socketDescriptor, QAbstractSocket::SocketState state = QAbstractSocket::ConnectedState, QFlags<QIODevice::OpenModeFlag> mode = QIODevice::ReadWrite);
+    virtual bool setSocketDescriptor(qintptr socketDescriptor, QAbstractSocket::SocketState state = QAbstractSocket::ConnectedState, QIODevice::OpenMode mode = QIODevice::ReadWrite);
     virtual qintptr socketDescriptor() const;
     QAbstractSocket::SocketType socketType() const;
     QAbstractSocket::SocketState state() const;
@@ -170,7 +170,7 @@ signals:
     void proxyAuthenticationRequired(const QNetworkProxy &proxy, QAuthenticator *authenticator);
 
 protected:
-    virtual SIP_PYOBJECT readData(qint64 maxlen) /DocType="Py_v3:bytes;str",ReleaseGIL/ [qint64 (char *data, qint64 maxlen)];
+    virtual SIP_PYOBJECT readData(qint64 maxlen) /TypeHint="Py_v3:bytes;str",ReleaseGIL/ [qint64 (char *data, qint64 maxlen)];
 %MethodCode
         // Return the data read or None if there was an error.
         if (a0 < 0)
@@ -208,7 +208,7 @@ protected:
         }
 %End
 
-    virtual SIP_PYOBJECT readLineData(qint64 maxlen) /DocType="Py_v3:bytes;str",ReleaseGIL/ [qint64 (char *data, qint64 maxlen)];
+    virtual SIP_PYOBJECT readLineData(qint64 maxlen) /TypeHint="Py_v3:bytes;str",ReleaseGIL/ [qint64 (char *data, qint64 maxlen)];
 %MethodCode
         // Return the data read or None if there was an error.
         if (a0 < 0)
@@ -292,10 +292,10 @@ public:
 
     typedef QFlags<QAbstractSocket::PauseMode> PauseModes;
     virtual void resume() /ReleaseGIL/;
-    QFlags<QAbstractSocket::PauseMode> pauseMode() const;
-    void setPauseMode(QFlags<QAbstractSocket::PauseMode> pauseMode);
-    bool bind(const QHostAddress &address, quint16 port = 0, QFlags<QAbstractSocket::BindFlag> mode = QAbstractSocket::DefaultForPlatform);
-    bool bind(quint16 port = 0, QFlags<QAbstractSocket::BindFlag> mode = QAbstractSocket::DefaultForPlatform);
+    QAbstractSocket::PauseModes pauseMode() const;
+    void setPauseMode(QAbstractSocket::PauseModes pauseMode);
+    bool bind(const QHostAddress &address, quint16 port = 0, QAbstractSocket::BindMode mode = QAbstractSocket::DefaultForPlatform);
+    bool bind(quint16 port = 0, QAbstractSocket::BindMode mode = QAbstractSocket::DefaultForPlatform);
 
 private:
     QAbstractSocket(const QAbstractSocket &);

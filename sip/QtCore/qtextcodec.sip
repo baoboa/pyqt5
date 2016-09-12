@@ -2,7 +2,7 @@
 //
 // This file is part of the QtCore Python extension module.
 //
-// Copyright (c) 2015 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2016 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -38,8 +38,8 @@ public:
     static QList<int> availableMibs();
     static QTextCodec *codecForLocale();
     static void setCodecForLocale(QTextCodec *c /KeepReference/);
-    QTextDecoder *makeDecoder(QFlags<QTextCodec::ConversionFlag> flags = QTextCodec::DefaultConversion) const /Factory/;
-    QTextEncoder *makeEncoder(QFlags<QTextCodec::ConversionFlag> flags = QTextCodec::DefaultConversion) const /Factory/;
+    QTextDecoder *makeDecoder(QTextCodec::ConversionFlags flags = QTextCodec::DefaultConversion) const /Factory/;
+    QTextEncoder *makeEncoder(QTextCodec::ConversionFlags flags = QTextCodec::DefaultConversion) const /Factory/;
     bool canEncode(const QString &) const;
     QString toUnicode(const QByteArray &) const;
     QString toUnicode(const char *chars /Encoding="None"/) const;
@@ -60,7 +60,7 @@ public:
 #include <qtextcodec.h>
 %End
 
-        ConverterState(QFlags<QTextCodec::ConversionFlag> flags = QTextCodec::DefaultConversion);
+        ConverterState(QTextCodec::ConversionFlags flags = QTextCodec::DefaultConversion);
         ~ConverterState();
 
     private:
@@ -91,7 +91,7 @@ class QTextEncoder /Supertype=sip.wrapper/
 
 public:
     explicit QTextEncoder(const QTextCodec *codec);
-    QTextEncoder(const QTextCodec *codec, QFlags<QTextCodec::ConversionFlag> flags);
+    QTextEncoder(const QTextCodec *codec, QTextCodec::ConversionFlags flags);
     ~QTextEncoder();
     QByteArray fromUnicode(const QString &str);
 
@@ -107,7 +107,7 @@ class QTextDecoder /Supertype=sip.wrapper/
 
 public:
     explicit QTextDecoder(const QTextCodec *codec);
-    QTextDecoder(const QTextCodec *codec, QFlags<QTextCodec::ConversionFlag> flags);
+    QTextDecoder(const QTextCodec *codec, QTextCodec::ConversionFlags flags);
     ~QTextDecoder();
     QString toUnicode(const char *chars /Array/, int len /ArraySize/);
     QString toUnicode(const QByteArray &ba);

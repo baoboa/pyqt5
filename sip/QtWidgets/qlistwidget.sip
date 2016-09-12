@@ -2,7 +2,7 @@
 //
 // This file is part of the QtWidgets Python extension module.
 //
-// Copyright (c) 2015 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2016 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -103,10 +103,10 @@ public:
     int count() const /__len__/;
     QListWidgetItem *currentItem() const;
     void setCurrentItem(QListWidgetItem *item);
-    void setCurrentItem(QListWidgetItem *item, QFlags<QItemSelectionModel::SelectionFlag> command);
+    void setCurrentItem(QListWidgetItem *item, QItemSelectionModel::SelectionFlags command);
     int currentRow() const;
     void setCurrentRow(int row);
-    void setCurrentRow(int row, QFlags<QItemSelectionModel::SelectionFlag> command);
+    void setCurrentRow(int row, QItemSelectionModel::SelectionFlags command);
     QListWidgetItem *itemAt(const QPoint &p) const;
     QListWidgetItem *itemAt(int ax, int ay) const;
     QWidget *itemWidget(QListWidgetItem *item) const;
@@ -133,8 +133,8 @@ public:
     void editItem(QListWidgetItem *item);
     void openPersistentEditor(QListWidgetItem *item);
     void closePersistentEditor(QListWidgetItem *item);
-    QList<QListWidgetItem*> selectedItems() const;
-    QList<QListWidgetItem*> findItems(const QString &text, Qt::MatchFlags flags) const;
+    QList<QListWidgetItem *> selectedItems() const;
+    QList<QListWidgetItem *> findItems(const QString &text, Qt::MatchFlags flags) const;
 
 public slots:
     void clear();
@@ -154,10 +154,10 @@ signals:
 
 protected:
     virtual QStringList mimeTypes() const;
-    virtual QMimeData *mimeData(const QList<QListWidgetItem*> items) const /TransferBack/;
+    virtual QMimeData *mimeData(const QList<QListWidgetItem *> items) const /TransferBack/;
     virtual bool dropMimeData(int index, const QMimeData *data, Qt::DropAction action);
     virtual Qt::DropActions supportedDropActions() const;
-    QList<QListWidgetItem*> items(const QMimeData *data) const;
+    QList<QListWidgetItem *> items(const QMimeData *data) const;
     QModelIndex indexFromItem(QListWidgetItem *item) const;
     QListWidgetItem *itemFromIndex(const QModelIndex &index) const;
     virtual bool event(QEvent *e);

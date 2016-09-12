@@ -2,7 +2,7 @@
 //
 // This file is part of the QtGui Python extension module.
 //
-// Copyright (c) 2015 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2016 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -103,6 +103,13 @@ public:
     QTransform &operator/=(qreal div);
     QTransform &operator+=(qreal num);
     QTransform &operator-=(qreal num);
+%If (Qt_5_6_0 -)
+    long __hash__() const;
+%MethodCode
+        sipRes = qHash(*sipCpp);
+%End
+
+%End
 };
 
 QDataStream &operator<<(QDataStream &, const QTransform & /Constrained/) /ReleaseGIL/;

@@ -2,7 +2,7 @@
 //
 // This file is part of the QtPrintSupport Python extension module.
 //
-// Copyright (c) 2015 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2016 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -29,12 +29,12 @@ class QPrintPreviewDialog : QDialog
 %End
 
 public:
-    QPrintPreviewDialog(QWidget *parent /TransferThis/ = 0, Qt::WindowFlags flags = 0);
-    QPrintPreviewDialog(QPrinter *printer, QWidget *parent /TransferThis/ = 0, Qt::WindowFlags flags = 0);
+    QPrintPreviewDialog(QWidget *parent /TransferThis/ = 0, Qt::WindowFlags flags = Qt::WindowFlags());
+    QPrintPreviewDialog(QPrinter *printer, QWidget *parent /TransferThis/ = 0, Qt::WindowFlags flags = Qt::WindowFlags());
     virtual ~QPrintPreviewDialog();
     virtual void setVisible(bool visible);
     virtual void open();
-    void open(SIP_PYOBJECT slot /DocType="slot"/);
+    void open(SIP_PYOBJECT slot /TypeHint="PYQT_SLOT"/);
 %MethodCode
         QObject *receiver;
         QByteArray slot_signature;

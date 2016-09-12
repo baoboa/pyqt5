@@ -2,7 +2,7 @@
 //
 // This file is part of the QtWidgets Python extension module.
 //
-// Copyright (c) 2015 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2016 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -27,8 +27,8 @@ class QLabel : QFrame
 %End
 
 public:
-    QLabel(QWidget *parent /TransferThis/ = 0, Qt::WindowFlags flags = 0);
-    QLabel(const QString &text, QWidget *parent /TransferThis/ = 0, Qt::WindowFlags flags = 0);
+    QLabel(QWidget *parent /TransferThis/ = 0, Qt::WindowFlags flags = Qt::WindowFlags());
+    QLabel(const QString &text, QWidget *parent /TransferThis/ = 0, Qt::WindowFlags flags = Qt::WindowFlags());
     virtual ~QLabel();
     QString text() const;
     const QPixmap *pixmap() const;

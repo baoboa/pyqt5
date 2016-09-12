@@ -1,6 +1,6 @@
 // This is the interface of the Chimera and related classes.
 //
-// Copyright (c) 2015 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2016 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -28,6 +28,7 @@
 #include <QHash>
 #include <QList>
 #include <QMetaProperty>
+#include <QSet>
 #include <QVariant>
 
 #include "sipAPIQtCore.h"
@@ -218,17 +219,15 @@ public:
     // Returns the C++ name of the type.
     const QByteArray &name() const {return _name;}
 
-    // Returns true if the type is an enum.
-    bool isEnum() const {return (_type && sipTypeIsEnum(_type));}
-
-    // Returns true if the type is a flag.
-    bool isFlag() const {return _is_flag;}
+    // Returns true if the type is a C++ or Python enum (ie. has been passed to
+    // Q_ENUMS or Q_FLAGS).
+    bool isEnum() const;
 
     // Returns the SIP generated type structure.
     const sipTypeDef *typeDef() const {return _type;}
 
-    // Register a type as an int type.
-    static void registerIntType(PyObject *int_type);
+    // Register a type as a Python enum.
+    static void registerPyEnum(PyObject *enum_type);
 
 private:
     // The generated type structure.  This may be 0 if the type is known by Qt
@@ -247,13 +246,13 @@ private:
     bool _inexact;
 
     // Set if the the type is derived from QFlags.
-    bool _is_flag;
+    bool _is_qflags;
 
     // The C++ name of the type.
     QByteArray _name;
 
     // The registered int types.
-    static QList<PyObject *> _registered_int_types;
+    static QSet<PyObject *> _py_enum_types;
 
     // The cache of previously parsed argument type lists.
     static QHash<QByteArray, QList<const Chimera *> > _previously_parsed;
@@ -263,9 +262,11 @@ private:
     bool parse_cpp_type(const QByteArray &type);
     bool parse_py_type(PyTypeObject *type_obj);
     sipAssignFunc get_assign_helper() const;
-    void set_flag();
+    void set_qflags();
+    bool isCppEnum() const {return (_type && sipTypeIsEnum(_type));}
     bool to_QVariantList(PyObject *py, QVariantList &cpp) const;
     bool to_QVariantMap(PyObject *py, QVariantMap &cpp) const;
+    static PyObject *from_QVariantMap(const QVariantMap &qm);
     bool to_QVariantHash(PyObject *py, QVariantHash &cpp) const;
     static bool add_variant_to_dict(PyObject *dict, const QString &key_ref,
             const QVariant &val_ref);

@@ -1,6 +1,6 @@
 // This implements the public API provided by PyQt to external packages.
 //
-// Copyright (c) 2015 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2016 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -174,7 +174,7 @@ void pyqt5_err_print()
                 }
 #else
                 char *buffer;
-                SIP_SSIZE_T length;
+                Py_ssize_t length;
 
                 if (PyString_AsStringAndSize(text, &buffer, &length) == 0)
                     message = QByteArray(buffer, length);
@@ -280,39 +280,48 @@ sipErrorState pyqt5_get_pyqtsignal_parts(PyObject *signal,
 sipErrorState pyqt5_get_pyqtslot_parts(PyObject *slot, QObject **receiver,
         QByteArray &slot_signature)
 {
+    PyObject *py_receiver, *decorations;
+    int is_err;
+    void *qobj;
+    Chimera::Signature *sig;
+
     // Get the QObject.
-    PyObject *py_receiver = PyMethod_Self(slot);
+    py_receiver = PyMethod_Self(slot);
 
     if (!py_receiver)
-        return sipErrorContinue;
+        goto bad_callable;
 
-    void *qobj;
-    int is_err = 0;
+    is_err = 0;
 
     qobj = sipForceConvertToType(py_receiver, sipType_QObject, 0,
             SIP_NO_CONVERTORS, 0, &is_err);
 
     if (is_err)
-        return sipErrorContinue;
+        goto bad_callable;
 
     *receiver = reinterpret_cast<QObject *>(qobj);
 
     // Get the decoration.
-    PyObject *decorations = PyObject_GetAttr(slot,
-            qpycore_dunder_pyqtsignature);
+    decorations = PyObject_GetAttr(slot, qpycore_dunder_pyqtsignature);
 
     if (!decorations)
-        return sipErrorContinue;
+        goto bad_callable;
 
     // Use the first one ignoring any others.
-    Chimera::Signature *sig = Chimera::Signature::fromPyObject(
-            PyList_GET_ITEM(decorations, 0));
+    sig = Chimera::Signature::fromPyObject(PyList_GET_ITEM(decorations, 0));
     Py_DECREF(decorations);
 
     slot_signature = sig->signature;
     slot_signature.prepend('1');
 
     return sipErrorNone;
+
+bad_callable:
+    PyErr_SetString(PyExc_TypeError,
+            "callable must be a method of a QtCore.QObject instance decorated "
+            "by QtCore.pyqtSlot");
+
+    return sipErrorFail;
 }
 
 
@@ -326,7 +335,7 @@ sipErrorState pyqt5_get_signal_signature(PyObject *signal,
     {
         qpycore_pyqtBoundSignal *bs = (qpycore_pyqtBoundSignal *)signal;
 
-        if (bs->bound_qobject != transmitter)
+        if (transmitter && bs->bound_qobject != transmitter)
         {
             PyErr_SetString(PyExc_ValueError,
                     "signal is bound to a different QObject");

@@ -1,6 +1,6 @@
 // This is the implementation of the QQmlListProperty class.
 //
-// Copyright (c) 2015 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2016 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -53,7 +53,11 @@ PyDoc_STRVAR(QQmlListProperty_doc,
 // standard string type that is callable.
 PyTypeObject qpyqml_QQmlListProperty_Type = {
     PyVarObject_HEAD_INIT(NULL, 0)
-    SIP_TPNAME_CAST("PyQt5.QtQml.QQmlListProperty"),
+#if PY_VERSION_HEX >= 0x02050000
+    "PyQt5.QtQml.QQmlListProperty",
+#else
+    const_cast<char *>("PyQt5.QtQml.QQmlListProperty"),
+#endif
     0,
     0,
     0,

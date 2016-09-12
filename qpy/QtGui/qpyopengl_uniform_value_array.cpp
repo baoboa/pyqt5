@@ -1,6 +1,6 @@
 // This contains the support for shader program uniform value arrays.
 //
-// Copyright (c) 2015 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2016 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -96,7 +96,7 @@ const void *qpyopengl_uniform_value_array(PyObject *values, PyObject *shader,
         return 0;
     }
 
-    SIP_SSIZE_T nr_items = PySequence_Fast_GET_SIZE(values);
+    Py_ssize_t nr_items = PySequence_Fast_GET_SIZE(values);
 
     if (nr_items < 1)
     {
@@ -114,7 +114,7 @@ const void *qpyopengl_uniform_value_array(PyObject *values, PyObject *shader,
     PyObject *itm = PySequence_Fast_GET_ITEM(values, 0);
 
     const sipTypeDef *td;
-    SIP_SSIZE_T nr_dim = 0;
+    Py_ssize_t nr_dim = 0;
     void *array;
 
     if (sipCanConvertToType(itm, sipType_QVector2D, SIP_NOT_NONE))
@@ -198,7 +198,7 @@ const void *qpyopengl_uniform_value_array(PyObject *values, PyObject *shader,
     }
 
     // Convert the values.
-    for (SIP_SSIZE_T i = 0; i < nr_items; ++i)
+    for (Py_ssize_t i = 0; i < nr_items; ++i)
     {
         int iserr = 0;
 
@@ -320,7 +320,7 @@ const void *qpyopengl_uniform_value_array(PyObject *values, PyObject *shader,
 
                     PyErr_Clear();
 
-                    for (SIP_SSIZE_T j = 0; j < nr_dim; ++j)
+                    for (Py_ssize_t j = 0; j < nr_dim; ++j)
                         *ap++ = PyFloat_AsDouble(
                                 PySequence_Fast_GET_ITEM(itm, j));
 

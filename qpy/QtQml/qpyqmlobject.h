@@ -1,6 +1,6 @@
 // This is the definition of the QPyQmlObject classes.
 //
-// Copyright (c) 2015 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2016 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -124,7 +124,6 @@ public:
 
 protected:
     void connectNotify(const QMetaMethod &signal);
-    void disconnectNotify(const QMetaMethod &signal);
 
 private:
     // These can by cast to sipWrapperType and pyqtWrapperType.

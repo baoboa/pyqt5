@@ -2,7 +2,7 @@
 //
 // This file is part of the QtWidgets Python extension module.
 //
-// Copyright (c) 2015 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2016 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -49,7 +49,7 @@ public:
     explicit QFontDialog(QWidget *parent /TransferThis/ = 0);
     QFontDialog(const QFont &initial, QWidget *parent /TransferThis/ = 0);
     virtual ~QFontDialog();
-    static QFont getFont(bool *ok, const QFont &initial, QWidget *parent = 0, const QString &caption = QString(), QFlags<QFontDialog::FontDialogOption> options = 0) /ReleaseGIL/;
+    static QFont getFont(bool *ok, const QFont &initial, QWidget *parent = 0, const QString &caption = QString(), QFontDialog::FontDialogOptions options = QFontDialog::FontDialogOptions()) /ReleaseGIL/;
     static QFont getFont(bool *ok, QWidget *parent = 0) /ReleaseGIL/;
 
 protected:
@@ -66,10 +66,10 @@ public:
     QFont selectedFont() const;
     void setOption(QFontDialog::FontDialogOption option, bool on = true);
     bool testOption(QFontDialog::FontDialogOption option) const;
-    void setOptions(QFlags<QFontDialog::FontDialogOption> options);
-    QFlags<QFontDialog::FontDialogOption> options() const;
+    void setOptions(QFontDialog::FontDialogOptions options);
+    QFontDialog::FontDialogOptions options() const;
     virtual void open();
-    void open(SIP_PYOBJECT slot /DocType="slot"/);
+    void open(SIP_PYOBJECT slot /TypeHint="PYQT_SLOT"/);
 %MethodCode
         QObject *receiver;
         QByteArray slot_signature;

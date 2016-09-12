@@ -1,7 +1,7 @@
 Introduction
 ============
 
-This is the reference guide for PyQt5 5.5.1.  PyQt5 is a set of
+This is the reference guide for PyQt5 5.6.  PyQt5 is a set of
 `Python <http://www.python.org>`__ bindings for v5 of the Qt application
 framework from `The Qt Company <http://www.qt.io>`__.
 
@@ -204,6 +204,11 @@ number of Python extension modules.  These are all installed in the
 - :mod:`~PyQt5.QtWebChannel` contains classes for transparently accessing
   :class:`~PyQt5.QtCore.QObject` or QML objects from HTML clients.
 
+.. module:: PyQt5.QtWebEngineCore
+
+- :mod:`~PyQt5.QtWebEngineCore` contains core classes used by the
+  :mod:`~PyQt5.QtWebEngineWidgets` module.
+
 .. module:: PyQt5.QtWebEngineWidgets
 
 - :mod:`~PyQt5.QtWebEngineWidgets` contains classes for a Chromium based
@@ -215,9 +220,8 @@ number of Python extension modules.  These are all installed in the
   .. note::
 
     :mod:`~PyQt5.QtWebEngineWidgets` is not normally available under Windows
-    because of compiler incompatibilities.  :mod:`~PyQt5.QtWebEngineWidgets`
-    requires MSVC2013 (or later) but the version used to build Python v3 is
-    MSVC2010.
+    using versions of Python earlier than v3.5 because of compiler
+    incompatibilities.
 
 .. module:: PyQt5.QtWebKit
 

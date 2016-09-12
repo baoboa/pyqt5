@@ -1,6 +1,6 @@
 // This contains the implementation of the pyqtBoundSignal type.
 //
-// Copyright (c) 2015 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2016 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -34,6 +34,13 @@
 #include "qpycore_pyqtslotproxy.h"
 
 #include "sipAPIQtCore.h"
+
+
+#if PY_VERSION_HEX >= 0x02050000
+#define CHAR_CAST(s)    (s)
+#else
+#define CHAR_CAST(s)    (const_cast<char *>(s))
+#endif
 
 
 // Forward declarations.
@@ -101,13 +108,13 @@ PyDoc_STRVAR(pyqtBoundSignal_signal_doc,
 
 // Define the methods.
 static PyMethodDef pyqtBoundSignal_methods[] = {
-    {SIP_MLNAME_CAST("connect"), (PyCFunction)pyqtBoundSignal_connect,
+    {CHAR_CAST("connect"), (PyCFunction)pyqtBoundSignal_connect,
             METH_VARARGS|METH_KEYWORDS,
-            SIP_MLDOC_CAST(pyqtBoundSignal_connect_doc)},
-    {SIP_MLNAME_CAST("disconnect"), pyqtBoundSignal_disconnect,
-            METH_VARARGS, SIP_MLDOC_CAST(pyqtBoundSignal_disconnect_doc)},
-    {SIP_MLNAME_CAST("emit"), pyqtBoundSignal_emit,
-            METH_VARARGS, SIP_MLDOC_CAST(pyqtBoundSignal_emit_doc)},
+            CHAR_CAST(pyqtBoundSignal_connect_doc)},
+    {CHAR_CAST("disconnect"), pyqtBoundSignal_disconnect,
+            METH_VARARGS, CHAR_CAST(pyqtBoundSignal_disconnect_doc)},
+    {CHAR_CAST("emit"), pyqtBoundSignal_emit,
+            METH_VARARGS, CHAR_CAST(pyqtBoundSignal_emit_doc)},
     {0, 0, 0, 0}
 };
 
@@ -132,7 +139,7 @@ static PyGetSetDef pyqtBoundSignal_getsets[] = {
 // The pyqtBoundSignal type object.
 PyTypeObject qpycore_pyqtBoundSignal_Type = {
     PyVarObject_HEAD_INIT(NULL, 0)
-    SIP_TPNAME_CAST("PyQt5.QtCore.pyqtBoundSignal"),    /* tp_name */
+    CHAR_CAST("PyQt5.QtCore.pyqtBoundSignal"),  /* tp_name */
     sizeof (qpycore_pyqtBoundSignal),   /* tp_basicsize */
     0,                      /* tp_itemsize */
     pyqtBoundSignal_dealloc,    /* tp_dealloc */
@@ -238,7 +245,7 @@ static PyObject *pyqtBoundSignal_repr(PyObject *self)
 #else
         PyString_FromFormat
 #endif
-            ("<bound signal %s of %s object at %p>", name.constData() + 1,
+            ("<bound PYQT_SIGNAL %s of %s object at %p>", name.constData() + 1,
                     bs->bound_pyobject->ob_type->tp_name, bs->bound_pyobject);
 }
 
@@ -862,11 +869,24 @@ static bool get_receiver(PyObject *slot,
                         ol);
 
             if (!slot_signature.isEmpty())
-            {
-                // Prepend the magic slot marker.
-                slot_signature.prepend('1');
                 break;
+        }
+
+        if (slot_signature.isEmpty())
+        {
+            // If the method is decorated then there must be a match.
+            if (decorations)
+            {
+                PyErr_Format(PyExc_TypeError,
+                        "decorated slot has no signature compatible with %s",
+                        signal_signature->py_signature.constData());
+                return false;
             }
+        }
+        else
+        {
+            // Prepend the magic slot marker.
+            slot_signature.prepend('1');
         }
     }
 
@@ -879,7 +899,7 @@ static bool get_receiver(PyObject *slot,
 static QByteArray slot_signature_from_decorations(
         const Chimera::Signature *signal, PyObject *decorations, int nr_args)
 {
-    for (SIP_SSIZE_T i = 0; i < PyList_GET_SIZE(decorations); ++i)
+    for (Py_ssize_t i = 0; i < PyList_GET_SIZE(decorations); ++i)
     {
         Chimera::Signature *slot = Chimera::Signature::fromPyObject(
                 PyList_GET_ITEM(decorations, i));

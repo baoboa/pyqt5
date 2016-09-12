@@ -2,7 +2,7 @@
 //
 // This file is part of the QtDBus Python extension module.
 //
-// Copyright (c) 2015 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2016 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -72,7 +72,7 @@ public:
     QDBusMessage call(const QString &method, const QVariant &arg1 = QVariant(), const QVariant &arg2 = QVariant(), const QVariant &arg3 = QVariant(), const QVariant &arg4 = QVariant(), const QVariant &arg5 = QVariant(), const QVariant &arg6 = QVariant(), const QVariant &arg7 = QVariant(), const QVariant &arg8 = QVariant()) /ReleaseGIL/;
     QDBusMessage call(QDBus::CallMode mode, const QString &method, const QVariant &arg1 = QVariant(), const QVariant &arg2 = QVariant(), const QVariant &arg3 = QVariant(), const QVariant &arg4 = QVariant(), const QVariant &arg5 = QVariant(), const QVariant &arg6 = QVariant(), const QVariant &arg7 = QVariant(), const QVariant &arg8 = QVariant()) /ReleaseGIL/;
     QDBusMessage callWithArgumentList(QDBus::CallMode mode, const QString &method, const QList<QVariant> &args) /ReleaseGIL/;
-    bool callWithCallback(const QString &method, const QList<QVariant> &args, SIP_PYOBJECT returnMethod /DocType="slot"/, SIP_PYOBJECT errorMethod /DocType="slot"/);
+    bool callWithCallback(const QString &method, const QList<QVariant> &args, SIP_PYOBJECT returnMethod /TypeHint="PYQT_SLOT"/, SIP_PYOBJECT errorMethod /TypeHint="PYQT_SLOT"/);
 %MethodCode
         QObject *receiver;
         QByteArray return_slot;
@@ -106,7 +106,7 @@ public:
         }
 %End
 
-    bool callWithCallback(const QString &method, QList<QVariant> &args, SIP_PYOBJECT slot /DocType="slot"/);
+    bool callWithCallback(const QString &method, QList<QVariant> &args, SIP_PYOBJECT slot /TypeHint="PYQT_SLOT"/);
 %MethodCode
         QObject *receiver;
         QByteArray slot;
@@ -152,5 +152,8 @@ qpydbus_post_init();
 
 // Imports from QtCore.
 pyqt5_qtdbus_from_qvariant_by_type = (pyqt5_qtdbus_from_qvariant_by_type_t)sipImportSymbol("pyqt5_from_qvariant_by_type");
+Q_ASSERT(pyqt5_qtdbus_from_qvariant_by_type);
+
 pyqt5_qtdbus_get_pyqtslot_parts = (pyqt5_qtdbus_get_pyqtslot_parts_t)sipImportSymbol("pyqt5_get_pyqtslot_parts");
+Q_ASSERT(pyqt5_qtdbus_get_pyqtslot_parts);
 %End

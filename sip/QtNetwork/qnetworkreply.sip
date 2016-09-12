@@ -2,7 +2,7 @@
 //
 // This file is part of the QtNetwork Python extension module.
 //
-// Copyright (c) 2015 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2016 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -73,6 +73,12 @@ public:
 %If (Qt_5_3_0 -)
         UnknownServerError,
 %End
+%If (Qt_5_6_0 -)
+        TooManyRedirectsError,
+%End
+%If (Qt_5_6_0 -)
+        InsecureRedirectError,
+%End
     };
 
     virtual ~QNetworkReply();
@@ -119,6 +125,9 @@ signals:
 %If (PyQt_SSL)
     void preSharedKeyAuthenticationRequired(QSslPreSharedKeyAuthenticator *authenticator);
 %End
+%End
+%If (Qt_5_6_0 -)
+    void redirected(const QUrl &url);
 %End
 
 protected:

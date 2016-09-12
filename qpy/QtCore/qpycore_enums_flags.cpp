@@ -1,6 +1,6 @@
 // This contains the implementation of the Q_ENUMS and Q_FLAGS support.
 //
-// Copyright (c) 2015 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2016 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -68,7 +68,7 @@ static PyObject *parse_enums_flags(PyObject *args, bool flags)
     }
 
     // Each argument is a separate enum/flag.
-    for (SIP_SSIZE_T i = 0; i < PyTuple_GET_SIZE(args); ++i)
+    for (Py_ssize_t i = 0; i < PyTuple_GET_SIZE(args); ++i)
     {
         PyObject *arg = PyTuple_GET_ITEM(args, i);
 
@@ -85,7 +85,7 @@ static PyObject *parse_enums_flags(PyObject *args, bool flags)
         EnumsFlags enums_flags(((PyTypeObject *)arg)->tp_name, flags);
 
         // Go through the type dictionary looking for int attributes.
-        SIP_SSIZE_T pos = 0;
+        Py_ssize_t pos = 0;
         PyObject *key, *value;
 
         while (PyDict_Next(((PyTypeObject *)arg)->tp_dict, &pos, &key, &value))
@@ -109,7 +109,7 @@ static PyObject *parse_enums_flags(PyObject *args, bool flags)
 
         enums_flags_hash.insert(frame, enums_flags);
 
-        Chimera::registerIntType(arg);
+        Chimera::registerPyEnum(arg);
     }
 
     // Make sure there are no exceptions left after failed value conversions.

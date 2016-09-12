@@ -2,7 +2,7 @@
 //
 // This file is part of the QtCore Python extension module.
 //
-// Copyright (c) 2015 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2016 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -48,7 +48,7 @@ public:
     QString fileName() const;
     bool isLoaded() const;
     bool load();
-    QFlags<QLibrary::LoadHint> loadHints() const;
+    QLibrary::LoadHints loadHints() const;
     QFunctionPointer resolve(const char *symbol);
     static QFunctionPointer resolve(const QString &fileName, const char *symbol);
     static QFunctionPointer resolve(const QString &fileName, int verNum, const char *symbol);
@@ -58,7 +58,7 @@ public:
     void setFileName(const QString &fileName);
     void setFileNameAndVersion(const QString &fileName, int verNum);
     void setFileNameAndVersion(const QString &fileName, const QString &version);
-    void setLoadHints(QFlags<QLibrary::LoadHint> hints);
+    void setLoadHints(QLibrary::LoadHints hints);
 };
 
 QFlags<QLibrary::LoadHint> operator|(QLibrary::LoadHint f1, QFlags<QLibrary::LoadHint> f2);

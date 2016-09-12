@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Differences Between PyQt4 and PyQt5 &mdash; PyQt 5.5.1 Reference Guide</title>
+    <title>Differences Between PyQt4 and PyQt5 &mdash; PyQt 5.6 Reference Guide</title>
     
     <link rel="stylesheet" href="_static/classic.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '5.5.1',
+        VERSION:     '5.6',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -24,7 +24,7 @@
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
     <link rel="shortcut icon" href="_static/logo_tn.ico"/>
-    <link rel="top" title="PyQt 5.5.1 Reference Guide" href="index.html" />
+    <link rel="top" title="PyQt 5.6 Reference Guide" href="index.html" />
     <link rel="next" title="PyQt5 Class Reference" href="class_reference.html" />
     <link rel="prev" title="Installing PyQt5" href="installation.html" /> 
   </head>
@@ -44,7 +44,7 @@
         <li class="right" >
           <a href="installation.html" title="Installing PyQt5"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">PyQt 5.5.1 Reference Guide</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">PyQt 5.6 Reference Guide</a> &raquo;</li> 
       </ul>
     </div>  
 
@@ -75,7 +75,7 @@ included accidentaly.  These are considered bugs and will be removed if found.</
 <a class="reference internal" href="api/qvariant.html#PyQt5.QtCore.QVariant" title="PyQt5.QtCore.QVariant"><code class="xref py py-class docutils literal"><span class="pre">QVariant</span></code></a>, PyQt5 only implements v2 of those APIs for all
 versions of Python.  The changed support for <a class="reference internal" href="api/qvariant.html#PyQt5.QtCore.QVariant" title="PyQt5.QtCore.QVariant"><code class="xref py py-class docutils literal"><span class="pre">QVariant</span></code></a>,
 including the removal of <code class="docutils literal"><span class="pre">QPyNullVariant</span></code>, is described in
-<a class="reference internal" href="pyqt_qvariant.html#ref-qvariant"><span>Support for QVariant</span></a>.</p>
+<a class="reference internal" href="pyqt_qvariant.html#ref-qvariant"><span class="std std-ref">Support for QVariant</span></a>.</p>
 </div>
 <div class="section" id="old-style-signals-and-slots">
 <h2>Old-style Signals and Slots<a class="headerlink" href="#old-style-signals-and-slots" title="Permalink to this headline">¶</a></h2>
@@ -133,7 +133,7 @@ and <a class="reference internal" href="introduction.html#module-PyQt5.QtWebKitW
 <div class="section" id="pyqtconfig-module">
 <h2><code class="docutils literal"><span class="pre">pyqtconfig</span></code> Module<a class="headerlink" href="#pyqtconfig-module" title="Permalink to this headline">¶</a></h2>
 <p>PyQt4&#8217;s <code class="docutils literal"><span class="pre">pyqtconfig</span></code> module is not supported.  The section
-<a class="reference internal" href="extension_api.html#ref-build-system"><span>The PyQt5 Extension API</span></a> describes the support that PyQt5 provides to
+<a class="reference internal" href="extension_api.html#ref-build-system"><span class="std std-ref">The PyQt5 Extension API</span></a> describes the support that PyQt5 provides to
 third-party packages (e.g.
 <a class="reference external" href="http://www.riverbankcomputing.com/software/qscintilla/">QScintilla</a>) that
 want to build on top of PyQt5.</p>
@@ -205,7 +205,7 @@ Python starting with Python v2.6.</p>
 words PyQt5 classes always do the equivalent of the following Python v3 code
 in their <code class="docutils literal"><span class="pre">__init__</span></code> methods (where <code class="docutils literal"><span class="pre">kwds</span></code> is a dictionary of unused keyword
 arguments):</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="o">**</span><span class="n">kwds</span><span class="p">)</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="o">**</span><span class="n">kwds</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>This means that those unused keyword arguments are passed to the <code class="docutils literal"><span class="pre">__init__</span></code>
@@ -213,37 +213,37 @@ methods of any mixin classes.  Those mixin classes must cooperate, i.e. they
 must make a similar call if they have their own <code class="docutils literal"><span class="pre">__init__</span></code> implementations.</p>
 <p>When using multiple inheritance in PyQt4 it is common to call the <code class="docutils literal"><span class="pre">__init__</span></code>
 methods of the super-classes explicitly, for example:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="k">class</span> <span class="nc">MyQObject</span><span class="p">(</span><span class="n">QObject</span><span class="p">,</span> <span class="n">MyMixin</span><span class="p">):</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">MyQObject</span><span class="p">(</span><span class="n">QObject</span><span class="p">,</span> <span class="n">MyMixin</span><span class="p">):</span>
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">parent</span><span class="p">,</span> <span class="n">mixin_arg</span><span class="p">):</span>
         <span class="n">QObject</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">parent</span><span class="p">)</span>
         <span class="n">MyMixin</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">mixin_arg</span><span class="p">)</span>
 
-        <span class="c"># Other initialisation...</span>
+        <span class="c1"># Other initialisation...</span>
 </pre></div>
 </div>
 <p>In PyQt5 the above would cause <code class="docutils literal"><span class="pre">MyMixin.__init__</span></code> to be called twice.
 Instead it should be implemented as follows:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="k">class</span> <span class="nc">MyQObject</span><span class="p">(</span><span class="n">QObject</span><span class="p">,</span> <span class="n">MyMixin</span><span class="p">):</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">MyQObject</span><span class="p">(</span><span class="n">QObject</span><span class="p">,</span> <span class="n">MyMixin</span><span class="p">):</span>
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwds</span><span class="p">):</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="o">**</span><span class="n">kwds</span><span class="p">)</span>
 
-        <span class="c"># Other initialisation...</span>
+        <span class="c1"># Other initialisation...</span>
 </pre></div>
 </div>
 <p>Note that if there is no other initialisation to do then the <code class="docutils literal"><span class="pre">__init__</span></code>
 method isn&#8217;t actually needed.</p>
 <p>The mixin class should be implemented as follows:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="k">class</span> <span class="nc">MyMixin</span><span class="p">:</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">MyMixin</span><span class="p">:</span>
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">mixin_arg</span><span class="p">,</span> <span class="o">**</span><span class="n">kwds</span><span class="p">):</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="o">**</span><span class="n">kwds</span><span class="p">)</span>
 
-        <span class="c"># Other initialisation...</span>
+        <span class="c1"># Other initialisation...</span>
 </pre></div>
 </div>
 <p>If a class only inherits from a single class then it can still call the
 super-class&#8217;s <code class="docutils literal"><span class="pre">__init__</span></code> method explicitly (although it is recommended to use
 <code class="docutils literal"><span class="pre">super()</span></code>).</p>
-<p>See <a class="reference internal" href="multiinheritance.html#ref-cooperative-multiinheritance"><span>Support for Cooperative Multi-inheritance</span></a>.</p>
+<p>See <a class="reference internal" href="multiinheritance.html#ref-cooperative-multiinheritance"><span class="std std-ref">Support for Cooperative Multi-inheritance</span></a>.</p>
 </div>
 <div class="section" id="releasing-the-gil">
 <h2>Releasing the GIL<a class="headerlink" href="#releasing-the-gil" title="Permalink to this headline">¶</a></h2>
@@ -255,33 +255,8 @@ the GIL when calling Qt.</p>
 <p>When the Python interpreter exits PyQt4 (by default) calls the C++ destructor
 of all wrapped instances that it owns.  This happens in a random order and can
 therefore cause the interpreter to crash.  This behavior can be disabled by
-calling the <code class="xref py py-func docutils literal"><span class="pre">sip.setdestroyonexit()</span></code> function.</p>
-<p>PyQt5 always calls <code class="xref py py-func docutils literal"><span class="pre">sip.setdestroyonexit()</span></code> automatically.  However if the
-wrapped instances have not been created at the module level and have instead
-been created in a function then the problem will still exist.  For example, do
-not do the following:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
-    <span class="n">app</span> <span class="o">=</span> <span class="n">QApplication</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">)</span>
-
-    <span class="n">w</span> <span class="o">=</span> <span class="n">QWidget</span><span class="p">()</span>
-    <span class="n">w</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
-
-    <span class="n">app</span><span class="o">.</span><span class="k">exec</span><span class="p">()</span>
-
-<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">&#39;__main__&#39;</span><span class="p">:</span>
-    <span class="n">main</span><span class="p">()</span>
-</pre></div>
-</div>
-<p>Instead, do the following:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">&#39;__main__&#39;</span><span class="p">:</span>
-    <span class="n">app</span> <span class="o">=</span> <span class="n">QApplication</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">)</span>
-
-    <span class="n">w</span> <span class="o">=</span> <span class="n">QWidget</span><span class="p">()</span>
-    <span class="n">w</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
-
-    <span class="n">app</span><span class="o">.</span><span class="k">exec</span><span class="p">()</span>
-</pre></div>
-</div>
+calling the <code class="xref py py-func docutils literal"><span class="pre">sip.setdestroyonexit()</span></code> function.  PyQt5 always calls
+<code class="xref py py-func docutils literal"><span class="pre">sip.setdestroyonexit()</span></code> automatically.</p>
 </div>
 </div>
 
@@ -337,9 +312,6 @@ not do the following:</p>
       <input type="hidden" name="check_keywords" value="yes" />
       <input type="hidden" name="area" value="default" />
     </form>
-    <p class="searchtip" style="font-size: 90%">
-    Enter search terms or a module, class or function name.
-    </p>
 </div>
 <script type="text/javascript">$('#searchbox').show(0);</script>
         </div>
@@ -361,12 +333,12 @@ not do the following:</p>
         <li class="right" >
           <a href="installation.html" title="Installing PyQt5"
              >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">PyQt 5.5.1 Reference Guide</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">PyQt 5.6 Reference Guide</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
         &copy; Copyright 2015 Riverbank Computing Limited.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.1.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.4.1.
     </div>
   </body>
 </html>

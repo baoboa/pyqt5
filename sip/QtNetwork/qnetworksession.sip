@@ -2,7 +2,7 @@
 //
 // This file is part of the QtNetwork Python extension module.
 //
-// Copyright (c) 2015 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2016 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -91,10 +91,10 @@ public:
     };
 
     typedef QFlags<QNetworkSession::UsagePolicy> UsagePolicies;
-    QFlags<QNetworkSession::UsagePolicy> usagePolicies() const;
+    QNetworkSession::UsagePolicies usagePolicies() const;
 
 signals:
-    void usagePoliciesChanged(QFlags<QNetworkSession::UsagePolicy>);
+    void usagePoliciesChanged(QNetworkSession::UsagePolicies usagePolicies);
 
 private:
     QNetworkSession(const QNetworkSession &);

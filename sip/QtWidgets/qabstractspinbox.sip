@@ -2,7 +2,7 @@
 //
 // This file is part of the QtWidgets Python extension module.
 //
-// Copyright (c) 2015 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2016 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -95,7 +95,7 @@ protected:
     virtual void showEvent(QShowEvent *e);
     QLineEdit *lineEdit() const;
     void setLineEdit(QLineEdit *e /Transfer/);
-    virtual QFlags<QAbstractSpinBox::StepEnabledFlag> stepEnabled() const;
+    virtual QAbstractSpinBox::StepEnabled stepEnabled() const;
     void initStyleOption(QStyleOptionSpinBox *option) const;
 
 public:

@@ -1,6 +1,6 @@
 // This is the implementation of pyqtProperty.
 //
-// Copyright (c) 2015 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2016 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -111,7 +111,11 @@ static PyMethodDef pyqtProperty_methods[] = {
 // This implements the PyQt version of the standard Python property type.
 PyTypeObject qpycore_pyqtProperty_Type = {
     PyVarObject_HEAD_INIT(NULL, 0)
-    SIP_TPNAME_CAST("PyQt5.QtCore.pyqtProperty"),
+#if PY_VERSION_HEX >= 0x02050000
+    "PyQt5.QtCore.pyqtProperty",
+#else
+    const_cast<char *>("PyQt5.QtCore.pyqtProperty"),
+#endif
     sizeof (qpycore_pyqtProperty),
     0,
     pyqtProperty_dealloc,

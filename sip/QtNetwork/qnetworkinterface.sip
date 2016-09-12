@@ -2,7 +2,7 @@
 //
 // This file is part of the QtNetwork Python extension module.
 //
-// Copyright (c) 2015 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2016 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -40,7 +40,7 @@ public:
     bool operator!=(const QNetworkAddressEntry &other) const;
     int prefixLength() const;
     void setPrefixLength(int length);
-    void swap(QNetworkAddressEntry &other);
+    void swap(QNetworkAddressEntry &other /Constrained/);
 };
 
 class QNetworkInterface
@@ -66,7 +66,7 @@ public:
     ~QNetworkInterface();
     bool isValid() const;
     QString name() const;
-    QFlags<QNetworkInterface::InterfaceFlag> flags() const;
+    QNetworkInterface::InterfaceFlags flags() const;
     QString hardwareAddress() const;
     QList<QNetworkAddressEntry> addressEntries() const;
     static QNetworkInterface interfaceFromName(const QString &name);
@@ -75,7 +75,7 @@ public:
     static QList<QHostAddress> allAddresses();
     int index() const;
     QString humanReadableName() const;
-    void swap(QNetworkInterface &other);
+    void swap(QNetworkInterface &other /Constrained/);
 };
 
 QFlags<QNetworkInterface::InterfaceFlag> operator|(QNetworkInterface::InterfaceFlag f1, QFlags<QNetworkInterface::InterfaceFlag> f2);

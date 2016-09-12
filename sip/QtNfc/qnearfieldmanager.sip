@@ -2,7 +2,7 @@
 //
 // This file is part of the QtNfc Python extension module.
 //
-// Copyright (c) 2015 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2016 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -77,7 +77,7 @@ public:
     QFlags<QNearFieldManager::TargetAccessMode> targetAccessModes() const;
     bool startTargetDetection();
     void stopTargetDetection();
-    int registerNdefMessageHandler(SIP_PYOBJECT slot /DocType="slot"/);
+    int registerNdefMessageHandler(SIP_PYOBJECT slot /TypeHint="PYQT_SLOT"/);
 %MethodCode
         QObject *receiver;
         QByteArray slot;
@@ -92,7 +92,7 @@ public:
         }
 %End
 
-    int registerNdefMessageHandler(QNdefRecord::TypeNameFormat typeNameFormat, const QByteArray &type, SIP_PYOBJECT slot /DocType="slot"/);
+    int registerNdefMessageHandler(QNdefRecord::TypeNameFormat typeNameFormat, const QByteArray &type, SIP_PYOBJECT slot /TypeHint="PYQT_SLOT"/);
 %MethodCode
         QObject *receiver;
         QByteArray slot;
@@ -107,7 +107,7 @@ public:
         }
 %End
 
-    int registerNdefMessageHandler(const QNdefFilter &filter, SIP_PYOBJECT slot /DocType="slot"/);
+    int registerNdefMessageHandler(const QNdefFilter &filter, SIP_PYOBJECT slot /TypeHint="PYQT_SLOT"/);
 %MethodCode
         QObject *receiver;
         QByteArray slot;
@@ -148,4 +148,5 @@ pyqt5_qtnfc_get_pyqtslot_parts_t pyqt5_qtnfc_get_pyqtslot_parts;
 %PostInitialisationCode
 // Imports from QtCore.
 pyqt5_qtnfc_get_pyqtslot_parts = (pyqt5_qtnfc_get_pyqtslot_parts_t)sipImportSymbol("pyqt5_get_pyqtslot_parts");
+Q_ASSERT(pyqt5_qtnfc_get_pyqtslot_parts);
 %End

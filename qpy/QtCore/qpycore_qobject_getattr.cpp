@@ -1,6 +1,6 @@
 // This implements the helper for QObject.__getattr__().
 //
-// Copyright (c) 2015 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2016 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -65,68 +65,67 @@ PyObject *qpycore_qobject_getattr(const QObject *qobj, PyObject *py_qobj,
         }
     }
 
-    if (method_index < 0)
+    if (method_index >= 0)
     {
-        // Replicate the standard Python exception.
-        PyErr_Format(PyExc_AttributeError, "'%s' object has no attribute '%s'",
-                Py_TYPE(py_qobj)->tp_name, name);
-
-        return 0;
-    }
-
-    // Get the value to return.  Note that this is recreated each time.  We
-    // could put a descriptor in the type dictionary to satisfy the request in
-    // future but the typical use case is getting a value from a C++ proxy
-    // (e.g. QDeclarativeItem) and we can't assume that what is being proxied
-    // is the same each time.
-    PyObject *value;
-
-    if (method.methodType() == QMetaMethod::Signal)
-    {
-        // We need to keep explicit references to the unbound signals (because
-        // we don't use the type dictionary to do so) because they own the
-        // parsed signature which may be needed by a PyQtSlotProxy at some
-        // point.
-        typedef QHash<QByteArray, PyObject *> SignalHash;
-
-        static SignalHash *sig_hash = 0;
-
-        // For crappy compilers.
-        if (!sig_hash)
-            sig_hash = new SignalHash;
-
-        PyObject *sig_obj;
-
-        QByteArray sig_str = method.methodSignature();
-
-        SignalHash::const_iterator it = sig_hash->find(sig_str);
-
-        if (it == sig_hash->end())
+        // Get the value to return.  Note that this is recreated each time.  We
+        // could put a descriptor in the type dictionary to satisfy the request
+        // in future but the typical use case is getting a value from a C++
+        // proxy (e.g. QDeclarativeItem) and we can't assume that what is being
+        // proxied is the same each time.
+        if (method.methodType() == QMetaMethod::Signal)
         {
-            sig_obj = (PyObject *)qpycore_pyqtSignal_New(sig_str.constData());
+            // We need to keep explicit references to the unbound signals
+            // (because we don't use the type dictionary to do so) because they
+            // own the parsed signature which may be needed by a PyQtSlotProxy
+            // at some point.
+            typedef QHash<QByteArray, PyObject *> SignalHash;
 
-            if (!sig_obj)
-                return 0;
+            static SignalHash *sig_hash = 0;
 
-            sig_hash->insert(sig_str, sig_obj);
-        }
-        else
-        {
-            sig_obj = it.value();
+            // For crappy compilers.
+            if (!sig_hash)
+                sig_hash = new SignalHash;
+
+            PyObject *sig_obj;
+
+            QByteArray sig_str = method.methodSignature();
+
+            SignalHash::const_iterator it = sig_hash->find(sig_str);
+
+            if (it == sig_hash->end())
+            {
+                sig_obj = (PyObject *)qpycore_pyqtSignal_New(
+                        sig_str.constData());
+
+                if (!sig_obj)
+                    return 0;
+
+                sig_hash->insert(sig_str, sig_obj);
+            }
+            else
+            {
+                sig_obj = it.value();
+            }
+
+            return qpycore_pyqtBoundSignal_New((qpycore_pyqtSignal *)sig_obj,
+                    py_qobj, const_cast<QObject *>(qobj));
         }
 
-        value = qpycore_pyqtBoundSignal_New((qpycore_pyqtSignal *)sig_obj,
-                py_qobj, const_cast<QObject *>(qobj));
-    }
-    else
-    {
-        QByteArray py_name(Py_TYPE(py_qobj)->tp_name);
-        py_name.append('.');
-        py_name.append(name);
+        // Respect the 'private' nature of __ names.
+        if (name[0] != '_' || name[1] != '_')
+        {
+            QByteArray py_name(Py_TYPE(py_qobj)->tp_name);
+            py_name.append('.');
+            py_name.append(name);
 
-        value = qpycore_pyqtMethodProxy_New(const_cast<QObject *>(qobj),
-                method_index, py_name);
+            return qpycore_pyqtMethodProxy_New(const_cast<QObject *>(qobj),
+                    method_index, py_name);
+        }
     }
 
-    return value;
+    // Replicate the standard Python exception.
+    PyErr_Format(PyExc_AttributeError, "'%s' object has no attribute '%s'",
+            Py_TYPE(py_qobj)->tp_name, name);
+
+    return 0;
 }

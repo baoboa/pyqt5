@@ -1,7 +1,7 @@
 // This is the SIP interface definition for the majority of the QPair based
 // mapped types.
 //
-// Copyright (c) 2015 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2016 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -20,7 +20,7 @@
 
 
 template<_TYPE_>
-%MappedType QPair<_TYPE_, int> /DocType="tuple-of-_TYPE_-int"/
+%MappedType QPair<_TYPE_, int> /TypeHint="Tuple[_TYPE_, int]"/
 {
 %TypeHeaderCode
 #include <qpair.h>
@@ -49,7 +49,7 @@ template<_TYPE_>
 #endif
                 && !PyUnicode_Check(sipPy));
 
-    SIP_SSIZE_T len = PySequence_Size(sipPy);
+    Py_ssize_t len = PySequence_Size(sipPy);
 
     if (len != 2)
     {
@@ -57,7 +57,7 @@ template<_TYPE_>
         // original exception stand.
         if (len >= 0)
             PyErr_Format(PyExc_TypeError,
-                    "sequence has " SIP_SSIZE_T_FORMAT " elements but 2 elements are expected",
+                    "sequence has %zd elements but 2 elements are expected",
                     len);
 
         *sipIsErr = 1;
@@ -127,7 +127,7 @@ template<_TYPE_>
 };
 
 
-%MappedType QPair<int, int> /DocType="tuple-of-int-int"/
+%MappedType QPair<int, int> /TypeHint="Tuple[int, int]"/
 {
 %TypeHeaderCode
 #include <qpair.h>
@@ -145,7 +145,7 @@ template<_TYPE_>
 #endif
                 && !PyUnicode_Check(sipPy));
 
-    SIP_SSIZE_T len = PySequence_Size(sipPy);
+    Py_ssize_t len = PySequence_Size(sipPy);
 
     if (len != 2)
     {
@@ -153,7 +153,7 @@ template<_TYPE_>
         // original exception stand.
         if (len >= 0)
             PyErr_Format(PyExc_TypeError,
-                    "sequence has " SIP_SSIZE_T_FORMAT " elements but 2 elements are expected",
+                    "sequence has %zd elements but 2 elements are expected",
                     len);
 
         *sipIsErr = 1;

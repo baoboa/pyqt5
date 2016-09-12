@@ -2,7 +2,7 @@
 //
 // This file is part of the QtCore Python extension module.
 //
-// Copyright (c) 2015 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2016 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -130,10 +130,10 @@ public:
     };
 
     typedef QFlags<QMetaType::TypeFlag> TypeFlags;
-    static QFlags<QMetaType::TypeFlag> typeFlags(int type);
+    static QMetaType::TypeFlags typeFlags(int type);
+    QMetaType::TypeFlags flags() const;
     bool isValid() const;
     bool isRegistered() const;
-    QFlags<QMetaType::TypeFlag> flags() const;
     static const QMetaObject *metaObjectForType(int type);
 
 private:

@@ -2,7 +2,7 @@
 //
 // This file is part of the QtGui Python extension module.
 //
-// Copyright (c) 2015 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2016 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -73,7 +73,7 @@ public:
     QTextCursor lastCursorPosition() const;
     int firstPosition() const;
     int lastPosition() const;
-    QList<QTextFrame*> childFrames() const;
+    QList<QTextFrame *> childFrames() const;
     QTextFrame *parentFrame() const;
 
     class iterator

@@ -2,7 +2,7 @@
 //
 // This file is part of the QtOpenGL Python extension module.
 //
-// Copyright (c) 2015 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2016 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -148,7 +148,7 @@ public:
     int blueBufferSize() const;
     void setSwapInterval(int interval);
     int swapInterval() const;
-    static QFlags<QGLFormat::OpenGLVersionFlag> openGLVersionFlags();
+    static QGLFormat::OpenGLVersionFlags openGLVersionFlags();
     void setVersion(int major, int minor);
     int majorVersion() const;
     int minorVersion() const;
@@ -227,8 +227,8 @@ public:
     };
 
     typedef QFlags<QGLContext::BindOption> BindOptions;
-    GLuint bindTexture(const QImage &image, GLenum target, GLint format, QFlags<QGLContext::BindOption> options);
-    GLuint bindTexture(const QPixmap &pixmap, GLenum target, GLint format, QFlags<QGLContext::BindOption> options);
+    GLuint bindTexture(const QImage &image, GLenum target, GLint format, QGLContext::BindOptions options);
+    GLuint bindTexture(const QPixmap &pixmap, GLenum target, GLint format, QGLContext::BindOptions options);
     void moveToThread(QThread *thread);
 
 private:
@@ -273,9 +273,9 @@ class QGLWidget : QWidget
 %End
 
 public:
-    QGLWidget(QWidget *parent /TransferThis/ = 0, const QGLWidget *shareWidget = 0, Qt::WindowFlags flags = 0);
-    QGLWidget(QGLContext *context /Transfer/, QWidget *parent /TransferThis/ = 0, const QGLWidget *shareWidget = 0, Qt::WindowFlags flags = 0);
-    QGLWidget(const QGLFormat &format, QWidget *parent /TransferThis/ = 0, const QGLWidget *shareWidget = 0, Qt::WindowFlags flags = 0);
+    QGLWidget(QWidget *parent /TransferThis/ = 0, const QGLWidget *shareWidget = 0, Qt::WindowFlags flags = Qt::WindowFlags());
+    QGLWidget(QGLContext *context /Transfer/, QWidget *parent /TransferThis/ = 0, const QGLWidget *shareWidget = 0, Qt::WindowFlags flags = Qt::WindowFlags());
+    QGLWidget(const QGLFormat &format, QWidget *parent /TransferThis/ = 0, const QGLWidget *shareWidget = 0, Qt::WindowFlags flags = Qt::WindowFlags());
     virtual ~QGLWidget();
     void qglColor(const QColor &c) const;
     void qglClearColor(const QColor &c) const;
@@ -323,8 +323,8 @@ protected:
     virtual void glDraw();
 
 public:
-    GLuint bindTexture(const QImage &image, GLenum target, GLint format, QFlags<QGLContext::BindOption> options);
-    GLuint bindTexture(const QPixmap &pixmap, GLenum target, GLint format, QFlags<QGLContext::BindOption> options);
+    GLuint bindTexture(const QImage &image, GLenum target, GLint format, QGLContext::BindOptions options);
+    GLuint bindTexture(const QPixmap &pixmap, GLenum target, GLint format, QGLContext::BindOptions options);
 
 private:
     QGLWidget(const QGLWidget &);

@@ -2,7 +2,7 @@
 //
 // This file is part of the QtCore Python extension module.
 //
-// Copyright (c) 2015 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2016 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -34,7 +34,7 @@ public:
     explicit QStorageInfo(const QDir &dir);
     QStorageInfo(const QStorageInfo &other);
     ~QStorageInfo();
-    void swap(QStorageInfo &other);
+    void swap(QStorageInfo &other /Constrained/);
     void setPath(const QString &path);
     QString rootPath() const;
     QByteArray device() const;
@@ -51,6 +51,9 @@ public:
     static QList<QStorageInfo> mountedVolumes();
     static QStorageInfo root();
     bool isRoot() const;
+%If (Qt_5_6_0 -)
+    int blockSize() const;
+%End
 };
 
 %End

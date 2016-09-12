@@ -2,7 +2,7 @@
 //
 // This file is part of the QtGui Python extension module.
 //
-// Copyright (c) 2015 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2016 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -146,7 +146,7 @@ class QGuiApplication : QCoreApplication
 %End
 
 public:
-    QGuiApplication(SIP_PYLIST argv /DocType="list-of-str"/) /PostHook=__pyQtQAppHook__/ [(int &argc, char **argv, int = ApplicationFlags)];
+    QGuiApplication(SIP_PYLIST argv /TypeHint="List[str]"/) /PostHook=__pyQtQAppHook__/ [(int &argc, char **argv, int = ApplicationFlags)];
 %MethodCode
         // The Python interface is a list of argument strings that is modified.
         
@@ -179,7 +179,7 @@ public:
     static QWindow *focusWindow();
     static QObject *focusObject();
     static QScreen *primaryScreen();
-    static QList<QScreen*> screens();
+    static QList<QScreen *> screens();
     static QCursor *overrideCursor();
     static void setOverrideCursor(const QCursor &);
     static void changeOverrideCursor(const QCursor &);
@@ -266,6 +266,19 @@ signals:
     void paletteChanged(const QPalette &pal);
 %End
 
+public:
+%If (Qt_5_6_0 -)
+    static bool isFallbackSessionManagementEnabled();
+%End
+%If (Qt_5_6_0 -)
+    static void setFallbackSessionManagementEnabled(bool);
+%End
+
+signals:
+%If (Qt_5_6_0 -)
+    void primaryScreenChanged(QScreen *screen);
+%End
+
 private:
     QGuiApplication(const QGuiApplication &);
 };
@@ -283,6 +296,9 @@ extern pyqt5_qtgui_update_argv_list_t pyqt5_qtgui_update_argv_list;
 // Imports from QtCore.
 pyqt5_qtgui_from_argv_list_t pyqt5_qtgui_from_argv_list;
 pyqt5_qtgui_update_argv_list_t pyqt5_qtgui_update_argv_list;
+
+// Forward declarations not in any header files but are part of the API.
+void qt_set_sequence_auto_mnemonic(bool enable);
 %End
 
 %InitialisationCode
@@ -293,5 +309,8 @@ sipExportSymbol("qtgui_wrap_ancestors", (void *)qtgui_wrap_ancestors);
 %PostInitialisationCode
 // Imports from QtCore.
 pyqt5_qtgui_from_argv_list = (pyqt5_qtgui_from_argv_list_t)sipImportSymbol("pyqt5_from_argv_list");
+Q_ASSERT(pyqt5_qtgui_from_argv_list);
+
 pyqt5_qtgui_update_argv_list = (pyqt5_qtgui_update_argv_list_t)sipImportSymbol("pyqt5_update_argv_list");
+Q_ASSERT(pyqt5_qtgui_update_argv_list);
 %End

@@ -2,7 +2,7 @@
 //
 // This file is part of the QtDBus Python extension module.
 //
-// Copyright (c) 2015 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2016 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -35,6 +35,10 @@ public:
 %MethodCode
         sipRes = qHash(*sipCpp, 0);
 %End
+
+%If (Qt_5_6_0 -)
+    void swap(QDBusObjectPath &other /Constrained/);
+%End
 };
 
 bool operator==(const QDBusObjectPath &lhs, const QDBusObjectPath &rhs);
@@ -56,6 +60,10 @@ public:
 %MethodCode
         sipRes = qHash(*sipCpp, 0);
 %End
+
+%If (Qt_5_6_0 -)
+    void swap(QDBusSignature &other /Constrained/);
+%End
 };
 
 bool operator==(const QDBusSignature &lhs, const QDBusSignature &rhs);
@@ -73,6 +81,9 @@ public:
     explicit QDBusVariant(const QVariant &dBusVariant);
     QVariant variant() const;
     void setVariant(const QVariant &dBusVariant);
+%If (Qt_5_6_0 -)
+    void swap(QDBusVariant &other /Constrained/);
+%End
 };
 
 bool operator==(const QDBusVariant &v1, const QDBusVariant &v2);

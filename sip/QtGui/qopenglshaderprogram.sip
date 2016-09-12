@@ -2,7 +2,7 @@
 //
 // This file is part of the QtGui Python extension module.
 //
-// Copyright (c) 2015 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2016 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -48,9 +48,9 @@ public:
     };
 
     typedef QFlags<QOpenGLShader::ShaderTypeBit> ShaderType;
-    QOpenGLShader(QFlags<QOpenGLShader::ShaderTypeBit> type, QObject *parent /TransferThis/ = 0);
+    QOpenGLShader(QOpenGLShader::ShaderType type, QObject *parent /TransferThis/ = 0);
     virtual ~QOpenGLShader();
-    QFlags<QOpenGLShader::ShaderTypeBit> shaderType() const;
+    QOpenGLShader::ShaderType shaderType() const;
     bool compileSourceCode(const QByteArray &source);
     bool compileSourceCode(const QString &source);
     bool compileSourceFile(const QString &fileName);
@@ -58,7 +58,7 @@ public:
     bool isCompiled() const;
     QString log() const;
     GLuint shaderId() const;
-    static bool hasOpenGLShaders(QFlags<QOpenGLShader::ShaderTypeBit> type, QOpenGLContext *context = 0);
+    static bool hasOpenGLShaders(QOpenGLShader::ShaderType type, QOpenGLContext *context = 0);
 
 private:
     QOpenGLShader(const QOpenGLShader &);
@@ -81,10 +81,10 @@ public:
     virtual ~QOpenGLShaderProgram();
     bool addShader(QOpenGLShader *shader);
     void removeShader(QOpenGLShader *shader);
-    QList<QOpenGLShader*> shaders() const;
-    bool addShaderFromSourceCode(QFlags<QOpenGLShader::ShaderTypeBit> type, const QByteArray &source);
-    bool addShaderFromSourceCode(QFlags<QOpenGLShader::ShaderTypeBit> type, const QString &source);
-    bool addShaderFromSourceFile(QFlags<QOpenGLShader::ShaderTypeBit> type, const QString &fileName);
+    QList<QOpenGLShader *> shaders() const;
+    bool addShaderFromSourceCode(QOpenGLShader::ShaderType type, const QByteArray &source);
+    bool addShaderFromSourceCode(QOpenGLShader::ShaderType type, const QString &source);
+    bool addShaderFromSourceFile(QOpenGLShader::ShaderType type, const QString &fileName);
     void removeAllShaders();
     virtual bool link();
     bool isLinked() const;
@@ -112,7 +112,7 @@ public:
     void setAttributeValue(const char *name, const QVector3D &value);
     void setAttributeValue(const char *name, const QVector4D &value);
     void setAttributeValue(const char *name, const QColor &value);
-    void setAttributeArray(int location, SIP_PYOBJECT values /DocType="sequence"/);
+    void setAttributeArray(int location, SIP_PYOBJECT values /TypeHint="PYQT_SHADER_ATTRIBUTE_ARRAY"/);
 %MethodCode
         const GLfloat *values;
         int tsize;
@@ -124,7 +124,7 @@ public:
             sipCpp->setAttributeArray(a0, values, tsize);
 %End
 
-    void setAttributeArray(const char *name, SIP_PYOBJECT values /DocType="sequence"/);
+    void setAttributeArray(const char *name, SIP_PYOBJECT values /TypeHint="PYQT_SHADER_ATTRIBUTE_ARRAY"/);
 %MethodCode
         const GLfloat *values;
         int tsize;
@@ -190,7 +190,7 @@ public:
     void setUniformValue(const char *name, const QMatrix4x3 &value);
     void setUniformValue(const char *name, const QMatrix4x4 &value);
     void setUniformValue(const char *name, const QTransform &value);
-    void setUniformValueArray(int location, SIP_PYOBJECT values /DocType="sequence"/);
+    void setUniformValueArray(int location, SIP_PYOBJECT values /TypeHint="PYQT_SHADER_UNIFORM_VALUE_ARRAY"/);
 %MethodCode
         const void *values;
         const sipTypeDef *array_type;
@@ -243,7 +243,7 @@ public:
         }
 %End
 
-    void setUniformValueArray(const char *name, SIP_PYOBJECT values /DocType="sequence"/);
+    void setUniformValueArray(const char *name, SIP_PYOBJECT values /TypeHint="PYQT_SHADER_UNIFORM_VALUE_ARRAY"/);
 %MethodCode
         const void *values;
         const sipTypeDef *array_type;
@@ -336,4 +336,26 @@ private:
 #if defined(SIP_FEATURE_PyQt_OpenGL)
 qpyopengl_init();
 #endif
+%End
+
+%ExportedTypeHintCode
+# Convenient aliases for complicated OpenGL types.
+PYQT_OPENGL_ARRAY = typing.Union[typing.Sequence[int], typing.Sequence[float],
+        sip.Buffer, None]
+PYQT_OPENGL_BOUND_ARRAY = typing.Union[typing.Sequence[int],
+        typing.Sequence[float], sip.Buffer, int, None]
+%End
+
+%TypeHintCode
+# Convenient aliases for complicated OpenGL types.
+PYQT_SHADER_ATTRIBUTE_ARRAY = typing.Union[typing.Sequence['QVector2D'],
+        typing.Sequence['QVector3D'], typing.Sequence['QVector4D'],
+        typing.Sequence[typing.Sequence[float]]]
+PYQT_SHADER_UNIFORM_VALUE_ARRAY = typing.Union[typing.Sequence['QVector2D'],
+        typing.Sequence['QVector3D'], typing.Sequence['QVector4D'],
+        typing.Sequence['QMatrix2x2'], typing.Sequence['QMatrix2x3'],
+        typing.Sequence['QMatrix2x4'], typing.Sequence['QMatrix3x2'],
+        typing.Sequence['QMatrix3x3'], typing.Sequence['QMatrix3x4'],
+        typing.Sequence['QMatrix4x2'], typing.Sequence['QMatrix4x3'],
+        typing.Sequence['QMatrix4x4'], typing.Sequence[typing.Sequence[float]]]
 %End

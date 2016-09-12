@@ -2,7 +2,7 @@
 //
 // This file is part of the QtWidgets Python extension module.
 //
-// Copyright (c) 2015 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2016 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -33,7 +33,7 @@ public:
     bool exclusive() const;
     void addButton(QAbstractButton *, int id = -1);
     void removeButton(QAbstractButton *);
-    QList<QAbstractButton*> buttons() const;
+    QList<QAbstractButton *> buttons() const;
     QAbstractButton *button(int id) const;
     QAbstractButton *checkedButton() const;
     void setId(QAbstractButton *button, int id);

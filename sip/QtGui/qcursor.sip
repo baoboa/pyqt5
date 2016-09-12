@@ -2,7 +2,7 @@
 //
 // This file is part of the QtGui Python extension module.
 //
-// Copyright (c) 2015 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2016 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -20,7 +20,7 @@
 // WARRANTY OF DESIGN, MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE.
 
 
-class QCursor
+class QCursor /TypeHintIn="Union[QCursor, Qt.CursorShape]"/
 {
 %TypeHeaderCode
 #include <qcursor.h>
@@ -48,7 +48,6 @@ return 0;
 
 public:
     QCursor();
-    QCursor(Qt::CursorShape shape);
     QCursor(const QBitmap &bitmap, const QBitmap &mask, int hotX = -1, int hotY = -1);
     QCursor(const QPixmap &pixmap, int hotX = -1, int hotY = -1);
     QCursor(const QCursor &cursor);

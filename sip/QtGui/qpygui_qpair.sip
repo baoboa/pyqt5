@@ -1,7 +1,7 @@
 // This is the SIP interface definition for the QPair based mapped types
 // specific to the QtGui module.
 //
-// Copyright (c) 2015 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2016 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -24,7 +24,7 @@
 %If (PyQt_OpenGL)
 
 %MappedType QPair<QOpenGLTexture::Filter, QOpenGLTexture::Filter>
-        /DocType="tuple-of-QOpenGLTexture.Filter-QOpenGLTexture.Filter"/
+        /TypeHint="Tuple[QOpenGLTexture.Filter, QOpenGLTexture.Filter]"/
 {
 %TypeHeaderCode
 #include <QOpenGLTexture>
@@ -44,7 +44,7 @@
 #endif
                 && !PyUnicode_Check(sipPy));
 
-    SIP_SSIZE_T len = PySequence_Size(sipPy);
+    Py_ssize_t len = PySequence_Size(sipPy);
 
     if (len != 2)
     {
@@ -52,7 +52,7 @@
         // original exception stand.
         if (len >= 0)
             PyErr_Format(PyExc_TypeError,
-                    "sequence has " SIP_SSIZE_T_FORMAT " elements but 2 elements are expected",
+                    "sequence has %zd elements but 2 elements are expected",
                     len);
 
         *sipIsErr = 1;
@@ -121,7 +121,7 @@
 
 %If (Qt_5_2_0 -)
 
-%MappedType QPair<float, float> /DocType="tuple-of-float-float"/
+%MappedType QPair<float, float> /TypeHint="Tuple[float, float]"/
 {
 %TypeHeaderCode
 #include <qpair.h>
@@ -139,7 +139,7 @@
 #endif
                 && !PyUnicode_Check(sipPy));
 
-    SIP_SSIZE_T len = PySequence_Size(sipPy);
+    Py_ssize_t len = PySequence_Size(sipPy);
 
     if (len != 2)
     {
@@ -147,7 +147,7 @@
         // original exception stand.
         if (len >= 0)
             PyErr_Format(PyExc_TypeError,
-                    "sequence has " SIP_SSIZE_T_FORMAT " elements but 2 elements are expected",
+                    "sequence has %zd elements but 2 elements are expected",
                     len);
 
         *sipIsErr = 1;

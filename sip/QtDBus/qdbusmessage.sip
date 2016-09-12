@@ -2,7 +2,7 @@
 //
 // This file is part of the QtDBus Python extension module.
 //
-// Copyright (c) 2015 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2016 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -65,4 +65,10 @@ public:
     void setArguments(const QList<QVariant> &arguments);
     QList<QVariant> arguments() const;
     QDBusMessage &operator<<(const QVariant &arg);
+%If (Qt_5_6_0 -)
+    void swap(QDBusMessage &other /Constrained/);
+%End
+%If (Qt_5_6_0 -)
+    static QDBusMessage createTargetedSignal(const QString &service, const QString &path, const QString &interface, const QString &name);
+%End
 };

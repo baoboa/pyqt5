@@ -2,7 +2,7 @@
 //
 // This file is part of the QtXmlPatterns Python extension module.
 //
-// Copyright (c) 2015 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2016 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -58,7 +58,7 @@ public:
     bool isValid() const;
     void evaluateTo(QXmlResultItems *result) const;
     bool evaluateTo(QAbstractXmlReceiver *callback) const;
-    SIP_PYOBJECT evaluateToStringList() const /DocType="list-of-str"/;
+    SIP_PYOBJECT evaluateToStringList() const /TypeHint="QStringList"/;
 %MethodCode
         bool ok;
         QStringList *result = new QStringList;
@@ -80,7 +80,7 @@ public:
 %End
 
     bool evaluateTo(QIODevice *target) const;
-    SIP_PYOBJECT evaluateToString() const /DocType="str"/;
+    SIP_PYOBJECT evaluateToString() const /TypeHint="QString"/;
 %MethodCode
         bool ok;
         QString *result = new QString;

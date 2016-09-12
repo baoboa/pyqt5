@@ -2,7 +2,7 @@
 //
 // This file is part of the QtCore Python extension module.
 //
-// Copyright (c) 2015 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2016 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -156,7 +156,7 @@ void qWarning(const char *msg) /ReleaseGIL/;
     Py_END_ALLOW_THREADS
 %End
 
-SIP_PYCALLABLE qInstallMessageHandler(SIP_PYCALLABLE /AllowNone/);
+SIP_PYCALLABLE qInstallMessageHandler(SIP_PYCALLABLE /AllowNone,TypeHint="Optional[Callable[[QtMsgType, QMessageLogContext, QString], None]]"/) /TypeHint="Optional[Callable[[QtMsgType, QMessageLogContext, QString], None]]"/;
 %MethodCode
     // Treat None as the default handler.
     QtMessageHandler old = qInstallMessageHandler((a0 != Py_None) ? qtcore_MessageHandler : 0);

@@ -2,7 +2,7 @@
 //
 // This file is part of the QtNetwork Python extension module.
 //
-// Copyright (c) 2015 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2016 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -31,7 +31,7 @@ public:
     virtual ~QUdpSocket();
     bool hasPendingDatagrams() const;
     qint64 pendingDatagramSize() const;
-    SIP_PYOBJECT readDatagram(qint64 maxlen, QHostAddress *host /Out/ = 0, quint16 *port = 0) /DocType="Py_v3:bytes;str",ReleaseGIL/;
+    SIP_PYOBJECT readDatagram(qint64 maxlen, QHostAddress *host /Out/ = 0, quint16 *port = 0) /TypeHint="Py_v3:bytes;str",ReleaseGIL/;
 %MethodCode
         // Return the data read or None if there was an error.
         if (a0 < 0)

@@ -10,10 +10,10 @@ from PyQt5.QtDesigner import (QDesignerFormWindowInterface, QExtensionFactory,
 from multipagewidget import PyMultiPageWidget
 
 
-Q_TYPEID = {'QPyDesignerContainerExtension':     'com.trolltech.Qt.Designer.Container',
-            'QPyDesignerPropertySheetExtension': 'com.trolltech.Qt.Designer.PropertySheet',
-            'QPyDesignerTaskMenuExtension':      'com.trolltech.Qt.Designer.TaskMenu',
-            'QPyDesignerMemberSheetExtension':   'com.trolltech.Qt.Designer.MemberSheet'}
+Q_TYPEID = {
+    'QDesignerContainerExtension':     'org.qt-project.Qt.Designer.Container',
+    'QDesignerPropertySheetExtension': 'org.qt-project.Qt.Designer.PropertySheet'
+}
 
 
 #============================================================================#
@@ -55,7 +55,7 @@ class MultiPageWidgetExtensionFactory(QExtensionFactory):
         super(MultiPageWidgetExtensionFactory, self).__init__(parent)
 
     def createExtension(self, obj, iid, parent):
-        if iid != Q_TYPEID['QPyDesignerContainerExtension']:
+        if iid != Q_TYPEID['QDesignerContainerExtension']:
             return None
         if isinstance(obj, PyMultiPageWidget):
             return MultiPageWidgetContainerExtension(obj, parent)
@@ -78,7 +78,7 @@ class MultiPageWidgetPlugin(QPyDesignerCustomWidgetPlugin):
         manager = formEditor.extensionManager()
         if manager:
             self.factory = MultiPageWidgetExtensionFactory(manager)
-            manager.registerExtensions(self.factory, Q_TYPEID['QPyDesignerContainerExtension'])
+            manager.registerExtensions(self.factory, Q_TYPEID['QDesignerContainerExtension'])
         self.initialized = True
 
     def isInitialized(self):
@@ -131,7 +131,7 @@ class MultiPageWidgetPlugin(QPyDesignerCustomWidgetPlugin):
             if form:
                 editor = form.core()
                 manager = editor.extensionManager()
-                sheet = manager.extension(page, Q_TYPEID['QPyDesignerPropertySheetExtension'])
+                sheet = manager.extension(page, Q_TYPEID['QDesignerPropertySheetExtension'])
                 # This explicit cast is necessary here
                 sheet = sip.cast(sheet, QPyDesignerPropertySheetExtension)
                 propertyIndex = sheet.indexOf('windowTitle')

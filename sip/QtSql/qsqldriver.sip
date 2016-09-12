@@ -2,7 +2,7 @@
 //
 // This file is part of the QtSql Python extension module.
 //
-// Copyright (c) 2015 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2016 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -110,7 +110,7 @@ public:
     virtual bool hasFeature(QSqlDriver::DriverFeature f) const = 0;
     virtual void close() = 0;
     virtual QSqlResult *createResult() const = 0 /Factory/;
-    virtual bool open(const QString &db, const QString &user /DocValue="''"/ = QString(), const QString &password /DocValue="''"/ = QString(), const QString &host /DocValue="''"/ = QString(), int port = -1, const QString &options /DocValue="''"/ = QString()) = 0 /ReleaseGIL/;
+    virtual bool open(const QString &db, const QString &user = QString(), const QString &password = QString(), const QString &host = QString(), int port = -1, const QString &options = QString()) = 0 /ReleaseGIL/;
 
 protected:
     virtual void setOpen(bool o);

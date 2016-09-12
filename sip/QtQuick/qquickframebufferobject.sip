@@ -2,7 +2,7 @@
 //
 // This file is part of the QtQuick Python extension module.
 //
-// Copyright (c) 2015 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2016 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -67,6 +67,17 @@ public:
 %End
 %If (Qt_5_4_0 -)
     virtual void releaseResources();
+%End
+%If (Qt_5_6_0 -)
+    bool mirrorVertically() const;
+%End
+%If (Qt_5_6_0 -)
+    void setMirrorVertically(bool enable);
+%End
+
+signals:
+%If (Qt_5_6_0 -)
+    void mirrorVerticallyChanged(bool);
 %End
 };
 

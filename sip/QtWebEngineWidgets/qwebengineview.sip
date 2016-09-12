@@ -2,7 +2,7 @@
 //
 // This file is part of the QtWebEngineWidgets Python extension module.
 //
-// Copyright (c) 2015 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2016 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -133,11 +133,25 @@ signals:
     void selectionChanged();
     void urlChanged(const QUrl &);
     void iconUrlChanged(const QUrl &);
+%If (Qt_5_6_0 -)
+    void renderProcessTerminated(QWebEnginePage::RenderProcessTerminationStatus terminationStatus, int exitCode);
+%End
 
 protected:
     virtual QWebEngineView *createWindow(QWebEnginePage::WebWindowType type);
     virtual void contextMenuEvent(QContextMenuEvent *);
     virtual bool event(QEvent *);
+%If (Qt_5_6_0 -)
+    virtual void showEvent(QShowEvent *);
+%End
+%If (Qt_5_6_0 -)
+    virtual void hideEvent(QHideEvent *);
+%End
+
+private:
+%If (Qt_5_6_0 -)
+    QWebEngineView(const QWebEngineView &);
+%End
 };
 
 %End
@@ -171,4 +185,5 @@ if (QCoreApplication::instance())
 %PostInitialisationCode
 // Imports from QtCore.
 pyqt5_qtwebenginewidgets_err_print = (pyqt5_qtwebenginewidgets_err_print_t)sipImportSymbol("pyqt5_err_print");
+Q_ASSERT(pyqt5_qtwebenginewidgets_err_print);
 %End

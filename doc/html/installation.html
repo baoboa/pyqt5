@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Installing PyQt5 &mdash; PyQt 5.5.1 Reference Guide</title>
+    <title>Installing PyQt5 &mdash; PyQt 5.6 Reference Guide</title>
     
     <link rel="stylesheet" href="_static/classic.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '5.5.1',
+        VERSION:     '5.6',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -24,7 +24,7 @@
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
     <link rel="shortcut icon" href="_static/logo_tn.ico"/>
-    <link rel="top" title="PyQt 5.5.1 Reference Guide" href="index.html" />
+    <link rel="top" title="PyQt 5.6 Reference Guide" href="index.html" />
     <link rel="next" title="Differences Between PyQt4 and PyQt5" href="pyqt4_differences.html" />
     <link rel="prev" title="Incompatibilities with Earlier Versions" href="incompatibilities.html" /> 
   </head>
@@ -44,7 +44,7 @@
         <li class="right" >
           <a href="incompatibilities.html" title="Incompatibilities with Earlier Versions"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">PyQt 5.5.1 Reference Guide</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">PyQt 5.6 Reference Guide</a> &raquo;</li> 
       </ul>
     </div>  
 
@@ -77,17 +77,18 @@ depending on your platform) you should then check for any <code class="file docu
 that relate to your platform.</p>
 <p>If you are using the commercial version of PyQt5 then you must copy your
 license file to the <code class="file docutils literal"><span class="pre">sip</span></code> directory, or to the directory specified by the
-<code class="xref std std-option docutils literal"><span class="pre">--license-dir</span></code> option of <strong class="program">configure.py</strong>.</p>
+<a class="reference internal" href="#cmdoption-configure.py--license-dir"><code class="xref std std-option docutils literal"><span class="pre">--license-dir</span></code></a> option of
+<strong class="program">configure.py</strong>.</p>
 <p>You need to make sure your environment variables are set properly for your
 development environment.</p>
 <p>In order to configure the build of PyQt5 you need to run the
 <strong class="program">configure.py</strong> script as follows:</p>
-<div class="highlight-python"><div class="highlight"><pre>python configure.py
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="n">configure</span><span class="o">.</span><span class="n">py</span>
 </pre></div>
 </div>
 <p>This assumes that the Python interpreter is on your path.  Something like the
 following may be appropriate on Windows:</p>
-<div class="highlight-python"><div class="highlight"><pre>c:\Python34\python configure.py
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">c</span><span class="p">:</span>\<span class="n">Python35</span>\<span class="n">python</span> <span class="n">configure</span><span class="o">.</span><span class="n">py</span>
 </pre></div>
 </div>
 <p>If you have multiple versions of Python installed then make sure you use the
@@ -131,7 +132,7 @@ is 1.</p>
 <code class="descname">--configuration</code><code class="descclassname"> &lt;FILE&gt;</code><a class="headerlink" href="#cmdoption-configure.py--configuration" title="Permalink to this definition">¶</a></dt>
 <dd><p><code class="docutils literal"><span class="pre">&lt;FILE&gt;</span></code> contains the configuration of the PyQt5 build to be used instead
 of dynamically introspecting the system and is typically used when
-cross-compiling.  See <a class="reference internal" href="#ref-configuration-files"><span>Configuring with Configuration Files</span></a>.</p>
+cross-compiling.  See <a class="reference internal" href="#ref-configuration-files"><span class="std std-ref">Configuring with Configuration Files</span></a>.</p>
 </dd></dl>
 
 <dl class="cmdoption">
@@ -242,6 +243,17 @@ QScintilla does appear to be installed.</p>
 </dd></dl>
 
 <dl class="cmdoption">
+<dt id="cmdoption-configure.py--no-stubs">
+<code class="descname">--no-stubs</code><code class="descclassname"></code><a class="headerlink" href="#cmdoption-configure.py--no-stubs" title="Permalink to this definition">¶</a></dt>
+<dd><div class="versionadded">
+<p><span class="versionmodified">New in version 5.6.</span></p>
+</div>
+<p>The PEP 484 type hint stub files for the PyQt5 modules will not be
+installed.  This option is ignored (and the stub files are not installed)
+for versions of Python earlier than v3.5.</p>
+</dd></dl>
+
+<dl class="cmdoption">
 <dt id="cmdoption-configure.py--no-tools">
 <code class="descname">--no-tools</code><code class="descclassname"></code><a class="headerlink" href="#cmdoption-configure.py--no-tools" title="Permalink to this definition">¶</a></dt>
 <dd><div class="versionadded">
@@ -287,8 +299,7 @@ wrapper.  The default is platform dependent.</p>
 <dd><p>Qt&#8217;s <strong class="program">qmake</strong> program is used to determine how your Qt installation
 is laid out.  Normally <strong class="program">qmake</strong> is found on your <span class="target" id="index-1"></span><code class="xref std std-envvar docutils literal"><span class="pre">PATH</span></code>.
 This option can be used to specify a particular instance of
-<strong class="program">qmake</strong> to use.  This option is not available on Windows where
-<strong class="program">qmake</strong> must be on <span class="target" id="index-2"></span><code class="xref std std-envvar docutils literal"><span class="pre">PATH</span></code>.</p>
+<strong class="program">qmake</strong> to use.</p>
 </dd></dl>
 
 <dl class="cmdoption">
@@ -314,10 +325,21 @@ subdirectory of the <code class="file docutils literal"><span class="pre">api</s
 </dd></dl>
 
 <dl class="cmdoption">
+<dt id="cmdoption-configure.py--qtconf-prefix">
+<code class="descname">--qtconf-prefix</code><code class="descclassname"> &lt;DIR&gt;</code><a class="headerlink" href="#cmdoption-configure.py--qtconf-prefix" title="Permalink to this definition">¶</a></dt>
+<dd><div class="versionadded">
+<p><span class="versionmodified">New in version 5.6.</span></p>
+</div>
+<p>A <code class="docutils literal"><span class="pre">qt.conf</span></code> file is embedded in the <a class="reference internal" href="introduction.html#module-PyQt5.QtCore" title="PyQt5.QtCore"><code class="xref py py-mod docutils literal"><span class="pre">PyQt5.QtCore</span></code></a> module with
+<code class="docutils literal"><span class="pre">Prefix</span></code> set to <code class="docutils literal"><span class="pre">&lt;DIR&gt;</span></code> which is assumed to be relative to the
+directory that the <a class="reference internal" href="introduction.html#module-PyQt5.QtCore" title="PyQt5.QtCore"><code class="xref py py-mod docutils literal"><span class="pre">PyQt5.QtCore</span></code></a> module will be installed in.</p>
+</dd></dl>
+
+<dl class="cmdoption">
 <dt id="cmdoption-configure.py--sip">
 <code class="descname">--sip</code><code class="descclassname"> &lt;FILE&gt;</code><a class="headerlink" href="#cmdoption-configure.py--sip" title="Permalink to this definition">¶</a></dt>
 <dd><p>The <strong class="program">sip</strong> program is used to generate PyQt5&#8217;s C++ source code.
-Normally <strong class="program">sip</strong> is found on your <span class="target" id="index-3"></span><code class="xref std std-envvar docutils literal"><span class="pre">PATH</span></code>.  This option can
+Normally <strong class="program">sip</strong> is found on your <span class="target" id="index-2"></span><code class="xref std std-envvar docutils literal"><span class="pre">PATH</span></code>.  This option can
 be used to specify a particular instance of <strong class="program">sip</strong> to use.</p>
 </dd></dl>
 
@@ -354,6 +376,19 @@ interpreter.</p>
 </dd></dl>
 
 <dl class="cmdoption">
+<dt id="cmdoption-configure.py--stubdir">
+<code class="descname">--stubdir</code><code class="descclassname"> &lt;DIR&gt;</code><a class="headerlink" href="#cmdoption-configure.py--stubdir" title="Permalink to this definition">¶</a></dt>
+<dd><div class="versionadded">
+<p><span class="versionmodified">New in version 5.6.</span></p>
+</div>
+<p>The PEP 484 type hint stub files for the PyQt5 modules will be installed in
+the directory <code class="docutils literal"><span class="pre">&lt;DIR&gt;</span></code>.  By default they will be stored in the same
+directory as the corresponding extension modules.  This option is ignored
+(and the stub files are not installed) for versions of Python earlier than
+v3.5.</p>
+</dd></dl>
+
+<dl class="cmdoption">
 <dt id="cmdoption-configure.py--sysroot">
 <code class="descname">--sysroot</code><code class="descclassname"> &lt;DIR&gt;</code><a class="headerlink" href="#cmdoption-configure.py--sysroot" title="Permalink to this definition">¶</a></dt>
 <dd><div class="versionadded">
@@ -364,7 +399,7 @@ in the names of other directories (specifically those specifying where the
 various PyQt5 components will be installed and where the Python include and
 library directories can be found).  It is typically used when
 cross-compiling or when building a static version of PyQt5.  See
-<a class="reference internal" href="#ref-configuration-files"><span>Configuring with Configuration Files</span></a>.</p>
+<a class="reference internal" href="#ref-configuration-files"><span class="std std-ref">Configuring with Configuration Files</span></a>.</p>
 </dd></dl>
 
 <dl class="cmdoption">
@@ -376,7 +411,7 @@ cross-compiling or when building a static version of PyQt5.  See
 <p><code class="docutils literal"><span class="pre">&lt;VERSION&gt;</span></code> is the major and minor version (e.g. <code class="docutils literal"><span class="pre">3.4</span></code>) of the version
 of Python being targetted.  By default the version of Python being used to
 run the <strong class="program">configure.py</strong> script is used.  It is typically used when
-cross-compiling.  See <a class="reference internal" href="#ref-configuration-files"><span>Configuring with Configuration Files</span></a>.</p>
+cross-compiling.  See <a class="reference internal" href="#ref-configuration-files"><span class="std std-ref">Configuring with Configuration Files</span></a>.</p>
 </dd></dl>
 
 <dl class="cmdoption">
@@ -408,11 +443,11 @@ problems to see what exactly is going wrong.</p>
 <h2>Building PyQt5<a class="headerlink" href="#building-pyqt5" title="Permalink to this headline">¶</a></h2>
 <p>The next step is to build PyQt5 by running your platform&#8217;s <strong class="program">make</strong>
 command.  For example:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="n">make</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">make</span>
 </pre></div>
 </div>
 <p>The final step is to install PyQt5 by running the following command:</p>
-<div class="highlight-python"><div class="highlight"><pre>make install
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">make</span> <span class="n">install</span>
 </pre></div>
 </div>
 <p>(Depending on your system you may require root or administrator privileges.)</p>
@@ -465,27 +500,27 @@ configuration:</p>
 <a class="reference internal" href="#cmdoption-configure.py--sysroot"><code class="xref std std-option docutils literal"><span class="pre">--sysroot</span></code></a> option.</dd>
 </dl>
 <p>The following is an example configuration file:</p>
-<div class="highlight-python"><div class="highlight"><pre># The target Python installation.
-py_platform = linux
-py_inc_dir = %(sysroot)/usr/include/python%(py_major).%(py_minor)
-py_pylib_dir = %(sysroot)/usr/lib/python%(py_major).%(py_minor)/config
-py_pylib_lib = python%(py_major).%(py_minor)mu
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="c1"># The target Python installation.</span>
+<span class="n">py_platform</span> <span class="o">=</span> <span class="n">linux</span>
+<span class="n">py_inc_dir</span> <span class="o">=</span> <span class="o">%</span><span class="p">(</span><span class="n">sysroot</span><span class="p">)</span><span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">include</span><span class="o">/</span><span class="n">python</span><span class="o">%</span><span class="p">(</span><span class="n">py_major</span><span class="p">)</span><span class="o">.%</span><span class="p">(</span><span class="n">py_minor</span><span class="p">)</span>
+<span class="n">py_pylib_dir</span> <span class="o">=</span> <span class="o">%</span><span class="p">(</span><span class="n">sysroot</span><span class="p">)</span><span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">python</span><span class="o">%</span><span class="p">(</span><span class="n">py_major</span><span class="p">)</span><span class="o">.%</span><span class="p">(</span><span class="n">py_minor</span><span class="p">)</span><span class="o">/</span><span class="n">config</span>
+<span class="n">py_pylib_lib</span> <span class="o">=</span> <span class="n">python</span><span class="o">%</span><span class="p">(</span><span class="n">py_major</span><span class="p">)</span><span class="o">.%</span><span class="p">(</span><span class="n">py_minor</span><span class="p">)</span><span class="n">mu</span>
 
-# The target PyQt installation.
-pyqt_module_dir = %(sysroot)/usr/lib/python%(py_major)/dist-packages
-pyqt_bin_dir = %(sysroot)/usr/bin
-pyqt_sip_dir = %(sysroot)/usr/share/sip/PyQt5
-pyuic_interpreter = /usr/bin/python%(py_major).%(py_minor)
-pyqt_disabled_features = PyQt_Desktop_OpenGL PyQt_qreal_double
+<span class="c1"># The target PyQt installation.</span>
+<span class="n">pyqt_module_dir</span> <span class="o">=</span> <span class="o">%</span><span class="p">(</span><span class="n">sysroot</span><span class="p">)</span><span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">python</span><span class="o">%</span><span class="p">(</span><span class="n">py_major</span><span class="p">)</span><span class="o">/</span><span class="n">dist</span><span class="o">-</span><span class="n">packages</span>
+<span class="n">pyqt_bin_dir</span> <span class="o">=</span> <span class="o">%</span><span class="p">(</span><span class="n">sysroot</span><span class="p">)</span><span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="nb">bin</span>
+<span class="n">pyqt_sip_dir</span> <span class="o">=</span> <span class="o">%</span><span class="p">(</span><span class="n">sysroot</span><span class="p">)</span><span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">share</span><span class="o">/</span><span class="n">sip</span><span class="o">/</span><span class="n">PyQt5</span>
+<span class="n">pyuic_interpreter</span> <span class="o">=</span> <span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="nb">bin</span><span class="o">/</span><span class="n">python</span><span class="o">%</span><span class="p">(</span><span class="n">py_major</span><span class="p">)</span><span class="o">.%</span><span class="p">(</span><span class="n">py_minor</span><span class="p">)</span>
+<span class="n">pyqt_disabled_features</span> <span class="o">=</span> <span class="n">PyQt_Desktop_OpenGL</span> <span class="n">PyQt_qreal_double</span>
 
-# Qt configuration common to all versions.
-qt_shared = True
+<span class="c1"># Qt configuration common to all versions.</span>
+<span class="n">qt_shared</span> <span class="o">=</span> <span class="kc">True</span>
 
-[Qt 5.1]
-pyqt_modules = QtCore QtDBus QtDesigner QtGui QtHelp QtMultimedia
-    QtMultimediaWidgets QtNetwork QtOpenGL QtPrintSupport QtQml QtQuick
-    QtSensors QtSerialPort QtSql QtSvg QtTest QtWebKit QtWebKitWidgets
-    QtWidgets QtXmlPatterns _QOpenGLFunctions_ES2
+<span class="p">[</span><span class="n">Qt</span> <span class="mf">5.1</span><span class="p">]</span>
+<span class="n">pyqt_modules</span> <span class="o">=</span> <span class="n">QtCore</span> <span class="n">QtDBus</span> <span class="n">QtDesigner</span> <span class="n">QtGui</span> <span class="n">QtHelp</span> <span class="n">QtMultimedia</span>
+    <span class="n">QtMultimediaWidgets</span> <span class="n">QtNetwork</span> <span class="n">QtOpenGL</span> <span class="n">QtPrintSupport</span> <span class="n">QtQml</span> <span class="n">QtQuick</span>
+    <span class="n">QtSensors</span> <span class="n">QtSerialPort</span> <span class="n">QtSql</span> <span class="n">QtSvg</span> <span class="n">QtTest</span> <span class="n">QtWebKit</span> <span class="n">QtWebKitWidgets</span>
+    <span class="n">QtWidgets</span> <span class="n">QtXmlPatterns</span> <span class="n">_QOpenGLFunctions_ES2</span>
 </pre></div>
 </div>
 <p>This example contains a section for Qt v5.1.  We have defined a number of
@@ -566,9 +601,6 @@ overridden by the <a class="reference internal" href="#cmdoption-configure.py--p
       <input type="hidden" name="check_keywords" value="yes" />
       <input type="hidden" name="area" value="default" />
     </form>
-    <p class="searchtip" style="font-size: 90%">
-    Enter search terms or a module, class or function name.
-    </p>
 </div>
 <script type="text/javascript">$('#searchbox').show(0);</script>
         </div>
@@ -590,12 +622,12 @@ overridden by the <a class="reference internal" href="#cmdoption-configure.py--p
         <li class="right" >
           <a href="incompatibilities.html" title="Incompatibilities with Earlier Versions"
              >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">PyQt 5.5.1 Reference Guide</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">PyQt 5.6 Reference Guide</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
         &copy; Copyright 2015 Riverbank Computing Limited.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.1.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.4.1.
     </div>
   </body>
 </html>

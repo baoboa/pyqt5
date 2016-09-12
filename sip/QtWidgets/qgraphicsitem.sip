@@ -2,7 +2,7 @@
 //
 // This file is part of the QtWidgets Python extension module.
 //
-// Copyright (c) 2015 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2016 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -164,9 +164,9 @@ public:
     void setParentItem(QGraphicsItem *parent /TransferThis/);
     QGraphicsItemGroup *group() const;
     void setGroup(QGraphicsItemGroup *group /KeepReference/);
-    QFlags<QGraphicsItem::GraphicsItemFlag> flags() const;
+    QGraphicsItem::GraphicsItemFlags flags() const;
     void setFlag(QGraphicsItem::GraphicsItemFlag flag, bool enabled = true);
-    void setFlags(QFlags<QGraphicsItem::GraphicsItemFlag> flags);
+    void setFlags(QGraphicsItem::GraphicsItemFlags flags);
     QString toolTip() const;
     void setToolTip(const QString &toolTip);
     QCursor cursor() const;
@@ -205,7 +205,7 @@ public:
     virtual bool contains(const QPointF &point) const;
     virtual bool collidesWithItem(const QGraphicsItem *other, Qt::ItemSelectionMode mode = Qt::IntersectsItemShape) const;
     virtual bool collidesWithPath(const QPainterPath &path, Qt::ItemSelectionMode mode = Qt::IntersectsItemShape) const;
-    QList<QGraphicsItem*> collidingItems(Qt::ItemSelectionMode mode = Qt::IntersectsItemShape) const;
+    QList<QGraphicsItem *> collidingItems(Qt::ItemSelectionMode mode = Qt::IntersectsItemShape) const;
     virtual bool isObscuredBy(const QGraphicsItem *item) const;
     virtual QPainterPath opaqueArea() const;
     virtual void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget = 0) = 0;
@@ -292,7 +292,7 @@ public:
     QGraphicsWidget *parentWidget() const;
     QGraphicsWidget *topLevelWidget() const;
     QGraphicsWidget *window() const;
-    QList<QGraphicsItem*> childItems() const;
+    QList<QGraphicsItem *> childItems() const;
     bool isWidget() const;
     bool isWindow() const;
     QGraphicsItem::CacheMode cacheMode() const;
@@ -360,8 +360,8 @@ public:
     qreal rotation() const;
     void setScale(qreal scale);
     qreal scale() const;
-    QList<QGraphicsTransform*> transformations() const;
-    void setTransformations(const QList<QGraphicsTransform*> &transformations /KeepReference/);
+    QList<QGraphicsTransform *> transformations() const;
+    void setTransformations(const QList<QGraphicsTransform *> &transformations /KeepReference/);
     QPointF transformOriginPoint() const;
     void setTransformOriginPoint(const QPointF &origin);
     void setTransformOriginPoint(qreal ax, qreal ay);
@@ -637,7 +637,7 @@ class QGraphicsObject : QObject, QGraphicsItem
 public:
     explicit QGraphicsObject(QGraphicsItem *parent /TransferThis/ = 0);
     virtual ~QGraphicsObject();
-    void grabGesture(Qt::GestureType type, Qt::GestureFlags flags = Qt::GestureFlags(0));
+    void grabGesture(Qt::GestureType type, Qt::GestureFlags flags = Qt::GestureFlags());
     void ungrabGesture(Qt::GestureType type);
 
 signals:

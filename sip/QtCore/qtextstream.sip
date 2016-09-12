@@ -2,7 +2,7 @@
 //
 // This file is part of the QtCore Python extension module.
 //
-// Copyright (c) 2015 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2016 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -66,7 +66,7 @@ public:
     typedef QFlags<QTextStream::NumberFlag> NumberFlags;
     QTextStream();
     explicit QTextStream(QIODevice *device);
-    QTextStream(QByteArray *array /Constrained/, QFlags<QIODevice::OpenModeFlag> mode = QIODevice::ReadWrite);
+    QTextStream(QByteArray *array /Constrained/, QIODevice::OpenMode mode = QIODevice::ReadWrite);
     virtual ~QTextStream();
     void setCodec(QTextCodec *codec /KeepReference/);
     void setCodec(const char *codecName);
@@ -91,8 +91,8 @@ public:
     QChar padChar() const;
     void setFieldWidth(int width);
     int fieldWidth() const;
-    void setNumberFlags(QFlags<QTextStream::NumberFlag> flags);
-    QFlags<QTextStream::NumberFlag> numberFlags() const;
+    void setNumberFlags(QTextStream::NumberFlags flags);
+    QTextStream::NumberFlags numberFlags() const;
     void setIntegerBase(int base);
     int integerBase() const;
     void setRealNumberNotation(QTextStream::RealNumberNotation notation);

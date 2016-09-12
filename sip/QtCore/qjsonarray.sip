@@ -1,6 +1,6 @@
 // This is the SIP interface definition for the QJsonArray mapped type.
 //
-// Copyright (c) 2015 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2016 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -23,7 +23,9 @@
 // then any overloads that handle both must be ordered so that QJsonObject is
 // checked first.
 
-%MappedType QJsonArray /DocType="list-of-QJsonValue"/
+%MappedType QJsonArray
+        /TypeHintIn="Iterable[QJsonValue]", TypeHintOut="List[QJsonValue]",
+        TypeHintValue="[]"/
 {
 %TypeHeaderCode
 #include <qjsonarray.h>
@@ -78,7 +80,7 @@
 
     QJsonArray *ql = new QJsonArray;
  
-    for (SIP_SSIZE_T i = 0; ; ++i)
+    for (Py_ssize_t i = 0; ; ++i)
     {
         PyErr_Clear();
         PyObject *itm = PyIter_Next(iter);
@@ -105,8 +107,8 @@
         if (*sipIsErr)
         {
             PyErr_Format(PyExc_TypeError,
-                    "index " SIP_SSIZE_T_FORMAT " has type '%s' but 'QJsonValue' is expected",
-                    i, Py_TYPE(itm)->tp_name);
+                    "index %zd has type '%s' but 'QJsonValue' is expected", i,
+                    Py_TYPE(itm)->tp_name);
 
             Py_DECREF(itm);
             delete ql;

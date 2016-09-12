@@ -2,7 +2,7 @@
 //
 // This file is part of the QtGui Python extension module.
 //
-// Copyright (c) 2015 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2016 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -39,7 +39,7 @@ public:
     qreal descent() const;
     qreal ascent() const;
     qreal width() const;
-    QFlags<QTextItem::RenderFlag> renderFlags() const;
+    QTextItem::RenderFlags renderFlags() const;
     QString text() const;
     QFont font() const;
 };
@@ -107,7 +107,7 @@ public:
         PolylineMode,
     };
 
-    explicit QPaintEngine(QFlags<QPaintEngine::PaintEngineFeature> features = 0);
+    explicit QPaintEngine(QPaintEngine::PaintEngineFeatures features = QPaintEngine::PaintEngineFeatures());
     virtual ~QPaintEngine();
     bool isActive() const;
     void setActive(bool newState);
@@ -159,8 +159,8 @@ public:
     };
 
     virtual QPaintEngine::Type type() const = 0;
-    bool hasFeature(QFlags<QPaintEngine::PaintEngineFeature> feature) const;
     QPainter *painter() const;
+    bool hasFeature(QPaintEngine::PaintEngineFeatures feature) const;
 
 private:
     QPaintEngine(const QPaintEngine &);
@@ -175,7 +175,7 @@ class QPaintEngineState
 %End
 
 public:
-    QFlags<QPaintEngine::DirtyFlag> state() const;
+    QPaintEngine::DirtyFlags state() const;
     QPen pen() const;
     QBrush brush() const;
     QPointF brushOrigin() const;
@@ -187,7 +187,7 @@ public:
     QRegion clipRegion() const;
     QPainterPath clipPath() const;
     bool isClipEnabled() const;
-    QFlags<QPainter::RenderHint> renderHints() const;
+    QPainter::RenderHints renderHints() const;
     QPainter::CompositionMode compositionMode() const;
     QPainter *painter() const;
     QTransform transform() const;

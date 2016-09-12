@@ -1,8 +1,851 @@
+2016-04-24  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* .hgtags:
+	Added tag 5.6 for changeset ae50bac2ef88
+	[b1939581dab4] [tip]
+
+	* NEWS:
+	Released as v5.6.
+	[ae50bac2ef88] [5.6]
+
+	* rbproduct.py:
+	The SSL library and MSVC runtime are now installed in the PyQt5
+	directory.
+	[6b7672768236]
+
+2016-04-23  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* qpy/QtCore/qpycore_qt_conf.cpp:
+	Fixed the setting of PATH on Windows.
+	[8a95f97ca7aa]
+
+	* METADATA.in, installers/BuildGPL.txt, installers/PyQt5-Qt5-gpl.nsi,
+	installers/pyqt5-check.py, installers/pyqt5-config.bat,
+	lib/LICENSE.commercial.short, lib/LICENSE.gpl,
+	lib/LICENSE.gpl.short, lib/LICENSE.internal:
+	Updated the installers fro Qt v5.6.0. Fixed the dates on copyright
+	messages. Updated the meta-data to say that Linux wheels will be
+	available on PyPI.
+	[f9cf4e3290c7]
+
+2016-04-21  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* qpy/QtCore/qpycore_qt_conf.cpp:
+	When --qtconf-prefix is specified then PATH is alos set on Windows.
+	[d147afaee2c6]
+
+2016-04-18  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* lib/configure.py, rbproduct.py:
+	Removed some (now redundant) qmake handlign on Windows.
+	[02f8ab12f5ad]
+
+2016-04-17  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* lib/configure.py, rbproduct.py:
+	More handling of spaces in directory names. Account for different
+	Makefile structures on Windows.
+	[94a4e61390a3]
+
+	* rbproduct.py:
+	Fixed a testing regression in the product plugin.
+	[8e05253f91d8]
+
+	* sphinx/installation.rst:
+	Removed a Sphinx warning.
+	[dd499921d5fb]
+
+	* rbproduct.py:
+	Implemented the minimal install in the product plugin.
+	[8e25715c1d82]
+
+	* rbproduct.py:
+	Exploit verbose mode in the product plugin.
+	[8099e3b3bca3]
+
+	* rbproduct.py:
+	Fixed permissions on the product plugin.
+	[19c006f2d22c]
+
+2016-04-16  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* rbproduct.py:
+	The QScintilla API file is now included in the wheels.
+	[a8aa89c52747]
+
+	* METADATA.in:
+	Fixed a typo in the meta-data.
+	[8f14fe6ee051]
+
+	* Makefile, build.py, rbproduct.py:
+	Removed the --omit-license-tag option from build.py as it is no
+	longer needed.
+	[d24af7ea1d4c]
+
+2016-04-15  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* PyQt5.msp, qpy/QtWidgets/qmaccocoaviewcontainer.sip:
+	QMenu.setAsDockMenu() is not available on iOS.
+	[8dba3377ce19]
+
+2016-04-14  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* lib/configure.py:
+	The --dbus option to configure.py overrides (rather than
+	supplements) any directories returned by pkg-config.
+	[e39f0eeff58b]
+
+	* Makefile, lib/configure.py:
+	Fixed the handling of dbus-python header files.
+	[608f71af6d2f]
+
+	* qpy/QtCore/qpycore_qt_conf.cpp:
+	Adjusted qt.conf on Windows so that QtWebEngineProcess can be found.
+	[a4d8055d6b1a]
+
+	* Makefile, build.py, rbproduct.py:
+	Ensure regular snapshots have the license tag but those used in
+	wheels don't.
+	[ca8272fb55ff]
+
+2016-04-12  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* rbproduct.py:
+	Fixes for the additional Windows DLLs.
+	[8402c18b9cfe]
+
+	* rbproduct.py:
+	Windows wheels will now install OpenSSL DLLs and the MSVC C++
+	runtime DLL.
+	[d8f47655a777]
+
+2016-04-09  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* METADATA.in:
+	Updated the description in the meta-data.
+	[94bd36376d2a]
+
+2016-04-08  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* METADATA.in:
+	Update the METADATA to try and require sip.
+	[6a2e30c56378]
+
+	* METADATA.in, build.py:
+	Use v1.1 for the METADATA format. Don't tag the GPL source packages
+	with '_gpl' because of the knock-on effect with PyPi.
+	[04357f447388]
+
+	* sphinx/qml.rst:
+	Fixed a sphinx warning.
+	[00b1ee427a44]
+
+	* METADATA.in, rbproduct.py:
+	Added the METADATA.in file.
+	[0d593d43bf70]
+
+2016-04-06  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* rbproduct.py:
+	Added the test for SQL drivers to the product plugin.
+	[9d2b4177b3cf]
+
+	* rbproduct.py:
+	Fixed the tests defined in the product plugin.
+	[21a0cdb51e30]
+
+2016-04-05  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* rbproduct.py:
+	Added more tests to the product plugin.
+	[9f8f7adbdcf0]
+
+	* rbproduct.py:
+	Properly defined the PyQt5 modules in the product plugin.
+	[63dc33b74805]
+
+	* rbproduct.py:
+	Added the rbtools product plugin.
+	[da8471176b5c]
+
+2016-04-04  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* lib/configure.py, qpy/QtCore/qpycore_qt_conf.cpp,
+	sphinx/installation.rst:
+	Removed --qtconf-libraries.
+	[b750e716119b]
+
+	* lib/configure.py, qpy/QtCore/qpycore_api.h,
+	qpy/QtCore/qpycore_post_init.cpp.in, qpy/QtCore/qpycore_qt_conf.cpp,
+	sphinx/installation.rst:
+	Renamed --qt-prefix-path to --qtconf-prefix. Added --qtconf-
+	libraries.
+	[e63e022443bc]
+
+2016-04-03  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* lib/configure.py:
+	More spaces-in-path fixes.
+	[bebf960c9e18]
+
+	* lib/configure.py:
+	Fixed the invocation of sip if it has spaces in its path.
+	[a491032a2f01]
+
+2016-04-02  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* lib/configure.py, qpy/QtCore/qpycore_api.h,
+	qpy/QtCore/qpycore_post_init.cpp.in, qpy/QtCore/qpycore_qt_conf.cpp:
+	The Qt prefix path is now calculated at run-time to make it re-
+	locatable.
+	[0c8718600680]
+
+2016-04-01  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* lib/configure.py:
+	Fixed the embedded qt.conf.
+	[def17c899da2]
+
+2016-03-31  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* lib/configure.py, qpy/QtCore/qpycore_post_init.cpp.in,
+	sphinx/installation.rst:
+	Added the --qt-prefix-path option to configure.py.
+	[7e55c68410fe]
+
+	* PyQt5.msp:
+	Fixed an annotation typo.
+	[bd8301c85566]
+
+2016-03-29  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* PyQt5.msp:
+	Added the missing qt_set_sequence_auto_mnemonic() to QtGui.
+	[1cc2ecff7245]
+
+2016-03-28  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* PyQt5.msp:
+	Added the missing MouseLock to QWebEnginePage.Feature.
+	[49675f503e40]
+
+	* qpy/QtCore/qpycore_pyqtboundsignal.cpp:
+	Backed out an incorrect fix (not mentioned in the previous(?)
+	commit).
+	[3a53b336acd1]
+
+	* qpy/QtCore/qpycore_pyqtboundsignal.cpp,
+	qpy/QtCore/qpycore_qobject_getattr.cpp:
+	Respect method names starting with '__' found in the meta-object as
+	private as they are most likely to be Python methods decorated with
+	pyqtSlot.
+	[6cb67313a7f3]
+
+2016-03-27  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* lib/PlansForWheels.txt:
+	Added the plan for handling commercial and GPL wheels.
+	[dfc074229564]
+
+2016-03-26  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* Makefile, lib/configure.py, sphinx/installation.rst:
+	Added the --rpath option to configure.py.
+	[2787cd711d1c]
+
+2016-03-25  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* QAxContainer/qaxbase.sip:
+	Removed deprecated /DocValue/ annotations.
+	[1f2319650dff]
+
+	* build.py:
+	Apply the new naming standards to generated source packages.
+	[e1f0d30ea050]
+
+2016-03-24  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* qpy/QtCore/qpycore_pyqtboundsignal.cpp:
+	Connecting to a decorated method will now fail without a compatible
+	signature.
+	[d58baf1a1473]
+
+	* examples/quick/models/abstractitemmodel/abstractitemmodel.py:
+	Fixed a bug in the abstyractitemmodel.py example.
+	[654315b1dcf6]
+
+2016-03-18  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* PyQt5.msp:
+	Added the missing WA_DontShowOnScreen.
+	[571b2ed0ce32]
+
+2016-03-17  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* qpy/QtCore/qsysinfo.sip:
+	Updated for Qt v5.6.0. Added the missing QSysInfo static functions.
+	[740db730593a]
+
+2016-03-13  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* pyuic/uic/driver.py, pyuic/uic/pyuic.py:
+	Fixed a couple of pyuic syntax errors.
+	[70e9fff5c84d]
+
+2016-03-12  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* PyQt5.msp:
+	Restored the QFlags copy ctor to ensure assignment helpers are
+	generated.
+	[2c5cceeba03a]
+
+2016-03-11  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* qpy/QtQml/qpyqmlobject.cpp, qpy/QtQml/qpyqmlobject.h:
+	Fixed a deadlock problem in the implementation of QML proxies.
+	[293152ad5ca1]
+
+2016-03-09  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* examples/designer/plugins/widgets/helloglwidget.py:
+	Fixed the heeloglwidget.py example so that it doesn't use PyOpenGL.
+	[2d7a76584798]
+
+	* qpy/QtCore/qpycore_chimera.cpp, qpy/QtCore/qpycore_chimera.h,
+	qpy/QtCore/qpycore_enums_flags.cpp, qpy/QtCore/qpycore_types.cpp,
+	sphinx/metaobjects.rst:
+	Fixed the defining of enums and flags so that they appear as
+	expected in Qt Designer.
+	[0f17783785e4]
+
+2016-03-08  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* qpy/QtCore/qpycore_types.cpp:
+	Don't include an explicit scope when implementing Q_ENUMS and
+	Q_FLAGS.
+	[256cb1cf3c5d]
+
+	* examples/designer/plugins/python/multipagewidgetplugin.py,
+	examples/designer/plugins/widgets/multipagewidget.py:
+	Fixes to the plugins.py example.
+	[151f0d8f13e8]
+
+	* pyuic/uic/Compiler/compiler.py, pyuic/uic/Compiler/misc.py,
+	pyuic/uic/__init__.py, pyuic/uic/driver.py, pyuic/uic/pyuic.py,
+	sphinx/designer.rst:
+	Added the --import-from command line argument to pyuic5.
+	[d05ca4f9dda7]
+
+2016-03-07  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* PyQt5.msp:
+	Added the QVersionNumber class.
+	[c660515bc830]
+
+	* PyQt5.msp:
+	Updated QtOpenGL for Qt v5.6rc.
+	[ea5c02548075]
+
+	* lib/configure.py, sphinx/platforms.rst:
+	The Qt v5.5 rpath problems seem to have been fixed in v5.6.
+	[5205794e6b9a]
+
+	* PyQt5.msp, lib/SubclassCode/QtQuick.versions:
+	Updated the QObject convertor code for QtQuick and QtWebEngineCore.
+	[82eea261797e]
+
+2016-03-06  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* PyQt5.msp, lib/configure.py, sphinx/api_metadata.cfg,
+	sphinx/introduction.rst:
+	Implemented the QtWebEngineCore module.
+	[023eb0e60c08]
+
+	* PyQt5.msp:
+	Completed the QtWidgets updates for Qt v5.6rc.
+	[045ee6a65f5f]
+
+2016-03-05  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* PyQt5.msp:
+	Started updating the QtWidgets module for Qt v5.6rc.
+	[742e6cc983e8]
+
+	* sphinx/api_metadata.cfg:
+	Updated the API metadata for new classes added so far.
+	[531a749af28d]
+
+	* PyQt5.msp:
+	Updated the QtQml, QtQuick, QtQuickWidgets, QtSensors, QtSerialPort,
+	QtSql, QtSvg and QtTest modules for Qt v5.6rc.
+	[b3632c46462b]
+
+2016-03-04  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* PyQt5.msp:
+	Updated the QtNfc, QtPositioning, QtPrintSupport, QtXml and
+	QtXmlPatterns modules for Qt v5.6rc.
+	[ae1f88b0c079]
+
+	* PyQt5.msp, qpy/QtMultimedia/qpymultimedia_qlist.sip:
+	Updated the QtHelp, QtLocation, QtMultimedia, QtMultimediaWidgets
+	and QtNetwork modules for Qt 5.6rc.
+	[b957d29ef95c]
+
+	* PyQt5.msp:
+	Completed the QtGui support for Qt v5.6rc.
+	[e30d789c0141]
+
+	* PyQt5.msp:
+	More QtGui updates for Qt v5.6rc.
+	[e232b46d197a]
+
+2016-03-03  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* PyQt5.msp:
+	Partially implemented the Qt v5.6rc support for the QtGui module.
+	[eb7a53fdfb5b]
+
+2016-03-02  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* PyQt5.msp:
+	Updated the QtDBus and QtDesigner modules for Qt v5.6.0rc.
+	[242ffa94e504]
+
+	* PyQt5.msp:
+	Updated the QtCore module for Qt v5.6.0rc.
+	[75369fe650fe]
+
+2016-03-01  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* PyQt5.msp:
+	Updated the Enginio and QtBluetooth modules for Qt v5.6rc.
+	[b86fccf0f71e]
+
+	* lib/configure.py:
+	Don't embed the -f flag in PYQT_CONFIGURATION.
+	[c1a15cadbc73]
+
+	* PyQt5.msp:
+	All implementations of swap() now have the /Constrained/ annotation.
+	[fb287ed7e9da]
+
+	* Makefile, PyQt5.msp:
+	Removed a redundant QBrush ctor.
+	[5f34d42010aa]
+
+2016-02-29  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* PyQt5.msp:
+	Fixed the previous change.
+	[b86e13d182d7]
+
+	* Makefile, PyQt5.msp:
+	Removed the redundant QVariant copy ctor.
+	[0cb802120239]
+
+2016-02-27  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* Merged the 5.5-maint branch into the trunk.
+	[f923036edfe1]
+
+	* PyQt5.msp:
+	Fixed the type hint for QDesktopServices.setUrlHandler().
+	[0fa72a09eb1e] <5.5-maint>
+
+	* PyQt5.msp, qpy/QtBluetooth/qpybluetooth_qlist.sip,
+	qpy/QtCore/qjsonarray.sip, qpy/QtCore/qpycore_qlist.sip,
+	qpy/QtCore/qpycore_qset.sip, qpy/QtCore/qpycore_qvector.sip,
+	qpy/QtCore/qstringlist.sip, qpy/QtGui/qpygui_qvector.sip,
+	qpy/QtMultimedia/qpymultimedia_qlist.sip,
+	qpy/QtPrintSupport/qpyprintsupport_qlist.sip,
+	qpy/QtWidgets/qpywidgets_qlist.sip:
+	Use Iterable rather than Iterator in type hints.
+	[ab690c76000c] <5.5-maint>
+
+2016-02-26  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* PyQt5.msp:
+	Removed some superfluous ctors.
+	[f0c110db9340] <5.5-maint>
+
+	* PyQt5.msp:
+	Make sure the datetime module is available in stub files.
+	[aad90c9b7268] <5.5-maint>
+
+	* PyQt5.msp:
+	Updated type hints for classes with %ConvertToTypeCode.
+	[0f619b3c60e2] <5.5-maint>
+
+2016-02-25  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* PyQt5.msp, qpy/QtQml/qmlregistertype.sip:
+	Updated the project version number. More type hint improvements.
+	[8be0a10b466f] <5.5-maint>
+
+2016-02-24  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* PyQt5.msp:
+	More changes to the type hints.
+	[5a3f980959af] <5.5-maint>
+
+2016-02-19  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* PyQt5.msp:
+	Fixed some handwritten type hine code.
+	[2677d628d385] <5.5-maint>
+
+2016-02-18  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* test/tests/classes/test_QFlags.py:
+	Added the QFlags unit tests.
+	[796954fadf1e] <5.5-maint>
+
+	* lib/configure.py:
+	SIP warnings are now treated as fatal.
+	[ef2c015cb086] <5.5-maint>
+
+	* Makefile, PyQt5.msp:
+	Updated the QFlags support from PyQt4.
+	[5bd2318ecef3] <5.5-maint>
+
+	* PyQt5.msp:
+	Completed the conversion to /TypeHint/.
+	[7d4c7c1162e0] <5.5-maint>
+
+	* PyQt5.msp:
+	Updated the type hints for the OpenGL modules.
+	[a3d88993c395] <5.5-maint>
+
+2016-02-17  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* PyQt5.msp, qpy/QtCore/qjsonarray.sip, qpy/QtCore/qjsonobject.sip,
+	qpy/QtCore/qpycore_chimera.cpp, qpy/QtCore/qpycore_enums_flags.cpp,
+	qpy/QtCore/qpycore_public_api.cpp,
+	qpy/QtCore/qpycore_pyqtboundsignal.cpp,
+	qpy/QtCore/qpycore_pyqtconfigure.cpp,
+	qpy/QtCore/qpycore_pyqtsignal.cpp, qpy/QtCore/qpycore_qhash.sip,
+	qpy/QtCore/qpycore_qlist.sip, qpy/QtCore/qpycore_qmap.sip,
+	qpy/QtCore/qpycore_qmetaobject_helpers.cpp,
+	qpy/QtCore/qpycore_qobject_helpers.cpp,
+	qpy/QtCore/qpycore_qpair.sip, qpy/QtCore/qpycore_qset.sip,
+	qpy/QtCore/qpycore_qstring.cpp, qpy/QtCore/qpycore_qvector.sip,
+	qpy/QtCore/qpycore_types.cpp, qpy/QtCore/qstringlist.sip,
+	qpy/QtGui/qpygui_qlist.sip, qpy/QtGui/qpygui_qpair.sip,
+	qpy/QtGui/qpygui_qvector.sip, qpy/QtGui/qpyopengl_api.h,
+	qpy/QtGui/qpyopengl_array_convertors.cpp,
+	qpy/QtGui/qpyopengl_attribute_array.cpp,
+	qpy/QtGui/qpyopengl_uniform_value_array.cpp,
+	qpy/QtGui/qpyopengl_value_array.cpp,
+	qpy/QtMultimedia/qpymultimedia_qlist.sip,
+	qpy/QtNetwork/qpynetwork_qhash.sip,
+	qpy/QtPrintSupport/qpyprintsupport_qlist.sip,
+	qpy/QtQml/qpyqmllistpropertywrapper.cpp,
+	qpy/QtQuick/qpyquick_chimera_helpers.cpp,
+	qpy/QtWidgets/qpywidgets_qlist.sip:
+	Removed all uses of SIP_SSIZE_T.
+	[f1c9ab62de9e] <5.5-maint>
+
+2016-02-16  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* PyQt5.msp, qpy/QtBluetooth/qpybluetooth_qlist.sip,
+	qpy/QtBluetooth/qpybluetooth_quint128.sip,
+	qpy/QtCore/qjsonarray.sip, qpy/QtCore/qpycore_qlist.sip,
+	qpy/QtCore/qpycore_qpair.sip, qpy/QtCore/qpycore_qset.sip,
+	qpy/QtCore/qpycore_qvector.sip, qpy/QtCore/qstringlist.sip,
+	qpy/QtGui/qpygui_qlist.sip, qpy/QtGui/qpygui_qpair.sip,
+	qpy/QtGui/qpygui_qvector.sip,
+	qpy/QtMultimedia/qpymultimedia_qlist.sip,
+	qpy/QtPrintSupport/qpyprintsupport_qlist.sip,
+	qpy/QtWidgets/qpywidgets_qlist.sip:
+	Removed all occurrences of SIP_SSIZE_T_FORMAT.
+	[6c323983f866] <5.5-maint>
+
+	* Makefile, PyQt5.msp:
+	Make use of the new type hint class annotaions for QVariant.
+	[9e1f9b26502f] <5.5-maint>
+
+	* PyQt5.msp:
+	Fix the type hints for signals and slots.
+	[a7286c0088ff] <5.5-maint>
+
+	* PyQt5.msp:
+	Migrated the simple uses of /DocValue/ to /TypeHint/.
+	[17fe5ba76141] <5.5-maint>
+
+	* Makefile, PyQt5.msp:
+	Removed /TypeHintValue/ when they will now be picked up from the
+	mapped type.
+	[e9ca1dfbd2f9] <5.5-maint>
+
+	* sphinx/gotchas.rst:
+	Extended the section of QString gotchas to include null vs. empty
+	strings.
+	[4f9c20591646] <5.5-maint>
+
+2016-02-15  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* Makefile, PyQt5.msp, qpy/QtBluetooth/qpybluetooth_qlist.sip,
+	qpy/QtCore/qjsonarray.sip, qpy/QtCore/qjsonobject.sip,
+	qpy/QtCore/qpycore_qhash.sip, qpy/QtCore/qpycore_qlist.sip,
+	qpy/QtCore/qpycore_qmap.sip, qpy/QtCore/qpycore_qset.sip,
+	qpy/QtCore/qpycore_qvector.sip, qpy/QtCore/qstringlist.sip,
+	qpy/QtGui/qpygui_qlist.sip, qpy/QtGui/qpygui_qvector.sip,
+	qpy/QtMultimedia/qpymultimedia_qlist.sip,
+	qpy/QtNetwork/qpynetwork_qhash.sip,
+	qpy/QtNetwork/qpynetwork_qmap.sip,
+	qpy/QtPrintSupport/qpyprintsupport_qlist.sip,
+	qpy/QtWidgets/qpywidgets_qlist.sip:
+	Added /TypeHintValue/ to all mapped types that might have a default
+	value.
+	[2f5d9532caf3] <5.5-maint>
+
+	* qpy/QtBluetooth/qpybluetooth_qlist.sip,
+	qpy/QtBluetooth/qpybluetooth_quint128.sip,
+	qpy/QtCore/qjsonarray.sip, qpy/QtCore/qjsonobject.sip,
+	qpy/QtCore/qpycore_qhash.sip, qpy/QtCore/qpycore_qlist.sip,
+	qpy/QtCore/qpycore_qmap.sip, qpy/QtCore/qpycore_qpair.sip,
+	qpy/QtCore/qpycore_qset.sip, qpy/QtCore/qpycore_qvector.sip,
+	qpy/QtCore/qstringlist.sip, qpy/QtDBus/qpydbusreply.sip,
+	qpy/QtGui/qpygui_qlist.sip, qpy/QtGui/qpygui_qpair.sip,
+	qpy/QtGui/qpygui_qvector.sip,
+	qpy/QtMultimedia/qpymultimedia_qlist.sip:
+	Updated the type hints for all handwritten code.
+	[1fc9973d53a9] <5.5-maint>
+
+	* qpy/QtCore/qpycore_pyqtslot.cpp:
+	Updated the comment in the previous change.
+	[7bfc1d8650d4] <5.5-maint>
+
+	* qpy/QtCore/qpycore_pyqtslot.cpp:
+	Fixed a bug disconnecting wrapped C++ methods.
+	[a930ddb1c6a7] <5.5-maint>
+
+2016-02-13  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* sphinx/gotchas.rst, sphinx/pyqt4_differences.rst:
+	Added a section to the gotchas chapter about patterns to avoid
+	crashes on exit.
+	[da3142f18207] <5.5-maint>
+
+2016-02-12  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* qpy/QtCore/qpycore_chimera.cpp, qpy/QtCore/qpycore_chimera.h,
+	qpy/QtCore/qpycore_qobject_helpers.cpp:
+	Improved the support for Qt properties. Allow a QVariantMap to be
+	converted to a dict if that was what was expected.
+	[57ba51c12753] <5.5-maint>
+
+2016-02-11  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* examples/network/lightmaps.py:
+	Fixed the lightmaps.py example.
+	[9897e881d280] <5.5-maint>
+
+	* PyQt5.msp:
+	Added comments explaining why deleting top level widgets is a bad
+	idea.
+	[eced50bba03e] <5.5-maint>
+
+2016-02-10  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* qpy/QtCore/qpycore_pyqtsignal.cpp, qpy/QtCore/qpycore_pyqtslot.cpp:
+	Fixed a crash when a proxy for a non-method callable might be
+	invoked while the proxy is being garbage collected.
+	[fc21a0a97001] <5.5-maint>
+
+	* qpy/QtDBus/qpydbuspendingreply.sip, qpy/QtDBus/qpydbusreply.sip,
+	qpy/QtNetwork/qpynetwork_qhash.sip,
+	qpy/QtNetwork/qpynetwork_qmap.sip,
+	qpy/QtPrintSupport/qpyprintsupport_qlist.sip,
+	qpy/QtQml/qpyqmllistproperty.sip,
+	qpy/QtWidgets/qpywidgets_qlist.sip:
+	Removed some of the handwritten uses of DocType.
+	[23c5a8da2265] <5.5-maint>
+
+	* qpy/QtCore/qpycore_pyqtboundsignal.cpp,
+	qpy/QtCore/qpycore_pyqtsignal.cpp:
+	Updated the repr() of bound and unbound signals as per PyQt4.
+	[807eb26f59ef] <5.5-maint>
+
+	* lib/configure.py, sphinx/installation.rst:
+	Added the --no-stubs and --stubdir options to configure.py.
+	[7b60214e8c60] <5.5-maint>
+
+	* lib/LicenseFAQ.txt:
+	Updated the license FAQ to make sure the version numbers of the
+	commercial and GPL versions match.
+	[273545f90a4a] <5.5-maint>
+
+2016-02-08  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* sphinx/pyqt4_differences.rst:
+	Tone down the warnings about not using a main() function.
+	[d304857728a3] <5.5-maint>
+
+2016-02-06  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* PyQt5.msp, lib/configure.py, qpy/QtCore/qpycore_chimera.cpp,
+	qpy/QtWidgets/qpywidgets_api.h,
+	qpy/QtWidgets/qpywidgets_chimera_helpers.cpp,
+	qpy/QtWidgets/qpywidgets_chimera_helpers.h,
+	qpy/QtWidgets/qpywidgets_post_init.cpp:
+	Fixed the special handling of QGraphicsItem so that it doesn't
+	interfere with parsing pyqtSignal argument types.
+	[71cd6c6e7045] <5.5-maint>
+
+2016-02-05  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* PyQt5.msp:
+	Updated the project file to v8.
+	[3df32493cb78] <5.5-maint>
+
+2016-01-30  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* PyQt5.msp:
+	Renamed QUrlFormattingOption.None to None_.
+	[d4c8f03f6403] <5.5-maint>
+
+2016-01-25  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* lib/configure.py:
+	Removed some redundant Borland support.
+	[0f60e49c22df] <5.5-maint>
+
+	* lib/configure.py, sphinx/installation.rst:
+	The --qmake option has been added to configure.py when running on
+	Windows on the assumption that the historical problem of invoking
+	qmake with a path has been resolved.
+	[d2653451e966] <5.5-maint>
+
+2016-01-22  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* qpy/QtCore/qpycore_types.h:
+	Removed some redundant data structures.
+	[b071187c2187] <5.5-maint>
+
+	* qpy/QtCore/qpycore_types.h:
+	Fixes for the latest sip v5.
+	[fb770c78e3dd] <5.5-maint>
+
+	* qpy/QtQml/qpyqml_register_type.cpp:
+	Fixed a regression in the registering of QtQuick items.
+	[0d9e60c88804] <5.5-maint>
+
+2016-01-21  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* PyQt5.msp, qpy/QtDBus/qpydbus_post_init.cpp,
+	qpy/QtQml/qmlregistertype.sip, qpy/QtQml/qpyqml_post_init.cpp,
+	qpy/QtQml/qpyqml_register_type.cpp,
+	qpy/QtQuick/qpyquick_post_init.cpp:
+	Call Q_ASSERT() for values returned by sipImportSymbol().
+	[6ecc7eb4b7b8] <5.5-maint>
+
+2016-01-20  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* PyQt5.msp:
+	Removed an unused reference to the public API.
+	[e09839f29cbd] <5.5-maint>
+
+2016-01-18  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* PyQt5.msp:
+	Make sure QQmlProperty.connectNotifySignal() behaves the same as the
+	PyQt4 equivalent.
+	[074e64f58b7f] <5.5-maint>
+
+	* qpy/QtCore/qpycore_public_api.cpp:
+	Fixed a compilation error.
+	[41cfb44def2b] <5.5-maint>
+
+	* qpy/QtCore/qpycore_public_api.cpp:
+	Improved the error reporting in pyqt5_get_pyqtslot_parts().
+	[5336dad73d73] <5.5-maint>
+
+2016-01-17  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* PyQt5.msp:
+	Use "slot" as an argument type consistently.
+	[3e72e500339c] <5.5-maint>
+
+	* PyQt5.msp, qpy/QtCore/qpycore_public_api.cpp,
+	qpy/QtCore/qpycore_public_api.h, sphinx/extension_api.rst:
+	Re-implemented QWizardPage.registerField(). Fixed
+	QWizard.setDefaultProperty(). The transmitter argument to
+	pyqt5_get_signal_signature() is now optional.
+	[b701cde0001b] <5.5-maint>
+
+2016-01-11  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* lib/configure.py, qpy/QtCore/qpycore_decorators.cpp,
+	qpy/QtCore/qpycore_pyqtboundsignal.cpp,
+	qpy/QtCore/qpycore_pyqtmethodproxy.cpp,
+	qpy/QtCore/qpycore_pyqtproperty.cpp,
+	qpy/QtCore/qpycore_pyqtsignal.cpp, qpy/QtCore/qpycore_types.cpp,
+	qpy/QtGui/qpyopengl_data_cache.cpp,
+	qpy/QtQml/qpyqmllistproperty.cpp,
+	qpy/QtQml/qpyqmllistpropertywrapper.cpp:
+	Fixes for sip5.
+	[74c8e3a5a137] <5.5-maint>
+
+2016-01-06  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* sphinx/signals_slots.rst:
+	Documented the PyQt_PyObject signal argument type.
+	[b7d0ec91f94b] <5.5-maint>
+
+2016-01-05  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* PyQt5.msp:
+	Fixed the conversion of TouchCancel touch events.
+	[a611260e4cb5] <5.5-maint>
+
+2015-12-15  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* Makefile:
+	Switched the internal build system to Python v3.5.
+	[60e96c2f91b5] <5.5-maint>
+
+2015-12-14  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* Makefile:
+	Added support for venv to the internal build system.
+	[1f541a9bc326] <5.5-maint>
+
+2015-12-12  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* PyQt5.msp:
+	Added the internal QQuickCloseEvent as an opaque class. Added the
+	QQuickWindow::closing() signal.
+	[61e0fc70e389] <5.5-maint>
+
+2015-12-05  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* pyuic/uic/uiparser.py:
+	Fixed pyuic's handling of the margins of layout widgets.
+	[5b5f0fb1b3f6] <5.5-maint>
+
+2015-11-16  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* sphinx/platforms.rst:
+	Fixed a typo in the docs.
+	[7f0cbf6087dd] <5.5-maint>
+
+2015-10-28  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* lib/configure.py:
+	Handle PATH components that are enclosed in quotes.
+	[bfa081d2253d] <5.5-maint>
+
+	* PyQt5.msp:
+	Fixed QStyleOptionButton.None.
+	[993102189469] <5.5-maint>
+
 2015-10-25  Phil Thompson  <phil@riverbankcomputing.com>
 
 	* .hgtags:
 	Added tag 5.5.1 for changeset ee08241be21f
-	[0659e00fc2ab] [tip] <5.5-maint>
+	[0659e00fc2ab] <5.5-maint>
 
 	* NEWS, installers/PyQt5-Qt5-gpl.nsi:
 	Released as v5.5.1.

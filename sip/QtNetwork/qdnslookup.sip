@@ -2,7 +2,7 @@
 //
 // This file is part of the QtNetwork Python extension module.
 //
-// Copyright (c) 2015 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2016 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -30,7 +30,7 @@ public:
     QDnsDomainNameRecord();
     QDnsDomainNameRecord(const QDnsDomainNameRecord &other);
     ~QDnsDomainNameRecord();
-    void swap(QDnsDomainNameRecord &other);
+    void swap(QDnsDomainNameRecord &other /Constrained/);
     QString name() const;
     quint32 timeToLive() const;
     QString value() const;
@@ -46,7 +46,7 @@ public:
     QDnsHostAddressRecord();
     QDnsHostAddressRecord(const QDnsHostAddressRecord &other);
     ~QDnsHostAddressRecord();
-    void swap(QDnsHostAddressRecord &other);
+    void swap(QDnsHostAddressRecord &other /Constrained/);
     QString name() const;
     quint32 timeToLive() const;
     QHostAddress value() const;
@@ -62,7 +62,7 @@ public:
     QDnsMailExchangeRecord();
     QDnsMailExchangeRecord(const QDnsMailExchangeRecord &other);
     ~QDnsMailExchangeRecord();
-    void swap(QDnsMailExchangeRecord &other);
+    void swap(QDnsMailExchangeRecord &other /Constrained/);
     QString exchange() const;
     QString name() const;
     quint16 preference() const;
@@ -79,7 +79,7 @@ public:
     QDnsServiceRecord();
     QDnsServiceRecord(const QDnsServiceRecord &other);
     ~QDnsServiceRecord();
-    void swap(QDnsServiceRecord &other);
+    void swap(QDnsServiceRecord &other /Constrained/);
     QString name() const;
     quint16 port() const;
     quint16 priority() const;
@@ -98,7 +98,7 @@ public:
     QDnsTextRecord();
     QDnsTextRecord(const QDnsTextRecord &other);
     ~QDnsTextRecord();
-    void swap(QDnsTextRecord &other);
+    void swap(QDnsTextRecord &other /Constrained/);
     QString name() const;
     quint32 timeToLive() const;
     QList<QByteArray> values() const;

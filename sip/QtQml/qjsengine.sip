@@ -2,7 +2,7 @@
 //
 // This file is part of the QtQml Python extension module.
 //
-// Copyright (c) 2015 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2016 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -85,7 +85,24 @@ public:
     QJSValue newQObject(QObject *object /Transfer/);
     void collectGarbage();
 %If (Qt_5_4_0 -)
-    void installTranslatorFunctions(const QJSValue &object = QJSValue(QJSValue::UndefinedValue));
+    void installTranslatorFunctions(const QJSValue &object = QJSValue());
+%End
+%If (Qt_5_6_0 -)
+
+    enum Extension
+    {
+        TranslationExtension,
+        ConsoleExtension,
+        GarbageCollectionExtension,
+        AllExtensions,
+    };
+
+%End
+%If (Qt_5_6_0 -)
+    typedef QFlags<QJSEngine::Extension> Extensions;
+%End
+%If (Qt_5_6_0 -)
+    void installExtensions(QJSEngine::Extensions extensions, const QJSValue &object = QJSValue());
 %End
 
 private:
@@ -94,6 +111,9 @@ private:
 
 %If (Qt_5_5_0 -)
 QJSEngine *qjsEngine(const QObject *);
+%End
+%If (Qt_5_6_0 -)
+QFlags<QJSEngine::Extension> operator|(QJSEngine::Extension f1, QFlags<QJSEngine::Extension> f2);
 %End
 
 %ModuleHeaderCode

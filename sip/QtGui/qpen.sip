@@ -2,7 +2,7 @@
 //
 // This file is part of the QtGui Python extension module.
 //
-// Copyright (c) 2015 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2016 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -20,7 +20,7 @@
 // WARRANTY OF DESIGN, MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE.
 
 
-class QPen
+class QPen /TypeHintIn="Union[QPen, QColor]"/
 {
 %TypeHeaderCode
 #include <qpen.h>
@@ -60,7 +60,6 @@ return sipGetState(sipTransferObj);
 public:
     QPen();
     QPen(Qt::PenStyle);
-    QPen(const QColor &color);
     QPen(const QBrush &brush, qreal width, Qt::PenStyle style = Qt::SolidLine, Qt::PenCapStyle cap = Qt::SquareCap, Qt::PenJoinStyle join = Qt::BevelJoin);
     QPen(const QPen &pen);
     QPen(const QVariant &variant /GetWrapper/) /NoDerived/;
@@ -97,7 +96,7 @@ public:
     void setDashOffset(qreal doffset);
     bool isCosmetic() const;
     void setCosmetic(bool cosmetic);
-    void swap(QPen &other);
+    void swap(QPen &other /Constrained/);
 };
 
 QDataStream &operator<<(QDataStream &, const QPen & /Constrained/) /ReleaseGIL/;

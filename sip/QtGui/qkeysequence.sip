@@ -2,7 +2,7 @@
 //
 // This file is part of the QtGui Python extension module.
 //
-// Copyright (c) 2015 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2016 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -20,7 +20,7 @@
 // WARRANTY OF DESIGN, MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE.
 
 
-class QKeySequence
+class QKeySequence /TypeHintIn="Union[QKeySequence, QKeySequence.StandardKey, QString, int]"/
 {
 %TypeHeaderCode
 #include <qkeysequence.h>
@@ -183,6 +183,9 @@ public:
 %If (Qt_5_5_0 -)
         Backspace,
 %End
+%If (Qt_5_6_0 -)
+        Cancel,
+%End
     };
 
     QKeySequence();
@@ -204,7 +207,7 @@ public:
     static QKeySequence mnemonic(const QString &text);
     int operator[](int i) const;
 %MethodCode
-        SIP_SSIZE_T idx = sipConvertFromSequenceIndex(a0, sipCpp->count());
+        Py_ssize_t idx = sipConvertFromSequenceIndex(a0, sipCpp->count());
         
         if (idx < 0)
             sipIsErr = 1;
@@ -219,7 +222,7 @@ public:
     bool operator<=(const QKeySequence &other) const;
     bool operator>=(const QKeySequence &other) const;
     bool isDetached() const;
-    void swap(QKeySequence &other);
+    void swap(QKeySequence &other /Constrained/);
     QString toString(QKeySequence::SequenceFormat format = QKeySequence::PortableText) const;
     static QKeySequence fromString(const QString &str, QKeySequence::SequenceFormat format = QKeySequence::PortableText);
     static QList<QKeySequence> keyBindings(QKeySequence::StandardKey key);
@@ -229,7 +232,15 @@ public:
 %If (Qt_5_1_0 -)
     static QString listToString(const QList<QKeySequence> &list, QKeySequence::SequenceFormat format = QKeySequence::PortableText);
 %End
+%If (Qt_5_6_0 -)
+    long __hash__() const;
+%MethodCode
+        sipRes = qHash(*sipCpp);
+%End
+
+%End
 };
 
 QDataStream &operator<<(QDataStream &in, const QKeySequence &ks /Constrained/) /ReleaseGIL/;
 QDataStream &operator>>(QDataStream &out, QKeySequence &ks /Constrained/) /ReleaseGIL/;
+void qt_set_sequence_auto_mnemonic(bool b);

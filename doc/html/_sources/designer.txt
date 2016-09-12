@@ -133,7 +133,7 @@ The :mod:`~PyQt5.uic` module contains the following functions and objects.
     Initially it contains the name of the directory that contains the widget
     plugins included with PyQt5.
 
-.. function:: compileUi(uifile, pyfile[, execute=False[, indent=4[, from_imports=False[, resource_suffix='_rc']]]])
+.. function:: compileUi(uifile, pyfile[, execute=False[, indent=4[, from_imports=False[, resource_suffix='_rc'[, import_from='.']]]]])
 
     Generate a Python module that will create a user interface from a Qt
     Designer ``.ui`` file.
@@ -151,15 +151,17 @@ The :mod:`~PyQt5.uic` module contains the following functions and objects.
         the optional number of spaces used for indentation in the generated
         code.  If it is zero then a tab character is used instead.
     :param from_imports:
-        is optionally set to generate import statements that are relative to
-        ``'.'``.  At the moment this only applies to the import of resource
-        modules.
+        is optionally set to generate relative import statements.  At the
+        moment this only applies to the import of resource modules.
     :resource_suffix:
         is the suffix appended to the basename of any resource file specified
         in the ``.ui`` file to create the name of the Python module generated
         from the resource file by ``pyrcc5``.  The default is ``'_rc'``, i.e.
         if the ``.ui`` file specified a resource file called ``foo.qrc`` then
         the corresponding Python module is ``foo_rc``.
+    :param import_from:
+        is optionally set to the package used for relative import statements.
+        The default is ``'.'``.
 
 .. function:: compileUiDir(dir[, recurse=False[, map=None[, \*\*compileUi_args]]])
 
@@ -183,7 +185,7 @@ The :mod:`~PyQt5.uic` module contains the following functions and objects.
         :func:`~PyQt5.uic.compileUi` that is called to create each Python
         module.
 
-.. function:: loadUiType(uifile[, from_imports=False[, resource_suffix='_rc']])
+.. function:: loadUiType(uifile[, from_imports=False[, resource_suffix='_rc'[, import_from='.']]])
 
     Load a Qt Designer ``.ui`` file and return a tuple of the generated
     *form class* and the *Qt base class*.  These can then be used to
@@ -193,15 +195,17 @@ The :mod:`~PyQt5.uic` module contains the following functions and objects.
     :param uifile:
         the file name or file-like object containing the ``.ui`` file.
     :param from_imports:
-        is optionally set to use import statements that are relative to
-        ``'.'``.  At the moment this only applies to the import of resource
-        modules.
+        is optionally set to generate relative import statements.  At the
+        moment this only applies to the import of resource modules.
     :resource_suffix:
         is the suffix appended to the basename of any resource file specified
         in the ``.ui`` file to create the name of the Python module generated
         from the resource file by ``pyrcc5``.  The default is ``'_rc'``, i.e.
         if the ``.ui`` file specified a resource file called ``foo.qrc`` then
         the corresponding Python module is ``foo_rc``.
+    :param import_from:
+        is optionally set to the package used for relative import statements.
+        The default is ``'.'``.
     :rtype:
         the *form class* and the *Qt base class*.
 
@@ -268,10 +272,16 @@ The full set of command line options is:
     creates and displays the GUI when it is executes as a standalone
     application.
 
+.. cmdoption:: --import-from <PACKAGE>
+
+    .. versionadded:: 5.6
+
+    Resource modules are imported using ``from <PACKAGE> import ...`` rather
+    than a simple ``import ...``.
+
 .. cmdoption:: --from-imports
 
-    Resource modules are imported using ``from . import`` rather than a simple
-    ``import``.
+    This is the equivalent of specifying ``--import-from .``.
 
 .. cmdoption:: --resource-suffix <SUFFIX>
 

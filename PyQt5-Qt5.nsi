@@ -1,6 +1,6 @@
 # PyQt5 NSIS installer script.
 # 
-# Copyright (c) 2015 Riverbank Computing Limited <info@riverbankcomputing.com>
+# Copyright (c) 2016 Riverbank Computing Limited <info@riverbankcomputing.com>
 # 
 # This file is part of PyQt5.
 # 
@@ -19,15 +19,15 @@
 
 
 # These will change with different releases.
-!define PYQT_VERSION        "5.5.1"
+!define PYQT_VERSION        "5.6"
 !define PYQT_INSTALLER      ""
 #!define PYQT_INSTALLER      "-2"
 !define PYQT_LICENSE        "GPL"
 !define PYQT_LICENSE_LC     "gpl"
 !define PYQT_PYTHON_MAJOR   "3"
-!define PYQT_PYTHON_MINOR   "4"
+!define PYQT_PYTHON_MINOR   "5"
 !define PYQT_ARCH           "64"
-!define PYQT_QT_VERS        "5.5.1"
+!define PYQT_QT_VERS        "5.6.0"
 !define PYQT_QT_DOC_VERS    "5"
 
 # These are all derived from the above.
@@ -43,6 +43,7 @@
 !define ICU_SRC_DIR         "C:\icu"
 !define OPENSSL_SRC_DIR     "C:\OpenSSL"
 !define MYSQL_SRC_DIR       "C:\MySQL"
+!define REDIST_DIR          "C:\Redist"
 
 
 # Include the tools we use.
@@ -221,15 +222,14 @@ Section "Extension modules" SecModules
     File .\build\QtSvg\QtSvg.pyd
     File .\build\QtTest\QtTest.pyd
     File .\build\QtWebChannel\QtWebChannel.pyd
-    File .\build\QtWebKit\QtWebKit.pyd
-    File .\build\QtWebKitWidgets\QtWebKitWidgets.pyd
+    File .\build\QtWebEngineCore\QtWebEngineCore.pyd
+    File .\build\QtWebEngineWidgets\QtWebEngineWidgets.pyd
     File .\build\QtWebSockets\QtWebSockets.pyd
     File .\build\QtWinExtras\QtWinExtras.pyd
     File .\build\QtWidgets\QtWidgets.pyd
     File .\build\QtXml\QtXml.pyd
     File .\build\QtXmlPatterns\QtXmlPatterns.pyd
     File .\build\QAxContainer\QAxContainer.pyd
-    File .\build\Enginio\Enginio.pyd
     File .\build\_QOpenGLFunctions_2_0\_QOpenGLFunctions_2_0.pyd
     File .\build\_QOpenGLFunctions_2_1\_QOpenGLFunctions_2_1.pyd
     File .\build\_QOpenGLFunctions_4_1_Core\_QOpenGLFunctions_4_1_Core.pyd
@@ -260,7 +260,6 @@ Section "Qt runtime" SecQt
     File .\build\qmlscene\release\pyqt5qmlplugin.dll
 
     SetOutPath $INSTDIR\Lib\site-packages\PyQt5
-    File "${QT_SRC_DIR}\bin\Enginio.dll"
     File "${QT_SRC_DIR}\bin\qmlscene.exe"
     File "${QT_SRC_DIR}\bin\Qt5CLucene.dll"
     File "${QT_SRC_DIR}\bin\Qt5Core.dll"
@@ -286,14 +285,14 @@ Section "Qt runtime" SecQt
     File "${QT_SRC_DIR}\bin\Qt5Svg.dll"
     File "${QT_SRC_DIR}\bin\Qt5Test.dll"
     File "${QT_SRC_DIR}\bin\Qt5WebChannel.dll"
-    File "${QT_SRC_DIR}\bin\Qt5WebKit.dll"
-    File "${QT_SRC_DIR}\bin\Qt5WebKitWidgets.dll"
+    File "${QT_SRC_DIR}\bin\Qt5WebEngineCore.dll"
+    File "${QT_SRC_DIR}\bin\Qt5WebEngineWidgets.dll"
     File "${QT_SRC_DIR}\bin\Qt5WebSockets.dll"
     File "${QT_SRC_DIR}\bin\Qt5Widgets.dll"
     File "${QT_SRC_DIR}\bin\Qt5WinExtras.dll"
     File "${QT_SRC_DIR}\bin\Qt5Xml.dll"
     File "${QT_SRC_DIR}\bin\Qt5XmlPatterns.dll"
-    File "${QT_SRC_DIR}\bin\QtWebProcess.exe"
+    File "${QT_SRC_DIR}\bin\QtWebEngineProcess.exe"
 
     File "${QT_SRC_DIR}\bin\libEGL.dll"
     File "${QT_SRC_DIR}\bin\libGLESv2.dll"
@@ -306,6 +305,8 @@ Section "Qt runtime" SecQt
     File "${OPENSSL_SRC_DIR}\bin\ssleay32.dll"
 
     File "${MYSQL_SRC_DIR}\lib\libmysql.dll"
+
+    File "${REDIST_DIR}\msvcp140.dll"
 
     SetOutPath $INSTDIR\Lib\site-packages\PyQt5
     File /r "${QT_SRC_DIR}\qml"
@@ -330,9 +331,7 @@ Section "Qt runtime" SecQt
     File "${QT_SRC_DIR}\plugins\imageformats\qgif.dll"
     File "${QT_SRC_DIR}\plugins\imageformats\qicns.dll"
     File "${QT_SRC_DIR}\plugins\imageformats\qico.dll"
-    File "${QT_SRC_DIR}\plugins\imageformats\qjp2.dll"
     File "${QT_SRC_DIR}\plugins\imageformats\qjpeg.dll"
-    File "${QT_SRC_DIR}\plugins\imageformats\qmng.dll"
     File "${QT_SRC_DIR}\plugins\imageformats\qsvg.dll"
     File "${QT_SRC_DIR}\plugins\imageformats\qtga.dll"
     File "${QT_SRC_DIR}\plugins\imageformats\qtiff.dll"
@@ -342,7 +341,6 @@ Section "Qt runtime" SecQt
     SetOutPath $INSTDIR\Lib\site-packages\PyQt5\plugins\mediaservice
     File "${QT_SRC_DIR}\plugins\mediaservice\dsengine.dll"
     File "${QT_SRC_DIR}\plugins\mediaservice\qtmedia_audioengine.dll"
-    File "${QT_SRC_DIR}\plugins\mediaservice\wmfengine.dll"
 
     SetOutPath $INSTDIR\Lib\site-packages\PyQt5\plugins\platforms
     File "${QT_SRC_DIR}\plugins\platforms\qminimal.dll"
@@ -353,7 +351,9 @@ Section "Qt runtime" SecQt
     File "${QT_SRC_DIR}\plugins\playlistformats\qtmultimedia_m3u.dll"
 
     SetOutPath $INSTDIR\Lib\site-packages\PyQt5\plugins\position
+    File "${QT_SRC_DIR}\plugins\position\qtposition_geoclue.dll"
     File "${QT_SRC_DIR}\plugins\position\qtposition_positionpoll.dll"
+    File "${QT_SRC_DIR}\plugins\position\qtposition_serialnmea.dll"
 
     SetOutPath $INSTDIR\Lib\site-packages\PyQt5\plugins\printsupport
     File "${QT_SRC_DIR}\plugins\printsupport\windowsprintersupport.dll"
@@ -371,9 +371,15 @@ Section "Qt runtime" SecQt
     File "${QT_SRC_DIR}\plugins\sqldrivers\qsqlodbc.dll"
     File "${QT_SRC_DIR}\plugins\sqldrivers\qsqlpsql.dll"
 
+    SetOutPath $INSTDIR\Lib\site-packages\PyQt5\resources
+    File /r "${QT_SRC_DIR}\resources"
+
     SetOutPath $INSTDIR\Lib\site-packages\PyQt5\translations
     File "${QT_SRC_DIR}\translations\qt_*.qm"
     File "${QT_SRC_DIR}\translations\qtbase_*.qm"
+
+    SetOutPath $INSTDIR\Lib\site-packages\PyQt5\translations\qtwebengine_locales
+    File /r "${QT_SRC_DIR}\translations\qtwebengine_locales"
 
     # Tell Python and the Qt tools where to find Qt.
     FileOpen $0 $INSTDIR\qt.conf w
@@ -420,7 +426,8 @@ Section "Qt developer tools" SecQtTools
     File /r "${QT_SRC_DIR}\mkspecs"
 
     SetOutPath $INSTDIR\Lib\site-packages\PyQt5\plugins\designer
-    File "${QT_SRC_DIR}\plugins\designer\qwebview.dll"
+    File "${QT_SRC_DIR}\plugins\designer\qaxwidget.dll"
+    File "${QT_SRC_DIR}\plugins\designer\qquickwidget.dll"
 
     File .\build\designer\release\pyqt5.dll
     File "${QT_SRC_DIR}\plugins\designer\qscintillaplugin.dll"

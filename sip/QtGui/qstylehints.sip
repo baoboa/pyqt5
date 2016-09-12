@@ -2,7 +2,7 @@
 //
 // This file is part of the QtGui Python extension module.
 //
-// Copyright (c) 2015 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2016 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -69,6 +69,11 @@ signals:
 %End
 %If (Qt_5_5_0 -)
     void startDragTimeChanged(int startDragTime);
+%End
+
+public:
+%If (Qt_5_6_0 -)
+    bool showIsMaximized() const;
 %End
 
 private:

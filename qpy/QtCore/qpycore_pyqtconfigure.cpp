@@ -1,6 +1,6 @@
 // This implements the helper for QObject.pyqtConfigure().
 //
-// Copyright (c) 2015 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2016 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -64,7 +64,7 @@ PyObject *qpycore_pyqtconfigure(PyObject *self, PyObject *args, PyObject *kwds)
         return 0;
 
     PyObject *name_obj, *value_obj;
-    SIP_SSIZE_T pos = 0;
+    Py_ssize_t pos = 0;
 
     while (PyDict_Next(kwds, &pos, &name_obj, &value_obj))
     {
@@ -114,7 +114,7 @@ int qpycore_qobject_finalisation(PyObject *self, QObject *qobj, PyObject *kwds,
     PyObject *unused = (updated_kwds ? 0 : kwds);
 
     PyObject *name_obj, *value_obj;
-    SIP_SSIZE_T pos = 0;
+    Py_ssize_t pos = 0;
 
     while (PyDict_Next(kwds, &pos, &name_obj, &value_obj))
     {

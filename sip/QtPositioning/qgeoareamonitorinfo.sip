@@ -2,7 +2,7 @@
 //
 // This file is part of the QtPositioning Python extension module.
 //
-// Copyright (c) 2015 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2016 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -29,7 +29,7 @@ class QGeoAreaMonitorInfo
 %End
 
 public:
-    explicit QGeoAreaMonitorInfo(const QString &name /DocValue="''"/ = QString());
+    explicit QGeoAreaMonitorInfo(const QString &name = QString());
     QGeoAreaMonitorInfo(const QGeoAreaMonitorInfo &other);
     ~QGeoAreaMonitorInfo();
     bool operator==(const QGeoAreaMonitorInfo &other) const;

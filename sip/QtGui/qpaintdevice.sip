@@ -2,7 +2,7 @@
 //
 // This file is part of the QtGui Python extension module.
 //
-// Copyright (c) 2015 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2016 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -42,6 +42,9 @@ public:
 %If (Qt_5_1_0 -)
         PdmDevicePixelRatio,
 %End
+%If (Qt_5_6_0 -)
+        PdmDevicePixelRatioScaled,
+%End
     };
 
     virtual ~QPaintDevice();
@@ -64,6 +67,14 @@ public:
 protected:
     QPaintDevice();
     virtual int metric(QPaintDevice::PaintDeviceMetric metric) const;
+
+public:
+%If (Qt_5_6_0 -)
+    qreal devicePixelRatioF() const;
+%End
+%If (Qt_5_6_0 -)
+    static qreal devicePixelRatioFScale();
+%End
 
 private:
     QPaintDevice(const QPaintDevice &);

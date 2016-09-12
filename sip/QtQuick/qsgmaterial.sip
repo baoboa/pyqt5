@@ -2,7 +2,7 @@
 //
 // This file is part of the QtQuick Python extension module.
 //
-// Copyright (c) 2015 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2016 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -64,11 +64,11 @@ public:
     virtual void activate();
     virtual void deactivate();
     virtual void updateState(const QSGMaterialShader::RenderState &state, QSGMaterial *newMaterial, QSGMaterial *oldMaterial);
-    virtual SIP_PYOBJECT attributeNames() const = 0 /DocType="list-of-str"/ [const char * const * ()];
+    virtual SIP_PYOBJECT attributeNames() const = 0 /TypeHint="List[str]"/ [const char * const * ()];
 %MethodCode
         const char * const *names = sipCpp->attributeNames();
         
-        SIP_SSIZE_T nr_names = 0;
+        Py_ssize_t nr_names = 0;
         
         if (names)
             while (names[nr_names])
@@ -79,7 +79,7 @@ public:
         if (!sipRes)
             sipIsErr = 1;
         else
-            for (SIP_SSIZE_T i = 0; i < nr_names; ++i)
+            for (Py_ssize_t i = 0; i < nr_names; ++i)
             {
                 const char *name = names[i];
                 PyObject *el;
@@ -222,7 +222,7 @@ static char **qtquick_anc_get_attr_names(sipSimpleWrapper *pySelf, PyObject *met
 
     char **names = new char *[PyList_GET_SIZE(attr_names_obj) + 1];
 
-    for (SIP_SSIZE_T i = 0; i < PyList_GET_SIZE(attr_names_obj); ++i)
+    for (Py_ssize_t i = 0; i < PyList_GET_SIZE(attr_names_obj); ++i)
     {
         char *name;
         PyObject *el = PyList_GET_ITEM(attr_names_obj, i);

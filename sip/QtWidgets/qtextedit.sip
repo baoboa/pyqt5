@@ -2,7 +2,7 @@
 //
 // This file is part of the QtWidgets Python extension module.
 //
-// Copyright (c) 2015 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2016 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -73,8 +73,8 @@ public:
     void mergeCurrentCharFormat(const QTextCharFormat &modifier);
     void setCurrentCharFormat(const QTextCharFormat &format);
     QTextCharFormat currentCharFormat() const;
-    QFlags<QTextEdit::AutoFormattingFlag> autoFormatting() const;
-    void setAutoFormatting(QFlags<QTextEdit::AutoFormattingFlag> features);
+    QTextEdit::AutoFormatting autoFormatting() const;
+    void setAutoFormatting(QTextEdit::AutoFormatting features);
     bool tabChangesFocus() const;
     void setTabChangesFocus(bool b);
     void setDocumentTitle(const QString &title);
@@ -87,7 +87,7 @@ public:
     void setLineWrapColumnOrWidth(int w);
     QTextOption::WrapMode wordWrapMode() const;
     void setWordWrapMode(QTextOption::WrapMode policy);
-    bool find(const QString &exp, QFlags<QTextDocument::FindFlag> options = 0);
+    bool find(const QString &exp, QTextDocument::FindFlags options = QTextDocument::FindFlags());
     QString toPlainText() const;
     QString toHtml() const;
     void append(const QString &text);
@@ -203,7 +203,7 @@ public:
     QString placeholderText() const;
 %End
 %If (Qt_5_3_0 -)
-    bool find(const QRegExp &exp, QFlags<QTextDocument::FindFlag> options = 0);
+    bool find(const QRegExp &exp, QTextDocument::FindFlags options = QTextDocument::FindFlags());
 %End
 %If (Qt_5_3_0 -)
     QVariant inputMethodQuery(Qt::InputMethodQuery query, QVariant argument) const;

@@ -2,7 +2,7 @@
 //
 // This file is part of the QtGui Python extension module.
 //
-// Copyright (c) 2015 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2016 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -55,13 +55,16 @@ protected:
         static helper_func helper = 0;
         
         if (!helper)
+        {
             helper = (helper_func)sipImportSymbol("qtgui_wrap_ancestors");
+            Q_ASSERT(helper);
+        }
         
         QTextDocument *td = sipCpp->document();
         
         if (td)
         {
-            PyObject *py_td = (helper ? helper(td, sipType_QTextDocument) : 0);
+            PyObject *py_td = helper(td, sipType_QTextDocument);
         
             if (!py_td)
             {

@@ -2,7 +2,7 @@
 //
 // This file is part of the QtWidgets Python extension module.
 //
-// Copyright (c) 2015 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2016 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -27,7 +27,7 @@ class QMainWindow : QWidget
 %End
 
 public:
-    QMainWindow(QWidget *parent /TransferThis/ = 0, Qt::WindowFlags flags = 0);
+    QMainWindow(QWidget *parent /TransferThis/ = 0, Qt::WindowFlags flags = Qt::WindowFlags());
     virtual ~QMainWindow();
     QSize iconSize() const;
     void setIconSize(const QSize &iconSize);
@@ -85,11 +85,14 @@ public:
         AllowTabbedDocks,
         ForceTabbedDocks,
         VerticalTabs,
+%If (Qt_5_6_0 -)
+        GroupedDragging,
+%End
     };
 
     typedef QFlags<QMainWindow::DockOption> DockOptions;
-    void setDockOptions(QFlags<QMainWindow::DockOption> options);
-    QFlags<QMainWindow::DockOption> dockOptions() const;
+    void setDockOptions(QMainWindow::DockOptions options);
+    QMainWindow::DockOptions dockOptions() const;
     void removeToolBarBreak(QToolBar *before);
     bool toolBarBreak(QToolBar *toolbar) const;
 %If (Qt_5_2_0 -)
@@ -105,9 +108,12 @@ public:
     void setTabShape(QTabWidget::TabShape tabShape);
     QTabWidget::TabPosition tabPosition(Qt::DockWidgetArea area) const;
     void setTabPosition(Qt::DockWidgetAreas areas, QTabWidget::TabPosition tabPosition);
-    QList<QDockWidget*> tabifiedDockWidgets(QDockWidget *dockwidget) const;
+    QList<QDockWidget *> tabifiedDockWidgets(QDockWidget *dockwidget) const;
 %If (Qt_5_2_0 -)
     QWidget *takeCentralWidget() /TransferBack/;
+%End
+%If (Qt_5_6_0 -)
+    void resizeDocks(const QList<QDockWidget *> &docks, const QList<int> &sizes, Qt::Orientation orientation);
 %End
 
 private:

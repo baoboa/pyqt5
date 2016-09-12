@@ -2,7 +2,7 @@
 //
 // This file is part of the QtNetwork Python extension module.
 //
-// Copyright (c) 2015 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2016 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -20,7 +20,7 @@
 // WARRANTY OF DESIGN, MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE.
 
 
-class QHostAddress
+class QHostAddress /TypeHintIn="Union[QHostAddress, QHostAddress.SpecialAddress]"/
 {
 %TypeHeaderCode
 #include <qhostaddress.h>
@@ -89,13 +89,19 @@ public:
     bool isInSubnet(const QPair<QHostAddress, int> &subnet) const;
     bool isLoopback() const;
     static QPair<QHostAddress, int> parseSubnet(const QString &subnet);
+%If (Qt_5_6_0 -)
+    void swap(QHostAddress &other /Constrained/);
+%End
+%If (Qt_5_6_0 -)
+    bool isMulticast() const;
+%End
 };
 
 bool operator==(QHostAddress::SpecialAddress address1, const QHostAddress &address2);
 QDataStream &operator<<(QDataStream &, const QHostAddress &) /ReleaseGIL/;
 QDataStream &operator>>(QDataStream &, QHostAddress &) /ReleaseGIL/;
 // Q_IPV6ADDR is implemented as a Python 16-tuple of ints.
-%MappedType Q_IPV6ADDR /DocType="16-tuple-of-int"/
+%MappedType Q_IPV6ADDR /TypeHint="Tuple[int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int]"/
 {
 %TypeHeaderCode
 #include <qhostaddress.h>
@@ -133,7 +139,7 @@ QDataStream &operator>>(QDataStream &, QHostAddress &) /ReleaseGIL/;
 
     Q_IPV6ADDR *qa = new Q_IPV6ADDR;
  
-    for (SIP_SSIZE_T i = 0; i < 16; ++i)
+    for (Py_ssize_t i = 0; i < 16; ++i)
     {
         PyObject *itm = PySequence_ITEM(sipPy, i);
 

@@ -2,7 +2,7 @@
 //
 // This file is part of the QtQuick Python extension module.
 //
-// Copyright (c) 2015 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2016 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -34,6 +34,9 @@ public:
         TextureHasAlphaChannel,
         TextureOwnsGLTexture,
         TextureCanUseAtlas,
+%If (Qt_5_6_0 -)
+        TextureIsOpaque,
+%End
     };
 
     typedef QFlags<QSGEngine::CreateTextureOption> CreateTextureOptions;
@@ -42,8 +45,8 @@ public:
     void initialize(QOpenGLContext *context);
     void invalidate();
     QSGAbstractRenderer *createRenderer() const;
-    QSGTexture *createTextureFromImage(const QImage &image, QFlags<QSGEngine::CreateTextureOption> options = (QSGEngine::CreateTextureOption)0u) const /Factory/;
-    QSGTexture *createTextureFromId(uint id, const QSize &size, QFlags<QSGEngine::CreateTextureOption> options = (QSGEngine::CreateTextureOption)0u) const /Factory/;
+    QSGTexture *createTextureFromImage(const QImage &image, QSGEngine::CreateTextureOptions options = QSGEngine::CreateTextureOption(0)) const /Factory/;
+    QSGTexture *createTextureFromId(uint id, const QSize &size, QSGEngine::CreateTextureOptions options = QSGEngine::CreateTextureOption(0)) const /Factory/;
 };
 
 %End

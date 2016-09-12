@@ -2,7 +2,7 @@
 //
 // This file is part of the QtWidgets Python extension module.
 //
-// Copyright (c) 2015 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2016 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -27,7 +27,7 @@ class QGraphicsWidget : QGraphicsObject, QGraphicsLayoutItem
 %End
 
 public:
-    QGraphicsWidget(QGraphicsItem *parent /TransferThis/ = 0, Qt::WindowFlags flags = 0);
+    QGraphicsWidget(QGraphicsItem *parent /TransferThis/ = 0, Qt::WindowFlags flags = Qt::WindowFlags());
     virtual ~QGraphicsWidget();
     QGraphicsLayout *layout() const;
     void setLayout(QGraphicsLayout *layout /Transfer/);
@@ -68,11 +68,11 @@ public:
     void setShortcutEnabled(int id, bool enabled = true);
     void setShortcutAutoRepeat(int id, bool enabled = true);
     void addAction(QAction *action);
-    void addActions(QList<QAction*> actions);
+    void addActions(QList<QAction *> actions);
     void insertAction(QAction *before, QAction *action);
-    void insertActions(QAction *before, QList<QAction*> actions);
+    void insertActions(QAction *before, QList<QAction *> actions);
     void removeAction(QAction *action);
-    QList<QAction*> actions() const;
+    QList<QAction *> actions() const;
     void setAttribute(Qt::WidgetAttribute attribute, bool on = true);
     bool testAttribute(Qt::WidgetAttribute attribute) const;
     virtual int type() const;

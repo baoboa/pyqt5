@@ -2,7 +2,7 @@
 //
 // This file is part of the QtCore Python extension module.
 //
-// Copyright (c) 2015 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2016 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -329,6 +329,7 @@ namespace Qt
         WA_NativeWindow,
         WA_DontCreateNativeAncestors,
         WA_MacVariableSize,
+        WA_DontShowOnScreen,
         WA_X11NetWmWindowTypeDesktop,
         WA_X11NetWmWindowTypeDock,
         WA_X11NetWmWindowTypeToolBar,
@@ -1147,6 +1148,9 @@ namespace Qt
 %If (Qt_5_3_0 -)
         ImTextAfterCursor,
 %End
+%If (Qt_5_6_0 -)
+        ImEnterKeyType,
+%End
     };
 
     typedef QFlags<Qt::InputMethodQuery> InputMethodQueries;
@@ -1224,6 +1228,9 @@ namespace Qt
 %If (Qt_5_5_0 -)
         ItemIsUserTristate,
 %End
+%If (Qt_5_6_0 -)
+        ItemIsAutoTristate,
+%End
     };
 
     typedef QFlags<Qt::ItemFlag> ItemFlags;
@@ -1286,6 +1293,12 @@ namespace Qt
 %End
 %If (Qt_5_5_0 -)
         AA_SetPalette,
+%End
+%If (Qt_5_6_0 -)
+        AA_EnableHighDpiScaling,
+%End
+%If (Qt_5_6_0 -)
+        AA_DisableHighDpiScaling,
 %End
     };
 
@@ -1555,6 +1568,9 @@ namespace Qt
         MouseEventNotSynthesized,
         MouseEventSynthesizedBySystem,
         MouseEventSynthesizedByQt,
+%If (Qt_5_6_0 -)
+        MouseEventSynthesizedByApplication,
+%End
     };
 
 %End
@@ -1586,6 +1602,21 @@ namespace Qt
     {
         ReplaceSelection,
         AddToSelection,
+    };
+
+%End
+%If (Qt_5_6_0 -)
+
+    enum EnterKeyType
+    {
+        EnterKeyDefault,
+        EnterKeyReturn,
+        EnterKeyDone,
+        EnterKeyGo,
+        EnterKeySend,
+        EnterKeySearch,
+        EnterKeyNext,
+        EnterKeyPrevious,
     };
 
 %End

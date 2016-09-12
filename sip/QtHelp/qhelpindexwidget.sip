@@ -2,7 +2,7 @@
 //
 // This file is part of the QtHelp Python extension module.
 //
-// Copyright (c) 2015 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2016 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -28,7 +28,7 @@ class QHelpIndexModel : QStringListModel /NoDefaultCtors/
 
 public:
     void createIndex(const QString &customFilterName);
-    QModelIndex filter(const QString &filter, const QString &wildcard /DocValue="''"/ = QString());
+    QModelIndex filter(const QString &filter, const QString &wildcard = QString());
     QMap<QString, QUrl> linksForKeyword(const QString &keyword) const;
     bool isCreatingIndex() const;
 
@@ -51,7 +51,7 @@ signals:
     void linksActivated(const QMap<QString, QUrl> &links, const QString &keyword);
 
 public slots:
-    void filterIndices(const QString &filter, const QString &wildcard /DocValue="''"/ = QString());
+    void filterIndices(const QString &filter, const QString &wildcard = QString());
     void activateCurrentItem();
 
 private:

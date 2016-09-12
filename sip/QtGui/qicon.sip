@@ -2,7 +2,7 @@
 //
 // This file is part of the QtGui Python extension module.
 //
-// Copyright (c) 2015 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2016 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -80,7 +80,13 @@ public:
     static QString themeName();
     static void setThemeName(const QString &path);
     QString name() const;
-    void swap(QIcon &other);
+    void swap(QIcon &other /Constrained/);
+%If (Qt_5_6_0 -)
+    void setIsMask(bool isMask);
+%End
+%If (Qt_5_6_0 -)
+    bool isMask() const;
+%End
 };
 
 QDataStream &operator<<(QDataStream &, const QIcon & /Constrained/) /ReleaseGIL/;

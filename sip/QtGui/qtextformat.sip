@@ -2,7 +2,7 @@
 //
 // This file is part of the QtGui Python extension module.
 //
-// Copyright (c) 2015 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2016 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -234,7 +234,7 @@ public:
     int propertyCount() const;
     bool isTableCellFormat() const;
     QTextTableCellFormat toTableCellFormat() const;
-    void swap(QTextFormat &other);
+    void swap(QTextFormat &other /Constrained/);
 %If (Qt_5_3_0 -)
     bool isEmpty() const;
 %End

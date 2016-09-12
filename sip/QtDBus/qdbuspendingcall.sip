@@ -2,7 +2,7 @@
 //
 // This file is part of the QtDBus Python extension module.
 //
-// Copyright (c) 2015 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2016 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -31,7 +31,7 @@ public:
     ~QDBusPendingCall();
     static QDBusPendingCall fromError(const QDBusError &error);
     static QDBusPendingCall fromCompletedCall(const QDBusMessage &message);
-    void swap(QDBusPendingCall &other);
+    void swap(QDBusPendingCall &other /Constrained/);
 
 private:
     QDBusPendingCall();
@@ -50,5 +50,10 @@ public:
     void waitForFinished() /ReleaseGIL/;
 
 signals:
-    void finished(QDBusPendingCallWatcher *self);
+%If (- Qt_5_6_0)
+    void finished(QDBusPendingCallWatcher *watcher);
+%End
+%If (Qt_5_6_0 -)
+    void finished(QDBusPendingCallWatcher *watcher = 0);
+%End
 };

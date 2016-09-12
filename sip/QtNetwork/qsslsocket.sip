@@ -2,7 +2,7 @@
 //
 // This file is part of the QtNetwork Python extension module.
 //
-// Copyright (c) 2015 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2016 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -38,9 +38,9 @@ public:
 
     explicit QSslSocket(QObject *parent /TransferThis/ = 0);
     virtual ~QSslSocket();
-    void connectToHostEncrypted(const QString &hostName, quint16 port, QFlags<QIODevice::OpenModeFlag> mode = QIODevice::ReadWrite, QAbstractSocket::NetworkLayerProtocol protocol = QAbstractSocket::AnyIPProtocol) /ReleaseGIL/;
-    void connectToHostEncrypted(const QString &hostName, quint16 port, const QString &sslPeerName, QFlags<QIODevice::OpenModeFlag> mode = QIODevice::ReadWrite, QAbstractSocket::NetworkLayerProtocol protocol = QAbstractSocket::AnyIPProtocol) /ReleaseGIL/;
-    virtual bool setSocketDescriptor(qintptr socketDescriptor, QAbstractSocket::SocketState state = QAbstractSocket::ConnectedState, QFlags<QIODevice::OpenModeFlag> mode = QIODevice::ReadWrite);
+    void connectToHostEncrypted(const QString &hostName, quint16 port, QIODevice::OpenMode mode = QIODevice::ReadWrite, QAbstractSocket::NetworkLayerProtocol protocol = QAbstractSocket::AnyIPProtocol) /ReleaseGIL/;
+    void connectToHostEncrypted(const QString &hostName, quint16 port, const QString &sslPeerName, QIODevice::OpenMode mode = QIODevice::ReadWrite, QAbstractSocket::NetworkLayerProtocol protocol = QAbstractSocket::AnyIPProtocol) /ReleaseGIL/;
+    virtual bool setSocketDescriptor(qintptr socketDescriptor, QAbstractSocket::SocketState state = QAbstractSocket::ConnectedState, QIODevice::OpenMode mode = QIODevice::ReadWrite);
     QSslSocket::SslMode mode() const;
     bool isEncrypted() const;
     QSsl::SslProtocol protocol() const;
@@ -100,7 +100,7 @@ signals:
 %End
 
 protected:
-    virtual SIP_PYOBJECT readData(qint64 maxlen) /DocType="Py_v3:bytes;str",ReleaseGIL/ [qint64 (char *data, qint64 maxlen)];
+    virtual SIP_PYOBJECT readData(qint64 maxlen) /TypeHint="Py_v3:bytes;str",ReleaseGIL/ [qint64 (char *data, qint64 maxlen)];
 %MethodCode
         // Return the data read or None if there was an error.
         if (a0 < 0)
@@ -170,7 +170,7 @@ public:
     QString peerVerifyName() const;
     void setPeerVerifyName(const QString &hostName);
     virtual void resume() /ReleaseGIL/;
-    virtual void connectToHost(const QString &hostName, quint16 port, QFlags<QIODevice::OpenModeFlag> mode = QIODevice::ReadWrite, QAbstractSocket::NetworkLayerProtocol protocol = QAbstractSocket::AnyIPProtocol) /ReleaseGIL/;
+    virtual void connectToHost(const QString &hostName, quint16 port, QIODevice::OpenMode mode = QIODevice::ReadWrite, QAbstractSocket::NetworkLayerProtocol protocol = QAbstractSocket::AnyIPProtocol) /ReleaseGIL/;
     virtual void disconnectFromHost() /ReleaseGIL/;
     static long sslLibraryVersionNumber();
     static QString sslLibraryVersionString();

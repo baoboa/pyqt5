@@ -2,7 +2,7 @@
 //
 // This file is part of the QtBluetooth Python extension module.
 //
-// Copyright (c) 2015 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2016 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -87,7 +87,7 @@ public:
     virtual ~QBluetoothServer();
     void close() /ReleaseGIL/;
     bool listen(const QBluetoothAddress &address = QBluetoothAddress(), quint16 port = 0) /ReleaseGIL/;
-    QBluetoothServiceInfo listen(const QBluetoothUuid &uuid, const QString &serviceName /DocValue="''"/ = QString()) /ReleaseGIL/;
+    QBluetoothServiceInfo listen(const QBluetoothUuid &uuid, const QString &serviceName = QString()) /ReleaseGIL/;
     bool isListening() const;
     void setMaxPendingConnections(int numConnections);
     int maxPendingConnections() const;

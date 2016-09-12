@@ -31,7 +31,8 @@ that relate to your platform.
 
 If you are using the commercial version of PyQt5 then you must copy your
 license file to the :file:`sip` directory, or to the directory specified by the
-:option:`--license-dir` option of :program:`configure.py`.
+:option:`--license-dir <configure.py --license-dir>` option of
+:program:`configure.py`.
 
 You need to make sure your environment variables are set properly for your
 development environment.
@@ -44,7 +45,7 @@ In order to configure the build of PyQt5 you need to run the
 This assumes that the Python interpreter is on your path.  Something like the
 following may be appropriate on Windows::
 
-    c:\Python34\python configure.py
+    c:\Python35\python configure.py
 
 If you have multiple versions of Python installed then make sure you use the
 interpreter for which you wish to build PyQt5 for.
@@ -160,6 +161,14 @@ The full set of command line options is:
 
     The ``.sip`` files for the PyQt5 modules will not be installed.
 
+.. cmdoption:: --no-stubs
+
+    .. versionadded:: 5.6
+
+    The PEP 484 type hint stub files for the PyQt5 modules will not be
+    installed.  This option is ignored (and the stub files are not installed)
+    for versions of Python earlier than v3.5.
+
 .. cmdoption:: --no-tools
 
     .. versionadded:: 5.3
@@ -194,8 +203,7 @@ The full set of command line options is:
     Qt's :program:`qmake` program is used to determine how your Qt installation
     is laid out.  Normally :program:`qmake` is found on your :envvar:`PATH`.
     This option can be used to specify a particular instance of
-    :program:`qmake` to use.  This option is not available on Windows where
-    :program:`qmake` must be on :envvar:`PATH`.
+    :program:`qmake` to use.
 
 .. cmdoption:: --qml-plugindir <DIR>
 
@@ -212,6 +220,14 @@ The full set of command line options is:
 
     The QScintilla API file will be installed in the :file:`python`
     subdirectory of the :file:`api` subdirectory of the directory ``<DIR>``.
+
+.. cmdoption:: --qtconf-prefix <DIR>
+
+    .. versionadded:: 5.6
+
+    A ``qt.conf`` file is embedded in the :mod:`PyQt5.QtCore` module with
+    ``Prefix`` set to ``<DIR>`` which is assumed to be relative to the
+    directory that the :mod:`PyQt5.QtCore` module will be installed in.
 
 .. cmdoption:: --sip <FILE>
 
@@ -242,6 +258,16 @@ The full set of command line options is:
     The PyQt5 modules will be built as static libraries.  This is useful when
     building a custom interpreter with the PyQt5 modules built in to the
     interpreter.
+
+.. cmdoption:: --stubdir <DIR>
+
+    .. versionadded:: 5.6
+
+    The PEP 484 type hint stub files for the PyQt5 modules will be installed in
+    the directory ``<DIR>``.  By default they will be stored in the same
+    directory as the corresponding extension modules.  This option is ignored
+    (and the stub files are not installed) for versions of Python earlier than
+    v3.5.
 
 .. cmdoption:: --sysroot <DIR>
 

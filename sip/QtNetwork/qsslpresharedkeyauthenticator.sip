@@ -2,7 +2,7 @@
 //
 // This file is part of the QtNetwork Python extension module.
 //
-// Copyright (c) 2015 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2016 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -33,7 +33,7 @@ public:
     QSslPreSharedKeyAuthenticator();
     QSslPreSharedKeyAuthenticator(const QSslPreSharedKeyAuthenticator &authenticator);
     ~QSslPreSharedKeyAuthenticator();
-    void swap(QSslPreSharedKeyAuthenticator &authenticator);
+    void swap(QSslPreSharedKeyAuthenticator &authenticator /Constrained/);
     QByteArray identityHint() const;
     void setIdentity(const QByteArray &identity);
     QByteArray identity() const;

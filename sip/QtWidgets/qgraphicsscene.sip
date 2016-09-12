@@ -2,7 +2,7 @@
 //
 // This file is part of the QtWidgets Python extension module.
 //
-// Copyright (c) 2015 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2016 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -46,18 +46,18 @@ public:
     QGraphicsScene::ItemIndexMethod itemIndexMethod() const;
     void setItemIndexMethod(QGraphicsScene::ItemIndexMethod method);
     QRectF itemsBoundingRect() const;
-    QList<QGraphicsItem*> items(Qt::SortOrder order = Qt::DescendingOrder) const;
-    QList<QGraphicsItem*> items(const QPointF &pos, Qt::ItemSelectionMode mode = Qt::IntersectsItemShape, Qt::SortOrder order = Qt::DescendingOrder, const QTransform &deviceTransform = QTransform()) const;
-    QList<QGraphicsItem*> items(const QRectF &rect, Qt::ItemSelectionMode mode = Qt::IntersectsItemShape, Qt::SortOrder order = Qt::DescendingOrder, const QTransform &deviceTransform = QTransform()) const;
-    QList<QGraphicsItem*> items(const QPolygonF &polygon, Qt::ItemSelectionMode mode = Qt::IntersectsItemShape, Qt::SortOrder order = Qt::DescendingOrder, const QTransform &deviceTransform = QTransform()) const;
-    QList<QGraphicsItem*> items(const QPainterPath &path, Qt::ItemSelectionMode mode = Qt::IntersectsItemShape, Qt::SortOrder order = Qt::DescendingOrder, const QTransform &deviceTransform = QTransform()) const;
-    QList<QGraphicsItem*> items(qreal x, qreal y, qreal w, qreal h, Qt::ItemSelectionMode mode, Qt::SortOrder order, const QTransform &deviceTransform = QTransform()) const;
-    QList<QGraphicsItem*> collidingItems(const QGraphicsItem *item, Qt::ItemSelectionMode mode = Qt::IntersectsItemShape) const;
-    QList<QGraphicsItem*> selectedItems() const;
+    QList<QGraphicsItem *> items(Qt::SortOrder order = Qt::DescendingOrder) const;
+    QList<QGraphicsItem *> items(const QPointF &pos, Qt::ItemSelectionMode mode = Qt::IntersectsItemShape, Qt::SortOrder order = Qt::DescendingOrder, const QTransform &deviceTransform = QTransform()) const;
+    QList<QGraphicsItem *> items(const QRectF &rect, Qt::ItemSelectionMode mode = Qt::IntersectsItemShape, Qt::SortOrder order = Qt::DescendingOrder, const QTransform &deviceTransform = QTransform()) const;
+    QList<QGraphicsItem *> items(const QPolygonF &polygon, Qt::ItemSelectionMode mode = Qt::IntersectsItemShape, Qt::SortOrder order = Qt::DescendingOrder, const QTransform &deviceTransform = QTransform()) const;
+    QList<QGraphicsItem *> items(const QPainterPath &path, Qt::ItemSelectionMode mode = Qt::IntersectsItemShape, Qt::SortOrder order = Qt::DescendingOrder, const QTransform &deviceTransform = QTransform()) const;
+    QList<QGraphicsItem *> items(qreal x, qreal y, qreal w, qreal h, Qt::ItemSelectionMode mode, Qt::SortOrder order, const QTransform &deviceTransform = QTransform()) const;
+    QList<QGraphicsItem *> collidingItems(const QGraphicsItem *item, Qt::ItemSelectionMode mode = Qt::IntersectsItemShape) const;
+    QList<QGraphicsItem *> selectedItems() const;
     void setSelectionArea(const QPainterPath &path, const QTransform &deviceTransform);
     void setSelectionArea(const QPainterPath &path, Qt::ItemSelectionMode mode = Qt::IntersectsItemShape, const QTransform &deviceTransform = QTransform());
     void clearSelection();
-    QGraphicsItemGroup *createItemGroup(const QList<QGraphicsItem*> &items /Transfer/);
+    QGraphicsItemGroup *createItemGroup(const QList<QGraphicsItem *> &items /Transfer/);
     void destroyItemGroup(QGraphicsItemGroup *group /Transfer/);
     void addItem(QGraphicsItem *item /Transfer/);
     QGraphicsEllipseItem *addEllipse(const QRectF &rect, const QPen &pen = QPen(), const QBrush &brush = QBrush());
@@ -83,12 +83,12 @@ public:
     QBrush foregroundBrush() const;
     void setForegroundBrush(const QBrush &brush);
     virtual QVariant inputMethodQuery(Qt::InputMethodQuery query) const;
-    QList<QGraphicsView*> views() const;
+    QList<QGraphicsView *> views() const;
 
 public slots:
     void advance();
     void update(const QRectF &rect = QRectF());
-    void invalidate(const QRectF &rect = QRectF(), QFlags<QGraphicsScene::SceneLayer> layers = QGraphicsScene::AllLayers);
+    void invalidate(const QRectF &rect = QRectF(), QGraphicsScene::SceneLayers layers = QGraphicsScene::AllLayers);
     void clear();
 
 signals:
@@ -131,7 +131,7 @@ public:
     void setBspTreeDepth(int depth);
     QPainterPath selectionArea() const;
     void update(qreal x, qreal y, qreal w, qreal h);
-    QGraphicsProxyWidget *addWidget(QWidget *widget /Transfer/, Qt::WindowFlags flags = 0);
+    QGraphicsProxyWidget *addWidget(QWidget *widget /Transfer/, Qt::WindowFlags flags = Qt::WindowFlags());
     QStyle *style() const;
     void setStyle(QStyle *style /Transfer/);
     QFont font() const;
@@ -154,7 +154,7 @@ public:
     QGraphicsItem *activePanel() const;
     void setActivePanel(QGraphicsItem *item);
     bool sendEvent(QGraphicsItem *item, QEvent *event);
-    void invalidate(qreal x, qreal y, qreal w, qreal h, QFlags<QGraphicsScene::SceneLayer> layers = QGraphicsScene::AllLayers);
+    void invalidate(qreal x, qreal y, qreal w, qreal h, QGraphicsScene::SceneLayers layers = QGraphicsScene::AllLayers);
 %If (Qt_5_4_0 -)
     qreal minimumRenderSize() const;
 %End

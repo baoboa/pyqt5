@@ -2,7 +2,7 @@
 //
 // This file is part of the QtCore Python extension module.
 //
-// Copyright (c) 2015 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2016 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -93,7 +93,7 @@ public:
             PyList_Append(user, a0Wrapper);
 %End
 
-    QList<QAbstractAnimation*> defaultAnimations() const;
+    QList<QAbstractAnimation *> defaultAnimations() const;
     void removeDefaultAnimation(QAbstractAnimation *animation /GetWrapper/);
 %MethodCode
         // Discard the extra animation reference that we took in addDefaultAnimation().
@@ -120,7 +120,7 @@ public:
     void postEvent(QEvent *event /Transfer/, QStateMachine::EventPriority priority = QStateMachine::NormalPriority);
     int postDelayedEvent(QEvent *event /Transfer/, int delay);
     bool cancelDelayedEvent(int id);
-    QSet<QAbstractState*> configuration() const;
+    QSet<QAbstractState *> configuration() const;
     virtual bool eventFilter(QObject *watched, QEvent *event);
 
 public slots:

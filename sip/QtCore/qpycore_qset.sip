@@ -1,7 +1,7 @@
 // This is the SIP interface definition for the majority of the QSet based
 // mapped types.
 //
-// Copyright (c) 2015 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2016 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -20,7 +20,9 @@
 
 
 template<_TYPE_>
-%MappedType QSet<_TYPE_> /DocType="set-of-_TYPE_"/
+%MappedType QSet<_TYPE_>
+        /TypeHintIn="Iterable[_TYPE_]", TypeHintOut="Set[_TYPE_]",
+        TypeHintValue="set()"/
 {
 %TypeHeaderCode
 #include <qset.h>
@@ -80,7 +82,7 @@ template<_TYPE_>
 
     QSet<_TYPE_> *qs = new QSet<_TYPE_>;
  
-    for (SIP_SSIZE_T i = 0; ; ++i)
+    for (Py_ssize_t i = 0; ; ++i)
     {
         PyErr_Clear();
         PyObject *itm = PyIter_Next(iter);
@@ -107,8 +109,8 @@ template<_TYPE_>
         if (*sipIsErr)
         {
             PyErr_Format(PyExc_TypeError,
-                    "index " SIP_SSIZE_T_FORMAT " has type '%s' but '_TYPE_' is expected",
-                    i, Py_TYPE(itm)->tp_name);
+                    "index %zd has type '%s' but '_TYPE_' is expected", i,
+                    Py_TYPE(itm)->tp_name);
 
             Py_DECREF(itm);
             delete qs;
@@ -133,7 +135,9 @@ template<_TYPE_>
 
 
 template<_TYPE_>
-%MappedType QSet<_TYPE_ *> /DocType="set-of-_TYPE_"/
+%MappedType QSet<_TYPE_ *>
+        /TypeHintIn="Iterable[_TYPE_]", TypeHintOut="Set[_TYPE_]",
+        TypeHintValue="set()"/
 {
 %TypeHeaderCode
 #include <qset.h>
@@ -192,7 +196,7 @@ template<_TYPE_>
 
     QSet<_TYPE_ *> *qs = new QSet<_TYPE_ *>;
  
-    for (SIP_SSIZE_T i = 0; ; ++i)
+    for (Py_ssize_t i = 0; ; ++i)
     {
         PyErr_Clear();
         PyObject *itm = PyIter_Next(iter);
@@ -218,8 +222,8 @@ template<_TYPE_>
         if (*sipIsErr)
         {
             PyErr_Format(PyExc_TypeError,
-                    "index " SIP_SSIZE_T_FORMAT " has type '%s' but '_TYPE_' is expected",
-                    i, Py_TYPE(itm)->tp_name);
+                    "index %zd has type '%s' but '_TYPE_' is expected", i,
+                    Py_TYPE(itm)->tp_name);
 
             Py_DECREF(itm);
             delete qs;

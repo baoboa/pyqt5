@@ -2,7 +2,7 @@
 //
 // This file is part of the QtWidgets Python extension module.
 //
-// Copyright (c) 2015 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2016 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -52,8 +52,8 @@ public:
     virtual QSize sizeHint() const;
     virtual QSize minimumSizeHint() const;
     QMdiSubWindow *activeSubWindow() const;
-    QMdiSubWindow *addSubWindow(QWidget *widget /Transfer/, Qt::WindowFlags flags = 0);
-    QList<QMdiSubWindow*> subWindowList(QMdiArea::WindowOrder order = QMdiArea::CreationOrder) const;
+    QMdiSubWindow *addSubWindow(QWidget *widget /Transfer/, Qt::WindowFlags flags = Qt::WindowFlags());
+    QList<QMdiSubWindow *> subWindowList(QMdiArea::WindowOrder order = QMdiArea::CreationOrder) const;
     QMdiSubWindow *currentSubWindow() const;
     void removeSubWindow(QWidget *widget /GetWrapper/);
 %MethodCode

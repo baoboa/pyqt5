@@ -2,7 +2,7 @@
 //
 // This file is part of the QtCore Python extension module.
 //
-// Copyright (c) 2015 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2016 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -43,7 +43,7 @@ public:
         Py_INCREF(sipRes);
 %End
 
-    SIP_PYOBJECT internalId() const /DocType="int"/;
+    SIP_PYOBJECT internalId() const /TypeHint="int"/;
 %MethodCode
         // Python needs to treat the result as an unsigned value (which may not happen
         // on 64 bit systems).  Instead we get the real value as it is stored (as a
@@ -84,7 +84,7 @@ public:
     QModelIndex child(int row, int column) const;
     const QAbstractItemModel *model() const;
     bool isValid() const;
-    void swap(QPersistentModelIndex &other);
+    void swap(QPersistentModelIndex &other /Constrained/);
     operator const QModelIndex &() const;
     bool operator<(const QPersistentModelIndex &other) const;
     bool operator==(const QPersistentModelIndex &other) const;
@@ -127,8 +127,8 @@ public:
     virtual bool setData(const QModelIndex &index, const QVariant &value, int role = Qt::EditRole);
     virtual QVariant headerData(int section, Qt::Orientation orientation, int role = Qt::DisplayRole) const;
     virtual bool setHeaderData(int section, Qt::Orientation orientation, const QVariant &value, int role = Qt::EditRole);
-    virtual QMap<int, QVariant> itemData(const QModelIndex &index) const /DocType="dict-of-int-object"/;
-    virtual bool setItemData(const QModelIndex &index, const QMap<int, QVariant> &roles /DocType="dict-of-int-object"/);
+    virtual QMap<int, QVariant> itemData(const QModelIndex &index) const;
+    virtual bool setItemData(const QModelIndex &index, const QMap<int, QVariant> &roles);
     virtual QStringList mimeTypes() const;
     virtual QMimeData *mimeData(const QModelIndexList &indexes) const /TransferBack/;
     virtual bool dropMimeData(const QMimeData *data, Qt::DropAction action, int row, int column, const QModelIndex &parent);
@@ -146,10 +146,10 @@ public:
     virtual QSize span(const QModelIndex &index) const;
 
 signals:
-    void dataChanged(const QModelIndex &topLeft, const QModelIndex &bottomRight, const QVector<int> &roles /DocValue="list-of-int"/ = QVector<int>());
+    void dataChanged(const QModelIndex &topLeft, const QModelIndex &bottomRight, const QVector<int> &roles = QVector<int>());
     void headerDataChanged(Qt::Orientation orientation, int first, int last);
-    void layoutAboutToBeChanged(const QList<QPersistentModelIndex> &parents /DocType="list-of-QPersistentModelIndex"/ = QList<QPersistentModelIndex>(), QAbstractItemModel::LayoutChangeHint hint = QAbstractItemModel::NoLayoutChangeHint);
-    void layoutChanged(const QList<QPersistentModelIndex> &parents /DocType="list-of-QPersistentModelIndex"/ = QList<QPersistentModelIndex>(), QAbstractItemModel::LayoutChangeHint hint = QAbstractItemModel::NoLayoutChangeHint);
+    void layoutAboutToBeChanged(const QList<QPersistentModelIndex> &parents = QList<QPersistentModelIndex>(), QAbstractItemModel::LayoutChangeHint hint = QAbstractItemModel::NoLayoutChangeHint);
+    void layoutChanged(const QList<QPersistentModelIndex> &parents = QList<QPersistentModelIndex>(), QAbstractItemModel::LayoutChangeHint hint = QAbstractItemModel::NoLayoutChangeHint);
     void rowsAboutToBeInserted(const QModelIndex &parent, int first, int last);
     void rowsInserted(const QModelIndex &parent, int first, int last);
     void rowsAboutToBeRemoved(const QModelIndex &parent, int first, int last);

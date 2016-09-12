@@ -1,6 +1,6 @@
 // This defines the interfaces for the meta-type used by PyQt.
 //
-// Copyright (c) 2015 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2016 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -24,28 +24,15 @@
 
 #include <Python.h>
 
-#include <QByteArray>
 #include <QList>
 #include <QMetaObject>
 
-#include "qpycore_chimera.h"
 #include "qpycore_pyqtproperty.h"
 
 #include "sipAPIQtCore.h"
 
 
 class PyQtSlot;
-
-
-// This describes a slot.
-struct qpycore_slot
-{
-    // The slot itself.
-    sipSlot sip_slot;
-
-    // The parsed signature.
-    const Chimera::Signature *signature;
-};
 
 
 // This describes a dynamic meta-object.

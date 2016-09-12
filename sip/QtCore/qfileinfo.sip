@@ -2,7 +2,7 @@
 //
 // This file is part of the QtCore Python extension module.
 //
-// Copyright (c) 2015 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2016 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -68,8 +68,8 @@ public:
     uint ownerId() const;
     QString group() const;
     uint groupId() const;
-    bool permission(QFlags<QFileDevice::Permission> permissions) const;
-    QFlags<QFileDevice::Permission> permissions() const;
+    bool permission(QFileDevice::Permissions permissions) const;
+    QFileDevice::Permissions permissions() const;
     qint64 size() const;
     QDateTime created() const;
     QDateTime lastModified() const;
@@ -80,7 +80,7 @@ public:
     QString bundleName() const;
     bool isBundle() const;
     bool isNativePath() const;
-    void swap(QFileInfo &other);
+    void swap(QFileInfo &other /Constrained/);
 %If (Qt_5_2_0 -)
     static bool exists(const QString &file);
 %End

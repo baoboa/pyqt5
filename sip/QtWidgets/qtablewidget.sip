@@ -2,7 +2,7 @@
 //
 // This file is part of the QtWidgets Python extension module.
 //
-// Copyright (c) 2015 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2016 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -132,9 +132,9 @@ public:
     int currentColumn() const;
     QTableWidgetItem *currentItem() const;
     void setCurrentItem(QTableWidgetItem *item);
-    void setCurrentItem(QTableWidgetItem *item, QFlags<QItemSelectionModel::SelectionFlag> command);
+    void setCurrentItem(QTableWidgetItem *item, QItemSelectionModel::SelectionFlags command);
     void setCurrentCell(int row, int column);
-    void setCurrentCell(int row, int column, QFlags<QItemSelectionModel::SelectionFlag> command);
+    void setCurrentCell(int row, int column, QItemSelectionModel::SelectionFlags command);
     void sortItems(int column, Qt::SortOrder order = Qt::AscendingOrder);
     void setSortingEnabled(bool enable);
     bool isSortingEnabled() const;
@@ -180,8 +180,8 @@ public:
 
     void setRangeSelected(const QTableWidgetSelectionRange &range, bool select);
     QList<QTableWidgetSelectionRange> selectedRanges() const;
-    QList<QTableWidgetItem*> selectedItems() const;
-    QList<QTableWidgetItem*> findItems(const QString &text, Qt::MatchFlags flags) const;
+    QList<QTableWidgetItem *> selectedItems() const;
+    QList<QTableWidgetItem *> findItems(const QString &text, Qt::MatchFlags flags) const;
     int visualRow(int logicalRow) const;
     int visualColumn(int logicalColumn) const;
     QTableWidgetItem *itemAt(const QPoint &p) const;
@@ -218,10 +218,10 @@ signals:
 
 protected:
     virtual QStringList mimeTypes() const;
-    virtual QMimeData *mimeData(const QList<QTableWidgetItem*> items) const /TransferBack/;
+    virtual QMimeData *mimeData(const QList<QTableWidgetItem *> items) const /TransferBack/;
     virtual bool dropMimeData(int row, int column, const QMimeData *data, Qt::DropAction action);
     virtual Qt::DropActions supportedDropActions() const;
-    QList<QTableWidgetItem*> items(const QMimeData *data) const;
+    QList<QTableWidgetItem *> items(const QMimeData *data) const;
     QModelIndex indexFromItem(QTableWidgetItem *item) const;
     QTableWidgetItem *itemFromIndex(const QModelIndex &index) const;
     virtual bool event(QEvent *e);

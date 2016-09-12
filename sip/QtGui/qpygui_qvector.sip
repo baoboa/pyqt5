@@ -1,7 +1,7 @@
 // This is the SIP interface definition for the QVector based mapped types
 // specific to the QtGui module.
 //
-// Copyright (c) 2015 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2016 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -19,7 +19,9 @@
 // WARRANTY OF DESIGN, MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE.
 
 
-%MappedType QVector<unsigned> /DocType="list-of-int"/
+%MappedType QVector<unsigned>
+        /TypeHintIn="Iterable[int]", TypeHintOut="List[int]",
+        TypeHintValue="[]"/
 {
 %TypeHeaderCode
 #include <qvector.h>
@@ -73,7 +75,7 @@
 
     QVector<unsigned> *qv = new QVector<unsigned>;
 
-    for (SIP_SSIZE_T i = 0; ; ++i)
+    for (Py_ssize_t i = 0; ; ++i)
     {
         PyErr_Clear();
         PyObject *itm = PyIter_Next(iter);
@@ -98,8 +100,8 @@
         if (PyErr_Occurred())
         {
             PyErr_Format(PyExc_TypeError,
-                    "index " SIP_SSIZE_T_FORMAT " has type '%s' but 'int' is expected",
-                    i, Py_TYPE(itm)->tp_name);
+                    "index %zd has type '%s' but 'int' is expected", i,
+                    Py_TYPE(itm)->tp_name);
 
             Py_DECREF(itm);
             delete qv;
@@ -123,7 +125,9 @@
 };
 
 
-%MappedType QVector<float> /DocType="list-of-float"/
+%MappedType QVector<float>
+        /TypeHintIn="Iterable[float]", TypeHintOut="List[float]",
+        TypeHintValue="[]"/
 {
 %TypeHeaderCode
 #include <qvector.h>
@@ -175,7 +179,7 @@
 
     QVector<float> *qv = new QVector<float>;
 
-    for (SIP_SSIZE_T i = 0; ; ++i)
+    for (Py_ssize_t i = 0; ; ++i)
     {
         PyErr_Clear();
         PyObject *itm = PyIter_Next(iter);
@@ -200,8 +204,8 @@
         if (PyErr_Occurred())
         {
             PyErr_Format(PyExc_TypeError,
-                    "index " SIP_SSIZE_T_FORMAT " has type '%s' but 'int' is expected",
-                    i, Py_TYPE(itm)->tp_name);
+                    "index %zd has type '%s' but 'int' is expected", i,
+                    Py_TYPE(itm)->tp_name);
 
             Py_DECREF(itm);
             delete qv;
@@ -227,7 +231,9 @@
 
 %If (PyQt_qreal_double)
 
-%MappedType QVector<qreal> /DocType="list-of-float"/
+%MappedType QVector<qreal>
+        /TypeHintIn="Iterable[float]", TypeHintOut="List[float]",
+        TypeHintValue="[]"/
 {
 %TypeHeaderCode
 #include <qvector.h>
@@ -279,7 +285,7 @@
 
     QVector<qreal> *qv = new QVector<qreal>;
 
-    for (SIP_SSIZE_T i = 0; ; ++i)
+    for (Py_ssize_t i = 0; ; ++i)
     {
         PyErr_Clear();
         PyObject *itm = PyIter_Next(iter);
@@ -304,8 +310,8 @@
         if (PyErr_Occurred())
         {
             PyErr_Format(PyExc_TypeError,
-                    "index " SIP_SSIZE_T_FORMAT " has type '%s' but 'int' is expected",
-                    i, Py_TYPE(itm)->tp_name);
+                    "index %zd has type '%s' but 'int' is expected", i,
+                    Py_TYPE(itm)->tp_name);
 
             Py_DECREF(itm);
             delete qv;
@@ -333,7 +339,9 @@
 
 %If (PyQt_Desktop_OpenGL)
 
-%MappedType QVector<GLuint64> /DocType="list-of-int"/
+%MappedType QVector<GLuint64>
+        /TypeHintIn="Iterable[int]", TypeHintOut="List[int]",
+        TypeHintValue="[]"/
 {
 %TypeHeaderCode
 #include <qvector.h>
@@ -388,7 +396,7 @@
 
     QVector<GLuint64> *qv = new QVector<GLuint64>;
 
-    for (SIP_SSIZE_T i = 0; ; ++i)
+    for (Py_ssize_t i = 0; ; ++i)
     {
         PyErr_Clear();
         PyObject *itm = PyIter_Next(iter);
@@ -413,8 +421,8 @@
         if (PyErr_Occurred())
         {
             PyErr_Format(PyExc_TypeError,
-                    "index " SIP_SSIZE_T_FORMAT " has type '%s' but 'int' is expected",
-                    i, Py_TYPE(itm)->tp_name);
+                    "index %zd has type '%s' but 'int' is expected", i,
+                    Py_TYPE(itm)->tp_name);
 
             Py_DECREF(itm);
             delete qv;

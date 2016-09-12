@@ -2,7 +2,7 @@
 //
 // This file is part of the QtWidgets Python extension module.
 //
-// Copyright (c) 2015 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2016 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -110,8 +110,8 @@ public:
     bool autoRepeat() const;
     void setMenuRole(QAction::MenuRole menuRole);
     QAction::MenuRole menuRole() const;
-    QList<QWidget*> associatedWidgets() const;
-    QList<QGraphicsWidget*> associatedGraphicsWidgets() const;
+    QList<QWidget *> associatedWidgets() const;
+    QList<QGraphicsWidget *> associatedGraphicsWidgets() const;
     void setIconVisibleInMenu(bool visible);
     bool isIconVisibleInMenu() const;
 

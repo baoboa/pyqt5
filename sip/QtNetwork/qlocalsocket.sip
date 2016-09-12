@@ -2,7 +2,7 @@
 //
 // This file is part of the QtNetwork Python extension module.
 //
-// Copyright (c) 2015 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2016 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -52,13 +52,13 @@ public:
 
     QLocalSocket(QObject *parent /TransferThis/ = 0);
     virtual ~QLocalSocket();
-    void connectToServer(const QString &name, QFlags<QIODevice::OpenModeFlag> mode = QIODevice::ReadWrite) /ReleaseGIL/;
+    void connectToServer(const QString &name, QIODevice::OpenMode mode = QIODevice::ReadWrite) /ReleaseGIL/;
 %If (Qt_5_1_0 -)
-    void connectToServer(QFlags<QIODevice::OpenModeFlag> mode = QIODevice::ReadWrite);
+    void connectToServer(QIODevice::OpenMode mode = QIODevice::ReadWrite) /ReleaseGIL/;
 %End
     void disconnectFromServer() /ReleaseGIL/;
 %If (Qt_5_1_0 -)
-    virtual bool open(QFlags<QIODevice::OpenModeFlag> mode = QIODevice::ReadWrite);
+    virtual bool open(QIODevice::OpenMode mode = QIODevice::ReadWrite);
 %End
     QString serverName() const;
 %If (Qt_5_1_0 -)
@@ -76,7 +76,7 @@ public:
     bool isValid() const;
     qint64 readBufferSize() const;
     void setReadBufferSize(qint64 size);
-    bool setSocketDescriptor(qintptr socketDescriptor, QLocalSocket::LocalSocketState state = QLocalSocket::ConnectedState, QFlags<QIODevice::OpenModeFlag> mode = QIODevice::ReadWrite);
+    bool setSocketDescriptor(qintptr socketDescriptor, QLocalSocket::LocalSocketState state = QLocalSocket::ConnectedState, QIODevice::OpenMode mode = QIODevice::ReadWrite);
     qintptr socketDescriptor() const;
     QLocalSocket::LocalSocketState state() const;
     virtual bool waitForBytesWritten(int msecs = 30000) /ReleaseGIL/;
@@ -91,7 +91,7 @@ signals:
     void stateChanged(QLocalSocket::LocalSocketState socketState);
 
 protected:
-    virtual SIP_PYOBJECT readData(qint64 maxlen) /DocType="Py_v3:bytes;str",ReleaseGIL/ [qint64 (char *, qint64)];
+    virtual SIP_PYOBJECT readData(qint64 maxlen) /TypeHint="Py_v3:bytes;str",ReleaseGIL/ [qint64 (char *, qint64)];
 %MethodCode
         // Return the data read or None if there was an error.
         if (a0 < 0)

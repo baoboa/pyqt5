@@ -2,7 +2,7 @@
 //
 // This file is part of the QtCore Python extension module.
 //
-// Copyright (c) 2015 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2016 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -37,8 +37,8 @@ public:
     void setEndValue(const QVariant &value);
     QVariant keyValueAt(qreal step) const;
     void setKeyValueAt(qreal step, const QVariant &value);
-    KeyValues keyValues() const;
-    void setKeyValues(const KeyValues &values);
+    QVariantAnimation::KeyValues keyValues() const;
+    void setKeyValues(const QVariantAnimation::KeyValues &values);
     QVariant currentValue() const;
     virtual int duration() const;
     void setDuration(int msecs);

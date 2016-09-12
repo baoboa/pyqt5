@@ -1,6 +1,6 @@
 // This defines the public API provided by PyQt to external packages.
 //
-// Copyright (c) 2015 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2016 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -73,9 +73,9 @@ sipErrorState pyqt5_get_pyqtslot_parts(PyObject *slot, QObject **receiver,
         QByteArray &slot_signature);
 
 // Get the signature string for a bound or unbound signal.  If the signal is
-// bound then it must be bound to the given transmitter.  Returns the error
-// state.  If this is sipErrorFail then a Python exception will have been
-// raised.
+// bound, and the given transmitter is specified, then it must be bound to the
+// transmitter.  Returns the error state.  If this is sipErrorFail then a
+// Python exception will have been raised.
 sipErrorState pyqt5_get_signal_signature(PyObject *signal,
         const QObject *transmitter, QByteArray &signal_signature);
 

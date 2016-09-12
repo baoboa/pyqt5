@@ -1,6 +1,6 @@
 // This is the SIP interface definition for the QJsonObject mapped type.
 //
-// Copyright (c) 2015 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2016 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -18,7 +18,8 @@
 // WARRANTY OF DESIGN, MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE.
 
 
-%MappedType QJsonObject /DocType="dict-of-str-QJsonValue"/
+%MappedType QJsonObject
+        /TypeHint="Dict[QString, QJsonValue]", TypeHintValue="{}"/
 {
 %TypeHeaderCode
 #include <qjsonobject.h>
@@ -84,7 +85,7 @@
 
     QJsonObject *jo = new QJsonObject;
 
-    SIP_SSIZE_T pos = 0;
+    Py_ssize_t pos = 0;
     PyObject *kobj, *vobj;
  
     while (PyDict_Next(sipPy, &pos, &kobj, &vobj))

@@ -2,7 +2,7 @@
 //
 // This file is part of the QtCore Python extension module.
 //
-// Copyright (c) 2015 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2016 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -83,10 +83,10 @@ public:
 
     explicit QProcess(QObject *parent /TransferThis/ = 0);
     virtual ~QProcess();
-    void start(const QString &program, const QStringList &arguments, QFlags<QIODevice::OpenModeFlag> mode = QIODevice::ReadWrite) /HoldGIL/;
-    void start(const QString &command, QFlags<QIODevice::OpenModeFlag> mode = QIODevice::ReadWrite) /HoldGIL/;
+    void start(const QString &program, const QStringList &arguments, QIODevice::OpenMode mode = QIODevice::ReadWrite) /HoldGIL/;
+    void start(const QString &command, QIODevice::OpenMode mode = QIODevice::ReadWrite) /HoldGIL/;
 %If (Qt_5_1_0 -)
-    void start(QFlags<QIODevice::OpenModeFlag> mode = QIODevice::ReadWrite) /HoldGIL/;
+    void start(QIODevice::OpenMode mode = QIODevice::ReadWrite) /HoldGIL/;
 %End
     QProcess::ProcessChannel readChannel() const;
     void setReadChannel(QProcess::ProcessChannel channel);
@@ -120,8 +120,8 @@ public:
     QProcess::ProcessChannelMode processChannelMode() const;
     void setProcessChannelMode(QProcess::ProcessChannelMode mode);
     void setStandardInputFile(const QString &fileName);
-    void setStandardOutputFile(const QString &fileName, QFlags<QIODevice::OpenModeFlag> mode = QIODevice::Truncate);
-    void setStandardErrorFile(const QString &fileName, QFlags<QIODevice::OpenModeFlag> mode = QIODevice::Truncate);
+    void setStandardOutputFile(const QString &fileName, QIODevice::OpenMode mode = QIODevice::Truncate);
+    void setStandardErrorFile(const QString &fileName, QIODevice::OpenMode mode = QIODevice::Truncate);
     void setStandardOutputProcess(QProcess *destination);
 
 public slots:
@@ -135,11 +135,14 @@ signals:
     void stateChanged(QProcess::ProcessState state);
     void readyReadStandardOutput();
     void readyReadStandardError();
+%If (Qt_5_6_0 -)
+    void errorOccurred(QProcess::ProcessError error);
+%End
 
 protected:
     void setProcessState(QProcess::ProcessState state);
     virtual void setupChildProcess();
-    virtual SIP_PYOBJECT readData(qint64 maxlen) /DocType="Py_v3:bytes;str",ReleaseGIL/ [qint64 (char *data, qint64 maxlen)];
+    virtual SIP_PYOBJECT readData(qint64 maxlen) /TypeHint="Py_v3:bytes;str",ReleaseGIL/ [qint64 (char *data, qint64 maxlen)];
 %MethodCode
         // Return the data read or None if there was an error.
         if (a0 < 0)
@@ -191,7 +194,7 @@ public:
     void setArguments(const QStringList &arguments);
 %End
 %If (Qt_5_1_0 -)
-    virtual bool open(QFlags<QIODevice::OpenModeFlag> mode = QIODevice::ReadWrite) /ReleaseGIL/;
+    virtual bool open(QIODevice::OpenMode mode = QIODevice::ReadWrite) /ReleaseGIL/;
 %End
 %If (Qt_5_2_0 -)
 
@@ -240,11 +243,11 @@ public:
     void insert(const QString &name, const QString &value);
     void insert(const QProcessEnvironment &e);
     void remove(const QString &name);
-    QString value(const QString &name, const QString &defaultValue /DocValue="''"/ = QString()) const;
+    QString value(const QString &name, const QString &defaultValue = QString()) const;
     QStringList toStringList() const;
     static QProcessEnvironment systemEnvironment();
     QStringList keys() const;
-    void swap(QProcessEnvironment &other);
+    void swap(QProcessEnvironment &other /Constrained/);
 };
 
 %End

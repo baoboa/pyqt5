@@ -1,7 +1,7 @@
 // This is the SIP interface definition for the majority of the QMap and
 // QMultiMap based mapped types.
 //
-// Copyright (c) 2015 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2016 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -20,7 +20,8 @@
 
 
 template<_TYPE1_, _TYPE2_>
-%MappedType QMap<_TYPE1_, _TYPE2_> /DocType="dict-of-_TYPE1_-_TYPE2_"/
+%MappedType QMap<_TYPE1_, _TYPE2_>
+        /TypeHint="Dict[_TYPE1_, _TYPE2_]", TypeHintValue="{}"/
 {
 %TypeHeaderCode
 #include <qmap.h>
@@ -86,7 +87,7 @@ template<_TYPE1_, _TYPE2_>
 
     QMap<_TYPE1_, _TYPE2_> *qm = new QMap<_TYPE1_, _TYPE2_>;
 
-    SIP_SSIZE_T pos = 0;
+    Py_ssize_t pos = 0;
     PyObject *kobj, *vobj;
  
     while (PyDict_Next(sipPy, &pos, &kobj, &vobj))
@@ -138,7 +139,8 @@ template<_TYPE1_, _TYPE2_>
 
 
 template<int, _TYPE_>
-%MappedType QMap<int, _TYPE_> /DocType="dict-of-int-_TYPE_"/
+%MappedType QMap<int, _TYPE_>
+        /TypeHint="Dict[int, _TYPE_]", TypeHintValue="{}"/
 {
 %TypeHeaderCode
 #include <qmap.h>
@@ -201,7 +203,7 @@ template<int, _TYPE_>
 
     QMap<int, _TYPE_> *qm = new QMap<int, _TYPE_>;
 
-    SIP_SSIZE_T pos = 0;
+    Py_ssize_t pos = 0;
     PyObject *kobj, *vobj;
  
     while (PyDict_Next(sipPy, &pos, &kobj, &vobj))
@@ -251,7 +253,7 @@ template<int, _TYPE_>
 
 template<_TYPE1_, _TYPE2_>
 %MappedType QMultiMap<_TYPE1_, _TYPE2_>
-        /DocType="dict-of-_TYPE1_-list-of-_TYPE2_"/
+        /TypeHintOut="Dict[_TYPE1_, List[_TYPE2_]]", TypeHintValue="{}"/
 {
 %TypeHeaderCode
 #include <qmap.h>

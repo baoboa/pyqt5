@@ -2,7 +2,7 @@
 //
 // This file is part of the QtCore Python extension module.
 //
-// Copyright (c) 2015 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2016 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -46,13 +46,13 @@ public:
     };
 
     typedef QFlags<QRegularExpression::PatternOption> PatternOptions;
-    QFlags<QRegularExpression::PatternOption> patternOptions() const;
-    void setPatternOptions(QFlags<QRegularExpression::PatternOption> options);
+    QRegularExpression::PatternOptions patternOptions() const;
+    void setPatternOptions(QRegularExpression::PatternOptions options);
     QRegularExpression();
-    QRegularExpression(const QString &pattern, QFlags<QRegularExpression::PatternOption> options = QRegularExpression::NoPatternOption);
+    QRegularExpression(const QString &pattern, QRegularExpression::PatternOptions options = QRegularExpression::NoPatternOption);
     QRegularExpression(const QRegularExpression &re);
     ~QRegularExpression();
-    SIP_PYOBJECT __repr__() const /DocType="str"/;
+    SIP_PYOBJECT __repr__() const /TypeHint="str"/;
 %MethodCode
         PyObject *uni = qpycore_PyObject_FromQString(sipCpp->pattern());
         
@@ -93,7 +93,7 @@ public:
         }
 %End
 
-    void swap(QRegularExpression &re);
+    void swap(QRegularExpression &re /Constrained/);
     QString pattern() const;
     void setPattern(const QString &pattern);
     bool isValid() const;
@@ -121,8 +121,8 @@ public:
     };
 
     typedef QFlags<QRegularExpression::MatchOption> MatchOptions;
-    QRegularExpressionMatch match(const QString &subject, int offset = 0, QRegularExpression::MatchType matchType = QRegularExpression::NormalMatch, QFlags<QRegularExpression::MatchOption> matchOptions = QRegularExpression::NoMatchOption) const;
-    QRegularExpressionMatchIterator globalMatch(const QString &subject, int offset = 0, QRegularExpression::MatchType matchType = QRegularExpression::NormalMatch, QFlags<QRegularExpression::MatchOption> matchOptions = QRegularExpression::NoMatchOption) const;
+    QRegularExpressionMatch match(const QString &subject, int offset = 0, QRegularExpression::MatchType matchType = QRegularExpression::NormalMatch, QRegularExpression::MatchOptions matchOptions = QRegularExpression::NoMatchOption) const;
+    QRegularExpressionMatchIterator globalMatch(const QString &subject, int offset = 0, QRegularExpression::MatchType matchType = QRegularExpression::NormalMatch, QRegularExpression::MatchOptions matchOptions = QRegularExpression::NoMatchOption) const;
     static QString escape(const QString &str);
 %If (Qt_5_1_0 -)
     QStringList namedCaptureGroups() const;
@@ -131,6 +131,13 @@ public:
     bool operator!=(const QRegularExpression &re) const;
 %If (Qt_5_4_0 -)
     void optimize() const;
+%End
+%If (Qt_5_6_0 -)
+    long __hash__() const;
+%MethodCode
+        sipRes = qHash(*sipCpp);
+%End
+
 %End
 };
 
@@ -151,10 +158,10 @@ public:
 %End
     ~QRegularExpressionMatch();
     QRegularExpressionMatch(const QRegularExpressionMatch &match);
-    void swap(QRegularExpressionMatch &match);
+    void swap(QRegularExpressionMatch &match /Constrained/);
     QRegularExpression regularExpression() const;
     QRegularExpression::MatchType matchType() const;
-    QFlags<QRegularExpression::MatchOption> matchOptions() const;
+    QRegularExpression::MatchOptions matchOptions() const;
     bool hasMatch() const;
     bool hasPartialMatch() const;
     bool isValid() const;
@@ -182,12 +189,12 @@ public:
 %End
     ~QRegularExpressionMatchIterator();
     QRegularExpressionMatchIterator(const QRegularExpressionMatchIterator &iterator);
-    void swap(QRegularExpressionMatchIterator &iterator);
+    void swap(QRegularExpressionMatchIterator &iterator /Constrained/);
     bool isValid() const;
     bool hasNext() const;
     QRegularExpressionMatch next();
     QRegularExpressionMatch peekNext() const;
     QRegularExpression regularExpression() const;
     QRegularExpression::MatchType matchType() const;
-    QFlags<QRegularExpression::MatchOption> matchOptions() const;
+    QRegularExpression::MatchOptions matchOptions() const;
 };

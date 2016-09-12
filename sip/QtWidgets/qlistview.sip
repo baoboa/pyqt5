@@ -2,7 +2,7 @@
 //
 // This file is part of the QtWidgets Python extension module.
 //
-// Copyright (c) 2015 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2016 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -94,7 +94,7 @@ signals:
 
 protected:
     virtual void scrollContentsBy(int dx, int dy);
-    virtual void dataChanged(const QModelIndex &topLeft, const QModelIndex &bottomRight, const QVector<int> &roles /DocValue="[]"/ = QVector<int>());
+    virtual void dataChanged(const QModelIndex &topLeft, const QModelIndex &bottomRight, const QVector<int> &roles = QVector<int>());
     virtual void rowsInserted(const QModelIndex &parent, int start, int end);
     virtual void rowsAboutToBeRemoved(const QModelIndex &parent, int start, int end);
     virtual bool event(QEvent *e);
@@ -105,6 +105,9 @@ protected:
     virtual void dragMoveEvent(QDragMoveEvent *e);
     virtual void dragLeaveEvent(QDragLeaveEvent *e);
     virtual void dropEvent(QDropEvent *e);
+%If (Qt_5_6_0 -)
+    virtual void wheelEvent(QWheelEvent *e);
+%End
     virtual void startDrag(Qt::DropActions supportedActions);
     virtual QStyleOptionViewItem viewOptions() const;
     virtual void paintEvent(QPaintEvent *e);
@@ -113,7 +116,7 @@ protected:
     virtual QModelIndex moveCursor(QAbstractItemView::CursorAction cursorAction, Qt::KeyboardModifiers modifiers);
     QRect rectForIndex(const QModelIndex &index) const;
     void setPositionForIndex(const QPoint &position, const QModelIndex &index);
-    virtual void setSelection(const QRect &rect, QFlags<QItemSelectionModel::SelectionFlag> command);
+    virtual void setSelection(const QRect &rect, QItemSelectionModel::SelectionFlags command);
     virtual QRegion visualRegionForSelection(const QItemSelection &selection) const;
     virtual QModelIndexList selectedIndexes() const;
     virtual void updateGeometries();

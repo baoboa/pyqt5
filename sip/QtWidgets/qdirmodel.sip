@@ -2,7 +2,7 @@
 //
 // This file is part of the QtWidgets Python extension module.
 //
-// Copyright (c) 2015 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2016 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -34,7 +34,7 @@ public:
         FileNameRole,
     };
 
-    QDirModel(const QStringList &nameFilters, QFlags<QDir::Filter> filters, QFlags<QDir::SortFlag> sort, QObject *parent /TransferThis/ = 0);
+    QDirModel(const QStringList &nameFilters, QDir::Filters filters, QDir::SortFlags sort, QObject *parent /TransferThis/ = 0);
     explicit QDirModel(QObject *parent /TransferThis/ = 0);
     virtual ~QDirModel();
     virtual QModelIndex index(int row, int column, const QModelIndex &parent = QModelIndex()) const;
@@ -56,10 +56,10 @@ public:
     QFileIconProvider *iconProvider() const;
     void setNameFilters(const QStringList &filters);
     QStringList nameFilters() const;
-    void setFilter(QFlags<QDir::Filter> filters);
-    QFlags<QDir::Filter> filter() const;
-    void setSorting(QFlags<QDir::SortFlag> sort);
-    QFlags<QDir::SortFlag> sorting() const;
+    void setFilter(QDir::Filters filters);
+    QDir::Filters filter() const;
+    void setSorting(QDir::SortFlags sort);
+    QDir::SortFlags sorting() const;
     void setResolveSymlinks(bool enable);
     bool resolveSymlinks() const;
     void setReadOnly(bool enable);

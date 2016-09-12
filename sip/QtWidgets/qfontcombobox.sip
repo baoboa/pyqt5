@@ -2,7 +2,7 @@
 //
 // This file is part of the QtWidgets Python extension module.
 //
-// Copyright (c) 2015 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2016 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -36,13 +36,13 @@ public:
         ProportionalFonts,
     };
 
-    QFlags<QFontComboBox::FontFilter> fontFilters() const;
+    QFontComboBox::FontFilters fontFilters() const;
     explicit QFontComboBox(QWidget *parent /TransferThis/ = 0);
     virtual ~QFontComboBox();
     void setWritingSystem(QFontDatabase::WritingSystem);
     QFontDatabase::WritingSystem writingSystem() const;
     typedef QFlags<QFontComboBox::FontFilter> FontFilters;
-    void setFontFilters(QFlags<QFontComboBox::FontFilter> filters);
+    void setFontFilters(QFontComboBox::FontFilters filters);
     QFont currentFont() const;
     virtual QSize sizeHint() const;
 

@@ -2,7 +2,7 @@
 //
 // This file is part of the QtWebEngineWidgets Python extension module.
 //
-// Copyright (c) 2015 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2016 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -44,6 +44,57 @@ public:
         SelectAll,
         ReloadAndBypassCache,
         PasteAndMatchStyle,
+%If (Qt_5_6_0 -)
+        OpenLinkInThisWindow,
+%End
+%If (Qt_5_6_0 -)
+        OpenLinkInNewWindow,
+%End
+%If (Qt_5_6_0 -)
+        OpenLinkInNewTab,
+%End
+%If (Qt_5_6_0 -)
+        CopyLinkToClipboard,
+%End
+%If (Qt_5_6_0 -)
+        DownloadLinkToDisk,
+%End
+%If (Qt_5_6_0 -)
+        CopyImageToClipboard,
+%End
+%If (Qt_5_6_0 -)
+        CopyImageUrlToClipboard,
+%End
+%If (Qt_5_6_0 -)
+        DownloadImageToDisk,
+%End
+%If (Qt_5_6_0 -)
+        CopyMediaUrlToClipboard,
+%End
+%If (Qt_5_6_0 -)
+        ToggleMediaControls,
+%End
+%If (Qt_5_6_0 -)
+        ToggleMediaLoop,
+%End
+%If (Qt_5_6_0 -)
+        ToggleMediaPlayPause,
+%End
+%If (Qt_5_6_0 -)
+        ToggleMediaMute,
+%End
+%If (Qt_5_6_0 -)
+        DownloadMediaToDisk,
+%End
+%If (Qt_5_6_0 -)
+        InspectElement,
+%End
+%If (Qt_5_6_0 -)
+        ExitFullScreen,
+%End
+%If (Qt_5_6_0 -)
+        RequestClose,
+%End
     };
 
     enum FindFlag
@@ -74,6 +125,9 @@ public:
         MediaAudioCapture,
         MediaVideoCapture,
         MediaAudioVideoCapture,
+%If (Qt_5_5_0 -)
+        MouseLock,
+%End
     };
 
     enum FileSelectionMode
@@ -283,6 +337,38 @@ public:
 protected:
 %If (Qt_5_5_0 -)
     virtual bool acceptNavigationRequest(const QUrl &url, QWebEnginePage::NavigationType type, bool isMainFrame);
+%End
+
+public:
+%If (Qt_5_6_0 -)
+
+    enum RenderProcessTerminationStatus
+    {
+        NormalTerminationStatus,
+        AbnormalTerminationStatus,
+        CrashedTerminationStatus,
+        KilledTerminationStatus,
+    };
+
+%End
+%If (Qt_5_6_0 -)
+    QColor backgroundColor() const;
+%End
+%If (Qt_5_6_0 -)
+    void setBackgroundColor(const QColor &color);
+%End
+
+signals:
+%If (Qt_5_6_0 -)
+    void fullScreenRequested(QWebEngineFullScreenRequest fullScreenRequest);
+%End
+%If (Qt_5_6_0 -)
+    void renderProcessTerminated(QWebEnginePage::RenderProcessTerminationStatus terminationStatus, int exitCode);
+%End
+
+private:
+%If (Qt_5_6_0 -)
+    QWebEnginePage(const QWebEnginePage &);
 %End
 };
 

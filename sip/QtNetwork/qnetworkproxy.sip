@@ -2,7 +2,7 @@
 //
 // This file is part of the QtNetwork Python extension module.
 //
-// Copyright (c) 2015 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2016 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -38,7 +38,7 @@ public:
     };
 
     QNetworkProxy();
-    QNetworkProxy(QNetworkProxy::ProxyType type, const QString &hostName /DocValue="''"/ = QString(), quint16 port = 0, const QString &user /DocValue="''"/ = QString(), const QString &password /DocValue="''"/ = QString());
+    QNetworkProxy(QNetworkProxy::ProxyType type, const QString &hostName = QString(), quint16 port = 0, const QString &user = QString(), const QString &password = QString());
     QNetworkProxy(const QNetworkProxy &other);
     ~QNetworkProxy();
     void setType(QNetworkProxy::ProxyType type);
@@ -68,9 +68,9 @@ public:
     };
 
     typedef QFlags<QNetworkProxy::Capability> Capabilities;
-    void setCapabilities(QFlags<QNetworkProxy::Capability> capab);
-    QFlags<QNetworkProxy::Capability> capabilities() const;
-    void swap(QNetworkProxy &other);
+    void setCapabilities(QNetworkProxy::Capabilities capab);
+    QNetworkProxy::Capabilities capabilities() const;
+    void swap(QNetworkProxy &other /Constrained/);
     QVariant header(QNetworkRequest::KnownHeaders header) const;
     void setHeader(QNetworkRequest::KnownHeaders header, const QVariant &value);
     bool hasRawHeader(const QByteArray &headerName) const;
@@ -96,11 +96,11 @@ public:
 
     QNetworkProxyQuery();
     QNetworkProxyQuery(const QUrl &requestUrl, QNetworkProxyQuery::QueryType type = QNetworkProxyQuery::UrlRequest);
-    QNetworkProxyQuery(const QString &hostname, int port, const QString &protocolTag /DocValue="''"/ = QString(), QNetworkProxyQuery::QueryType type = QNetworkProxyQuery::TcpSocket);
-    QNetworkProxyQuery(quint16 bindPort, const QString &protocolTag /DocValue="''"/ = QString(), QNetworkProxyQuery::QueryType type = QNetworkProxyQuery::TcpServer);
+    QNetworkProxyQuery(const QString &hostname, int port, const QString &protocolTag = QString(), QNetworkProxyQuery::QueryType type = QNetworkProxyQuery::TcpSocket);
+    QNetworkProxyQuery(quint16 bindPort, const QString &protocolTag = QString(), QNetworkProxyQuery::QueryType type = QNetworkProxyQuery::TcpServer);
     QNetworkProxyQuery(const QNetworkConfiguration &networkConfiguration, const QUrl &requestUrl, QNetworkProxyQuery::QueryType queryType = QNetworkProxyQuery::UrlRequest);
-    QNetworkProxyQuery(const QNetworkConfiguration &networkConfiguration, const QString &hostname, int port, const QString &protocolTag /DocValue="''"/ = QString(), QNetworkProxyQuery::QueryType type = QNetworkProxyQuery::TcpSocket);
-    QNetworkProxyQuery(const QNetworkConfiguration &networkConfiguration, quint16 bindPort, const QString &protocolTag /DocValue="''"/ = QString(), QNetworkProxyQuery::QueryType type = QNetworkProxyQuery::TcpServer);
+    QNetworkProxyQuery(const QNetworkConfiguration &networkConfiguration, const QString &hostname, int port, const QString &protocolTag = QString(), QNetworkProxyQuery::QueryType type = QNetworkProxyQuery::TcpSocket);
+    QNetworkProxyQuery(const QNetworkConfiguration &networkConfiguration, quint16 bindPort, const QString &protocolTag = QString(), QNetworkProxyQuery::QueryType type = QNetworkProxyQuery::TcpServer);
     QNetworkProxyQuery(const QNetworkProxyQuery &other);
     ~QNetworkProxyQuery();
     bool operator==(const QNetworkProxyQuery &other) const;
@@ -119,7 +119,7 @@ public:
     void setUrl(const QUrl &url);
     QNetworkConfiguration networkConfiguration() const;
     void setNetworkConfiguration(const QNetworkConfiguration &networkConfiguration);
-    void swap(QNetworkProxyQuery &other);
+    void swap(QNetworkProxyQuery &other /Constrained/);
 };
 
 class QNetworkProxyFactory /Supertype=sip.wrapper/

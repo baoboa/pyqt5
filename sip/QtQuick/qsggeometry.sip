@@ -2,7 +2,7 @@
 //
 // This file is part of the QtQuick Python extension module.
 //
-// Copyright (c) 2015 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2016 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -69,7 +69,7 @@ enum /NoScope/
 #include <QVector>
 %End
 
-        AttributeSet(SIP_PYOBJECT attributes /DocType="sequence-of-QSGGeometry.Attribute"/, int stride = 0);
+        AttributeSet(SIP_PYOBJECT attributes /TypeHint="Iterable[QSGGeometry.Attribute]"/, int stride = 0);
 %MethodCode
             PyObject *iter = PyObject_GetIter(a0);
             
@@ -88,7 +88,7 @@ enum /NoScope/
                 QVector<QSGGeometry::Attribute> attrs;
                 int stride = 0;
             
-                for (SIP_SSIZE_T i = 0; ; ++i)
+                for (Py_ssize_t i = 0; ; ++i)
                 {
                     PyErr_Clear();
                     PyObject *itm = PyIter_Next(iter);
@@ -111,7 +111,7 @@ enum /NoScope/
                     if (is_err)
                     {
                         PyErr_Format(PyExc_TypeError,
-                                "index " SIP_SSIZE_T_FORMAT " has type '%s' but 'QSGGeometry.Attribute' is expected",
+                                "index %zd has type '%s' but 'QSGGeometry.Attribute' is expected",
                                 i, Py_TYPE(itm)->tp_name);
             
                         Py_DECREF(itm);
@@ -154,7 +154,7 @@ enum /NoScope/
                         if (!size)
                         {
                             PyErr_Format(PyExc_TypeError,
-                                    "index " SIP_SSIZE_T_FORMAT " has an unsupported primitive type",
+                                    "index %zd has an unsupported primitive type",
                                     i);
             
                             sipReleaseType(attr, sipType_QSGGeometry_Attribute, state);
@@ -210,7 +210,7 @@ enum /NoScope/
 
         int count;
         int stride;
-        const QSGGeometry::Attribute *attributes /DocType="read-only-array-of-QSGGeometry.Attribute"/ {
+        const QSGGeometry::Attribute *attributes /TypeHint="sip.array[QSGGeometry.Attribute]"/ {
 %GetCode
             sipPy = sipConvertToTypedArray((void *)sipCpp->attributes,
                     sipType_QSGGeometry_Attribute, "iiiI", sizeof (QSGGeometry::Attribute),
@@ -287,7 +287,7 @@ enum /NoScope/
     int indexCount() const;
     void *indexData();
     int attributeCount() const;
-    SIP_PYOBJECT attributes() const /DocType="read-only-array-of-QSGGeometry.Attribute"/;
+    SIP_PYOBJECT attributes() const /TypeHint="sip.array[QSGGeometry.Attribute]"/;
 %MethodCode
         sipRes = sipConvertToTypedArray((void *)sipCpp->attributes(),
                 sipType_QSGGeometry_Attribute, "iiiI", sizeof (QSGGeometry::Attribute),
@@ -305,33 +305,33 @@ enum /NoScope/
     void markVertexDataDirty();
     float lineWidth() const;
     void setLineWidth(float w);
-    SIP_PYOBJECT indexDataAsUInt() /DocType="array-of-unsigned-int"/;
+    SIP_PYOBJECT indexDataAsUInt() /TypeHint="sip.array[int]"/;
 %MethodCode
         sipRes = sipConvertToArray(sipCpp->indexDataAsUInt(), "I",
                 sipCpp->indexCount(), 0);
 %End
 
-    SIP_PYOBJECT indexDataAsUShort() /DocType="array-of-unsigned-short"/;
+    SIP_PYOBJECT indexDataAsUShort() /TypeHint="sip.array[int]"/;
 %MethodCode
         sipRes = sipConvertToArray(sipCpp->indexDataAsUShort(), "H",
                 sipCpp->indexCount(), 0);
 %End
 
-    SIP_PYOBJECT vertexDataAsPoint2D() /DocType="array-of-QSGGeometry.Point2D"/;
+    SIP_PYOBJECT vertexDataAsPoint2D() /TypeHint="sip.array[QSGGeometry.Point2D]"/;
 %MethodCode
         sipRes = sipConvertToTypedArray(sipCpp->vertexDataAsPoint2D(),
                 sipType_QSGGeometry_Point2D, "ff", sizeof (QSGGeometry::Point2D),
                 sipCpp->vertexCount(), 0);
 %End
 
-    SIP_PYOBJECT vertexDataAsTexturedPoint2D() /DocType="array-of-QSGGeometry.TexturedPoint2D"/;
+    SIP_PYOBJECT vertexDataAsTexturedPoint2D() /TypeHint="sip.array[QSGGeometry.TexturedPoint2D]"/;
 %MethodCode
         sipRes = sipConvertToTypedArray(sipCpp->vertexDataAsTexturedPoint2D(),
                 sipType_QSGGeometry_TexturedPoint2D, "ffff",
                 sizeof (QSGGeometry::TexturedPoint2D), sipCpp->vertexCount(), 0);
 %End
 
-    SIP_PYOBJECT vertexDataAsColoredPoint2D() /DocType="array-of-QSGGeometry.ColoredPoint2D"/;
+    SIP_PYOBJECT vertexDataAsColoredPoint2D() /TypeHint="sip.array[QSGGeometry.ColoredPoint2D]"/;
 %MethodCode
         sipRes = sipConvertToTypedArray(sipCpp->vertexDataAsColoredPoint2D(),
                 sipType_QSGGeometry_ColoredPoint2D, "ffbbbb",

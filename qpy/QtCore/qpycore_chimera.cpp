@@ -1,6 +1,6 @@
 // This is the implementation of the Chimera class.
 //
-// Copyright (c) 2015 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2016 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -32,8 +32,8 @@
 #include "sipAPIQtCore.h"
 
 
-// The registered int types.
-QList<PyObject *> Chimera::_registered_int_types;
+// The registered Python enum types.
+QSet<PyObject *> Chimera::_py_enum_types;
 
 // The cache of previously parsed argument type lists.
 QHash<QByteArray, QList<const Chimera *> > Chimera::_previously_parsed;
@@ -52,7 +52,7 @@ const int UnknownType = QMetaType::UnknownType;
 // Construct an invalid type.
 Chimera::Chimera()
     : _type(0), _py_type(0), _metatype(UnknownType), _inexact(false),
-      _is_flag(false)
+      _is_qflags(false)
 {
 }
 
@@ -67,7 +67,7 @@ Chimera::Chimera(const Chimera &other)
     
     _metatype = other._metatype;
     _inexact = other._inexact;
-    _is_flag = other._is_flag;
+    _is_qflags = other._is_qflags;
     _name = other._name;
 }
 
@@ -79,14 +79,11 @@ Chimera::~Chimera()
 }
 
 
-// Register the type of an int type.
-void Chimera::registerIntType(PyObject *int_type)
+// Register the type of a Python enum.
+void Chimera::registerPyEnum(PyObject *enum_type)
 {
-    if (!_registered_int_types.contains(int_type))
-    {
-        Py_INCREF(int_type);
-        _registered_int_types.append(int_type);
-    }
+    Py_INCREF(enum_type);
+    _py_enum_types.insert(enum_type);
 }
 
 
@@ -164,7 +161,7 @@ const Chimera *Chimera::parse(const QMetaProperty &mprop)
     ct->_type = sipFindType(type_name);
     ct->_metatype = mprop.userType();
     ct->_inexact = true;
-    ct->_is_flag = mprop.isFlagType();
+    ct->_is_qflags = mprop.isFlagType();
     ct->_name = type_name;
 
     return ct;
@@ -286,7 +283,7 @@ Chimera::Signature *Chimera::parse(PyObject *types, const char *name,
     parsed_sig->signature.append('(');
     parsed_sig->py_signature.append('[');
 
-    for (SIP_SSIZE_T i = 0; i < PyTuple_GET_SIZE(types); ++i)
+    for (Py_ssize_t i = 0; i < PyTuple_GET_SIZE(types); ++i)
     {
         PyObject *type = PyTuple_GET_ITEM(types, i);
         const Chimera *parsed_type = parse(type);
@@ -374,9 +371,9 @@ bool Chimera::parse_py_type(PyTypeObject *type_obj)
         _name = sipTypeName(td);
 
         if (sipTypeIsClass(td))
-            set_flag();
+            set_qflags();
 
-        if (sipTypeIsEnum(td) || isFlag())
+        if (sipTypeIsEnum(td) || _is_qflags)
         {
             _metatype = QMetaType::Int;
         }
@@ -389,46 +386,6 @@ bool Chimera::parse_py_type(PyTypeObject *type_obj)
 
             _metatype = QMetaType::type(_name.constData());
 
-            if (_metatype == 0)
-            {
-                // We need to handle QGraphicsItem differently, both because it
-                // has its own class hierarchy and because we don't want
-                // QGraphicsItemWidget to be seen as a QWidget or a QObject.
-                // Without this reimplementations of QGraphicsItem.itemChange()
-                // will have problems.
-
-                static const char *norm_QGraphicsItem = "QGraphicsItem*";
-
-                static int QGraphicsItem_metatype = -1;
-
-                if (QGraphicsItem_metatype < 0)
-                    QGraphicsItem_metatype = QMetaType::type(
-                            norm_QGraphicsItem);
-
-                static const sipTypeDef *sipType_QGraphicsItem = 0;
-
-                if (!sipType_QGraphicsItem)
-                    sipType_QGraphicsItem = sipFindType("QGraphicsItem");
-
-                if (QGraphicsItem_metatype >= 0 && sipType_QGraphicsItem)
-                {
-                    PyTypeObject *py_QGraphicsItem = sipTypeAsPyTypeObject(
-                            sipType_QGraphicsItem);
-
-                    if (PyType_IsSubtype(type_obj, py_QGraphicsItem))
-                    {
-                        _metatype = QGraphicsItem_metatype;
-                        _type = sipType_QGraphicsItem;
-                        _name = norm_QGraphicsItem;
-
-                        _py_type = py_QGraphicsItem;
-                        Py_INCREF((PyObject *)_py_type);
-
-                        return true;
-                    }
-                }
-            }
-
             // If it is a user type then it must be a type that SIP knows
             // about but was registered by Qt.
             if (_metatype < QMetaType::User)
@@ -439,8 +396,8 @@ bool Chimera::parse_py_type(PyTypeObject *type_obj)
                 }
                 else if (!sipIsExactWrappedType((sipWrapperType *)type_obj))
                 {
-                    // It must be a (non-QObject, non-QWidget) Python sub-class
-                    // so make sure it gets wrapped in a PyQt_PyObject.
+                    // It must be a non-QObject Python sub-class so make sure
+                    // it gets wrapped in a PyQt_PyObject.
                     _type = 0;
                     _metatype = PyQt_PyObject::metatype;
                     _name.clear();
@@ -448,9 +405,10 @@ bool Chimera::parse_py_type(PyTypeObject *type_obj)
             }
         }
     }
-    else if (_registered_int_types.contains((PyObject *)type_obj))
+    else if (_py_enum_types.contains((PyObject *)type_obj))
     {
         _metatype = QMetaType::Int;
+        _name = type_obj->tp_name;
     }
 #if PY_MAJOR_VERSION >= 3
     else if (type_obj == &PyUnicode_Type)
@@ -512,11 +470,11 @@ bool Chimera::parse_py_type(PyTypeObject *type_obj)
 }
 
 
-// Set the internal flag flag.
-void Chimera::set_flag()
+// Set the internal QFlags flag.
+void Chimera::set_qflags()
 {
     if (qpycore_is_pyqt_class(_type))
-        _is_flag = ((pyqt5ClassTypeDef *)_type)->flags & 0x01;
+        _is_qflags = ((pyqt5ClassTypeDef *)_type)->flags & 0x01;
 }
 
 
@@ -698,7 +656,7 @@ bool Chimera::parse_cpp_type(const QByteArray &type)
 
     if (sipTypeIsClass(_type))
     {
-        set_flag();
+        set_qflags();
 
         if (is_ptr)
         {
@@ -715,7 +673,7 @@ bool Chimera::parse_cpp_type(const QByteArray &type)
     if (sipTypeIsEnum(_type) && is_ptr)
         _type = 0;
 
-    if (sipTypeIsEnum(_type) || isFlag())
+    if (sipTypeIsEnum(_type) || _is_qflags)
         _metatype = QMetaType::Int;
 
     return true;
@@ -934,8 +892,7 @@ sipAssignFunc Chimera::get_assign_helper() const
 }
 
 
-// Convert a Python object to a QVariant.  Note: I think strict is now always
-// false.
+// Convert a Python object to a QVariant.
 bool Chimera::fromPyObject(PyObject *py, QVariant *var, bool strict) const
 {
     // Deal with the simple case of wrapping the Python object rather than
@@ -995,7 +952,7 @@ bool Chimera::fromPyObject(PyObject *py, QVariant *var, bool strict) const
         break;
 
     case QMetaType::Int:
-        if (!_inexact || isEnum() || isFlag())
+        if (!_inexact || isEnum())
         {
             // It must fit into a C++ int.
 #if PY_MAJOR_VERSION >= 3
@@ -1285,6 +1242,11 @@ PyObject *Chimera::toPyObject(const QVariant &var) const
             return Py_None;
         }
 
+        // Handle the reverse of non-strict conversions of dict to QVariantMap,
+        // ie. we want a dict but we have a QVariantMap.
+        if (_metatype == PyQt_PyObject::metatype && _py_type == &PyDict_Type && var.type() == QVariant::Map)
+            return from_QVariantMap(var.toMap());
+
         // A sanity check.
         if (_metatype != var.userType())
         {
@@ -1370,11 +1332,11 @@ PyObject *Chimera::toPyObject(void *cpp) const
         break;
 
     case QMetaType::Int:
-        if (isFlag())
+        if (_is_qflags)
         {
             py = sipConvertFromType(cpp, _type, 0);
         }
-        else if (isEnum())
+        else if (isCppEnum())
         {
             py = sipConvertFromEnum(*reinterpret_cast<int *>(cpp), _type);
         }
@@ -1471,25 +1433,8 @@ PyObject *Chimera::toPyObject(void *cpp) const
         }
 
     case QMetaType::QVariantMap:
-        {
-            py = PyDict_New();
-
-            if (py)
-            {
-                QVariantMap *qm = reinterpret_cast<QVariantMap *>(cpp);
-
-                for (QVariantMap::const_iterator it = qm->constBegin(); it != qm->constEnd(); ++it)
-                    if (!add_variant_to_dict(py, it.key(), it.value()))
-                    {
-                        Py_DECREF(py);
-                        py = 0;
-
-                        break;
-                    }
-            }
-
-            break;
-        }
+        py = from_QVariantMap(*reinterpret_cast<QVariantMap *>(cpp));
+        break;
 
     case QMetaType::QVariantHash:
         {
@@ -1619,7 +1564,7 @@ PyObject *Chimera::toAnyPyObject(const QVariant &var)
     ct->_metatype = var.userType();
 
     if (td && sipTypeIsClass(td))
-        ct->set_flag();
+        ct->set_qflags();
 
     PyObject *py = ct->toPyObject(var);
     delete ct;
@@ -1643,7 +1588,7 @@ bool Chimera::to_QVariantList(PyObject *py, QVariantList &cpp) const
 {
     Q_ASSERT(PyList_CheckExact(py));
 
-    for (SIP_SSIZE_T i = 0; i < PyList_GET_SIZE(py); ++i)
+    for (Py_ssize_t i = 0; i < PyList_GET_SIZE(py); ++i)
     {
         PyObject *val_obj = PyList_GET_ITEM(py, i);
 
@@ -1675,7 +1620,7 @@ bool Chimera::to_QVariantMap(PyObject *py, QVariantMap &cpp) const
     Q_ASSERT(PyDict_CheckExact(py));
 
     PyObject *key_obj, *val_obj;
-    SIP_SSIZE_T i;
+    Py_ssize_t i;
 
     i = 0;
     while (PyDict_Next(py, &i, &key_obj, &val_obj))
@@ -1703,6 +1648,25 @@ bool Chimera::to_QVariantMap(PyObject *py, QVariantMap &cpp) const
 }
 
 
+// Convert a QVariantMap to a Python object.
+PyObject *Chimera::from_QVariantMap(const QVariantMap &qm)
+{
+    PyObject *py = PyDict_New();
+
+    if (!py)
+        return 0;
+
+    for (QVariantMap::const_iterator it = qm.constBegin(); it != qm.constEnd(); ++it)
+        if (!add_variant_to_dict(py, it.key(), it.value()))
+        {
+            Py_DECREF(py);
+            return 0;
+        }
+
+    return py;
+}
+
+
 // Convert a Python object to a QVariantHash and return true if there was no
 // error.
 bool Chimera::to_QVariantHash(PyObject *py, QVariantHash &cpp) const
@@ -1710,7 +1674,7 @@ bool Chimera::to_QVariantHash(PyObject *py, QVariantHash &cpp) const
     Q_ASSERT(PyDict_CheckExact(py));
 
     PyObject *key_obj, *val_obj;
-    SIP_SSIZE_T i;
+    Py_ssize_t i;
 
     i = 0;
     while (PyDict_Next(py, &i, &key_obj, &val_obj))
@@ -1735,6 +1699,19 @@ bool Chimera::to_QVariantHash(PyObject *py, QVariantHash &cpp) const
     }
 
     return true;
+}
+
+
+// Return true if the type is either a C++ or Python enum.
+bool Chimera::isEnum() const
+{
+    if (isCppEnum())
+        return true;
+
+    if (_is_qflags)
+        return true;
+
+    return (_py_type ? _py_enum_types.contains((PyObject *)_py_type) : false);
 }
 
 

@@ -2,7 +2,7 @@
 //
 // This file is part of the QtCore Python extension module.
 //
-// Copyright (c) 2015 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2016 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -31,7 +31,7 @@ class QCoreApplication : QObject
 %End
 
 public:
-    QCoreApplication(SIP_PYLIST argv /DocType="list-of-str"/) /PostHook=__pyQtQAppHook__/ [(int &argc, char **argv)];
+    QCoreApplication(SIP_PYLIST argv /TypeHint="List[str]"/) /PostHook=__pyQtQAppHook__/ [(int &argc, char **argv)];
 %MethodCode
         // The Python interface is a list of argument strings that is modified.
         
@@ -69,8 +69,8 @@ public:
 %If (Py_v3)
     static int exec() /PostHook=__pyQtPostEventLoopHook__,PreHook=__pyQtPreEventLoopHook__,ReleaseGIL/;
 %End
-    static void processEvents(QFlags<QEventLoop::ProcessEventsFlag> flags = QEventLoop::AllEvents) /ReleaseGIL/;
-    static void processEvents(QFlags<QEventLoop::ProcessEventsFlag> flags, int maxtime) /ReleaseGIL/;
+    static void processEvents(QEventLoop::ProcessEventsFlags flags = QEventLoop::AllEvents) /ReleaseGIL/;
+    static void processEvents(QEventLoop::ProcessEventsFlags flags, int maxtime) /ReleaseGIL/;
     static void exit(int returnCode = 0);
     static bool sendEvent(QObject *receiver, QEvent *event) /ReleaseGIL/;
     static void postEvent(QObject *receiver, QEvent *event /Transfer/, int priority = Qt::NormalEventPriority);
@@ -131,7 +131,7 @@ void qAddPostRoutine(SIP_PYCALLABLE);
         // See if there is an empty slot.
         bool app = true;
     
-        for (SIP_SSIZE_T i = 0; i < PyList_GET_SIZE(qtcore_PostRoutines); ++i)
+        for (Py_ssize_t i = 0; i < PyList_GET_SIZE(qtcore_PostRoutines); ++i)
             if (PyList_GET_ITEM(qtcore_PostRoutines, i) == Py_None)
             {
                 Py_DECREF(Py_None);
@@ -163,7 +163,7 @@ void qRemovePostRoutine(SIP_PYCALLABLE);
 %MethodCode
     // Remove it from the list of post routines if it exists.
     if (qtcore_PostRoutines != NULL)
-        for (SIP_SSIZE_T i = 0; i < PyList_GET_SIZE(qtcore_PostRoutines); ++i)
+        for (Py_ssize_t i = 0; i < PyList_GET_SIZE(qtcore_PostRoutines); ++i)
             if (PyList_GET_ITEM(qtcore_PostRoutines, i) == a0)
             {
                 Py_DECREF(a0);
@@ -175,7 +175,7 @@ void qRemovePostRoutine(SIP_PYCALLABLE);
 %End
 
 %If (Qt_5_1_0 -)
-void qAddPreRoutine(SIP_PYCALLABLE);
+void qAddPreRoutine(SIP_PYCALLABLE routine /TypeHint="Callable[[], None]"/);
 %MethodCode
     // Add it to the list of pre routines if it already exists.
     if (qtcore_PreRoutines != NULL)
@@ -206,7 +206,7 @@ static PyObject *qtcore_PreRoutines = NULL;
 // Call all of the registered Python pre routines.
 static void qtcore_CallPreRoutines()
 {
-    for (SIP_SSIZE_T i = 0; i < PyList_GET_SIZE(qtcore_PreRoutines); ++i)
+    for (Py_ssize_t i = 0; i < PyList_GET_SIZE(qtcore_PreRoutines); ++i)
     {
         PyObject *pr = PyList_GET_ITEM(qtcore_PreRoutines, i);
 
@@ -227,7 +227,7 @@ static PyObject *qtcore_PostRoutines = NULL;
 // Call all of the registered Python post routines.
 static void qtcore_CallPostRoutines()
 {
-    for (SIP_SSIZE_T i = 0; i < PyList_GET_SIZE(qtcore_PostRoutines); ++i)
+    for (Py_ssize_t i = 0; i < PyList_GET_SIZE(qtcore_PostRoutines); ++i)
     {
         PyObject *pr = PyList_GET_ITEM(qtcore_PostRoutines, i);
 
@@ -301,4 +301,29 @@ static int qtcore_input_hook()
 %PostInitialisationCode
 // Process events from the input hook.
 PyOS_InputHook = qtcore_input_hook;
+%End
+
+%ExportedTypeHintCode
+# Support for QDate, QDateTime and QTime.
+import datetime
+
+# Convenient type aliases.
+PYQT_SIGNAL = typing.Union[QtCore.pyqtSignal, QtCore.pyqtBoundSignal]
+PYQT_SLOT = typing.Union[typing.Callable[..., None], QtCore.pyqtBoundSignal]
+%End
+
+%TypeHintCode
+# Support for QDate, QDateTime and QTime.
+import datetime
+
+# Support for new-style signals and slots.
+class pyqtSignal:
+    def __init__(self, *types, name: str = ...) -> None: ...
+
+class pyqtBoundSignal:
+    def emit(self, *args) -> None: ...
+
+# Convenient type aliases.
+PYQT_SIGNAL = typing.Union[pyqtSignal, pyqtBoundSignal]
+PYQT_SLOT = typing.Union[typing.Callable[..., None], pyqtBoundSignal]
 %End

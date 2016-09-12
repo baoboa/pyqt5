@@ -2,7 +2,7 @@
 //
 // This file is part of the QtWebEngineWidgets Python extension module.
 //
-// Copyright (c) 2015 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2016 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -69,6 +69,40 @@ public:
 
 signals:
     void downloadRequested(QWebEngineDownloadItem *download);
+
+public:
+%If (Qt_5_6_0 -)
+    void setHttpAcceptLanguage(const QString &httpAcceptLanguage);
+%End
+%If (Qt_5_6_0 -)
+    QString httpAcceptLanguage() const;
+%End
+%If (Qt_5_6_0 -)
+    QWebEngineCookieStore *cookieStore();
+%End
+%If (Qt_5_6_0 -)
+    void setRequestInterceptor(QWebEngineUrlRequestInterceptor *interceptor);
+%End
+%If (Qt_5_6_0 -)
+    const QWebEngineUrlSchemeHandler *urlSchemeHandler(const QByteArray &) const;
+%End
+%If (Qt_5_6_0 -)
+    void installUrlSchemeHandler(const QByteArray &scheme, QWebEngineUrlSchemeHandler *);
+%End
+%If (Qt_5_6_0 -)
+    void removeUrlScheme(const QByteArray &scheme);
+%End
+%If (Qt_5_6_0 -)
+    void removeUrlSchemeHandler(QWebEngineUrlSchemeHandler *);
+%End
+%If (Qt_5_6_0 -)
+    void removeAllUrlSchemeHandlers();
+%End
+
+private:
+%If (Qt_5_6_0 -)
+    QWebEngineProfile(const QWebEngineProfile &);
+%End
 };
 
 %End

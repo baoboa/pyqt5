@@ -65,13 +65,16 @@ class PyMultiPageWidget(QWidget):
         self.comboBox.removeItem(index)
 
     def getPageTitle(self):
-        return self.stackWidget.currentWidget().windowTitle()
+        cw = self.stackWidget.currentWidget()
+        return cw.windowTitle() if cw is not None else ''
     
     @pyqtSlot(str)
     def setPageTitle(self, newTitle):
-        self.comboBox.setItemText(self.getCurrentIndex(), newTitle)
-        self.stackWidget.currentWidget().setWindowTitle(newTitle)
-        self.pageTitleChanged.emit(newTitle)
+        cw = self.stackWidget.currentWidget()
+        if cw is not None:
+            self.comboBox.setItemText(self.getCurrentIndex(), newTitle)
+            cw.setWindowTitle(newTitle)
+            self.pageTitleChanged.emit(newTitle)
 
     def getCurrentIndex(self):
         return self.stackWidget.currentIndex()

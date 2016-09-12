@@ -2,7 +2,7 @@
 //
 // This file is part of the QtGui Python extension module.
 //
-// Copyright (c) 2015 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2016 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -20,7 +20,7 @@
 // WARRANTY OF DESIGN, MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE.
 
 
-class QColor
+class QColor /TypeHintIn="Union[QColor, Qt.GlobalColor]"/
 {
 %TypeHeaderCode
 #include <qcolor.h>
@@ -64,6 +64,9 @@ public:
 
     QColor(Qt::GlobalColor color /Constrained/);
     QColor(QRgb rgb);
+%If (Qt_5_6_0 -)
+    QColor(QRgba64 rgba64);
+%End
     QColor(const QVariant &variant /GetWrapper/) /NoDerived/;
 %MethodCode
         if (a0->canConvert<QColor>())
@@ -172,6 +175,18 @@ public:
 %End
 %If (Qt_5_2_0 -)
     QString name(QColor::NameFormat format) const;
+%End
+%If (Qt_5_6_0 -)
+    QRgba64 rgba64() const;
+%End
+%If (Qt_5_6_0 -)
+    void setRgba64(QRgba64 rgba);
+%End
+%If (Qt_5_6_0 -)
+    static QColor fromRgba64(ushort r, ushort g, ushort b, ushort alpha = 65535);
+%End
+%If (Qt_5_6_0 -)
+    static QColor fromRgba64(QRgba64 rgba);
 %End
 };
 

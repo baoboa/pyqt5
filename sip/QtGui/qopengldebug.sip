@@ -2,7 +2,7 @@
 //
 // This file is part of the QtGui Python extension module.
 //
-// Copyright (c) 2015 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2016 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -75,7 +75,7 @@ public:
     QOpenGLDebugMessage();
     QOpenGLDebugMessage(const QOpenGLDebugMessage &debugMessage);
     ~QOpenGLDebugMessage();
-    void swap(QOpenGLDebugMessage &debugMessage);
+    void swap(QOpenGLDebugMessage &debugMessage /Constrained/);
     QOpenGLDebugMessage::Source source() const;
     QOpenGLDebugMessage::Type type() const;
     QOpenGLDebugMessage::Severity severity() const;
@@ -128,10 +128,10 @@ public:
     qint64 maximumMessageLength() const;
     void pushGroup(const QString &name, GLuint id = 0, QOpenGLDebugMessage::Source source = QOpenGLDebugMessage::ApplicationSource);
     void popGroup();
-    void enableMessages(QFlags<QOpenGLDebugMessage::Source> sources = QOpenGLDebugMessage::AnySource, QFlags<QOpenGLDebugMessage::Type> types = QOpenGLDebugMessage::AnyType, QFlags<QOpenGLDebugMessage::Severity> severities = QOpenGLDebugMessage::AnySeverity);
-    void enableMessages(const QVector<unsigned int> &ids, QFlags<QOpenGLDebugMessage::Source> sources = QOpenGLDebugMessage::AnySource, QFlags<QOpenGLDebugMessage::Type> types = QOpenGLDebugMessage::AnyType);
-    void disableMessages(QFlags<QOpenGLDebugMessage::Source> sources = QOpenGLDebugMessage::AnySource, QFlags<QOpenGLDebugMessage::Type> types = QOpenGLDebugMessage::AnyType, QFlags<QOpenGLDebugMessage::Severity> severities = QOpenGLDebugMessage::AnySeverity);
-    void disableMessages(const QVector<unsigned int> &ids, QFlags<QOpenGLDebugMessage::Source> sources = QOpenGLDebugMessage::AnySource, QFlags<QOpenGLDebugMessage::Type> types = QOpenGLDebugMessage::AnyType);
+    void enableMessages(QOpenGLDebugMessage::Sources sources = QOpenGLDebugMessage::AnySource, QOpenGLDebugMessage::Types types = QOpenGLDebugMessage::AnyType, QOpenGLDebugMessage::Severities severities = QOpenGLDebugMessage::AnySeverity);
+    void enableMessages(const QVector<unsigned int> &ids, QOpenGLDebugMessage::Sources sources = QOpenGLDebugMessage::AnySource, QOpenGLDebugMessage::Types types = QOpenGLDebugMessage::AnyType);
+    void disableMessages(QOpenGLDebugMessage::Sources sources = QOpenGLDebugMessage::AnySource, QOpenGLDebugMessage::Types types = QOpenGLDebugMessage::AnyType, QOpenGLDebugMessage::Severities severities = QOpenGLDebugMessage::AnySeverity);
+    void disableMessages(const QVector<unsigned int> &ids, QOpenGLDebugMessage::Sources sources = QOpenGLDebugMessage::AnySource, QOpenGLDebugMessage::Types types = QOpenGLDebugMessage::AnyType);
     QList<QOpenGLDebugMessage> loggedMessages() const;
 
 public slots:

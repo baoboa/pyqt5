@@ -2,7 +2,7 @@
 //
 // This file is part of the QtNetwork Python extension module.
 //
-// Copyright (c) 2015 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2016 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -56,7 +56,7 @@ public:
     bool operator!=(const QSslConfiguration &other) const;
     void setSslOption(QSsl::SslOption option, bool on);
     bool testSslOption(QSsl::SslOption option) const;
-    void swap(QSslConfiguration &other);
+    void swap(QSslConfiguration &other /Constrained/);
 %If (Qt_5_1_0 -)
     QList<QSslCertificate> localCertificateChain() const;
 %End
@@ -95,20 +95,10 @@ public:
     QSslConfiguration::NextProtocolNegotiationStatus nextProtocolNegotiationStatus() const;
 %End
 %If (Qt_5_3_0 -)
-    static char * const NextProtocolSpdy3_0 /Encoding="None",NoSetter/ {
-%GetCode
-        sipPy = SIPBytes_FromString(QSslConfiguration::NextProtocolSpdy3_0);
-%End
-
-    };
+    static const char *NextProtocolSpdy3_0 /Encoding="None",NoSetter/;
 %End
 %If (Qt_5_3_0 -)
-    static char * const NextProtocolHttp1_1 /Encoding="None",NoSetter/ {
-%GetCode
-        sipPy = SIPBytes_FromString(QSslConfiguration::NextProtocolHttp1_1);
-%End
-
-    };
+    static const char *NextProtocolHttp1_1 /Encoding="None",NoSetter/;
 %End
 %If (Qt_5_4_0 -)
     QSsl::SslProtocol sessionProtocol() const;

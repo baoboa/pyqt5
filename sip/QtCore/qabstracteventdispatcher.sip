@@ -2,7 +2,7 @@
 //
 // This file is part of the QtCore Python extension module.
 //
-// Copyright (c) 2015 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2016 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -42,7 +42,7 @@ public:
     explicit QAbstractEventDispatcher(QObject *parent /TransferThis/ = 0);
     virtual ~QAbstractEventDispatcher();
     static QAbstractEventDispatcher *instance(QThread *thread = 0);
-    virtual bool processEvents(QFlags<QEventLoop::ProcessEventsFlag> flags) = 0 /ReleaseGIL/;
+    virtual bool processEvents(QEventLoop::ProcessEventsFlags flags) = 0 /ReleaseGIL/;
     virtual bool hasPendingEvents() = 0;
     virtual void registerSocketNotifier(QSocketNotifier *notifier) = 0;
     virtual void unregisterSocketNotifier(QSocketNotifier *notifier) = 0;

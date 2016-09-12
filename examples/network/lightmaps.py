@@ -219,7 +219,7 @@ class SlippyMap(QObject):
         self._url = QUrl(path)
         request = QNetworkRequest()
         request.setUrl(self._url)
-        request.setRawHeader('User-Agent', 'Nokia (PyQt) Graphics Dojo 1.0')
+        request.setRawHeader(b'User-Agent', b'Nokia (PyQt) Graphics Dojo 1.0')
         request.setAttribute(QNetworkRequest.User, grab)
         self._manager.get(request)
 

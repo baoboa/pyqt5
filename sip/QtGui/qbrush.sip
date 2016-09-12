@@ -2,7 +2,7 @@
 //
 // This file is part of the QtGui Python extension module.
 //
-// Copyright (c) 2015 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2016 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -20,7 +20,7 @@
 // WARRANTY OF DESIGN, MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE.
 
 
-class QBrush
+class QBrush /TypeHintIn="Union[QBrush, QColor, QGradient]"/
 {
 %TypeHeaderCode
 #include <qbrush.h>
@@ -82,12 +82,9 @@ public:
     QBrush();
     QBrush(Qt::BrushStyle bs);
     QBrush(const QColor &color, Qt::BrushStyle style = Qt::SolidPattern);
-    QBrush(Qt::GlobalColor color, Qt::BrushStyle style = Qt::SolidPattern);
     QBrush(const QColor &color, const QPixmap &pixmap);
-    QBrush(Qt::GlobalColor color, const QPixmap &pixmap);
     QBrush(const QPixmap &pixmap);
     QBrush(const QImage &image);
-    QBrush(const QGradient &gradient);
     QBrush(const QBrush &brush);
     QBrush(const QVariant &variant /GetWrapper/) /NoDerived/;
 %MethodCode
@@ -113,7 +110,7 @@ public:
     QImage textureImage() const;
     void setTransform(const QTransform &);
     QTransform transform() const;
-    void swap(QBrush &other);
+    void swap(QBrush &other /Constrained/);
 };
 
 QDataStream &operator>>(QDataStream &, QBrush & /Constrained/) /ReleaseGIL/;

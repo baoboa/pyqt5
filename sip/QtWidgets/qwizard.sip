@@ -2,7 +2,7 @@
 //
 // This file is part of the QtWidgets Python extension module.
 //
-// Copyright (c) 2015 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2016 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -81,7 +81,7 @@ public:
     };
 
     typedef QFlags<QWizard::WizardOption> WizardOptions;
-    QWizard(QWidget *parent /TransferThis/ = 0, Qt::WindowFlags flags = 0);
+    QWizard(QWidget *parent /TransferThis/ = 0, Qt::WindowFlags flags = Qt::WindowFlags());
     virtual ~QWizard();
     int addPage(QWizardPage *page /Transfer/);
     void setPage(int id, QWizardPage *page /Transfer/);
@@ -100,8 +100,8 @@ public:
     QWizard::WizardStyle wizardStyle() const;
     void setOption(QWizard::WizardOption option, bool on = true);
     bool testOption(QWizard::WizardOption option) const;
-    void setOptions(QFlags<QWizard::WizardOption> options);
-    QFlags<QWizard::WizardOption> options() const;
+    void setOptions(QWizard::WizardOptions options);
+    QWizard::WizardOptions options() const;
     void setButtonText(QWizard::WizardButton which, const QString &text);
     QString buttonText(QWizard::WizardButton which) const;
     void setButtonLayout(const QList<QWizard::WizardButton> &layout);
@@ -113,7 +113,20 @@ public:
     Qt::TextFormat subTitleFormat() const;
     void setPixmap(QWizard::WizardPixmap which, const QPixmap &pixmap);
     QPixmap pixmap(QWizard::WizardPixmap which) const;
-    void setDefaultProperty(const char *className, const char *property, const char *changedSignal);
+    void setDefaultProperty(const char *className, const char *property, SIP_PYOBJECT changedSignal /TypeHint="PYQT_SIGNAL"/);
+%MethodCode
+        QByteArray signal_signature;
+        
+        if ((sipError = pyqt5_qtwidgets_get_signal_signature(a2, 0, signal_signature)) == sipErrorNone)
+        {
+            sipCpp->setDefaultProperty(a0, a1, signal_signature.constData());
+        }
+        else if (sipError == sipErrorContinue)
+        {
+            sipError = sipBadCallableArg(2, a2);
+        }
+%End
+
     virtual void setVisible(bool visible);
     virtual QSize sizeHint() const;
 
@@ -184,37 +197,30 @@ signals:
 protected:
     void setField(const QString &name, const QVariant &value);
     QVariant field(const QString &name) const;
-
-public:
-    void registerField(const QString &name, QWidget *widget, const char *property = 0, SIP_PYOBJECT changedSignal /DocType="signal"/ = 0);
+    void registerField(const QString &name, QWidget *widget, const char *property = 0, SIP_PYOBJECT changedSignal /TypeHint="PYQT_SIGNAL"/ = 0) [void (const QString &name, QWidget *widget, const char *property = 0, const char *changedSignal = 0)];
 %MethodCode
-        QObject *receiver;
+        typedef sipErrorState (*pyqt5_get_signal_signature_t)(PyObject *, QObject *, QByteArray &);
+        
+        static pyqt5_get_signal_signature_t pyqt5_get_signal_signature = 0;
+        
+        if (!pyqt5_get_signal_signature)
+        {
+            pyqt5_get_signal_signature = (pyqt5_get_signal_signature_t)sipImportSymbol("pyqt5_get_signal_signature");
+            Q_ASSERT(pyqt5_get_signal_signature);
+        }
+        
         QByteArray signal_signature;
         const char *signal;
         
         if (a3 && a3 != Py_None)
         {
-            if ((sipError = pyqt5_qtwidgets_get_pyqtsignal_parts(a3, &receiver, signal_signature)) == sipErrorNone)
+            if ((sipError = pyqt5_get_signal_signature(a3, a1, signal_signature)) == sipErrorNone)
             {
-                if (receiver != a1)
-                {
-                    PyErr_SetString(PyExc_ValueError,
-                            "the signal must be bound to the same QWidget instance");
-                    sipError = sipErrorFail;
-                }
-                else
-                {
-                    signal = signal_signature.constData();
-                }
+                signal = signal_signature.constData();
             }
-            else
+            else if (sipError == sipErrorContinue)
             {
-                // We don't set sipError to sipErrorContinue because we don't want to
-                // go on to the next (ie. the real) registerField() overload.  That is
-                // there only so that SIP generates the required public wrapper method
-                // that we need to call below.  We don't want the user to call it.
-                sipBadCallableArg(3, a3);
-                sipError = sipErrorFail;
+                sipError = sipBadCallableArg(3, a3);
             }
         }
         else
@@ -228,16 +234,12 @@ public:
         #if defined(SIP_PROTECTED_IS_PUBLIC)
             sipCpp->registerField(*a0, a1, a2, signal);
         #else
-            // We should really change SIP to implement /NoDerived/ for protected
-            // methods rather than do this (possibly unsafe) cast.
-            static_cast<sipQWizardPage *>(sipCpp)->sipProtect_registerField(*a0, a1, a2, signal);
+            sipCpp->sipProtect_registerField(*a0, a1, a2, signal);
         #endif
             Py_END_ALLOW_THREADS
         }
 %End
 
-protected:
-    void registerField(const QString &name, QWidget *widget, const char *property = 0, const char *changedSignal = 0);
     QWizard *wizard() const;
 
 private:

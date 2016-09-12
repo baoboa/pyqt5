@@ -2,7 +2,7 @@
 //
 // This file is part of the QtCore Python extension module.
 //
-// Copyright (c) 2015 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2016 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -20,7 +20,7 @@
 // WARRANTY OF DESIGN, MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE.
 
 
-class QEasingCurve
+class QEasingCurve /TypeHintIn="Union[QEasingCurve, QEasingCurve.Type]"/
 {
 %TypeHeaderCode
 #include <qeasingcurve.h>
@@ -223,7 +223,7 @@ public:
     void setOvershoot(qreal overshoot);
     QEasingCurve::Type type() const;
     void setType(QEasingCurve::Type type);
-    void setCustomType(SIP_PYCALLABLE func);
+    void setCustomType(SIP_PYCALLABLE func /TypeHint="Callable[[float], float]"/);
 %MethodCode
         int i;
         ec_custom_type *ct;
@@ -253,7 +253,7 @@ public:
         }
 %End
 
-    SIP_PYCALLABLE customType() const;
+    SIP_PYCALLABLE customType() const /TypeHint="Callable[[float], float]"/;
 %MethodCode
         QEasingCurve::EasingFunction func = sipCpp->customType();
         
@@ -275,7 +275,7 @@ public:
 %End
 
     qreal valueForProgress(qreal progress) const;
-    void swap(QEasingCurve &other);
+    void swap(QEasingCurve &other /Constrained/);
     void addCubicBezierSegment(const QPointF &c1, const QPointF &c2, const QPointF &endPoint);
     void addTCBSegment(const QPointF &nextPoint, qreal t, qreal c, qreal b);
     QVector<QPointF> toCubicSpline() const;

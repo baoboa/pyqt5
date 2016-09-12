@@ -2,7 +2,7 @@
 //
 // This file is part of the QtWidgets Python extension module.
 //
-// Copyright (c) 2015 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2016 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -93,8 +93,8 @@ public:
     QAbstractItemView::SelectionBehavior selectionBehavior() const;
     QModelIndex currentIndex() const;
     QModelIndex rootIndex() const;
-    void setEditTriggers(QFlags<QAbstractItemView::EditTrigger> triggers);
-    QFlags<QAbstractItemView::EditTrigger> editTriggers() const;
+    void setEditTriggers(QAbstractItemView::EditTriggers triggers);
+    QAbstractItemView::EditTriggers editTriggers() const;
     void setAutoScroll(bool enable);
     bool hasAutoScroll() const;
     void setTabKeyNavigation(bool enable);
@@ -151,7 +151,7 @@ public slots:
     void update(const QModelIndex &index);
 
 protected slots:
-    virtual void dataChanged(const QModelIndex &topLeft, const QModelIndex &bottomRight, const QVector<int> &roles /DocValue="[]"/ = QVector<int>());
+    virtual void dataChanged(const QModelIndex &topLeft, const QModelIndex &bottomRight, const QVector<int> &roles = QVector<int>());
     virtual void rowsInserted(const QModelIndex &parent, int start, int end);
     virtual void rowsAboutToBeRemoved(const QModelIndex &parent, int start, int end);
     virtual void selectionChanged(const QItemSelection &selected, const QItemSelection &deselected);
@@ -197,11 +197,11 @@ protected:
     virtual int horizontalOffset() const = 0;
     virtual int verticalOffset() const = 0;
     virtual bool isIndexHidden(const QModelIndex &index) const = 0;
-    virtual void setSelection(const QRect &rect, QFlags<QItemSelectionModel::SelectionFlag> command) = 0;
+    virtual void setSelection(const QRect &rect, QItemSelectionModel::SelectionFlags command) = 0;
     virtual QRegion visualRegionForSelection(const QItemSelection &selection) const = 0;
     virtual QModelIndexList selectedIndexes() const;
     virtual bool edit(const QModelIndex &index, QAbstractItemView::EditTrigger trigger, QEvent *event);
-    virtual QFlags<QItemSelectionModel::SelectionFlag> selectionCommand(const QModelIndex &index, const QEvent *event = 0) const;
+    virtual QItemSelectionModel::SelectionFlags selectionCommand(const QModelIndex &index, const QEvent *event = 0) const;
     virtual void startDrag(Qt::DropActions supportedActions);
     virtual QStyleOptionViewItem viewOptions() const;
 

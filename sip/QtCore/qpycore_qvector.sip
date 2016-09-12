@@ -1,7 +1,7 @@
 // This is the SIP interface definition for the majority of the QVector based
 // mapped types.
 //
-// Copyright (c) 2015 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2016 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -20,7 +20,9 @@
 
 
 template<_TYPE_>
-%MappedType QVector<_TYPE_> /DocType="list-of-_TYPE_"/
+%MappedType QVector<_TYPE_>
+        /TypeHintIn="Iterable[_TYPE_]", TypeHintOut="List[_TYPE_]",
+        TypeHintValue="[]"/
 {
 %TypeHeaderCode
 #include <qvector.h>
@@ -75,7 +77,7 @@ template<_TYPE_>
 
     QVector<_TYPE_> *qv = new QVector<_TYPE_>;
  
-    for (SIP_SSIZE_T i = 0; ; ++i)
+    for (Py_ssize_t i = 0; ; ++i)
     {
         PyErr_Clear();
         PyObject *itm = PyIter_Next(iter);
@@ -102,8 +104,8 @@ template<_TYPE_>
         if (*sipIsErr)
         {
             PyErr_Format(PyExc_TypeError,
-                    "index " SIP_SSIZE_T_FORMAT " has type '%s' but '_TYPE_' is expected",
-                    i, Py_TYPE(itm)->tp_name);
+                    "index %zd has type '%s' but '_TYPE_' is expected", i,
+                    Py_TYPE(itm)->tp_name);
 
             Py_DECREF(itm);
             delete qv;
@@ -129,7 +131,8 @@ template<_TYPE_>
 
 template<qreal, _TYPE_>
 %MappedType QVector<QPair<qreal, _TYPE_> >
-        /DocType="list-of-tuple-of-float-_TYPE_"/
+        /TypeHintIn="Iterable[Tuple[float, _TYPE_]]",
+        TypeHintOut="List[Tuple[float, _TYPE_]]", TypeHintValue="[]"/
 {
 %TypeHeaderCode
 #include <qvector.h>
@@ -186,7 +189,7 @@ template<qreal, _TYPE_>
 
     QVector<QPair<qreal, _TYPE_> > *qv = new QVector<QPair<qreal, _TYPE_> >;
  
-    for (SIP_SSIZE_T i = 0; ; ++i)
+    for (Py_ssize_t i = 0; ; ++i)
     {
         PyErr_Clear();
         PyObject *seq = PyIter_Next(iter);
@@ -205,7 +208,7 @@ template<qreal, _TYPE_>
             break;
         }
 
-        SIP_SSIZE_T sub_len;
+        Py_ssize_t sub_len;
 
         if (PySequence_Check(seq)
 #if PY_MAJOR_VERSION < 3
@@ -220,11 +223,11 @@ template<qreal, _TYPE_>
         {
             if (sub_len < 0)
                 PyErr_Format(PyExc_TypeError,
-                        "index " SIP_SSIZE_T_FORMAT " has type '%s' but a 2 element non-string sequence is expected",
+                        "index %zd has type '%s' but a 2 element non-string sequence is expected",
                         i, Py_TYPE(seq)->tp_name);
             else
                 PyErr_Format(PyExc_TypeError,
-                        "index " SIP_SSIZE_T_FORMAT " is a sequence of " SIP_SSIZE_T_FORMAT " sub-elements but 2 sub-elements are expected",
+                        "index %zd is a sequence of %zd sub-elements but 2 sub-elements are expected",
                         i, sub_len);
 
             Py_DECREF(seq);
@@ -253,7 +256,7 @@ template<qreal, _TYPE_>
         if (PyErr_Occurred())
         {
             PyErr_Format(PyExc_TypeError,
-                    "the first sub-element of index " SIP_SSIZE_T_FORMAT " has type '%s' but 'float' is expected",
+                    "the first sub-element of index %zd has type '%s' but 'float' is expected",
                     i, Py_TYPE(itm1)->tp_name);
 
             Py_DECREF(itm1);
@@ -286,7 +289,7 @@ template<qreal, _TYPE_>
         if (*sipIsErr)
         {
             PyErr_Format(PyExc_TypeError,
-                    "the second sub-element of index " SIP_SSIZE_T_FORMAT " has type '%s' but '_TYPE_' is expected",
+                    "the second sub-element of index %zd has type '%s' but '_TYPE_' is expected",
                     i, Py_TYPE(itm2)->tp_name);
 
             Py_DECREF(itm2);
@@ -315,7 +318,9 @@ template<qreal, _TYPE_>
 };
 
 
-%MappedType QVector<int> /DocType="list-of-int"/
+%MappedType QVector<int>
+        /TypeHintIn="Iterable[int]", TypeHintOut="List[int]",
+        TypeHintValue="[]"/
 {
 %TypeHeaderCode
 #include <qvector.h>
@@ -367,7 +372,7 @@ template<qreal, _TYPE_>
 
     QVector<int> *qv = new QVector<int>;
  
-    for (SIP_SSIZE_T i = 0; ; ++i)
+    for (Py_ssize_t i = 0; ; ++i)
     {
         PyErr_Clear();
         PyObject *itm = PyIter_Next(iter);
@@ -392,8 +397,8 @@ template<qreal, _TYPE_>
         if (PyErr_Occurred())
         {
             PyErr_Format(PyExc_TypeError,
-                    "index " SIP_SSIZE_T_FORMAT " has type '%s' but 'int' is expected",
-                    i, Py_TYPE(itm)->tp_name);
+                    "index %zd has type '%s' but 'int' is expected", i,
+                    Py_TYPE(itm)->tp_name);
 
             Py_DECREF(itm);
             delete qv;

@@ -2,7 +2,7 @@
 //
 // This file is part of the QtGui Python extension module.
 //
-// Copyright (c) 2015 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2016 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -47,7 +47,7 @@ public:
     int width(const QString &text, int length = -1) const;
     QRect boundingRect(QChar) const /PyName=boundingRectChar/;
     QRect boundingRect(const QString &text) const;
-    QRect boundingRect(const QRect &rect, int flags, const QString &text, int tabStops = 0, SIP_PYLIST tabArray /AllowNone,DocType="list-of-int"/ = 0) const;
+    QRect boundingRect(const QRect &rect, int flags, const QString &text, int tabStops = 0, SIP_PYLIST tabArray /AllowNone,TypeHint="Optional[List[int]]"/ = 0) const;
 %MethodCode
         int *tabarray = qtgui_tabarray(a4);
         
@@ -57,7 +57,7 @@ public:
             delete[] tabarray;
 %End
 
-    QRect boundingRect(int x, int y, int width, int height, int flags, const QString &text, int tabStops = 0, SIP_PYLIST tabArray /AllowNone,DocType="list-of-int"/ = 0) const;
+    QRect boundingRect(int x, int y, int width, int height, int flags, const QString &text, int tabStops = 0, SIP_PYLIST tabArray /AllowNone,TypeHint="Optional[List[int]]"/ = 0) const;
 %MethodCode
         int *tabarray = qtgui_tabarray(a7);
         
@@ -67,7 +67,7 @@ public:
             delete[] tabarray;
 %End
 
-    QSize size(int flags, const QString &text, int tabStops = 0, SIP_PYLIST tabArray /AllowNone,DocType="list-of-int"/ = 0) const;
+    QSize size(int flags, const QString &text, int tabStops = 0, SIP_PYLIST tabArray /AllowNone,TypeHint="Optional[List[int]]"/ = 0) const;
 %MethodCode
         int *tabarray = qtgui_tabarray(a3);
         
@@ -87,7 +87,7 @@ public:
     bool operator!=(const QFontMetrics &other) const;
     QRect tightBoundingRect(const QString &text) const;
     bool inFontUcs4(uint character) const;
-    void swap(QFontMetrics &other);
+    void swap(QFontMetrics &other /Constrained/);
 };
 
 class QFontMetricsF
@@ -118,7 +118,7 @@ public:
     qreal width(const QString &string) const;
     QRectF boundingRect(QChar) const /PyName=boundingRectChar/;
     QRectF boundingRect(const QString &string) const;
-    QRectF boundingRect(const QRectF &rect, int flags, const QString &text, int tabStops = 0, SIP_PYLIST tabArray /AllowNone,DocType="list-of-int"/ = 0) const;
+    QRectF boundingRect(const QRectF &rect, int flags, const QString &text, int tabStops = 0, SIP_PYLIST tabArray /AllowNone,TypeHint="Optional[List[int]]"/ = 0) const;
 %MethodCode
         int *tabarray = qtgui_tabarray(a4);
         
@@ -128,7 +128,7 @@ public:
             delete[] tabarray;
 %End
 
-    QSizeF size(int flags, const QString &text, int tabStops = 0, SIP_PYLIST tabArray /AllowNone,DocType="list-of-int"/ = 0) const;
+    QSizeF size(int flags, const QString &text, int tabStops = 0, SIP_PYLIST tabArray /AllowNone,TypeHint="Optional[List[int]]"/ = 0) const;
 %MethodCode
         int *tabarray = qtgui_tabarray(a3);
         
@@ -148,7 +148,7 @@ public:
     bool operator!=(const QFontMetricsF &other) const;
     QRectF tightBoundingRect(const QString &text) const;
     bool inFontUcs4(uint character) const;
-    void swap(QFontMetricsF &other);
+    void swap(QFontMetricsF &other /Constrained/);
 };
 
 %ModuleHeaderCode
@@ -165,7 +165,7 @@ int *qtgui_tabarray(PyObject *l)
         return 0;
 
     int *arr = new int[PyList_GET_SIZE(l) + 1];
-    SIP_SSIZE_T i;
+    Py_ssize_t i;
 
     for (i = 0; i < PyList_GET_SIZE(l); ++i)
         arr[i] = SIPLong_AsLong(PyList_GET_ITEM(l, i));

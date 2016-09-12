@@ -2,7 +2,7 @@
 //
 // This file is part of the QtCore Python extension module.
 //
-// Copyright (c) 2015 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2016 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -35,7 +35,7 @@ public:
     QLine();
     QLine(const QPoint &pt1_, const QPoint &pt2_);
     QLine(int x1pos, int y1pos, int x2pos, int y2pos);
-    SIP_PYOBJECT __repr__() const /DocType="str"/;
+    SIP_PYOBJECT __repr__() const /TypeHint="str"/;
 %MethodCode
         if (sipCpp->isNull())
         {
@@ -118,7 +118,7 @@ public:
     QLineF();
     QLineF(const QPointF &apt1, const QPointF &apt2);
     QLineF(qreal x1pos, qreal y1pos, qreal x2pos, qreal y2pos);
-    SIP_PYOBJECT __repr__() const /DocType="str"/;
+    SIP_PYOBJECT __repr__() const /TypeHint="str"/;
 %MethodCode
         if (sipCpp->isNull())
         {

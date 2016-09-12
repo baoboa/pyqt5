@@ -2,7 +2,7 @@
 //
 // This file is part of the QtGui Python extension module.
 //
-// Copyright (c) 2015 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2016 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -130,7 +130,7 @@ public:
     void insertImage(const QTextImageFormat &format);
     void insertImage(const QTextImageFormat &format, QTextFrameFormat::Position alignment);
     void insertImage(const QString &name);
-    void insertImage(const QImage &image, const QString &name /DocValue="''"/ = QString());
+    void insertImage(const QImage &image, const QString &name = QString());
     void beginEditBlock();
     void joinPreviousEditBlock();
     void endEditBlock();
@@ -151,5 +151,5 @@ public:
     int verticalMovementX() const;
     void setKeepPositionOnInsert(bool b);
     bool keepPositionOnInsert() const;
-    void swap(QTextCursor &other);
+    void swap(QTextCursor &other /Constrained/);
 };

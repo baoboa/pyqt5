@@ -2,7 +2,7 @@
 //
 // This file is part of the QtWebSockets Python extension module.
 //
-// Copyright (c) 2015 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2016 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -59,7 +59,7 @@ class QWebSocket : QObject
 %End
 
 public:
-    QWebSocket(const QString &origin /DocValue="''"/ = QString(), QWebSocketProtocol::Version version = QWebSocketProtocol::Version13, QObject *parent /TransferThis/ = 0);
+    QWebSocket(const QString &origin = QString(), QWebSocketProtocol::Version version = QWebSocketProtocol::VersionLatest, QObject *parent /TransferThis/ = 0);
     virtual ~QWebSocket();
     void abort();
     QAbstractSocket::SocketError error() const;
@@ -68,7 +68,7 @@ public:
     bool isValid() const;
     QHostAddress localAddress() const;
     quint16 localPort() const;
-    QFlags<QAbstractSocket::PauseMode> pauseMode() const;
+    QAbstractSocket::PauseModes pauseMode() const;
     QHostAddress peerAddress() const;
     QString peerName() const;
     quint16 peerPort() const;
@@ -79,7 +79,7 @@ public:
     qint64 readBufferSize() const;
     void setReadBufferSize(qint64 size);
     void resume() /ReleaseGIL/;
-    void setPauseMode(QFlags<QAbstractSocket::PauseMode> pauseMode);
+    void setPauseMode(QAbstractSocket::PauseModes pauseMode);
     QAbstractSocket::SocketState state() const;
     QWebSocketProtocol::Version version() const;
     QString resourceName() const;
@@ -98,10 +98,16 @@ public:
 %If (PyQt_SSL)
     QSslConfiguration sslConfiguration() const;
 %End
+%If (Qt_5_6_0 -)
+    QNetworkRequest request() const;
+%End
 
 public slots:
     void close(QWebSocketProtocol::CloseCode closeCode = QWebSocketProtocol::CloseCodeNormal, const QString &reason = QString()) /ReleaseGIL/;
     void open(const QUrl &url) /ReleaseGIL/;
+%If (Qt_5_6_0 -)
+    void open(const QNetworkRequest &request) /ReleaseGIL/;
+%End
     void ping(const QByteArray &payload = QByteArray()) /ReleaseGIL/;
 %If (PyQt_SSL)
     void ignoreSslErrors();

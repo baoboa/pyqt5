@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Things to be Aware Of &mdash; PyQt 5.5.1 Reference Guide</title>
+    <title>Things to be Aware Of &mdash; PyQt 5.6 Reference Guide</title>
     
     <link rel="stylesheet" href="_static/classic.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '5.5.1',
+        VERSION:     '5.6',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -24,7 +24,7 @@
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
     <link rel="shortcut icon" href="_static/logo_tn.ico"/>
-    <link rel="top" title="PyQt 5.5.1 Reference Guide" href="index.html" />
+    <link rel="top" title="PyQt 5.6 Reference Guide" href="index.html" />
     <link rel="next" title="Using Qt Designer" href="designer.html" />
     <link rel="prev" title="Support for Cooperative Multi-inheritance" href="multiinheritance.html" /> 
   </head>
@@ -44,7 +44,7 @@
         <li class="right" >
           <a href="multiinheritance.html" title="Support for Cooperative Multi-inheritance"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">PyQt 5.5.1 Reference Guide</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">PyQt 5.6 Reference Guide</a> &raquo;</li> 
       </ul>
     </div>  
 
@@ -55,6 +55,57 @@
             
   <div class="section" id="things-to-be-aware-of">
 <h1>Things to be Aware Of<a class="headerlink" href="#things-to-be-aware-of" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="crashes-on-exit">
+<h2>Crashes On Exit<a class="headerlink" href="#crashes-on-exit" title="Permalink to this headline">¶</a></h2>
+<p>When the Python interpreter leaves a  <em>scope</em> (for example when it returns from
+a function) it will potentially garbage collect all objects local to that
+scope.  The order in which it is done is, in effect, random.  Theoretically
+this can cause problems because it may mean that the C++ destructors of any
+wrapped Qt instances are called in an order that Qt isn&#8217;t expecting and may
+result in a crash.</p>
+<p>However, in practice, this is only likely to be a problem when the application
+is terminating.  For example, it is preferable that any
+<a class="reference internal" href="api/qapplication.html#PyQt5.QtWidgets.QApplication" title="PyQt5.QtWidgets.QApplication"><code class="xref py py-class docutils literal"><span class="pre">QApplication</span></code></a> instance is destroyed only after all
+widgets are destroyed.</p>
+<p>As a way of mitigating this possiblity PyQt5 ensures that the destructors of
+any module level objects are not invoked when the application terminates.  This
+means that code that follows the pattern below is unlikely to crash on exit:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="n">app</span> <span class="o">=</span> <span class="n">QApplication</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">)</span>
+
+    <span class="n">w</span> <span class="o">=</span> <span class="n">QWidget</span><span class="p">()</span>
+    <span class="n">w</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+    <span class="n">app</span><span class="o">.</span><span class="n">exec</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>Another common pattern (and one that is required when using setuptool entry
+points) is that the above code in placed in a separate function, typically
+called <code class="docutils literal"><span class="pre">main()</span></code>.  This then causes a problem when the function returns as the
+destructors of the <a class="reference internal" href="api/qapplication.html#PyQt5.QtWidgets.QApplication" title="PyQt5.QtWidgets.QApplication"><code class="xref py py-class docutils literal"><span class="pre">QApplication</span></code></a> and
+<a class="reference internal" href="api/qwidget.html#PyQt5.QtWidgets.QWidget" title="PyQt5.QtWidgets.QWidget"><code class="xref py py-class docutils literal"><span class="pre">QWidget</span></code></a> instances may be invoked in the wrong order.
+To minimise the chances of this happening, the following pattern is
+recommended:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">app</span> <span class="o">=</span> <span class="kc">None</span>
+
+<span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+    <span class="k">global</span> <span class="n">app</span>
+    <span class="n">app</span> <span class="o">=</span> <span class="n">QApplication</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">)</span>
+
+    <span class="n">w</span> <span class="o">=</span> <span class="n">QWidget</span><span class="p">()</span>
+    <span class="n">w</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+    <span class="n">app</span><span class="o">.</span><span class="n">exec</span><span class="p">()</span>
+
+<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="n">main</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>The <a class="reference internal" href="api/qwidget.html#PyQt5.QtWidgets.QWidget" title="PyQt5.QtWidgets.QWidget"><code class="xref py py-class docutils literal"><span class="pre">QWidget</span></code></a> destructor may be invoked when <code class="docutils literal"><span class="pre">main()</span></code>
+returns but the module level reference to the
+<a class="reference internal" href="api/qapplication.html#PyQt5.QtWidgets.QApplication" title="PyQt5.QtWidgets.QApplication"><code class="xref py py-class docutils literal"><span class="pre">QApplication</span></code></a> instance will prevent its destructor
+being invoked at all.</p>
+</div>
 <div class="section" id="keyword-arguments">
 <h2>Keyword Arguments<a class="headerlink" href="#keyword-arguments" title="Permalink to this headline">¶</a></h2>
 <p>PyQt5 supports the use of keyword arguments for optional arguments.  Although
@@ -91,11 +142,10 @@ version) then PyQt5 will accept a <code class="docutils literal"><span class="pr
 <li>If Qt expects a <code class="docutils literal"><span class="pre">signed</span> <span class="pre">char</span></code> or an <code class="docutils literal"><span class="pre">unsigned</span> <span class="pre">char</span></code> (or a <code class="docutils literal"><span class="pre">const</span></code>
 version) then PyQt5 will accept a <code class="docutils literal"><span class="pre">bytes</span></code> of length 1.</li>
 <li>If Qt expects a <code class="docutils literal"><span class="pre">QString</span></code> then PyQt5 will accept a <code class="docutils literal"><span class="pre">str</span></code>, a <code class="docutils literal"><span class="pre">bytes</span></code>
-that contains only ASCII characters or a <code class="docutils literal"><span class="pre">QByteArray</span></code>.</li>
+that contains only ASCII characters, a <code class="docutils literal"><span class="pre">QByteArray</span></code> or <code class="docutils literal"><span class="pre">None</span></code>.</li>
 <li>If Qt expects a <code class="docutils literal"><span class="pre">QByteArray</span></code> then PyQt5 will also accept a <code class="docutils literal"><span class="pre">bytes</span></code>.</li>
 <li>If Qt expects a <code class="docutils literal"><span class="pre">QByteArray</span></code> then PyQt5 will also accept a <code class="docutils literal"><span class="pre">str</span></code> that
-contains only Latin-1 characters.  <strong>This is deprecated in PyQt v5.4 and will
-be removed in PyQt v5.5.)</strong></li>
+contains only Latin-1 characters.</li>
 </ul>
 <p>For Python v2 the following conversions are done by default.</p>
 <ul class="simple">
@@ -108,33 +158,38 @@ implements the buffer protocol.</li>
 <code class="docutils literal"><span class="pre">signed</span> <span class="pre">char</span> <span class="pre">*</span></code> and <code class="docutils literal"><span class="pre">unsigned</span> <span class="pre">char</span> <span class="pre">*</span></code> and also require that a single
 character is provided.</li>
 <li>If Qt expects a <code class="docutils literal"><span class="pre">QString</span></code> then PyQt5 will accept a <code class="docutils literal"><span class="pre">unicode</span></code>, a <code class="docutils literal"><span class="pre">str</span></code>
-that contains only ASCII characters or a <code class="docutils literal"><span class="pre">QByteArray</span></code>.</li>
+that contains only ASCII characters, a <code class="docutils literal"><span class="pre">QByteArray</span></code> or <code class="docutils literal"><span class="pre">None</span></code>.</li>
 <li>If Qt expects a <code class="docutils literal"><span class="pre">QByteArray</span></code> then PyQt5 will accept a <code class="docutils literal"><span class="pre">str</span></code>.</li>
 <li>If Qt expects a <code class="docutils literal"><span class="pre">QByteArray</span></code> then PyQt5 will accept a <code class="docutils literal"><span class="pre">unicode</span></code> that
-contains only Latin-1 characters.  <strong>This is deprecated in PyQt v5.4 and will
-be removed in PyQt v5.5.)</strong></li>
+contains only Latin-1 characters.</li>
 </ul>
 <p>Note that the different behaviour between Python v2 and v3 is due to v3&#8217;s
 reduced support for the buffer protocol.</p>
+<p>Historically <code class="docutils literal"><span class="pre">QString</span></code> distinguishes between empty strings and null strings.
+Current versions of Qt treat null strings as empty strings but there may be
+other C++ code that PyQt5 applications call that maintains the distinction.
+Consequently PyQt5 will convert <code class="docutils literal"><span class="pre">None</span></code> to a null <code class="docutils literal"><span class="pre">QString</span></code>.  The reverse
+conversion is not done and both a null and an empty <code class="docutils literal"><span class="pre">QString</span></code> will be
+converted to an empty (i.e. zero length) Python string.</p>
 </div>
 <div class="section" id="garbage-collection">
 <h2>Garbage Collection<a class="headerlink" href="#garbage-collection" title="Permalink to this headline">¶</a></h2>
 <p>C++ does not garbage collect unreferenced class instances, whereas Python does.
 In the following C++ fragment both colours exist even though the first can no
 longer be referenced from within the program:</p>
-<div class="highlight-python"><div class="highlight"><pre>col = new QColor();
-col = new QColor();
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">col</span> <span class="o">=</span> <span class="n">new</span> <span class="n">QColor</span><span class="p">();</span>
+<span class="n">col</span> <span class="o">=</span> <span class="n">new</span> <span class="n">QColor</span><span class="p">();</span>
 </pre></div>
 </div>
 <p>In the corresponding Python fragment, the first colour is destroyed when the
 second is assigned to <code class="docutils literal"><span class="pre">col</span></code>:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="n">col</span> <span class="o">=</span> <span class="n">QColor</span><span class="p">()</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">col</span> <span class="o">=</span> <span class="n">QColor</span><span class="p">()</span>
 <span class="n">col</span> <span class="o">=</span> <span class="n">QColor</span><span class="p">()</span>
 </pre></div>
 </div>
 <p>In Python, each colour must be assigned to different names.  Typically this is
 done within class definitions, so the code fragment would be something like:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="bp">self</span><span class="o">.</span><span class="n">col1</span> <span class="o">=</span> <span class="n">QColor</span><span class="p">()</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="bp">self</span><span class="o">.</span><span class="n">col1</span> <span class="o">=</span> <span class="n">QColor</span><span class="p">()</span>
 <span class="bp">self</span><span class="o">.</span><span class="n">col2</span> <span class="o">=</span> <span class="n">QColor</span><span class="p">()</span>
 </pre></div>
 </div>
@@ -148,9 +203,9 @@ the corresponding child objects.</p>
 <a class="reference internal" href="api/qlabel.html#PyQt5.QtWidgets.QLabel" title="PyQt5.QtWidgets.QLabel"><code class="xref py py-class docutils literal"><span class="pre">QLabel</span></code></a> is not destroyed when the second is assigned
 to <code class="docutils literal"><span class="pre">lab</span></code> because the parent <a class="reference internal" href="api/qwidget.html#PyQt5.QtWidgets.QWidget" title="PyQt5.QtWidgets.QWidget"><code class="xref py py-class docutils literal"><span class="pre">QWidget</span></code></a> still has a
 reference to it:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="n">parent</span> <span class="o">=</span> <span class="n">QWidget</span><span class="p">()</span>
-<span class="n">lab</span> <span class="o">=</span> <span class="n">QLabel</span><span class="p">(</span><span class="s">&quot;First label&quot;</span><span class="p">,</span> <span class="n">parent</span><span class="p">)</span>
-<span class="n">lab</span> <span class="o">=</span> <span class="n">QLabel</span><span class="p">(</span><span class="s">&quot;Second label&quot;</span><span class="p">,</span> <span class="n">parent</span><span class="p">)</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">parent</span> <span class="o">=</span> <span class="n">QWidget</span><span class="p">()</span>
+<span class="n">lab</span> <span class="o">=</span> <span class="n">QLabel</span><span class="p">(</span><span class="s2">&quot;First label&quot;</span><span class="p">,</span> <span class="n">parent</span><span class="p">)</span>
+<span class="n">lab</span> <span class="o">=</span> <span class="n">QLabel</span><span class="p">(</span><span class="s2">&quot;Second label&quot;</span><span class="p">,</span> <span class="n">parent</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -209,6 +264,7 @@ memory, memory mapped files or shared memory.</p>
   <h3><a href="index.html">Table Of Contents</a></h3>
   <ul>
 <li><a class="reference internal" href="#">Things to be Aware Of</a><ul>
+<li><a class="reference internal" href="#crashes-on-exit">Crashes On Exit</a></li>
 <li><a class="reference internal" href="#keyword-arguments">Keyword Arguments</a></li>
 <li><a class="reference internal" href="#python-strings-qt-strings-and-unicode">Python Strings, Qt Strings and Unicode</a></li>
 <li><a class="reference internal" href="#garbage-collection">Garbage Collection</a></li>
@@ -234,9 +290,6 @@ memory, memory mapped files or shared memory.</p>
       <input type="hidden" name="check_keywords" value="yes" />
       <input type="hidden" name="area" value="default" />
     </form>
-    <p class="searchtip" style="font-size: 90%">
-    Enter search terms or a module, class or function name.
-    </p>
 </div>
 <script type="text/javascript">$('#searchbox').show(0);</script>
         </div>
@@ -258,12 +311,12 @@ memory, memory mapped files or shared memory.</p>
         <li class="right" >
           <a href="multiinheritance.html" title="Support for Cooperative Multi-inheritance"
              >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">PyQt 5.5.1 Reference Guide</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">PyQt 5.6 Reference Guide</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
         &copy; Copyright 2015 Riverbank Computing Limited.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.1.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.4.1.
     </div>
   </body>
 </html>

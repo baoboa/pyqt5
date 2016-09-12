@@ -2,7 +2,7 @@
 //
 // This file is part of the QtWidgets Python extension module.
 //
-// Copyright (c) 2015 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2016 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -63,7 +63,7 @@ public:
     bool backgroundVisible() const;
     void setCenterOnScroll(bool enabled);
     bool centerOnScroll() const;
-    bool find(const QString &exp, QFlags<QTextDocument::FindFlag> options = 0);
+    bool find(const QString &exp, QTextDocument::FindFlags options = QTextDocument::FindFlags());
     QString toPlainText() const;
     void ensureCursorVisible();
     virtual QVariant loadResource(int type, const QUrl &name);
@@ -176,7 +176,7 @@ public:
     QString placeholderText() const;
 %End
 %If (Qt_5_3_0 -)
-    bool find(const QRegExp &exp, QFlags<QTextDocument::FindFlag> options = 0);
+    bool find(const QRegExp &exp, QTextDocument::FindFlags options = QTextDocument::FindFlags());
 %End
 %If (Qt_5_3_0 -)
     QVariant inputMethodQuery(Qt::InputMethodQuery query, QVariant argument) const;

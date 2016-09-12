@@ -2,7 +2,7 @@
 //
 // This file is part of the QtGui Python extension module.
 //
-// Copyright (c) 2015 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2016 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -124,7 +124,7 @@ public:
     QPainterPath translated(qreal dx, qreal dy) const;
     void translate(const QPointF &offset);
     QPainterPath translated(const QPointF &offset) const;
-    void swap(QPainterPath &other);
+    void swap(QPainterPath &other /Constrained/);
 };
 
 QDataStream &operator<<(QDataStream &, const QPainterPath & /Constrained/) /ReleaseGIL/;

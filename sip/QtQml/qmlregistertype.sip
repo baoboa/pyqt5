@@ -1,6 +1,6 @@
 // This is the SIP specification of the qmlRegisterType() function.
 //
-// Copyright (c) 2015 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2016 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -33,6 +33,7 @@ pyqt5_qtqml_get_qmetaobject_t pyqt5_qtqml_get_qmetaobject;
 // Imports from QtCore.
 pyqt5_qtqml_get_qmetaobject = (pyqt5_qtqml_get_qmetaobject_t)sipImportSymbol(
         "pyqt5_get_qmetaobject");
+Q_ASSERT(pyqt5_qtqml_get_qmetaobject);
 %End
 
 
@@ -51,7 +52,7 @@ int qmlRegisterSingletonType(const QUrl &url, const char *uri, int major,
 
 
 int qmlRegisterSingletonType(SIP_PYTYPE, const char *uri, int major, int minor,
-        const char *typeName, SIP_PYCALLABLE factory);
+        const char *typeName, SIP_PYCALLABLE factory /TypeHint="Callable[[QQmlEngine, QJSEngine], Any]"/);
 %MethodCode
     if ((sipRes = qpyqml_register_singleton_type((PyTypeObject *)a0, a1, a2, a3, a4, a5)) < 0)
         sipError = sipErrorFail;

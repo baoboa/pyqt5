@@ -1,7 +1,7 @@
 // This is the SIP interface definition for the majority of the QList based
 // mapped types.
 //
-// Copyright (c) 2015 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2016 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -30,7 +30,9 @@
 
 
 template<_TYPE_>
-%MappedType QList<_TYPE_> /DocType="list-of-_TYPE_"/
+%MappedType QList<_TYPE_>
+        /TypeHintIn="Iterable[_TYPE_]", TypeHintOut="List[_TYPE_]",
+        TypeHintValue="[]"/
 {
 %TypeHeaderCode
 #include <qlist.h>
@@ -85,7 +87,7 @@ template<_TYPE_>
 
     QList<_TYPE_> *ql = new QList<_TYPE_>;
  
-    for (SIP_SSIZE_T i = 0; ; ++i)
+    for (Py_ssize_t i = 0; ; ++i)
     {
         PyErr_Clear();
         PyObject *itm = PyIter_Next(iter);
@@ -112,8 +114,8 @@ template<_TYPE_>
         if (*sipIsErr)
         {
             PyErr_Format(PyExc_TypeError,
-                    "index " SIP_SSIZE_T_FORMAT " has type '%s' but '_TYPE_' is expected",
-                    i, Py_TYPE(itm)->tp_name);
+                    "index %zd has type '%s' but '_TYPE_' is expected", i,
+                    Py_TYPE(itm)->tp_name);
 
             Py_DECREF(itm);
             delete ql;
@@ -138,7 +140,9 @@ template<_TYPE_>
 
 
 template<_TYPE_>
-%MappedType QList<_TYPE_ *> /DocType="list-of-_TYPE_"/
+%MappedType QList<_TYPE_ *>
+        /TypeHintIn="Iterable[_TYPE_]", TypeHintOut="List[_TYPE_]",
+        TypeHintValue="[]"/
 {
 %TypeHeaderCode
 #include <qlist.h>
@@ -194,7 +198,7 @@ template<_TYPE_>
 
     QList<_TYPE_ *> *ql = new QList<_TYPE_ *>;
  
-    for (SIP_SSIZE_T i = 0; ; ++i)
+    for (Py_ssize_t i = 0; ; ++i)
     {
         PyErr_Clear();
         PyObject *itm = PyIter_Next(iter);
@@ -220,8 +224,8 @@ template<_TYPE_>
         if (*sipIsErr)
         {
             PyErr_Format(PyExc_TypeError,
-                    "index " SIP_SSIZE_T_FORMAT " has type '%s' but '_TYPE_' is expected",
-                    i, Py_TYPE(itm)->tp_name);
+                    "index %zd has type '%s' but '_TYPE_' is expected", i,
+                    Py_TYPE(itm)->tp_name);
 
             Py_DECREF(itm);
             delete ql;
@@ -246,7 +250,8 @@ template<_TYPE_>
 
 template<_TYPE1_, _TYPE2_>
 %MappedType QList<QPair<_TYPE1_, _TYPE2_> >
-        /DocType="list-of-tuple-of-_TYPE1_-_TYPE2_"/
+        /TypeHintIn="Iterable[Tuple[_TYPE1_, _TYPE2_]]",
+        TypeHintOut="List[Tuple[_TYPE1_, _TYPE2_]]", TypeHintValue="[]"/
 {
 %TypeHeaderCode
 #include <qlist.h>
@@ -305,7 +310,7 @@ template<_TYPE1_, _TYPE2_>
 
     QList<QPair<_TYPE1_, _TYPE2_> > *ql = new QList<QPair<_TYPE1_, _TYPE2_> >;
  
-    for (SIP_SSIZE_T i = 0; ; ++i)
+    for (Py_ssize_t i = 0; ; ++i)
     {
         PyErr_Clear();
         PyObject *seq = PyIter_Next(iter);
@@ -324,7 +329,7 @@ template<_TYPE1_, _TYPE2_>
             break;
         }
 
-        SIP_SSIZE_T sub_len;
+        Py_ssize_t sub_len;
 
         if (PySequence_Check(seq)
 #if PY_MAJOR_VERSION < 3
@@ -339,11 +344,11 @@ template<_TYPE1_, _TYPE2_>
         {
             if (sub_len < 0)
                 PyErr_Format(PyExc_TypeError,
-                        "index " SIP_SSIZE_T_FORMAT " has type '%s' but a 2 element non-string sequence is expected",
+                        "index %zd has type '%s' but a 2 element non-string sequence is expected",
                         i, Py_TYPE(seq)->tp_name);
             else
                 PyErr_Format(PyExc_TypeError,
-                        "index " SIP_SSIZE_T_FORMAT " is a sequence of " SIP_SSIZE_T_FORMAT " sub-elements but 2 sub-elements are expected",
+                        "index %zd is a sequence of %zd sub-elements but 2 sub-elements are expected",
                         i, sub_len);
 
             Py_DECREF(seq);
@@ -374,7 +379,7 @@ template<_TYPE1_, _TYPE2_>
         if (*sipIsErr)
         {
             PyErr_Format(PyExc_TypeError,
-                    "the first sub-element of index " SIP_SSIZE_T_FORMAT " has type '%s' but '_TYPE1_' is expected",
+                    "the first sub-element of index %zd has type '%s' but '_TYPE1_' is expected",
                     i, Py_TYPE(itm1)->tp_name);
 
             Py_DECREF(itm1);
@@ -407,7 +412,7 @@ template<_TYPE1_, _TYPE2_>
         if (*sipIsErr)
         {
             PyErr_Format(PyExc_TypeError,
-                    "the second sub-element of index " SIP_SSIZE_T_FORMAT " has type '%s' but '_TYPE2_' is expected",
+                    "the second sub-element of index %zd has type '%s' but '_TYPE2_' is expected",
                     i, Py_TYPE(itm2)->tp_name);
 
             Py_DECREF(itm2);
@@ -440,7 +445,9 @@ template<_TYPE1_, _TYPE2_>
 
 %If (Qt_5_1_0 -)
 
-%MappedType QList<QPair<int, int> > /DocType="list-of-tuple-of-int-int"/
+%MappedType QList<QPair<int, int> >
+        /TypeHintIn="Iterable[Tuple[int, int]]",
+        TypeHintOut="List[Tuple[int, int]]", TypeHintValue="[]"/
 {
 %TypeHeaderCode
 #include <qlist.h>
@@ -494,7 +501,7 @@ template<_TYPE1_, _TYPE2_>
 
     QList<QPair<int, int> > *ql = new QList<QPair<int, int> >;
  
-    for (SIP_SSIZE_T i = 0; ; ++i)
+    for (Py_ssize_t i = 0; ; ++i)
     {
         PyErr_Clear();
         PyObject *seq = PyIter_Next(iter);
@@ -513,7 +520,7 @@ template<_TYPE1_, _TYPE2_>
             break;
         }
 
-        SIP_SSIZE_T sub_len;
+        Py_ssize_t sub_len;
 
         if (PySequence_Check(seq)
 #if PY_MAJOR_VERSION < 3
@@ -528,11 +535,11 @@ template<_TYPE1_, _TYPE2_>
         {
             if (sub_len < 0)
                 PyErr_Format(PyExc_TypeError,
-                        "index " SIP_SSIZE_T_FORMAT " has type '%s' but a 2 element non-string sequence is expected",
+                        "index %zd has type '%s' but a 2 element non-string sequence is expected",
                         i, Py_TYPE(seq)->tp_name);
             else
                 PyErr_Format(PyExc_TypeError,
-                        "index " SIP_SSIZE_T_FORMAT " is a sequence of " SIP_SSIZE_T_FORMAT " sub-elements but 2 sub-elements are expected",
+                        "index %zd is a sequence of %zd sub-elements but 2 sub-elements are expected",
                         i, sub_len);
 
             Py_DECREF(seq);
@@ -561,7 +568,7 @@ template<_TYPE1_, _TYPE2_>
         if (PyErr_Occurred())
         {
             PyErr_Format(PyExc_TypeError,
-                    "the first sub-element of index " SIP_SSIZE_T_FORMAT " has type '%s' but 'int' is expected",
+                    "the first sub-element of index %zd has type '%s' but 'int' is expected",
                     i, Py_TYPE(itm1)->tp_name);
 
             Py_DECREF(itm1);
@@ -592,7 +599,7 @@ template<_TYPE1_, _TYPE2_>
         if (PyErr_Occurred())
         {
             PyErr_Format(PyExc_TypeError,
-                    "the second sub-element of index " SIP_SSIZE_T_FORMAT " has type '%s' but 'int' is expected",
+                    "the second sub-element of index %zd has type '%s' but 'int' is expected",
                     i, Py_TYPE(itm2)->tp_name);
 
             Py_DECREF(itm2);
@@ -623,7 +630,9 @@ template<_TYPE1_, _TYPE2_>
 %End
 
 
-%MappedType QList<int> /DocType="list-of-int"/
+%MappedType QList<int>
+        /TypeHintIn="Iterable[int]", TypeHintOut="List[int]",
+        TypeHintValue="[]"/
 {
 %TypeHeaderCode
 #include <qlist.h>
@@ -675,7 +684,7 @@ template<_TYPE1_, _TYPE2_>
 
     QList<int> *ql = new QList<int>;
  
-    for (SIP_SSIZE_T i = 0; ; ++i)
+    for (Py_ssize_t i = 0; ; ++i)
     {
         PyErr_Clear();
         PyObject *itm = PyIter_Next(iter);
@@ -700,8 +709,8 @@ template<_TYPE1_, _TYPE2_>
         if (PyErr_Occurred())
         {
             PyErr_Format(PyExc_TypeError,
-                    "index " SIP_SSIZE_T_FORMAT " has type '%s' but 'int' is expected",
-                    i, Py_TYPE(itm)->tp_name);
+                    "index %zd has type '%s' but 'int' is expected", i,
+                    Py_TYPE(itm)->tp_name);
 
             Py_DECREF(itm);
             delete ql;
@@ -725,7 +734,9 @@ template<_TYPE1_, _TYPE2_>
 };
 
 
-%MappedType QList<qreal> /DocType="list-of-float"/
+%MappedType QList<qreal>
+        /TypeHintIn="Iterable[float]", TypeHintOut="List[float]",
+        TypeHintValue="[]"/
 {
 %TypeHeaderCode
 #include <qlist.h>
@@ -777,7 +788,7 @@ template<_TYPE1_, _TYPE2_>
 
     QList<qreal> *ql = new QList<qreal>;
  
-    for (SIP_SSIZE_T i = 0; ; ++i)
+    for (Py_ssize_t i = 0; ; ++i)
     {
         PyErr_Clear();
         PyObject *itm = PyIter_Next(iter);
@@ -802,8 +813,8 @@ template<_TYPE1_, _TYPE2_>
         if (PyErr_Occurred())
         {
             PyErr_Format(PyExc_TypeError,
-                    "index " SIP_SSIZE_T_FORMAT " has type '%s' but 'float' is expected",
-                    i, Py_TYPE(itm)->tp_name);
+                    "index %zd has type '%s' but 'float' is expected", i,
+                    Py_TYPE(itm)->tp_name);
 
             Py_DECREF(itm);
             delete ql;
@@ -827,7 +838,9 @@ template<_TYPE1_, _TYPE2_>
 };
 
 
-%MappedType QList<Qt::DayOfWeek> /DocType="list-of-Qt.DayOfWeek"/
+%MappedType QList<Qt::DayOfWeek>
+        /TypeHintIn="Iterable[Qt.DayOfWeek]", TypeHintOut="List[Qt.DayOfWeek]",
+        TypeHintValue="[]"/
 {
 %TypeHeaderCode
 #include <Qt>
@@ -880,7 +893,7 @@ template<_TYPE1_, _TYPE2_>
 
     QList<Qt::DayOfWeek> *ql = new QList<Qt::DayOfWeek>;
 
-    for (SIP_SSIZE_T i = 0; ; ++i)
+    for (Py_ssize_t i = 0; ; ++i)
     {
         PyErr_Clear();
         PyObject *itm = PyIter_Next(iter);
@@ -902,7 +915,7 @@ template<_TYPE1_, _TYPE2_>
         if (!sipCanConvertToEnum(itm, sipType_Qt_DayOfWeek))
         {
             PyErr_Format(PyExc_TypeError,
-                    "index " SIP_SSIZE_T_FORMAT " has type '%s' but 'Qt.DayOfWeek' is expected",
+                    "index %zd has type '%s' but 'Qt.DayOfWeek' is expected",
                     i, Py_TYPE(itm)->tp_name);
 
             Py_DECREF(itm);

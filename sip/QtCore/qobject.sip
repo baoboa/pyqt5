@@ -2,7 +2,7 @@
 //
 // This file is part of the QtCore Python extension module.
 //
-// Copyright (c) 2015 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2016 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -20,7 +20,7 @@
 // WARRANTY OF DESIGN, MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE.
 
 
-typedef QList<QObject*> QObjectList;
+typedef QList<QObject *> QObjectList;
 
 class QObject /Supertype=sip.wrapper/
 {
@@ -55,7 +55,7 @@ static PyObject *qtcore_type_to_tuple(PyObject *type)
 // reference to the tuple if so.
 static PyObject *qtcore_check_tuple_types(PyObject *types)
 {
-    for (SIP_SSIZE_T i = 0; i < PyTuple_GET_SIZE(types); ++i)
+    for (Py_ssize_t i = 0; i < PyTuple_GET_SIZE(types); ++i)
         if (!PyObject_TypeCheck(PyTuple_GET_ITEM(types, i), &PyType_Type))
         {
             PyErr_SetString(PyExc_TypeError,
@@ -86,7 +86,7 @@ static PyObject *qtcore_do_find_child(const QObject *parent, PyObject *types, co
         QObject *resolved = reinterpret_cast<QObject *>(sipGetAddress((sipSimpleWrapper *)pyo));
 
         if (name.isNull() || resolved->objectName() == name)
-            for (SIP_SSIZE_T t = 0; t < PyTuple_GET_SIZE(types); ++t)
+            for (Py_ssize_t t = 0; t < PyTuple_GET_SIZE(types); ++t)
                 if (PyType_IsSubtype(Py_TYPE(pyo), (PyTypeObject *)PyTuple_GET_ITEM(types, t)))
                     return pyo;
 
@@ -142,7 +142,7 @@ static bool qtcore_do_find_children(const QObject *parent, PyObject *types, cons
         QObject *resolved = reinterpret_cast<QObject *>(sipGetAddress((sipSimpleWrapper *)pyo));
 
         if (name.isNull() || resolved->objectName() == name)
-            for (SIP_SSIZE_T t = 0; t < PyTuple_GET_SIZE(types); ++t)
+            for (Py_ssize_t t = 0; t < PyTuple_GET_SIZE(types); ++t)
                 if (PyType_IsSubtype(Py_TYPE(pyo), (PyTypeObject *)PyTuple_GET_ITEM(types, t)))
                     if (PyList_Append(list, pyo) < 0)
                     {
@@ -200,7 +200,7 @@ static bool qtcore_do_find_children(const QObject *parent, PyObject *types, cons
             return false;
 
         if (re.indexIn(obj->objectName()) >= 0)
-            for (SIP_SSIZE_T t = 0; t < PyTuple_GET_SIZE(types); ++t)
+            for (Py_ssize_t t = 0; t < PyTuple_GET_SIZE(types); ++t)
                 if (PyType_IsSubtype(Py_TYPE(pyo), (PyTypeObject *)PyTuple_GET_ITEM(types, t)))
                     if (PyList_Append(list, pyo) < 0)
                     {
@@ -260,7 +260,7 @@ static bool qtcore_do_find_children(const QObject *parent, PyObject *types, cons
         QRegularExpressionMatch m = re.match(obj->objectName());
         
         if (m.hasMatch())
-            for (SIP_SSIZE_T t = 0; t < PyTuple_GET_SIZE(types); ++t)
+            for (Py_ssize_t t = 0; t < PyTuple_GET_SIZE(types); ++t)
                 if (PyType_IsSubtype(Py_TYPE(pyo), (PyTypeObject *)PyTuple_GET_ITEM(types, t)))
                     if (PyList_Append(list, pyo) < 0)
                     {
@@ -449,7 +449,7 @@ callable.
         sipRes = new QString(QCoreApplication::translate(Py_TYPE(sipSelf)->tp_name, a0, a1, a2));
 %End
 
-    SIP_PYOBJECT findChild(SIP_PYTYPE type, const QString &name /DocValue="''"/ = QString(), Qt::FindChildOptions options = Qt::FindChildrenRecursively) const /DocType="QObject"/;
+    SIP_PYOBJECT findChild(SIP_PYTYPE type, const QString &name = QString(), Qt::FindChildOptions options = Qt::FindChildrenRecursively) const /TypeHint="QObject"/;
 %MethodCode
         sipRes = qtcore_FindChild(sipCpp, qtcore_type_to_tuple(a0), *a1, *a2);
         
@@ -457,7 +457,7 @@ callable.
             sipIsErr = 1;
 %End
 
-    SIP_PYOBJECT findChild(SIP_PYTUPLE types /DocValue="tuple-of-types"/, const QString &name /DocValue="''"/ = QString(), Qt::FindChildOptions options = Qt::FindChildrenRecursively) const /DocType="QObject"/;
+    SIP_PYOBJECT findChild(SIP_PYTUPLE types /TypeHintValue="()"/, const QString &name = QString(), Qt::FindChildOptions options = Qt::FindChildrenRecursively) const /TypeHint="QObject"/;
 %MethodCode
         sipRes = qtcore_FindChild(sipCpp, qtcore_check_tuple_types(a0), *a1, *a2);
         
@@ -465,7 +465,7 @@ callable.
             sipIsErr = 1;
 %End
 
-    SIP_PYLIST findChildren(SIP_PYTYPE type, const QString &name /DocValue="''"/ = QString(), Qt::FindChildOptions options = Qt::FindChildrenRecursively) const /DocType="list-of-QObject"/;
+    SIP_PYLIST findChildren(SIP_PYTYPE type, const QString &name = QString(), Qt::FindChildOptions options = Qt::FindChildrenRecursively) const /TypeHint="List[QObject]"/;
 %MethodCode
         sipRes = qtcore_FindChildren(sipCpp, qtcore_type_to_tuple(a0), *a1, *a2);
         
@@ -473,7 +473,7 @@ callable.
             sipIsErr = 1;
 %End
 
-    SIP_PYLIST findChildren(SIP_PYTUPLE types /DocValue="tuple-of-types"/, const QString &name /DocValue="''"/ = QString(), Qt::FindChildOptions options = Qt::FindChildrenRecursively) const /DocType="list-of-QObject"/;
+    SIP_PYLIST findChildren(SIP_PYTUPLE types /TypeHintValue="()"/, const QString &name = QString(), Qt::FindChildOptions options = Qt::FindChildrenRecursively) const /TypeHint="List[QObject]"/;
 %MethodCode
         sipRes = qtcore_FindChildren(sipCpp, qtcore_check_tuple_types(a0), *a1, *a2);
         
@@ -481,7 +481,7 @@ callable.
             sipIsErr = 1;
 %End
 
-    SIP_PYLIST findChildren(SIP_PYTYPE type, const QRegExp &regExp, Qt::FindChildOptions options = Qt::FindChildrenRecursively) const /DocType="list-of-QObject"/;
+    SIP_PYLIST findChildren(SIP_PYTYPE type, const QRegExp &regExp, Qt::FindChildOptions options = Qt::FindChildrenRecursively) const /TypeHint="List[QObject]"/;
 %MethodCode
         sipRes = qtcore_FindChildren(sipCpp, qtcore_type_to_tuple(a0), *a1, *a2);
         
@@ -489,7 +489,7 @@ callable.
             sipIsErr = 1;
 %End
 
-    SIP_PYLIST findChildren(SIP_PYTUPLE types /DocValue="tuple-of-types"/, const QRegExp &regExp, Qt::FindChildOptions options = Qt::FindChildrenRecursively) const /DocType="list-of-QObject"/;
+    SIP_PYLIST findChildren(SIP_PYTUPLE types /TypeHintValue="()"/, const QRegExp &regExp, Qt::FindChildOptions options = Qt::FindChildrenRecursively) const /TypeHint="List[QObject]"/;
 %MethodCode
         sipRes = qtcore_FindChildren(sipCpp, qtcore_check_tuple_types(a0), *a1, *a2);
         
@@ -497,7 +497,7 @@ callable.
             sipIsErr = 1;
 %End
 
-    SIP_PYLIST findChildren(SIP_PYTYPE type, const QRegularExpression &re, Qt::FindChildOptions options = Qt::FindChildrenRecursively) const /DocType="list-of-QObject"/;
+    SIP_PYLIST findChildren(SIP_PYTYPE type, const QRegularExpression &re, Qt::FindChildOptions options = Qt::FindChildrenRecursively) const /TypeHint="List[QObject]"/;
 %MethodCode
         sipRes = qtcore_FindChildren(sipCpp, qtcore_type_to_tuple(a0), *a1, *a2);
         
@@ -505,7 +505,7 @@ callable.
             sipIsErr = 1;
 %End
 
-    SIP_PYLIST findChildren(SIP_PYTUPLE types /DocValue="tuple-of-types"/, const QRegularExpression &re, Qt::FindChildOptions options = Qt::FindChildrenRecursively) const /DocType="list-of-QObject"/;
+    SIP_PYLIST findChildren(SIP_PYTUPLE types /TypeHintValue="()"/, const QRegularExpression &re, Qt::FindChildOptions options = Qt::FindChildrenRecursively) const /TypeHint="List[QObject]"/;
 %MethodCode
         sipRes = qtcore_FindChildren(sipCpp, qtcore_check_tuple_types(a0), *a1, *a2);
         
@@ -567,14 +567,16 @@ protected:
             static qtcore_qobject_sender_t qtcore_qobject_sender = 0;
         
             if (!qtcore_qobject_sender)
+            {
                 qtcore_qobject_sender = (qtcore_qobject_sender_t)sipImportSymbol("qtcore_qobject_sender");
+                Q_ASSERT(qtcore_qobject_sender);
+            }
         
-            if (qtcore_qobject_sender)
-                sipRes = qtcore_qobject_sender();
+            sipRes = qtcore_qobject_sender();
         }
 %End
 
-    int receivers(SIP_PYOBJECT signal /DocType="signal"/) const [int (const char *signal)];
+    int receivers(SIP_PYOBJECT signal /TypeHint="PYQT_SIGNAL"/) const [int (const char *signal)];
 %MethodCode
         // We need to handle the signal object.  Import the helper if it hasn't already
         // been done.
@@ -583,27 +585,27 @@ protected:
         static pyqt5_get_signal_signature_t pyqt5_get_signal_signature = 0;
         
         if (!pyqt5_get_signal_signature)
-            pyqt5_get_signal_signature = (pyqt5_get_signal_signature_t)sipImportSymbol("pyqt5_get_signal_signature");
-        
-        if (pyqt5_get_signal_signature)
         {
-            QByteArray signal_signature;
+            pyqt5_get_signal_signature = (pyqt5_get_signal_signature_t)sipImportSymbol("pyqt5_get_signal_signature");
+            Q_ASSERT(pyqt5_get_signal_signature);
+        }
+        
+        QByteArray signal_signature;
             
         #if defined(SIP_PROTECTED_IS_PUBLIC)
-            if ((sipError = pyqt5_get_signal_signature(a0, sipCpp, signal_signature)) == sipErrorNone)
-            {
-                sipRes = sipCpp->receivers(signal_signature.constData());
-            }
+        if ((sipError = pyqt5_get_signal_signature(a0, sipCpp, signal_signature)) == sipErrorNone)
+        {
+            sipRes = sipCpp->receivers(signal_signature.constData());
+        }
         #else
-            if ((sipError = pyqt5_get_signal_signature(a0, static_cast<const QObject *>(sipCpp), signal_signature)) == sipErrorNone)
-            {
-                sipRes = sipCpp->sipProtect_receivers(signal_signature.constData());
-            }
+        if ((sipError = pyqt5_get_signal_signature(a0, static_cast<const QObject *>(sipCpp), signal_signature)) == sipErrorNone)
+        {
+            sipRes = sipCpp->sipProtect_receivers(signal_signature.constData());
+        }
         #endif
-            else if (sipError == sipErrorContinue)
-            {
-                sipError = sipBadCallableArg(0, a0);
-            }
+        else if (sipError == sipErrorContinue)
+        {
+            sipError = sipBadCallableArg(0, a0);
         }
 %End
 
@@ -616,7 +618,7 @@ protected:
     bool isSignalConnected(const QMetaMethod &signal) const;
 
 public:
-    SIP_PYOBJECT disconnect() const /DocType=""/;
+    SIP_PYOBJECT disconnect() const /TypeHint=""/;
 %MethodCode
         sipRes = qpycore_qobject_disconnect(sipCpp);
 %End
@@ -625,42 +627,42 @@ private:
     QObject(const QObject &);
 };
 
-SIP_PYOBJECT Q_CLASSINFO(const char *name, const char *value) /DocType=""/;
+SIP_PYOBJECT Q_CLASSINFO(const char *name, const char *value) /TypeHint=""/;
 %MethodCode
     sipRes = qpycore_ClassInfo(a0, a1);
 %End
 
-SIP_PYOBJECT Q_ENUMS(...) /DocType=""/;
+SIP_PYOBJECT Q_ENUMS(...) /TypeHint=""/;
 %MethodCode
     sipRes = qpycore_Enums(a0);
 %End
 
-SIP_PYOBJECT Q_FLAGS(...) /DocType=""/;
+SIP_PYOBJECT Q_FLAGS(...) /TypeHint=""/;
 %MethodCode
     sipRes = qpycore_Flags(a0);
 %End
 
-SIP_PYOBJECT QT_TR_NOOP(SIP_PYOBJECT /DocType="str"/) /DocType="str"/;
+SIP_PYOBJECT QT_TR_NOOP(SIP_PYOBJECT /TypeHint="str"/) /TypeHint="str"/;
 %MethodCode
     Py_INCREF(a0);
     sipRes = a0;
 %End
 
-SIP_PYOBJECT QT_TR_NOOP_UTF8(SIP_PYOBJECT /DocType="str"/) /DocType="str"/;
+SIP_PYOBJECT QT_TR_NOOP_UTF8(SIP_PYOBJECT /TypeHint="str"/) /TypeHint="str"/;
 %MethodCode
     Py_INCREF(a0);
     sipRes = a0;
 %End
 
-SIP_PYOBJECT QT_TRANSLATE_NOOP(SIP_PYOBJECT /DocType="str"/, SIP_PYOBJECT /DocType="str"/) /DocType="str"/;
+SIP_PYOBJECT QT_TRANSLATE_NOOP(SIP_PYOBJECT /TypeHint="str"/, SIP_PYOBJECT /TypeHint="str"/) /TypeHint="str"/;
 %MethodCode
     Py_INCREF(a1);
     sipRes = a1;
 %End
 
-SIP_PYOBJECT pyqtSlot(const char *signature, const char *name = 0, const char *result = 0) /NoArgParser/;
+SIP_PYOBJECT pyqtSlot(... types, const char *name = 0, const char *result = 0) /NoArgParser, TypeHint="Callable[..., Optional[str]]"/;
 %Docstring
-@pyqtSlot(*types, str name=None, str result=None)
+@pyqtSlot(*types, name: Optional[str], result: Optional[str])
 
 This is a decorator applied to Python methods of a QObject that marks them
 as Qt slots.

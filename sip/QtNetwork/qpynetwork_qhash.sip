@@ -1,7 +1,7 @@
 // This is the SIP interface definition for the QHash based mapped types
 // specific to the QtNetwork module.
 //
-// Copyright (c) 2015 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2016 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -20,7 +20,8 @@
 
 
 %MappedType QHash<QNetworkRequest::Attribute, QVariant>
-        /DocType="dict-of-QNetworkRequest.Attribute-object"/
+        /TypeHint="Dict[QNetworkRequest.Attribute, QVariant]",
+        TypeHintValue="{}"/
 {
 %TypeHeaderCode
 #include <qhash.h>
@@ -84,7 +85,7 @@
 
     QHash<QNetworkRequest::Attribute, QVariant> *qh = new QHash<QNetworkRequest::Attribute, QVariant>;
 
-    SIP_SSIZE_T pos = 0;
+    Py_ssize_t pos = 0;
     PyObject *kobj, *vobj;
  
     while (PyDict_Next(sipPy, &pos, &kobj, &vobj))

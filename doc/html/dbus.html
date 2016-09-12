@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>DBus Support &mdash; PyQt 5.5.1 Reference Guide</title>
+    <title>DBus Support &mdash; PyQt 5.6 Reference Guide</title>
     
     <link rel="stylesheet" href="_static/classic.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '5.5.1',
+        VERSION:     '5.6',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -24,7 +24,7 @@
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
     <link rel="shortcut icon" href="_static/logo_tn.ico"/>
-    <link rel="top" title="PyQt 5.5.1 Reference Guide" href="index.html" />
+    <link rel="top" title="PyQt 5.6 Reference Guide" href="index.html" />
     <link rel="next" title="Deploying Commercial PyQt5 Applications" href="deploy_commercial.html" />
     <link rel="prev" title="Internationalisation of PyQt5 Applications" href="i18n.html" /> 
   </head>
@@ -44,7 +44,7 @@
         <li class="right" >
           <a href="i18n.html" title="Internationalisation of PyQt5 Applications"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">PyQt 5.5.1 Reference Guide</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">PyQt 5.6 Reference Guide</a> &raquo;</li> 
       </ul>
     </div>  
 
@@ -74,36 +74,36 @@ argument that is an array of structures of three integers (red, green and
 blue).  The DBus signature of the argument would then be <code class="docutils literal"><span class="pre">a(iii)</span></code>.  In C++
 you would typically define a class to hold the red, green and blue values and
 so your code would include the following (incomplete) fragments:</p>
-<div class="highlight-python"><div class="highlight"><pre>struct Color
-{
-    int red;
-    int green;
-    int blue;
-};
-Q_DECLARE_METATYPE(Color)
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">struct</span> <span class="n">Color</span>
+<span class="p">{</span>
+    <span class="nb">int</span> <span class="n">red</span><span class="p">;</span>
+    <span class="nb">int</span> <span class="n">green</span><span class="p">;</span>
+    <span class="nb">int</span> <span class="n">blue</span><span class="p">;</span>
+<span class="p">};</span>
+<span class="n">Q_DECLARE_METATYPE</span><span class="p">(</span><span class="n">Color</span><span class="p">)</span>
 
-qDBusRegisterMetaType&lt;Color&gt;();
+<span class="n">qDBusRegisterMetaType</span><span class="o">&lt;</span><span class="n">Color</span><span class="o">&gt;</span><span class="p">();</span>
 
-class ServerAdaptor : public QDBusAbstractAdaptor
-{
-    Q_OBJECT
+<span class="k">class</span> <span class="nc">ServerAdaptor</span> <span class="p">:</span> <span class="n">public</span> <span class="n">QDBusAbstractAdaptor</span>
+<span class="p">{</span>
+    <span class="n">Q_OBJECT</span>
 
-public slots:
-    void setColors(QList&lt;const Color &amp;&gt; colors);
-};
+<span class="n">public</span> <span class="n">slots</span><span class="p">:</span>
+    <span class="n">void</span> <span class="n">setColors</span><span class="p">(</span><span class="n">QList</span><span class="o">&lt;</span><span class="n">const</span> <span class="n">Color</span> <span class="o">&amp;&gt;</span> <span class="n">colors</span><span class="p">);</span>
+<span class="p">};</span>
 </pre></div>
 </div>
 <p>The Python version is, of course, much simpler:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="k">class</span> <span class="nc">ServerAdaptor</span><span class="p">(</span><span class="n">QDBusAbstractAdaptor</span><span class="p">):</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">ServerAdaptor</span><span class="p">(</span><span class="n">QDBusAbstractAdaptor</span><span class="p">):</span>
 
     <span class="nd">@pyqtSlot</span><span class="p">(</span><span class="n">QDBusMessage</span><span class="p">)</span>
     <span class="k">def</span> <span class="nf">setColors</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">message</span><span class="p">):</span>
-        <span class="c"># Get the single argument.</span>
+        <span class="c1"># Get the single argument.</span>
         <span class="n">colors</span> <span class="o">=</span> <span class="n">message</span><span class="o">.</span><span class="n">arguments</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
 
-        <span class="c"># The argument will be a list of 3-tuples of ints.</span>
+        <span class="c1"># The argument will be a list of 3-tuples of ints.</span>
         <span class="k">for</span> <span class="n">red</span><span class="p">,</span> <span class="n">green</span><span class="p">,</span> <span class="n">blue</span> <span class="ow">in</span> <span class="n">colors</span><span class="p">:</span>
-            <span class="k">print</span><span class="p">(</span><span class="s">&quot;RGB:&quot;</span><span class="p">,</span> <span class="n">red</span><span class="p">,</span> <span class="n">green</span><span class="p">,</span> <span class="n">blue</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;RGB:&quot;</span><span class="p">,</span> <span class="n">red</span><span class="p">,</span> <span class="n">green</span><span class="p">,</span> <span class="n">blue</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>Note that this technique can be used for arguments of any type, it is only
@@ -135,9 +135,9 @@ keyword argument, and not as a positional argument.</td>
 
 <p>The following code fragment is all that is normally needed to set up the
 standard <code class="docutils literal"><span class="pre">dbus-python</span></code> language bindings package to be used with PyQt5:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">dbus.mainloop.pyqt5</span> <span class="kn">import</span> <span class="n">DBusQtMainLoop</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">dbus.mainloop.pyqt5</span> <span class="k">import</span> <span class="n">DBusQtMainLoop</span>
 
-<span class="n">DBusQtMainLoop</span><span class="p">(</span><span class="n">set_as_default</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+<span class="n">DBusQtMainLoop</span><span class="p">(</span><span class="n">set_as_default</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -175,9 +175,6 @@ standard <code class="docutils literal"><span class="pre">dbus-python</span></co
       <input type="hidden" name="check_keywords" value="yes" />
       <input type="hidden" name="area" value="default" />
     </form>
-    <p class="searchtip" style="font-size: 90%">
-    Enter search terms or a module, class or function name.
-    </p>
 </div>
 <script type="text/javascript">$('#searchbox').show(0);</script>
         </div>
@@ -199,12 +196,12 @@ standard <code class="docutils literal"><span class="pre">dbus-python</span></co
         <li class="right" >
           <a href="i18n.html" title="Internationalisation of PyQt5 Applications"
              >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">PyQt 5.5.1 Reference Guide</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">PyQt 5.6 Reference Guide</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
         &copy; Copyright 2015 Riverbank Computing Limited.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.1.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.4.1.
     </div>
   </body>
 </html>

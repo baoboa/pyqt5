@@ -2,7 +2,7 @@
 //
 // This file is part of the QtWidgets Python extension module.
 //
-// Copyright (c) 2015 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2016 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -31,10 +31,10 @@ public:
     virtual ~QUndoGroup();
     void addStack(QUndoStack *stack);
     void removeStack(QUndoStack *stack);
-    QList<QUndoStack*> stacks() const;
+    QList<QUndoStack *> stacks() const;
     QUndoStack *activeStack() const;
-    QAction *createRedoAction(QObject *parent /TransferThis/, const QString &prefix /DocValue="''"/ = QString()) const /Factory/;
-    QAction *createUndoAction(QObject *parent /TransferThis/, const QString &prefix /DocValue="''"/ = QString()) const /Factory/;
+    QAction *createRedoAction(QObject *parent /TransferThis/, const QString &prefix = QString()) const /Factory/;
+    QAction *createUndoAction(QObject *parent /TransferThis/, const QString &prefix = QString()) const /Factory/;
     bool canUndo() const;
     bool canRedo() const;
     QString undoText() const;

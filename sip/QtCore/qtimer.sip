@@ -2,7 +2,7 @@
 //
 // This file is part of the QtCore Python extension module.
 //
-// Copyright (c) 2015 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2016 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -35,7 +35,7 @@ public:
     int interval() const;
     bool isSingleShot() const;
     void setSingleShot(bool asingleShot);
-    static void singleShot(int msec, SIP_PYOBJECT slot /DocType="callable-or-signal"/);
+    static void singleShot(int msec, SIP_PYOBJECT slot /TypeHint="PYQT_SLOT"/);
 %MethodCode
         QObject *receiver;
         QByteArray slot_signature;
@@ -50,7 +50,7 @@ public:
         }
 %End
 
-    static void singleShot(int msec, Qt::TimerType timerType, SIP_PYOBJECT slot /DocType="callable-or-signal"/);
+    static void singleShot(int msec, Qt::TimerType timerType, SIP_PYOBJECT slot /TypeHint="PYQT_SLOT"/);
 %MethodCode
         QObject *receiver;
         QByteArray slot_signature;

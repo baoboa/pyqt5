@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>The PyQt5 Extension API &mdash; PyQt 5.5.1 Reference Guide</title>
+    <title>The PyQt5 Extension API &mdash; PyQt 5.6 Reference Guide</title>
     
     <link rel="stylesheet" href="_static/classic.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '5.5.1',
+        VERSION:     '5.6',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -24,7 +24,7 @@
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
     <link rel="shortcut icon" href="_static/logo_tn.ico"/>
-    <link rel="top" title="PyQt 5.5.1 Reference Guide" href="index.html" />
+    <link rel="top" title="PyQt 5.6 Reference Guide" href="index.html" />
     <link rel="prev" title="Deploying Commercial PyQt5 Applications" href="deploy_commercial.html" /> 
   </head>
   <body role="document">
@@ -40,7 +40,7 @@
         <li class="right" >
           <a href="deploy_commercial.html" title="Deploying Commercial PyQt5 Applications"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">PyQt 5.5.1 Reference Guide</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">PyQt 5.6 Reference Guide</a> &raquo;</li> 
       </ul>
     </div>  
 
@@ -79,8 +79,8 @@ by calling SIP&#8217;s <code class="xref c c-func docutils literal"><span class=
 function required.</p>
 <p>Several of the functions are provided as a replacement for SIP v4 features
 (i.e. <code class="docutils literal"><span class="pre">SIP_ANYSLOT</span></code>, <code class="docutils literal"><span class="pre">SIP_QOBJECT</span></code>, <code class="docutils literal"><span class="pre">SIP_RXOBJ_CON</span></code>, <code class="docutils literal"><span class="pre">SIP_RXOBJ_DIS</span></code>,
-<code class="docutils literal"><span class="pre">SIP_SIGNAL</span></code>, <code class="docutils literal"><span class="pre">SIP_SLOT</span></code>, <code class="docutils literal"><span class="pre">SIP_SLOT_CON</span></code> and <code class="docutils literal"><span class="pre">SIP_SLOT_DIS</span></code>) that will
-not be supported by SIP v5.</p>
+<code class="docutils literal"><span class="pre">SIP_SIGNAL</span></code>, <code class="docutils literal"><span class="pre">SIP_SLOT</span></code>, <code class="docutils literal"><span class="pre">SIP_SLOT_CON</span></code> and <code class="docutils literal"><span class="pre">SIP_SLOT_DIS</span></code>) that are
+not supported by SIP v5.</p>
 <p>The functions exported by PyQt5 are as follows:</p>
 <dl class="function">
 <dt id="_CPPv214pyqt_err_printv">
@@ -176,8 +176,7 @@ sub-type of <a class="reference internal" href="api/qobject.html#PyQt5.QtCore.QO
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name" colspan="2">Parameters type:</th></tr>
-<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">is the Python type object.</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>type</strong> &#8211; is the Python type object.</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">the <a class="reference internal" href="api/qmetaobject.html#PyQt5.QtCore.QMetaObject" title="PyQt5.QtCore.QMetaObject"><code class="xref py py-class docutils literal"><span class="pre">QMetaObject</span></code></a>.</td>
 </tr>
@@ -236,14 +235,15 @@ exception will have been raised.</p>
 <dt id="_CPPv226pyqt5_get_signal_signatureP8PyObjectPK7QObjectR10QByteArray">
 <span id="pyqt5_get_signal_signature__PyObjectP.QObjectCP.QByteArrayR"></span>sipErrorState <code class="descclassname"></code><code class="descname">pyqt5_get_signal_signature</code><span class="sig-paren">(</span>PyObject *<em>signal</em>, <em class="property">const</em> QObject *<em>transmitter</em>, QByteArray &amp;<em>signal_signature</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv226pyqt5_get_signal_signatureP8PyObjectPK7QObjectR10QByteArray" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get the signature string for a bound or unbound signal.  If the signal is
-bound then it must be bound to the given transmitter.</p>
+bound, and the given transmitter is specified, then it must be bound to the
+transmitter.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
 <li><strong>signal</strong> &#8211; is the signal.</li>
-<li><strong>transmitter</strong> &#8211; is the <a class="reference internal" href="api/qobject.html#PyQt5.QtCore.QObject" title="PyQt5.QtCore.QObject"><code class="xref py py-class docutils literal"><span class="pre">QObject</span></code></a> transmitter.</li>
+<li><strong>transmitter</strong> &#8211; is the optional <a class="reference internal" href="api/qobject.html#PyQt5.QtCore.QObject" title="PyQt5.QtCore.QObject"><code class="xref py py-class docutils literal"><span class="pre">QObject</span></code></a> transmitter.</li>
 <li><strong>signal_signature</strong> &#8211; is updated with the signature of the signal.</li>
 </ul>
 </td>
@@ -265,8 +265,7 @@ void <code class="descclassname"></code><code class="descname">pyqt5_register_fr
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name" colspan="2">Parameters convertor:</th></tr>
-<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">is the convertor function.  This takes two arguments.  The first
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>convertor</strong> &#8211; is the convertor function.  This takes two arguments.  The first
 argument is the <a class="reference internal" href="api/qvariant.html#PyQt5.QtCore.QVariant" title="PyQt5.QtCore.QVariant"><code class="xref py py-class docutils literal"><span class="pre">QVariant</span></code></a> value to be converted.
 The second argument is updated with a reference to the result of the
 conversion and it will be <code class="docutils literal"><span class="pre">0</span></code>, and a Python exception raised, if
@@ -286,8 +285,7 @@ void <code class="descclassname"></code><code class="descname">pyqt5_register_to
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name" colspan="2">Parameters convertor:</th></tr>
-<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">is the convertor function.  This takes three arguments.  The first
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>convertor</strong> &#8211; is the convertor function.  This takes three arguments.  The first
 argument is the Python object to be converted. The second argument is a
 pointer to <a class="reference internal" href="api/qvariant.html#PyQt5.QtCore.QVariant" title="PyQt5.QtCore.QVariant"><code class="xref py py-class docutils literal"><span class="pre">QVariant</span></code></a> value that is updated with
 the result of the conversion.  The third argument is updated with an
@@ -308,8 +306,7 @@ pre-allocated data of a <a class="reference internal" href="api/qvariant.html#Py
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name" colspan="2">Parameters convertor:</th></tr>
-<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">is the convertor function.  This takes four arguments.  The first
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>convertor</strong> &#8211; is the convertor function.  This takes four arguments.  The first
 argument is the Python object to be converted. The second argument is a
 pointer to the pre-allocated data of a <a class="reference internal" href="api/qvariant.html#PyQt5.QtCore.QVariant" title="PyQt5.QtCore.QVariant"><code class="xref py py-class docutils literal"><span class="pre">QVariant</span></code></a>
 value that is updated with the result of the conversion.  The third
@@ -377,9 +374,6 @@ after calling constructors of classes such as
       <input type="hidden" name="check_keywords" value="yes" />
       <input type="hidden" name="area" value="default" />
     </form>
-    <p class="searchtip" style="font-size: 90%">
-    Enter search terms or a module, class or function name.
-    </p>
 </div>
 <script type="text/javascript">$('#searchbox').show(0);</script>
         </div>
@@ -398,12 +392,12 @@ after calling constructors of classes such as
         <li class="right" >
           <a href="deploy_commercial.html" title="Deploying Commercial PyQt5 Applications"
              >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">PyQt 5.5.1 Reference Guide</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">PyQt 5.6 Reference Guide</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
         &copy; Copyright 2015 Riverbank Computing Limited.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.1.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.4.1.
     </div>
   </body>
 </html>

@@ -2,7 +2,7 @@
 //
 // This file is part of the QtCore Python extension module.
 //
-// Copyright (c) 2015 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2016 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -34,24 +34,31 @@ public:
     ~QUrlQuery();
     bool operator==(const QUrlQuery &other) const;
     bool operator!=(const QUrlQuery &other) const;
-    void swap(QUrlQuery &other);
+    void swap(QUrlQuery &other /Constrained/);
     bool isEmpty() const;
     bool isDetached() const;
     void clear();
-    QString query(QFlags<QUrl::ComponentFormattingOption> options = QUrl::PrettyDecoded) const;
+    QString query(QUrl::ComponentFormattingOptions options = QUrl::PrettyDecoded) const;
     void setQuery(const QString &queryString);
-    QString toString(QFlags<QUrl::ComponentFormattingOption> options = QUrl::PrettyDecoded) const;
+    QString toString(QUrl::ComponentFormattingOptions options = QUrl::PrettyDecoded) const;
     void setQueryDelimiters(QChar valueDelimiter, QChar pairDelimiter);
     QChar queryValueDelimiter() const;
     QChar queryPairDelimiter() const;
     void setQueryItems(const QList<QPair<QString, QString>> &query);
-    QList<QPair<QString, QString>> queryItems(QFlags<QUrl::ComponentFormattingOption> options = QUrl::PrettyDecoded) const;
+    QList<QPair<QString, QString>> queryItems(QUrl::ComponentFormattingOptions options = QUrl::PrettyDecoded) const;
     bool hasQueryItem(const QString &key) const;
     void addQueryItem(const QString &key, const QString &value);
     void removeQueryItem(const QString &key);
-    QString queryItemValue(const QString &key, QFlags<QUrl::ComponentFormattingOption> options = QUrl::PrettyDecoded) const;
-    QStringList allQueryItemValues(const QString &key, QFlags<QUrl::ComponentFormattingOption> options = QUrl::PrettyDecoded) const;
+    QString queryItemValue(const QString &key, QUrl::ComponentFormattingOptions options = QUrl::PrettyDecoded) const;
+    QStringList allQueryItemValues(const QString &key, QUrl::ComponentFormattingOptions options = QUrl::PrettyDecoded) const;
     void removeAllQueryItems(const QString &key);
     static QChar defaultQueryValueDelimiter();
     static QChar defaultQueryPairDelimiter();
+%If (Qt_5_6_0 -)
+    long __hash__() const;
+%MethodCode
+        sipRes = qHash(*sipCpp);
+%End
+
+%End
 };

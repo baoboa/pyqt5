@@ -2,7 +2,7 @@
 //
 // This file is part of the QtNetwork Python extension module.
 //
-// Copyright (c) 2015 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2016 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -60,8 +60,8 @@ public:
     };
 
     typedef QFlags<QLocalServer::SocketOption> SocketOptions;
-    void setSocketOptions(QFlags<QLocalServer::SocketOption> options);
-    QFlags<QLocalServer::SocketOption> socketOptions() const;
+    void setSocketOptions(QLocalServer::SocketOptions options);
+    QLocalServer::SocketOptions socketOptions() const;
 
 private:
     QLocalServer(const QLocalServer &);

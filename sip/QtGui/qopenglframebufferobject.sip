@@ -2,7 +2,7 @@
 //
 // This file is part of the QtGui Python extension module.
 //
-// Copyright (c) 2015 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2016 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -60,10 +60,16 @@ public:
     int width() const;
     int height() const;
     GLuint texture() const;
+%If (Qt_5_6_0 -)
+    QVector<unsigned int> textures() const;
+%End
     QSize size() const;
     QImage toImage() const;
 %If (Qt_5_4_0 -)
     QImage toImage(bool flipped) const;
+%End
+%If (Qt_5_6_0 -)
+    QImage toImage(bool flipped, int colorAttachmentIndex) const;
 %End
     QOpenGLFramebufferObject::Attachment attachment() const;
     void setAttachment(QOpenGLFramebufferObject::Attachment attachment);
@@ -73,8 +79,23 @@ public:
     static bool hasOpenGLFramebufferBlit();
     static void blitFramebuffer(QOpenGLFramebufferObject *target, const QRect &targetRect, QOpenGLFramebufferObject *source, const QRect &sourceRect, GLbitfield buffers = GL_COLOR_BUFFER_BIT, GLenum filter = GL_NEAREST);
     static void blitFramebuffer(QOpenGLFramebufferObject *target, QOpenGLFramebufferObject *source, GLbitfield buffers = GL_COLOR_BUFFER_BIT, GLenum filter = GL_NEAREST);
+%If (Qt_5_6_0 -)
+    static void blitFramebuffer(QOpenGLFramebufferObject *target, const QRect &targetRect, QOpenGLFramebufferObject *source, const QRect &sourceRect, GLbitfield buffers, GLenum filter, int readColorAttachmentIndex, int drawColorAttachmentIndex);
+%End
 %If (Qt_5_3_0 -)
     GLuint takeTexture();
+%End
+%If (Qt_5_6_0 -)
+    GLuint takeTexture(int colorAttachmentIndex);
+%End
+%If (Qt_5_6_0 -)
+    void addColorAttachment(const QSize &size, GLenum internal_format = 0);
+%End
+%If (Qt_5_6_0 -)
+    void addColorAttachment(int width, int height, GLenum internal_format = 0);
+%End
+%If (Qt_5_6_0 -)
+    QVector<QSize> sizes() const;
 %End
 
 private:

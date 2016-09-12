@@ -2,7 +2,7 @@
 //
 // This file is part of the QtSql Python extension module.
 //
-// Copyright (c) 2015 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2016 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -34,7 +34,7 @@ public:
         Required,
     };
 
-    QSqlField(const QString &fieldName /DocValue="''"/ = QString(), QVariant::Type type = QVariant::Invalid);
+    QSqlField(const QString &fieldName = QString(), QVariant::Type type = QVariant::Invalid);
     QSqlField(const QSqlField &other);
     bool operator==(const QSqlField &other) const;
     bool operator!=(const QSqlField &other) const;

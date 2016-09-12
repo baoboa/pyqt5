@@ -128,8 +128,8 @@ def compileUiDir(dir, recurse=False, map=None, **compileUi_args):
                 compile_ui(dir, ui)
 
 
-def compileUi(uifile, pyfile, execute=False, indent=4, from_imports=False, resource_suffix='_rc'):
-    """compileUi(uifile, pyfile, execute=False, indent=4, from_imports=False, resource_suffix='_rc')
+def compileUi(uifile, pyfile, execute=False, indent=4, from_imports=False, resource_suffix='_rc', import_from='.'):
+    """compileUi(uifile, pyfile, execute=False, indent=4, from_imports=False, resource_suffix='_rc', import_from='.')
 
     Creates a Python module from a Qt Designer .ui file.
     
@@ -139,13 +139,15 @@ def compileUi(uifile, pyfile, execute=False, indent=4, from_imports=False, resou
     code to be run as a standalone application.  The default is False.
     indent is the optional indentation width using spaces.  If it is 0 then a
     tab is used.  The default is 4.
-    from_imports is optionally set to generate import statements that are
-    relative to '.'.
+    from_imports is optionally set to generate relative import statements.  At
+    the moment this only applies to the import of resource modules.
     resource_suffix is the suffix appended to the basename of any resource file
     specified in the .ui file to create the name of the Python module generated
     from the resource file by pyrcc4.  The default is '_rc', i.e. if the .ui
     file specified a resource file called foo.qrc then the corresponding Python
     module is foo_rc.
+    import_from is optionally set to the package used for relative import
+    statements.  The default is ``'.'``.
     """
 
     from PyQt5.QtCore import PYQT_VERSION_STR
@@ -159,26 +161,28 @@ def compileUi(uifile, pyfile, execute=False, indent=4, from_imports=False, resou
 
     pyfile.write(_header % (uifname, PYQT_VERSION_STR))
 
-    winfo = compiler.UICompiler().compileUi(uifile, pyfile, from_imports, resource_suffix)
+    winfo = compiler.UICompiler().compileUi(uifile, pyfile, from_imports, resource_suffix, import_from)
 
     if execute:
         indenter.write_code(_display_code % winfo)
 
 
-def loadUiType(uifile, from_imports=False, resource_suffix='_rc'):
-    """loadUiType(uifile, from_imports=False) -> (form class, base class)
+def loadUiType(uifile, from_imports=False, resource_suffix='_rc', import_from='.'):
+    """loadUiType(uifile, from_imports=False, resource_suffix='_rc', import_from='.') -> (form class, base class)
 
     Load a Qt Designer .ui file and return the generated form class and the Qt
     base class.
 
     uifile is a file name or file-like object containing the .ui file.
-    from_imports is optionally set to use import statements that are relative
-    to '.'.
+    from_imports is optionally set to generate relative import statements.  At
+    the moment this only applies to the import of resource modules.
     resource_suffix is the suffix appended to the basename of any resource file
     specified in the .ui file to create the name of the Python module generated
     from the resource file by pyrcc4.  The default is '_rc', i.e. if the .ui
     file specified a resource file called foo.qrc then the corresponding Python
     module is foo_rc.
+    import_from is optionally set to the package used for relative import
+    statements.  The default is ``'.'``.
     """
 
     import sys
@@ -191,7 +195,7 @@ def loadUiType(uifile, from_imports=False, resource_suffix='_rc'):
         from .port_v2.string_io import StringIO
 
     code_string = StringIO()
-    winfo = compiler.UICompiler().compileUi(uifile, code_string, from_imports, resource_suffix)
+    winfo = compiler.UICompiler().compileUi(uifile, code_string, from_imports, resource_suffix, import_from)
 
     ui_globals = {}
     exec(code_string.getvalue(), ui_globals)

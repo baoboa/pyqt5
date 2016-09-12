@@ -1,6 +1,6 @@
 #############################################################################
 ##
-## Copyright (C) 2014 Riverbank Computing Limited.
+## Copyright (C) 2016 Riverbank Computing Limited.
 ## Copyright (C) 2006 Thorsten Marek.
 ## All right reserved.
 ##
@@ -36,16 +36,6 @@
 ## OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE."
 ##
 #############################################################################
-
-
-from .indenter import write_code
-
-
-def write_import(module_name, from_imports):
-    if from_imports:
-        write_code("from . import %s" % module_name)
-    else:
-        write_code("import %s" % module_name)
 
 
 def moduleMember(module, name):

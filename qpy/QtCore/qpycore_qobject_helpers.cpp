@@ -1,6 +1,6 @@
 // This implements the helpers for QObject.
 //
-// Copyright (c) 2015 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2016 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -126,7 +126,27 @@ static int qt_metacall_worker(sipSimpleWrapper *pySelf, PyTypeObject *pytype,
 
                 if (py)
                 {
-                    ok = prop->pyqtprop_parsed_type->fromPyObject(py, _a[0]);
+                    // Get the underlying QVariant.  QtQml sometimes uses a
+                    // calling convention that doesn't pass a QVariant and this
+                    // value is 0.
+                    QVariant *var = reinterpret_cast<QVariant *>(_a[1]);
+
+                    if (var)
+                    {
+                        ok = prop->pyqtprop_parsed_type->fromPyObject(py, var);
+
+                        // Make sure that _a[0] still points to the QVariant
+                        // data (whose address we may have just changed) so
+                        // that QMetaProperty::read() doesn't try to create a 
+                        // new QVariant.
+                        if (ok)
+                            _a[0] = var->data();
+                    }
+                    else
+                    {
+                        ok = prop->pyqtprop_parsed_type->fromPyObject(py, _a[0]);
+                    }
+
                     Py_DECREF(py);
                 }
                 else
@@ -146,7 +166,16 @@ static int qt_metacall_worker(sipSimpleWrapper *pySelf, PyTypeObject *pytype,
 
             if (prop->pyqtprop_set)
             {
-                PyObject *py = prop->pyqtprop_parsed_type->toPyObject(_a[0]);
+                PyObject *py;
+
+                // Get the underlying QVariant.  QtQml sometimes uses a calling
+                // convention that doesn't pass a QVariant and this value is 0.
+                QVariant *var = reinterpret_cast<QVariant *>(_a[1]);
+
+                if (var)
+                    py = prop->pyqtprop_parsed_type->toPyObject(*var);
+                else
+                    py = prop->pyqtprop_parsed_type->toPyObject(_a[0]);
 
                 if (py)
                 {
@@ -231,7 +260,7 @@ bool qpycore_qobject_qt_metacast(sipSimpleWrapper *pySelf,
     PyTypeObject *base_pytype = sipTypeAsPyTypeObject(base);
     PyObject *mro = Py_TYPE(pySelf)->tp_mro;
 
-    for (SIP_SSIZE_T i = 0; i < PyTuple_GET_SIZE(mro); ++i)
+    for (Py_ssize_t i = 0; i < PyTuple_GET_SIZE(mro); ++i)
     {
         PyTypeObject *pytype = (PyTypeObject *)PyTuple_GET_ITEM(mro, i);
 

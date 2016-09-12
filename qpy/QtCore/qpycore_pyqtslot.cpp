@@ -1,6 +1,6 @@
 // This contains the implementation of the PyQtSlot class.
 //
-// Copyright (c) 2015 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2016 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -39,7 +39,7 @@ PyQtSlot::PyQtSlot(PyObject *method, PyObject *type,
 
 // Create the slot for a callable.
 PyQtSlot::PyQtSlot(PyObject *callable, const Chimera::Signature *slot_signature)
-    : mfunc(0), mself_wr(0), other(0), signature(slot_signature)
+    : mfunc(0), mself(0), mself_wr(0), other(0), signature(slot_signature)
 {
     if (PyMethod_Check(callable))
     {
@@ -101,6 +101,12 @@ PyQtSlot::Result PyQtSlot::invoke(void **qargs, PyObject *self, void *result,
         // Use the value we have if one wasn't supplied.
         if (!self)
             self = instance();
+
+        // If self is NULL then we didn't have a method in the first place.
+        // Instead we had a callable that has been cleared during garbage
+        // collection - so we can simply ignore the invocation.
+        if (!self)
+            return PyQtSlot::Ignored;
 
         // See if the instance has gone (which isn't an error).
         if (self == Py_None)
@@ -184,6 +190,15 @@ bool PyQtSlot::operator==(PyObject *callable) const
 
     if (!other)
         return false;
+
+    // See if it is a wrapped C++ method.  Note that the PyQt4 behaviour is to
+    // not save a reference but to save the components (as we do with methods).
+    // Hopefully it won't make a difference.  However it begs the question as
+    // to whether we should do the same with methods and rely on the garbage
+    // collector - is the current way of handling methods purely historical?
+    if (PyCFunction_Check(other) && PyCFunction_Check(callable))
+        return (PyCFunction_GET_SELF(other) == PyCFunction_GET_SELF(callable) &&
+                PyCFunction_GET_FUNCTION(other) == PyCFunction_GET_FUNCTION(callable));
 
     return (other == callable);
 }

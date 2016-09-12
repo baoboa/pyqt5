@@ -2,7 +2,7 @@
 //
 // This file is part of the QtCore Python extension module.
 //
-// Copyright (c) 2015 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2016 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -48,7 +48,7 @@ public:
     QRegExp(const QString &pattern, Qt::CaseSensitivity cs = Qt::CaseSensitive, QRegExp::PatternSyntax syntax = QRegExp::RegExp);
     QRegExp(const QRegExp &rx);
     ~QRegExp();
-    SIP_PYOBJECT __repr__() const /DocType="str"/;
+    SIP_PYOBJECT __repr__() const /TypeHint="str"/;
 %MethodCode
         PyObject *uni = qpycore_PyObject_FromQString(sipCpp->pattern());
         
@@ -123,7 +123,14 @@ public:
     QString errorString();
     static QString escape(const QString &str);
     int captureCount() const;
-    void swap(QRegExp &other);
+    void swap(QRegExp &other /Constrained/);
+%If (Qt_5_6_0 -)
+    long __hash__() const;
+%MethodCode
+        sipRes = qHash(*sipCpp);
+%End
+
+%End
 };
 
 QDataStream &operator<<(QDataStream &out, const QRegExp &regExp /Constrained/) /ReleaseGIL/;

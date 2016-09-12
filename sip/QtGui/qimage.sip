@@ -2,7 +2,7 @@
 //
 // This file is part of the QtGui Python extension module.
 //
-// Copyright (c) 2015 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2016 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -87,7 +87,7 @@ public:
     QImage(void *data, int width, int height, QImage::Format format) [(uchar *data, int width, int height, QImage::Format format)];
     QImage(const uchar *data /KeepReference/, int width, int height, int bytesPerLine, QImage::Format format);
     QImage(void *data, int width, int height, int bytesPerLine, QImage::Format format) [(uchar *data, int width, int height, int bytesPerLine, QImage::Format format)];
-    explicit QImage(SIP_PYLIST xpm /DocType="list-of-str"/) [(const char **xpm)];
+    explicit QImage(SIP_PYLIST xpm /TypeHint="List[str]"/) [(const char **xpm)];
 %MethodCode
         // The Python interface is a list of strings that make up the image.
         
@@ -177,7 +177,7 @@ public:
     QPoint offset() const;
     void setOffset(const QPoint &);
     QStringList textKeys() const;
-    QString text(const QString &key /DocValue="''"/ = QString()) const;
+    QString text(const QString &key = QString()) const;
     void setText(const QString &key, const QString &value);
 
 protected:
@@ -195,7 +195,7 @@ public:
     void setColorCount(int);
     int byteCount() const;
     int bitPlaneCount() const;
-    void swap(QImage &other);
+    void swap(QImage &other /Constrained/);
     qreal devicePixelRatio() const;
     void setDevicePixelRatio(qreal scaleFactor);
 %If (Qt_5_4_0 -)
@@ -206,6 +206,18 @@ public:
 %End
 %If (Qt_5_4_0 -)
     static QImage::Format toImageFormat(QPixelFormat format);
+%End
+%If (Qt_5_6_0 -)
+    QColor pixelColor(int x, int y) const;
+%End
+%If (Qt_5_6_0 -)
+    QColor pixelColor(const QPoint &pt) const;
+%End
+%If (Qt_5_6_0 -)
+    void setPixelColor(int x, int y, const QColor &c);
+%End
+%If (Qt_5_6_0 -)
+    void setPixelColor(const QPoint &pt, const QColor &c);
 %End
 };
 
@@ -222,10 +234,10 @@ void QtGui_DeleteArray(const char **arr);
 // QImage and QPixmap.
 const char **QtGui_ListToArray(PyObject *lst)
 {
-    SIP_SSIZE_T nstr = PyList_Size(lst);
+    Py_ssize_t nstr = PyList_Size(lst);
     const char **arr = new const char *[nstr + 1];
 
-    for (SIP_SSIZE_T i = 0; i < nstr; ++i)
+    for (Py_ssize_t i = 0; i < nstr; ++i)
     {
         PyObject *ascii_obj = PyList_GetItem(lst, i);
         const char *ascii = sipString_AsASCIIString(&ascii_obj);
@@ -256,7 +268,7 @@ const char **QtGui_ListToArray(PyObject *lst)
 // Return a string array created by QtGui_ListToArray() to the heap.
 void QtGui_DeleteArray(const char **arr)
 {
-    for (SIP_SSIZE_T i = 0; arr[i]; ++i)
+    for (Py_ssize_t i = 0; arr[i]; ++i)
         delete[] arr[i];
 
     delete[] arr;

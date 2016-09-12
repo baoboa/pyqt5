@@ -2,7 +2,7 @@
 //
 // This file is part of the QtNetwork Python extension module.
 //
-// Copyright (c) 2015 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2016 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -69,7 +69,7 @@ public:
     QSslCertificate certificate() const;
     bool operator==(const QSslError &other) const;
     bool operator!=(const QSslError &other) const;
-    void swap(QSslError &other);
+    void swap(QSslError &other /Constrained/);
 %If (Qt_5_4_0 -)
     long __hash__() const;
 %MethodCode

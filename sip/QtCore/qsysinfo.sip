@@ -1,6 +1,6 @@
 // This is the SIP specification of the QSysInfo class.
 //
-// Copyright (c) 2015 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2016 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -151,5 +151,20 @@ public:
 
     static const QSysInfo::WinVersion WindowsVersion;
     static QSysInfo::WinVersion windowsVersion();
+%End
+
+%If (Qt_5_4_0 -)
+    static QString buildAbi();
+    static QString buildCpuArchitecture();
+    static QString currentCpuArchitecture();
+    static QString kernelType();
+    static QString kernelVersion();
+    static QString prettyProductName();
+    static QString productType();
+    static QString productVersion();
+%End
+
+%If (Qt_5_6_0 -)
+    static QString machineHostName();
 %End
 };

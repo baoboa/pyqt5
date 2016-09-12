@@ -2,7 +2,7 @@
 //
 // This file is part of the QtQml Python extension module.
 //
-// Copyright (c) 2015 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2016 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -76,12 +76,12 @@ public:
     bool reset() const;
     bool hasNotifySignal() const;
     bool needsNotifySignal() const;
-    bool connectNotifySignal(SIP_PYOBJECT slot /DocType="slot"/) const;
+    bool connectNotifySignal(SIP_PYOBJECT slot /TypeHint="PYQT_SLOT"/) const;
 %MethodCode
         QObject *receiver;
         QByteArray slot;
         
-        if ((sipError = pyqt5_qtqml_get_pyqtslot_parts(a0, &receiver, slot)) == sipErrorNone)
+        if ((sipError = pyqt5_qtqml_get_connection_parts(a0, 0, "()", false, &receiver, slot)) == sipErrorNone)
         {
             sipRes = sipCpp->connectNotifySignal(receiver, slot.constData());
         }
@@ -105,16 +105,17 @@ typedef QList<QQmlProperty> QQmlProperties;
 
 %ModuleHeaderCode
 // Imports from QtCore.
-typedef sipErrorState (*pyqt5_qtqml_get_pyqtslot_parts_t)(PyObject *, QObject **, QByteArray &);
-extern pyqt5_qtqml_get_pyqtslot_parts_t pyqt5_qtqml_get_pyqtslot_parts;
+typedef sipErrorState (*pyqt5_qtqml_get_connection_parts_t)(PyObject *, QObject *, const char *, bool, QObject **, QByteArray &);
+extern pyqt5_qtqml_get_connection_parts_t pyqt5_qtqml_get_connection_parts;
 %End
 
 %ModuleCode
 // Imports from QtCore.
-pyqt5_qtqml_get_pyqtslot_parts_t pyqt5_qtqml_get_pyqtslot_parts;
+pyqt5_qtqml_get_connection_parts_t pyqt5_qtqml_get_connection_parts;
 %End
 
 %PostInitialisationCode
 // Imports from QtCore.
-pyqt5_qtqml_get_pyqtslot_parts = (pyqt5_qtqml_get_pyqtslot_parts_t)sipImportSymbol("pyqt5_get_pyqtslot_parts");
+pyqt5_qtqml_get_connection_parts = (pyqt5_qtqml_get_connection_parts_t)sipImportSymbol("pyqt5_get_connection_parts");
+Q_ASSERT(pyqt5_qtqml_get_connection_parts);
 %End
