@@ -1,5 +1,6 @@
 #############################################################################
 ##
+## Copyright (C) 2016 Dmitry Luciv
 ## Copyright (C) 2014 Riverbank Computing Limited.
 ## Copyright (C) 2006 Thorsten Marek.
 ## All right reserved.
@@ -48,4 +49,4 @@ pluginType = MODULE
 # "import A".  If "module" is "A[.B].C", the code generator will write
 # "from A[.B] import C".  Each entry in "widget_list" must be unique.
 def moduleInformation():
-    return "PyQt5.QtWebKitWidgets", ("QWebView", )
+    return "PyQt5.QtWebEngineWidgets", ("QWebEngineView", )
