@@ -188,7 +188,8 @@ class SpreadSheet(QMainWindow):
         pixmap = QPixmap(16, 16)
         color = QColor()
         if item:
-            color = item.backgroundColor()
+            if hasattr(item, 'backgroundColor'):
+                color = item.backgroundColor()
         if not color.isValid():
             color = self.palette().base().color()
         painter = QPainter(pixmap)
