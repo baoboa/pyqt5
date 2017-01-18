@@ -82,7 +82,7 @@ int qpycore_current_context(const char **file, const char **function)
     saved_file = file_obj;
     Py_INCREF(saved_file);
 #endif
-    *file = SIPBytes_AS_STRING(saved_file);
+    *file = SIPBytes_AsString(saved_file);
 
     linenr = SIPLong_AsLong(linenr_obj);
 
@@ -93,7 +93,7 @@ int qpycore_current_context(const char **file, const char **function)
     saved_function = function_obj;
     Py_INCREF(saved_function);
 #endif
-    *function = SIPBytes_AS_STRING(saved_function);
+    *function = SIPBytes_AsString(saved_function);
 
     Py_DECREF(info);
     Py_DECREF(frame);

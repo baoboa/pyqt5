@@ -38,7 +38,8 @@
 
 
 // Construct the collection of Python widgets.
-PyCustomWidgets::PyCustomWidgets(QObject *parent) : QObject(parent)
+PyCustomWidgets::PyCustomWidgets(QObject *parent) : QObject(parent),
+        sys_path(0), sip_unwrapinstance(0), qtdesigner_custom(0)
 {
     // Get the default list of directories to search.  These correspond to a
     // standard "python" subdirectory of all the places that Designer looks for
@@ -78,15 +79,6 @@ PyCustomWidgets::PyCustomWidgets(QObject *parent) : QObject(parent)
     }
     else
         dirs = default_dirs;
-
-    // The sys.path object if we need it.
-    PyObject *sys_path = 0;
-
-    // The sip.unwrapinstance object if we need it.
-    PyObject *sip_unwrapinstance = 0;
-
-    // The PyQt5.QtDesigner.QPyDesignerCustomWidgetPlugin object if we need it.
-    PyObject *qtdesigner_custom = 0;
 
     // Go through each directory.
     for (int i = 0; i < dirs.size(); ++i)
@@ -137,152 +129,174 @@ PyCustomWidgets::PyCustomWidgets(QObject *parent) : QObject(parent)
             Py_Initialize();
         }
 
-        // Make sure we have sys.path.
+        // Import the plugins with the GIL held.
+#if defined(WITH_THREAD)
+        PyGILState_STATE gil_state = PyGILState_Ensure();
+#endif
+
+        bool fatal = importPlugins(dir, plugins);
+
+#if defined(WITH_THREAD)
+        PyGILState_Release(gil_state);
+#endif
+
+        if (fatal)
+            break;
+    }
+}
+
+
+// Import the plugins from a directory.
+bool PyCustomWidgets::importPlugins(const QString &dir, const QStringList &plugins)
+{
+    // Make sure we have sys.path.
+    if (!sys_path)
+    {
+        sys_path = getModuleAttr("sys", "path");
+
         if (!sys_path)
-        {
-            sys_path = getModuleAttr("sys", "path");
+            return true;
+    }
 
-            if (!sys_path)
-                return;
-        }
+    // Make sure we have sip.unwrapinstance.
+    if (!sip_unwrapinstance)
+    {
+        sip_unwrapinstance = getModuleAttr("sip", "unwrapinstance");
 
-        // Make sure we have sip.unwrapinstance.
         if (!sip_unwrapinstance)
-        {
-            sip_unwrapinstance = getModuleAttr("sip", "unwrapinstance");
+            return true;
+    }
 
-            if (!sip_unwrapinstance)
-                return;
-        }
-
-        // Convert the directory to a Python object with native separators.
-        dir = QDir::toNativeSeparators(dir);
+    // Convert the directory to a Python object with native separators.
+    QString native_dir = QDir::toNativeSeparators(dir);
 
 #if PY_VERSION_HEX >= 0x03030000
-        PyObject *dobj = PyUnicode_FromKindAndData(PyUnicode_2BYTE_KIND, dir.constData(), dir.length());
+    PyObject *dobj = PyUnicode_FromKindAndData(PyUnicode_2BYTE_KIND, native_dir.constData(), native_dir.length());
 
-        if (!dobj)
-        {
-            PyErr_Print();
-            continue;
-        }
+    if (!dobj)
+    {
+        PyErr_Print();
+        return false;
+    }
 #elif PY_VERSION_HEX >= 0x03000000
 #if defined(Py_UNICODE_WIDE)
-        QVector<uint> ucs4 = dir.toUcs4();
+    QVector<uint> ucs4 = native_dir.toUcs4();
 
-        PyObject *dobj = PyUnicode_FromUnicode(0, ucs4.size());
+    PyObject *dobj = PyUnicode_FromUnicode(0, ucs4.size());
 
-        if (!dobj)
-        {
-            PyErr_Print();
-            continue;
-        }
+    if (!dobj)
+    {
+        PyErr_Print();
+        return false;
+    }
 
-        memcpy(PyUnicode_AS_UNICODE(dobj), ucs4.constData(),
-                ucs4.size() * sizeof (Py_UNICODE));
+    memcpy(PyUnicode_AS_UNICODE(dobj), ucs4.constData(),
+            ucs4.size() * sizeof (Py_UNICODE));
 #else
-        PyObject *dobj = PyUnicode_FromUnicode(0, dir.length());
+    PyObject *dobj = PyUnicode_FromUnicode(0, native_dir.length());
 
-        if (!dobj)
-        {
-            PyErr_Print();
-            continue;
-        }
+    if (!dobj)
+    {
+        PyErr_Print();
+        return false;
+    }
 
-        memcpy(PyUnicode_AS_UNICODE(dobj), dir.utf16(),
-                dir.length() * sizeof (Py_UNICODE));
+    memcpy(PyUnicode_AS_UNICODE(dobj), native_dir.utf16(),
+            native_dir.length() * sizeof (Py_UNICODE));
 #endif
 #else
-        PyObject *dobj = PyString_FromString(dir.toLatin1().constData());
+    PyObject *dobj = PyString_FromString(native_dir.toLatin1().constData());
 
-        if (!dobj)
-        {
-            PyErr_Print();
-            continue;
-        }
+    if (!dobj)
+    {
+        PyErr_Print();
+        return false;
+    }
 #endif
 
-        // Add the directory to sys.path.
-        int rc = PyList_Append(sys_path, dobj);
-        Py_DECREF(dobj);
+    // Add the directory to sys.path.
+    int rc = PyList_Append(sys_path, dobj);
+    Py_DECREF(dobj);
 
-        if (rc < 0)
+    if (rc < 0)
+    {
+        PyErr_Print();
+        return false;
+    }
+
+    // Import each plugin.
+    for (int plug = 0; plug < plugins.size(); ++plug)
+    {
+        PyObject *plug_mod = PyImport_ImportModule(plugins.at(plug).toLatin1().data());
+
+        if (!plug_mod)
         {
             PyErr_Print();
             continue;
         }
 
-        // Import each plugin.
-        for (int plug = 0; plug < plugins.size(); ++plug)
+        // Make sure we have QPyDesignerCustomWidgetPlugin.  We make sure this
+        // is after the import of the first plugin to allow that plugin to
+        // change any API versions.
+        if (!qtdesigner_custom)
         {
-            PyObject *plug_mod = PyImport_ImportModule(plugins.at(plug).toLatin1().data());
+            qtdesigner_custom = getModuleAttr("PyQt5.QtDesigner", "QPyDesignerCustomWidgetPlugin");
 
-            if (!plug_mod)
+            if (!qtdesigner_custom)
+                return true;
+        }
+
+        // Go through the module looking for types that implement
+        // QDesignerCustomWidgetInterface (ie. by deriving from
+        // QPyDesignerCustomWidgetPlugin).
+        PyObject *mod_dict = PyModule_GetDict(plug_mod);
+        PyObject *key, *value;
+        Py_ssize_t pos = 0;
+
+        while (PyDict_Next(mod_dict, &pos, &key, &value))
+        {
+            if (!PyType_Check(value))
+                continue;
+
+            if (value == qtdesigner_custom)
+                continue;
+
+            if (!PyType_IsSubtype((PyTypeObject *)value, (PyTypeObject *)qtdesigner_custom))
+                continue;
+
+            // Create the plugin instance.  Note that we don't give it a
+            // parent, which make things easier.  It also means that Python
+            // owns the instance so we don't decrement the reference count so
+            // that it doesn't get garbage collected.
+            PyObject *plugobj = PyObject_CallObject(value, NULL);
+
+            if (!plugobj)
             {
                 PyErr_Print();
                 continue;
             }
 
-            // Make sure we have QPyDesignerCustomWidgetPlugin.  We make sure
-            // this is after the import of the first plugin to allow that
-            // plugin to change any API versions.
-            if (!qtdesigner_custom)
-            {
-                qtdesigner_custom = getModuleAttr("PyQt5.QtDesigner", "QPyDesignerCustomWidgetPlugin");
+            // Get the address of the C++ instance.
+            PyObject *plugaddr = PyObject_CallFunctionObjArgs(sip_unwrapinstance, plugobj, NULL);
 
-                if (!qtdesigner_custom)
-                    return;
+            if (!plugaddr)
+            {
+                Py_DECREF(plugobj);
+                PyErr_Print();
+                continue;
             }
 
-            // Go through the module looking for types that implement
-            // QDesignerCustomWidgetInterface (ie. by deriving from
-            // QPyDesignerCustomWidgetPlugin).
-            PyObject *mod_dict = PyModule_GetDict(plug_mod);
-            PyObject *key, *value;
-            Py_ssize_t pos = 0;
+            void *addr = PyLong_AsVoidPtr(plugaddr);
+            Py_DECREF(plugaddr);
 
-            while (PyDict_Next(mod_dict, &pos, &key, &value))
-            {
-                if (!PyType_Check(value))
-                    continue;
-
-                if (value == qtdesigner_custom)
-                    continue;
-
-                if (!PyType_IsSubtype((PyTypeObject *)value, (PyTypeObject *)qtdesigner_custom))
-                    continue;
-
-                // Create the plugin instance.  Note that we don't give it a
-                // parent, which make things easier.  It also means that Python
-                // owns the instance so we don't decrement the reference count
-                // so that it doesn't get garbage collected.
-                PyObject *plugobj = PyObject_CallObject(value, NULL);
-
-                if (!plugobj)
-                {
-                    PyErr_Print();
-                    continue;
-                }
-
-                // Get the address of the C++ instance.
-                PyObject *plugaddr = PyObject_CallFunctionObjArgs(sip_unwrapinstance, plugobj, NULL);
-
-                if (!plugaddr)
-                {
-                    Py_DECREF(plugobj);
-                    PyErr_Print();
-                    continue;
-                }
-
-                void *addr = PyLong_AsVoidPtr(plugaddr);
-                Py_DECREF(plugaddr);
-
-                widgets.append(reinterpret_cast<QPyDesignerCustomWidgetPlugin *>(addr));
-            }
-
-            Py_DECREF(plug_mod);
+            widgets.append(reinterpret_cast<QPyDesignerCustomWidgetPlugin *>(addr));
         }
+
+        Py_DECREF(plug_mod);
     }
+
+    // No fatal errors.
+    return false;
 }
 
 

@@ -51,10 +51,14 @@ typedef struct _qpycore_pyqtMethodProxy {
     const QByteArray *py_name;
 } qpycore_pyqtMethodProxy;
 
-extern PyTypeObject qpycore_pyqtMethodProxy_Type;
-
 }
 
+
+// The type object.
+extern PyTypeObject *qpycore_pyqtMethodProxy_TypeObject;
+
+
+bool qpycore_pyqtMethodProxy_init_type();
 
 PyObject *qpycore_pyqtMethodProxy_New(QObject *qobject, int method_index,
         const QByteArray &py_name);

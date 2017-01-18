@@ -33,16 +33,16 @@ public:
 %ConvertToSubClassCode
     static struct class_graph {
         const char *name;
-        sipWrapperType **type;
+        sipTypeDef **type;
         int yes, no;
     } graph[] = {
-        {sipName_QAxObject, &sipClass_QAxObject,    1, -1},
-        {sipName_QAxWidget, &sipClass_QAxWidget,    -1, -1},
+        {sipName_QAxObject, &sipType_QAxObject,    1, -1},
+        {sipName_QAxWidget, &sipType_QAxWidget,    -1, -1},
     };
 
     int i = 0;
 
-    sipClass = NULL;
+    sipType = NULL;
 
     do
     {
@@ -50,7 +50,7 @@ public:
 
         if (cg->name != NULL && sipCpp->inherits(cg->name))
         {
-            sipClass = *cg->type;
+            sipType = *cg->type;
             i = cg->yes;
         }
         else

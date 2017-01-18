@@ -83,16 +83,16 @@ if (sipIsErr == NULL)
 
 if (PyByteArray_Check(sipPy))
 {
-    *sipCppPtr = new QByteArray(PyByteArray_AS_STRING(sipPy),
-            PyByteArray_GET_SIZE(sipPy));
+    *sipCppPtr = new QByteArray(PyByteArray_AsString(sipPy),
+            PyByteArray_Size(sipPy));
 
     return sipGetState(sipTransferObj);
 }
 
 if (SIPBytes_Check(sipPy))
 {
-    *sipCppPtr = new QByteArray(SIPBytes_AS_STRING(sipPy),
-            SIPBytes_GET_SIZE(sipPy));
+    *sipCppPtr = new QByteArray(SIPBytes_AsString(sipPy),
+            SIPBytes_Size(sipPy));
 
     return sipGetState(sipTransferObj);
 }
@@ -104,7 +104,10 @@ return 0;
 %End
 
 %BIGetBufferCode
-    sipRes = PyBuffer_FillInfo(sipBuffer, sipSelf, sipCpp->data(), sipCpp->size(), 0, sipFlags);
+    sipBuffer->bd_buffer = sipCpp->data();
+    sipBuffer->bd_length = sipCpp->size();
+    sipBuffer->bd_readonly = 0;
+    sipRes = 0;
 %End
 
 %BIGetReadBufferCode

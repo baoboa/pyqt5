@@ -45,7 +45,7 @@
             return 0;
         }
 
-        PyList_SET_ITEM(l, i, eobj);
+        PyList_SetItem(l, i, eobj);
     }
 
     return l;
@@ -97,7 +97,7 @@
         {
             PyErr_Format(PyExc_TypeError,
                     "index %zd has type '%s' but 'QVideoFrame.PixelFormat' is expected",
-                    i, Py_TYPE(itm)->tp_name);
+                    i, sipPyTypeName(Py_TYPE(itm)));
 
             Py_DECREF(itm);
             delete ql;
@@ -147,7 +147,7 @@
             return 0;
         }
 
-        PyList_SET_ITEM(l, i, eobj);
+        PyList_SetItem(l, i, eobj);
     }
 
     return l;
@@ -199,7 +199,7 @@
         {
             PyErr_Format(PyExc_TypeError,
                     "index %zd has type '%s' but 'QAudioFormat.Endian' is expected",
-                    i, Py_TYPE(itm)->tp_name);
+                    i, sipPyTypeName(Py_TYPE(itm)));
 
             Py_DECREF(itm);
             delete ql;
@@ -249,7 +249,7 @@
             return 0;
         }
 
-        PyList_SET_ITEM(l, i, eobj);
+        PyList_SetItem(l, i, eobj);
     }
 
     return l;
@@ -301,7 +301,7 @@
         {
             PyErr_Format(PyExc_TypeError,
                     "index %zd has type '%s' but 'QAudioFormat.SampleType' is expected",
-                    i, Py_TYPE(itm)->tp_name);
+                    i, sipPyTypeName(Py_TYPE(itm)));
 
             Py_DECREF(itm);
             delete ql;
@@ -353,7 +353,7 @@
             return 0;
         }
 
-        PyList_SET_ITEM(l, i, eobj);
+        PyList_SetItem(l, i, eobj);
     }
 
     return l;
@@ -405,7 +405,7 @@
         {
             PyErr_Format(PyExc_TypeError,
                     "index %zd has type '%s' but 'QAudio.Role' is expected",
-                    i, Py_TYPE(itm)->tp_name);
+                    i, sipPyTypeName(Py_TYPE(itm)));
 
             Py_DECREF(itm);
             delete ql;

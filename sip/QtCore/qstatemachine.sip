@@ -84,10 +84,13 @@ public:
         sipCpp->addDefaultAnimation(a0);
         
         // Use the user object as a list of the references.
-        PyObject *user = ((sipSimpleWrapper *)sipSelf)->user;
+        PyObject *user = sipGetUserObject((sipSimpleWrapper *)sipSelf);
         
         if (!user)
-            user = ((sipSimpleWrapper *)sipSelf)->user = PyList_New(0);
+        {
+            user = PyList_New(0);
+            sipSetUserObject((sipSimpleWrapper *)sipSelf, user);
+        }
         
         if (user)
             PyList_Append(user, a0Wrapper);
@@ -100,15 +103,15 @@ public:
         sipCpp->removeDefaultAnimation(a0);
         
         // Use the user object as a list of the references.
-        PyObject *user = ((sipSimpleWrapper *)sipSelf)->user;
+        PyObject *user = sipGetUserObject((sipSimpleWrapper *)sipSelf);
         
         if (user)
         {
             Py_ssize_t i = 0;
             
             // Note that we deal with an object appearing in the list more than once.
-            while (i < PyList_GET_SIZE(user))
-                if (PyList_GET_ITEM(user, i) == a0Wrapper)
+            while (i < PyList_Size(user))
+                if (PyList_GetItem(user, i) == a0Wrapper)
                     PyList_SetSlice(user, i, i + 1, NULL);
                 else
                     ++i;

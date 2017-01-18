@@ -110,7 +110,7 @@ template<_TYPE_>
         {
             PyErr_Format(PyExc_TypeError,
                     "index %zd has type '%s' but '_TYPE_' is expected", i,
-                    Py_TYPE(itm)->tp_name);
+                    sipPyTypeName(Py_TYPE(itm)));
 
             Py_DECREF(itm);
             delete qs;
@@ -223,7 +223,7 @@ template<_TYPE_>
         {
             PyErr_Format(PyExc_TypeError,
                     "index %zd has type '%s' but '_TYPE_' is expected", i,
-                    Py_TYPE(itm)->tp_name);
+                    sipPyTypeName(Py_TYPE(itm)));
 
             Py_DECREF(itm);
             delete qs;

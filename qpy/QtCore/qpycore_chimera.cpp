@@ -283,9 +283,9 @@ Chimera::Signature *Chimera::parse(PyObject *types, const char *name,
     parsed_sig->signature.append('(');
     parsed_sig->py_signature.append('[');
 
-    for (Py_ssize_t i = 0; i < PyTuple_GET_SIZE(types); ++i)
+    for (Py_ssize_t i = 0; i < PyTuple_Size(types); ++i)
     {
-        PyObject *type = PyTuple_GET_ITEM(types, i);
+        PyObject *type = PyTuple_GetItem(types, i);
         const Chimera *parsed_type = parse(type);
 
         if (!parsed_type)
@@ -308,7 +308,7 @@ Chimera::Signature *Chimera::parse(PyObject *types, const char *name,
         parsed_sig->signature.append(parsed_type->name());
 
         if (parsed_type->_py_type)
-            parsed_sig->py_signature.append(parsed_type->_py_type->tp_name);
+            parsed_sig->py_signature.append(sipPyTypeName(parsed_type->_py_type));
         else
             parsed_sig->py_signature.append(parsed_type->name());
     }
@@ -328,10 +328,10 @@ void Chimera::raiseParseException(PyObject *type, const char *context)
         if (context)
             PyErr_Format(PyExc_TypeError,
                     "Python type '%s' is not supported as %s type",
-                    ((PyTypeObject *)type)->tp_name, context);
+                    sipPyTypeName((PyTypeObject *)type), context);
         else
             PyErr_Format(PyExc_TypeError, "unknown Python type '%s'",
-                    ((PyTypeObject *)type)->tp_name);
+                    sipPyTypeName((PyTypeObject *)type));
     }
     else
     {
@@ -394,10 +394,10 @@ bool Chimera::parse_py_type(PyTypeObject *type_obj)
                 {
                     _metatype = QMetaType::QObjectStar;
                 }
-                else if (!sipIsExactWrappedType((sipWrapperType *)type_obj))
+                else if (sipIsUserType((sipWrapperType *)type_obj))
                 {
-                    // It must be a non-QObject Python sub-class so make sure
-                    // it gets wrapped in a PyQt_PyObject.
+                    // It is a non-QObject Python sub-class so make sure it
+                    // gets wrapped in a PyQt_PyObject.
                     _type = 0;
                     _metatype = PyQt_PyObject::metatype;
                     _name.clear();
@@ -408,18 +408,13 @@ bool Chimera::parse_py_type(PyTypeObject *type_obj)
     else if (_py_enum_types.contains((PyObject *)type_obj))
     {
         _metatype = QMetaType::Int;
-        _name = type_obj->tp_name;
+        _name = sipPyTypeName(type_obj);
     }
 #if PY_MAJOR_VERSION >= 3
     else if (type_obj == &PyUnicode_Type)
     {
         _type = sipType_QString;
         _metatype = QMetaType::QString;
-    }
-    else if (type_obj == &PyBytes_Type)
-    {
-        _metatype = -1;
-        _name = "const char*";
     }
 #else
     else if (type_obj == &PyString_Type || type_obj == &PyUnicode_Type)
@@ -484,7 +479,7 @@ bool Chimera::parse_py_type(PyTypeObject *type_obj)
 void Chimera::set_qflags()
 {
     if (qpycore_is_pyqt_class(_type))
-        _is_qflags = ((pyqt5ClassTypeDef *)_type)->flags & 0x01;
+        _is_qflags = ((pyqt5ClassPluginDef *)sipTypePluginData(_type))->flags & 0x01;
 }
 
 
@@ -751,8 +746,8 @@ bool Chimera::fromPyObject(PyObject *py, void *cpp) const
         break;
 
     case QMetaType::Char:
-        if (SIPBytes_Check(py) && SIPBytes_GET_SIZE(py) == 1)
-            *reinterpret_cast<char *>(cpp) = *SIPBytes_AS_STRING(py);
+        if (SIPBytes_Check(py) && SIPBytes_Size(py) == 1)
+            *reinterpret_cast<char *>(cpp) = *SIPBytes_AsString(py);
         else
             iserr = 1;
         break;
@@ -770,8 +765,8 @@ bool Chimera::fromPyObject(PyObject *py, void *cpp) const
         break;
 
     case QMetaType::UChar:
-        if (SIPBytes_Check(py) && SIPBytes_GET_SIZE(py) == 1)
-            *reinterpret_cast<unsigned char *>(cpp) = *SIPBytes_AS_STRING(py);
+        if (SIPBytes_Check(py) && SIPBytes_Size(py) == 1)
+            *reinterpret_cast<unsigned char *>(cpp) = *SIPBytes_AsString(py);
         else
             iserr = 1;
         break;
@@ -826,7 +821,7 @@ bool Chimera::fromPyObject(PyObject *py, void *cpp) const
             const char **ptr = reinterpret_cast<const char **>(cpp);
 
             if (SIPBytes_Check(py))
-                *ptr = SIPBytes_AS_STRING(py);
+                *ptr = SIPBytes_AsString(py);
             else if (py == Py_None)
                 *ptr = 0;
             else
@@ -880,7 +875,7 @@ bool Chimera::fromPyObject(PyObject *py, void *cpp) const
     {
         PyErr_Format(PyExc_TypeError,
                 "unable to convert a Python '%s' object to a C++ '%s' instance",
-                Py_TYPE(py)->tp_name, _name.constData());
+                sipPyTypeName(Py_TYPE(py)), _name.constData());
 
         return false;
     }
@@ -1053,8 +1048,8 @@ bool Chimera::fromPyObject(PyObject *py, QVariant *var, bool strict) const
         break;
 
     case QMetaType::Char:
-        if (SIPBytes_Check(py) && SIPBytes_GET_SIZE(py) == 1)
-            tmp_storage.tmp_char = *SIPBytes_AS_STRING(py);
+        if (SIPBytes_Check(py) && SIPBytes_Size(py) == 1)
+            tmp_storage.tmp_char = *SIPBytes_AsString(py);
         else
             iserr = 1;
         break;
@@ -1072,8 +1067,8 @@ bool Chimera::fromPyObject(PyObject *py, QVariant *var, bool strict) const
         break;
 
     case QMetaType::UChar:
-        if (SIPBytes_Check(py) && SIPBytes_GET_SIZE(py) == 1)
-            tmp_storage.tmp_unsigned_char = *SIPBytes_AS_STRING(py);
+        if (SIPBytes_Check(py) && SIPBytes_Size(py) == 1)
+            tmp_storage.tmp_unsigned_char = *SIPBytes_AsString(py);
         else
             iserr = 1;
         break;
@@ -1150,7 +1145,7 @@ bool Chimera::fromPyObject(PyObject *py, QVariant *var, bool strict) const
         metatype_used = QMetaType::VoidStar;
 
         if (SIPBytes_Check(py))
-            tmp_storage.tmp_void_ptr = SIPBytes_AS_STRING(py);
+            tmp_storage.tmp_void_ptr = SIPBytes_AsString(py);
         else if (py == Py_None)
             tmp_storage.tmp_void_ptr = 0;
         else
@@ -1187,7 +1182,7 @@ bool Chimera::fromPyObject(PyObject *py, QVariant *var, bool strict) const
     {
         PyErr_Format(PyExc_TypeError,
                 "unable to convert a Python '%s' object to a C++ '%s' instance",
-                Py_TYPE(py)->tp_name, _name.constData());
+                sipPyTypeName(Py_TYPE(py)), _name.constData());
 
         iserr = 1;
     }
@@ -1454,7 +1449,7 @@ PyObject *Chimera::toPyObject(void *cpp) const
                         break;
                     }
 
-                    PyList_SET_ITEM(py, i, val_obj);
+                    PyList_SetItem(py, i, val_obj);
                 }
             }
 
@@ -1617,9 +1612,9 @@ bool Chimera::to_QVariantList(PyObject *py, QVariantList &cpp) const
 {
     Q_ASSERT(PyList_CheckExact(py));
 
-    for (Py_ssize_t i = 0; i < PyList_GET_SIZE(py); ++i)
+    for (Py_ssize_t i = 0; i < PyList_Size(py); ++i)
     {
-        PyObject *val_obj = PyList_GET_ITEM(py, i);
+        PyObject *val_obj = PyList_GetItem(py, i);
 
         if (!val_obj)
             return false;

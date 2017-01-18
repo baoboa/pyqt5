@@ -50,9 +50,9 @@ void qpycore_qmetaobject_connectslotsbyname(QObject *qobj,
 
     PyObject *slot_obj = 0;
 
-    for (Py_ssize_t li = 0; li < PyList_GET_SIZE(dir); ++li)
+    for (Py_ssize_t li = 0; li < PyList_Size(dir); ++li)
     {
-        PyObject *name_obj = PyList_GET_ITEM(dir, li);
+        PyObject *name_obj = PyList_GetItem(dir, li);
 
         // Get the slot object.
         Py_XDECREF(slot_obj);
@@ -71,9 +71,9 @@ void qpycore_qmetaobject_connectslotsbyname(QObject *qobj,
 
         if (sigattr)
         {
-            for (Py_ssize_t i = 0; i < PyList_GET_SIZE(sigattr); ++i)
+            for (Py_ssize_t i = 0; i < PyList_Size(sigattr); ++i)
             {
-                PyObject *decoration = PyList_GET_ITEM(sigattr, i);
+                PyObject *decoration = PyList_GetItem(sigattr, i);
                 Chimera::Signature *sig = Chimera::Signature::fromPyObject(decoration);
                 QByteArray args = sig->arguments();
 

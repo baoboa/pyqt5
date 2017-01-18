@@ -28,24 +28,22 @@ class QDate /TypeHintIn="Union[QDate, datetime.date]"/
 
 %TypeCode
 #include <QHash>
-#include <datetime.h>
 %End
 
 %ConvertToTypeCode
-if (!PyDateTimeAPI)
-    PyDateTime_IMPORT;
-
 // Allow a Python date object whenever a QDate is expected.
 
 if (sipIsErr == NULL)
-    return (PyDate_Check(sipPy) ||
+    return (sipGetDate(sipPy, 0) ||
             sipCanConvertToType(sipPy, sipType_QDate, SIP_NO_CONVERTORS));
 
-if (PyDate_Check(sipPy))
+sipDateDef py_date;
+
+if (sipGetDate(sipPy, &py_date))
 {
-    *sipCppPtr = new QDate(PyDateTime_GET_YEAR(sipPy),
-                           PyDateTime_GET_MONTH(sipPy),
-                           PyDateTime_GET_DAY(sipPy));
+    *sipCppPtr = new QDate(py_date.pd_year,
+                           py_date.pd_month,
+                           py_date.pd_day);
 
     return sipGetState(sipTransferObj);
 }
@@ -92,11 +90,14 @@ public:
 
     SIP_PYOBJECT toPyDate() const /TypeHint="datetime.date"/;
 %MethodCode
-        if (!PyDateTimeAPI)
-            PyDateTime_IMPORT;
-        
         // Convert to a Python date object.
-        sipRes = PyDate_FromDate(sipCpp->year(), sipCpp->month(), sipCpp->day());
+        sipDateDef py_date;
+        
+        py_date.pd_year = sipCpp->year();
+        py_date.pd_month = sipCpp->month();
+        py_date.pd_day = sipCpp->day();
+        
+        sipRes = sipFromDate(&py_date);
 %End
 
     bool isNull() const;
@@ -160,25 +161,23 @@ class QTime /TypeHintIn="Union[QTime, datetime.time]"/
 
 %TypeCode
 #include <QHash>
-#include <datetime.h>
 %End
 
 %ConvertToTypeCode
-if (!PyDateTimeAPI)
-    PyDateTime_IMPORT;
-
 // Allow a Python time object whenever a QTime is expected.
 
 if (sipIsErr == NULL)
-    return (PyTime_Check(sipPy) ||
+    return (sipGetTime(sipPy, 0) ||
             sipCanConvertToType(sipPy, sipType_QTime, SIP_NO_CONVERTORS));
 
-if (PyTime_Check(sipPy))
+sipTimeDef py_time;
+
+if (sipGetTime(sipPy, &py_time))
 {
-    *sipCppPtr = new QTime(PyDateTime_TIME_GET_HOUR(sipPy),
-                           PyDateTime_TIME_GET_MINUTE(sipPy),
-                           PyDateTime_TIME_GET_SECOND(sipPy),
-                           PyDateTime_TIME_GET_MICROSECOND(sipPy) / 1000);
+    *sipCppPtr = new QTime(py_time.pt_hour,
+                           py_time.pt_minute,
+                           py_time.pt_second,
+                           py_time.pt_microsecond / 1000);
 
     return sipGetState(sipTransferObj);
 }
@@ -248,11 +247,15 @@ public:
 
     SIP_PYOBJECT toPyTime() const /TypeHint="datetime.time"/;
 %MethodCode
-        if (!PyDateTimeAPI)
-            PyDateTime_IMPORT;
-        
         // Convert to a Python time object.
-        sipRes = PyTime_FromTime(sipCpp->hour(), sipCpp->minute(), sipCpp->second(), sipCpp->msec() * 1000);
+        sipTimeDef py_time;
+        
+        py_time.pt_hour = sipCpp->hour();
+        py_time.pt_minute = sipCpp->minute();
+        py_time.pt_second = sipCpp->second();
+        py_time.pt_microsecond = sipCpp->msec() * 1000;
+        
+        sipRes = sipFromTime(&py_time);
 %End
 
     bool isNull() const;
@@ -302,29 +305,28 @@ class QDateTime /TypeHintIn="Union[QDateTime, datetime.datetime]"/
 
 %TypeCode
 #include <QHash>
-#include <datetime.h>
 %End
 
 %ConvertToTypeCode
-if (!PyDateTimeAPI)
-    PyDateTime_IMPORT;
-
 // Allow a Python datetime object whenever a QDateTime is expected.
 
 if (sipIsErr == NULL)
-    return (PyDateTime_Check(sipPy) ||
+    return (sipGetDateTime(sipPy, 0, 0) ||
             sipCanConvertToType(sipPy, sipType_QDateTime, SIP_NO_CONVERTORS));
 
-if (PyDateTime_Check(sipPy))
-{
-    QDate qdate(PyDateTime_GET_YEAR(sipPy),
-                PyDateTime_GET_MONTH(sipPy),
-                PyDateTime_GET_DAY(sipPy));
+sipDateDef py_date;
+sipTimeDef py_time;
 
-    QTime qtime(PyDateTime_DATE_GET_HOUR(sipPy),
-                PyDateTime_DATE_GET_MINUTE(sipPy),
-                PyDateTime_DATE_GET_SECOND(sipPy),
-                PyDateTime_DATE_GET_MICROSECOND(sipPy) / 1000);
+if (sipGetDateTime(sipPy, &py_date, &py_time))
+{
+    QDate qdate(py_date.pd_year,
+                py_date.pd_month,
+                py_date.pd_day);
+
+    QTime qtime(py_time.pt_hour,
+                py_time.pt_minute,
+                py_time.pt_second,
+                py_time.pt_microsecond / 1000);
 
     QDateTime *qdt = new QDateTime(qdate, qtime);
 
@@ -432,15 +434,23 @@ public:
 
     SIP_PYOBJECT toPyDateTime() const /TypeHint="datetime.datetime"/;
 %MethodCode
-        if (!PyDateTimeAPI)
-            PyDateTime_IMPORT;
-        
         // Convert to a Python datetime object.
+        sipDateDef py_date;
         QDate qd = sipCpp->date();
+        
+        py_date.pd_year = qd.year();
+        py_date.pd_month = qd.month();
+        py_date.pd_day = qd.day();
+        
+        sipTimeDef py_time;
         QTime qt = sipCpp->time();
         
-        sipRes = PyDateTime_FromDateAndTime(qd.year(), qd.month(), qd.day(),
-                                            qt.hour(), qt.minute(), qt.second(), qt.msec() * 1000);
+        py_time.pt_hour = qt.hour();
+        py_time.pt_minute = qt.minute();
+        py_time.pt_second = qt.second();
+        py_time.pt_microsecond = qt.msec() * 1000;
+        
+        sipRes = sipFromDateTime(&py_date, &py_time);
 %End
 
     bool isNull() const;

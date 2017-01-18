@@ -65,7 +65,7 @@ template<_TYPE_>
         return 0;
     }
 
-    PyObject *firstobj = PySequence_ITEM(sipPy, 0);
+    PyObject *firstobj = PySequence_GetItem(sipPy, 0);
 
     if (!firstobj)
     {
@@ -83,12 +83,12 @@ template<_TYPE_>
     {
         PyErr_Format(PyExc_TypeError,
                 "the first element has type '%s' but '_TYPE_' is expected",
-                Py_TYPE(firstobj)->tp_name);
+                sipPyTypeName(Py_TYPE(firstobj)));
 
         return 0;
     }
 
-    PyObject *secondobj = PySequence_ITEM(sipPy, 1);
+    PyObject *secondobj = PySequence_GetItem(sipPy, 1);
 
     if (!secondobj)
     {
@@ -106,7 +106,7 @@ template<_TYPE_>
     {
         PyErr_Format(PyExc_TypeError,
                 "the second element has type '%s' but 'int' is expected",
-                Py_TYPE(secondobj)->tp_name);
+                sipPyTypeName(Py_TYPE(secondobj)));
 
         Py_DECREF(secondobj);
         sipReleaseType(first, sipType__TYPE_, firststate);
@@ -161,7 +161,7 @@ template<_TYPE_>
         return 0;
     }
 
-    PyObject *firstobj = PySequence_ITEM(sipPy, 0);
+    PyObject *firstobj = PySequence_GetItem(sipPy, 0);
 
     if (!firstobj)
     {
@@ -177,14 +177,14 @@ template<_TYPE_>
     {
         PyErr_Format(PyExc_TypeError,
                 "the first element has type '%s' but 'int' is expected",
-                Py_TYPE(firstobj)->tp_name);
+                sipPyTypeName(Py_TYPE(firstobj)));
 
         *sipIsErr = 1;
 
         return 0;
     }
 
-    PyObject *secondobj = PySequence_ITEM(sipPy, 1);
+    PyObject *secondobj = PySequence_GetItem(sipPy, 1);
 
     if (!secondobj)
     {
@@ -201,7 +201,7 @@ template<_TYPE_>
     {
         PyErr_Format(PyExc_TypeError,
                 "the second element has type '%s' but 'int' is expected",
-                Py_TYPE(secondobj)->tp_name);
+                sipPyTypeName(Py_TYPE(secondobj)));
 
         Py_DECREF(secondobj);
         Py_DECREF(firstobj);

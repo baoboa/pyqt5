@@ -114,7 +114,7 @@ PyObject *qpycore_qobject_getattr(const QObject *qobj, PyObject *py_qobj,
         // Respect the 'private' nature of __ names.
         if (name[0] != '_' || name[1] != '_')
         {
-            QByteArray py_name(Py_TYPE(py_qobj)->tp_name);
+            QByteArray py_name(sipPyTypeName(Py_TYPE(py_qobj)));
             py_name.append('.');
             py_name.append(name);
 
@@ -125,7 +125,7 @@ PyObject *qpycore_qobject_getattr(const QObject *qobj, PyObject *py_qobj,
 
     // Replicate the standard Python exception.
     PyErr_Format(PyExc_AttributeError, "'%s' object has no attribute '%s'",
-            Py_TYPE(py_qobj)->tp_name, name);
+            sipPyTypeName(Py_TYPE(py_qobj)), name);
 
     return 0;
 }

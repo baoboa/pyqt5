@@ -56,7 +56,7 @@
             return 0;
         }
 
-        PyList_SET_ITEM(l, i, tobj);
+        PyList_SetItem(l, i, tobj);
     }
 
     return l;
@@ -113,7 +113,7 @@
         {
             PyErr_Format(PyExc_TypeError,
                     "index %zd has type '%s' but 'str' is expected", i,
-                    Py_TYPE(itm)->tp_name);
+                    sipPyTypeName(Py_TYPE(itm)));
 
             Py_DECREF(itm);
             delete ql;

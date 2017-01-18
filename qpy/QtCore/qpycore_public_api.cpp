@@ -168,14 +168,14 @@ void pyqt5_err_print()
                         Q_ASSERT(PyBytes_Check(encoding_bytes));
 
                         PyObject *bytes = PyUnicode_AsEncodedString(text,
-                                PyBytes_AS_STRING(encoding_bytes), "strict");
+                                PyBytes_AsString(encoding_bytes), "strict");
 
                         if (bytes)
                         {
                             Q_ASSERT(PyBytes_Check(bytes));
 
-                            message = QByteArray(PyBytes_AS_STRING(bytes),
-                                    PyBytes_GET_SIZE(bytes));
+                            message = QByteArray(PyBytes_AsString(bytes),
+                                    PyBytes_Size(bytes));
 
                             Py_DECREF(bytes);
                         }
@@ -212,7 +212,7 @@ void pyqt5_err_print()
 // Convert a Python argv list to a conventional C argc count and argv array.
 char **pyqt5_from_argv_list(PyObject *argv_list, int &argc)
 {
-    argc = PyList_GET_SIZE(argv_list);
+    argc = PyList_Size(argv_list);
 
     // Allocate space for two copies of the argument pointers, plus the
     // terminating NULL.
@@ -221,7 +221,7 @@ char **pyqt5_from_argv_list(PyObject *argv_list, int &argc)
     // Convert the list.
     for (int a = 0; a < argc; ++a)
     {
-        PyObject *arg_obj = PyList_GET_ITEM(argv_list, a);
+        PyObject *arg_obj = PyList_GetItem(argv_list, a);
         char *arg;
 
         if (PyUnicode_Check(arg_obj))
@@ -231,7 +231,7 @@ char **pyqt5_from_argv_list(PyObject *argv_list, int &argc)
         }
         else if (SIPBytes_Check(arg_obj))
         {
-            arg = qstrdup(SIPBytes_AS_STRING(arg_obj));
+            arg = qstrdup(SIPBytes_AsString(arg_obj));
         }
         else
         {
@@ -277,7 +277,7 @@ sipErrorState pyqt5_get_connection_parts(PyObject *slot, QObject *transmitter,
 sipErrorState pyqt5_get_pyqtsignal_parts(PyObject *signal,
         QObject **transmitter, QByteArray &signal_signature)
 {
-    if (PyObject_TypeCheck(signal, &qpycore_pyqtBoundSignal_Type))
+    if (PyObject_TypeCheck(signal, qpycore_pyqtBoundSignal_TypeObject))
     {
         qpycore_pyqtBoundSignal *bs = (qpycore_pyqtBoundSignal *)signal;
 
@@ -299,10 +299,13 @@ sipErrorState pyqt5_get_pyqtslot_parts(PyObject *slot, QObject **receiver,
     int is_err;
     void *qobj;
     Chimera::Signature *sig;
+    sipMethodDef slot_m;
 
     // Get the QObject.
-    py_receiver = PyMethod_Self(slot);
+    if (!sipGetMethod(slot, &slot_m))
+        goto bad_callable;
 
+    py_receiver = slot_m.pm_self;
     if (!py_receiver)
         goto bad_callable;
 
@@ -323,7 +326,7 @@ sipErrorState pyqt5_get_pyqtslot_parts(PyObject *slot, QObject **receiver,
         goto bad_callable;
 
     // Use the first one ignoring any others.
-    sig = Chimera::Signature::fromPyObject(PyList_GET_ITEM(decorations, 0));
+    sig = Chimera::Signature::fromPyObject(PyList_GetItem(decorations, 0));
     Py_DECREF(decorations);
 
     slot_signature = sig->signature;
@@ -346,7 +349,7 @@ sipErrorState pyqt5_get_signal_signature(PyObject *signal,
 {
     qpycore_pyqtSignal *ps;
 
-    if (PyObject_TypeCheck(signal, &qpycore_pyqtBoundSignal_Type))
+    if (PyObject_TypeCheck(signal, qpycore_pyqtBoundSignal_TypeObject))
     {
         qpycore_pyqtBoundSignal *bs = (qpycore_pyqtBoundSignal *)signal;
 
@@ -359,7 +362,7 @@ sipErrorState pyqt5_get_signal_signature(PyObject *signal,
 
         ps = bs->unbound_signal;
     }
-    else if (PyObject_TypeCheck(signal, &qpycore_pyqtSignal_Type))
+    else if (PyObject_TypeCheck(signal, qpycore_pyqtSignal_TypeObject))
     {
         ps = (qpycore_pyqtSignal *)signal;
     }
@@ -417,5 +420,5 @@ void pyqt5_update_argv_list(PyObject *argv_list, int argc, char **argv)
 // Get the QMetaObject instance for a Python type.
 const QMetaObject *pyqt5_get_qmetaobject(PyTypeObject *type)
 {
-    return ((pyqtWrapperType *)type)->metaobject->mo;
+    return qpycore_get_qmetaobject((sipWrapperType *)type);
 }

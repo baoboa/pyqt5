@@ -1,0 +1,2 @@
+:class:`QJsonArray` is implemented as a Python list of :class:`QJsonValue`
+instances.

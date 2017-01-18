@@ -131,7 +131,7 @@ static PyObject *convert_list(const Chimera *ct, const QVariantList &value)
             return 0;
         }
 
-        PyList_SET_ITEM(list, i, el);
+        PyList_SetItem(list, i, el);
     }
 
     return list;

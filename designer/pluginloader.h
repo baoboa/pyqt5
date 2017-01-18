@@ -48,7 +48,17 @@ public:
     virtual QList<QDesignerCustomWidgetInterface *> customWidgets() const;
 
 private:
+    bool importPlugins(const QString &dir, const QStringList &plugins);
     static PyObject *getModuleAttr(const char *module, const char *attr);
+
+    // The sys.path object if we need it.
+    PyObject *sys_path;
+
+    // The sip.unwrapinstance object if we need it.
+    PyObject *sip_unwrapinstance;
+
+    // The PyQt5.QtDesigner.QPyDesignerCustomWidgetPlugin object if we need it.
+    PyObject *qtdesigner_custom;
 
     QList<QDesignerCustomWidgetInterface *> widgets;
 };

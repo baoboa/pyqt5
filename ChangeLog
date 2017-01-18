@@ -1,8 +1,511 @@
+2016-12-25  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* .hgtags:
+	Added tag 5.7.1 for changeset a25b699c3bff
+	[e6e0f1b22e73] [tip] <5.7-maint>
+
+	* NEWS:
+	Released as v5.7.1.
+	[a25b699c3bff] [5.7.1] <5.7-maint>
+
+2016-12-24  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* lib/configure.py:
+	Link against the correct Python DLL when using the limited API.
+	[b09fa4890933] <5.7-maint>
+
+2016-12-19  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* sphinx/installation.rst:
+	Updated the pyqtlicense documentation.
+	[e8d4a7dff111] <5.7-maint>
+
+2016-12-17  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* QAxContainer/qaxobject.sip:
+	Fixed some very old convertor code in QAxContainer.
+	[1ca987d031ad] <5.7-maint>
+
+2016-12-15  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* PyQt5.msp:
+	Updated for Qt v5.7.1.
+	[5132c77b8800] <5.7-maint>
+
+2016-12-14  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* designer/pluginloader.cpp, designer/pluginloader.h:
+	The Designer plugin now releases the GIL once all plugins have been
+	loaded.
+	[57d8ce89670d] <5.7-maint>
+
+2016-12-04  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* pylupdate/pylupdate_main.py:
+	pylupdate now generates correct relative paths when -ts is used.
+	[1ba3c08d40e4] <5.7-maint>
+
+	* pyuic/uic/uiparser.py:
+	Fixed a crash when a .ui file doesn't contain a button group when it
+	should.
+	[5f3cbec20103] <5.7-maint>
+
+2016-11-25  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* sphinx/installation.rst:
+	Documented the --build-tag command line option to pyqtlicense.
+	[422623d23a48] <5.7-maint>
+
+2016-11-23  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* pyuic/uic/objcreator.py, pyuic/uic/port_v2/invoke.py,
+	pyuic/uic/port_v2/load_plugin.py, pyuic/uic/port_v3/invoke.py,
+	pyuic/uic/port_v3/load_plugin.py, pyuic/uic/pyuic.py:
+	Removed all pyuic code that required Python v2.5 and earlier.
+	[446394da9951] <5.7-maint>
+
+	* sphinx/deploy_commercial.rst, sphinx/extension_api.rst,
+	sphinx/installation.rst, sphinx/introduction.rst,
+	sphinx/pyqt4_differences.rst:
+	All references to the website no wuse https.
+	[16fd5cc19aab] <5.7-maint>
+
+	* qpy/QtQml/qpyqmllistpropertywrapper.cpp:
+	Fixed the QML support when using the limited API.
+	[519b2b27c289] <5.7-maint>
+
+2016-11-14  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* qpy/QtCore/qpycore_types.cpp:
+	Fixed a regression trawling class hierachies using the limited API.
+	[4333b8ba87fd] <5.7-maint>
+
+2016-11-12  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* sphinx/installation.rst:
+	Documented the --qt-version option to pyqtlicense.
+	[d5efc2dd635e] <5.7-maint>
+
+2016-11-10  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* PyQt5.msp:
+	Added a missing /Out/ annotation to
+	QWebEnginePage.javaScriptPrompt().
+	[c5886ff2dc94] <5.7-maint>
+
+2016-11-04  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* qpy/QtCore/qpycore_qobject_helpers.cpp:
+	Fixed a regression in the handling of ReadProperty and WriteProperty
+	in PyQt v5.6 that broke the chapter5-listproperties.py example.
+	[5c3d541a12a2] <5.7-maint>
+
+2016-10-26  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* PyQt5.msp:
+	Added QRegion.setRects().
+	[a7014a7d4259] <5.7-maint>
+
+	* pyuic/uic/widget-plugins/qtcharts.py, pyuic/uic/widget-
+	plugins/qtwebenginewidgets.py:
+	Added widget plugins for QChartView and QWebEngineView.
+	[29003cce4a88] <5.7-maint>
+
+	* PyQt5.msp:
+	Added Qt_5_6_2 to the %Timeline and corresponding values for later
+	versions of Qt v5.6.
+	[9449a57f8e13] <5.7-maint>
+
+2016-10-25  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* PyQt5.msp, qpy/QtCore/qpycore_qstring.cpp:
+	Fixed a regression building against Python v2.
+	[935bb79a7b1c] <5.7-maint>
+
+2016-10-24  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* lib/SubclassCode/mksccode.py:
+	Updated mksccode.py to match the current handling of hidden
+	namespaces.
+	[fbddad196e67] <5.7-maint>
+
+2016-10-14  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* pylupdate/pylupdate_main.py:
+	Fixed a bad call in pylupdate.
+	[9a1caa071647] <5.7-maint>
+
+2016-10-04  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* sphinx/api_metadata.cfg:
+	Added the missing QOpenGLVersionProfile to the documentation.
+	[ed7f40f61a68] <5.7-maint>
+
+2016-09-23  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* PyQt5.msp, qpy/QtCore/qpycore_qmetaobject.cpp,
+	qpy/QtGui/qpyopengl_attribute_array.cpp,
+	qpy/QtGui/qpyopengl_uniform_value_array.cpp,
+	qpy/QtGui/qpyopengl_value_array.cpp:
+	Converted all access to the user object to use the new SIP calls.
+	[71c272511448] <5.7-maint>
+
+	* qpy/QtCore/qpycore_chimera.cpp, qpy/QtCore/qpycore_pyqtsignal.cpp,
+	qpy/QtCore/qpycore_qobject_helpers.cpp,
+	qpy/QtCore/qpycore_types.cpp:
+	Changes needed by the different way of handling plugin generated
+	data.
+	[e9490c8f0819] <5.7-maint>
+
+2016-09-21  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* PyQt5.msp:
+	Updates for the latest SIP changes.
+	[1677ae8bd951] <5.7-maint>
+
+2016-09-19  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* PyQt5.msp:
+	Fixed calls to sipFindType() that were too early.
+	[f04f4d92ab9b] <5.7-maint>
+
+	* PyQt5.msp:
+	Fixes for the latest SIP changes.
+	[81eaffffa555] <5.7-maint>
+
+2016-09-15  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* PyQt5.msp, lib/configure.py, sphinx/api_metadata.cfg,
+	sphinx/introduction.rst:
+	Added the QtWebEngine module.
+	[8c8d065d8148] <5.7-maint>
+
+2016-09-14  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* PyQt5.msp:
+	The byteArray argume to the QBuffer ctor and setBuffer() method must
+	be a QByteArray (and not something that can be converted to a
+	QByteArray) because it needs to outlive the QBuffer instance.
+	[2976e49222bb] <5.7-maint>
+
+	* PyQt5.msp:
+	Added a missing /TransferThis/ to the QWebEngineUrlSchemeHandler
+	ctor.
+	[29be98207b30] <5.7-maint>
+
+	* qpy/QtQml/qpyqmlobject.cpp:
+	Use a unique signal when connecting to a proxy model to allow the
+	model to be used in multiple views.
+	[cd6fbe437e70] <5.7-maint>
+
+2016-09-11  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* QtMacExtras/QtMacExtrasmod.sip, QtMacExtras/qtmac.sip:
+	Added the QtMac namespace to the QtMacExtras module.
+	[581743b7d329] <5.7-maint>
+
+2016-09-10  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* METADATA.in, lib/configure.py, rb-product:
+	Add configuration information to the product file. Specifiy the
+	minimal SIP version in the wheel meta-data.
+	[347419aab38c] <5.7-maint>
+
+2016-09-09  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* qpy/QtGui/qpyopengl_value_array.cpp:
+	Further changes for sipGetBufferInfo().
+	[2dfc32d2117b] <5.7-maint>
+
+	* qpy/QtGui/qpyopengl_value_array.cpp:
+	Fixed the call to sipGetBufferInfo().
+	[842376cb0aa8] <5.7-maint>
+
+2016-09-08  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* qpy/QtCore/qpycore_pyqtproperty.cpp:
+	Fixed regressions in pyqtProperty.
+	[a1d6f69fef7a] <5.7-maint>
+
+	* qpy/QtGui/qpyopengl_attribute_array.cpp, qpy/QtGui/qpyopengl_misc.h,
+	qpy/QtGui/qpyopengl_uniform_value_array.cpp,
+	qpy/QtGui/qpyopengl_value_array.cpp:
+	Fixed the limited API changes when using the PySequence_Fast_*()
+	macros.
+	[04fe0b23b049] <5.7-maint>
+
+	* QAxContainer/QAxContainermod.sip, QAxContainer/qaxbase.sip,
+	QtMacExtras/QtMacExtrasmod.sip, QtWinExtras/QtWinExtrasmod.sip,
+	QtX11Extras/QtX11Extrasmod.sip, pylupdate/pylupdatemod.sip,
+	pyrcc/pyrccmod.sip:
+	The handwritten modules now all use the limited API.
+	[939cc11b2007] <5.7-maint>
+
+	* qpy/QtBluetooth/qpybluetooth_qlist.sip,
+	qpy/QtBluetooth/qpybluetooth_quint128.sip:
+	QtBluetooth now uses the limited API.
+	[dec01d730da6] <5.7-maint>
+
+2016-09-07  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* qpy/QtDBus/qpydbus_chimera_helpers.cpp:
+	QtDBus now uses the limited API.
+	[82a0acefefd3] <5.7-maint>
+
+	* qpy/QtWidgets/qpywidgets_qlist.sip:
+	QtWidgets now uses the limited API.
+	[16de076d88c6] <5.7-maint>
+
+	* qpy/QtQuick/qpyquick_chimera_helpers.cpp:
+	QtQuick now uses the limited API.
+	[a834a23d561b] <5.7-maint>
+
+	* qpy/QtQml/qpyqml_post_init.cpp, qpy/QtQml/qpyqml_qjsvalue.cpp,
+	qpy/QtQml/qpyqml_register_singleton_type.cpp,
+	qpy/QtQml/qpyqml_register_type.cpp,
+	qpy/QtQml/qpyqmllistproperty.cpp, qpy/QtQml/qpyqmllistproperty.h,
+	qpy/QtQml/qpyqmllistproperty.sip,
+	qpy/QtQml/qpyqmllistpropertywrapper.cpp,
+	qpy/QtQml/qpyqmllistpropertywrapper.h:
+	QtQml now uses the limited API.
+	[486082bf4be5] <5.7-maint>
+
+	* qpy/QtPrintSupport/qpyprintsupport_qlist.sip:
+	QtPrintSupport now uses the limited API.
+	[b8c0b62a20a7] <5.7-maint>
+
+	* qpy/QtNetwork/qpynetwork_qhash.sip,
+	qpy/QtNetwork/qpynetwork_qmap.sip:
+	QtNetwork now uses the limited API.
+	[82798213e9a3] <5.7-maint>
+
+	* qpy/QtMultimedia/qpymultimedia_qlist.sip:
+	QtMultimedia now uses the limited API.
+	[6f34d2b297ce] <5.7-maint>
+
+	* PyQt5.msp, qpy/QtGui/qpygui_qlist.sip, qpy/QtGui/qpygui_qpair.sip,
+	qpy/QtGui/qpygui_qvector.sip,
+	qpy/QtGui/qpyopengl_array_convertors.cpp,
+	qpy/QtGui/qpyopengl_attribute_array.cpp,
+	qpy/QtGui/qpyopengl_data_cache.cpp,
+	qpy/QtGui/qpyopengl_data_cache.h, qpy/QtGui/qpyopengl_init.cpp,
+	qpy/QtGui/qpyopengl_uniform_value_array.cpp,
+	qpy/QtGui/qpyopengl_value_array.cpp,
+	qpy/QtGui/qpyopengl_version_functions.cpp:
+	QtGui now uses the limited API.
+	[937e89e76d2d] <5.7-maint>
+
+	* qpy/QtCore/qpycore_pyqtboundsignal.cpp,
+	qpy/QtCore/qpycore_pyqtboundsignal.h,
+	qpy/QtCore/qpycore_pyqtmethodproxy.cpp,
+	qpy/QtCore/qpycore_pyqtmethodproxy.h,
+	qpy/QtCore/qpycore_pyqtproperty.cpp,
+	qpy/QtCore/qpycore_pyqtproperty.h,
+	qpy/QtCore/qpycore_pyqtsignal.cpp, qpy/QtCore/qpycore_pyqtsignal.h:
+	More limited API changes - QtCore now compiles and loads.
+	[d9f7295c5dd7] <5.7-maint>
+
+	* qpy/QtCore/qpycore_qobject_helpers.cpp,
+	qpy/QtCore/qpycore_types.cpp, qpy/QtCore/qpycore_types.h:
+	More limited API changes.
+	[00a8fbb9f360] <5.7-maint>
+
+2016-09-05  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* qpy/QtCore/qpycore_qstring.cpp:
+	The QString convertors now use the limited API.
+	[f57db32b0b5d] <5.7-maint>
+
+	* qpy/QtCore/qpycore_objectified_strings.h,
+	qpy/QtCore/qpycore_post_init.cpp.in,
+	qpy/QtCore/qpycore_public_api.cpp,
+	qpy/QtCore/qpycore_qjsonvalue.cpp,
+	qpy/QtCore/qpycore_qobject_helpers.cpp,
+	qpy/QtCore/qpycore_types.cpp, qpy/QtCore/qpycore_types.h:
+	The QObject helpers now use the limited API.
+	[64c71c6a9ee3] <5.7-maint>
+
+	* qpy/QtCore/qpycore_post_init.cpp.in,
+	qpy/QtCore/qpycore_public_api.cpp,
+	qpy/QtCore/qpycore_pyqtboundsignal.h,
+	qpy/QtCore/qpycore_pyqtproperty.cpp,
+	qpy/QtCore/qpycore_pyqtsignal.cpp, qpy/QtCore/qpycore_pyqtsignal.h,
+	qpy/QtCore/qpycore_pyqtslot.cpp, qpy/QtCore/qpycore_types.cpp:
+	pyqtSignal now uses the limited API.
+	[9caf7074a4fe] <5.7-maint>
+
+	* lib/configure.py, qpy/QtCore/qpycore_post_init.cpp.in,
+	qpy/QtCore/qpycore_pyqtboundsignal.cpp,
+	qpy/QtCore/qpycore_pyqtmethodproxy.cpp,
+	qpy/QtCore/qpycore_pyqtproperty.cpp,
+	qpy/QtCore/qpycore_pyqtproperty.h, qpy/QtCore/qpycore_types.cpp:
+	Python v3.4 is now needed when using the limited API. pyqtProperty
+	now uses the limited API.
+	[4b144ae683bd] <5.7-maint>
+
+	* qpy/QtCore/qpycore_post_init.cpp.in,
+	qpy/QtCore/qpycore_pyqtboundsignal.cpp,
+	qpy/QtCore/qpycore_pyqtmethodproxy.cpp,
+	qpy/QtCore/qpycore_pyqtmethodproxy.h:
+	Moved the method proxy type to the limited API.
+	[ae940422e87f] <5.7-maint>
+
+	* qpy/QtCore/qpycore_post_init.cpp.in,
+	qpy/QtCore/qpycore_public_api.cpp,
+	qpy/QtCore/qpycore_pyqtboundsignal.cpp,
+	qpy/QtCore/qpycore_pyqtboundsignal.h,
+	qpy/QtCore/qpycore_pyqtconfigure.cpp:
+	The bound signal type is now created using the limited API.
+	[326cb5271420] <5.7-maint>
+
+2016-08-30  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* qpy/QtCore/qpycore_public_api.cpp,
+	qpy/QtCore/qpycore_pyqtboundsignal.cpp,
+	qpy/QtCore/qpycore_pyqtslot.cpp:
+	More limited API changes.
+	[caef2e592071] <5.7-maint>
+
+	* qpy/QtCore/qpycore_misc.cpp:
+	Use sipCheckPluginForType().
+	[97c12d786d1e] <5.7-maint>
+
+2016-08-29  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* qpy/QtCore/qpycore_enums_flags.cpp, qpy/QtCore/qpycore_types.cpp:
+	Use sipPyTypeDict() where appropriate.
+	[eb2d099a8804] <5.7-maint>
+
+	* qpy/QtCore/qpycore_classinfo.cpp,
+	qpy/QtCore/qpycore_enums_flags.cpp:
+	Used sipGetFrame() where appropriate.
+	[1d3dbd765934] <5.7-maint>
+
+	* qpy/QtCore/qpycore_chimera.cpp:
+	Use sipIsUserType().
+	[45310e53497b] <5.7-maint>
+
+	* PyQt5.msp, qpy/QtCore/qpycore_pyqtsignal.cpp,
+	qpy/QtCore/qpycore_qlist.sip, qpy/QtCore/qpycore_qpair.sip,
+	qpy/QtCore/qpycore_qvector.sip:
+	Refactored the date/time conversions to use the new SIP calls.
+	[3705eb12433a] <5.7-maint>
+
+2016-08-28  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* PyQt5.msp, qpy/QtCore/qjsonarray.sip, qpy/QtCore/qjsonobject.sip,
+	qpy/QtCore/qpycore_chimera.cpp, qpy/QtCore/qpycore_enums_flags.cpp,
+	qpy/QtCore/qpycore_pyqtboundsignal.cpp,
+	qpy/QtCore/qpycore_pyqtmethodproxy.cpp,
+	qpy/QtCore/qpycore_pyqtsignal.cpp, qpy/QtCore/qpycore_qhash.sip,
+	qpy/QtCore/qpycore_qlist.sip, qpy/QtCore/qpycore_qmap.sip,
+	qpy/QtCore/qpycore_qobject_getattr.cpp,
+	qpy/QtCore/qpycore_qobject_helpers.cpp,
+	qpy/QtCore/qpycore_qpair.sip, qpy/QtCore/qpycore_qset.sip,
+	qpy/QtCore/qpycore_qvector.sip, qpy/QtCore/qpycore_types.cpp,
+	qpy/QtCore/qstringlist.sip:
+	Remove references to tp_name.
+	[f7f509727431] <5.7-maint>
+
+	* PyQt5.msp, qpy/QtCore/qjsonarray.sip,
+	qpy/QtCore/qpycore_chimera.cpp, qpy/QtCore/qpycore_decorators.cpp,
+	qpy/QtCore/qpycore_enums_flags.cpp,
+	qpy/QtCore/qpycore_public_api.cpp,
+	qpy/QtCore/qpycore_pyqtboundsignal.cpp,
+	qpy/QtCore/qpycore_pyqtmethodproxy.cpp,
+	qpy/QtCore/qpycore_pyqtpyobject.cpp,
+	qpy/QtCore/qpycore_pyqtsignal.cpp, qpy/QtCore/qpycore_pyqtslot.cpp,
+	qpy/QtCore/qpycore_qlist.sip, qpy/QtCore/qpycore_qmap.sip,
+	qpy/QtCore/qpycore_qmessagelogger.cpp,
+	qpy/QtCore/qpycore_qmetaobject_helpers.cpp,
+	qpy/QtCore/qpycore_qobject_helpers.cpp,
+	qpy/QtCore/qpycore_qstring.cpp,
+	qpy/QtCore/qpycore_qvariant_value.cpp,
+	qpy/QtCore/qpycore_qvector.sip, qpy/QtCore/qpycore_types.cpp,
+	qpy/QtCore/qstringlist.sip:
+	Started to switch over from the fast macros to the limited API
+	versions.
+	[806af319f405] <5.7-maint>
+
+2016-08-26  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* PyQt5.msp, lib/configure.py, qpy/QtCore/qpycore_init.cpp,
+	qpy/QtCore/qpycore_post_init.cpp.in, qpy/QtCore/qpycore_types.cpp,
+	qpy/QtCore/qpycore_types.h, qpy/QtQml/qpyqmlobject.h:
+	Eliminated the PyQt-specific meta-type.
+	[b88f1ef8bcb0] <5.7-maint>
+
+2016-08-24  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* PyQt5.msp:
+	Enabled the limited API for all modules.
+	[937556c0ec2b] <5.7-maint>
+
+	* PyQt5.msp:
+	Updated the %BIGetBufferCode for the limited API.
+	[94deb582b250] <5.7-maint>
+
+	* lib/configure.py:
+	Updated configure.py to set Py_LIMITED_API for qpy code.
+	[236a19384c91] <5.7-maint>
+
+2016-08-23  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* PyQt5.msp:
+	toString() and toCurrencyString() of QLocale now only overflow if
+	they really have to.
+	[f850c5c9f5b1] <5.7-maint>
+
+	* qpy/QtCore/qpycore_qobject_helpers.cpp:
+	Fixed QObject.inherits().
+	[c7e1a7efb2bf] <5.7-maint>
+
+2016-08-18  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* lib/configure.py:
+	Build modules with 'exceptions_off' rather than special case g++ and
+	clang. Build static modules with 'hide_symbols' to avoid OS X weak
+	symbol warnings.
+	[f02239f94d5e] <5.7-maint>
+
+2016-08-08  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* Makefile, build.py:
+	Removed the old internal build system.
+	[633d0f7fe1b7] <5.7-maint>
+
+2016-08-03  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* qpy/QtCore/qpycore_chimera.cpp:
+	Reverted the conversion of bytes to 'const char *' as the latter is
+	not supported by QMetaType and gives QSignalSpy a problem.
+	[75a3228c629a] <5.7-maint>
+
+	* qpy/pylupdate/pylupdate.h:
+	Fixed the pylupdate changes.
+	[02a9da7b1643] <5.7-maint>
+
+2016-07-27  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* pylupdate/pylupdate_main.py, pylupdate/pylupdatemod.sip,
+	qpy/pylupdate/merge.cpp:
+	Moved a pylupdate progress message to C++ to avoid out-of-order
+	messages.
+	[6f932fba5b39] <5.7-maint>
+
+	* sphinx/introduction.rst:
+	Clarified the docs intro about the inclusion of Qt in wheels.
+	[8d01fcc7cdd0] <5.7-maint>
+
 2016-07-25  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* METADATA.in:
+	Removed the Obsoletes tag from METADATA.
+	[3055d670d1da]
 
 	* .hgtags:
 	Added tag 5.7 for changeset 5e459651a5cb
-	[bb3ddca217a0] [tip]
+	[bb3ddca217a0]
 
 	* NEWS:
 	Released as v5.7.

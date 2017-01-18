@@ -59,8 +59,11 @@ typedef QList<MetaTranslatorMessage> TML;
   translation yet.
 */
 
-void merge( const MetaTranslator *tor, const MetaTranslator *virginTor, MetaTranslator *outTor, bool verbose, bool noObsolete )
+void merge( const MetaTranslator *tor, const MetaTranslator *virginTor, MetaTranslator *outTor, bool noObsolete, bool verbose, const QString &filename )
 {
+    if (verbose)
+        fprintf(stderr, "Updating '%s'...\n", filename.toLocal8Bit().constData());
+
     int known = 0;
     int neww = 0;
     int obsoleted = 0;

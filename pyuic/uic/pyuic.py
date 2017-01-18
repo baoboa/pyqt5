@@ -26,15 +26,10 @@ import optparse
 from PyQt5 import QtCore
 
 from .driver import Driver
+from .exceptions import NoSuchWidgetError
 
 
 Version = "Python User Interface Compiler %s for Qt version %s" % (QtCore.PYQT_VERSION_STR, QtCore.QT_VERSION_STR)
-
-
-if sys.hexversion >= 0x03000000:
-    from .port_v3.invoke import invoke
-else:
-    from .port_v2.invoke import invoke
 
 
 def main():
@@ -71,7 +66,27 @@ def main():
         sys.stderr.write("Error: one input ui-file must be specified\n")
         sys.exit(1)
 
-    sys.exit(invoke(Driver(opts, args[0])))
+	# Invoke the appropriate driver.
+    driver = Driver(opts, args[0])
+
+    exit_status = 1
+
+    try:
+        exit_status = driver.invoke()
+
+    except IOError as e:
+        driver.on_IOError(e)
+
+    except SyntaxError as e:
+        driver.on_SyntaxError(e)
+
+    except NoSuchWidgetError as e:
+        driver.on_NoSuchWidgetError(e)
+
+    except Exception as e:
+        driver.on_Exception(e)
+
+    sys.exit(exit_status)
 
 
 if __name__ == '__main__':

@@ -164,11 +164,11 @@ int *qtgui_tabarray(PyObject *l)
     if (!l || l == Py_None)
         return 0;
 
-    int *arr = new int[PyList_GET_SIZE(l) + 1];
+    int *arr = new int[PyList_Size(l) + 1];
     Py_ssize_t i;
 
-    for (i = 0; i < PyList_GET_SIZE(l); ++i)
-        arr[i] = SIPLong_AsLong(PyList_GET_ITEM(l, i));
+    for (i = 0; i < PyList_Size(l); ++i)
+        arr[i] = SIPLong_AsLong(PyList_GetItem(l, i));
 
     arr[i] = 0;
 

@@ -143,7 +143,7 @@ static PyObject *from_array_type(const QDBusArgument &arg)
             return 0;
         }
 
-        PyList_SET_ITEM(obj, i, itm);
+        PyList_SetItem(obj, i, itm);
     }
 
     return obj;
@@ -177,7 +177,7 @@ static PyObject *from_structure_type(const QDBusArgument &arg)
             return 0;
         }
 
-        PyTuple_SET_ITEM(obj, i, itm);
+        PyTuple_SetItem(obj, i, itm);
     }
 
     return obj;

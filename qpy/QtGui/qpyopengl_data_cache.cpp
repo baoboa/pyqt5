@@ -27,6 +27,10 @@
 #include "qpyopengl_data_cache.h"
 
 
+// The type object.
+PyTypeObject *qpyopengl_dataCache_TypeObject;
+
+
 // Forward declarations.
 extern "C" {
 static int dataCache_clear(PyObject *self);
@@ -35,7 +39,26 @@ static int dataCache_traverse(PyObject *self, visitproc visit, void *arg);
 }
 
 
-// This implements the Python type of a data cache.
+#if PY_VERSION_HEX >= 0x03040000
+// Define the slots.
+static PyType_Slot qpyopengl_dataCache_Slots[] = {
+    {Py_tp_dealloc,     (void *)dataCache_dealloc},
+    {Py_tp_clear,       (void *)dataCache_clear},
+    {Py_tp_traverse,    (void *)dataCache_traverse},
+    {0,                 0}
+};
+
+
+// Define the type.
+static PyType_Spec qpyopengl_dataCache_Spec = {
+    "PyQt5.QtGui.dataCache",
+    sizeof (qpyopengl_dataCache),
+    0,
+    Py_TPFLAGS_DEFAULT|Py_TPFLAGS_HAVE_GC,
+    qpyopengl_dataCache_Slots
+};
+#else
+// Deffine the type.
 PyTypeObject qpyopengl_dataCache_Type = {
     PyVarObject_HEAD_INIT(NULL, 0)
 #if PY_VERSION_HEX >= 0x02050000
@@ -92,6 +115,7 @@ PyTypeObject qpyopengl_dataCache_Type = {
     0,
 #endif
 };
+#endif
 
 
 // The dataCache clear function.
@@ -137,7 +161,7 @@ static void dataCache_dealloc(PyObject *self)
 
     dataCache_clear(self);
 
-    Py_TYPE(self)->tp_free(self);
+    PyObject_GC_Del(self);
 }
 
 
@@ -197,11 +221,30 @@ static int dataCache_traverse(PyObject *self, visitproc visit, void *arg)
 }
 
 
+// Initialise the type and return true if there was no error.
+bool qpyopengl_dataCache_init_type()
+{
+#if PY_VERSION_HEX >= 0x03040000
+    qpyopengl_dataCache_TypeObject = (PyTypeObject *)PyType_FromSpec(
+            &qpyopengl_dataCache_Spec);
+
+    return qpyopengl_dataCache_TypeObject;
+#else
+    if (PyType_Ready(&qpyopengl_dataCache_Type) < 0)
+        return false;
+
+    qpyopengl_dataCache_TypeObject = &qpyopengl_dataCache_Type;
+
+    return true;
+#endif
+}
+
+
 // Create a new data cache.
 qpyopengl_dataCache *qpyopengl_dataCache_New()
 {
     return (qpyopengl_dataCache *)PyType_GenericAlloc(
-            &qpyopengl_dataCache_Type, 0);
+            qpyopengl_dataCache_TypeObject, 0);
 }
 
 
@@ -235,7 +278,7 @@ PrimaryCacheEntry::~PrimaryCacheEntry()
 Array::Array() : data(0)
 {
 #if PY_VERSION_HEX >= 0x02060300
-    buffer.obj = 0;
+    buffer.bi_obj = 0;
 #else
     buffer = 0;
 #endif
@@ -258,9 +301,9 @@ void Array::clear()
         data = 0;
     }
 #if PY_VERSION_HEX >= 0x02060300
-    else if (buffer.obj)
+    else if (buffer.bi_obj)
     {
-        PyBuffer_Release(&buffer);
+        sipReleaseBufferInfo(&buffer);
     }
 #else
     else if (buffer)
@@ -278,7 +321,7 @@ int Array::traverse(visitproc visit, void *arg)
     PyObject *obj;
 
 #if PY_VERSION_HEX >= 0x02060300
-    obj = buffer.obj;
+    obj = buffer.bi_obj;
 #else
     obj = buffer;
 #endif

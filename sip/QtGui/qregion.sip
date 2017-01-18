@@ -77,6 +77,14 @@ public:
 %If (Qt_5_4_0 -)
     QRegion operator|(const QRegion &r) const;
 %End
+    void setRects(const QVector<QRect> &);
+%MethodCode
+        if (a0->size())
+            sipCpp->setRects(a0->data(), a0->size());
+        else
+            sipCpp->setRects(0, 0);
+%End
+
 %If (- Qt_5_4_0)
     const QRegion operator|(const QRegion &r) const;
 %End

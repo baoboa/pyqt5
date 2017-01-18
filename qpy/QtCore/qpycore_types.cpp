@@ -27,29 +27,6 @@
 #include <QMetaType>
 #include <QPair>
 
-// Defining PYQT_QOBJECT_GUARD will enable code that tries to detect when a
-// QObject created by Qt (ie. where we don't have a generated virtual dtor) is
-// destroyed thus allowing us to raise an exception rather than crashing.
-// However, there are problems:
-//
-// 1. The obvious choice to implement this is QWeakPointer.  However it cannot
-//    be used across threads.  The code checks to see if QObject is in the
-//    current thread, but can't do anything about the QObject being moved to
-//    another thread later on.
-//
-// 2. A QObject dtor may invoke a Python reimplementation that causes the
-//    QObject to be wrapped.  QWeakPointer will fail an assertion if it is
-//    being created for a QObject that is being deleted (rather than the more
-//    sensible behaviour of creating a null QWeakPointer).
-//
-// For the moment we disable the code until we have a better solution.  (If you
-// connect the destroyed signal of a QObject then move the QObject to a
-// different thread, will the signal be delivered properly?)
-#if defined(PYQT_QOBJECT_GUARD)
-#include <QThread>
-#include <QWeakPointer>
-#endif
-
 #include "qpycore_chimera.h"
 #include "qpycore_classinfo.h"
 #include "qpycore_enums_flags.h"
@@ -69,106 +46,33 @@ typedef QPair<PyObject *, PyObject *> PropertyData;
 
 
 // Forward declarations.
-extern "C" {
-static int pyqtWrapperType_init(pyqtWrapperType *self, PyObject *args,
-        PyObject *kwds);
-#if defined(PYQT_QOBJECT_GUARD)
-static PyObject *pyqtWrapperType_call(PyObject *type, PyObject *args,
-        PyObject *kwds);
-static void *qpointer_access_func(sipSimpleWrapper *w, AccessFuncOp op);
-#endif
-}
-
 static int trawl_hierarchy(PyTypeObject *pytype, qpycore_metaobject *qo,
         QMetaObjectBuilder &builder, QList<const qpycore_pyqtSignal *> &psigs,
         QMap<uint, PropertyData> &pprops);
 static int trawl_type(PyTypeObject *pytype, qpycore_metaobject *qo,
         QMetaObjectBuilder &builder, QList<const qpycore_pyqtSignal *> &psigs,
         QMap<uint, PropertyData> &pprops);
-static int create_dynamic_metaobject(pyqtWrapperType *pyqt_wt);
+static qpycore_metaobject *create_dynamic_metaobject(sipWrapperType *wt);
 static const QMetaObject *get_scope_qmetaobject(const Chimera *ct);
-static const QMetaObject *get_qmetaobject(pyqtWrapperType *pyqt_wt);
 
 
-// The meta-type for PyQt classes.
-PyTypeObject qpycore_pyqtWrapperType_Type = {
-    PyVarObject_HEAD_INIT(NULL, 0)
-#if PY_VERSION_HEX >= 0x02050000
-    "PyQt5.QtCore.pyqtWrapperType", /* tp_name */
-#else
-    const_cast<char *>("PyQt5.QtCore.pyqtWrapperType"), /* tp_name */
-#endif
-    sizeof (pyqtWrapperType),   /* tp_basicsize */
-    0,                      /* tp_itemsize */
-    0,                      /* tp_dealloc */
-    0,                      /* tp_print */
-    0,                      /* tp_getattr */
-    0,                      /* tp_setattr */
-    0,                      /* tp_compare */
-    0,                      /* tp_repr */
-    0,                      /* tp_as_number */
-    0,                      /* tp_as_sequence */
-    0,                      /* tp_as_mapping */
-    0,                      /* tp_hash */
-#if defined(PYQT_QOBJECT_GUARD)
-    pyqtWrapperType_call,   /* tp_call */
-#else
-    0,                      /* tp_call */
-#endif
-    0,                      /* tp_str */
-    0,                      /* tp_getattro */
-    0,                      /* tp_setattro */
-    0,                      /* tp_as_buffer */
-    Py_TPFLAGS_DEFAULT | Py_TPFLAGS_BASETYPE,   /* tp_flags */
-    0,                      /* tp_doc */
-    0,                      /* tp_traverse */
-    0,                      /* tp_clear */
-    0,                      /* tp_richcompare */
-    0,                      /* tp_weaklistoffset */
-    0,                      /* tp_iter */
-    0,                      /* tp_iternext */
-    0,                      /* tp_methods */
-    0,                      /* tp_members */
-    0,                      /* tp_getset */
-    0,                      /* tp_base */
-    0,                      /* tp_dict */
-    0,                      /* tp_descr_get */
-    0,                      /* tp_descr_set */
-    0,                      /* tp_dictoffset */
-    (initproc)pyqtWrapperType_init, /* tp_init */
-    0,                      /* tp_alloc */
-    0,                      /* tp_new */
-    0,                      /* tp_free */
-    0,                      /* tp_is_gc */
-    0,                      /* tp_bases */
-    0,                      /* tp_mro */
-    0,                      /* tp_cache */
-    0,                      /* tp_subclasses */
-    0,                      /* tp_weaklist */
-    0,                      /* tp_del */
-    0,                      /* tp_version_tag */
-#if PY_VERSION_HEX >= 0x03040000
-    0,                      /* tp_finalize */
-#endif
-};
-
-
-// The type init slot.
-static int pyqtWrapperType_init(pyqtWrapperType *self, PyObject *args,
-        PyObject *kwds)
+// The handler invoked whenever a Python sub-class of QObject is defined.
+int qpycore_new_user_type_handler(sipWrapperType *wt)
 {
-    // Let the super-type complete the basic initialisation.
-    if (sipWrapperType_Type->tp_init((PyObject *)self, args, kwds) < 0)
-        return -1;
+    const pyqt5ClassPluginDef *cpd = reinterpret_cast<const pyqt5ClassPluginDef *>(sipTypePluginData(sipTypeFromPyTypeObject((PyTypeObject *)wt)));
 
-    pyqt5ClassTypeDef *pyqt_td = (pyqt5ClassTypeDef *)((sipWrapperType *)self)->type;
+    Q_ASSERT(cpd);
 
-    if (pyqt_td && !sipIsExactWrappedType((sipWrapperType *)self))
+    // Create a dynamic meta-object as its base wrapped type has a static Qt
+    // meta-object.
+    if (cpd->static_metaobject)
     {
-        // Create a dynamic meta-object as its base wrapped type has a static
-        // Qt meta-object.
-        if (pyqt_td->static_metaobject && create_dynamic_metaobject(self) < 0)
+        qpycore_metaobject *qo = create_dynamic_metaobject(wt);
+
+        if (!qo)
             return -1;
+
+        sipSetTypeUserData(wt, qo);
     }
 
     return 0;
@@ -177,9 +81,9 @@ static int pyqtWrapperType_init(pyqtWrapperType *self, PyObject *args,
 
 // Create a dynamic meta-object for a Python type by introspecting its
 // attributes.  Note that it leaks if the type is deleted.
-static int create_dynamic_metaobject(pyqtWrapperType *pyqt_wt)
+static qpycore_metaobject *create_dynamic_metaobject(sipWrapperType *wt)
 {
-    PyTypeObject *pytype = (PyTypeObject *)pyqt_wt;
+    PyTypeObject *pytype = (PyTypeObject *)wt;
     qpycore_metaobject *qo = new qpycore_metaobject;
     QMetaObjectBuilder builder;
 
@@ -190,10 +94,19 @@ static int create_dynamic_metaobject(pyqtWrapperType *pyqt_wt)
     QList<EnumsFlags> enums_flags_list = qpycore_get_enums_flags_list();
 
     // Get the super-type's meta-object.
-    builder.setSuperClass(get_qmetaobject((pyqtWrapperType *)pytype->tp_base));
+    PyTypeObject *tp_base;
+
+#if PY_VERSION_HEX >= 0x03040000
+    tp_base = reinterpret_cast<PyTypeObject *>(
+            PyType_GetSlot(pytype, Py_tp_base));
+#else
+    tp_base = pytype->tp_base;
+#endif
+
+    builder.setSuperClass(qpycore_get_qmetaobject((sipWrapperType *)tp_base));
 
     // Get the name of the type.  Dynamic types have simple names.
-    builder.setClassName(pytype->tp_name);
+    builder.setClassName(sipPyTypeName(pytype));
 
     // Go through the class hierarchy getting all PyQt properties, slots and
     // signals.
@@ -202,7 +115,7 @@ static int create_dynamic_metaobject(pyqtWrapperType *pyqt_wt)
     QMap<uint, PropertyData> pprops;
 
     if (trawl_hierarchy(pytype, qo, builder, psigs, pprops) < 0)
-        return -1;
+        return 0;
 
     qo->nr_signals = psigs.count();
 
@@ -275,7 +188,7 @@ static int create_dynamic_metaobject(pyqtWrapperType *pyqt_wt)
         it.next();
 
         const PropertyData &pprop = it.value();
-        const char *prop_name = SIPBytes_AS_STRING(pprop.first);
+        const char *prop_name = SIPBytes_AsString(pprop.first);
         qpycore_pyqtProperty *pp = (qpycore_pyqtProperty *)pprop.second;
         int notifier_id;
 
@@ -293,7 +206,7 @@ static int create_dynamic_metaobject(pyqtWrapperType *pyqt_wt)
                         sig.constData() + 1);
 
                 // Note that we leak the property name.
-                return -1;
+                return 0;
             }
         }
         else
@@ -320,7 +233,8 @@ static int create_dynamic_metaobject(pyqtWrapperType *pyqt_wt)
             // is one that will be proxied by QML at some point.
             if (pp->pyqtprop_parsed_type->typeDef() == sipType_QObject)
             {
-                prop_type = ((PyTypeObject *)pp->pyqtprop_parsed_type->py_type())->tp_name;
+                prop_type = sipPyTypeName(
+                        (PyTypeObject *)pp->pyqtprop_parsed_type->py_type());
                 prop_type.append('*');
             }
             else
@@ -412,10 +326,7 @@ static int create_dynamic_metaobject(pyqtWrapperType *pyqt_wt)
     // Initialise the rest of the meta-object.
     qo->mo = builder.toMetaObject();
 
-    // Save the meta-object.
-    pyqt_wt->metaobject = qo;
-
-    return 0;
+    return qo;
 }
 
 
@@ -427,14 +338,26 @@ static int trawl_hierarchy(PyTypeObject *pytype, qpycore_metaobject *qo,
     if (trawl_type(pytype, qo, builder, psigs, pprops) < 0)
         return -1;
 
-    if (!pytype->tp_bases)
+    PyObject *tp_bases;
+
+#if PY_VERSION_HEX >= 0x03040000
+    if (PyType_HasFeature(pytype, Py_TPFLAGS_HEAPTYPE))
+        tp_bases = reinterpret_cast<PyObject *>(
+                PyType_GetSlot(pytype, Py_tp_bases));
+    else
+        tp_bases = 0;
+#else
+    tp_bases = pytype->tp_bases;
+#endif
+
+    if (!tp_bases)
         return 0;
 
-    Q_ASSERT(PyTuple_Check(pytype->tp_bases));
+    Q_ASSERT(PyTuple_Check(tp_bases));
 
-    for (Py_ssize_t i = 0; i < PyTuple_GET_SIZE(pytype->tp_bases); ++i)
+    for (Py_ssize_t i = 0; i < PyTuple_Size(tp_bases); ++i)
     {
-        PyTypeObject *sup = (PyTypeObject *)PyTuple_GET_ITEM(pytype->tp_bases, i);
+        PyTypeObject *sup = (PyTypeObject *)PyTuple_GetItem(tp_bases, i);
 
 #if PY_MAJOR_VERSION < 3
         /* Ignore classic classes as mixins. */
@@ -459,9 +382,11 @@ static int trawl_type(PyTypeObject *pytype, qpycore_metaobject *qo,
         QMap<uint, PropertyData> &pprops)
 {
     Py_ssize_t pos = 0;
-    PyObject *key, *value;
+    PyObject *key, *value, *dict;
 
-    while (PyDict_Next(pytype->tp_dict, &pos, &key, &value))
+    dict = sipPyTypeDict(pytype);
+
+    while (PyDict_Next(dict, &pos, &key, &value))
     {
         // See if it is a slot, ie. it has been decorated with pyqtSlot().
         PyObject *sig_obj = PyObject_GetAttr(value,
@@ -473,10 +398,10 @@ static int trawl_type(PyTypeObject *pytype, qpycore_metaobject *qo,
             // happens to use our special name.
             if (PyList_Check(sig_obj))
             {
-                for (Py_ssize_t i = 0; i < PyList_GET_SIZE(sig_obj); ++i)
+                for (Py_ssize_t i = 0; i < PyList_Size(sig_obj); ++i)
                 {
                     // Set up the skeleton slot.
-                    PyObject *decoration = PyList_GET_ITEM(sig_obj, i);
+                    PyObject *decoration = PyList_GetItem(sig_obj, i);
                     Chimera::Signature *slot_signature = Chimera::Signature::fromPyObject(decoration);
 
                     PyQtSlot *slot = new PyQtSlot(value, (PyObject *)pytype,
@@ -497,7 +422,7 @@ static int trawl_type(PyTypeObject *pytype, qpycore_metaobject *qo,
             const char *ascii_key = sipString_AsASCIIString(&key);
 
             // See if the value is of interest.
-            if (PyObject_TypeCheck(value, &qpycore_pyqtProperty_Type))
+            if (PyObject_TypeCheck(value, qpycore_pyqtProperty_TypeObject))
             {
                 // It is a property.
 
@@ -518,7 +443,7 @@ static int trawl_type(PyTypeObject *pytype, qpycore_metaobject *qo,
                 if (mo)
                     builder.addRelatedMetaObject(mo);
             }
-            else if (PyObject_TypeCheck(value, &qpycore_pyqtSignal_Type))
+            else if (PyObject_TypeCheck(value, qpycore_pyqtSignal_TypeObject))
             {
                 // It is a signal.
 
@@ -528,7 +453,7 @@ static int trawl_type(PyTypeObject *pytype, qpycore_metaobject *qo,
                 qpycore_pyqtSignal *ps = (qpycore_pyqtSignal *)value;
 
                 // Make sure the signal has a name.
-                qpycore_set_signal_name(ps, pytype->tp_name, ascii_key);
+                qpycore_set_signal_name(ps, sipPyTypeName(pytype), ascii_key);
 
                 // Add all the overloads.
                 do
@@ -571,79 +496,37 @@ static const QMetaObject *get_scope_qmetaobject(const Chimera *ct)
     if (!qpycore_is_pyqt_class(td))
         return 0;
 
-    return get_qmetaobject((pyqtWrapperType *)sipTypeAsPyTypeObject(td));
+    return qpycore_get_qmetaobject((sipWrapperType *)sipTypeAsPyTypeObject(td));
 }
 
 
 // Return the QMetaObject for a type.
-static const QMetaObject *get_qmetaobject(pyqtWrapperType *pyqt_wt)
+const QMetaObject *qpycore_get_qmetaobject(sipWrapperType *wt,
+        const sipTypeDef *base_td)
 {
-    // See if it's a sub-type of a wrapped type.
-    if (pyqt_wt->metaobject)
-        return pyqt_wt->metaobject->mo;
-
-    // It's a wrapped type.
-    return reinterpret_cast<const QMetaObject *>(((pyqt5ClassTypeDef *)((sipWrapperType *)pyqt_wt)->type)->static_metaobject);
-}
-
-
-#if defined(PYQT_QOBJECT_GUARD)
-
-// Reimplemented to wrap any QObjects created internally by Qt so that we can
-// detect if they get destroyed.
-static PyObject *pyqtWrapperType_call(PyObject *type, PyObject *args, PyObject *kwds)
-{
-    PyObject *self = sipWrapperType_Type->tp_call(type, args, kwds);
-
-    // See if the object was created and it is a QObject sub-class.
-    if (self && PyObject_TypeCheck(self, sipTypeAsPyTypeObject(sipType_QObject)))
+    if (wt)
     {
-        sipSimpleWrapper *w = (sipSimpleWrapper *)self;
+        qpycore_metaobject *qo = reinterpret_cast<qpycore_metaobject *>(
+                sipGetTypeUserData(wt));
 
-        // See if it is created internally by Qt and doesn't already have an
-        // access function (e.g. qApp).
-        if (!sipIsDerived(w) && !w->access_func)
-        {
-            QObject *qobj = reinterpret_cast<QObject *>(w->data);
-
-            // We can only guard objects in the same thread.
-            if (qobj->thread() == QThread::currentThread())
-            {
-                QWeakPointer<QObject> *guard = new QWeakPointer<QObject>(qobj);
-
-                w->data = guard;
-                w->access_func = qpointer_access_func;
-            }
-        }
+        // See if it has a dynamic meta-object.
+        if (qo)
+            return qo->mo;
     }
 
-    return self;
-}
-
-
-// The access function for guarded QObject pointers.
-static void *qpointer_access_func(sipSimpleWrapper *w, AccessFuncOp op)
-{
-    QWeakPointer<QObject> *guard = reinterpret_cast<QWeakPointer<QObject> *>(w->data);
-    void *addr;
-
-    switch (op)
+    // Get the static meta-object if there is one.
+    if (!base_td)
     {
-    case UnguardedPointer:
-        addr = guard->data();
-        break;
+        if (!wt)
+            return 0;
 
-    case GuardedPointer:
-        addr = guard->isNull() ? 0 : guard->data();
-        break;
+        base_td = sipTypeFromPyTypeObject((PyTypeObject *)wt);
 
-    case ReleaseGuard:
-        delete guard;
-        addr = 0;
-        break;
+        if (!base_td)
+            return 0;
     }
 
-    return addr;
-}
+    const pyqt5ClassPluginDef *cpd = reinterpret_cast<const pyqt5ClassPluginDef *>(sipTypePluginData(base_td));
 
-#endif
+    return reinterpret_cast<const QMetaObject *>(cpd->static_metaobject);
+}

@@ -33,6 +33,7 @@ void fetchtr_ui(const char *fileName, MetaTranslator *tor,
         const char *defaultContext, bool mustExist);
 
 void merge(const MetaTranslator *tor, const MetaTranslator *virginTor,
-        MetaTranslator *out, bool verbose, bool noObsolete);
+        MetaTranslator *out, bool noObsolete, bool verbose,
+        const QString &filename);
 
 #endif

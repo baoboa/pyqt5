@@ -88,7 +88,7 @@ int qpyqml_convertTo_QJSValue(PyObject *py, PyObject *transferObj,
 
     if (PyFloat_Check(py))
     {
-        *cpp = new QJSValue((double)PyFloat_AS_DOUBLE(py));
+        *cpp = new QJSValue((double)PyFloat_AsDouble(py));
 
         return sipGetState(transferObj);
     }

@@ -101,7 +101,7 @@ template<_TYPE1_, _TYPE2_>
         {
             PyErr_Format(PyExc_TypeError,
                     "a dict key has type '%s' but '_TYPE1_' is expected",
-                    Py_TYPE(kobj)->tp_name);
+                    sipPyTypeName(Py_TYPE(kobj)));
 
             delete qh;
 
@@ -117,7 +117,7 @@ template<_TYPE1_, _TYPE2_>
         {
             PyErr_Format(PyExc_TypeError,
                     "a dict value has type '%s' but '_TYPE2_' is expected",
-                    Py_TYPE(vobj)->tp_name);
+                    sipPyTypeName(Py_TYPE(vobj)));
 
             sipReleaseType(k, sipType__TYPE1_, kstate);
             delete qh;
@@ -224,7 +224,7 @@ template<_TYPE1_, _TYPE2_ *>
         {
             PyErr_Format(PyExc_TypeError,
                     "a dict key has type '%s' but '_TYPE1_' is expected",
-                    Py_TYPE(kobj)->tp_name);
+                    sipPyTypeName(Py_TYPE(kobj)));
 
             delete qh;
 
@@ -239,7 +239,7 @@ template<_TYPE1_, _TYPE2_ *>
         {
             PyErr_Format(PyExc_TypeError,
                     "a dict value has type '%s' but '_TYPE2_' is expected",
-                    Py_TYPE(vobj)->tp_name);
+                    sipPyTypeName(Py_TYPE(vobj)));
 
             sipReleaseType(k, sipType__TYPE1_, kstate);
             delete qh;
@@ -338,7 +338,7 @@ template<int, _TYPE_>
         {
             PyErr_Format(PyExc_TypeError,
                     "a dict key has type '%s' but 'int' is expected",
-                    Py_TYPE(kobj)->tp_name);
+                    sipPyTypeName(Py_TYPE(kobj)));
 
             delete qh;
             *sipIsErr = 1;
@@ -355,7 +355,7 @@ template<int, _TYPE_>
         {
             PyErr_Format(PyExc_TypeError,
                     "a dict value has type '%s' but '_TYPE_' is expected",
-                    Py_TYPE(vobj)->tp_name);
+                    sipPyTypeName(Py_TYPE(vobj)));
 
             delete qh;
 

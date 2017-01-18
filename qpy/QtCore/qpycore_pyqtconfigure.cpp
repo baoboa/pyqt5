@@ -221,7 +221,7 @@ static ArgStatus handle_argument(PyObject *self, QObject *qobj,
 
         if (sig)
         {
-            if (PyObject_TypeCheck(sig, &qpycore_pyqtBoundSignal_Type))
+            if (PyObject_TypeCheck(sig, qpycore_pyqtBoundSignal_TypeObject))
             {
                 static PyObject *connect_obj = NULL;
 

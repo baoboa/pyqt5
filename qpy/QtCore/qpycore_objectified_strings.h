@@ -28,6 +28,11 @@
 // __name__
 extern PyObject *qpycore_dunder_name;
 
+#if PY_VERSION_HEX >= 0x03040000
+// __mro__
+extern PyObject *qpycore_dunder_mro;
+#endif
+
 // __pyqtSignature__
 extern PyObject *qpycore_dunder_pyqtsignature;
 

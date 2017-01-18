@@ -301,7 +301,7 @@ public:
                     break;
                 }
                 
-                PyList_SET_ITEM(url_list_obj, i, url_obj);
+                PyList_SetItem(url_list_obj, i, url_obj);
             }
         }
         

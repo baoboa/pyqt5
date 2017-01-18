@@ -43,6 +43,10 @@
 #endif
 
 
+// The type object.
+PyTypeObject *qpycore_pyqtBoundSignal_TypeObject;
+
+
 // Forward declarations.
 extern "C" {
 static PyObject *pyqtBoundSignal_call(PyObject *self, PyObject *args,
@@ -117,6 +121,38 @@ static PyMethodDef pyqtBoundSignal_methods[] = {
 };
 
 
+// The getters/setters.
+static PyGetSetDef pyqtBoundSignal_getset[] = {
+    {(char *)"__doc__", pyqtBoundSignal_get_doc, NULL, NULL, NULL},
+    {(char *)"signal", pyqtBoundSignal_get_signal, NULL,
+            (char *)pyqtBoundSignal_signal_doc, NULL},
+    {NULL, NULL, NULL, NULL, NULL}
+};
+
+
+#if PY_VERSION_HEX >= 0x03040000
+// Define the slots.
+static PyType_Slot qpycore_pyqtBoundSignal_Slots[] = {
+    {Py_tp_new,         (void *)PyType_GenericNew},
+    {Py_tp_dealloc,     (void *)pyqtBoundSignal_dealloc},
+    {Py_tp_repr,        (void *)pyqtBoundSignal_repr},
+    {Py_tp_call,        (void *)pyqtBoundSignal_call},
+    {Py_mp_subscript,   (void *)pyqtBoundSignal_mp_subscript},
+    {Py_tp_methods,     pyqtBoundSignal_methods},
+    {Py_tp_getset,      pyqtBoundSignal_getset},
+    {0,                 0}
+};
+
+
+// Define the type.
+static PyType_Spec qpycore_pyqtBoundSignal_Spec = {
+    "PyQt5.QtCore.pyqtBoundSignal",
+    sizeof (qpycore_pyqtBoundSignal),
+    0,
+    Py_TPFLAGS_DEFAULT,
+    qpycore_pyqtBoundSignal_Slots
+};
+#else
 // Define the mapping methods.
 static PyMappingMethods pyqtBoundSignal_as_mapping = {
     0,                      /* mp_length */
@@ -125,17 +161,8 @@ static PyMappingMethods pyqtBoundSignal_as_mapping = {
 };
 
 
-// The getters/setters.
-static PyGetSetDef pyqtBoundSignal_getsets[] = {
-    {(char *)"__doc__", pyqtBoundSignal_get_doc, NULL, NULL, NULL},
-    {(char *)"signal", pyqtBoundSignal_get_signal, NULL,
-            (char *)pyqtBoundSignal_signal_doc, NULL},
-    {NULL, NULL, NULL, NULL, NULL}
-};
-
-
-// The pyqtBoundSignal type object.
-PyTypeObject qpycore_pyqtBoundSignal_Type = {
+// Define the type.
+static PyTypeObject qpycore_pyqtBoundSignal_Type = {
     PyVarObject_HEAD_INIT(NULL, 0)
     CHAR_CAST("PyQt5.QtCore.pyqtBoundSignal"),  /* tp_name */
     sizeof (qpycore_pyqtBoundSignal),   /* tp_basicsize */
@@ -165,7 +192,7 @@ PyTypeObject qpycore_pyqtBoundSignal_Type = {
     0,                      /* tp_iternext */
     pyqtBoundSignal_methods,    /* tp_methods */
     0,                      /* tp_members */
-    pyqtBoundSignal_getsets,    /* tp_getset */
+    pyqtBoundSignal_getset,     /* tp_getset */
     0,                      /* tp_base */
     0,                      /* tp_dict */
     0,                      /* tp_descr_get */
@@ -187,6 +214,7 @@ PyTypeObject qpycore_pyqtBoundSignal_Type = {
     0,                      /* tp_finalize */
 #endif
 };
+#endif
 
 
 // The __doc__ getter.
@@ -244,7 +272,8 @@ static PyObject *pyqtBoundSignal_repr(PyObject *self)
         PyString_FromFormat
 #endif
             ("<bound PYQT_SIGNAL %s of %s object at %p>", name.constData() + 1,
-                    bs->bound_pyobject->ob_type->tp_name, bs->bound_pyobject);
+                    sipPyTypeName(Py_TYPE(bs->bound_pyobject)),
+                    bs->bound_pyobject);
 }
 
 
@@ -266,7 +295,26 @@ static void pyqtBoundSignal_dealloc(PyObject *self)
 
     Py_XDECREF((PyObject *)bs->unbound_signal);
 
-    Py_TYPE(self)->tp_free(self);
+    PyObject_Del(self);
+}
+
+
+// Initialise the type and return true if there was no error.
+bool qpycore_pyqtBoundSignal_init_type()
+{
+#if PY_VERSION_HEX >= 0x03040000
+    qpycore_pyqtBoundSignal_TypeObject = (PyTypeObject *)PyType_FromSpec(
+            &qpycore_pyqtBoundSignal_Spec);
+
+    return qpycore_pyqtBoundSignal_TypeObject;
+#else
+    if (PyType_Ready(&qpycore_pyqtBoundSignal_Type) < 0)
+        return false;
+
+    qpycore_pyqtBoundSignal_TypeObject = &qpycore_pyqtBoundSignal_Type;
+
+    return true;
+#endif
 }
 
 
@@ -274,7 +322,8 @@ static void pyqtBoundSignal_dealloc(PyObject *self)
 PyObject *qpycore_pyqtBoundSignal_New(qpycore_pyqtSignal *unbound_signal,
         PyObject *bound_pyobject, QObject *bound_qobject)
 {
-    qpycore_pyqtBoundSignal *bs = (qpycore_pyqtBoundSignal *)PyType_GenericNew(&qpycore_pyqtBoundSignal_Type, 0, 0);
+    qpycore_pyqtBoundSignal *bs = (qpycore_pyqtBoundSignal *)PyType_GenericNew(
+            qpycore_pyqtBoundSignal_TypeObject, 0, 0);
 
     if (bs)
     {
@@ -340,7 +389,7 @@ static PyObject *pyqtBoundSignal_connect(PyObject *self, PyObject *args,
         {
             PyErr_Format(PyExc_TypeError,
                     "Qt.ConnectionType expected, not '%s'",
-                    Py_TYPE(py_slot)->tp_name);
+                    sipPyTypeName(Py_TYPE(py_slot)));
 
             return 0;
         }
@@ -408,7 +457,7 @@ static sipErrorState get_receiver_slot_signature(PyObject *slot,
         bool unique_connection_check, int no_receiver_check)
 {
     // See if the slot is a signal.
-    if (PyObject_TypeCheck(slot, &qpycore_pyqtBoundSignal_Type))
+    if (PyObject_TypeCheck(slot, qpycore_pyqtBoundSignal_TypeObject))
     {
         qpycore_pyqtBoundSignal *bs = (qpycore_pyqtBoundSignal *)slot;
 
@@ -530,7 +579,7 @@ static PyObject *pyqtBoundSignal_disconnect(PyObject *self, PyObject *args)
     }
 
     // See if the slot is a signal.
-    if (PyObject_TypeCheck(py_slot, &qpycore_pyqtBoundSignal_Type))
+    if (PyObject_TypeCheck(py_slot, qpycore_pyqtBoundSignal_TypeObject))
     {
         qpycore_pyqtBoundSignal *slot_bs = (qpycore_pyqtBoundSignal *)py_slot;
 
@@ -561,7 +610,7 @@ static PyObject *pyqtBoundSignal_disconnect(PyObject *self, PyObject *args)
     if (!proxy)
     {
         PyErr_Format(PyExc_TypeError, "'%s' object is not connected",
-                Py_TYPE(py_slot)->tp_name);
+                sipPyTypeName(Py_TYPE(py_slot)));
 
         return 0;
     }
@@ -641,7 +690,7 @@ static PyObject *pyqtBoundSignal_emit(PyObject *self, PyObject *args)
             {
                 PyErr_Format(PyExc_AttributeError,
                         "'%s' does not have a signal with the signature %s",
-                        Py_TYPE(bs->bound_pyobject)->tp_name,
+                        sipPyTypeName(Py_TYPE(bs->bound_pyobject)),
                         signature->signature.constData() + 1);
                 return 0;
             }
@@ -676,11 +725,11 @@ static bool do_emit(QObject *qtx, int signal_index,
 {
     const QList<const Chimera *> &args = parsed_signature->parsed_arguments;
 
-    if (args.size() != PyTuple_GET_SIZE(sigargs))
+    if (args.size() != PyTuple_Size(sigargs))
     {
         PyErr_Format(PyExc_TypeError,
                 "%s signal has %d argument(s) but %d provided", docstring,
-                args.size(), (int)PyTuple_GET_SIZE(sigargs));
+                args.size(), (int)PyTuple_Size(sigargs));
 
         return false;
     }
@@ -695,7 +744,7 @@ static bool do_emit(QObject *qtx, int signal_index,
 
     for (int a = 0; it != args.constEnd(); ++a)
     {
-        PyObject *arg_obj = PyTuple_GET_ITEM(sigargs, a);
+        PyObject *arg_obj = PyTuple_GetItem(sigargs, a);
         Chimera::Storage *val = (*it)->fromPyObjectToStorage(arg_obj);
 
         if (!val)
@@ -703,7 +752,7 @@ static bool do_emit(QObject *qtx, int signal_index,
             // Mimic SIP's exception text.
             PyErr_Format(PyExc_TypeError,
                     "%s.emit(): argument %d has unexpected type '%s'",
-                    docstring, a + 1, Py_TYPE(arg_obj)->tp_name);
+                    docstring, a + 1, sipPyTypeName(Py_TYPE(arg_obj)));
 
             delete[] argv;
             qDeleteAll(values.constBegin(), values.constEnd());
@@ -737,18 +786,23 @@ static bool get_receiver(PyObject *slot,
     bool try_qt_slot = false;
     PyObject *rx_self = 0;
     QByteArray rx_name;
+    sipMethodDef slot_m;
+    sipCFunctionDef slot_cf;
 
     // Assume there isn't a QObject receiver.
     *receiver = 0;
 
-    if (PyMethod_Check(slot))
+    if (sipGetMethod(slot, &slot_m))
     {
-        rx_self = PyMethod_GET_SELF(slot);
+        rx_self = slot_m.pm_self;
 
-        PyObject *f = PyMethod_GET_FUNCTION(slot);
-        Q_ASSERT(PyFunction_Check(f));
+        PyObject *f_name_obj = PyObject_GetAttr(slot_m.pm_function,
+                qpycore_dunder_name);
+        Q_ASSERT(f_name_obj);
 
-        PyObject *f_name_obj = ((PyFunctionObject *)f)->func_name;
+        // We only want a borrowed reference.
+        Py_DECREF(f_name_obj);
+
         const char *f_name = sipString_AsASCIIString(&f_name_obj);
         Q_ASSERT(f_name);
 
@@ -756,7 +810,7 @@ static bool get_receiver(PyObject *slot,
         Py_DECREF(f_name_obj);
 
         // See if this has been decorated.
-        PyObject *decorations = PyObject_GetAttr(f,
+        PyObject *decorations = PyObject_GetAttr(slot_m.pm_function,
                 qpycore_dunder_pyqtsignature);
 
         if (decorations)
@@ -778,10 +832,10 @@ static bool get_receiver(PyObject *slot,
 
         Py_XINCREF(rx_self);
     }
-    else if (PyCFunction_Check(slot))
+    else if (sipGetCFunction(slot, &slot_cf))
     {
-        rx_self = PyCFunction_GET_SELF(slot);
-        rx_name = ((PyCFunctionObject *)slot)->m_ml->ml_name;
+        rx_self = slot_cf.cf_self;
+        rx_name = slot_cf.cf_function->ml_name;
 
         // We actually want the C++ name which may (in theory) be completely
         // different.  However this will cope with the exec_ case which is
@@ -814,6 +868,8 @@ static bool get_receiver(PyObject *slot,
         if (partial && PyObject_IsInstance(slot, partial) > 0)
         {
             PyObject *func = slot;
+            sipMethodDef func_m;
+            sipCFunctionDef func_cf;
 
             Py_INCREF(func);
 
@@ -831,10 +887,10 @@ static bool get_receiver(PyObject *slot,
             }
             while (PyObject_IsInstance(func, partial) > 0);
 
-            if (PyMethod_Check(func))
-                rx_self = PyMethod_GET_SELF(func);
-            else if (PyCFunction_Check(func))
-                rx_self = PyCFunction_GET_SELF(func);
+            if (sipGetMethod(func, &func_m))
+                rx_self = func_m.pm_self;
+            else if (sipGetCFunction(func, &func_cf))
+                rx_self = func_cf.cf_self;
 
             Py_XINCREF(rx_self);
             Py_DECREF(func);
@@ -890,10 +946,10 @@ static void slot_signature_from_decorations(QByteArray &slot_signature,
     Chimera::Signature *candidate = 0;
     int signal_nr_args = signal->parsed_arguments.count();
 
-    for (Py_ssize_t i = 0; i < PyList_GET_SIZE(decorations); ++i)
+    for (Py_ssize_t i = 0; i < PyList_Size(decorations); ++i)
     {
         Chimera::Signature *slot = Chimera::Signature::fromPyObject(
-                PyList_GET_ITEM(decorations, i));
+                PyList_GetItem(decorations, i));
 
         int slot_nr_args = slot->parsed_arguments.count();
 

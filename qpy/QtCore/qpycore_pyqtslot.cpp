@@ -41,13 +41,15 @@ PyQtSlot::PyQtSlot(PyObject *method, PyObject *type,
 PyQtSlot::PyQtSlot(PyObject *callable, const Chimera::Signature *slot_signature)
     : mfunc(0), mself(0), mself_wr(0), other(0), signature(slot_signature)
 {
-    if (PyMethod_Check(callable))
+    sipMethodDef callable_m;
+
+    if (sipGetMethod(callable, &callable_m))
     {
         // Save the component parts.
-        mfunc = PyMethod_GET_FUNCTION(callable);
-        mself = PyMethod_GET_SELF(callable);
+        mfunc = callable_m.pm_function;
+        mself = callable_m.pm_self;
 #if PY_MAJOR_VERSION < 3
-        mclass = PyMethod_GET_CLASS(callable);
+        mclass = callable_m.pm_class;
 #endif
 
         // Try and create a weak reference to the instance object.
@@ -117,11 +119,15 @@ PyQtSlot::Result PyQtSlot::invoke(void **qargs, PyObject *self, void *result,
         if (!no_receiver_check && PyObject_TypeCheck(self, sipSimpleWrapper_Type) && !sipGetAddress((sipSimpleWrapper *)self))
             return PyQtSlot::Ignored;
 
+        sipMethodDef callable_m;
+
+        callable_m.pm_function = mfunc;
+        callable_m.pm_self = self;
 #if PY_MAJOR_VERSION < 3
-        callable = PyMethod_New(mfunc, self, mclass);
-#else
-        callable = PyMethod_New(mfunc, self);
+        callable_m.pm_class = mclass;
 #endif
+
+        callable = sipFromMethod(&callable_m);
     }
 
     // Convert the C++ arguments to Python objects.
@@ -144,7 +150,7 @@ PyQtSlot::Result PyQtSlot::invoke(void **qargs, PyObject *self, void *result,
             return PyQtSlot::Failed;
         }
 
-        PyTuple_SET_ITEM(argtup, a, arg);
+        PyTuple_SetItem(argtup, a, arg);
 
         ++it;
     }
@@ -175,15 +181,17 @@ PyQtSlot::Result PyQtSlot::invoke(void **qargs, PyObject *self, void *result,
 // See if this slot corresponds to the given callable.
 bool PyQtSlot::operator==(PyObject *callable) const
 {
-    if (PyMethod_Check(callable))
+    sipMethodDef callable_m;
+
+    if (sipGetMethod(callable, &callable_m))
     {
         if (other)
             return false;
 
-        return (mfunc == PyMethod_GET_FUNCTION(callable)
-                && instance() == PyMethod_GET_SELF(callable)
+        return (mfunc == callable_m.pm_function
+                && instance() == callable_m.pm_self
 #if PY_MAJOR_VERSION < 3
-                && mclass == PyMethod_GET_CLASS(callable)
+                && mclass == callable_m.pm_class
 #endif
                 );
     }
@@ -196,9 +204,11 @@ bool PyQtSlot::operator==(PyObject *callable) const
     // Hopefully it won't make a difference.  However it begs the question as
     // to whether we should do the same with methods and rely on the garbage
     // collector - is the current way of handling methods purely historical?
-    if (PyCFunction_Check(other) && PyCFunction_Check(callable))
-        return (PyCFunction_GET_SELF(other) == PyCFunction_GET_SELF(callable) &&
-                PyCFunction_GET_FUNCTION(other) == PyCFunction_GET_FUNCTION(callable));
+    sipCFunctionDef other_cf, callable_cf;
+
+    if (sipGetCFunction(other, &other_cf) && sipGetCFunction(callable, &callable_cf))
+        return (other_cf.cf_self == callable_cf.cf_self &&
+                other_cf.cf_function->ml_meth == callable_cf.cf_function->ml_meth);
 
     return (other == callable);
 }
@@ -258,7 +268,7 @@ PyObject *PyQtSlot::call(PyObject *callable, PyObject *args) const
         // with no traceback - so long as we can still reduce the number of
         // arguments and try again.
         if (!PyErr_GivenExceptionMatches(xtype, PyExc_TypeError) || xtb ||
-            PyTuple_GET_SIZE(sa) == 0)
+            PyTuple_Size(sa) == 0)
         {
             // If there is a traceback then we must have called the slot and
             // the exception was later on - so report the exception as is.
@@ -305,7 +315,7 @@ PyObject *PyQtSlot::call(PyObject *callable, PyObject *args) const
         }
 
         // Create the new argument tuple.
-        if ((nsa = PyTuple_GetSlice(sa, 0, PyTuple_GET_SIZE(sa) - 1)) == NULL)
+        if ((nsa = PyTuple_GetSlice(sa, 0, PyTuple_Size(sa) - 1)) == NULL)
         {
             // Tidy up.
             Py_XDECREF(oxtype);

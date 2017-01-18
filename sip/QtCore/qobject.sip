@@ -44,7 +44,7 @@ static PyObject *qtcore_type_to_tuple(PyObject *type)
     if (tuple)
     {
         Py_INCREF(type);
-        PyTuple_SET_ITEM(tuple, 0, type);
+        PyTuple_SetItem(tuple, 0, type);
     }
 
     return tuple;
@@ -55,8 +55,8 @@ static PyObject *qtcore_type_to_tuple(PyObject *type)
 // reference to the tuple if so.
 static PyObject *qtcore_check_tuple_types(PyObject *types)
 {
-    for (Py_ssize_t i = 0; i < PyTuple_GET_SIZE(types); ++i)
-        if (!PyObject_TypeCheck(PyTuple_GET_ITEM(types, i), &PyType_Type))
+    for (Py_ssize_t i = 0; i < PyTuple_Size(types); ++i)
+        if (!PyObject_TypeCheck(PyTuple_GetItem(types, i), &PyType_Type))
         {
             PyErr_SetString(PyExc_TypeError,
                     "all elements of the types argument must be type objects");
@@ -86,8 +86,8 @@ static PyObject *qtcore_do_find_child(const QObject *parent, PyObject *types, co
         QObject *resolved = reinterpret_cast<QObject *>(sipGetAddress((sipSimpleWrapper *)pyo));
 
         if (name.isNull() || resolved->objectName() == name)
-            for (Py_ssize_t t = 0; t < PyTuple_GET_SIZE(types); ++t)
-                if (PyType_IsSubtype(Py_TYPE(pyo), (PyTypeObject *)PyTuple_GET_ITEM(types, t)))
+            for (Py_ssize_t t = 0; t < PyTuple_Size(types); ++t)
+                if (PyType_IsSubtype(Py_TYPE(pyo), (PyTypeObject *)PyTuple_GetItem(types, t)))
                     return pyo;
 
         Py_DECREF(pyo);
@@ -142,8 +142,8 @@ static bool qtcore_do_find_children(const QObject *parent, PyObject *types, cons
         QObject *resolved = reinterpret_cast<QObject *>(sipGetAddress((sipSimpleWrapper *)pyo));
 
         if (name.isNull() || resolved->objectName() == name)
-            for (Py_ssize_t t = 0; t < PyTuple_GET_SIZE(types); ++t)
-                if (PyType_IsSubtype(Py_TYPE(pyo), (PyTypeObject *)PyTuple_GET_ITEM(types, t)))
+            for (Py_ssize_t t = 0; t < PyTuple_Size(types); ++t)
+                if (PyType_IsSubtype(Py_TYPE(pyo), (PyTypeObject *)PyTuple_GetItem(types, t)))
                     if (PyList_Append(list, pyo) < 0)
                     {
                         Py_DECREF(pyo);
@@ -200,8 +200,8 @@ static bool qtcore_do_find_children(const QObject *parent, PyObject *types, cons
             return false;
 
         if (re.indexIn(obj->objectName()) >= 0)
-            for (Py_ssize_t t = 0; t < PyTuple_GET_SIZE(types); ++t)
-                if (PyType_IsSubtype(Py_TYPE(pyo), (PyTypeObject *)PyTuple_GET_ITEM(types, t)))
+            for (Py_ssize_t t = 0; t < PyTuple_Size(types); ++t)
+                if (PyType_IsSubtype(Py_TYPE(pyo), (PyTypeObject *)PyTuple_GetItem(types, t)))
                     if (PyList_Append(list, pyo) < 0)
                     {
                         Py_DECREF(pyo);
@@ -260,8 +260,8 @@ static bool qtcore_do_find_children(const QObject *parent, PyObject *types, cons
         QRegularExpressionMatch m = re.match(obj->objectName());
         
         if (m.hasMatch())
-            for (Py_ssize_t t = 0; t < PyTuple_GET_SIZE(types); ++t)
-                if (PyType_IsSubtype(Py_TYPE(pyo), (PyTypeObject *)PyTuple_GET_ITEM(types, t)))
+            for (Py_ssize_t t = 0; t < PyTuple_Size(types); ++t)
+                if (PyType_IsSubtype(Py_TYPE(pyo), (PyTypeObject *)PyTuple_GetItem(types, t)))
                     if (PyList_Append(list, pyo) < 0)
                     {
                         Py_DECREF(pyo);
@@ -446,7 +446,7 @@ callable.
         // Note that tr() is really a static method.  We pretend it isn't so we can use
         // self to get hold of the class name.
         
-        sipRes = new QString(QCoreApplication::translate(Py_TYPE(sipSelf)->tp_name, a0, a1, a2));
+        sipRes = new QString(QCoreApplication::translate(sipPyTypeName(Py_TYPE(sipSelf)), a0, a1, a2));
 %End
 
     SIP_PYOBJECT findChild(SIP_PYTYPE type, const QString &name = QString(), Qt::FindChildOptions options = Qt::FindChildrenRecursively) const /TypeHint="QObject"/;

@@ -19,7 +19,6 @@
 
 
 #include <Python.h>
-#include <frameobject.h>
 
 #include <QMultiHash>
 
@@ -34,7 +33,7 @@ static PyObject *parse_enums_flags(PyObject *args, bool flags);
 
 
 // The enums and flags defined in each frame.
-static QMultiHash<const PyFrameObject *, EnumsFlags> enums_flags_hash;
+static QMultiHash<const struct _frame *, EnumsFlags> enums_flags_hash;
 
 
 // Add the given Q_ENUMS() arguments to the current enums/flags hash.
@@ -55,22 +54,19 @@ PyObject *qpycore_Flags(PyObject *args)
 // hash.
 static PyObject *parse_enums_flags(PyObject *args, bool flags)
 {
-    PyFrameObject *frame = PyEval_GetFrame();
-
     // We need the frame we were called from, not the current one.
-    if (frame)
-        frame = frame->f_back;
+    struct _frame *frame = sipGetFrame(1);
 
     if (!frame)
     {
-        PyErr_SetString(PyExc_RuntimeError, "no current frame");
+        PyErr_SetString(PyExc_RuntimeError, "no previous frame");
         return 0;
     }
 
     // Each argument is a separate enum/flag.
-    for (Py_ssize_t i = 0; i < PyTuple_GET_SIZE(args); ++i)
+    for (Py_ssize_t i = 0; i < PyTuple_Size(args); ++i)
     {
-        PyObject *arg = PyTuple_GET_ITEM(args, i);
+        PyObject *arg = PyTuple_GetItem(args, i);
 
         // Check the argument's type is type.
         if (!PyType_Check(arg))
@@ -82,13 +78,15 @@ static PyObject *parse_enums_flags(PyObject *args, bool flags)
         }
 
         // Create the basic enum/flag.
-        EnumsFlags enums_flags(((PyTypeObject *)arg)->tp_name, flags);
+        EnumsFlags enums_flags(sipPyTypeName((PyTypeObject *)arg), flags);
 
         // Go through the type dictionary looking for int attributes.
         Py_ssize_t pos = 0;
-        PyObject *key, *value;
+        PyObject *key, *value, *dict;
 
-        while (PyDict_Next(((PyTypeObject *)arg)->tp_dict, &pos, &key, &value))
+        dict = sipPyTypeDict((PyTypeObject *)arg);
+
+        while (PyDict_Next(dict, &pos, &key, &value))
         {
             PyErr_Clear();
 
@@ -123,7 +121,7 @@ static PyObject *parse_enums_flags(PyObject *args, bool flags)
 // Return the current enums/flags list.
 QList<EnumsFlags> qpycore_get_enums_flags_list()
 {
-    PyFrameObject *frame = PyEval_GetFrame();
+    struct _frame *frame = sipGetFrame(0);
     QList<EnumsFlags> enums_flags_list = enums_flags_hash.values(frame);
 
     enums_flags_hash.remove(frame);

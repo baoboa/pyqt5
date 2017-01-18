@@ -19,29 +19,27 @@
 
 
 #include <Python.h>
-#include <frameobject.h>
 
 #include <QMultiHash>
 
 #include "qpycore_api.h"
 #include "qpycore_classinfo.h"
 
+#include "sipAPIQtCore.h"
 
-static QMultiHash<const PyFrameObject *, ClassInfo> class_info_hash;
+
+static QMultiHash<const struct _frame *, ClassInfo> class_info_hash;
 
 
 // Add the given name/value pair to the current class info hash.
 PyObject *qpycore_ClassInfo(const char *name, const char *value)
 {
-    PyFrameObject *frame = PyEval_GetFrame();
-
     // We need the frame we were called from, not the current one.
-    if (frame)
-        frame = frame->f_back;
+    struct _frame *frame = sipGetFrame(1);
 
     if (!frame)
     {
-        PyErr_SetString(PyExc_RuntimeError, "no current frame");
+        PyErr_SetString(PyExc_RuntimeError, "no previous frame");
         return 0;
     }
 
@@ -56,7 +54,7 @@ PyObject *qpycore_ClassInfo(const char *name, const char *value)
 // Return the current class info list.
 QList<ClassInfo> qpycore_get_class_info_list()
 {
-    PyFrameObject *frame = PyEval_GetFrame();
+    struct _frame *frame = sipGetFrame(0);
     QList<ClassInfo> class_info_list = class_info_hash.values(frame);
 
     class_info_hash.remove(frame);

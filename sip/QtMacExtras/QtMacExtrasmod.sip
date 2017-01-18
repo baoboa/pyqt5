@@ -18,7 +18,7 @@
 // WARRANTY OF DESIGN, MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE.
 
 
-%Module(name=PyQt5.QtMacExtras, keyword_arguments="Optional")
+%Module(name=PyQt5.QtMacExtras, keyword_arguments="Optional", use_limited_api=True)
 
 %Import QtCore/QtCoremod.sip
 %Import QtGui/QtGuimod.sip
@@ -47,3 +47,4 @@ WARRANTY OF DESIGN, MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE.
 %Include qmacpasteboardmime.sip
 %Include qmactoolbar.sip
 %Include qmactoolbaritem.sip
+%Include qtmac.sip

@@ -112,7 +112,7 @@ enum /NoScope/
                     {
                         PyErr_Format(PyExc_TypeError,
                                 "index %zd has type '%s' but 'QSGGeometry.Attribute' is expected",
-                                i, Py_TYPE(itm)->tp_name);
+                                i, sipPyTypeName(Py_TYPE(itm)));
             
                         Py_DECREF(itm);
                         sipError = sipErrorFail;
@@ -199,9 +199,9 @@ enum /NoScope/
                             sipCpp->count = attrs.size();
                             sipCpp->stride = (a1 > 0 ? a1 : stride);
                             sipCpp->attributes = reinterpret_cast<QSGGeometry::Attribute *>(
-                                    SIPBytes_AS_STRING(bytes));
+                                    SIPBytes_AsString(bytes));
             
-                            sipSelf->user = bytes;
+                            sipSetUserObject(sipSelf, bytes);
                         }
                     }
                 }

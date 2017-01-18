@@ -94,7 +94,7 @@
         {
             PyErr_Format(PyExc_TypeError,
                     "a key has type '%s' but 'QNetworkRequest.Attribute' is expected",
-                    Py_TYPE(kobj)->tp_name);
+                    sipPyTypeName(Py_TYPE(kobj)));
 
             delete qh;
             *sipIsErr = 1;

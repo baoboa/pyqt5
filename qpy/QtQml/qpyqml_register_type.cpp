@@ -250,10 +250,10 @@ static QQmlPrivate::RegisterType *init_type(PyTypeObject *py_type, bool ctor,
         attached_mo = 0;
     }
 
-    QByteArray ptr_name(py_type->tp_name);
+    QByteArray ptr_name(sipPyTypeName(py_type));
     ptr_name.append('*');
 
-    QByteArray list_name(py_type->tp_name);
+    QByteArray list_name(sipPyTypeName(py_type));
     list_name.prepend("QQmlListProperty<");
     list_name.append('>');
 

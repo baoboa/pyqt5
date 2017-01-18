@@ -95,7 +95,7 @@ int qpycore_convertTo_QJsonValue(PyObject *py, PyObject *transferObj,
 
     if (PyFloat_Check(py))
     {
-        *cpp = new QJsonValue((double)PyFloat_AS_DOUBLE(py));
+        *cpp = new QJsonValue((double)PyFloat_AsDouble(py));
 
         return sipGetState(transferObj);
     }

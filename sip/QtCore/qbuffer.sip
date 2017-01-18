@@ -28,11 +28,11 @@ class QBuffer : QIODevice
 
 public:
     explicit QBuffer(QObject *parent /TransferThis/ = 0);
-    QBuffer(QByteArray *byteArray, QObject *parent /TransferThis/ = 0);
+    QBuffer(QByteArray *byteArray /Constrained/, QObject *parent /TransferThis/ = 0);
     virtual ~QBuffer();
     QByteArray &buffer();
     const QByteArray &data() const;
-    void setBuffer(QByteArray *a);
+    void setBuffer(QByteArray *a /Constrained/);
     void setData(const QByteArray &data);
     void setData(const char *adata /Array/, int alen /ArraySize/);
     virtual bool open(QIODevice::OpenMode openMode);

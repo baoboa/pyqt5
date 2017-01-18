@@ -98,7 +98,7 @@
                 return 0;
             }
 
-            PyList_SET_ITEM(vlobj, i, vobj);
+            PyList_SetItem(vlobj, i, vobj);
         }
     }
 
@@ -139,7 +139,7 @@
                 return 0;
             }
 
-            PyList_SET_ITEM(vlobj, i, vobj);
+            PyList_SetItem(vlobj, i, vobj);
         }
     }
 

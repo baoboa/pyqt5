@@ -1,6 +1,6 @@
 #############################################################################
 ##
-## Copyright (C) 2015 Riverbank Computing Limited.
+## Copyright (C) 2016 Riverbank Computing Limited.
 ## Copyright (C) 2006 Thorsten Marek.
 ## All right reserved.
 ##
@@ -283,7 +283,17 @@ class UIParser(object):
                     # We are loading the .ui file.
                     bg_name = bg_i18n
 
-                bg = self.button_groups[bg_name]
+				# Designer allows the creation of .ui files without explicit
+				# button groups, even though uic then issues warnings.  We
+				# handle it in two stages by first making sure it has a name
+				# and then making sure one exists with that name.
+                if not bg_name:
+                    bg_name = 'buttonGroup'
+
+                try:
+                    bg = self.button_groups[bg_name]
+                except KeyError:
+                    bg = self.button_groups[bg_name] = ButtonGroup()
 
                 if bg.object is None:
                     bg.object = self.factory.createQObject("QButtonGroup",

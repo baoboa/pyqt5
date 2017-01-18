@@ -30,6 +30,10 @@
 #include "qpycore_pyqtsignal.h"
 
 
+// The type object.
+PyTypeObject *qpycore_pyqtSignal_TypeObject;
+
+
 // Forward declarations.
 extern "C" {
 static PyObject *pyqtSignal_call(PyObject *self, PyObject *args, PyObject *kw);
@@ -49,16 +53,8 @@ static void append_overload(qpycore_pyqtSignal *ps);
 static bool is_signal_name(const char *sig, const QByteArray &name);
 
 
-// Define the mapping methods.
-static PyMappingMethods pyqtSignal_as_mapping = {
-    0,                      /* mp_length */
-    pyqtSignal_mp_subscript,    /* mp_subscript */
-    0,                      /* mp_ass_subscript */
-};
-
-
 // The getters/setters.
-static PyGetSetDef pyqtSignal_getsets[] = {
+static PyGetSetDef pyqtSignal_getset[] = {
     {const_cast<char *>("__doc__"), pyqtSignal_get_doc, NULL, NULL, NULL},
     {NULL, NULL, NULL, NULL, NULL}
 };
@@ -78,8 +74,41 @@ PyDoc_STRVAR(pyqtSignal_doc,
 "arguments is the optional sequence of the names of the signal's arguments.\n");
 
 
-// The pyqtSignal type object.
-PyTypeObject qpycore_pyqtSignal_Type = {
+#if PY_VERSION_HEX >= 0x03040000
+// Define the slots.
+static PyType_Slot qpycore_pyqtSignal_Slots[] = {
+    {Py_tp_new,         (void *)PyType_GenericNew},
+    {Py_tp_init,        (void *)pyqtSignal_init},
+    {Py_tp_dealloc,     (void *)pyqtSignal_dealloc},
+    {Py_tp_doc,         (void *)pyqtSignal_doc},
+    {Py_tp_repr,        (void *)pyqtSignal_repr},
+    {Py_tp_call,        (void *)pyqtSignal_call},
+    {Py_tp_descr_get,   (void *)pyqtSignal_descr_get},
+    {Py_mp_subscript,   (void *)pyqtSignal_mp_subscript},
+    {Py_tp_getset,      pyqtSignal_getset},
+    {0,                 0}
+};
+
+
+// Define the type.
+static PyType_Spec qpycore_pyqtSignal_Spec = {
+    "PyQt5.QtCore.pyqtSignal",
+    sizeof (qpycore_pyqtSignal),
+    0,
+    Py_TPFLAGS_DEFAULT,
+    qpycore_pyqtSignal_Slots
+};
+#else
+// Define the mapping methods.
+static PyMappingMethods pyqtSignal_as_mapping = {
+    0,                      /* mp_length */
+    pyqtSignal_mp_subscript,    /* mp_subscript */
+    0,                      /* mp_ass_subscript */
+};
+
+
+// Define the type.
+static PyTypeObject qpycore_pyqtSignal_Type = {
     PyVarObject_HEAD_INIT(NULL, 0)
 #if PY_VERSION_HEX >= 0x02050000
     "PyQt5.QtCore.pyqtSignal",  /* tp_name */
@@ -113,7 +142,7 @@ PyTypeObject qpycore_pyqtSignal_Type = {
     0,                      /* tp_iternext */
     0,                      /* tp_methods */
     0,                      /* tp_members */
-    pyqtSignal_getsets,     /* tp_getset */
+    pyqtSignal_getset,      /* tp_getset */
     0,                      /* tp_base */
     0,                      /* tp_dict */
     pyqtSignal_descr_get,   /* tp_descr_get */
@@ -135,6 +164,7 @@ PyTypeObject qpycore_pyqtSignal_Type = {
     0,                      /* tp_finalize */
 #endif
 };
+#endif
 
 
 // The __doc__ getter.
@@ -236,7 +266,7 @@ static void pyqtSignal_dealloc(PyObject *self)
         }
     }
 
-    Py_TYPE(self)->tp_free(self);
+    PyObject_Del(self);
 }
 
 
@@ -290,7 +320,7 @@ static int pyqtSignal_init(PyObject *self, PyObject *args, PyObject *kwd_args)
 #else
             Q_ASSERT(PyString_Check(key));
 
-            if (qstrcmp(PyString_AS_STRING(key), "name") == 0)
+            if (qstrcmp(PyString_AsString(key), "name") == 0)
 #endif
             {
                 name_obj = value;
@@ -300,7 +330,7 @@ static int pyqtSignal_init(PyObject *self, PyObject *args, PyObject *kwd_args)
                 {
                     PyErr_Format(PyExc_TypeError,
                             "signal 'name' must be a str, not %s",
-                            Py_TYPE(value)->tp_name);
+                            sipPyTypeName(Py_TYPE(value)));
 
                     return -1;
                 }
@@ -308,7 +338,7 @@ static int pyqtSignal_init(PyObject *self, PyObject *args, PyObject *kwd_args)
 #if PY_MAJOR_VERSION >= 3
             else if (PyUnicode_CompareWithASCIIString(key, "revision") == 0)
 #else
-            else if (qstrcmp(PyString_AS_STRING(key), "revision") == 0)
+            else if (qstrcmp(PyString_AsString(key), "revision") == 0)
 #endif
             {
                 PyErr_Clear();
@@ -319,7 +349,7 @@ static int pyqtSignal_init(PyObject *self, PyObject *args, PyObject *kwd_args)
                 {
                     PyErr_Format(PyExc_TypeError,
                             "signal 'revision' must be an int, not %s",
-                            Py_TYPE(value)->tp_name);
+                            sipPyTypeName(Py_TYPE(value)));
 
                     Py_XDECREF(name_obj);
                     return -1;
@@ -328,7 +358,7 @@ static int pyqtSignal_init(PyObject *self, PyObject *args, PyObject *kwd_args)
 #if PY_MAJOR_VERSION >= 3
             else if (PyUnicode_CompareWithASCIIString(key, "arguments") == 0)
 #else
-            else if (qstrcmp(PyString_AS_STRING(key), "arguments") == 0)
+            else if (qstrcmp(PyString_AsString(key), "arguments") == 0)
 #endif
             {
                 bool ok = true;
@@ -341,7 +371,7 @@ static int pyqtSignal_init(PyObject *self, PyObject *args, PyObject *kwd_args)
 
                     for (Py_ssize_t i = 0; i < len; ++i)
                     {
-                        PyObject *py_attr = PySequence_ITEM(value, i);
+                        PyObject *py_attr = PySequence_GetItem(value, i);
 
                         if (!py_attr)
                         {
@@ -375,7 +405,7 @@ static int pyqtSignal_init(PyObject *self, PyObject *args, PyObject *kwd_args)
                 {
                     PyErr_Format(PyExc_TypeError,
                             "signal 'attribute_names' must be a sequence of str, not %s",
-                            Py_TYPE(value)->tp_name);
+                            sipPyTypeName(Py_TYPE(value)));
 
                     if (parameter_names)
                         delete parameter_names;
@@ -393,7 +423,7 @@ static int pyqtSignal_init(PyObject *self, PyObject *args, PyObject *kwd_args)
 #else
                 PyErr_Format(PyExc_TypeError,
                         "pyqtSignal() got an unexpected keyword argument '%s'",
-                        PyString_AS_STRING(key));
+                        PyString_AsString(key));
 #endif
 
                 Py_XDECREF(name_obj);
@@ -405,11 +435,11 @@ static int pyqtSignal_init(PyObject *self, PyObject *args, PyObject *kwd_args)
     // If there is at least one argument and it is a sequence then assume all
     // arguments are sequences.  Unfortunately a string is also a sequence so
     // check for tuples and lists explicitly.
-    if (PyTuple_GET_SIZE(args) > 0 && (PyTuple_Check(PyTuple_GET_ITEM(args, 0)) || PyList_Check(PyTuple_GET_ITEM(args, 0))))
+    if (PyTuple_Size(args) > 0 && (PyTuple_Check(PyTuple_GetItem(args, 0)) || PyList_Check(PyTuple_GetItem(args, 0))))
     {
-        for (Py_ssize_t i = 0; i < PyTuple_GET_SIZE(args); ++i)
+        for (Py_ssize_t i = 0; i < PyTuple_Size(args); ++i)
         {
-            PyObject *types = PySequence_Tuple(PyTuple_GET_ITEM(args, i));
+            PyObject *types = PySequence_Tuple(PyTuple_GetItem(args, i));
 
             if (!types)
             {
@@ -434,7 +464,7 @@ static int pyqtSignal_init(PyObject *self, PyObject *args, PyObject *kwd_args)
             }
             else
             {
-                qpycore_pyqtSignal *overload = (qpycore_pyqtSignal *)PyType_GenericNew(&qpycore_pyqtSignal_Type, 0, 0);
+                qpycore_pyqtSignal *overload = (qpycore_pyqtSignal *)PyType_GenericNew(qpycore_pyqtSignal_TypeObject, 0, 0);
 
                 if (!overload)
                 {
@@ -497,6 +527,25 @@ static PyObject *pyqtSignal_mp_subscript(PyObject *self, PyObject *subscript)
 }
 
 
+// Initialise the type and return true if there was no error.
+bool qpycore_pyqtSignal_init_type()
+{
+#if PY_VERSION_HEX >= 0x03040000
+    qpycore_pyqtSignal_TypeObject = (PyTypeObject *)PyType_FromSpec(
+            &qpycore_pyqtSignal_Spec);
+
+    return qpycore_pyqtSignal_TypeObject;
+#else
+    if (PyType_Ready(&qpycore_pyqtSignal_Type) < 0)
+        return false;
+
+    qpycore_pyqtSignal_TypeObject = &qpycore_pyqtSignal_Type;
+
+    return true;
+#endif
+}
+
+
 // Create a new signal instance.
 qpycore_pyqtSignal *qpycore_pyqtSignal_New(const char *signature, bool *fatal)
 {
@@ -524,7 +573,7 @@ qpycore_pyqtSignal *qpycore_pyqtSignal_New(const char *signature, bool *fatal)
 
     // Create and initialise the signal.
     qpycore_pyqtSignal *ps = (qpycore_pyqtSignal *)PyType_GenericNew(
-            &qpycore_pyqtSignal_Type, 0, 0);
+            qpycore_pyqtSignal_TypeObject, 0, 0);
 
     if (!ps)
     {
@@ -563,7 +612,7 @@ qpycore_pyqtSignal *qpycore_find_signal(qpycore_pyqtSignal *ps,
         if (!args)
             return 0;
 
-        PyTuple_SET_ITEM(args, 0, subscript);
+        PyTuple_SetItem(args, 0, subscript);
     }
 
     Py_INCREF(subscript);
@@ -671,8 +720,8 @@ void qpycore_set_signal_name(qpycore_pyqtSignal *ps, const char *type_name,
 // Handle the getting of a lazy attribute, ie. a native Qt signal.
 int qpycore_get_lazy_attr(const sipTypeDef *td, PyObject *dict)
 {
-    pyqt5ClassTypeDef *ctd = (pyqt5ClassTypeDef *)td;
-    const pyqt5QtSignal *sigs = ctd->qt_signals;
+    const pyqt5QtSignal *sigs = reinterpret_cast<const pyqt5ClassPluginDef *>(
+            sipTypePluginData(td))->qt_signals;
 
     // Handle the trvial case.
     if (!sigs)

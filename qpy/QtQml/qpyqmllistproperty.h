@@ -25,12 +25,11 @@
 #include <Python.h>
 
 
-extern "C" {
+// The type object.
+extern PyTypeObject *qpyqml_QQmlListProperty_TypeObject;
 
-// This implements the QQmlListProperty type.
-extern PyTypeObject qpyqml_QQmlListProperty_Type;
 
-}
+bool qpyqml_QQmlListProperty_init_type();
 
 
 #endif

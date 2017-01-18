@@ -60,6 +60,11 @@ public:
     bool evaluateTo(QAbstractXmlReceiver *callback) const;
     SIP_PYOBJECT evaluateToStringList() const /TypeHint="QStringList"/;
 %MethodCode
+        static const sipTypeDef *sipType_QStringList = 0;
+        
+        if (!sipType_QStringList)
+            sipType_QStringList = sipFindType("QStringList");
+        
         bool ok;
         QStringList *result = new QStringList;
         
@@ -82,6 +87,11 @@ public:
     bool evaluateTo(QIODevice *target) const;
     SIP_PYOBJECT evaluateToString() const /TypeHint="QString"/;
 %MethodCode
+        static const sipTypeDef *sipType_QStringList = 0;
+        
+        if (!sipType_QStringList)
+            sipType_QStringList = sipFindType("QStringList");
+        
         bool ok;
         QString *result = new QString;
         

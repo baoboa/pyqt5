@@ -310,7 +310,7 @@ sipErrorState qtgui_matrixDataAsList(int nr_values, const PYQT_FLOAT *values,
             return sipErrorFail;
         }
 
-        PyList_SET_ITEM(l, i, value);
+        PyList_SetItem(l, i, value);
     }
 
     *list = l;

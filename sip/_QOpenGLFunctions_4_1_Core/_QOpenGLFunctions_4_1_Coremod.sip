@@ -20,7 +20,7 @@
 // WARRANTY OF DESIGN, MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE.
 
 
-%Module(name=PyQt5._QOpenGLFunctions_4_1_Core, keyword_arguments="Optional")
+%Module(name=PyQt5._QOpenGLFunctions_4_1_Core, keyword_arguments="Optional", use_limited_api=True)
 
 %Import QtGui/QtGuimod.sip
 

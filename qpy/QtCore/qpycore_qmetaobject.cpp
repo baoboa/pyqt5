@@ -67,7 +67,7 @@ PyObject *qpycore_ArgumentFactory(PyObject *type, PyObject *data)
     {
         // Stash the storage in the user field so that everything will be
         // properly garbage collected.
-        ((sipSimpleWrapper *)ga_obj)->user = as_obj;
+        sipSetUserObject((sipSimpleWrapper *)ga_obj, as_obj);
     }
     else
     {
@@ -108,7 +108,7 @@ PyObject *qpycore_ReturnFactory(PyObject *type)
     {
         // Stash the storage in the user field so that everything will be
         // properly garbage collected.
-        ((sipSimpleWrapper *)gra_obj)->user = as_obj;
+        sipSetUserObject((sipSimpleWrapper *)gra_obj, as_obj);
     }
     else
     {
@@ -123,7 +123,7 @@ PyObject *qpycore_ReturnFactory(PyObject *type)
 // Return the Python result from a QGenericReturnArgument.
 PyObject *qpycore_ReturnValue(PyObject *gra_obj)
 {
-    PyObject *as_obj = ((sipSimpleWrapper *)gra_obj)->user;
+    PyObject *as_obj = sipGetUserObject((sipSimpleWrapper *)gra_obj);
 
 #if defined(SIP_USE_PYCAPSULE)
     Chimera::Storage *st = reinterpret_cast<Chimera::Storage *>(

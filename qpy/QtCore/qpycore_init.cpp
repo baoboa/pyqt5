@@ -24,7 +24,6 @@
 #include "qpycore_public_api.h"
 #include "qpycore_pyqtslotproxy.h"
 #include "qpycore_qobject_helpers.h"
-#include "qpycore_types.h"
 
 #include "sipAPIQtCore.h"
 
@@ -32,16 +31,6 @@
 // Perform any required initialisation.
 void qpycore_init()
 {
-    // Initialise the meta-type.
-    qpycore_pyqtWrapperType_Type.tp_base = sipWrapperType_Type;
-
-    if (PyType_Ready(&qpycore_pyqtWrapperType_Type) < 0)
-        Py_FatalError("PyQt5.QtCore: Failed to initialise pyqtWrapperType type");
-
-    // Register the meta-type.
-    if (sipRegisterPyType((PyTypeObject *)&qpycore_pyqtWrapperType_Type) < 0)
-        Py_FatalError("PyQt5.QtCore: Failed to register pyqtWrapperType type");
-
     // Export the private helpers, ie. those that should not be used by
     // external handwritten code.
     sipExportSymbol("qtcore_qt_metaobject",

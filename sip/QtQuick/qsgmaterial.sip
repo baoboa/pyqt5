@@ -97,7 +97,7 @@ public:
                     break;
                 }
         
-                PyList_SET_ITEM(sipRes, i, el);
+                PyList_SetItem(sipRes, i, el);
             }
 %End
 
@@ -210,8 +210,8 @@ static void qtquick_anc_destructor(PyObject *cap)
 static char **qtquick_anc_get_attr_names(sipSimpleWrapper *pySelf, PyObject *method, PyObject *attr_names_obj)
 {
     // Dispose of any existing names.
-    Py_XDECREF(pySelf->user);
-    pySelf->user = NULL;
+    Py_XDECREF(sipGetUserObject(pySelf));
+    sipSetUserObject(pySelf, NULL);
 
     // Convert the new names.
     if (!PyList_Check(attr_names_obj))
@@ -220,17 +220,17 @@ static char **qtquick_anc_get_attr_names(sipSimpleWrapper *pySelf, PyObject *met
         return 0;
     }
 
-    char **names = new char *[PyList_GET_SIZE(attr_names_obj) + 1];
+    char **names = new char *[PyList_Size(attr_names_obj) + 1];
 
-    for (Py_ssize_t i = 0; i < PyList_GET_SIZE(attr_names_obj); ++i)
+    for (Py_ssize_t i = 0; i < PyList_Size(attr_names_obj); ++i)
     {
         char *name;
-        PyObject *el = PyList_GET_ITEM(attr_names_obj, i);
+        PyObject *el = PyList_GetItem(attr_names_obj, i);
 
 #if PY_MAJOR_VERSION >= 3
         PyObject *name_obj = PyUnicode_AsASCIIString(el);
 
-        name = (name_obj ? PyBytes_AS_STRING(name_obj) : 0);
+        name = (name_obj ? PyBytes_AsString(name_obj) : 0);
 #else
         name = PyString_AsString(el);
 #endif
@@ -253,11 +253,11 @@ static char **qtquick_anc_get_attr_names(sipSimpleWrapper *pySelf, PyObject *met
 #endif
     }
 
-    names[PyList_GET_SIZE(attr_names_obj)] = 0;
+    names[PyList_Size(attr_names_obj)] = 0;
 
-    pySelf->user = PyCapsule_New(names, NULL, qtquick_anc_destructor);
+    sipSetUserObject(pySelf, PyCapsule_New(names, NULL, qtquick_anc_destructor));
 
-    if (!pySelf->user)
+    if (!sipGetUserObject(pySelf))
     {
         qtquick_anc_release(names);
         return 0;

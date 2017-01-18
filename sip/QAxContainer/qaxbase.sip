@@ -40,7 +40,7 @@ public:
         Py_END_ALLOW_THREADS
 
         // Update the input list with the (possibly) new values.
-        for (SIP_SSIZE_T i = 0; i < PyList_GET_SIZE(a1Wrapper); ++i)
+        for (SIP_SSIZE_T i = 0; i < PyList_Size(a1Wrapper); ++i)
         {
             QVariant *v = new QVariant(a1->at(i));
             PyObject *v_obj = sipConvertFromNewType(v, sipType_QVariant, NULL);
@@ -79,7 +79,7 @@ public:
         Py_END_ALLOW_THREADS
 
         // Update the input list with the (possibly) new values.
-        for (SIP_SSIZE_T i = 0; i < PyList_GET_SIZE(a1Wrapper); ++i)
+        for (SIP_SSIZE_T i = 0; i < PyList_Size(a1Wrapper); ++i)
         {
             QVariant *v = new QVariant(a1->at(i));
             PyObject *v_obj = sipConvertFromNewType(v, sipType_QVariant, NULL);

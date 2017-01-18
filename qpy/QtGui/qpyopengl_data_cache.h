@@ -48,9 +48,9 @@ struct Array
     void *data;
 
 #if PY_VERSION_HEX >= 0x02060300
-    // The buffer view.  The obj element is a reference to the object that
-    // implements the buffer protocol.
-    Py_buffer buffer;
+    // The buffer information.  The obj element is a reference to the object
+    // that implements the buffer protocol.
+    sipBufferInfoDef buffer;
 #else
     // A reference to the object that implements the buffer protocol.
     PyObject *buffer;
@@ -89,14 +89,14 @@ typedef struct {
     PrimaryCache *pcache;
 } qpyopengl_dataCache;
 
-
-// This implements the Python type of a data cache.
-extern PyTypeObject qpyopengl_dataCache_Type;
-
 }
 
 
-// Create a new data cache.
+// The type object.
+extern PyTypeObject *qpyopengl_dataCache_TypeObject;
+
+
+bool qpyopengl_dataCache_init_type();
 qpyopengl_dataCache *qpyopengl_dataCache_New();
 
 

@@ -65,9 +65,10 @@ void QPyQmlObjectProxy::connectNotify(const QMetaMethod &sig)
     QByteArray signal_sig = signalSignature(sig);
 
     // The signal has actually been connected to the proxy, so do the same from
-    // the proxied object to the proxy.
+    // the proxied object to the proxy.  Use Qt::UniqueConnection in case the
+    // object (ie. model) is used in more than one view.
     QObject::connect(proxied, signal_sig.constData(), this,
-            signal_sig.constData());
+            signal_sig.constData(), Qt::UniqueConnection);
 }
 
 

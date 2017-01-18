@@ -60,7 +60,7 @@
         return 0;
     }
 
-    PyObject *firstobj = PySequence_ITEM(sipPy, 0);
+    PyObject *firstobj = PySequence_GetItem(sipPy, 0);
 
     if (!firstobj)
     {
@@ -73,14 +73,14 @@
     {
         PyErr_Format(PyExc_TypeError,
                 "the first element has type '%s' but 'QOpenGLTexture.Filter' is expected",
-                Py_TYPE(firstobj)->tp_name);
+                sipPyTypeName(Py_TYPE(firstobj)));
 
         *sipIsErr = 1;
 
         return 0;
     }
 
-    PyObject *secondobj = PySequence_ITEM(sipPy, 1);
+    PyObject *secondobj = PySequence_GetItem(sipPy, 1);
 
     if (!secondobj)
     {
@@ -94,7 +94,7 @@
     {
         PyErr_Format(PyExc_TypeError,
                 "the second element has type '%s' but 'QOpenGLTexture.Filter' is expected",
-                Py_TYPE(secondobj)->tp_name);
+                sipPyTypeName(Py_TYPE(secondobj)));
 
         Py_DECREF(secondobj);
         Py_DECREF(firstobj);
@@ -155,7 +155,7 @@
         return 0;
     }
 
-    PyObject *firstobj = PySequence_ITEM(sipPy, 0);
+    PyObject *firstobj = PySequence_GetItem(sipPy, 0);
 
     if (!firstobj)
     {
@@ -171,14 +171,14 @@
     {
         PyErr_Format(PyExc_TypeError,
                 "the first element has type '%s' but 'float' is expected",
-                Py_TYPE(firstobj)->tp_name);
+                sipPyTypeName(Py_TYPE(firstobj)));
 
         *sipIsErr = 1;
 
         return 0;
     }
 
-    PyObject *secondobj = PySequence_ITEM(sipPy, 1);
+    PyObject *secondobj = PySequence_GetItem(sipPy, 1);
 
     if (!secondobj)
     {
@@ -195,7 +195,7 @@
     {
         PyErr_Format(PyExc_TypeError,
                 "the second element has type '%s' but 'float' is expected",
-                Py_TYPE(secondobj)->tp_name);
+                sipPyTypeName(Py_TYPE(secondobj)));
 
         Py_DECREF(secondobj);
         Py_DECREF(firstobj);

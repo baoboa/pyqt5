@@ -126,7 +126,7 @@ protected:
     void connectNotify(const QMetaMethod &signal);
 
 private:
-    // These can by cast to sipWrapperType and pyqtWrapperType.
+    // These can by cast to sipWrapperType.
     static QList<PyTypeObject *> pyqt_types;
 
     // The wrapped proxied object.

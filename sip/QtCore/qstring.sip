@@ -46,7 +46,7 @@ if (sipPy == Py_None)
 #if PY_MAJOR_VERSION < 3
 if (PyString_Check(sipPy))
 {
-    *sipCppPtr = new QString(PyString_AS_STRING(sipPy));
+    *sipCppPtr = new QString(PyString_AsString(sipPy));
 
     return sipGetState(sipTransferObj);
 }

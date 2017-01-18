@@ -25,6 +25,10 @@
 #include "qpyqmllistpropertywrapper.h"
 
 
+// The type object.
+PyTypeObject *qpyqml_QQmlListPropertyWrapper_TypeObject;
+
+
 // Forward declarations.
 extern "C" {
 static void QQmlListPropertyWrapper_dealloc(PyObject *self);
@@ -55,7 +59,32 @@ static PyObject *QQmlListPropertyWrapper_sq_inplace_repeat(PyObject *self,
 static PyObject *get_list(PyObject *self);
 
 
-// The sequence methods.
+#if PY_VERSION_HEX >= 0x03040000
+// Define the slots.
+static PyType_Slot qpyqml_QQmlListPropertyWrapper_Slots[] = {
+    {Py_tp_dealloc,     (void *)QQmlListPropertyWrapper_dealloc},
+    {Py_sq_length,      (void *)QQmlListPropertyWrapper_sq_length},
+    {Py_sq_concat,      (void *)QQmlListPropertyWrapper_sq_concat},
+    {Py_sq_repeat,      (void *)QQmlListPropertyWrapper_sq_repeat},
+    {Py_sq_item,        (void *)QQmlListPropertyWrapper_sq_item},
+    {Py_sq_ass_item,    (void *)QQmlListPropertyWrapper_sq_ass_item},
+    {Py_sq_contains,    (void *)QQmlListPropertyWrapper_sq_contains},
+    {Py_sq_inplace_concat,  (void *)QQmlListPropertyWrapper_sq_inplace_concat},
+    {Py_sq_inplace_repeat,  (void *)QQmlListPropertyWrapper_sq_inplace_repeat},
+    {0,                 0}
+};
+
+
+// Define the type.
+static PyType_Spec qpyqml_QQmlListPropertyWrapper_Spec = {
+    "PyQt5.QtQml.QQmlListPropertyWrapper",
+    sizeof (qpyqml_QQmlListPropertyWrapper),
+    0,
+    Py_TPFLAGS_DEFAULT,
+    qpyqml_QQmlListPropertyWrapper_Slots
+};
+#else
+// Define the sequence methods.
 PySequenceMethods QQmlListPropertyWrapper_as_sequence = {
     QQmlListPropertyWrapper_sq_length,
     QQmlListPropertyWrapper_sq_concat,
@@ -77,7 +106,7 @@ PySequenceMethods QQmlListPropertyWrapper_as_sequence = {
     QQmlListPropertyWrapper_sq_inplace_repeat,
 };
 
-// The QQmlListPropertyWrapper type object.
+// Define the type.
 PyTypeObject qpyqml_QQmlListPropertyWrapper_Type = {
     PyVarObject_HEAD_INIT(NULL, 0)
 #if PY_VERSION_HEX >= 0x02050000
@@ -134,6 +163,26 @@ PyTypeObject qpyqml_QQmlListPropertyWrapper_Type = {
     0,                      /* tp_finalize */
 #endif
 };
+#endif
+
+
+// Initialise the type and return true if there was no error.
+bool qpyqml_QQmlListPropertyWrapper_init_type()
+{
+#if PY_VERSION_HEX >= 0x03040000
+    qpyqml_QQmlListPropertyWrapper_TypeObject = (PyTypeObject *)PyType_FromSpec(
+            &qpyqml_QQmlListPropertyWrapper_Spec);
+
+    return qpyqml_QQmlListPropertyWrapper_TypeObject;
+#else
+    if (PyType_Ready(&qpyqml_QQmlListPropertyWrapper_Type) < 0)
+        return false;
+
+    qpyqml_QQmlListPropertyWrapper_TypeObject = &qpyqml_QQmlListPropertyWrapper_Type;
+
+    return true;
+#endif
+}
 
 
 // Create the wrapper object.
@@ -142,8 +191,8 @@ PyObject *qpyqml_QQmlListPropertyWrapper_New(QQmlListProperty<QObject> *prop,
 {
     qpyqml_QQmlListPropertyWrapper *obj;
 
-    obj = PyObject_NEW(qpyqml_QQmlListPropertyWrapper,
-            &qpyqml_QQmlListPropertyWrapper_Type);
+    obj = PyObject_New(qpyqml_QQmlListPropertyWrapper,
+            qpyqml_QQmlListPropertyWrapper_TypeObject);
 
     if (!obj)
         return 0;
@@ -160,7 +209,7 @@ static void QQmlListPropertyWrapper_dealloc(PyObject *self)
 {
     delete ((qpyqml_QQmlListPropertyWrapper *)self)->qml_list_property;
 
-    PyObject_DEL(self);
+    PyObject_Del(self);
 }
 
 
@@ -178,7 +227,7 @@ static PyObject *get_list(PyObject *self)
     }
 
     // Make sure it has sequence methods.
-    if (!list->ob_type->tp_as_sequence)
+    if (!PySequence_Check(list))
     {
         PyErr_SetString(PyExc_TypeError,
                 "object bound to QQmlListProperty is not a sequence");
@@ -198,7 +247,7 @@ static Py_ssize_t QQmlListPropertyWrapper_sq_length(PyObject *self)
     if (!list)
         return -1;
 
-    return list->ob_type->tp_as_sequence->sq_length(list);
+    return PySequence_Size(list);
 }
 
 static PyObject *QQmlListPropertyWrapper_sq_concat(PyObject *self,
@@ -209,7 +258,7 @@ static PyObject *QQmlListPropertyWrapper_sq_concat(PyObject *self,
     if (!list)
         return 0;
 
-    return list->ob_type->tp_as_sequence->sq_concat(list, other);
+    return PySequence_Concat(list, other);
 }
 
 static PyObject *QQmlListPropertyWrapper_sq_repeat(PyObject *self,
@@ -220,7 +269,7 @@ static PyObject *QQmlListPropertyWrapper_sq_repeat(PyObject *self,
     if (!list)
         return 0;
 
-    return list->ob_type->tp_as_sequence->sq_repeat(list, count);
+    return PySequence_Repeat(list, count);
 }
 
 static PyObject *QQmlListPropertyWrapper_sq_item(PyObject *self, Py_ssize_t i)
@@ -230,7 +279,7 @@ static PyObject *QQmlListPropertyWrapper_sq_item(PyObject *self, Py_ssize_t i)
     if (!list)
         return 0;
 
-    return list->ob_type->tp_as_sequence->sq_item(list, i);
+    return PySequence_GetItem(list, i);
 }
 
 #if PY_MAJOR_VERSION < 3
@@ -242,7 +291,7 @@ static PyObject *QQmlListPropertyWrapper_sq_slice(PyObject *self,
     if (!list)
         return 0;
 
-    return list->ob_type->tp_as_sequence->sq_slice(list, i1, i2);
+    return PySequence_GetSlice(list, i1, i2);
 }
 #endif
 
@@ -254,7 +303,7 @@ static int QQmlListPropertyWrapper_sq_ass_item(PyObject *self, Py_ssize_t i,
     if (!list)
         return -1;
 
-    return list->ob_type->tp_as_sequence->sq_ass_item(list, i, value);
+    return PySequence_SetItem(list, i, value);
 }
 
 #if PY_MAJOR_VERSION < 3
@@ -266,7 +315,7 @@ static int QQmlListPropertyWrapper_sq_ass_slice(PyObject *self, Py_ssize_t i1,
     if (!list)
         return -1;
 
-    return list->ob_type->tp_as_sequence->sq_ass_slice(list, i1, i2, value);
+    return PySequence_SetSlice(list, i1, i2, value);
 }
 #endif
 
@@ -277,7 +326,7 @@ static int QQmlListPropertyWrapper_sq_contains(PyObject *self, PyObject *value)
     if (!list)
         return -1;
 
-    return list->ob_type->tp_as_sequence->sq_contains(list, value);
+    return PySequence_Contains(list, value);
 }
 
 static PyObject *QQmlListPropertyWrapper_sq_inplace_concat(PyObject *self,
@@ -288,7 +337,7 @@ static PyObject *QQmlListPropertyWrapper_sq_inplace_concat(PyObject *self,
     if (!list)
         return 0;
 
-    return list->ob_type->tp_as_sequence->sq_inplace_concat(list, other);
+    return PySequence_InPlaceConcat(list, other);
 }
 
 static PyObject *QQmlListPropertyWrapper_sq_inplace_repeat(PyObject *self,
@@ -299,5 +348,5 @@ static PyObject *QQmlListPropertyWrapper_sq_inplace_repeat(PyObject *self,
     if (!list)
         return 0;
 
-    return list->ob_type->tp_as_sequence->sq_inplace_repeat(list, count);
+    return PySequence_InPlaceRepeat(list, count);
 }

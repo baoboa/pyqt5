@@ -44,11 +44,14 @@ typedef struct _qpyqml_QQmlListPropertyWrapper {
     PyObject *py_list;
 } qpyqml_QQmlListPropertyWrapper;
 
-extern PyTypeObject qpyqml_QQmlListPropertyWrapper_Type;
-
 }
 
 
+// The type object.
+extern PyTypeObject *qpyqml_QQmlListPropertyWrapper_TypeObject;
+
+
+bool qpyqml_QQmlListPropertyWrapper_init_type();
 PyObject *qpyqml_QQmlListPropertyWrapper_New(QQmlListProperty<QObject> *prop,
         PyObject *list);
 

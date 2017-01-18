@@ -132,8 +132,8 @@ QDataStream &operator<<(QDataStream &out, const PyQt_PyObject &obj)
             {
                 if (SIPBytes_Check(ser_obj))
                 {
-                    ser = SIPBytes_AS_STRING(ser_obj);
-                    len = SIPBytes_GET_SIZE(ser_obj);
+                    ser = SIPBytes_AsString(ser_obj);
+                    len = SIPBytes_Size(ser_obj);
                 }
                 else
                 {

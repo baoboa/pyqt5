@@ -30,7 +30,7 @@
 
 %ConvertToTypeCode
     if (sipIsErr == NULL)
-        return PyObject_IsInstance(sipPy, (PyObject *)&qpyqml_QQmlListPropertyWrapper_Type);
+        return PyObject_IsInstance(sipPy, (PyObject *)qpyqml_QQmlListPropertyWrapper_TypeObject);
 
     *sipCppPtr = ((qpyqml_QQmlListPropertyWrapper *)sipPy)->qml_list_property;
 

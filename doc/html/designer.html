@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Using Qt Designer &mdash; PyQt 5.7 Reference Guide</title>
+    <title>Using Qt Designer &#8212; PyQt 5.7.1 Reference Guide</title>
     
     <link rel="stylesheet" href="_static/classic.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -14,17 +14,19 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '5.7',
+        VERSION:     '5.7.1',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
       };
     </script>
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
     <link rel="shortcut icon" href="_static/logo_tn.ico"/>
-    <link rel="top" title="PyQt 5.7 Reference Guide" href="index.html" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="The PyQt5 Resource System" href="resources.html" />
     <link rel="prev" title="Things to be Aware Of" href="gotchas.html" /> 
   </head>
@@ -44,7 +46,7 @@
         <li class="right" >
           <a href="gotchas.html" title="Things to be Aware Of"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">PyQt 5.7 Reference Guide</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">PyQt 5.7.1 Reference Guide</a> &#187;</li> 
       </ul>
     </div>  
 
@@ -321,46 +323,46 @@ the corresponding Python module is <code class="docutils literal"><span class="p
 <p>The full set of command line options is:</p>
 <dl class="cmdoption">
 <dt id="cmdoption-pyuic5-h">
-<span id="cmdoption-pyuic5--help"></span><code class="descname">-h</code><code class="descclassname"></code><code class="descclassname">, </code><code class="descname">--help</code><code class="descclassname"></code><a class="headerlink" href="#cmdoption-pyuic5-h" title="Permalink to this definition">¶</a></dt>
+<code class="descname">-h</code><code class="descclassname"></code><code class="descclassname">, </code><code class="descname">--help</code><code class="descclassname"></code><a class="headerlink" href="#cmdoption-pyuic5-h" title="Permalink to this definition">¶</a></dt>
 <dd><p>A help message is written to <code class="docutils literal"><span class="pre">stdout</span></code>.</p>
 </dd></dl>
 
 <dl class="cmdoption">
-<dt id="cmdoption-pyuic5--version">
-<code class="descname">--version</code><code class="descclassname"></code><a class="headerlink" href="#cmdoption-pyuic5--version" title="Permalink to this definition">¶</a></dt>
+<dt id="cmdoption-pyuic5-version">
+<code class="descname">--version</code><code class="descclassname"></code><a class="headerlink" href="#cmdoption-pyuic5-version" title="Permalink to this definition">¶</a></dt>
 <dd><p>The version number is written to <code class="docutils literal"><span class="pre">stdout</span></code>.</p>
 </dd></dl>
 
 <dl class="cmdoption">
 <dt id="cmdoption-pyuic5-i">
-<span id="cmdoption-pyuic5--indent"></span><code class="descname">-i</code><code class="descclassname"> &lt;N&gt;</code><code class="descclassname">, </code><code class="descname">--indent</code><code class="descclassname"> &lt;N&gt;</code><a class="headerlink" href="#cmdoption-pyuic5-i" title="Permalink to this definition">¶</a></dt>
+<code class="descname">-i</code><code class="descclassname"> &lt;N&gt;</code><code class="descclassname">, </code><code class="descname">--indent</code><code class="descclassname"> &lt;N&gt;</code><a class="headerlink" href="#cmdoption-pyuic5-i" title="Permalink to this definition">¶</a></dt>
 <dd><p>The Python code is generated using an indentation of <code class="docutils literal"><span class="pre">&lt;N&gt;</span></code> spaces.  If
 <code class="docutils literal"><span class="pre">&lt;N&gt;</span></code> is 0 then a tab is used.  The default is 4.</p>
 </dd></dl>
 
 <dl class="cmdoption">
 <dt id="cmdoption-pyuic5-o">
-<span id="cmdoption-pyuic5--output"></span><code class="descname">-o</code><code class="descclassname"> &lt;FILE&gt;</code><code class="descclassname">, </code><code class="descname">--output</code><code class="descclassname"> &lt;FILE&gt;</code><a class="headerlink" href="#cmdoption-pyuic5-o" title="Permalink to this definition">¶</a></dt>
+<code class="descname">-o</code><code class="descclassname"> &lt;FILE&gt;</code><code class="descclassname">, </code><code class="descname">--output</code><code class="descclassname"> &lt;FILE&gt;</code><a class="headerlink" href="#cmdoption-pyuic5-o" title="Permalink to this definition">¶</a></dt>
 <dd><p>The Python code generated is written to the file <code class="docutils literal"><span class="pre">&lt;FILE&gt;</span></code>.</p>
 </dd></dl>
 
 <dl class="cmdoption">
 <dt id="cmdoption-pyuic5-p">
-<span id="cmdoption-pyuic5--preview"></span><code class="descname">-p</code><code class="descclassname"></code><code class="descclassname">, </code><code class="descname">--preview</code><code class="descclassname"></code><a class="headerlink" href="#cmdoption-pyuic5-p" title="Permalink to this definition">¶</a></dt>
+<code class="descname">-p</code><code class="descclassname"></code><code class="descclassname">, </code><code class="descname">--preview</code><code class="descclassname"></code><a class="headerlink" href="#cmdoption-pyuic5-p" title="Permalink to this definition">¶</a></dt>
 <dd><p>The GUI is created dynamically and displayed.  No Python code is generated.</p>
 </dd></dl>
 
 <dl class="cmdoption">
 <dt id="cmdoption-pyuic5-x">
-<span id="cmdoption-pyuic5--execute"></span><code class="descname">-x</code><code class="descclassname"></code><code class="descclassname">, </code><code class="descname">--execute</code><code class="descclassname"></code><a class="headerlink" href="#cmdoption-pyuic5-x" title="Permalink to this definition">¶</a></dt>
+<code class="descname">-x</code><code class="descclassname"></code><code class="descclassname">, </code><code class="descname">--execute</code><code class="descclassname"></code><a class="headerlink" href="#cmdoption-pyuic5-x" title="Permalink to this definition">¶</a></dt>
 <dd><p>The generated Python code includes a small amount of additional code that
 creates and displays the GUI when it is executes as a standalone
 application.</p>
 </dd></dl>
 
 <dl class="cmdoption">
-<dt id="cmdoption-pyuic5--import-from">
-<code class="descname">--import-from</code><code class="descclassname"> &lt;PACKAGE&gt;</code><a class="headerlink" href="#cmdoption-pyuic5--import-from" title="Permalink to this definition">¶</a></dt>
+<dt id="cmdoption-pyuic5-import-from">
+<code class="descname">--import-from</code><code class="descclassname"> &lt;PACKAGE&gt;</code><a class="headerlink" href="#cmdoption-pyuic5-import-from" title="Permalink to this definition">¶</a></dt>
 <dd><div class="versionadded">
 <p><span class="versionmodified">New in version 5.6.</span></p>
 </div>
@@ -369,14 +371,14 @@ than a simple <code class="docutils literal"><span class="pre">import</span> <sp
 </dd></dl>
 
 <dl class="cmdoption">
-<dt id="cmdoption-pyuic5--from-imports">
-<code class="descname">--from-imports</code><code class="descclassname"></code><a class="headerlink" href="#cmdoption-pyuic5--from-imports" title="Permalink to this definition">¶</a></dt>
+<dt id="cmdoption-pyuic5-from-imports">
+<code class="descname">--from-imports</code><code class="descclassname"></code><a class="headerlink" href="#cmdoption-pyuic5-from-imports" title="Permalink to this definition">¶</a></dt>
 <dd><p>This is the equivalent of specifying <code class="docutils literal"><span class="pre">--import-from</span> <span class="pre">.</span></code>.</p>
 </dd></dl>
 
 <dl class="cmdoption">
-<dt id="cmdoption-pyuic5--resource-suffix">
-<code class="descname">--resource-suffix</code><code class="descclassname"> &lt;SUFFIX&gt;</code><a class="headerlink" href="#cmdoption-pyuic5--resource-suffix" title="Permalink to this definition">¶</a></dt>
+<dt id="cmdoption-pyuic5-resource-suffix">
+<code class="descname">--resource-suffix</code><code class="descclassname"> &lt;SUFFIX&gt;</code><a class="headerlink" href="#cmdoption-pyuic5-resource-suffix" title="Permalink to this definition">¶</a></dt>
 <dd><p>The suffix <code class="docutils literal"><span class="pre">&lt;SUFFIX&gt;</span></code> is appended to the basename of any resource file
 specified in the <code class="docutils literal"><span class="pre">.ui</span></code> file to create the name of the Python module
 generated from the resource file by <strong class="program">pyrcc5</strong>.  The default is
@@ -524,12 +526,12 @@ the <code class="file docutils literal"><span class="pre">python</span></code> s
         <li class="right" >
           <a href="gotchas.html" title="Things to be Aware Of"
              >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">PyQt 5.7 Reference Guide</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">PyQt 5.7.1 Reference Guide</a> &#187;</li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
-        &copy; Copyright 2015 Riverbank Computing Limited.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.4.5.
+        &#169; Copyright 2015 Riverbank Computing Limited.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.5.1.
     </div>
   </body>
 </html>

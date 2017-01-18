@@ -921,10 +921,7 @@ public:
     qulonglong toULongLong(const QString &s, bool *ok = 0) const;
     float toFloat(const QString &s, bool *ok = 0) const;
     double toDouble(const QString &s, bool *ok = 0) const;
-    QString toString(int i /Constrained/) const;
     QString toString(double i /Constrained/, char format = 'g', int precision = 6) const;
-    QString toString(qlonglong i) const;
-    QString toString(qulonglong i) const;
     bool operator==(const QLocale &other) const;
     bool operator!=(const QLocale &other) const;
     static QString languageToString(QLocale::Language language);
@@ -1359,13 +1356,10 @@ public:
     QString toUpper(const QString &str) const;
     QString toLower(const QString &str) const;
     QString currencySymbol(QLocale::CurrencySymbolFormat format = QLocale::CurrencySymbol) const;
-    QString toCurrencyString(int value /Constrained/, const QString &symbol = QString()) const;
     QString toCurrencyString(double value /Constrained/, const QString &symbol = QString()) const;
 %If (Qt_5_7_0 -)
     QString toCurrencyString(double value /Constrained/, const QString &symbol, int precision) const;
 %End
-    QString toCurrencyString(qlonglong value, const QString &symbol = QString()) const;
-    QString toCurrencyString(qulonglong value, const QString &symbol = QString()) const;
     QStringList uiLanguages() const;
     static QString scriptToString(QLocale::Script script);
     static QList<QLocale> matchingLocales(QLocale::Language language, QLocale::Script script, QLocale::Country country);
@@ -1395,6 +1389,109 @@ public:
 %End
 %If (Qt_5_7_0 -)
     void swap(QLocale &other);
+%End
+    QString toString(SIP_PYOBJECT i /TypeHint="int"/) const;
+%MethodCode
+        // Convert a Python int avoiding overflow as much as possible.
+        
+        static PyObject *zero = 0;
+        if (!zero)
+            zero = PyLong_FromLong(0);
+        
+        int rc = PyObject_RichCompareBool(a0, zero, Py_LT);
+        
+        PyErr_Clear();
+        
+        if (rc < 0)
+        {
+            sipError = sipBadCallableArg(0, a0);
+        }
+        else if (rc)
+        {
+        #if defined(HAVE_LONG_LONG)
+            PY_LONG_LONG value = PyLong_AsLongLong(a0);
+        #else
+            long value = PyLong_AsLong(a0);
+        #endif
+        
+            if (PyErr_Occurred() && !PyErr_ExceptionMatches(PyExc_OverflowError))
+            {
+                sipError = sipBadCallableArg(0, a0);
+            }
+            else
+            {
+                sipRes = new QString(sipCpp->toString(value));
+            }
+        }
+        else
+        {
+        #if defined(HAVE_LONG_LONG)
+            unsigned PY_LONG_LONG value = PyLong_AsUnsignedLongLongMask(a0);
+        #else
+            unsigned long value = PyLong_AsUnsignedLongMask(a0);
+        #endif
+        
+            if (PyErr_Occurred() && !PyErr_ExceptionMatches(PyExc_OverflowError))
+            {
+                sipError = sipBadCallableArg(0, a0);
+            }
+            else
+            {
+                sipRes = new QString(sipCpp->toString(value));
+            }
+        }
+%End
+
+    QString toCurrencyString(SIP_PYOBJECT value /TypeHint="int"/, const QString &symbol = QString()) const;
+%MethodCode
+        // Convert a Python int avoiding overflow as much as possible.
+        
+        static PyObject *zero = 0;
+        if (!zero)
+            zero = PyLong_FromLong(0);
+        
+        int rc = PyObject_RichCompareBool(a0, zero, Py_LT);
+        
+        PyErr_Clear();
+        
+        if (rc < 0)
+        {
+            sipError = sipBadCallableArg(0, a0);
+        }
+        else if (rc)
+        {
+        #if defined(HAVE_LONG_LONG)
+            PY_LONG_LONG value = PyLong_AsLongLong(a0);
+        #else
+            long value = PyLong_AsLong(a0);
+        #endif
+        
+            if (PyErr_Occurred() && !PyErr_ExceptionMatches(PyExc_OverflowError))
+            {
+                sipError = sipBadCallableArg(0, a0);
+            }
+            else
+            {
+                sipRes = new QString(sipCpp->toCurrencyString(value, *a1));
+            }
+        }
+        else
+        {
+        #if defined(HAVE_LONG_LONG)
+            unsigned PY_LONG_LONG value = PyLong_AsUnsignedLongLongMask(a0);
+        #else
+            unsigned long value = PyLong_AsUnsignedLongMask(a0);
+        #endif
+        
+            if (PyErr_Occurred() && !PyErr_ExceptionMatches(PyExc_OverflowError))
+            {
+                sipError = sipBadCallableArg(0, a0);
+            }
+            else
+            {
+                sipRes = new QString(sipCpp->toCurrencyString(value, *a1));
+            }
+        }
 %End
 };
 

@@ -57,11 +57,7 @@ def updateTsFiles(fetchedTor, tsFileNames, codecForTr, noObsolete, verbose):
         if codecForTr:
             tor.setCodec(codecForTr)
 
-        if verbose:
-            sys.stderr.write("Updating '%s'...\n" % fn)
-            sys.stderr.flush()
- 
-        merge(tor, fetchedTor, out, verbose, noObsolete)
+        merge(tor, fetchedTor, out, noObsolete, verbose, fn)
 
         if noObsolete:
             out.stripObsoleteMessages()
@@ -160,10 +156,10 @@ def main():
             fullText = t.readAll()
             f.close()
 
-        oldDir = QDir.currentPath()
-        QDir.setCurrent(QFileInfo(arg).path())
-
         if standardSyntax:
+            oldDir = QDir.currentPath()
+            QDir.setCurrent(QFileInfo(arg).path())
+
             fetchedTor = MetaTranslator()
             codecForTr = ''
             codecForSource = ''
@@ -184,7 +180,7 @@ def main():
 
                     elif key in ("CODEC", "DEFAULTCODEC", "CODECFORTR"):
                         codecForTr = t
-                        fetchedTor.setCodecForTr(codecForTr)
+                        fetchedTor.setCodec(codecForTr)
 
                     elif key == "CODECFORSRC":
                         codecForSource = t
@@ -204,29 +200,32 @@ def main():
                 sys.stderr.write(
                         "pylupdate5 warning: Met no 'TRANSLATIONS' entry in "
                         "project file '%s'\n" % arg)
-        elif metTsFlag:
-            if arg.lower().endswith(".ts"):
-                fi = QFileInfo(arg)
 
-                if not fi.exists() or fi.isWritable():
-                    tsFileNames.append(arg)
+            QDir.setCurrent(oldDir)
+        else:
+            if metTsFlag:
+                if arg.lower().endswith(".ts"):
+                    fi = QFileInfo(arg)
+
+                    if not fi.exists() or fi.isWritable():
+                        tsFileNames.append(arg)
+                    else:
+                        sys.stderr.write(
+                                "pylupdate5 warning: For some reason, I "
+                                "cannot save '%s'\n" % arg)
                 else:
                     sys.stderr.write(
-                            "pylupdate5 warning: For some reason, I cannot "
-                            "save '%s'\n" % arg)
+                            "pylupdate5 error: File '%s' lacks .ts extension\n" % arg)
             else:
-                sys.stderr.write(
-                        "pylupdate5 error: File '%s' lacks .ts extension\n" % arg)
-        else:
-            fi = QFileInfo(arg)
+                fi = QFileInfo(arg)
 
-            if fi.suffix() in ("py", "pyw"):
-                fetchtr_py(fi.fileName(), fetchedTor, defaultContext, True,
-                        codecForSource, tr_func, translate_func)
-            else:
-                fetchtr_ui(fi.fileName(), fetchedTor, defaultContext, True)
-
-        QDir.setCurrent(oldDir)
+                if fi.suffix() in ("py", "pyw"):
+                    fetchtr_py(fi.absoluteFilePath(), fetchedTor,
+                            defaultContext, True, codecForSource, tr_func,
+                            translate_func)
+                else:
+                    fetchtr_ui(fi.absoluteFilePath(), fetchedTor,
+                            defaultContext, True)
 
     if not standardSyntax:
         updateTsFiles(fetchedTor, tsFileNames, codecForTr, noObsolete, verbose)

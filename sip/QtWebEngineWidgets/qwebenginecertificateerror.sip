@@ -44,6 +44,9 @@ public:
         CertificateNonUniqueName,
         CertificateWeakKey,
         CertificateNameConstraintViolation,
+%If (Qt_5_7_1 -)
+        CertificateValidityTooLong,
+%End
     };
 
     QWebEngineCertificateError::Error error() const;

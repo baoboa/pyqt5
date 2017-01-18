@@ -69,11 +69,14 @@ typedef struct {
     uint pyqtprop_sequence;
 } qpycore_pyqtProperty;
 
-
-// This implements the PyQt version of the standard Python property type.
-extern PyTypeObject qpycore_pyqtProperty_Type;
-
 }
+
+
+// The type object.
+extern PyTypeObject *qpycore_pyqtProperty_TypeObject;
+
+
+bool qpycore_pyqtProperty_init_type();
 
 
 #endif

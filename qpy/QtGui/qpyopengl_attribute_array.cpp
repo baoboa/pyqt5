@@ -30,6 +30,7 @@
 #include <QVector4D>
 
 #include "qpyopengl_api.h"
+#include "qpyopengl_misc.h"
 
 
 // Forward declaratations.
@@ -55,7 +56,7 @@ const GLfloat *qpyopengl_attribute_array(PyObject *values, PyObject *shader,
     }
 
     // Get the dict that holds the converted arrays.
-    PyObject *dict = ((sipSimpleWrapper *)shader)->user;
+    PyObject *dict = sipGetUserObject((sipSimpleWrapper *)shader);
 
     if (!dict)
     {
@@ -69,7 +70,7 @@ const GLfloat *qpyopengl_attribute_array(PyObject *values, PyObject *shader,
             return 0;
         }
 
-        ((sipSimpleWrapper *)shader)->user = dict;
+        sipSetUserObject((sipSimpleWrapper *)shader, dict);
     }
 
     // Check that values is a non-empty sequence.
@@ -83,7 +84,7 @@ const GLfloat *qpyopengl_attribute_array(PyObject *values, PyObject *shader,
         return 0;
     }
 
-    Py_ssize_t nr_items = PySequence_Fast_GET_SIZE(values);
+    Py_ssize_t nr_items = Sequence_Fast_Size(values);
 
     if (nr_items < 1)
     {
@@ -98,7 +99,7 @@ const GLfloat *qpyopengl_attribute_array(PyObject *values, PyObject *shader,
     }
 
     // The first element determines the type expected.
-    PyObject *itm = PySequence_Fast_GET_ITEM(values, 0);
+    PyObject *itm = Sequence_Fast_GetItem(values, 0);
 
     const sipTypeDef *td;
     Py_ssize_t nr_dim;
@@ -145,7 +146,7 @@ const GLfloat *qpyopengl_attribute_array(PyObject *values, PyObject *shader,
     {
         int iserr = 0;
 
-        itm = PySequence_Fast_GET_ITEM(values, i);
+        itm = Sequence_Fast_GetItem(values, i);
 
         if (td)
         {
@@ -158,8 +159,8 @@ const GLfloat *qpyopengl_attribute_array(PyObject *values, PyObject *shader,
             {
                 PyErr_Format(PyExc_TypeError,
                         "attribute array elements should all be '%s', not '%s'",
-                        sipTypeAsPyTypeObject(td)->tp_name,
-                        Py_TYPE(itm)->tp_name);
+                        sipPyTypeName(sipTypeAsPyTypeObject(td)),
+                        sipPyTypeName(Py_TYPE(itm)));
             }
             else if (td == sipType_QVector2D)
             {
@@ -193,7 +194,7 @@ const GLfloat *qpyopengl_attribute_array(PyObject *values, PyObject *shader,
 
             if (itm)
             {
-                if (PySequence_Fast_GET_SIZE(itm) != nr_dim)
+                if (Sequence_Fast_Size(itm) != nr_dim)
                 {
                     PyErr_Format(PyExc_TypeError,
                             "attribute array elements should all be sequences "
@@ -212,8 +213,7 @@ const GLfloat *qpyopengl_attribute_array(PyObject *values, PyObject *shader,
                     PyErr_Clear();
 
                     for (Py_ssize_t j = 0; j < nr_dim; ++j)
-                        *ap++ = PyFloat_AsDouble(
-                                PySequence_Fast_GET_ITEM(itm, j));
+                        *ap++ = PyFloat_AsDouble(Sequence_Fast_GetItem(itm, j));
 
                     if (PyErr_Occurred())
                     {

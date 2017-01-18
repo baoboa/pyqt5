@@ -16,7 +16,7 @@
 // WARRANTY OF DESIGN, MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE.
 
 
-%Module(name=PyQt5.pyrcc, keyword_arguments="None")
+%Module(name=PyQt5.pyrcc, keyword_arguments="None", use_limited_api=True)
 
 %Import QtCore/QtCoremod.sip
 

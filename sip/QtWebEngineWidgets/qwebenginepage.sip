@@ -347,7 +347,7 @@ protected:
     virtual QStringList chooseFiles(QWebEnginePage::FileSelectionMode mode, const QStringList &oldFiles, const QStringList &acceptedMimeTypes);
     virtual void javaScriptAlert(const QUrl &securityOrigin, const QString &msg);
     virtual bool javaScriptConfirm(const QUrl &securityOrigin, const QString &msg);
-    virtual bool javaScriptPrompt(const QUrl &securityOrigin, const QString &msg, const QString &defaultValue, QString *result);
+    virtual bool javaScriptPrompt(const QUrl &securityOrigin, const QString &msg, const QString &defaultValue, QString *result /Out/);
     virtual void javaScriptConsoleMessage(QWebEnginePage::JavaScriptConsoleMessageLevel level, const QString &message, int lineNumber, const QString &sourceID);
     virtual bool certificateError(const QWebEngineCertificateError &certificateError /NoCopy/);
 

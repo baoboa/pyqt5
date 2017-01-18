@@ -32,7 +32,7 @@
 void qpyopengl_init()
 {
     // Initialise the OpenGL data cache type.
-    if (PyType_Ready(&qpyopengl_dataCache_Type) < 0)
+    if (!qpyopengl_dataCache_init_type())
         Py_FatalError("PyQt5.QtGui: Failed to initialise dataCache type");
 
     // Export the private helpers, ie. those that should not be used by

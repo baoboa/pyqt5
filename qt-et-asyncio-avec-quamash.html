@@ -1,0 +1,61 @@
+<html ng-app="test.player" ng-controller="TestController" ng-strict-di>
+  <head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" type="text/css" href="dist/openveo-player.css">
+
+    <!--[if lt IE 9]>
+      <script src="dist/lib/html5shiv.min.js"></script>
+    <![endif]-->
+    <script>
+
+      // Set ovPlayerDirectory to openveo-player root path
+      // This is used by openveo-player to get partials
+      // Do not forget the trailing slash !
+      var ovPlayerDirectory = "dist/";
+    </script>
+
+  </head>
+
+  <body>
+
+
+    <script type="text/javascript" src="dist/lib/angular.min.js"></script>
+    <script type="text/javascript" src="dist/lib/angular-cookies.min.js"></script>
+    <script type="text/javascript" src="dist/openveo-player.js"></script>
+    <script type="text/javascript">
+(function(angular){
+
+  'use strict';
+
+  var app = angular.module('test.player', ['ov.player']);
+
+  app.controller('TestController', TestController);
+  TestController.$inject = ['$scope', '$window', '$location', '$http'];
+
+  /**
+   * Defines the test controller.
+   */
+  function TestController($scope, $window, $location, $http){
+    $scope.ready = true;
+    $scope.isFullViewport = true;
+    $http.get('content/rJLoIy61e.json').success(function(data) {
+      $scope.data = data;
+      document.title = data.title;
+    });
+  }
+
+})(angular);
+    </script>
+
+    <ov-player
+    ov-player-type="youtube"
+    ov-data="data"
+    ng-show="ready"
+    ov-full-viewport="isFullViewport"
+    ov-data="data"
+    ov-language="fr"
+    ov-auto-play="true">
+    </ov-player>
+  </body>
+
+</html>

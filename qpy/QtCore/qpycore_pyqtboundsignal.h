@@ -51,15 +51,16 @@ typedef struct {
     QObject *bound_qobject;
 } qpycore_pyqtBoundSignal;
 
-
-extern PyTypeObject qpycore_pyqtBoundSignal_Type;
-
 }
 
 
+// The type object.
+extern PyTypeObject *qpycore_pyqtBoundSignal_TypeObject;
+
+
+bool qpycore_pyqtBoundSignal_init_type();
 PyObject *qpycore_pyqtBoundSignal_New(qpycore_pyqtSignal *unbound_signal,
         PyObject *bound_pyobject, QObject *bound_qobject);
-
 sipErrorState qpycore_get_receiver_slot_signature(PyObject *slot,
         QObject *transmitter, const Chimera::Signature *signal_signature,
         bool single_shot, QObject **receiver, QByteArray &slot_signature);

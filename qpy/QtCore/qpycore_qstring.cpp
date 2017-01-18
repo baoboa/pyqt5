@@ -26,17 +26,19 @@
 
 #include "qpycore_api.h"
 
+#include "sipAPIQtCore.h"
+
 
 // Work out if we should enable PEP 393 support.  This is complicated by the
 // broken LLVM that XCode v4 installs.
 #if PY_VERSION_HEX >= 0x03030000
 #if defined(Q_OS_MAC)
 #if !defined(__llvm__) || defined(__clang__)
-// Python v3.3 on a Mac using either g++ or Clang, but not LLVM.
+// Python v3.3 or later on a Mac using either g++ or Clang, but not LLVM.
 #define PYQT_PEP_393
 #endif
 #else
-// Python v3.3 on a non-Mac.
+// Python v3.3 or later on a non-Mac.
 #define PYQT_PEP_393
 #endif
 #endif
@@ -49,16 +51,16 @@ PyObject *qpycore_PyObject_FromQString(const QString &qstr)
 
 #if defined(PYQT_PEP_393)
     // We have to work out exactly which kind to use.  We assume ASCII while we
-    // are checking so that we only go through the string once is the most
+    // are checking so that we only go through the string once in the most
     // common case.  Note that we can't use PyUnicode_FromKindAndData() because
     // it doesn't handle surrogates in UCS2 strings.
     int qt_len = qstr.length();
+    int kind;
+    void *data;
 
-    if ((obj = PyUnicode_New(qt_len, 0x007f)) == NULL)
+    if ((obj = sipUnicodeNew(qt_len, 0x007f, &kind, &data)) == NULL)
         return NULL;
 
-    int kind = PyUnicode_KIND(obj);
-    void *data = PyUnicode_DATA(obj);
     const QChar *qch = qstr.constData();
 
     for (int qt_i = 0; qt_i < qt_len; ++qt_i)
@@ -72,7 +74,7 @@ PyObject *qpycore_PyObject_FromQString(const QString &qstr)
 
             // Work out what kind we really need and what the Python length
             // should be.
-            Py_UCS4 maxchar = 0x00ff;
+            uint maxchar = 0x00ff;
 
             int py_len = qt_len;
 
@@ -101,18 +103,16 @@ PyObject *qpycore_PyObject_FromQString(const QString &qstr)
             }
 
             // Create the correctly sized object.
-            if ((obj = PyUnicode_New(py_len, maxchar)) == NULL)
+            if ((obj = sipUnicodeNew(py_len, maxchar, &kind, &data)) == NULL)
                 return NULL;
 
-            kind = PyUnicode_KIND(obj);
-            data = PyUnicode_DATA(obj);
             qch = qstr.constData();
 
             int qt_i2 = 0;
 
             for (int py_i = 0; py_i < py_len; ++py_i)
             {
-                Py_UCS4 py_ch;
+                uint py_ch;
 
                 if (qch->isHighSurrogate() && qt_i2 + 1 < qt_len && (qch + 1)->isLowSurrogate())
                 {
@@ -128,7 +128,7 @@ PyObject *qpycore_PyObject_FromQString(const QString &qstr)
                 ++qt_i2;
                 ++qch;
 
-                PyUnicode_WRITE(kind, data, py_i, py_ch);
+                sipUnicodeWrite(kind, data, py_i, py_ch);
             }
 
             break;
@@ -136,7 +136,7 @@ PyObject *qpycore_PyObject_FromQString(const QString &qstr)
 
         ++qch;
 
-        PyUnicode_WRITE(kind, data, qt_i, uch);
+        sipUnicodeWrite(kind, data, qt_i, uch);
     }
 #elif defined(Py_UNICODE_WIDE)
     QVector<uint> ucs4 = qstr.toUcs4();
@@ -162,23 +162,19 @@ PyObject *qpycore_PyObject_FromQString(const QString &qstr)
 QString qpycore_PyObject_AsQString(PyObject *obj)
 {
 #if defined(PYQT_PEP_393)
-    if (PyUnicode_READY(obj) < 0)
-        return QString();
+    int char_size;
+    Py_ssize_t len;
+    void *data = sipUnicodeData(obj, &char_size, &len);
 
-    Py_ssize_t len = PyUnicode_GET_LENGTH(obj);
+    if (char_size == 1)
+        return QString::fromLatin1(reinterpret_cast<char *>(data), len);
 
-    switch (PyUnicode_KIND(obj))
-    {
-    case PyUnicode_1BYTE_KIND:
-        return QString::fromLatin1((char *)PyUnicode_1BYTE_DATA(obj), len);
-
-    case PyUnicode_2BYTE_KIND:
+    if (char_size == 2)
         // The (QChar *) cast should be safe.
-        return QString((QChar *)PyUnicode_2BYTE_DATA(obj), len);
+        return QString(reinterpret_cast<QChar *>(data), len);
 
-    case PyUnicode_4BYTE_KIND:
-        return QString::fromUcs4(PyUnicode_4BYTE_DATA(obj), len);
-    }
+    if (char_size == 4)
+        return QString::fromUcs4(reinterpret_cast<uint *>(data), len);
 
     return QString();
 #elif defined(Py_UNICODE_WIDE)

@@ -32,22 +32,22 @@ class QPainter
 template<class TYPE>
 static TYPE *qtgui_inst_array(const TYPE *first, PyObject *t, sipTypeDef *td)
 {
-    TYPE *arr = new TYPE[1 + PyTuple_GET_SIZE(t)];
+    TYPE *arr = new TYPE[1 + PyTuple_Size(t)];
 
     arr[0] = *first;
 
-    for (Py_ssize_t i = 0; i < PyTuple_GET_SIZE(t); ++i)
+    for (Py_ssize_t i = 0; i < PyTuple_Size(t); ++i)
     {
         int iserr = 0, state;
         TYPE *itm;
 
-        itm  = reinterpret_cast<TYPE *>(sipForceConvertToType(PyTuple_GET_ITEM(t, i), td, 0, SIP_NOT_NONE, &state, &iserr));
+        itm  = reinterpret_cast<TYPE *>(sipForceConvertToType(PyTuple_GetItem(t, i), td, 0, SIP_NOT_NONE, &state, &iserr));
 
         if (iserr)
         {
             sipReleaseType(itm, td, state);
 
-            PyErr_Format(PyExc_TypeError, "each argument must be an instance of %s", sipTypeAsPyTypeObject(td)->tp_name);
+            PyErr_Format(PyExc_TypeError, "each argument must be an instance of %s", sipPyTypeName(sipTypeAsPyTypeObject(td)));
 
             delete[] arr;
             return 0;
@@ -192,7 +192,7 @@ public:
         
         if (points)
         {
-            sipCpp->drawPoints(points, 1 + PyTuple_GET_SIZE(a1));
+            sipCpp->drawPoints(points, 1 + PyTuple_Size(a1));
             delete[] points;
         }
         else
@@ -206,7 +206,7 @@ public:
         
         if (points)
         {
-            sipCpp->drawPoints(points, 1 + PyTuple_GET_SIZE(a1));
+            sipCpp->drawPoints(points, 1 + PyTuple_Size(a1));
             delete[] points;
         }
         else
@@ -220,7 +220,7 @@ public:
         
         if (lines)
         {
-            sipCpp->drawLines(lines, 1 + PyTuple_GET_SIZE(a1));
+            sipCpp->drawLines(lines, 1 + PyTuple_Size(a1));
             delete[] lines;
         }
         else
@@ -234,7 +234,7 @@ public:
         
         if (pairs)
         {
-            sipCpp->drawLines(pairs, (1 + PyTuple_GET_SIZE(a1)) / 2);
+            sipCpp->drawLines(pairs, (1 + PyTuple_Size(a1)) / 2);
             delete[] pairs;
         }
         else
@@ -248,7 +248,7 @@ public:
         
         if (lines)
         {
-            sipCpp->drawLines(lines, 1 + PyTuple_GET_SIZE(a1));
+            sipCpp->drawLines(lines, 1 + PyTuple_Size(a1));
             delete[] lines;
         }
         else
@@ -262,7 +262,7 @@ public:
         
         if (pairs)
         {
-            sipCpp->drawLines(pairs, (1 + PyTuple_GET_SIZE(a1)) / 2);
+            sipCpp->drawLines(pairs, (1 + PyTuple_Size(a1)) / 2);
             delete[] pairs;
         }
         else
@@ -276,7 +276,7 @@ public:
         
         if (rects)
         {
-            sipCpp->drawRects(rects, 1 + PyTuple_GET_SIZE(a1));
+            sipCpp->drawRects(rects, 1 + PyTuple_Size(a1));
             delete[] rects;
         }
         else
@@ -290,7 +290,7 @@ public:
         
         if (rects)
         {
-            sipCpp->drawRects(rects, 1 + PyTuple_GET_SIZE(a1));
+            sipCpp->drawRects(rects, 1 + PyTuple_Size(a1));
             delete[] rects;
         }
         else
@@ -306,7 +306,7 @@ public:
         
         if (points)
         {
-            sipCpp->drawPolyline(points, 1 + PyTuple_GET_SIZE(a1));
+            sipCpp->drawPolyline(points, 1 + PyTuple_Size(a1));
             delete[] points;
         }
         else
@@ -320,7 +320,7 @@ public:
         
         if (points)
         {
-            sipCpp->drawPolyline(points, 1 + PyTuple_GET_SIZE(a1));
+            sipCpp->drawPolyline(points, 1 + PyTuple_Size(a1));
             delete[] points;
         }
         else
@@ -334,7 +334,7 @@ public:
         
         if (points)
         {
-            sipCpp->drawPolygon(points, 1 + PyTuple_GET_SIZE(a1));
+            sipCpp->drawPolygon(points, 1 + PyTuple_Size(a1));
             delete[] points;
         }
         else
@@ -348,7 +348,7 @@ public:
         
         if (points)
         {
-            sipCpp->drawPolygon(points, 1 + PyTuple_GET_SIZE(a1));
+            sipCpp->drawPolygon(points, 1 + PyTuple_Size(a1));
             delete[] points;
         }
         else
@@ -362,7 +362,7 @@ public:
         
         if (points)
         {
-            sipCpp->drawConvexPolygon(points, 1 + PyTuple_GET_SIZE(a1));
+            sipCpp->drawConvexPolygon(points, 1 + PyTuple_Size(a1));
             delete[] points;
         }
         else
@@ -376,7 +376,7 @@ public:
         
         if (points)
         {
-            sipCpp->drawConvexPolygon(points, 1 + PyTuple_GET_SIZE(a1));
+            sipCpp->drawConvexPolygon(points, 1 + PyTuple_Size(a1));
             delete[] points;
         }
         else
@@ -520,13 +520,13 @@ public:
     void drawPixmapFragments(SIP_PYLIST fragments /TypeHint="List[QPainter.PixmapFragment]"/, const QPixmap &pixmap, QFlags<QPainter::PixmapFragmentHint> hints = 0);
 %MethodCode
         // Allocate temporary storage for the C++ conversions.
-        Py_ssize_t numFragments = PyList_GET_SIZE(a0);
+        Py_ssize_t numFragments = PyList_Size(a0);
         QPainter::PixmapFragment *fragments = new QPainter::PixmapFragment[numFragments];
         
         // Convert the fragments.
         for (Py_ssize_t i = 0; i < numFragments; ++i)
         {
-            void *cpp = sipForceConvertToType(PyList_GET_ITEM(a0, i), sipType_QPainter_PixmapFragment, NULL, SIP_NO_CONVERTORS, NULL, &sipIsErr);
+            void *cpp = sipForceConvertToType(PyList_GetItem(a0, i), sipType_QPainter_PixmapFragment, NULL, SIP_NO_CONVERTORS, NULL, &sipIsErr);
         
             fragments[i] = *reinterpret_cast<QPainter::PixmapFragment *>(cpp);
         }

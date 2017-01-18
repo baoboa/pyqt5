@@ -30,6 +30,10 @@
 #include "sipAPIQtQml.h"
 
 
+// The type object.
+PyTypeObject *qpyqml_QQmlListProperty_TypeObject;
+
+
 // Forward declarations.
 extern "C" {
 static PyObject *QQmlListProperty_call(PyObject *, PyObject *args,
@@ -51,6 +55,35 @@ PyDoc_STRVAR(QQmlListProperty_doc,
 
 // This implements the QQmlListProperty Python type.  It is a sub-type of the
 // standard string type that is callable.
+
+#if PY_MAJOR_VERSION >= 3
+#define TPFLAGS     Py_TPFLAGS_DEFAULT|Py_TPFLAGS_BASETYPE|Py_TPFLAGS_UNICODE_SUBCLASS
+#define BASE_TYPE   PyUnicode_Type
+#else
+#define TPFLAGS     Py_TPFLAGS_DEFAULT|Py_TPFLAGS_BASETYPE|Py_TPFLAGS_STRING_SUBCLASS
+#define BASE_TYPE   PyString_Type
+#endif
+
+#if PY_VERSION_HEX >= 0x03040000
+// Define the slots.
+static PyType_Slot qpyqml_QQmlListProperty_Slots[] = {
+    {Py_tp_base,        (void *)&BASE_TYPE},
+    {Py_tp_call,        (void *)QQmlListProperty_call},
+    {Py_tp_doc,         (void *)QQmlListProperty_doc},
+    {0,                 0}
+};
+
+
+// Define the type.
+static PyType_Spec qpyqml_QQmlListProperty_Spec = {
+    "PyQt5.QtQml.QQmlListProperty",
+    0,
+    0,
+    TPFLAGS,
+    qpyqml_QQmlListProperty_Slots
+};
+#else
+// Define the type.
 PyTypeObject qpyqml_QQmlListProperty_Type = {
     PyVarObject_HEAD_INIT(NULL, 0)
 #if PY_VERSION_HEX >= 0x02050000
@@ -75,12 +108,7 @@ PyTypeObject qpyqml_QQmlListProperty_Type = {
     0,
     0,
     0,
-    Py_TPFLAGS_DEFAULT|Py_TPFLAGS_BASETYPE|
-#if PY_MAJOR_VERSION >= 3
-    Py_TPFLAGS_UNICODE_SUBCLASS,
-#else
-    Py_TPFLAGS_STRING_SUBCLASS,
-#endif
+    TPFLAGS,
     QQmlListProperty_doc,
     0,
     0,
@@ -112,6 +140,28 @@ PyTypeObject qpyqml_QQmlListProperty_Type = {
     0,
 #endif
 };
+#endif
+
+
+// Initialise the type and return true if there was no error.
+bool qpyqml_QQmlListProperty_init_type()
+{
+#if PY_VERSION_HEX >= 0x03040000
+    qpyqml_QQmlListProperty_TypeObject = (PyTypeObject *)PyType_FromSpec(
+            &qpyqml_QQmlListProperty_Spec);
+
+    return qpyqml_QQmlListProperty_TypeObject;
+#else
+    qpyqml_QQmlListProperty_Type.tp_base = &BASE_TYPE;
+
+    if (PyType_Ready(&qpyqml_QQmlListProperty_Type) < 0)
+        return false;
+
+    qpyqml_QQmlListProperty_TypeObject = &qpyqml_QQmlListProperty_Type;
+
+    return true;
+#endif
+}
 
 
 // The QQmlListProperty init function.
@@ -134,7 +184,7 @@ static PyObject *QQmlListProperty_call(PyObject *, PyObject *args,
     {
         PyErr_Format(PyExc_TypeError,
                 "type argument must be of type 'type', not '%s'",
-                Py_TYPE(py_type)->tp_name);
+                sipPyTypeName(Py_TYPE(py_type)));
         return 0;
     }
 
@@ -147,7 +197,7 @@ static PyObject *QQmlListProperty_call(PyObject *, PyObject *args,
     {
         PyErr_Format(PyExc_TypeError,
                 "object argument must be of type 'QObject', not '%s'",
-                Py_TYPE(py_obj)->tp_name);
+                sipPyTypeName(Py_TYPE(py_obj)));
         return 0;
     }
 
@@ -203,8 +253,8 @@ static void list_append(QQmlListProperty<QObject> *p, QObject *el)
         {
             PyErr_Format(PyExc_TypeError,
                 "list element must be of type '%s', not '%s'",
-                    ((PyTypeObject *)ldata->py_type)->tp_name,
-                    Py_TYPE(py_el)->tp_name);
+                    sipPyTypeName(((PyTypeObject *)ldata->py_type)),
+                    sipPyTypeName(Py_TYPE(py_el)));
         }
         else if (ldata->py_list)
         {

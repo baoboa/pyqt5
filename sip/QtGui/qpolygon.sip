@@ -30,11 +30,11 @@ class QPolygon
 // Set the points of a polygon from a Python list.
 static bool setPointsFromList(QPolygon *poly, PyObject *l)
 {
-    int *coords = new int[PyList_GET_SIZE(l)];
+    int *coords = new int[PyList_Size(l)];
 
-    for (Py_ssize_t i = 0; i < PyList_GET_SIZE(l); ++i)
+    for (Py_ssize_t i = 0; i < PyList_Size(l); ++i)
     {
-        coords[i] = SIPLong_AsLong(PyList_GET_ITEM(l, i));
+        coords[i] = SIPLong_AsLong(PyList_GetItem(l, i));
 
         if (PyErr_Occurred() != NULL)
         {
@@ -43,7 +43,7 @@ static bool setPointsFromList(QPolygon *poly, PyObject *l)
         }
     }
 
-    poly->setPoints(PyList_GET_SIZE(l) >> 1, coords);
+    poly->setPoints(PyList_Size(l) >> 1, coords);
 
     delete[] coords;
     return true;
@@ -59,8 +59,8 @@ static bool setPointsFromList(QPolygon *poly, PyObject *l)
     
         sipCpp->point(i, &x, &y);
     
-        PyList_SET_ITEM(pl, p, SIPLong_FromLong(x));
-        PyList_SET_ITEM(pl, p + 1, SIPLong_FromLong(y));
+        PyList_SetItem(pl, p, SIPLong_FromLong(x));
+        PyList_SetItem(pl, p + 1, SIPLong_FromLong(y));
     }
     
     sipRes = Py_BuildValue((char *)"(N)", pl);
@@ -105,15 +105,15 @@ public:
     void setPoints(int firstx, int firsty, ...);
 %MethodCode
         // Accept at least one pair of integer coordinates.
-        int nPoints = 1 + ((PyTuple_GET_SIZE(a2) + 1) >> 1);
+        int nPoints = 1 + ((PyTuple_Size(a2) + 1) >> 1);
         
         int *points = new int[nPoints * 2];
         
         points[0] = a0;
         points[1] = a1;
         
-        for (Py_ssize_t i = 0; i < PyTuple_GET_SIZE(a2); ++i)
-            points[2 + i] = SIPLong_AsLong(PyTuple_GET_ITEM(a2, i));
+        for (Py_ssize_t i = 0; i < PyTuple_Size(a2); ++i)
+            points[2 + i] = SIPLong_AsLong(PyTuple_GetItem(a2, i));
         
         sipCpp->setPoints(nPoints, points);
         
@@ -123,15 +123,15 @@ public:
     void putPoints(int index, int firstx, int firsty, ...);
 %MethodCode
         // Accept at least one pair of integer coordinates.
-        int nPoints = 1 + ((PyTuple_GET_SIZE(a3) + 1) >> 1);
+        int nPoints = 1 + ((PyTuple_Size(a3) + 1) >> 1);
         
         int *points = new int[nPoints * 2];
         
         points[0] = a1;
         points[1] = a2;
         
-        for (Py_ssize_t i = 0; i < PyTuple_GET_SIZE(a3); ++i)
-            points[2 + i] = SIPLong_AsLong(PyTuple_GET_ITEM(a3, i));
+        for (Py_ssize_t i = 0; i < PyTuple_Size(a3); ++i)
+            points[2 + i] = SIPLong_AsLong(PyTuple_GetItem(a3, i));
         
         sipCpp->putPoints(a0, nPoints, points);
         

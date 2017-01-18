@@ -54,7 +54,7 @@ PyObject *qpyopengl_from_GLint(int *eflag, const GLint *array, Py_ssize_t len)
             return 0;
         }
 
-        PyTuple_SET_ITEM(tuple, i, itm);
+        PyTuple_SetItem(tuple, i, itm);
     }
 
     return tuple;
@@ -87,7 +87,7 @@ PyObject *qpyopengl_from_GLuint(int *eflag, const GLuint *array,
             return 0;
         }
 
-        PyTuple_SET_ITEM(tuple, i, itm);
+        PyTuple_SetItem(tuple, i, itm);
     }
 
     return tuple;
@@ -120,7 +120,7 @@ PyObject *qpyopengl_from_GLboolean(int *eflag, const GLboolean *array,
             return 0;
         }
 
-        PyTuple_SET_ITEM(tuple, i, itm);
+        PyTuple_SetItem(tuple, i, itm);
     }
 
     return tuple;
@@ -153,7 +153,7 @@ PyObject *qpyopengl_from_GLfloat(int *eflag, const GLfloat *array,
             return 0;
         }
 
-        PyTuple_SET_ITEM(tuple, i, itm);
+        PyTuple_SetItem(tuple, i, itm);
     }
 
     return tuple;
@@ -187,7 +187,7 @@ PyObject *qpyopengl_from_GLdouble(int *eflag, const GLdouble *array,
             return 0;
         }
 
-        PyTuple_SET_ITEM(tuple, i, itm);
+        PyTuple_SetItem(tuple, i, itm);
     }
 
     return tuple;

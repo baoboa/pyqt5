@@ -37,6 +37,9 @@
 
 // The objectified strings.
 PyObject *qpycore_dunder_name;
+#if PY_VERSION_HEX >= 0x03040000
+PyObject *qpycore_dunder_mro;
+#endif
 PyObject *qpycore_dunder_pyqtsignature;
 
 
@@ -46,37 +49,35 @@ void qpycore_post_init(PyObject *module_dict)
     // Disable the automatic destruction of C++ objects.
     sipSetDestroyOnExit(0);
 
-    // Add the meta-type to the module dictionary.
-    if (PyDict_SetItemString(module_dict, "pyqtWrapperType",
-                (PyObject *)&qpycore_pyqtWrapperType_Type) < 0)
-        Py_FatalError("PyQt5.QtCore: Failed to set pyqtWrapperType type");
+    // Set the new user type handler for QObject.
+    sipSetNewUserTypeHandler(sipType_QObject, qpycore_new_user_type_handler);
 
     // Initialise the pyqtProperty type and add it to the module dictionary.
-    if (PyType_Ready(&qpycore_pyqtProperty_Type) < 0)
+    if (!qpycore_pyqtProperty_init_type())
         Py_FatalError("PyQt5.QtCore: Failed to initialise pyqtProperty type");
 
     if (PyDict_SetItemString(module_dict, "pyqtProperty",
-                (PyObject *)&qpycore_pyqtProperty_Type) < 0)
+                (PyObject *)qpycore_pyqtProperty_TypeObject) < 0)
         Py_FatalError("PyQt5.QtCore: Failed to set pyqtProperty type");
 
     // Initialise the pyqtSignal type and add it to the module dictionary.
-    if (PyType_Ready(&qpycore_pyqtSignal_Type) < 0)
+    if (!qpycore_pyqtSignal_init_type())
         Py_FatalError("PyQt5.QtCore: Failed to initialise pyqtSignal type");
 
     if (PyDict_SetItemString(module_dict, "pyqtSignal",
-                (PyObject *)&qpycore_pyqtSignal_Type) < 0)
+                (PyObject *)qpycore_pyqtSignal_TypeObject) < 0)
         Py_FatalError("PyQt5.QtCore: Failed to set pyqtSignal type");
 
     // Initialise the pyqtBoundSignal type and add it to the module dictionary.
-    if (PyType_Ready(&qpycore_pyqtBoundSignal_Type) < 0)
+    if (!qpycore_pyqtBoundSignal_init_type())
         Py_FatalError("PyQt5.QtCore: Failed to initialise pyqtBoundSignal type");
 
     if (PyDict_SetItemString(module_dict, "pyqtBoundSignal",
-                (PyObject *)&qpycore_pyqtBoundSignal_Type) < 0)
+                (PyObject *)qpycore_pyqtBoundSignal_TypeObject) < 0)
         Py_FatalError("PyQt5.QtCore: Failed to set pyqtBoundSignal type");
 
     // Initialise the private pyqtMethodProxy type.
-    if (PyType_Ready(&qpycore_pyqtMethodProxy_Type) < 0)
+    if (!qpycore_pyqtMethodProxy_init_type())
         Py_FatalError("PyQt5.QtCore: Failed to initialise pyqtMethodProxy type");
 
     // Register the C++ type that wraps Python objects.
@@ -89,15 +90,6 @@ void qpycore_post_init(PyObject *module_dict)
 
     // Objectify some strings.
 #if PY_MAJOR_VERSION >= 3
-    qpycore_dunder_pyqtsignature = PyUnicode_FromString("__pyqtSignature__");
-#else
-    qpycore_dunder_pyqtsignature = PyString_FromString("__pyqtSignature__");
-#endif
-
-    if (!qpycore_dunder_pyqtsignature)
-        Py_FatalError("PyQt5.QtCore: Failed to objectify '__pyqtSignature__'");
-
-#if PY_MAJOR_VERSION >= 3
     qpycore_dunder_name = PyUnicode_FromString("__name__");
 #else
     qpycore_dunder_name = PyString_FromString("__name__");
@@ -105,6 +97,22 @@ void qpycore_post_init(PyObject *module_dict)
 
     if (!qpycore_dunder_name)
         Py_FatalError("PyQt5.QtCore: Failed to objectify '__name__'");
+
+#if PY_VERSION_HEX >= 0x03040000
+    qpycore_dunder_mro = PyUnicode_FromString("__mro__");
+
+    if (!qpycore_dunder_mro)
+        Py_FatalError("PyQt5.QtCore: Failed to objectify '__mro__'");
+#endif
+
+#if PY_MAJOR_VERSION >= 3
+    qpycore_dunder_pyqtsignature = PyUnicode_FromString("__pyqtSignature__");
+#else
+    qpycore_dunder_pyqtsignature = PyString_FromString("__pyqtSignature__");
+#endif
+
+    if (!qpycore_dunder_pyqtsignature)
+        Py_FatalError("PyQt5.QtCore: Failed to objectify '__pyqtSignature__'");
 
     // Embed the configuration.
     PyObject *config = PyDict_New();

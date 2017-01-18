@@ -131,12 +131,11 @@ void qAddPostRoutine(SIP_PYCALLABLE);
         // See if there is an empty slot.
         bool app = true;
     
-        for (Py_ssize_t i = 0; i < PyList_GET_SIZE(qtcore_PostRoutines); ++i)
-            if (PyList_GET_ITEM(qtcore_PostRoutines, i) == Py_None)
+        for (Py_ssize_t i = 0; i < PyList_Size(qtcore_PostRoutines); ++i)
+            if (PyList_GetItem(qtcore_PostRoutines, i) == Py_None)
             {
-                Py_DECREF(Py_None);
                 Py_INCREF(a0);
-                PyList_SET_ITEM(qtcore_PostRoutines, i, a0);
+                PyList_SetItem(qtcore_PostRoutines, i, a0);
     
                 app = false;
     
@@ -149,7 +148,7 @@ void qAddPostRoutine(SIP_PYCALLABLE);
     else if ((qtcore_PostRoutines = PyList_New(1)) != NULL)
     {
         Py_INCREF(a0);
-        PyList_SET_ITEM(qtcore_PostRoutines, 0, a0);
+        PyList_SetItem(qtcore_PostRoutines, 0, a0);
     
         qAddPostRoutine(qtcore_CallPostRoutines);
     }
@@ -163,12 +162,11 @@ void qRemovePostRoutine(SIP_PYCALLABLE);
 %MethodCode
     // Remove it from the list of post routines if it exists.
     if (qtcore_PostRoutines != NULL)
-        for (Py_ssize_t i = 0; i < PyList_GET_SIZE(qtcore_PostRoutines); ++i)
-            if (PyList_GET_ITEM(qtcore_PostRoutines, i) == a0)
+        for (Py_ssize_t i = 0; i < PyList_Size(qtcore_PostRoutines); ++i)
+            if (PyList_GetItem(qtcore_PostRoutines, i) == a0)
             {
-                Py_DECREF(a0);
                 Py_INCREF(Py_None);
-                PyList_SET_ITEM(qtcore_PostRoutines, i, Py_None);
+                PyList_SetItem(qtcore_PostRoutines, i, Py_None);
     
                 break;
             }
@@ -186,7 +184,7 @@ void qAddPreRoutine(SIP_PYCALLABLE routine /TypeHint="Callable[[], None]"/);
     else if ((qtcore_PreRoutines = PyList_New(1)) != NULL)
     {
         Py_INCREF(a0);
-        PyList_SET_ITEM(qtcore_PreRoutines, 0, a0);
+        PyList_SetItem(qtcore_PreRoutines, 0, a0);
     
         qAddPreRoutine(qtcore_CallPreRoutines);
     }
@@ -206,9 +204,9 @@ static PyObject *qtcore_PreRoutines = NULL;
 // Call all of the registered Python pre routines.
 static void qtcore_CallPreRoutines()
 {
-    for (Py_ssize_t i = 0; i < PyList_GET_SIZE(qtcore_PreRoutines); ++i)
+    for (Py_ssize_t i = 0; i < PyList_Size(qtcore_PreRoutines); ++i)
     {
-        PyObject *pr = PyList_GET_ITEM(qtcore_PreRoutines, i);
+        PyObject *pr = PyList_GetItem(qtcore_PreRoutines, i);
 
         if (pr != Py_None)
         {
@@ -227,9 +225,9 @@ static PyObject *qtcore_PostRoutines = NULL;
 // Call all of the registered Python post routines.
 static void qtcore_CallPostRoutines()
 {
-    for (Py_ssize_t i = 0; i < PyList_GET_SIZE(qtcore_PostRoutines); ++i)
+    for (Py_ssize_t i = 0; i < PyList_Size(qtcore_PostRoutines); ++i)
     {
-        PyObject *pr = PyList_GET_ITEM(qtcore_PostRoutines, i);
+        PyObject *pr = PyList_GetItem(qtcore_PostRoutines, i);
 
         if (pr != Py_None)
         {

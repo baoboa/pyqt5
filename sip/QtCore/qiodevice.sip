@@ -214,8 +214,8 @@ protected:
             }
             else
             {
-                memcpy(a0, SIPBytes_AS_STRING(buf), SIPBytes_GET_SIZE(buf));
-                sipRes = SIPBytes_GET_SIZE(buf);
+                memcpy(a0, SIPBytes_AsString(buf), SIPBytes_Size(buf));
+                sipRes = SIPBytes_Size(buf);
             }
         
             Py_DECREF(buf);
@@ -279,8 +279,8 @@ protected:
             }
             else
             {
-                memcpy(a0, SIPBytes_AS_STRING(buf), SIPBytes_GET_SIZE(buf));
-                sipRes = SIPBytes_GET_SIZE(buf);
+                memcpy(a0, SIPBytes_AsString(buf), SIPBytes_Size(buf));
+                sipRes = SIPBytes_Size(buf);
             }
         
             Py_DECREF(buf);

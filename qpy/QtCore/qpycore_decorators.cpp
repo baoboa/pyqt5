@@ -148,7 +148,7 @@ static PyObject *decorator(PyObject *self, PyObject *f)
             return 0;
 
         Py_INCREF(self);
-        PyList_SET_ITEM(decorations, 0, self);
+        PyList_SetItem(decorations, 0, self);
 
         // Save the new decoration.
         rc = PyObject_SetAttr(f, qpycore_dunder_pyqtsignature, decorations);

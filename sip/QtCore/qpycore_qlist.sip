@@ -58,7 +58,7 @@ template<_TYPE_>
             return 0;
         }
 
-        PyList_SET_ITEM(l, i, tobj);
+        PyList_SetItem(l, i, tobj);
     }
 
     return l;
@@ -115,7 +115,7 @@ template<_TYPE_>
         {
             PyErr_Format(PyExc_TypeError,
                     "index %zd has type '%s' but '_TYPE_' is expected", i,
-                    Py_TYPE(itm)->tp_name);
+                    sipPyTypeName(Py_TYPE(itm)));
 
             Py_DECREF(itm);
             delete ql;
@@ -169,7 +169,7 @@ template<_TYPE_>
             return 0;
         }
 
-        PyList_SET_ITEM(l, i, tobj);
+        PyList_SetItem(l, i, tobj);
     }
 
     return l;
@@ -225,7 +225,7 @@ template<_TYPE_>
         {
             PyErr_Format(PyExc_TypeError,
                     "index %zd has type '%s' but '_TYPE_' is expected", i,
-                    Py_TYPE(itm)->tp_name);
+                    sipPyTypeName(Py_TYPE(itm)));
 
             Py_DECREF(itm);
             delete ql;
@@ -281,7 +281,7 @@ template<_TYPE1_, _TYPE2_>
             return 0;
         }
 
-        PyList_SET_ITEM(l, i, pobj);
+        PyList_SetItem(l, i, pobj);
     }
 
     return l;
@@ -345,7 +345,7 @@ template<_TYPE1_, _TYPE2_>
             if (sub_len < 0)
                 PyErr_Format(PyExc_TypeError,
                         "index %zd has type '%s' but a 2 element non-string sequence is expected",
-                        i, Py_TYPE(seq)->tp_name);
+                        i, sipPyTypeName(Py_TYPE(seq)));
             else
                 PyErr_Format(PyExc_TypeError,
                         "index %zd is a sequence of %zd sub-elements but 2 sub-elements are expected",
@@ -359,7 +359,7 @@ template<_TYPE1_, _TYPE2_>
             return 0;
         }
 
-        PyObject *itm1 = PySequence_ITEM(seq, 0);
+        PyObject *itm1 = PySequence_GetItem(seq, 0);
 
         if (!itm1)
         {
@@ -380,7 +380,7 @@ template<_TYPE1_, _TYPE2_>
         {
             PyErr_Format(PyExc_TypeError,
                     "the first sub-element of index %zd has type '%s' but '_TYPE1_' is expected",
-                    i, Py_TYPE(itm1)->tp_name);
+                    i, sipPyTypeName(Py_TYPE(itm1)));
 
             Py_DECREF(itm1);
             Py_DECREF(seq);
@@ -390,7 +390,7 @@ template<_TYPE1_, _TYPE2_>
             return 0;
         }
 
-        PyObject *itm2 = PySequence_ITEM(seq, 1);
+        PyObject *itm2 = PySequence_GetItem(seq, 1);
 
         if (!itm2)
         {
@@ -413,7 +413,7 @@ template<_TYPE1_, _TYPE2_>
         {
             PyErr_Format(PyExc_TypeError,
                     "the second sub-element of index %zd has type '%s' but '_TYPE2_' is expected",
-                    i, Py_TYPE(itm2)->tp_name);
+                    i, sipPyTypeName(Py_TYPE(itm2)));
 
             Py_DECREF(itm2);
             sipReleaseType(s1, sipType__TYPE1_, state1);
@@ -472,7 +472,7 @@ template<_TYPE1_, _TYPE2_>
             return 0;
         }
 
-        PyList_SET_ITEM(l, i, pobj);
+        PyList_SetItem(l, i, pobj);
     }
 
     return l;
@@ -536,7 +536,7 @@ template<_TYPE1_, _TYPE2_>
             if (sub_len < 0)
                 PyErr_Format(PyExc_TypeError,
                         "index %zd has type '%s' but a 2 element non-string sequence is expected",
-                        i, Py_TYPE(seq)->tp_name);
+                        i, sipPyTypeName(Py_TYPE(seq)));
             else
                 PyErr_Format(PyExc_TypeError,
                         "index %zd is a sequence of %zd sub-elements but 2 sub-elements are expected",
@@ -550,7 +550,7 @@ template<_TYPE1_, _TYPE2_>
             return 0;
         }
 
-        PyObject *itm1 = PySequence_ITEM(seq, 0);
+        PyObject *itm1 = PySequence_GetItem(seq, 0);
 
         if (!itm1)
         {
@@ -569,7 +569,7 @@ template<_TYPE1_, _TYPE2_>
         {
             PyErr_Format(PyExc_TypeError,
                     "the first sub-element of index %zd has type '%s' but 'int' is expected",
-                    i, Py_TYPE(itm1)->tp_name);
+                    i, sipPyTypeName(Py_TYPE(itm1)));
 
             Py_DECREF(itm1);
             Py_DECREF(seq);
@@ -580,7 +580,7 @@ template<_TYPE1_, _TYPE2_>
             return 0;
         }
 
-        PyObject *itm2 = PySequence_ITEM(seq, 1);
+        PyObject *itm2 = PySequence_GetItem(seq, 1);
 
         if (!itm2)
         {
@@ -600,7 +600,7 @@ template<_TYPE1_, _TYPE2_>
         {
             PyErr_Format(PyExc_TypeError,
                     "the second sub-element of index %zd has type '%s' but 'int' is expected",
-                    i, Py_TYPE(itm2)->tp_name);
+                    i, sipPyTypeName(Py_TYPE(itm2)));
 
             Py_DECREF(itm2);
             Py_DECREF(itm1);
@@ -655,7 +655,7 @@ template<_TYPE1_, _TYPE2_>
             return 0;
         }
 
-        PyList_SET_ITEM(l, i, pobj);
+        PyList_SetItem(l, i, pobj);
     }
 
     return l;
@@ -710,7 +710,7 @@ template<_TYPE1_, _TYPE2_>
         {
             PyErr_Format(PyExc_TypeError,
                     "index %zd has type '%s' but 'int' is expected", i,
-                    Py_TYPE(itm)->tp_name);
+                    sipPyTypeName(Py_TYPE(itm)));
 
             Py_DECREF(itm);
             delete ql;
@@ -759,7 +759,7 @@ template<_TYPE1_, _TYPE2_>
             return 0;
         }
 
-        PyList_SET_ITEM(l, i, pobj);
+        PyList_SetItem(l, i, pobj);
     }
 
     return l;
@@ -814,7 +814,7 @@ template<_TYPE1_, _TYPE2_>
         {
             PyErr_Format(PyExc_TypeError,
                     "index %zd has type '%s' but 'float' is expected", i,
-                    Py_TYPE(itm)->tp_name);
+                    sipPyTypeName(Py_TYPE(itm)));
 
             Py_DECREF(itm);
             delete ql;
@@ -864,7 +864,7 @@ template<_TYPE1_, _TYPE2_>
             return 0;
         }
 
-        PyList_SET_ITEM(l, i, eobj);
+        PyList_SetItem(l, i, eobj);
     }
 
     return l;
@@ -916,7 +916,7 @@ template<_TYPE1_, _TYPE2_>
         {
             PyErr_Format(PyExc_TypeError,
                     "index %zd has type '%s' but 'Qt.DayOfWeek' is expected",
-                    i, Py_TYPE(itm)->tp_name);
+                    i, sipPyTypeName(Py_TYPE(itm)));
 
             Py_DECREF(itm);
             delete ql;

@@ -1,3 +1,12 @@
+v5.7.1 25th December 2016
+  - Added support for Qt v5.7.1.
+  - Added the QtWebEngine module.
+  - Added QRegion.setRects().
+  - Added QtMac to the QtMacExtras module.
+  - Added pyuic5 plugins for QChartView and QWebEngineView.
+  - The Python v3.4 limited API is used.
+  - SIP v4.19 is required.
+
 v5.7 25th July 2016
   - Added support for Qt v5.7.0.
 

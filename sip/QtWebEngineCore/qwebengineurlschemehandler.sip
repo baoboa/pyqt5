@@ -29,7 +29,7 @@ class QWebEngineUrlSchemeHandler : QObject
 %End
 
 public:
-    QWebEngineUrlSchemeHandler(QObject *parent = 0);
+    QWebEngineUrlSchemeHandler(QObject *parent /TransferThis/ = 0);
     virtual ~QWebEngineUrlSchemeHandler();
     virtual void requestStarted(QWebEngineUrlRequestJob *) = 0;
 

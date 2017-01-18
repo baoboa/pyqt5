@@ -26,6 +26,10 @@
 #include "qpycore_pyqtsignal.h"
 
 
+// The type object.
+PyTypeObject *qpycore_pyqtProperty_TypeObject;
+
+
 // Forward declarations.
 extern "C" {
 static PyObject *pyqtProperty_getter(PyObject *self, PyObject *getter);
@@ -108,8 +112,37 @@ static PyMethodDef pyqtProperty_methods[] = {
 };
 
 
-// This implements the PyQt version of the standard Python property type.
-PyTypeObject qpycore_pyqtProperty_Type = {
+#if PY_VERSION_HEX >= 0x03040000
+// Define the slots.
+static PyType_Slot qpycore_pyqtProperty_Slots[] = {
+    {Py_tp_new,         (void *)PyType_GenericNew},
+    {Py_tp_alloc,       (void *)PyType_GenericAlloc},
+    {Py_tp_init,        (void *)pyqtProperty_init},
+    {Py_tp_dealloc,     (void *)pyqtProperty_dealloc},
+    {Py_tp_free,        (void *)PyObject_GC_Del},
+    {Py_tp_call,        (void *)pyqtProperty_call},
+    {Py_tp_getattro,    (void *)PyObject_GenericGetAttr},
+    {Py_tp_doc,         (void *)pyqtProperty_doc},
+    {Py_tp_traverse,    (void *)pyqtProperty_traverse},
+    {Py_tp_descr_get,   (void *)pyqtProperty_descr_get},
+    {Py_tp_descr_set,   (void *)pyqtProperty_descr_set},
+    {Py_tp_methods,     pyqtProperty_methods},
+    {Py_tp_members,     pyqtProperty_members},
+    {0,                 0}
+};
+
+
+// Define the type.
+static PyType_Spec qpycore_pyqtProperty_Spec = {
+    "PyQt5.QtCore.pyqtProperty",
+    sizeof (qpycore_pyqtProperty),
+    0,
+    Py_TPFLAGS_DEFAULT|Py_TPFLAGS_HAVE_GC|Py_TPFLAGS_BASETYPE,
+    qpycore_pyqtProperty_Slots
+};
+#else
+// Define the type.
+static PyTypeObject qpycore_pyqtProperty_Type = {
     PyVarObject_HEAD_INIT(NULL, 0)
 #if PY_VERSION_HEX >= 0x02050000
     "PyQt5.QtCore.pyqtProperty",
@@ -165,6 +198,7 @@ PyTypeObject qpycore_pyqtProperty_Type = {
     0,
 #endif
 };
+#endif
 
 
 // This is the sequence number to allocate to the next PyQt property to be
@@ -190,7 +224,11 @@ static void pyqtProperty_dealloc(PyObject *self)
 
     delete pp->pyqtprop_parsed_type;
 
+#if PY_VERSION_HEX >= 0x03040000
+    ((destructor)PyType_GetSlot(Py_TYPE(self), Py_tp_free))(self);
+#else
     Py_TYPE(self)->tp_free(self);
+#endif
 }
 
 
@@ -331,7 +369,7 @@ static int pyqtProperty_init(PyObject *self, PyObject *args, PyObject *kwds)
             "O|OOOOOiiiiiiO!i:pyqtProperty",
             const_cast<char **>(kwlist), &type, &get, &set, &reset, &del, &doc,
             &designable, &scriptable, &stored, &user, &constant, &final,
-            &qpycore_pyqtSignal_Type, &notify, &revision))
+            qpycore_pyqtSignal_TypeObject, &notify, &revision))
         return -1;
 
     if (get == Py_None)
@@ -595,4 +633,23 @@ static PyObject *getter_docstring(PyObject *getter)
     }
 
     return getter_doc;
+}
+
+
+// Initialise the type and return true if there was no error.
+bool qpycore_pyqtProperty_init_type()
+{
+#if PY_VERSION_HEX >= 0x03040000
+    qpycore_pyqtProperty_TypeObject = (PyTypeObject *)PyType_FromSpec(
+            &qpycore_pyqtProperty_Spec);
+
+    return qpycore_pyqtProperty_TypeObject;
+#else
+    if (PyType_Ready(&qpycore_pyqtProperty_Type) < 0)
+        return false;
+
+    qpycore_pyqtProperty_TypeObject = &qpycore_pyqtProperty_Type;
+
+    return true;
+#endif
 }

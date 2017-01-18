@@ -28,9 +28,9 @@ import sys
 
 
 # Initialise the constants.
-PYQT_VERSION_STR = "5.7"
+PYQT_VERSION_STR = "5.7.1"
 
-SIP_MIN_VERSION = '4.18'
+SIP_MIN_VERSION = '4.19'
 
 # The different values QLibraryInfo::licensee() can return for the LGPL version
 # of Qt.
@@ -97,6 +97,7 @@ MODULE_METADATA = {
     'QtWebChannel':         ModuleMetadata(
                                     qmake_QT=['webchannel', 'network',
                                             '-gui']),
+    'QtWebEngine':          ModuleMetadata(qmake_QT=['webengine', '-gui']),
     'QtWebEngineCore':      ModuleMetadata(qmake_QT=['webenginecore', '-gui']),
     'QtWebEngineWidgets':   ModuleMetadata(
                                     qmake_QT=['webenginewidgets', 'webchannel',
@@ -165,6 +166,7 @@ COMPOSITE_COMPONENTS = (
     'QtWebKitWidgets', 'QtBluetooth', 'QtMacExtras', 'QtPositioning',
         'QtWinExtras', 'QtX11Extras', 'QtQuickWidgets', 'QtWebSockets',
         'Enginio', 'QtWebChannel', 'QtWebEngineCore', 'QtWebEngineWidgets',
+        'QtWebEngine',
     'QtLocation', 'QtNfc'
 )
 
@@ -731,7 +733,12 @@ int main(int argc, char **argv)
 
         if sys.platform == 'win32':
             debug_suffix = get_win32_debug_suffix(debug)
-            pylib_lib = 'python%d%d%s' % (py_major, py_minor, debug_suffix)
+
+            # See if we are using the limited API.
+            if py_major == 3 and py_minor >= 4:
+                pylib_lib = 'python%d%s' % (py_major, debug_suffix)
+            else:
+                pylib_lib = 'python%d%d%s' % (py_major, py_minor, debug_suffix)
 
             pylib_dir = self.py_lib_dir
 
@@ -1439,6 +1446,12 @@ def check_5_6_modules(target_config, disabled_modules, verbose):
     check_module(target_config, disabled_modules, verbose, 'QtWebEngineCore',
             'qtwebenginecoreversion.h',
             'const char *v = QTWEBENGINECORE_VERSION_STR')
+
+    # This may have appeared in an earlier version but this is as far back as
+    # choose to go.
+    check_module(target_config, disabled_modules, verbose, 'QtWebEngine',
+            'qtwebengineversion.h',
+            'const char *v = QTWEBENGINE_VERSION_STR')
 
 
 def generate_makefiles(target_config, verbose, parts, tracing):
@@ -2454,7 +2467,7 @@ def generate_module_makefile(target_config, verbose, mname, include_paths=None, 
 
     pro_lines = ['TEMPLATE = lib']
 
-    pro_lines.append('CONFIG += warn_on %s' % ('staticlib' if target_config.static else 'plugin'))
+    pro_lines.append('CONFIG += warn_on exceptions_off %s' % ('staticlib hide_symbols' if target_config.static else 'plugin'))
 
     pro_add_qt_dependencies(target_config, metadata, pro_lines)
 
@@ -2499,9 +2512,6 @@ win32 {
             pro_lines.append('sip.files = %s' % ' '.join(sip_files))
             pro_lines.append('INSTALLS += sip')
 
-    if 'g++' in target_config.qmake_spec or 'clang' in target_config.qmake_spec:
-        pro_lines.append('QMAKE_CXXFLAGS += -fno-exceptions')
-
     # This optimisation could apply to other platforms.
     if 'linux' in target_config.qmake_spec and not target_config.static:
         if target_config.py_version >= 0x030000:
@@ -2530,7 +2540,12 @@ win32 {
     if target_config.py_inc_dir != target_config.sip_inc_dir:
         pro_lines.append('INCLUDEPATH += %s' % qmake_quote(target_config.py_inc_dir))
 
-    pro_add_qpy(mname, metadata, pro_lines)
+    if metadata.qpy_lib:
+        # This is the easiest way to make sure it is set for handwritten code.
+        pro_lines.append('DEFINES += Py_LIMITED_API=0x03040000')
+
+        pro_lines.append('INCLUDEPATH += %s' %
+                qmake_quote(os.path.relpath(source_path('qpy', mname), mname)))
 
     if include_paths:
         pro_lines.append(
@@ -2593,17 +2608,6 @@ macx {
     pro.write('\n'.join(pro_lines))
     pro.write('\n')
     pro.close()
-
-
-def pro_add_qpy(mname, metadata, pro_lines):
-    """ Add the qpy dependencies of a module to a .pro file.  mname is the
-    module's name.  metadata is the module's meta-data.  pro_lines is the list
-    of lines making up the .pro file that is updated.
-    """ 
-
-    if metadata.qpy_lib:
-        pro_lines.append('INCLUDEPATH += %s' %
-                qmake_quote(os.path.relpath(source_path('qpy', mname), mname)))
 
 
 def fix_license(src_lfile, dst_lfile):

@@ -29,6 +29,8 @@
 
 #include "qpycore_api.h"
 #include "qpycore_chimera.h"
+#include "qpycore_misc.h"
+#include "qpycore_objectified_strings.h"
 #include "qpycore_pyqtboundsignal.h"
 #include "qpycore_pyqtproperty.h"
 #include "qpycore_pyqtpyobject.h"
@@ -48,12 +50,9 @@ static int qt_metacall_worker(sipSimpleWrapper *pySelf, PyTypeObject *pytype,
 const QMetaObject *qpycore_qobject_metaobject(sipSimpleWrapper *pySelf,
         sipTypeDef *base)
 {
-    // Return the dynamic meta-object if there is one.
-    if (pySelf && ((pyqtWrapperType *)Py_TYPE(pySelf))->metaobject)
-        return ((pyqtWrapperType *)Py_TYPE(pySelf))->metaobject->mo;
+    sipWrapperType *wt = (pySelf ? (sipWrapperType *)Py_TYPE(pySelf) : 0);
 
-    // Fall back to the static Qt meta-object.
-    return reinterpret_cast<const QMetaObject *>(((pyqt5ClassTypeDef *)base)->static_metaobject);
+    return qpycore_get_qmetaobject(wt, base);
 }
 
 
@@ -81,13 +80,22 @@ static int qt_metacall_worker(sipSimpleWrapper *pySelf, PyTypeObject *pytype,
     if (pytype == sipTypeAsPyTypeObject(base))
         return _id;
 
-    _id = qt_metacall_worker(pySelf, pytype->tp_base, base, _c, _id, _a);
+    PyTypeObject *tp_base;
+
+#if PY_VERSION_HEX >= 0x03040000
+    tp_base = reinterpret_cast<PyTypeObject *>(
+            PyType_GetSlot(pytype, Py_tp_base));
+#else
+    tp_base = pytype->tp_base;
+#endif
+
+    _id = qt_metacall_worker(pySelf, tp_base, base, _c, _id, _a);
 
     if (_id < 0)
         return _id;
 
-    pyqtWrapperType *pyqt_wt = (pyqtWrapperType *)pytype;
-    qpycore_metaobject *qo = pyqt_wt->metaobject;
+    qpycore_metaobject *qo = reinterpret_cast<qpycore_metaobject *>(
+            sipGetTypeUserData((sipWrapperType *)pytype));
 
     bool ok = true;
 
@@ -126,27 +134,7 @@ static int qt_metacall_worker(sipSimpleWrapper *pySelf, PyTypeObject *pytype,
 
                 if (py)
                 {
-                    // Get the underlying QVariant.  QtQml sometimes uses a
-                    // calling convention that doesn't pass a QVariant and this
-                    // value is 0.
-                    QVariant *var = reinterpret_cast<QVariant *>(_a[1]);
-
-                    if (var)
-                    {
-                        ok = prop->pyqtprop_parsed_type->fromPyObject(py, var);
-
-                        // Make sure that _a[0] still points to the QVariant
-                        // data (whose address we may have just changed) so
-                        // that QMetaProperty::read() doesn't try to create a 
-                        // new QVariant.
-                        if (ok)
-                            _a[0] = var->data();
-                    }
-                    else
-                    {
-                        ok = prop->pyqtprop_parsed_type->fromPyObject(py, _a[0]);
-                    }
-
+                    ok = prop->pyqtprop_parsed_type->fromPyObject(py, _a[0]);
                     Py_DECREF(py);
                 }
                 else
@@ -166,16 +154,7 @@ static int qt_metacall_worker(sipSimpleWrapper *pySelf, PyTypeObject *pytype,
 
             if (prop->pyqtprop_set)
             {
-                PyObject *py;
-
-                // Get the underlying QVariant.  QtQml sometimes uses a calling
-                // convention that doesn't pass a QVariant and this value is 0.
-                QVariant *var = reinterpret_cast<QVariant *>(_a[1]);
-
-                if (var)
-                    py = prop->pyqtprop_parsed_type->toPyObject(*var);
-                else
-                    py = prop->pyqtprop_parsed_type->toPyObject(_a[0]);
+                PyObject *py = prop->pyqtprop_parsed_type->toPyObject(_a[0]);
 
                 if (py)
                 {
@@ -258,23 +237,30 @@ bool qpycore_qobject_qt_metacast(sipSimpleWrapper *pySelf,
     SIP_BLOCK_THREADS
 
     PyTypeObject *base_pytype = sipTypeAsPyTypeObject(base);
-    PyObject *mro = Py_TYPE(pySelf)->tp_mro;
+    PyObject *mro;
 
-    for (Py_ssize_t i = 0; i < PyTuple_GET_SIZE(mro); ++i)
+#if PY_VERSION_HEX >= 0x03040000
+    mro = PyObject_GetAttr((PyObject *)Py_TYPE(pySelf), qpycore_dunder_mro);
+    Q_ASSERT(mro);
+#else
+    mro = Py_TYPE(pySelf)->tp_mro;
+#endif
+
+    for (Py_ssize_t i = 0; i < PyTuple_Size(mro); ++i)
     {
-        PyTypeObject *pytype = (PyTypeObject *)PyTuple_GET_ITEM(mro, i);
+        PyTypeObject *pytype = (PyTypeObject *)PyTuple_GetItem(mro, i);
 
-        if (!PyObject_IsInstance((PyObject *)pytype, (PyObject *)&qpycore_pyqtWrapperType_Type))
+        const sipTypeDef *td = sipTypeFromPyTypeObject(pytype);
+
+        if (!td || !qpycore_is_pyqt_class(td))
             continue;
 
-        const sipTypeDef *td = ((sipWrapperType *)pytype)->type;
-
-        if (qstrcmp(pytype->tp_name, _clname) == 0)
+        if (qstrcmp(sipPyTypeName(pytype), _clname) == 0)
         {
             // The generated type definitions represent the C++ (rather than
             // Python) hierachy.  If the C++ hierachy doesn't match then the
             // super-type must be provided by a mixin.
-            if (PyType_IsSubtype(base_pytype, pytype))
+            if (PyType_IsSubtype(pytype, base_pytype))
                 *sipCpp = sipGetAddress(pySelf);
             else
                 *sipCpp = sipGetMixinAddress(pySelf, td);
@@ -283,13 +269,20 @@ bool qpycore_qobject_qt_metacast(sipSimpleWrapper *pySelf,
             break;
         }
 
-        if (((pyqt5ClassTypeDef *)td)->qt_interface && qstrcmp(((pyqt5ClassTypeDef *)td)->qt_interface, _clname) == 0)
+        const char *iface = reinterpret_cast<const pyqt5ClassPluginDef *>(
+                sipTypePluginData(td))->qt_interface;
+
+        if (iface && qstrcmp(iface, _clname) == 0)
         {
             *sipCpp = sipGetMixinAddress(pySelf, td);
             is_py_class = true;
             break;
         }
     }
+
+#if PY_VERSION_HEX >= 0x03040000
+    Py_DECREF(mro);
+#endif
 
     SIP_UNBLOCK_THREADS
 
@@ -300,33 +293,19 @@ bool qpycore_qobject_qt_metacast(sipSimpleWrapper *pySelf,
 // This is a helper for QObject.staticMetaObject %GetCode.
 PyObject *qpycore_qobject_staticmetaobject(PyObject *type_obj)
 {
-    pyqtWrapperType *pyqt_wt = (pyqtWrapperType *)type_obj;
-    const QMetaObject *mo;
+    const QMetaObject *mo = qpycore_get_qmetaobject((sipWrapperType *)type_obj);
 
-    if (pyqt_wt->metaobject)
+    if (!mo)
     {
-        // It's a sub-type of a wrapped type.
-        mo = pyqt_wt->metaobject->mo;
-    }
-    else
-    {
-        // It's a wrapped type.
-        pyqt5ClassTypeDef *pyqt_ctd = (pyqt5ClassTypeDef *)((sipWrapperType *)pyqt_wt)->type;
+        // We assume that this is a side effect of a wrapped class not being
+        // fully ready until sip's meta-class's __init__() has run (rather than
+        // after its __new__() method as might be expected).
+        PyErr_SetString(PyExc_AttributeError,
+                "staticMetaObject isn't available until the meta-class's __init__ returns");
 
-        if (!pyqt_ctd)
-        {
-            /*
-             * This is a side effect of a wrapped class not being fully ready
-             * until sip's meta-class's __init__() has run (rather than after
-             * its __new__() method as might be expected).
-             */
-            PyErr_SetString(PyExc_AttributeError,
-                    "staticMetaObject isn't available until the meta-class's __init__ returns");
-            return 0;
-        }
-
-        mo = reinterpret_cast<const QMetaObject *>(pyqt_ctd->static_metaobject);
+        return 0;
     }
 
-    return sipConvertFromType(const_cast<QMetaObject *>(mo), sipType_QMetaObject, 0);
+    return sipConvertFromType(const_cast<QMetaObject *>(mo),
+            sipType_QMetaObject, 0);
 }

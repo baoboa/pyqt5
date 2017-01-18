@@ -41,19 +41,13 @@ void qpyqml_post_init(PyObject *module_dict)
     Q_ASSERT(pyqt5_qtqml_err_print);
 
     // Initialise the QQmlListProperty type.
-#if PY_MAJOR_VERSION >= 3
-    qpyqml_QQmlListProperty_Type.tp_base = &PyUnicode_Type;
-#else
-    qpyqml_QQmlListProperty_Type.tp_base = &PyString_Type;
-#endif
-
-    if (PyType_Ready(&qpyqml_QQmlListProperty_Type) < 0)
+    if (!qpyqml_QQmlListProperty_init_type())
         Py_FatalError("PyQt5.QtQml: Failed to initialise QQmlListProperty type");
 
     // Create the only instance and add it to the module dictionary.
     PyObject *inst = PyObject_CallFunction(
-            (PyObject *)&qpyqml_QQmlListProperty_Type, const_cast<char *>("s"),
-            "QQmlListProperty<QObject>");
+            (PyObject *)qpyqml_QQmlListProperty_TypeObject,
+            const_cast<char *>("s"), "QQmlListProperty<QObject>");
 
     if (!inst)
         Py_FatalError("PyQt5.QtQml: Failed to create QQmlListProperty instance");
@@ -62,7 +56,7 @@ void qpyqml_post_init(PyObject *module_dict)
         Py_FatalError("PyQt5.QtQml: Failed to set QQmlListProperty instance");
 
     // Initialise the private QQmlListPropertyWrapper type.
-    if (PyType_Ready(&qpyqml_QQmlListPropertyWrapper_Type) < 0)
+    if (!qpyqml_QQmlListPropertyWrapper_init_type())
         Py_FatalError("PyQt5.QtQml: Failed to initialise QQmlListPropertyWrapper type");
 
     // Register the proxy resolver.

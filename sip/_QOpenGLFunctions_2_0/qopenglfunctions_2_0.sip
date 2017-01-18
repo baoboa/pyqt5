@@ -980,7 +980,7 @@ public:
                         break;
                     }
                     
-                    PyTuple_SET_ITEM(sipRes, i, itm);
+                    PyTuple_SetItem(sipRes, i, itm);
                 }
             }
         

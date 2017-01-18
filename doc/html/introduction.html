@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Introduction &mdash; PyQt 5.7 Reference Guide</title>
+    <title>Introduction &#8212; PyQt 5.7.1 Reference Guide</title>
     
     <link rel="stylesheet" href="_static/classic.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -14,17 +14,19 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '5.7',
+        VERSION:     '5.7.1',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
       };
     </script>
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
     <link rel="shortcut icon" href="_static/logo_tn.ico"/>
-    <link rel="top" title="PyQt 5.7 Reference Guide" href="index.html" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Platform Specific Issues" href="platforms.html" />
     <link rel="prev" title="PyQt5 Reference Guide" href="index.html" /> 
   </head>
@@ -44,7 +46,7 @@
         <li class="right" >
           <a href="index.html" title="PyQt5 Reference Guide"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">PyQt 5.7 Reference Guide</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">PyQt 5.7.1 Reference Guide</a> &#187;</li> 
       </ul>
     </div>  
 
@@ -55,7 +57,7 @@
             
   <div class="section" id="introduction">
 <h1>Introduction<a class="headerlink" href="#introduction" title="Permalink to this headline">¶</a></h1>
-<p>This is the reference guide for PyQt5 5.7.  PyQt5 is a set of
+<p>This is the reference guide for PyQt5 5.7.1.  PyQt5 is a set of
 <a class="reference external" href="http://www.python.org">Python</a> bindings for v5 of the Qt application
 framework from <a class="reference external" href="http://www.qt.io">The Qt Company</a>.</p>
 <p>Qt is a set of C++ libraries and development tools that includes platform
@@ -65,12 +67,15 @@ settings, positioning and location services, short range communications (NFC
 and Bluetooth) and access to the cloud.  PyQt5 implements over 1000 of these
 classes as a set of Python modules.</p>
 <p>PyQt5 supports the Windows, Linux, UNIX, Android, OS X and iOS platforms.</p>
-<p>PyQt5 does not include Qt itself - you must obtain it separately.</p>
-<p>The homepage for PyQt5 is <a class="reference external" href="http://www.riverbankcomputing.com/software/pyqt/">http://www.riverbankcomputing.com/software/pyqt/</a>.
+<p>PyQt does not include a copy of Qt. You must obtain a correctly licensed copy
+of Qt yourself.  However, binary wheels of the GPL version of PyQt5 are
+provided and these include a copy of the appropriate parts of the LGPL version
+of Qt.</p>
+<p>The homepage for PyQt5 is <a class="reference external" href="https://www.riverbankcomputing.com/software/pyqt/">https://www.riverbankcomputing.com/software/pyqt/</a>.
 Here you will always find the latest stable version, current development
 previews, and the latest version of this documentation.</p>
-<p>PyQt5 is built using the <a class="reference external" href="http://www.riverbankcomputing.com/software/sip/">SIP bindings generator</a>.  SIP must be installed in
-order to build and use PyQt5.</p>
+<p>PyQt5 is built using the <a class="reference external" href="https://www.riverbankcomputing.com/software/sip/">SIP bindings generator</a>.  SIP must be installed
+in order to build and use PyQt5.</p>
 <p>Earlier versions of Qt are supported by PyQt4.</p>
 <div class="section" id="license">
 <h2>License<a class="headerlink" href="#license" title="Permalink to this headline">¶</a></h2>
@@ -79,7 +84,7 @@ and the GPL v3.  Your PyQt5 license must be compatible with your Qt license.
 If you use the GPL version then your own code must also use a compatible
 license.</p>
 <p>PyQt5, unlike Qt, is not available under the LGPL.</p>
-<p>You can purchase a commercial PyQt5 license <a class="reference external" href="http://www.riverbankcomputing.com/commercial/buy">here</a>.</p>
+<p>You can purchase a commercial PyQt5 license <a class="reference external" href="https://www.riverbankcomputing.com/commercial/buy">here</a>.</p>
 </div>
 <div class="section" id="module-PyQt5">
 <span id="pyqt5-components"></span><h2>PyQt5 Components<a class="headerlink" href="#module-PyQt5" title="Permalink to this headline">¶</a></h2>
@@ -212,6 +217,10 @@ introspection of Qt&#8217;s signals and slots.</li>
 <li><a class="reference internal" href="#module-PyQt5.QtWebChannel" title="PyQt5.QtWebChannel"><code class="xref py py-mod docutils literal"><span class="pre">QtWebChannel</span></code></a> contains classes for transparently accessing
 <a class="reference internal" href="api/qobject.html#PyQt5.QtCore.QObject" title="PyQt5.QtCore.QObject"><code class="xref py py-class docutils literal"><span class="pre">QObject</span></code></a> or QML objects from HTML clients.</li>
 </ul>
+<span class="target" id="module-PyQt5.QtWebEngine"></span><ul class="simple">
+<li><a class="reference internal" href="#module-PyQt5.QtWebEngine" title="PyQt5.QtWebEngine"><code class="xref py py-mod docutils literal"><span class="pre">QtWebEngine</span></code></a> contains classes that exposes further functionality
+of Web Engine objects created in QML to Python.</li>
+</ul>
 <span class="target" id="module-PyQt5.QtWebEngineCore"></span><ul class="simple">
 <li><a class="reference internal" href="#module-PyQt5.QtWebEngineCore" title="PyQt5.QtWebEngineCore"><code class="xref py py-mod docutils literal"><span class="pre">QtWebEngineCore</span></code></a> contains core classes used by the
 <a class="reference internal" href="#module-PyQt5.QtWebEngineWidgets" title="PyQt5.QtWebEngineWidgets"><code class="xref py py-mod docutils literal"><span class="pre">QtWebEngineWidgets</span></code></a> module.</li>
@@ -221,7 +230,8 @@ introspection of Qt&#8217;s signals and slots.</li>
 implementation of a web browser.  This supercedes the <a class="reference internal" href="#module-PyQt5.QtWebKit" title="PyQt5.QtWebKit"><code class="xref py py-mod docutils literal"><span class="pre">QtWebKit</span></code></a>
 module and provides better and up-to-date support for HTML, CSS and
 JavaScript features.  However it also consumes more resources and doesn&#8217;t
-give direct access to the network stack and the HTML document via C++ APIs.</p>
+give direct access to the network stack and the HTML document via Python
+APIs.</p>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
 <p class="last"><a class="reference internal" href="#module-PyQt5.QtWebEngineWidgets" title="PyQt5.QtWebEngineWidgets"><code class="xref py py-mod docutils literal"><span class="pre">QtWebEngineWidgets</span></code></a> is not normally available under Windows
@@ -308,10 +318,10 @@ bindings package is installed.  The <a class="reference internal" href="#module-
 Qt-like interface to DBus.</p>
 <p>When PyQt5 is configured a file called <code class="file docutils literal"><span class="pre">PyQt5.api</span></code> is generated.  This
 can be used by the
-<a class="reference external" href="http://www.riverbankcomputing.com/software/qscintilla/">QScintilla</a>
+<a class="reference external" href="https://www.riverbankcomputing.com/software/qscintilla/">QScintilla</a>
 editor component to enable the use of auto-completion and call tips when
 editing PyQt5 code.  The API file is installed automatically if
-<a class="reference external" href="http://www.riverbankcomputing.com/software/qscintilla/">QScintilla</a>
+<a class="reference external" href="https://www.riverbankcomputing.com/software/qscintilla/">QScintilla</a>
 is already installed.</p>
 <p>PyQt5 includes a large number of examples.  These are ports to Python of many
 of the C++ examples provided with Qt.  They can be found in the
@@ -410,12 +420,12 @@ version of PyQt5 no matter what version of Qt v5 you are using.</p>
         <li class="right" >
           <a href="index.html" title="PyQt5 Reference Guide"
              >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">PyQt 5.7 Reference Guide</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">PyQt 5.7.1 Reference Guide</a> &#187;</li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
-        &copy; Copyright 2015 Riverbank Computing Limited.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.4.5.
+        &#169; Copyright 2015 Riverbank Computing Limited.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.5.1.
     </div>
   </body>
 </html>

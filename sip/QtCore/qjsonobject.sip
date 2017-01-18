@@ -99,7 +99,7 @@
         {
             PyErr_Format(PyExc_TypeError,
                     "a key has type '%s' but 'str' is expected",
-                    Py_TYPE(kobj)->tp_name);
+                    sipPyTypeName(Py_TYPE(kobj)));
 
             delete jo;
 
@@ -115,7 +115,7 @@
         {
             PyErr_Format(PyExc_TypeError,
                     "a value has type '%s' but 'QJsonValue' is expected",
-                    Py_TYPE(vobj)->tp_name);
+                    sipPyTypeName(Py_TYPE(vobj)));
 
             sipReleaseType(k, sipType_QString, kstate);
             delete jo;
