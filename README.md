@@ -1,7 +1,7 @@
 pyqt5
 =====
 
-#### 5.7.1
+#### 5.8.2
 * source  -> http://www.riverbankcomputing.com/software/pyqt/download5
 * support -> https://www.riverbankcomputing.com/mailman/listinfo/pyqt/
 * doc     -> http://pyqt.sourceforge.net/Docs/PyQt5/
@@ -23,9 +23,10 @@ Change
 
 ##PyQt5
 
-*    added the QtWebEngine module
-*    added QRegion.setRects()
-*    added QtMac to the QtMacExtras module
-*    added support for QChartView and QWebEngineView to pyuic5.
+
+*    Added support for Qt v5.8.0.
+*    Added __fspath__() to QFileInfo.
+*    Added the --qml-debug option to configure.py. The --debug option no longer enables the QML debugging infrastructure.
+*    Added the --link-full-dll option to configure.py.
 
 
