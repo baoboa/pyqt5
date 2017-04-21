@@ -2,7 +2,7 @@
 //
 // This file is part of the QtCore Python extension module.
 //
-// Copyright (c) 2016 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2017 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -1425,10 +1425,18 @@ public:
         }
         else
         {
+        #if PY_MAJOR_VERSION >= 3
         #if defined(HAVE_LONG_LONG)
             unsigned PY_LONG_LONG value = PyLong_AsUnsignedLongLongMask(a0);
         #else
             unsigned long value = PyLong_AsUnsignedLongMask(a0);
+        #endif
+        #else
+        #if defined(HAVE_LONG_LONG)
+            unsigned PY_LONG_LONG value = PyInt_AsUnsignedLongLongMask(a0);
+        #else
+            unsigned long value = PyInt_AsUnsignedLongMask(a0);
+        #endif
         #endif
         
             if (PyErr_Occurred() && !PyErr_ExceptionMatches(PyExc_OverflowError))

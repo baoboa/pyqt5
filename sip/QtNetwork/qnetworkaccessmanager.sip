@@ -2,7 +2,7 @@
 //
 // This file is part of the QtNetwork Python extension module.
 //
-// Copyright (c) 2016 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2017 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -89,6 +89,12 @@ public:
     };
 
     QNetworkReply *sendCustomRequest(const QNetworkRequest &request, const QByteArray &verb, QIODevice *data = 0);
+%If (Qt_5_8_0 -)
+    QNetworkReply *sendCustomRequest(const QNetworkRequest &request, const QByteArray &verb, const QByteArray &data);
+%End
+%If (Qt_5_8_0 -)
+    QNetworkReply *sendCustomRequest(const QNetworkRequest &request, const QByteArray &verb, QHttpMultiPart *multiPart);
+%End
     void setConfiguration(const QNetworkConfiguration &config);
     QNetworkConfiguration configuration() const;
     QNetworkConfiguration activeConfiguration() const;

@@ -2,7 +2,7 @@
 //
 // This file is part of the QtWebEngine Python extension module.
 //
-// Copyright (c) 2016 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2017 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -40,7 +40,9 @@ public:
     {
         MemoryHttpCache,
         DiskHttpCache,
+%If (Qt_5_7_0 -)
         NoCache,
+%End
     };
 
     enum PersistentCookiesPolicy
@@ -75,7 +77,9 @@ public:
     void removeUrlScheme(const QByteArray &scheme);
     void removeUrlSchemeHandler(QWebEngineUrlSchemeHandler *);
     void removeAllUrlSchemeHandlers();
+%If (Qt_5_7_0 -)
     void clearHttpCache();
+%End
     static QQuickWebEngineProfile *defaultProfile();
 
 signals:
@@ -88,6 +92,28 @@ signals:
     void persistentCookiesPolicyChanged();
     void httpCacheMaximumSizeChanged();
     void httpAcceptLanguageChanged();
+
+public:
+%If (Qt_5_8_0 -)
+    void setSpellCheckLanguages(const QStringList &languages);
+%End
+%If (Qt_5_8_0 -)
+    QStringList spellCheckLanguages() const;
+%End
+%If (Qt_5_8_0 -)
+    void setSpellCheckEnabled(bool enabled);
+%End
+%If (Qt_5_8_0 -)
+    bool isSpellCheckEnabled() const;
+%End
+
+signals:
+%If (Qt_5_8_0 -)
+    void spellCheckLanguagesChanged();
+%End
+%If (Qt_5_8_0 -)
+    void spellCheckEnabledChanged();
+%End
 };
 
 %End

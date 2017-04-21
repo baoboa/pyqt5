@@ -1,7 +1,7 @@
 // This is the SIP interface definition for the majority of the QList based
 // mapped types.
 //
-// Copyright (c) 2016 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2017 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -149,28 +149,32 @@ template<_TYPE_>
 %End
 
 %ConvertFromTypeCode
+    int gc_enabled = sipEnableGC(0);
     PyObject *l = PyList_New(sipCpp->size());
 
-    if (!l)
-        return 0;
-
-    for (int i = 0; i < sipCpp->size(); ++i)
+    if (l)
     {
-        _TYPE_ *t = sipCpp->at(i);
-
-        // The explicit (void *) cast allows _TYPE_ to be const.
-        PyObject *tobj = sipConvertFromType((void *)t, sipType__TYPE_,
-                sipTransferObj);
-
-        if (!tobj)
+        for (int i = 0; i < sipCpp->size(); ++i)
         {
-            Py_DECREF(l);
+            _TYPE_ *t = sipCpp->at(i);
 
-            return 0;
+            // The explicit (void *) cast allows _TYPE_ to be const.
+            PyObject *tobj = sipConvertFromType((void *)t, sipType__TYPE_,
+                    sipTransferObj);
+
+            if (!tobj)
+            {
+                Py_DECREF(l);
+                l = 0;
+
+                break;
+            }
+
+            PyList_SetItem(l, i, tobj);
         }
-
-        PyList_SetItem(l, i, tobj);
     }
+
+    sipEnableGC(gc_enabled);
 
     return l;
 %End

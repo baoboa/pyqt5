@@ -2,7 +2,7 @@
 //
 // This file is part of the QtGui Python extension module.
 //
-// Copyright (c) 2016 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2017 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -29,6 +29,9 @@ class QIconEngine /Supertype=sip.wrapper/
 public:
 %If (Qt_5_6_0 -)
     QIconEngine();
+%End
+%If (Qt_5_8_0 -)
+    QIconEngine(const QIconEngine &other);
 %End
     virtual ~QIconEngine();
     virtual void paint(QPainter *painter, const QRect &rect, QIcon::Mode mode, QIcon::State state) = 0;

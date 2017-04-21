@@ -1,6 +1,6 @@
 #############################################################################
 ##
-## Copyright (c) 2016 Riverbank Computing Limited <info@riverbankcomputing.com>
+## Copyright (c) 2017 Riverbank Computing Limited <info@riverbankcomputing.com>
 ## 
 ## This file is part of PyQt5.
 ## 
@@ -118,6 +118,11 @@ class Driver(object):
         """ Handle a SyntaxError exception. """
 
         sys.stderr.write("Error in input file: %s\n" % e)
+
+    def on_NoSuchClassError(self, e):
+        """ Handle a NoSuchClassError exception. """
+
+        sys.stderr.write(str(e) + "\n")
 
     def on_NoSuchWidgetError(self, e):
         """ Handle a NoSuchWidgetError exception. """

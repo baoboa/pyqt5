@@ -2,7 +2,7 @@
 //
 // This file is part of the QtQml Python extension module.
 //
-// Copyright (c) 2016 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2017 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -77,7 +77,7 @@ public:
     void setProperty(quint32 arrayIndex, const QJSValue &value);
     bool deleteProperty(const QString &name);
     bool isCallable() const;
-    QJSValue call(const QJSValueList &args = QList<QJSValue>());
-    QJSValue callWithInstance(const QJSValue &instance, const QJSValueList &args = QList<QJSValue>());
-    QJSValue callAsConstructor(const QJSValueList &args = QList<QJSValue>());
+    QJSValue call(const QJSValueList &args = QJSValueList());
+    QJSValue callWithInstance(const QJSValue &instance, const QJSValueList &args = QJSValueList());
+    QJSValue callAsConstructor(const QJSValueList &args = QJSValueList());
 };

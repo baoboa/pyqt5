@@ -2,7 +2,7 @@
 //
 // This file is part of the QtGui Python extension module.
 //
-// Copyright (c) 2016 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2017 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -87,6 +87,16 @@ public:
 %End
 %If (Qt_5_1_0 -)
     typedef QFlags<QRawFont::LayoutFlag> LayoutFlags;
+%End
+%If (Qt_5_8_0 -)
+    qreal capHeight() const;
+%End
+%If (Qt_5_8_0 -)
+    long __hash__() const;
+%MethodCode
+        sipRes = qHash(*sipCpp);
+%End
+
 %End
 };
 

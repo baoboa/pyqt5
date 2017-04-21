@@ -1,6 +1,6 @@
 #############################################################################
 ##
-## Copyright (C) 2014 Riverbank Computing Limited.
+## Copyright (C) 2017 Riverbank Computing Limited.
 ## Copyright (C) 2006 Thorsten Marek.
 ## All right reserved.
 ##
@@ -37,6 +37,10 @@
 ##
 #############################################################################
 
+
+class NoSuchClassError(Exception):
+    def __str__(self):
+        return "Unknown C++ class: %s" % self.args[0]
 
 class NoSuchWidgetError(Exception):
     def __str__(self):

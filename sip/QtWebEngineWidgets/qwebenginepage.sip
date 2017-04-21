@@ -2,7 +2,7 @@
 //
 // This file is part of the QtWebEngineWidgets Python extension module.
 //
-// Copyright (c) 2016 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2017 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -103,6 +103,9 @@ public:
 %End
 %If (Qt_5_7_0 -)
         OpenLinkInNewBackgroundTab,
+%End
+%If (Qt_5_8_0 -)
+        ViewSource,
 %End
     };
 
@@ -483,6 +486,47 @@ signals:
 %End
 %If (Qt_5_7_0 -)
     void recentlyAudibleChanged(bool recentlyAudible);
+%End
+
+public:
+%If (Qt_5_8_0 -)
+    void replaceMisspelledWord(const QString &replacement);
+%End
+%If (Qt_5_8_0 -)
+    void save(const QString &filePath, QWebEngineDownloadItem::SavePageFormat format = QWebEngineDownloadItem::SavePageFormat::MimeHtmlSaveFormat) const;
+%End
+%If (Qt_5_8_0 -)
+%If (Py_v3)
+%If (PyQt_Printer)
+    void print(QPrinter *printer, SIP_PYCALLABLE resultCallback);
+%MethodCode
+        // Make sure the callable doesn't get garbage collected.
+        Py_INCREF(a1);
+        
+        Py_BEGIN_ALLOW_THREADS
+        
+        sipCpp->print(a0, [a1](bool arg) {
+            SIP_BLOCK_THREADS
+            
+            PyObject *res;
+        
+            res = sipCallMethod(NULL, a1, "b", arg);
+        
+            Py_DECREF(a1);
+        
+            if (!res)
+                pyqt5_qtwebenginewidgets_err_print();
+            else
+                Py_DECREF(res);
+        
+            SIP_UNBLOCK_THREADS
+        });
+        
+        Py_END_ALLOW_THREADS
+%End
+
+%End
+%End
 %End
 
 private:

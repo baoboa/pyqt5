@@ -1,6 +1,6 @@
 // This is the implementation of the QQmlListProperty class.
 //
-// Copyright (c) 2016 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2017 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -179,12 +179,12 @@ static PyObject *QQmlListProperty_call(PyObject *, PyObject *args,
             &py_list, &py_append, &py_count, &py_at, &py_clear))
         return 0;
 
-    // Check the type object.
-    if (!PyObject_TypeCheck(py_type, &PyType_Type))
+    // Check the type is derived from QObjecy.
+    if (!PyObject_TypeCheck(py_type, &PyType_Type) ||
+        !PyType_IsSubtype((PyTypeObject *)py_type, sipTypeAsPyTypeObject(sipType_QObject)))
     {
         PyErr_Format(PyExc_TypeError,
-                "type argument must be of type 'type', not '%s'",
-                sipPyTypeName(Py_TYPE(py_type)));
+                "type argument must be a sub-type of QObject");
         return 0;
     }
 

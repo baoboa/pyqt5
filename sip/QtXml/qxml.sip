@@ -2,7 +2,7 @@
 //
 // This file is part of the QtXml Python extension module.
 //
-// Copyright (c) 2016 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2017 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -52,6 +52,9 @@ class QXmlAttributes
 
 public:
     QXmlAttributes();
+%If (Qt_5_8_0 -)
+    QXmlAttributes(const QXmlAttributes &);
+%End
     virtual ~QXmlAttributes();
     int index(const QString &qName) const;
     int index(const QString &uri, const QString &localPart) const;
@@ -68,6 +71,9 @@ public:
     void clear();
     void append(const QString &qName, const QString &uri, const QString &localPart, const QString &value);
     int count() const /__len__/;
+%If (Qt_5_8_0 -)
+    void swap(QXmlAttributes &other /Constrained/);
+%End
 };
 
 class QXmlInputSource

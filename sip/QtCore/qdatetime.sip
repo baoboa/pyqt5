@@ -2,7 +2,7 @@
 //
 // This file is part of the QtCore Python extension module.
 //
-// Copyright (c) 2016 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2017 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -538,6 +538,21 @@ public:
 %End
 %If (Qt_5_2_0 -)
     static QDateTime fromMSecsSinceEpoch(qint64 msecs, const QTimeZone &timeZone);
+%End
+%If (Qt_5_8_0 -)
+    qint64 toSecsSinceEpoch() const;
+%End
+%If (Qt_5_8_0 -)
+    void setSecsSinceEpoch(qint64 secs);
+%End
+%If (Qt_5_8_0 -)
+    static QDateTime fromSecsSinceEpoch(qint64 secs, Qt::TimeSpec spec = Qt::TimeSpec::LocalTime, int offsetSeconds = 0);
+%End
+%If (Qt_5_8_0 -)
+    static QDateTime fromSecsSinceEpoch(qint64 secs, const QTimeZone &timeZone);
+%End
+%If (Qt_5_8_0 -)
+    static qint64 currentSecsSinceEpoch();
 %End
 };
 

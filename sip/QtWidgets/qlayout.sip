@@ -2,7 +2,7 @@
 //
 // This file is part of the QtWidgets Python extension module.
 //
-// Copyright (c) 2016 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2017 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -163,7 +163,7 @@ public:
     QRect contentsRect() const;
     void setContentsMargins(const QMargins &margins);
     QMargins contentsMargins() const;
-    virtual QFlags<QSizePolicy::ControlType> controlTypes() const;
+    virtual QSizePolicy::ControlTypes controlTypes() const;
 %If (Qt_5_2_0 -)
     QLayoutItem *replaceWidget(QWidget *from, QWidget *to /Transfer/, Qt::FindChildOptions options = Qt::FindChildrenRecursively) /TransferBack/;
 %End

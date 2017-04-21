@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Differences Between PyQt4 and PyQt5 &#8212; PyQt 5.7.1 Reference Guide</title>
+    <title>Differences Between PyQt4 and PyQt5 &#8212; PyQt 5.8.2 Reference Guide</title>
     
     <link rel="stylesheet" href="_static/classic.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '5.7.1',
+        VERSION:     '5.8.2',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true,
@@ -46,7 +46,7 @@
         <li class="right" >
           <a href="installation.html" title="Installing PyQt5"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">PyQt 5.7.1 Reference Guide</a> &#187;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">PyQt 5.8.2 Reference Guide</a> &#187;</li> 
       </ul>
     </div>  
 
@@ -207,7 +207,7 @@ Python starting with Python v2.6.</p>
 words PyQt5 classes always do the equivalent of the following Python v3 code
 in their <code class="docutils literal"><span class="pre">__init__</span></code> methods (where <code class="docutils literal"><span class="pre">kwds</span></code> is a dictionary of unused keyword
 arguments):</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="o">**</span><span class="n">kwds</span><span class="p">)</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">**</span><span class="n">kwds</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>This means that those unused keyword arguments are passed to the <code class="docutils literal"><span class="pre">__init__</span></code>
@@ -217,8 +217,8 @@ must make a similar call if they have their own <code class="docutils literal"><
 methods of the super-classes explicitly, for example:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">MyQObject</span><span class="p">(</span><span class="n">QObject</span><span class="p">,</span> <span class="n">MyMixin</span><span class="p">):</span>
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">parent</span><span class="p">,</span> <span class="n">mixin_arg</span><span class="p">):</span>
-        <span class="n">QObject</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">parent</span><span class="p">)</span>
-        <span class="n">MyMixin</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">mixin_arg</span><span class="p">)</span>
+        <span class="n">QObject</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">parent</span><span class="p">)</span>
+        <span class="n">MyMixin</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">mixin_arg</span><span class="p">)</span>
 
         <span class="c1"># Other initialisation...</span>
 </pre></div>
@@ -227,7 +227,7 @@ methods of the super-classes explicitly, for example:</p>
 Instead it should be implemented as follows:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">MyQObject</span><span class="p">(</span><span class="n">QObject</span><span class="p">,</span> <span class="n">MyMixin</span><span class="p">):</span>
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwds</span><span class="p">):</span>
-        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="o">**</span><span class="n">kwds</span><span class="p">)</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">**</span><span class="n">kwds</span><span class="p">)</span>
 
         <span class="c1"># Other initialisation...</span>
 </pre></div>
@@ -237,7 +237,7 @@ method isn&#8217;t actually needed.</p>
 <p>The mixin class should be implemented as follows:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">MyMixin</span><span class="p">:</span>
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">mixin_arg</span><span class="p">,</span> <span class="o">**</span><span class="n">kwds</span><span class="p">):</span>
-        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="o">**</span><span class="n">kwds</span><span class="p">)</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">**</span><span class="n">kwds</span><span class="p">)</span>
 
         <span class="c1"># Other initialisation...</span>
 </pre></div>
@@ -335,12 +335,12 @@ calling the <code class="xref py py-func docutils literal"><span class="pre">sip
         <li class="right" >
           <a href="installation.html" title="Installing PyQt5"
              >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">PyQt 5.7.1 Reference Guide</a> &#187;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">PyQt 5.8.2 Reference Guide</a> &#187;</li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
         &#169; Copyright 2015 Riverbank Computing Limited.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.5.1.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.5.3.
     </div>
   </body>
 </html>

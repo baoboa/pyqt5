@@ -1,6 +1,6 @@
 // This is the initialisation support code for the QtGui module.
 //
-// Copyright (c) 2016 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2017 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -41,6 +41,7 @@ void qpyopengl_init()
     sipExportSymbol("qpyopengl_value_array", (void *)qpyopengl_value_array);
     sipExportSymbol("qpyopengl_value_array_cached",
             (void *)qpyopengl_value_array_cached);
+    sipExportSymbol("qpyopengl_get", (void *)qpyopengl_get);
     sipExportSymbol("qpyopengl_from_GLint", (void *)qpyopengl_from_GLint);
     sipExportSymbol("qpyopengl_from_GLuint", (void *)qpyopengl_from_GLuint);
     sipExportSymbol("qpyopengl_from_GLboolean",

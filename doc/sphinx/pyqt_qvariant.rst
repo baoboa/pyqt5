@@ -37,4 +37,6 @@ The actual value of a wrapped Python :class:`~PyQt5.QtCore.QVariant` is
 obtained by calling its :meth:`~PyQt5.QtCore.QVariant.value` method.  (Note
 that in PyQt4's v1 API this method is called ``toPyObject()``.)
 
-PyQt5 does not support the ``QPyNullVariant`` class as it is no longer needed.
+PyQt5 does not support the ``QPyNullVariant`` class as a null
+:class:`~PyQt5.QtCore.QVariant` is automatically converted to ``None`` and vice
+versa.

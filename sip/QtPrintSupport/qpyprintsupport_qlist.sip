@@ -1,7 +1,7 @@
 // This is the SIP interface definition for the QList based mapped types
 // specific to the QtPrintSupport module.
 //
-// Copyright (c) 2016 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2017 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -18,6 +18,8 @@
 // This file is provided AS IS with NO WARRANTY OF ANY KIND, INCLUDING THE
 // WARRANTY OF DESIGN, MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE.
 
+
+%If (PyQt_Printer)
 
 %MappedType QList<QPagedPaintDevice::PageSize>
         /TypeHintIn="Iterable[QPagedPaintDevice.PageSize]",
@@ -121,6 +123,10 @@
 %End
 };
 
+%End
+
+
+%If (PyQt_Printer)
 
 %If (Qt_5_4_0 -)
 
@@ -225,5 +231,7 @@
     return sipGetState(sipTransferObj);
 %End
 };
+
+%End
 
 %End

@@ -2,7 +2,7 @@
 //
 // This file is part of the _QOpenGLFunctions_2_1 Python extension module.
 //
-// Copyright (c) 2016 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2017 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -114,55 +114,11 @@ public:
 
     void glGetIntegerv(GLenum pname, SIP_PYOBJECT *params /TypeHint="Union[int, Tuple[int, ...]]"/);
 %MethodCode
-        GLint fixed_params[4], *params;
-        GLint nr_params = 0;
+        GLint fixed_params[16], *params;
+        GLint nr_params;
         GLenum query;
         
-        switch (a0)
-        {
-        case GL_COMPRESSED_TEXTURE_FORMATS:
-            query = GL_NUM_COMPRESSED_TEXTURE_FORMATS;
-            break;
-        
-        #if defined(GL_PROGRAM_BINARY_FORMATS)
-        case GL_PROGRAM_BINARY_FORMATS:
-            query = GL_NUM_PROGRAM_BINARY_FORMATS;
-            break;
-        #endif
-        
-        #if defined(GL_SHADER_BINARY_FORMATS)
-        case GL_SHADER_BINARY_FORMATS:
-            query = GL_NUM_SHADER_BINARY_FORMATS;
-            break;
-        #endif
-        
-        case GL_BLEND_COLOR:
-        case GL_COLOR_CLEAR_VALUE:
-        case GL_COLOR_WRITEMASK:
-        case GL_SCISSOR_BOX:
-        case GL_VIEWPORT:
-            nr_params = 4;
-            break;
-        
-        case GL_ALIASED_LINE_WIDTH_RANGE:
-        case GL_ALIASED_POINT_SIZE_RANGE:
-        case GL_DEPTH_RANGE:
-        #if defined(GL_LINE_WIDTH_RANGE)
-        case GL_LINE_WIDTH_RANGE:
-        #endif
-        case GL_MAX_VIEWPORT_DIMS:
-        #if defined(GL_POINT_SIZE_RANGE)
-        case GL_POINT_SIZE_RANGE:
-        #endif
-        #if defined(GL_VIEWPORT_BOUNDS_RANGE)
-        case GL_VIEWPORT_BOUNDS_RANGE:
-        #endif
-            nr_params = 2;
-            break;
-            
-        default:
-            nr_params = 1;
-        }
+        nr_params = qpyopengl_get(a0, &query);
         
         if (nr_params == 0)
         {
@@ -183,55 +139,11 @@ public:
 
     void glGetFloatv(GLenum pname, SIP_PYOBJECT *params /TypeHint="Union[float, Tuple[float, ...]]"/);
 %MethodCode
-        GLfloat fixed_params[4], *params;
-        GLint nr_params = 0;
+        GLfloat fixed_params[16], *params;
+        GLint nr_params;
         GLenum query;
         
-        switch (a0)
-        {
-        case GL_COMPRESSED_TEXTURE_FORMATS:
-            query = GL_NUM_COMPRESSED_TEXTURE_FORMATS;
-            break;
-        
-        #if defined(GL_PROGRAM_BINARY_FORMATS)
-        case GL_PROGRAM_BINARY_FORMATS:
-            query = GL_NUM_PROGRAM_BINARY_FORMATS;
-            break;
-        #endif
-        
-        #if defined(GL_SHADER_BINARY_FORMATS)
-        case GL_SHADER_BINARY_FORMATS:
-            query = GL_NUM_SHADER_BINARY_FORMATS;
-            break;
-        #endif
-        
-        case GL_BLEND_COLOR:
-        case GL_COLOR_CLEAR_VALUE:
-        case GL_COLOR_WRITEMASK:
-        case GL_SCISSOR_BOX:
-        case GL_VIEWPORT:
-            nr_params = 4;
-            break;
-        
-        case GL_ALIASED_LINE_WIDTH_RANGE:
-        case GL_ALIASED_POINT_SIZE_RANGE:
-        case GL_DEPTH_RANGE:
-        #if defined(GL_LINE_WIDTH_RANGE)
-        case GL_LINE_WIDTH_RANGE:
-        #endif
-        case GL_MAX_VIEWPORT_DIMS:
-        #if defined(GL_POINT_SIZE_RANGE)
-        case GL_POINT_SIZE_RANGE:
-        #endif
-        #if defined(GL_VIEWPORT_BOUNDS_RANGE)
-        case GL_VIEWPORT_BOUNDS_RANGE:
-        #endif
-            nr_params = 2;
-            break;
-            
-        default:
-            nr_params = 1;
-        }
+        nr_params = qpyopengl_get(a0, &query);
         
         if (nr_params == 0)
         {
@@ -253,55 +165,11 @@ public:
     GLenum glGetError();
     void glGetDoublev(GLenum pname, SIP_PYOBJECT *params /TypeHint="Union[float, Tuple[float, ...]]"/);
 %MethodCode
-        GLdouble fixed_params[4], *params;
-        GLint nr_params = 0;
+        GLdouble fixed_params[16], *params;
+        GLint nr_params;
         GLenum query;
         
-        switch (a0)
-        {
-        case GL_COMPRESSED_TEXTURE_FORMATS:
-            query = GL_NUM_COMPRESSED_TEXTURE_FORMATS;
-            break;
-        
-        #if defined(GL_PROGRAM_BINARY_FORMATS)
-        case GL_PROGRAM_BINARY_FORMATS:
-            query = GL_NUM_PROGRAM_BINARY_FORMATS;
-            break;
-        #endif
-        
-        #if defined(GL_SHADER_BINARY_FORMATS)
-        case GL_SHADER_BINARY_FORMATS:
-            query = GL_NUM_SHADER_BINARY_FORMATS;
-            break;
-        #endif
-        
-        case GL_BLEND_COLOR:
-        case GL_COLOR_CLEAR_VALUE:
-        case GL_COLOR_WRITEMASK:
-        case GL_SCISSOR_BOX:
-        case GL_VIEWPORT:
-            nr_params = 4;
-            break;
-        
-        case GL_ALIASED_LINE_WIDTH_RANGE:
-        case GL_ALIASED_POINT_SIZE_RANGE:
-        case GL_DEPTH_RANGE:
-        #if defined(GL_LINE_WIDTH_RANGE)
-        case GL_LINE_WIDTH_RANGE:
-        #endif
-        case GL_MAX_VIEWPORT_DIMS:
-        #if defined(GL_POINT_SIZE_RANGE)
-        case GL_POINT_SIZE_RANGE:
-        #endif
-        #if defined(GL_VIEWPORT_BOUNDS_RANGE)
-        case GL_VIEWPORT_BOUNDS_RANGE:
-        #endif
-            nr_params = 2;
-            break;
-            
-        default:
-            nr_params = 1;
-        }
+        nr_params = qpyopengl_get(a0, &query);
         
         if (nr_params == 0)
         {
@@ -322,55 +190,11 @@ public:
 
     void glGetBooleanv(GLenum pname, SIP_PYOBJECT *params /TypeHint="Union[bool, Tuple[bool, ...]]"/);
 %MethodCode
-        GLboolean fixed_params[4], *params;
-        GLint nr_params = 0;
+        GLboolean fixed_params[16], *params;
+        GLint nr_params;
         GLenum query;
         
-        switch (a0)
-        {
-        case GL_COMPRESSED_TEXTURE_FORMATS:
-            query = GL_NUM_COMPRESSED_TEXTURE_FORMATS;
-            break;
-        
-        #if defined(GL_PROGRAM_BINARY_FORMATS)
-        case GL_PROGRAM_BINARY_FORMATS:
-            query = GL_NUM_PROGRAM_BINARY_FORMATS;
-            break;
-        #endif
-        
-        #if defined(GL_SHADER_BINARY_FORMATS)
-        case GL_SHADER_BINARY_FORMATS:
-            query = GL_NUM_SHADER_BINARY_FORMATS;
-            break;
-        #endif
-        
-        case GL_BLEND_COLOR:
-        case GL_COLOR_CLEAR_VALUE:
-        case GL_COLOR_WRITEMASK:
-        case GL_SCISSOR_BOX:
-        case GL_VIEWPORT:
-            nr_params = 4;
-            break;
-        
-        case GL_ALIASED_LINE_WIDTH_RANGE:
-        case GL_ALIASED_POINT_SIZE_RANGE:
-        case GL_DEPTH_RANGE:
-        #if defined(GL_LINE_WIDTH_RANGE)
-        case GL_LINE_WIDTH_RANGE:
-        #endif
-        case GL_MAX_VIEWPORT_DIMS:
-        #if defined(GL_POINT_SIZE_RANGE)
-        case GL_POINT_SIZE_RANGE:
-        #endif
-        #if defined(GL_VIEWPORT_BOUNDS_RANGE)
-        case GL_VIEWPORT_BOUNDS_RANGE:
-        #endif
-            nr_params = 2;
-            break;
-            
-        default:
-            nr_params = 1;
-        }
+        nr_params = qpyopengl_get(a0, &query);
         
         if (nr_params == 0)
         {
@@ -3005,6 +2829,9 @@ extern qpyopengl_value_array_t qpyopengl_value_array;
 typedef const GLvoid *(*qpyopengl_value_array_cached_t)(sipErrorState *, PyObject *, GLenum, PyObject *, const char *, GLuint);
 extern qpyopengl_value_array_cached_t qpyopengl_value_array_cached;
 
+typedef GLint (*qpyopengl_get_t)(GLenum, GLenum *);
+extern qpyopengl_get_t qpyopengl_get;
+
 typedef PyObject *(*qpyopengl_from_GLint_t)(int *, const GLint *, Py_ssize_t);
 extern qpyopengl_from_GLint_t qpyopengl_from_GLint;
 
@@ -3025,6 +2852,7 @@ extern qpyopengl_from_GLdouble_t qpyopengl_from_GLdouble;
 // Imports from QtGui.
 qpyopengl_value_array_t qpyopengl_value_array;
 qpyopengl_value_array_cached_t qpyopengl_value_array_cached;
+qpyopengl_get_t qpyopengl_get;
 qpyopengl_from_GLint_t qpyopengl_from_GLint;
 qpyopengl_from_GLuint_t qpyopengl_from_GLuint;
 qpyopengl_from_GLboolean_t qpyopengl_from_GLboolean;
@@ -3039,6 +2867,9 @@ Q_ASSERT(qpyopengl_value_array);
 
 qpyopengl_value_array_cached = (qpyopengl_value_array_cached_t)sipImportSymbol("qpyopengl_value_array_cached");
 Q_ASSERT(qpyopengl_value_array_cached);
+
+qpyopengl_get = (qpyopengl_get_t)sipImportSymbol("qpyopengl_get");
+Q_ASSERT(qpyopengl_get);
 
 qpyopengl_from_GLint = (qpyopengl_from_GLint_t)sipImportSymbol("qpyopengl_from_GLint");
 Q_ASSERT(qpyopengl_from_GLint);

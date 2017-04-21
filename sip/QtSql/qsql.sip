@@ -2,7 +2,7 @@
 //
 // This file is part of the QtSql Python extension module.
 //
-// Copyright (c) 2016 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2017 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -19,6 +19,8 @@
 // This file is provided AS IS with NO WARRANTY OF ANY KIND, INCLUDING THE
 // WARRANTY OF DESIGN, MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE.
 
+
+%If (- Qt_5_8_0)
 
 namespace QSql
 {
@@ -59,4 +61,7 @@ namespace QSql
     };
 };
 
+%End
+%If (- Qt_5_8_0)
 QFlags<QSql::ParamTypeFlag> operator|(QSql::ParamTypeFlag f1, QFlags<QSql::ParamTypeFlag> f2);
+%End

@@ -2,7 +2,7 @@
 //
 // This file is part of the QtQuick Python extension module.
 //
-// Copyright (c) 2016 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2017 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -38,10 +38,16 @@ public:
         {
             DirtyMatrix,
             DirtyOpacity,
+%If (Qt_5_8_0 -)
+            DirtyCachedMaterialData,
+%End
+%If (Qt_5_8_0 -)
+            DirtyAll,
+%End
         };
 
         typedef QFlags<QSGMaterialShader::RenderState::DirtyState> DirtyStates;
-        QFlags<QSGMaterialShader::RenderState::DirtyState> dirtyStates() const;
+        QSGMaterialShader::RenderState::DirtyStates dirtyStates() const;
         bool isMatrixDirty() const;
         bool isOpacityDirty() const;
         float opacity() const;
@@ -56,6 +62,9 @@ public:
 %End
 %If (Qt_5_1_0 -)
         float devicePixelRatio() const;
+%End
+%If (Qt_5_8_0 -)
+        bool isCachedMaterialDataDirty() const;
 %End
     };
 
@@ -133,10 +142,10 @@ protected:
     virtual const char *fragmentShader() const = 0;
 %End
 %If (Qt_5_2_0 -)
-    void setShaderSourceFile(QFlags<QOpenGLShader::ShaderTypeBit> type, const QString &sourceFile);
+    void setShaderSourceFile(QOpenGLShader::ShaderType type, const QString &sourceFile);
 %End
 %If (Qt_5_2_0 -)
-    void setShaderSourceFiles(QFlags<QOpenGLShader::ShaderTypeBit> type, const QStringList &sourceFiles);
+    void setShaderSourceFiles(QOpenGLShader::ShaderType type, const QStringList &sourceFiles);
 %End
 
 private:
@@ -174,8 +183,8 @@ public:
     virtual QSGMaterialType *type() const = 0;
     virtual QSGMaterialShader *createShader() const = 0 /Factory/;
     virtual int compare(const QSGMaterial *other) const;
-    QFlags<QSGMaterial::Flag> flags() const;
-    void setFlag(QFlags<QSGMaterial::Flag> flags, bool enabled = true);
+    QSGMaterial::Flags flags() const;
+    void setFlag(QSGMaterial::Flags flags, bool enabled = true);
 
 private:
     QSGMaterial(const QSGMaterial &);

@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Installing PyQt5 &#8212; PyQt 5.7.1 Reference Guide</title>
+    <title>Installing PyQt5 &#8212; PyQt 5.8.2 Reference Guide</title>
     
     <link rel="stylesheet" href="_static/classic.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '5.7.1',
+        VERSION:     '5.8.2',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true,
@@ -46,7 +46,7 @@
         <li class="right" >
           <a href="incompatibilities.html" title="Incompatibilities with Earlier Versions"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">PyQt 5.7.1 Reference Guide</a> &#187;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">PyQt 5.8.2 Reference Guide</a> &#187;</li> 
       </ul>
     </div>  
 
@@ -169,7 +169,9 @@ the DLLs of the same name in the directory <code class="docutils literal"><span 
 <dt id="cmdoption-pyqtlicense-qt">
 <code class="descname">--qt</code><code class="descclassname"> DIR</code><a class="headerlink" href="#cmdoption-pyqtlicense-qt" title="Permalink to this definition">¶</a></dt>
 <dd><p>This specifies that <code class="docutils literal"><span class="pre">DIR</span></code> contains the LGPL or commercial Qt installation
-to be included in the licensed wheel.  It must be specified.</p>
+to be included in the licensed wheel.  The directory is what Qt refers to
+as the <em>prefix</em> directory, i.e. the architecture specific directory
+containing the <code class="docutils literal"><span class="pre">bin</span></code>, <code class="docutils literal"><span class="pre">lib</span></code> etc. directories.  It must be specified.</p>
 </dd></dl>
 
 <dl class="cmdoption">
@@ -243,7 +245,7 @@ development environment.</p>
 </div>
 <p>This assumes that the Python interpreter is on your path.  Something like the
 following may be appropriate on Windows:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">c</span><span class="p">:</span>\<span class="n">Python35</span>\<span class="n">python</span> <span class="n">configure</span><span class="o">.</span><span class="n">py</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">c</span><span class="p">:</span>\<span class="n">Python36</span>\<span class="n">python</span> <span class="n">configure</span><span class="o">.</span><span class="n">py</span>
 </pre></div>
 </div>
 <p>If you have multiple versions of Python installed then make sure you use the
@@ -313,8 +315,8 @@ found in the directory <code class="docutils literal"><span class="pre">&lt;DIR&
 <dl class="cmdoption">
 <dt id="cmdoption-configure-py-debug">
 <code class="descname">--debug</code><code class="descclassname"></code><a class="headerlink" href="#cmdoption-configure-py-debug" title="Permalink to this definition">¶</a></dt>
-<dd><p>The PyQt5 modules will be built with debugging symbols.  On Windows this
-requires that a debug version of Python is installed.</p>
+<dd><p>The PyQt5 modules will be built with debugging symbols.  On Windows
+<strong class="program">configure.py</strong> must be run using a debug version of Python.</p>
 </dd></dl>
 
 <dl class="cmdoption">
@@ -358,6 +360,19 @@ number of times.</p>
 <code class="descname">--license-dir</code><code class="descclassname"> &lt;DIR&gt;</code><a class="headerlink" href="#cmdoption-configure-py-license-dir" title="Permalink to this definition">¶</a></dt>
 <dd><p>The license files needed by the commercial version of PyQt5 can be found in
 the directory <code class="docutils literal"><span class="pre">&lt;DIR&gt;</span></code>.</p>
+</dd></dl>
+
+<dl class="cmdoption">
+<dt id="cmdoption-configure-py-link-full-dll">
+<code class="descname">--link-full-dll</code><code class="descclassname"></code><a class="headerlink" href="#cmdoption-configure-py-link-full-dll" title="Permalink to this definition">¶</a></dt>
+<dd><div class="versionadded">
+<p><span class="versionmodified">New in version 5.8.</span></p>
+</div>
+<p>On Windows the full Python API and the limited API (as used by PyQt) are
+implemented in different DLLs.  Normally the limited DLL is linked (unless
+a debug version of the Python interpreter is being used to run
+<strong class="program">configure.py</strong>).  This option forces the full API DLL to be linked
+instead.</p>
 </dd></dl>
 
 <dl class="cmdoption">
@@ -455,6 +470,16 @@ wrapper.  The default is platform dependent.</p>
 is laid out.  Normally <strong class="program">qmake</strong> is found on your <span class="target" id="index-1"></span><code class="xref std std-envvar docutils literal"><span class="pre">PATH</span></code>.
 This option can be used to specify a particular instance of
 <strong class="program">qmake</strong> to use.</p>
+</dd></dl>
+
+<dl class="cmdoption">
+<dt id="cmdoption-configure-py-qml-debug">
+<code class="descname">--qml-debug</code><code class="descclassname"></code><a class="headerlink" href="#cmdoption-configure-py-qml-debug" title="Permalink to this definition">¶</a></dt>
+<dd><div class="versionadded">
+<p><span class="versionmodified">New in version 5.8.</span></p>
+</div>
+<p>Enable the QML debugging infrastructure.  This should not be enabled in a
+production environment.</p>
 </dd></dl>
 
 <dl class="cmdoption">
@@ -684,6 +709,8 @@ version of Qt earlier than v5.1 then you will get an error.</p>
 <code class="docutils literal"><span class="pre">False</span></code>.</dd>
 <dt><code class="docutils literal"><span class="pre">py_platform</span></code></dt>
 <dd>is the target Python platform.</dd>
+<dt><code class="docutils literal"><span class="pre">py_debug</span></code></dt>
+<dd>is set if a debug version of the target Python is being used.</dd>
 <dt><code class="docutils literal"><span class="pre">py_inc_dir</span></code></dt>
 <dd>is the target Python include directory, i.e. the directory containing the
 <code class="docutils literal"><span class="pre">Python.h</span></code> file.</dd>
@@ -786,12 +813,12 @@ without any problems so long as they are built with the same version of SIP.</p>
         <li class="right" >
           <a href="incompatibilities.html" title="Incompatibilities with Earlier Versions"
              >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">PyQt 5.7.1 Reference Guide</a> &#187;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">PyQt 5.8.2 Reference Guide</a> &#187;</li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
         &#169; Copyright 2015 Riverbank Computing Limited.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.5.1.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.5.3.
     </div>
   </body>
 </html>

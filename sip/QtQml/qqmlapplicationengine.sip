@@ -2,7 +2,7 @@
 //
 // This file is part of the QtQml Python extension module.
 //
-// Copyright (c) 2016 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2017 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -30,8 +30,8 @@ class QQmlApplicationEngine : QQmlEngine
 
 public:
     QQmlApplicationEngine(QObject *parent /TransferThis/ = 0);
-    QQmlApplicationEngine(const QUrl &url, QObject *parent /TransferThis/ = 0);
-    QQmlApplicationEngine(const QString &filePath, QObject *parent /TransferThis/ = 0);
+    QQmlApplicationEngine(const QUrl &url, QObject *parent /TransferThis/ = 0) /ReleaseGIL/;
+    QQmlApplicationEngine(const QString &filePath, QObject *parent /TransferThis/ = 0) /ReleaseGIL/;
     virtual ~QQmlApplicationEngine();
     QList<QObject *> rootObjects();
 

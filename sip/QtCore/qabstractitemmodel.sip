@@ -2,7 +2,7 @@
 //
 // This file is part of the QtCore Python extension module.
 //
-// Copyright (c) 2016 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2017 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -235,8 +235,8 @@ protected:
     void endMoveRows();
     bool beginMoveColumns(const QModelIndex &sourceParent, int sourceFirst, int sourceLast, const QModelIndex &destinationParent, int destinationColumn);
     void endMoveColumns();
-    void beginResetModel();
-    void endResetModel();
+    void beginResetModel() /ReleaseGIL/;
+    void endResetModel() /ReleaseGIL/;
 
 protected slots:
 %If (Qt_5_1_0 -)

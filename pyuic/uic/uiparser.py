@@ -138,8 +138,9 @@ class WidgetStack(list):
 
     def topIsLayoutWidget(self):
         # A plain QWidget is a layout widget unless it's parent is a
-        # QMainWindow.  Note that the corresponding uic test is a little more
-        # complicated as it involves features not supported by pyuic.
+        # QMainWindow or a QTabWidget.  Note that the corresponding uic test is
+        # a little more complicated as it involves features not supported by
+        # pyuic.
 
         if type(self[-1]) is not QtWidgets.QWidget:
             return False
@@ -147,7 +148,7 @@ class WidgetStack(list):
         if len(self) < 2:
             return False
 
-        return type(self[-2]) is not QtWidgets.QMainWindow
+        return type(self[-2]) not in (QtWidgets.QMainWindow, QtWidgets.QTabWidget)
 
 
 class ButtonGroup(object):

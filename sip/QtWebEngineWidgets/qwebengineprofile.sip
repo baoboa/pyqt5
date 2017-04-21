@@ -2,7 +2,7 @@
 //
 // This file is part of the QtWebEngineWidgets Python extension module.
 //
-// Copyright (c) 2016 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2017 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -103,6 +103,18 @@ public:
 %End
 %If (Qt_5_7_0 -)
     void clearHttpCache();
+%End
+%If (Qt_5_8_0 -)
+    void setSpellCheckLanguages(const QStringList &languages);
+%End
+%If (Qt_5_8_0 -)
+    QStringList spellCheckLanguages() const;
+%End
+%If (Qt_5_8_0 -)
+    void setSpellCheckEnabled(bool enabled);
+%End
+%If (Qt_5_8_0 -)
+    bool isSpellCheckEnabled() const;
 %End
 
 private:

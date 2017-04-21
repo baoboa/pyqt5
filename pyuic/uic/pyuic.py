@@ -1,6 +1,6 @@
 #############################################################################
 ##
-## Copyright (c) 2016 Riverbank Computing Limited <info@riverbankcomputing.com>
+## Copyright (c) 2017 Riverbank Computing Limited <info@riverbankcomputing.com>
 ## 
 ## This file is part of PyQt5.
 ## 
@@ -26,7 +26,7 @@ import optparse
 from PyQt5 import QtCore
 
 from .driver import Driver
-from .exceptions import NoSuchWidgetError
+from .exceptions import NoSuchClassError, NoSuchWidgetError
 
 
 Version = "Python User Interface Compiler %s for Qt version %s" % (QtCore.PYQT_VERSION_STR, QtCore.QT_VERSION_STR)
@@ -79,6 +79,9 @@ def main():
 
     except SyntaxError as e:
         driver.on_SyntaxError(e)
+
+    except NoSuchClassError as e:
+        driver.on_NoSuchClassError(e)
 
     except NoSuchWidgetError as e:
         driver.on_NoSuchWidgetError(e)

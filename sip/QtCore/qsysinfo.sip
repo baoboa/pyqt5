@@ -1,6 +1,6 @@
 // This is the SIP specification of the QSysInfo class.
 //
-// Copyright (c) 2016 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2017 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -60,6 +60,9 @@ public:
 %If (Qt_5_5_0 -)
         MV_10_11,
 %End
+%If (Qt_5_8_0 -)
+        MV_10_12,
+%End
         MV_CHEETAH,
         MV_PUMA,
         MV_JAGUAR,
@@ -77,6 +80,9 @@ public:
 %End
 %If (Qt_5_5_0 -)
         MV_ELCAPITAN,
+%End
+%If (Qt_5_8_0 -)
+        MV_SIERRA,
 %End
 
 %If (Qt_5_2_0 -)
@@ -98,6 +104,28 @@ public:
         MV_IOS_8_3,
         MV_IOS_8_4,
         MV_IOS_9_0,
+%End
+%If (Qt_5_8_0 -)
+        MV_IOS_9_1,
+        MV_IOS_9_2,
+        MV_IOS_9_3,
+        MV_IOS_10_0,
+%End
+
+%If (Qt_5_8_0 -)
+        MV_TVOS,
+        MV_TVOS_9_0,
+        MV_TVOS_9_1,
+        MV_TVOS_9_2,
+        MV_TVOS_10_0,
+%End
+
+%If (Qt_5_8_0 -)
+        MV_WATCHOS,
+        MV_WATCHOS_2_0,
+        MV_WATCHOS_2_1,
+        MV_WATCHOS_2_2,
+        MV_WATCHOS_3_0,
 %End
     };
 

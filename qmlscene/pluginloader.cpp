@@ -2,7 +2,7 @@
  * This is the qmlscene plugin that collects all the Python plugins it can
  * find.
  *
- * Copyright (c) 2016 Riverbank Computing Limited <info@riverbankcomputing.com>
+ * Copyright (c) 2017 Riverbank Computing Limited <info@riverbankcomputing.com>
  * 
  * This file is part of PyQt5.
  * 
@@ -27,6 +27,7 @@
 
 #include <QCoreApplication>
 #include <QDir>
+#include <QLibrary>
 #include <QLibraryInfo>
 #include <QVector>
 #include <QQmlEngine>
@@ -41,15 +42,22 @@ PyQt5QmlPlugin::PyQt5QmlPlugin(QObject *parent) : QQmlExtensionPlugin(parent),
     // Make sure the interpreter is initialised.
     if (!Py_IsInitialized())
     {
-        Py_Initialize();
+        QLibrary library(PYTHON_LIB);
 
-        getSipAPI();
+        library.setLoadHints(QLibrary::ExportExternalSymbolsHint);
+
+        if (library.load())
+        {
+            Py_Initialize();
+
+            getSipAPI();
 
 #ifdef WITH_THREAD
-        // Make sure we don't have the GIL.
-        PyEval_InitThreads();
-        PyEval_SaveThread();
+            // Make sure we don't have the GIL.
+            PyEval_InitThreads();
+            PyEval_SaveThread();
 #endif
+        }
     }
 }
 

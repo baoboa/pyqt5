@@ -115,7 +115,9 @@ The following describes the command line options of :program:`pyqtlicense`.
 .. cmdoption:: --qt DIR
 
     This specifies that ``DIR`` contains the LGPL or commercial Qt installation
-    to be included in the licensed wheel.  It must be specified.
+    to be included in the licensed wheel.  The directory is what Qt refers to
+    as the *prefix* directory, i.e. the architecture specific directory
+    containing the ``bin``, ``lib`` etc. directories.  It must be specified.
 
 .. cmdoption:: --qt-version VERSION
 
@@ -194,7 +196,7 @@ In order to configure the build of PyQt5 you need to run the
 This assumes that the Python interpreter is on your path.  Something like the
 following may be appropriate on Windows::
 
-    c:\Python35\python configure.py
+    c:\Python36\python configure.py
 
 If you have multiple versions of Python installed then make sure you use the
 interpreter for which you wish to build PyQt5 for.
@@ -248,8 +250,8 @@ The full set of command line options is:
 
 .. cmdoption:: --debug
 
-    The PyQt5 modules will be built with debugging symbols.  On Windows this
-    requires that a debug version of Python is installed.
+    The PyQt5 modules will be built with debugging symbols.  On Windows
+    :program:`configure.py` must be run using a debug version of Python.
 
 .. cmdoption:: --designer-plugindir <DIR>
 
@@ -282,6 +284,16 @@ The full set of command line options is:
 
     The license files needed by the commercial version of PyQt5 can be found in
     the directory ``<DIR>``.
+
+.. cmdoption:: --link-full-dll
+
+    .. versionadded:: 5.8
+
+    On Windows the full Python API and the limited API (as used by PyQt) are
+    implemented in different DLLs.  Normally the limited DLL is linked (unless
+    a debug version of the Python interpreter is being used to run 
+    :program:`configure.py`).  This option forces the full API DLL to be linked
+    instead.
 
 .. cmdoption:: --no-designer-plugin
 
@@ -351,6 +363,13 @@ The full set of command line options is:
     is laid out.  Normally :program:`qmake` is found on your :envvar:`PATH`.
     This option can be used to specify a particular instance of
     :program:`qmake` to use.
+
+.. cmdoption:: --qml-debug
+
+    .. versionadded:: 5.8
+
+    Enable the QML debugging infrastructure.  This should not be enabled in a
+    production environment.
 
 .. cmdoption:: --qml-plugindir <DIR>
 
@@ -564,6 +583,9 @@ The following values can be specified in the configuration file:
 
 ``py_platform``
     is the target Python platform.
+
+``py_debug``
+    is set if a debug version of the target Python is being used.
 
 ``py_inc_dir``
     is the target Python include directory, i.e. the directory containing the

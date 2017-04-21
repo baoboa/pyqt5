@@ -2,7 +2,7 @@
 //
 // This file is part of the QtGui Python extension module.
 //
-// Copyright (c) 2016 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2017 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -63,7 +63,7 @@ public:
     };
 
     QSurfaceFormat();
-    QSurfaceFormat(QFlags<QSurfaceFormat::FormatOption> options);
+    QSurfaceFormat(QSurfaceFormat::FormatOptions options);
     QSurfaceFormat(const QSurfaceFormat &other);
     ~QSurfaceFormat();
     void setDepthBufferSize(int size);
@@ -92,8 +92,8 @@ public:
     void setMinorVersion(int minorVersion);
     int minorVersion() const;
     void setStereo(bool enable);
-    void setOption(QFlags<QSurfaceFormat::FormatOption> opt);
-    bool testOption(QFlags<QSurfaceFormat::FormatOption> opt) const;
+    void setOption(QSurfaceFormat::FormatOptions opt);
+    bool testOption(QSurfaceFormat::FormatOptions opt) const;
     bool stereo() const;
 %If (Qt_5_1_0 -)
     QPair<int, int> version() const;
@@ -102,7 +102,7 @@ public:
     void setVersion(int major, int minor);
 %End
 %If (Qt_5_3_0 -)
-    void setOptions(QFlags<QSurfaceFormat::FormatOption> options);
+    void setOptions(QSurfaceFormat::FormatOptions options);
 %End
 %If (Qt_5_3_0 -)
     void setOption(QSurfaceFormat::FormatOption option, bool on = true);
@@ -111,7 +111,7 @@ public:
     bool testOption(QSurfaceFormat::FormatOption option) const;
 %End
 %If (Qt_5_3_0 -)
-    QFlags<QSurfaceFormat::FormatOption> options() const;
+    QSurfaceFormat::FormatOptions options() const;
 %End
 %If (Qt_5_3_0 -)
     int swapInterval() const;

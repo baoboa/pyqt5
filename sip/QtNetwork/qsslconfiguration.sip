@@ -2,7 +2,7 @@
 //
 // This file is part of the QtNetwork Python extension module.
 //
-// Copyright (c) 2016 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2017 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -120,6 +120,18 @@ public:
 %End
 %If (Qt_5_7_0 -)
     QSslKey ephemeralServerKey() const;
+%End
+%If (Qt_5_8_0 -)
+    QByteArray preSharedKeyIdentityHint() const;
+%End
+%If (Qt_5_8_0 -)
+    void setPreSharedKeyIdentityHint(const QByteArray &hint);
+%End
+%If (Qt_5_8_0 -)
+    QSslDiffieHellmanParameters diffieHellmanParameters() const;
+%End
+%If (Qt_5_8_0 -)
+    void setDiffieHellmanParameters(const QSslDiffieHellmanParameters &dhparams);
 %End
 };
 

@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Using Qt Designer &#8212; PyQt 5.7.1 Reference Guide</title>
+    <title>Using Qt Designer &#8212; PyQt 5.8.2 Reference Guide</title>
     
     <link rel="stylesheet" href="_static/classic.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '5.7.1',
+        VERSION:     '5.8.2',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true,
@@ -46,7 +46,7 @@
         <li class="right" >
           <a href="gotchas.html" title="Things to be Aware Of"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">PyQt 5.7.1 Reference Guide</a> &#187;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">PyQt 5.8.2 Reference Guide</a> &#187;</li> 
       </ul>
     </div>  
 
@@ -115,7 +115,7 @@ application to create the dialog:</p>
 
 <span class="k">class</span> <span class="nc">ImageDialog</span><span class="p">(</span><span class="n">QDialog</span><span class="p">):</span>
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="nb">super</span><span class="p">(</span><span class="n">ImageDialog</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">()</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">ImageDialog</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
 
         <span class="c1"># Set up the user interface from Designer.</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">ui</span> <span class="o">=</span> <span class="n">Ui_ImageDialog</span><span class="p">()</span>
@@ -135,7 +135,7 @@ application to create the dialog:</p>
 
 <span class="k">class</span> <span class="nc">ImageDialog</span><span class="p">(</span><span class="n">QDialog</span><span class="p">,</span> <span class="n">Ui_ImageDialog</span><span class="p">):</span>
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="nb">super</span><span class="p">(</span><span class="n">ImageDialog</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">()</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">ImageDialog</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
 
         <span class="c1"># Set up the user interface from Designer.</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">setupUi</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
@@ -154,7 +154,7 @@ the final example:</p>
 
 <span class="k">class</span> <span class="nc">MyImageDialog</span><span class="p">(</span><span class="n">ImageDialog</span><span class="p">):</span>
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="nb">super</span><span class="p">(</span><span class="n">MyImageDialog</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">()</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">MyImageDialog</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
 
         <span class="c1"># Make some local modifications.</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">colorDepthCombo</span><span class="o">.</span><span class="n">addItem</span><span class="p">(</span><span class="s2">&quot;2 colors (1 bit per pixel)&quot;</span><span class="p">)</span>
@@ -203,7 +203,7 @@ The default is <code class="docutils literal"><span class="pre">'.'</span></code
 </td>
 </tr>
 <tr class="field-even field"><th class="field-name" colspan="2">Resource_suffix:</th></tr>
-<tr class="field-even field"><td>&nbsp;</td><td class="field-body"><p class="first last">is the suffix appended to the basename of any resource file specified
+<tr class="field-even field"><td>&#160;</td><td class="field-body"><p class="first last">is the suffix appended to the basename of any resource file specified
 in the <code class="docutils literal"><span class="pre">.ui</span></code> file to create the name of the Python module generated
 from the resource file by <code class="docutils literal"><span class="pre">pyrcc5</span></code>.  The default is <code class="docutils literal"><span class="pre">'_rc'</span></code>, i.e.
 if the <code class="docutils literal"><span class="pre">.ui</span></code> file specified a resource file called <code class="docutils literal"><span class="pre">foo.qrc</span></code> then
@@ -264,7 +264,7 @@ The default is <code class="docutils literal"><span class="pre">'.'</span></code
 </td>
 </tr>
 <tr class="field-even field"><th class="field-name" colspan="2">Resource_suffix:</th></tr>
-<tr class="field-even field"><td>&nbsp;</td><td class="field-body"><p class="first">is the suffix appended to the basename of any resource file specified
+<tr class="field-even field"><td>&#160;</td><td class="field-body"><p class="first">is the suffix appended to the basename of any resource file specified
 in the <code class="docutils literal"><span class="pre">.ui</span></code> file to create the name of the Python module generated
 from the resource file by <code class="docutils literal"><span class="pre">pyrcc5</span></code>.  The default is <code class="docutils literal"><span class="pre">'_rc'</span></code>, i.e.
 if the <code class="docutils literal"><span class="pre">.ui</span></code> file specified a resource file called <code class="docutils literal"><span class="pre">foo.qrc</span></code> then
@@ -298,7 +298,7 @@ of custom widgets.</li>
 </td>
 </tr>
 <tr class="field-even field"><th class="field-name" colspan="2">Resource_suffix:</th></tr>
-<tr class="field-even field"><td>&nbsp;</td><td class="field-body"><p class="first">is the suffix appended to the basename of any resource file specified
+<tr class="field-even field"><td>&#160;</td><td class="field-body"><p class="first">is the suffix appended to the basename of any resource file specified
 in the <code class="docutils literal"><span class="pre">.ui</span></code> file to create the name of the Python module generated
 from the resource file by <code class="docutils literal"><span class="pre">pyrcc5</span></code>.  The default is <code class="docutils literal"><span class="pre">'_rc'</span></code>, i.e.
 if the <code class="docutils literal"><span class="pre">.ui</span></code> file specified a resource file called <code class="docutils literal"><span class="pre">foo.qrc</span></code> then
@@ -526,12 +526,12 @@ the <code class="file docutils literal"><span class="pre">python</span></code> s
         <li class="right" >
           <a href="gotchas.html" title="Things to be Aware Of"
              >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">PyQt 5.7.1 Reference Guide</a> &#187;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">PyQt 5.8.2 Reference Guide</a> &#187;</li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
         &#169; Copyright 2015 Riverbank Computing Limited.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.5.1.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.5.3.
     </div>
   </body>
 </html>

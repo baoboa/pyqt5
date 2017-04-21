@@ -2,7 +2,7 @@
 //
 // This file is part of the QtWidgets Python extension module.
 //
-// Copyright (c) 2016 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2017 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -65,6 +65,9 @@ public slots:
 signals:
     void iconSizeChanged(const QSize &iconSize);
     void toolButtonStyleChanged(Qt::ToolButtonStyle toolButtonStyle);
+%If (Qt_5_8_0 -)
+    void tabifiedDockWidgetActivated(QDockWidget *dockWidget);
+%End
 
 protected:
     virtual void contextMenuEvent(QContextMenuEvent *event);

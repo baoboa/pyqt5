@@ -2,7 +2,7 @@
 //
 // This file is part of the QtWidgets Python extension module.
 //
-// Copyright (c) 2016 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2017 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -33,7 +33,7 @@ public:
     QAction *addAction(const QString &text) /Transfer/;
     QAction *addAction(const QIcon &icon, const QString &text) /Transfer/;
     void removeAction(QAction *a /TransferBack/);
-    QList<QAction*> actions() const;
+    QList<QAction *> actions() const;
     QAction *checkedAction() const;
     bool isExclusive() const;
     bool isEnabled() const;

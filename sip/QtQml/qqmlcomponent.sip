@@ -2,7 +2,7 @@
 //
 // This file is part of the QtQml Python extension module.
 //
-// Copyright (c) 2016 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2017 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -34,10 +34,10 @@ public:
     };
 
     QQmlComponent(QQmlEngine *, QObject *parent /TransferThis/ = 0);
-    QQmlComponent(QQmlEngine *, const QString &fileName, QObject *parent /TransferThis/ = 0);
-    QQmlComponent(QQmlEngine *, const QString &fileName, QQmlComponent::CompilationMode mode, QObject *parent /TransferThis/ = 0);
-    QQmlComponent(QQmlEngine *, const QUrl &url, QObject *parent /TransferThis/ = 0);
-    QQmlComponent(QQmlEngine *, const QUrl &url, QQmlComponent::CompilationMode mode, QObject *parent /TransferThis/ = 0);
+    QQmlComponent(QQmlEngine *, const QString &fileName, QObject *parent /TransferThis/ = 0) /ReleaseGIL/;
+    QQmlComponent(QQmlEngine *, const QString &fileName, QQmlComponent::CompilationMode mode, QObject *parent /TransferThis/ = 0) /ReleaseGIL/;
+    QQmlComponent(QQmlEngine *, const QUrl &url, QObject *parent /TransferThis/ = 0) /ReleaseGIL/;
+    QQmlComponent(QQmlEngine *, const QUrl &url, QQmlComponent::CompilationMode mode, QObject *parent /TransferThis/ = 0) /ReleaseGIL/;
     QQmlComponent(QObject *parent /TransferThis/ = 0);
     virtual ~QQmlComponent();
 

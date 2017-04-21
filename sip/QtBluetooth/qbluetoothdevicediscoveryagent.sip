@@ -2,7 +2,7 @@
 //
 // This file is part of the QtBluetooth Python extension module.
 //
-// Copyright (c) 2016 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2017 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -40,6 +40,9 @@ public:
 %If (Qt_5_5_0 -)
         UnsupportedPlatformError,
 %End
+%If (Qt_5_8_0 -)
+        UnsupportedDiscoveryMethod,
+%End
         UnknownError,
     };
 
@@ -66,6 +69,9 @@ public:
 
 public slots:
     void start();
+%If (Qt_5_8_0 -)
+    void start(QBluetoothDeviceDiscoveryAgent::DiscoveryMethods method);
+%End
     void stop();
 
 signals:
@@ -73,6 +79,30 @@ signals:
     void finished();
     void error(QBluetoothDeviceDiscoveryAgent::Error error);
     void canceled();
+
+public:
+%If (Qt_5_8_0 -)
+
+    enum DiscoveryMethod
+    {
+    };
+
+%End
+%If (Qt_5_8_0 -)
+    typedef QFlags<QBluetoothDeviceDiscoveryAgent::DiscoveryMethod> DiscoveryMethods;
+%End
+%If (Qt_5_8_0 -)
+    void setLowEnergyDiscoveryTimeout(int msTimeout);
+%End
+%If (Qt_5_8_0 -)
+    int lowEnergyDiscoveryTimeout() const;
+%End
+%If (Qt_5_8_0 -)
+    static QBluetoothDeviceDiscoveryAgent::DiscoveryMethods supportedDiscoveryMethods();
+%End
 };
 
+%End
+%If (Qt_5_8_0 -)
+QFlags<QBluetoothDeviceDiscoveryAgent::DiscoveryMethod> operator|(QBluetoothDeviceDiscoveryAgent::DiscoveryMethod f1, QFlags<QBluetoothDeviceDiscoveryAgent::DiscoveryMethod> f2);
 %End

@@ -2,7 +2,7 @@
 //
 // This file is part of the QtGui Python extension module.
 //
-// Copyright (c) 2016 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2017 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -49,13 +49,13 @@ public:
     typedef QFlags<QTouchDevice::CapabilityFlag> Capabilities;
     QTouchDevice();
     ~QTouchDevice();
-    static QList<const QTouchDevice*> devices();
+    static QList<const QTouchDevice *> devices();
     QString name() const;
     QTouchDevice::DeviceType type() const;
-    QFlags<QTouchDevice::CapabilityFlag> capabilities() const;
+    QTouchDevice::Capabilities capabilities() const;
     void setName(const QString &name);
     void setType(QTouchDevice::DeviceType devType);
-    void setCapabilities(QFlags<QTouchDevice::CapabilityFlag> caps);
+    void setCapabilities(QTouchDevice::Capabilities caps);
 %If (Qt_5_2_0 -)
     int maximumTouchPoints() const;
 %End

@@ -2,7 +2,7 @@
 //
 // This file is part of the QtQuick Python extension module.
 //
-// Copyright (c) 2016 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2017 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -244,6 +244,21 @@ public:
 %End
 %If (Qt_5_5_0 -)
     bool isSceneGraphInitialized() const;
+%End
+%If (Qt_5_8_0 -)
+    QSGRendererInterface *rendererInterface() const;
+%End
+%If (Qt_5_8_0 -)
+    static void setSceneGraphBackend(QSGRendererInterface::GraphicsApi api);
+%End
+%If (Qt_5_8_0 -)
+    static void setSceneGraphBackend(const QString &backend);
+%End
+%If (Qt_5_8_0 -)
+    QSGRectangleNode *createRectangleNode() const /Factory/;
+%End
+%If (Qt_5_8_0 -)
+    QSGImageNode *createImageNode() const /Factory/;
 %End
 
 private:

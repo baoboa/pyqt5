@@ -1,8 +1,310 @@
+2017-03-30  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* NEWS:
+	Released as v5.8.2.
+	[96c86cda6415] [5.8.2] <5.8-maint>
+
+2017-03-29  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* lib/configure.py:
+	Fixes for the OpenGL detection needed by the incompatible
+	configuration changes in Qt v5.8.0.
+	[bf6caed84fd3] <5.8-maint>
+
+2017-03-27  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* qpy/QtCore/qpycore_chimera.cpp:
+	When parsing a Python type map list and dict to QVariantList and
+	QVariantMap.
+	[e7158e3e2a31] <5.8-maint>
+
+2017-03-24  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* lib/LICENSE.commercial, lib/LICENSE.commercial.short,
+	lib/LICENSE.gpl, lib/LICENSE.gpl.short, lib/LICENSE.internal:
+	Remove the license copies that are now part of rb-tools.
+	[c15cf2c0c055] <5.8-maint>
+
+2017-03-22  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* pyuic/uic/uiparser.py:
+	Fixed the margins of the top layout in a tab by pyuic.
+	[f5594ddfb6ee] <5.8-maint>
+
+	* pyuic/uic/driver.py, pyuic/uic/exceptions.py,
+	pyuic/uic/properties.py, pyuic/uic/pyuic.py:
+	Improved the error handling of an unknown C++ class.
+	[c4dab2a95dc6] <5.8-maint>
+
+2017-03-21  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* sphinx/qml.rst:
+	Added explicit warnings about PyQt's ability to support QML to the
+	docs.
+	[e0c7e29a7852] <5.8-maint>
+
+2017-03-16  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* PyQt5.msp:
+	Added a comment about why opengl_types.sip is included twice.
+	[95518ec3931a] <5.8-maint>
+
+	* PyQt5.msp:
+	Only enable QOpenGLTextureBlitter if OpenGL is supported.
+	[ef351b9d8f03] <5.8-maint>
+
+	* PyQt5.msp:
+	Avoid a deadlock when using asynchronous image providers in QML.
+	[33ed4db6949b] <5.8-maint>
+
+2017-03-07  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* .hgtags:
+	Added tag 5.8.1 for changeset 7426ab9ba43b
+	[0ddf209259b4] <5.8-maint>
+
+	* NEWS:
+	Released as v5.8.1.
+	[7426ab9ba43b] [5.8.1] <5.8-maint>
+
+2017-03-03  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* qpy/QtCore/qpycore_chimera.cpp:
+	Special case a QVariant containing std::nullptr_t.
+	[001ad7fc01fb] <5.8-maint>
+
+2017-02-27  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* METADATA.in:
+	Updated the Requires-Dist meta-data so it includes the values from
+	the release file.
+	[2933ac7bf19d] <5.8-maint>
+
+2017-02-24  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* lib/configure.py:
+	Disable desktop OpenGL if OpenGLES v3 or v3.1 is detected.
+	[4ba0f0b49e2a] <5.8-maint>
+
+	* qpy/QtQml/qpyqml_register_type.cpp:
+	Fixed the handling of properties in Qml because of changes to the
+	internals in Qt v5.8.0.
+	[feeab3eb94fa] <5.8-maint>
+
+2017-02-22  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* PyQt5.msp:
+	Fixed QLocale.toString() for Python v2.
+	[027b070ff19e] <5.8-maint>
+
+	* PyQt5.msp:
+	Anticipate that Qt v5.9.0 will be released before Qt v5.8.1 to avoid
+	problems building PyQt v5.9 against Qt v5.8.1.
+	[6022c9537b69] <5.8-maint>
+
+2017-02-21  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* qpy/QtPrintSupport/qpyprintsupport_qlist.sip:
+	The QtPrintSupport mapped types are only included if printers are
+	supported.
+	[7b3afef45f92] <5.8-maint>
+
+	* sphinx/pyqt_qvariant.rst:
+	Updated the docs regarding support for QVariant.
+	[657a7b5e45ce] <5.8-maint>
+
+2017-02-16  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* qpy/QtQml/qpyqmlobject.cpp:
+	Fixed signals in QML registered types that are defined in a Python
+	sub-class of the registered type.
+	[e5d27b6ce571] <5.8-maint>
+
+2017-02-15  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* .hgtags:
+	Added tag 5.8 for changeset a04bf1746ae4
+	[f12c11450b7f]
+
+	* NEWS:
+	Released as v5.8.
+	[a04bf1746ae4] [5.8]
+
+2017-02-13  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* PyQt5.msp:
+	More SSL support fixes.
+	[f3e90b840b5f]
+
+	* PyQt5.msp:
+	Fixed building without SSL support.
+	[0c33c8cce200]
+
+	* sphinx/installation.rst, sphinx/qml.rst:
+	Some documentation clarifications.
+	[79b2d4a5368c]
+
+2017-02-09  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* qmlscene/pluginloader.cpp, qmlscene/qmlscene.pro-in:
+	The qmlscene plugin now loads the Python library with exported
+	symbols.
+	[03722ff7eea9]
+
+2017-02-08  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* PyQt5.msp, qpy/QtGui/qpyopengl_api.h, qpy/QtGui/qpyopengl_get.cpp:
+	Improved the support in the other glGet functions.
+	[e97a57356d73]
+
+2017-02-07  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* PyQt5.msp, qpy/QtGui/qpyopengl_api.h, qpy/QtGui/qpyopengl_get.cpp,
+	qpy/QtGui/qpyopengl_init.cpp:
+	Improved the support for glGetFloatv().
+	[0e9414c6c2ad]
+
+2017-02-01  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* qpy/QtCore/qwineventnotifier.sip:
+	Hopefully fixed the QWinEventNotifier.activated() signal.
+	[0c65b46fa231]
+
+	* lib/configure.py, sphinx/installation.rst:
+	On Windows a debug build of Python is needed if --debug is specified
+	(and vice versa).
+	[badca59b38be]
+
+2017-01-31  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* qpy/QtCore/qpycore_qhash.sip, qpy/QtCore/qpycore_qlist.sip,
+	qpy/QtCore/qpycore_qset.sip:
+	Disable the garbage collector while wrapping multiple C++ instances
+	in case some of those instances would be destroyed if the garbage
+	collector was run.
+	[652a401092f3]
+
+	* qpy/QtCore/qsysinfo.sip:
+	Updated QSysInfo for Qt v5.8.0.
+	[104d002e3fc0]
+
+2017-01-29  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* PyQt5.msp:
+	Release the GIL in QmlApplicationEngine ctors.
+	[85a18ee47e51]
+
+	* PyQt5.msp:
+	Updated QtWebSockets, QtWidgets, QtXml and QtXmlPatterns for Qt
+	v5.8.0.
+	[8fdb72bca3b5]
+
+2017-01-28  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* PyQt5.msp:
+	Updated QtSensors, QtSerialPort, QtSql, QtSvg, QtTest, QtWebChannel,
+	QtWebEngine, QtWebEngineCore and QtWebEngineWidgets for Qt v5.8.0.
+	[cf1faa2c9606]
+
+	* PyQt5.msp, sphinx/api_metadata.cfg:
+	Updated QtQml, QtQuick and QtQuickWidgets for Qt v5.8.0.
+	[2459038a6733]
+
+	* PyQt5.msp, sphinx/api_metadata.cfg:
+	Updated QtHelp, QtLocation, QtMultimedia, QtMultimediaWidgets,
+	QtNetwork, QtNfc, QtOpenGL, QtPositioning and QtPrintSupport for Qt
+	v5.8.0.
+	[d0eeb8270f29]
+
+	* lib/configure.py:
+	Updated the configure.py test for QtDesigner to detect the broken Qt
+	v5.8.0 macOS installer.
+	[ce70a466f5c9]
+
+2017-01-24  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* PyQt5.msp:
+	Eliminate a compiler warning message in QtCore.
+	[99d23c39f9ff]
+
+	* NEWS, PyQt5.msp, lib/configure.py, sphinx/installation.rst:
+	Updated QtBluetooth, QtCore, QtDBus, QtDesigner, QtGui and
+	configure.py for Qt v5.8.0.
+	[daac5fdeb6ee]
+
+	* Makefile, build.py, pyuic/uic/port_v2/invoke.py,
+	pyuic/uic/port_v2/load_plugin.py, pyuic/uic/port_v3/invoke.py,
+	pyuic/uic/port_v3/load_plugin.py:
+	Merged the 5.7-maint branch.
+	[05971e186d25]
+
+2017-01-20  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* NEWS, PyQt5.msp:
+	Added __fspath__() to QFileInfo.
+	[6dbc033e73c4] <5.7-maint>
+
+	* lib/configure.py:
+	Updated the configure.py test for qreal to allow for QT_COORD_TYPE.
+	[05bb9d526a1c] <5.7-maint>
+
+	* lib/configure.py, sphinx/installation.rst:
+	QML debugging is now enabled with a separate --qml-debug option to
+	configure.py.
+	[b189f32a6cc7] <5.7-maint>
+
+2017-01-19  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* qpy/QtGui/qpyopengl_value_array.cpp:
+	Fixed a bug in the handling of Arrays.
+	[f4e8be0593cc] <5.7-maint>
+
+2017-01-17  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* lib/configure.py, sphinx/installation.rst:
+	Added the --link-full-dll option to configure.py to force a link
+	against the full DLL on Windows.
+	[a5ebf7ca384c] <5.7-maint>
+
+2017-01-13  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* qpy/QtQml/qpyqmlobject.cpp:
+	Fixed a bug emitting a signal defined in a super-class of a class
+	registered with QML.
+	[0e2a24362686] <5.7-maint>
+
+	* qpy/QtQml/qpyqmllistproperty.cpp:
+	Check that the type argument to QQmlListProperty is a QObject sub-
+	type.
+	[67543cbe2445] <5.7-maint>
+
+2017-01-10  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* qpy/QtCore/qpycore_pyqtslotproxy.cpp:
+	Disabled slot proxies will be ignored when checking for unique
+	connections.
+	[7d061b0767d5] <5.7-maint>
+
+	* PyQt5.msp, lib/configure.py, rb-product, sphinx/installation.rst:
+	Changes required to fix building for debug builds of Python. The
+	minimum SIP requirement is now v4.19.1.
+	[945c725e4eae] <5.7-maint>
+
+2017-01-09  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* PyQt5.msp:
+	Release the GIL on all QQmlComponent ctors that parse QML.
+	[d9cd45f80515] <5.7-maint>
+
+	* PyQt5.msp:
+	Fixed problems building QtWebEngine against Qt v5.6.
+	[8d9460a607dd] <5.7-maint>
+
 2016-12-25  Phil Thompson  <phil@riverbankcomputing.com>
 
 	* .hgtags:
 	Added tag 5.7.1 for changeset a25b699c3bff
-	[e6e0f1b22e73] [tip] <5.7-maint>
+	[e6e0f1b22e73] <5.7-maint>
 
 	* NEWS:
 	Released as v5.7.1.
@@ -1900,81 +2202,6 @@
 	* Makefile:
 	The internal build system now defaults to Python v3.5.
 	[514fd7675915] <5.5-maint>
-
-2015-08-28  Phil Thompson  <phil@riverbankcomputing.com>
-
-	* README-PyQml.txt:
-	Added the README-PyQml.txt to document the state of the branch.
-	[626b6d11f93c] <PyQml>
-
-2015-08-27  Phil Thompson  <phil@riverbankcomputing.com>
-
-	* PyQml/QtQml/__init__.py, PyQml/QtQml/v2_2/__init__.py,
-	PyQml/QtQml/v2_2/qtobject.py, PyQml/QtQuick/__init__.py,
-	PyQml/QtQuick/v2_5/__init__.py, PyQml/QtQuick/v2_5/item.py,
-	PyQml/QtQuick/v2_5/rectangle.py, PyQml/__init__.py,
-	PyQml/component.py, PyQml/properties.py,
-	examples/PyQml/properties.py:
-	Added minimal QtQml and QtQuick QML modules.
-	[8ab6fb1dbb3f] <PyQml>
-
-	* examples/qml/referenceexamples/attached.py,
-	examples/qml/referenceexamples/binding.py,
-	examples/qml/referenceexamples/coercion.py,
-	examples/qml/referenceexamples/default.py,
-	examples/qml/referenceexamples/grouped.py,
-	examples/qml/referenceexamples/methods.py,
-	examples/qml/referenceexamples/properties.py,
-	examples/qml/referenceexamples/signal.py,
-	examples/qml/referenceexamples/valuesource.py,
-	qpy/QtCore/qpycore_namespace.h, qpy/QtQml/qpyqml_post_init.cpp,
-	qpy/QtQml/qpyqmllistproperty.cpp, qpy/QtQml/qpyqmllistproperty.sip,
-	qpy/QtQml/qpyqmllistpropertywrapper.cpp,
-	qpy/QtQml/qpyqmllistpropertywrapper.h, sphinx/qml.rst:
-	QQmlListProperty now acts as a proxy for any underlying Python list.
-	[0118d626268a] <PyQml>
-
-2015-08-26  Phil Thompson  <phil@riverbankcomputing.com>
-
-	* PyQt5.msp:
-	Applied a better fix than 56be1a87fd2c that doesn't break proxy
-	resolution.
-	[d4abeb2c9492] <PyQml>
-
-	* PyQml/__init__.py, PyQml/component.py, PyQml/meta_component.py,
-	PyQml/properties.py, examples/PyQml/properties.py:
-	All property types can now have initial values. PyQmlComponent.qml()
-	is now a class method.
-	[63fc6972574d] <PyQml>
-
-2015-08-25  Phil Thompson  <phil@riverbankcomputing.com>
-
-	* PyQt5.msp:
-	Backed out 56be1a87fd2c because it breaks the proxy resolution.
-	[eeff9acbcf1c] <PyQml>
-
-	* PyQml/__init__.py, PyQml/component.py, PyQml/register_components.py,
-	examples/PyQml/properties.py:
-	Added support for __uri__ and __version__.
-	[a242c6cb3da4] <PyQml>
-
-	* Makefile, PyQml/__init__.py, PyQml/component.py,
-	PyQml/meta_component.py, PyQml/properties.py, PyQml/qml_types.py:
-	Completed the initial implementation of properties and the meta-
-	class.
-	[4f5dfbdfa7e3] <PyQml>
-
-	* PyQml/__init__.py, PyQml/component.py, PyQml/qml_types.py,
-	PyQml/register_components.py, examples/PyQml/properties.py:
-	Added stubs for the initial API.
-	[6b3aafdf0cfd] <PyQml>
-
-2015-08-24  Phil Thompson  <phil@riverbankcomputing.com>
-
-	* PyQml/__init__.py, build.py, examples/PyQml/properties.py,
-	lib/configure.py:
-	Added the stub of the PyQml module.
-	[a8d40cffa7ba] <PyQml>
 
 2015-08-28  Phil Thompson  <phil@riverbankcomputing.com>
 

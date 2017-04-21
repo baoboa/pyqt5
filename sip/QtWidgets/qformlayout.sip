@@ -2,7 +2,7 @@
 //
 // This file is part of the QtWidgets Python extension module.
 //
-// Copyright (c) 2016 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2017 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -97,4 +97,35 @@ public:
     virtual Qt::Orientations expandingDirections() const;
     virtual int count() const;
     int rowCount() const;
+%If (Qt_5_8_0 -)
+
+    struct TakeRowResult
+    {
+%TypeHeaderCode
+#include <qformlayout.h>
+%End
+
+        QLayoutItem *labelItem;
+        QLayoutItem *fieldItem;
+    };
+
+%End
+%If (Qt_5_8_0 -)
+    void removeRow(int row);
+%End
+%If (Qt_5_8_0 -)
+    void removeRow(QWidget *widget);
+%End
+%If (Qt_5_8_0 -)
+    void removeRow(QLayout *layout);
+%End
+%If (Qt_5_8_0 -)
+    QFormLayout::TakeRowResult takeRow(int row);
+%End
+%If (Qt_5_8_0 -)
+    QFormLayout::TakeRowResult takeRow(QWidget *widget);
+%End
+%If (Qt_5_8_0 -)
+    QFormLayout::TakeRowResult takeRow(QLayout *layout);
+%End
 };

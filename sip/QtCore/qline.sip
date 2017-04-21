@@ -2,7 +2,7 @@
 //
 // This file is part of the QtCore Python extension module.
 //
-// Copyright (c) 2016 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2017 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -81,6 +81,9 @@ public:
     void setP2(const QPoint &aP2);
     void setPoints(const QPoint &aP1, const QPoint &aP2);
     void setLine(int aX1, int aY1, int aX2, int aY2);
+%If (Qt_5_8_0 -)
+    QPoint center() const;
+%End
 };
 
 QDataStream &operator<<(QDataStream &, const QLine & /Constrained/) /ReleaseGIL/;
@@ -185,6 +188,9 @@ public:
     void setP2(const QPointF &aP2);
     void setPoints(const QPointF &aP1, const QPointF &aP2);
     void setLine(qreal aX1, qreal aY1, qreal aX2, qreal aY2);
+%If (Qt_5_8_0 -)
+    QPointF center() const;
+%End
 };
 
 QDataStream &operator<<(QDataStream &, const QLineF & /Constrained/) /ReleaseGIL/;

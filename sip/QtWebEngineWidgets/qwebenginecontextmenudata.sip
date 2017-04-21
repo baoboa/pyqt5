@@ -2,7 +2,7 @@
 //
 // This file is part of the QtWebEngineWidgets Python extension module.
 //
-// Copyright (c) 2016 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2017 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -52,6 +52,12 @@ public:
     QUrl mediaUrl() const;
     QWebEngineContextMenuData::MediaType mediaType() const;
     bool isContentEditable() const;
+%If (Qt_5_8_0 -)
+    QString misspelledWord() const;
+%End
+%If (Qt_5_8_0 -)
+    QStringList spellCheckerSuggestions() const;
+%End
 };
 
 %End

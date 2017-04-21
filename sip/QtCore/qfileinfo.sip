@@ -2,7 +2,7 @@
 //
 // This file is part of the QtCore Python extension module.
 //
-// Copyright (c) 2016 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2017 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -41,6 +41,11 @@ public:
     bool exists() const;
     void refresh();
     QString filePath() const;
+    SIP_PYOBJECT __fspath__();
+%MethodCode
+        sipRes = qpycore_PyObject_FromQString(QDir::toNativeSeparators(sipCpp->filePath()));
+%End
+
     QString absoluteFilePath() const;
     QString canonicalFilePath() const;
     QString fileName() const;

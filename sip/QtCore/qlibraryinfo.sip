@@ -2,7 +2,7 @@
 //
 // This file is part of the QtCore Python extension module.
 //
-// Copyright (c) 2016 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2017 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -52,6 +52,9 @@ public:
     static QString location(QLibraryInfo::LibraryLocation);
     static QDate buildDate();
     static bool isDebugBuild();
+%If (Qt_5_8_0 -)
+    static QVersionNumber version();
+%End
 
 private:
     QLibraryInfo();

@@ -1,6 +1,6 @@
 // This is the implementation of the Chimera class.
 //
-// Copyright (c) 2016 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2017 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -409,6 +409,14 @@ bool Chimera::parse_py_type(PyTypeObject *type_obj)
     {
         _metatype = QMetaType::Int;
         _name = sipPyTypeName(type_obj);
+    }
+    else if (type_obj == &PyList_Type)
+    {
+        _metatype = QMetaType::QVariantList;
+    }
+    else if (type_obj == &PyDict_Type)
+    {
+        _metatype = QMetaType::QVariantMap;
     }
 #if PY_MAJOR_VERSION >= 3
     else if (type_obj == &PyUnicode_Type)
@@ -1579,8 +1587,17 @@ PyObject *Chimera::toAnyPyObject(const QVariant &var)
     }
 
     const char *type_name = var.typeName();
-    const sipTypeDef *td = sipFindType(type_name);
 
+    // Qt v5.8.0 changed the way it was handling null in QML.  We treat it as a
+    // special case though there may be other implications still to be
+    // discovered.
+    if (qstrcmp(type_name, "std::nullptr_t") == 0)
+    {
+        Py_INCREF(Py_None);
+        return Py_None;
+    }
+
+    const sipTypeDef *td = sipFindType(type_name);
     Chimera *ct = new Chimera;
 
     ct->_type = td;

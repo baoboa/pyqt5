@@ -1,6 +1,6 @@
 // This contains the implementation of the PyQtSlotProxy class.
 //
-// Copyright (c) 2016 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2017 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -266,7 +266,7 @@ PyQtSlotProxy *PyQtSlotProxy::findSlotProxy(const QObject *transmitter,
     {
         PyQtSlotProxy *sp = it.value();
 
-        if (sp->signature == signal_signature && *(sp->real_slot) == slot)
+        if (!(sp->proxy_flags & PROXY_SLOT_DISABLED) && sp->signature == signal_signature && *(sp->real_slot) == slot)
         {
             proxy = sp;
             break;

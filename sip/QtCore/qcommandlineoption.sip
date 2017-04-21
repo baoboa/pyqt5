@@ -2,7 +2,7 @@
 //
 // This file is part of the QtCore Python extension module.
 //
-// Copyright (c) 2016 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2017 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -64,6 +64,27 @@ public:
 %If (Qt_5_6_0 -)
     bool isHidden() const;
 %End
+%If (Qt_5_8_0 -)
+
+    enum Flag
+    {
+        HiddenFromHelp,
+        ShortOptionStyle,
+    };
+
+%End
+%If (Qt_5_8_0 -)
+    typedef QFlags<QCommandLineOption::Flag> Flags;
+%End
+%If (Qt_5_8_0 -)
+    QCommandLineOption::Flags flags() const;
+%End
+%If (Qt_5_8_0 -)
+    void setFlags(QCommandLineOption::Flags aflags);
+%End
 };
 
+%End
+%If (Qt_5_8_0 -)
+QFlags<QCommandLineOption::Flag> operator|(QCommandLineOption::Flag f1, QFlags<QCommandLineOption::Flag> f2);
 %End

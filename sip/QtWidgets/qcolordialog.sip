@@ -2,7 +2,7 @@
 //
 // This file is part of the QtWidgets Python extension module.
 //
-// Copyright (c) 2016 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2017 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -53,9 +53,6 @@ protected:
     virtual void changeEvent(QEvent *e);
     virtual void done(int result);
 
-private:
-    QColorDialog(const QColorDialog &);
-
 public:
     void setCurrentColor(const QColor &color);
     QColor currentColor() const;
@@ -81,6 +78,9 @@ public:
 %End
 
     virtual void setVisible(bool visible);
+
+private:
+    QColorDialog(const QColorDialog &);
 };
 
 QFlags<QColorDialog::ColorDialogOption> operator|(QColorDialog::ColorDialogOption f1, QFlags<QColorDialog::ColorDialogOption> f2);

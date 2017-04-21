@@ -2,7 +2,7 @@
 //
 // This file is part of the QtGui Python extension module.
 //
-// Copyright (c) 2016 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2017 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -81,6 +81,14 @@ protected:
     virtual void positionInlineObject(QTextInlineObject item, int posInDocument, const QTextFormat &format);
     virtual void drawInlineObject(QPainter *painter, const QRectF &rect, QTextInlineObject object, int posInDocument, const QTextFormat &format);
     QTextCharFormat format(int pos);
+
+public:
+%If (Qt_5_8_0 -)
+    QString imageAt(const QPointF &pos) const;
+%End
+%If (Qt_5_8_0 -)
+    QTextFormat formatAt(const QPointF &pos) const;
+%End
 };
 
 class QTextObjectInterface /Mixin,PyQtInterface="org.qt-project.Qt.QTextObjectInterface"/

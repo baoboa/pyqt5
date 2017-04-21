@@ -2,7 +2,7 @@
 //
 // This file is part of the QtQml Python extension module.
 //
-// Copyright (c) 2016 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2017 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -103,6 +103,9 @@ public:
 %End
 %If (Qt_5_6_0 -)
     void installExtensions(QJSEngine::Extensions extensions, const QJSValue &object = QJSValue());
+%End
+%If (Qt_5_8_0 -)
+    QJSValue newQMetaObject(const QMetaObject *metaObject);
 %End
 
 private:

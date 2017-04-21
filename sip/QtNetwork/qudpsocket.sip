@@ -2,7 +2,7 @@
 //
 // This file is part of the QtNetwork Python extension module.
 //
-// Copyright (c) 2016 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2017 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -73,6 +73,12 @@ public:
     bool leaveMulticastGroup(const QHostAddress &groupAddress, const QNetworkInterface &iface);
     QNetworkInterface multicastInterface() const;
     void setMulticastInterface(const QNetworkInterface &iface);
+%If (Qt_5_8_0 -)
+    QNetworkDatagram receiveDatagram(qint64 maxSize = -1) /ReleaseGIL/;
+%End
+%If (Qt_5_8_0 -)
+    qint64 writeDatagram(const QNetworkDatagram &datagram) /ReleaseGIL/;
+%End
 
 private:
     QUdpSocket(const QUdpSocket &);

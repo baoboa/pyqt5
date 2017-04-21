@@ -1,6 +1,6 @@
 # This script generates the Makefiles for building PyQt5.
 #
-# Copyright (c) 2016 Riverbank Computing Limited <info@riverbankcomputing.com>
+# Copyright (c) 2017 Riverbank Computing Limited <info@riverbankcomputing.com>
 # 
 # This file is part of PyQt5.
 # 
@@ -28,13 +28,9 @@ import sys
 
 
 # Initialise the constants.
-PYQT_VERSION_STR = "5.7.1"
+PYQT_VERSION_STR = "5.8.2"
 
-SIP_MIN_VERSION = '4.19'
-
-# The different values QLibraryInfo::licensee() can return for the LGPL version
-# of Qt.
-OPEN_SOURCE_LICENSEES = ('Open Source', 'Builder Qt')
+SIP_MIN_VERSION = '4.19.1'
 
 
 class ModuleMetadata:
@@ -410,6 +406,7 @@ class HostPythonConfiguration:
         self.inc_dir = sysconfig.get_python_inc()
         self.venv_inc_dir = sysconfig.get_python_inc(prefix=sys.prefix)
         self.module_dir = sysconfig.get_python_lib(plat_specific=1)
+        self.debug = hasattr(sys, 'gettotalrefcount')
 
         if sys.platform == 'win32':
             self.bin_dir = sys.exec_prefix
@@ -479,6 +476,7 @@ class TargetConfiguration:
 
         # Values based on the host Python configuration.
         py_config = HostPythonConfiguration()
+        self.py_debug = py_config.debug
         self.py_inc_dir = py_config.inc_dir
         self.py_venv_inc_dir = py_config.venv_inc_dir
         self.py_lib_dir = py_config.lib_dir
@@ -515,6 +513,7 @@ class TargetConfiguration:
         self.debug = False
         self.designer_plugin_dir = ''
         self.license_dir = source_path('sip')
+        self.link_full_dll = False
         self.no_designer_plugin = False
         self.no_docstrings = False
         self.no_pydbus = False
@@ -523,6 +522,7 @@ class TargetConfiguration:
         self.prot_is_public = (self.py_platform.startswith('linux') or self.py_platform == 'darwin')
         self.qmake = self._find_exe('qmake')
         self.qmake_variables = []
+        self.qml_debug = False
         self.py_pylib_dir = ''
         self.py_pylib_lib = ''
         self.py_pyshlib = ''
@@ -533,7 +533,6 @@ class TargetConfiguration:
         self.qml_plugin_dir = ''
         self.qsci_api = False
         self.qsci_api_dir = ''
-        self.qt_licensee = ''
         self.qtconf_prefix = ''
         self.qt_shared = False
         self.qt_version = 0
@@ -592,6 +591,7 @@ class TargetConfiguration:
             error("%s does not define a section that covers Qt v%s." % (config_file, version_to_string(self.qt_version)))
 
         self.py_platform = parser.get(section, 'py_platform', self.py_platform)
+        self.py_debug = parser.get(section, 'py_debug', self.py_debug)
         self.py_inc_dir = parser.get(section, 'py_inc_dir', self.py_inc_dir)
         self.py_venv_inc_dir = self.py_inc_dir
         self.py_pylib_dir = parser.get(section, 'py_pylib_dir',
@@ -625,7 +625,21 @@ class TargetConfiguration:
 
         out_file = 'qtdetail.out'
 
-        source = '''#include <QCoreApplication>
+        # Note that the new configuration internals of Qt v5.8 are not
+        # backwards compatible with previous versions.  Before, module-specific
+        # details were defined in QtCore, but now they are defined in the
+        # modules themselves.  This leads to a Catch-22 situation where we have
+        # to assume certain modules exist before checking that they actually
+        # do.  For the moment we only assume QtGui is present (in addition to
+        # QtCore) because we need the OpenGL features to be properly reported.
+        # The QtPrintSupport related tests will all be invalid but we can get
+        # away with this because they will only be wrong for platforms that we
+        # cross-compile for and we use explicit configuration files for those
+        # anyway.  It does need fixing properly by splitting this test program
+        # into module-specific tests that are run instead of the current
+        # module check program.
+
+        source = '''#include <QGuiApplication>
 #include <QFile>
 #include <QLibraryInfo>
 #include <QTextStream>
@@ -640,8 +654,7 @@ int main(int argc, char **argv)
 
     QTextStream out(&outf);
 
-    out << QLibraryInfo::licensee() << '\\n';
-
+    // Defined in QtCore.
 #if defined(QT_SHARED) || defined(QT_DLL)
     out << "shared\\n";
 #else
@@ -650,53 +663,66 @@ int main(int argc, char **argv)
 
     // Determine which features should be disabled.
 
+    // Defined in ???.
 #if defined(QT_NO_ACCESSIBILITY)
     out << "PyQt_Accessibility\\n";
 #endif
 
+    // Defined in ???.
 #if defined(QT_NO_SESSIONMANAGER)
     out << "PyQt_SessionManager\\n";
 #endif
 
+    // Defined in ???.
 #if defined(QT_NO_SSL)
     out << "PyQt_SSL\\n";
 #endif
 
+    // Defined in QtPrintSupport.
 #if defined(QT_NO_PRINTDIALOG)
     out << "PyQt_PrintDialog\\n";
 #endif
 
+    // Defined in QtPrintSupport.
 #if defined(QT_NO_PRINTER)
     out << "PyQt_Printer\\n";
 #endif
 
+    // Defined in QtPrintSupport.
 #if defined(QT_NO_PRINTPREVIEWDIALOG)
     out << "PyQt_PrintPreviewDialog\\n";
 #endif
 
+    // Defined in QtPrintSupport.
 #if defined(QT_NO_PRINTPREVIEWWIDGET)
     out << "PyQt_PrintPreviewWidget\\n";
 #endif
 
+    // Defined in ???.
 #if defined(QT_NO_RAWFONT)
     out << "PyQt_RawFont\\n";
 #endif
 
+    // Defined in QtGui.
 #if defined(QT_NO_OPENGL)
     out << "PyQt_OpenGL\\n";
     out << "PyQt_Desktop_OpenGL\\n";
-#elif defined(QT_OPENGL_ES_2)
+#elif defined(QT_OPENGL_ES) || defined(QT_OPENGL_ES_2) || defined(QT_OPENGL_ES_3)
     out << "PyQt_Desktop_OpenGL\\n";
 #endif
 
 #if QT_VERSION < 0x050200
 // This is the test used in qglobal.h in Qt prior to v5.2.  In v5.2 and later
-// qreal is always double.
+// qreal is double unless QT_COORD_TYPE is defined.
 #if defined(QT_NO_FPU) || defined(Q_PROCESSOR_ARM) || defined(Q_OS_WINCE)
     out << "PyQt_qreal_double\\n";
 #endif
+#else
+    if (sizeof (qreal) != sizeof (double))
+        out << "PyQt_qreal_double\\n";
 #endif
 
+    // Defined in QtCore.
 #if defined(QT_NO_PROCESS)
     out << "PyQt_Process\\n";
 #endif
@@ -705,7 +731,7 @@ int main(int argc, char **argv)
 }
 ''' % out_file
 
-        cmd = compile_qt_program(self, verbose, 'qtdetail', source, 'QtCore',
+        cmd = compile_qt_program(self, verbose, 'qtdetail', source, 'QtGui',
                 debug=debug)
 
         if cmd is None:
@@ -723,19 +749,22 @@ int main(int argc, char **argv)
         lines = f.read().split('\n')
         f.close()
 
-        self.qt_licensee = lines[0]
-        self.qt_shared = (lines[1] == 'shared')
-        self.pyqt_disabled_features = lines[2:-1]
+        self.qt_shared = (lines[0] == 'shared')
+        self.pyqt_disabled_features = lines[1:-1]
 
         # Get the details of the Python interpreter library.
         py_major = self.py_version >> 16
         py_minor = (self.py_version >> 8) & 0x0ff
 
         if sys.platform == 'win32':
-            debug_suffix = get_win32_debug_suffix(debug)
+            debug_suffix = self.get_win32_debug_suffix()
 
             # See if we are using the limited API.
-            if py_major == 3 and py_minor >= 4:
+            limited = (py_major == 3 and py_minor >= 4)
+            if self.py_debug or self.link_full_dll:
+                limited = False
+
+            if limited:
                 pylib_lib = 'python%d%s' % (py_major, debug_suffix)
             else:
                 pylib_lib = 'python%d%d%s' % (py_major, py_minor, debug_suffix)
@@ -794,6 +823,13 @@ int main(int argc, char **argv)
             dir_name = self.sysroot + dir_name[len(sys.prefix):]
 
         return dir_name
+
+    def get_win32_debug_suffix(self):
+        """ Return the debug-dependent suffix appended to the name of Windows
+        libraries.
+        """
+
+        return '_d' if self.py_debug else ''
 
     def get_qt_configuration(self):
         """ Get the Qt configuration that can be extracted from qmake. """
@@ -858,6 +894,21 @@ int main(int argc, char **argv)
         configuration.  opts are the command line options.
         """
 
+        # On Windows the interpreter must be a debug build if a debug version
+        # is to be built and vice versa.
+        if sys.platform == 'win32':
+            if opts.debug:
+                if not self.py_debug:
+                    error(
+                            "A debug version of Python must be used when "
+                            "--debug is specified.")
+            elif self.py_debug:
+                error(
+                        "--debug must be specified when a debug version of "
+                        "Python is used.")
+
+        self.debug = opts.debug
+
         # Get the target Python version.
         if opts.target_py_version is not None:
             self.py_version = opts.target_py_version
@@ -885,9 +936,6 @@ int main(int argc, char **argv)
         if opts.qmakespec is not None:
             self.qmake_spec = opts.qmakespec
 
-        if opts.debug:
-            self.debug = True
-
     def apply_post_options(self, opts):
         """ Apply options from the command line that override the previous
         configuration.  opts are the command line options.
@@ -901,6 +949,9 @@ int main(int argc, char **argv)
 
         if opts.licensedir is not None:
             self.license_dir = opts.licensedir
+
+        if opts.link_full_dll:
+            self.link_full_dll = True
 
         if opts.designerplugindir is not None:
             self.designer_plugin_dir = opts.designerplugindir
@@ -937,6 +988,9 @@ int main(int argc, char **argv)
 
         if opts.pyuicinterpreter is not None:
             self.pyuic_interpreter = opts.pyuicinterpreter
+
+        if opts.qml_debug:
+            self.qml_debug = True
 
         if opts.qsciapidir is not None:
             self.qsci_api_dir = opts.qsciapidir
@@ -1070,6 +1124,9 @@ def create_optparser(target_config):
     p.add_option("--debug", "-u", dest='debug', default=False,
             action='store_true',
             help="build modules with debugging symbols")
+    p.add_option("--qml-debug", dest='qml_debug', default=False,
+            action='store_true',
+            help="enable the QML debugging infrastructure")
     p.add_option("--verbose", "-w", dest='verbose', default=False,
             action='store_true',
             help="enable verbose output during configuration")
@@ -1098,6 +1155,10 @@ def create_optparser(target_config):
             help="the major.minor version of the target Python [default: "
                     "%s]" % version_to_string(target_config.py_version,
                             parts=2))
+    g.add_option("--link-full-dll", dest='link_full_dll',
+            default=False, action='store_true',
+            help="on Windows link against the full Python DLL rather than the "
+                    "limited API DLL")
     g.add_option("--sysroot", dest='sysroot', type='string', action='callback',
             callback=store_abspath_dir, metavar="DIR",
             help="DIR is the target system root directory")
@@ -1305,7 +1366,8 @@ def check_modules(target_config, disabled_modules, verbose):
 
     if target_config.qt_shared:
         check_module(target_config, disabled_modules, verbose, 'QtDesigner',
-                'QExtensionFactory', 'new QExtensionFactory()')
+                ('QExtensionFactory', 'customwidget.h'),
+                'new QExtensionFactory()')
     else:
         inform("QtDesigner module disabled with static Qt libraries.")
 
@@ -1820,15 +1882,8 @@ def inform_user(target_config, sip_version):
     the target configuration.  sip_version is the SIP version string.
     """
 
-    if target_config.qt_licensee == '':
-        detail = ''
-    elif target_config.qt_licensee in OPEN_SOURCE_LICENSEES:
-        detail = " (Open Source)"
-    else:
-        detail = " licensed to %s" % target_config.qt_licensee
-
-    inform("Qt v%s%s is being used." % (
-            version_to_string(target_config.qt_version), detail))
+    inform("Qt v%s is being used." % 
+            version_to_string(target_config.qt_version))
 
     inform("The qmake executable is %s." % target_config.qmake)
 
@@ -1843,6 +1898,12 @@ def inform_user(target_config, sip_version):
     inform("The sip executable is %s." % target_config.sip)
     inform("These PyQt5 modules will be built: %s." % ', '.join(target_config.pyqt_modules))
     inform("The PyQt5 Python package will be installed in %s." % target_config.pyqt_module_dir)
+
+    if target_config.debug:
+        inform("A debug version of PyQt5 will be built.")
+
+    if target_config.py_debug:
+        inform("A debug build of Python is being used.")
 
     if target_config.no_docstrings:
         inform("PyQt5 is being built without generated docstrings.")
@@ -2167,8 +2228,9 @@ def check_module(target_config, disabled_modules, verbose, mname, incfile, test)
     configurations list of modules.  target_config is the target configuration.
     disabled_modules is the list of modules that have been explicitly disabled.
     verbose is set if the output is to be displayed.  mname is the name of the
-    module.  incfile is the name of the include file needed for the test.  test
-    is a C++ statement being used for the test.
+    module.  incfile is the name of the include file (or sequence of multiple
+    include files) needed for the test.  test is a C++ statement being used for
+    the test.
     """
 
     if mname in disabled_modules:
@@ -2180,13 +2242,18 @@ def check_module(target_config, disabled_modules, verbose, mname, incfile, test)
 
     inform("Checking to see if the %s module should be built..." % mname)
 
-    source = '''#include <%s>
+    if isinstance(incfile, str):
+        incfile = [incfile]
+
+    incfile = ['#include<%s>' % i for i in incfile]
+
+    source = '''%s
 
 int main(int, char **)
 {
     %s;
 }
-''' % (incfile, test)
+''' % ('\n'.join(incfile), test)
 
     if compile_qt_program(target_config, verbose, 'cfgtest_' + mname, source, mname) is not None:
         target_config.pyqt_modules.append(mname)
@@ -2257,7 +2324,7 @@ def pro_add_qt_dependencies(target_config, metadata, pro_lines, debug=None):
         pro_lines.append('QT += %s' % ' '.join(add))
 
     pro_lines.append(
-            'CONFIG += %s' % ('debug qml_debug' if debug else 'release'))
+            'CONFIG += %s' % ('debug' if debug else 'release'))
 
     if metadata.cpp11:
         pro_lines.append('CONFIG += c++11')
@@ -2277,6 +2344,10 @@ def get_sip_flags(target_config):
     if target_config.py_version < 0x030000 and not target_config.vend_enabled:
         sip_flags.append('-x')
         sip_flags.append('VendorID')
+
+    # Handle Python debug builds.
+    if target_config.py_debug:
+        sip_flags.append('-D')
 
     # Handle the platform tag.
     if target_config.py_platform == 'win32':
@@ -2471,11 +2542,14 @@ def generate_module_makefile(target_config, verbose, mname, include_paths=None, 
 
     pro_add_qt_dependencies(target_config, metadata, pro_lines)
 
+    if target_config.qml_debug:
+        pro_lines.append('CONFIG += qml_debug')
+
     # Work around QTBUG-39300.
     pro_lines.append('CONFIG -= android_install')
 
     if not target_config.static:
-        debug_suffix = get_win32_debug_suffix(target_config.debug)
+        debug_suffix = target_config.get_win32_debug_suffix()
         link = target_config.get_pylib_link_arguments()
 
         shared = '''
@@ -2542,7 +2616,8 @@ win32 {
 
     if metadata.qpy_lib:
         # This is the easiest way to make sure it is set for handwritten code.
-        pro_lines.append('DEFINES += Py_LIMITED_API=0x03040000')
+        if not target_config.py_debug:
+            pro_lines.append('DEFINES += Py_LIMITED_API=0x03040000')
 
         pro_lines.append('INCLUDEPATH += %s' %
                 qmake_quote(os.path.relpath(source_path('qpy', mname), mname)))
@@ -2640,11 +2715,10 @@ def fix_license(src_lfile, dst_lfile):
     f.close()
 
 
-def check_license(target_config, license_confirmed, introspecting):
+def check_license(target_config, license_confirmed):
     """ Handle the validation of the PyQt5 license.  target_config is the
     target configuration.  license_confirmed is set if the user has already
-    accepted the license.  introspecting is set if the configuration is being
-    determined by introspection.
+    accepted the license.
     """
 
     try:
@@ -2669,12 +2743,6 @@ def check_license(target_config, license_confirmed, introspecting):
             "Python %s on %s." %
                     (ltype, PYQT_VERSION_STR, lname, sys.version.split()[0],
                             sys.platform))
-
-    # Common checks.
-    if introspecting and target_config.qt_licensee not in OPEN_SOURCE_LICENSEES and ltype == 'GPL':
-        error(
-                "This version of PyQt5 and the commercial version of Qt have "
-                "incompatible licenses.")
 
     # Confirm the license if not already done.
     if not license_confirmed:
@@ -2827,14 +2895,6 @@ def open_for_writing(fname):
                 "permission on the parent directory." % fname)
 
 
-def get_win32_debug_suffix(debug):
-    """ Return the debug-dependent suffix appended to the name of Windows
-    libraries.  debug is set if the debug version is to be used.
-    """
-
-    return '_d' if debug else ''
-
-
 def main(argv):
     """ Create the configuration module module.  argv is the list of command
     line arguments.
@@ -2863,8 +2923,7 @@ def main(argv):
     target_config.apply_post_options(opts)
 
     # Check the licenses are compatible.
-    check_license(target_config, opts.license_confirmed,
-            (opts.config_file is None))
+    check_license(target_config, opts.license_confirmed)
 
     # Check Python is what we need.
     check_python(target_config)

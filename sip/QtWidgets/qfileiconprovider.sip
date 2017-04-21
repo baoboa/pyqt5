@@ -2,7 +2,7 @@
 //
 // This file is part of the QtWidgets Python extension module.
 //
-// Copyright (c) 2016 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2017 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -56,10 +56,10 @@ public:
     typedef QFlags<QFileIconProvider::Option> Options;
 %End
 %If (Qt_5_2_0 -)
-    void setOptions(QFlags<QFileIconProvider::Option> options);
+    void setOptions(QFileIconProvider::Options options);
 %End
 %If (Qt_5_2_0 -)
-    QFlags<QFileIconProvider::Option> options() const;
+    QFileIconProvider::Options options() const;
 %End
 
 private:

@@ -2,7 +2,7 @@
 //
 // This file is part of the QtGui Python extension module.
 //
-// Copyright (c) 2016 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2017 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -88,6 +88,9 @@ public:
     QRect tightBoundingRect(const QString &text) const;
     bool inFontUcs4(uint character) const;
     void swap(QFontMetrics &other /Constrained/);
+%If (Qt_5_8_0 -)
+    int capHeight() const;
+%End
 };
 
 class QFontMetricsF
@@ -149,6 +152,9 @@ public:
     QRectF tightBoundingRect(const QString &text) const;
     bool inFontUcs4(uint character) const;
     void swap(QFontMetricsF &other /Constrained/);
+%If (Qt_5_8_0 -)
+    qreal capHeight() const;
+%End
 };
 
 %ModuleHeaderCode

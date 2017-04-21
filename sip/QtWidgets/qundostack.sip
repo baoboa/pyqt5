@@ -2,7 +2,7 @@
 //
 // This file is part of the QtWidgets Python extension module.
 //
-// Copyright (c) 2016 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2017 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -76,6 +76,9 @@ public slots:
     void setClean();
     void setIndex(int idx);
     void undo();
+%If (Qt_5_8_0 -)
+    void resetClean();
+%End
 
 signals:
     void canRedoChanged(bool canRedo);

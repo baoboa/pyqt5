@@ -1,6 +1,6 @@
 // This is the SIP specification of the QWinEventNotifier class.
 //
-// Copyright (c) 2016 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2017 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -19,6 +19,9 @@
 
 
 %If (WS_WIN)
+
+// This hack is for the activated() signal.
+typedef Qt::HANDLE HANDLE;
 
 class QWinEventNotifier: QObject
 {
@@ -39,7 +42,7 @@ public slots:
     void setEnabled(bool enable);
 
 signals:
-    void activated(Qt::HANDLE hEvent);
+    void activated(HANDLE hEvent);
 
 protected:
     bool event(QEvent *e);

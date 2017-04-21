@@ -1,3 +1,17 @@
+v5.8.2 30th March 2017
+  - This is a bug fix release.
+
+v5.8.1 7th March 2017
+  - This is a bug fix release.
+
+v5.8 15th February 2017
+  - Added support for Qt v5.8.0.
+  - Added __fspath__() to QFileInfo.
+  - Added the --qml-debug option to configure.py.  The --debug option no longer
+    enables the QML debugging infrastructure.
+  - Added the --link-full-dll option to configure.py.
+  - SIP v4.19.1 is required.
+
 v5.7.1 25th December 2016
   - Added support for Qt v5.7.1.
   - Added the QtWebEngine module.

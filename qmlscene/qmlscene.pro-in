@@ -9,6 +9,7 @@ TEMPLATE    = lib
 
 INCLUDEPATH += @PYINCDIR@ @SIPINCDIR@
 LIBS        += @PYLINK@
+DEFINES     += PYTHON_LIB=\\\"@PYSHLIB@\\\"
 
 SOURCES     = pluginloader.cpp
 HEADERS     = pluginloader.h

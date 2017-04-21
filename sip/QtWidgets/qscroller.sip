@@ -2,7 +2,7 @@
 //
 // This file is part of the QtWidgets Python extension module.
 //
-// Copyright (c) 2016 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2017 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -55,7 +55,7 @@ public:
     static Qt::GestureType grabGesture(QObject *target, QScroller::ScrollerGestureType scrollGestureType = QScroller::TouchGesture);
     static Qt::GestureType grabbedGesture(QObject *target);
     static void ungrabGesture(QObject *target);
-    static QList<QScroller*> activeScrollers();
+    static QList<QScroller *> activeScrollers();
     QObject *target() const;
     QScroller::State state() const;
     bool handleInput(QScroller::Input input, const QPointF &position, qint64 timestamp = 0);

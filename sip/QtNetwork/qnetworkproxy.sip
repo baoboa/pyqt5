@@ -2,7 +2,7 @@
 //
 // This file is part of the QtNetwork Python extension module.
 //
-// Copyright (c) 2016 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2017 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -65,6 +65,12 @@ public:
         UdpTunnelingCapability,
         CachingCapability,
         HostNameLookupCapability,
+%If (Qt_5_8_0 -)
+        SctpTunnelingCapability,
+%End
+%If (Qt_5_8_0 -)
+        SctpListeningCapability,
+%End
     };
 
     typedef QFlags<QNetworkProxy::Capability> Capabilities;
@@ -92,6 +98,12 @@ public:
         UdpSocket,
         TcpServer,
         UrlRequest,
+%If (Qt_5_8_0 -)
+        SctpSocket,
+%End
+%If (Qt_5_8_0 -)
+        SctpServer,
+%End
     };
 
     QNetworkProxyQuery();
@@ -136,4 +148,7 @@ public:
     static QList<QNetworkProxy> proxyForQuery(const QNetworkProxyQuery &query);
     static QList<QNetworkProxy> systemProxyForQuery(const QNetworkProxyQuery &query = QNetworkProxyQuery());
     static void setUseSystemConfiguration(bool enable);
+%If (Qt_5_8_0 -)
+    static bool usesSystemConfiguration();
+%End
 };

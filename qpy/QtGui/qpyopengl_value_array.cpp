@@ -1,6 +1,6 @@
 // This contains the support for QOpenGL value arrays.
 //
-// Copyright (c) 2016 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2017 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -92,6 +92,8 @@ const GLvoid *qpyopengl_value_array_cached(sipErrorState *estate,
 
     if (!PyErr_Occurred())
         return data;
+
+    PyErr_Clear();
 
     qpyopengl_dataCache *data_cache = get_cache(bindings);
 

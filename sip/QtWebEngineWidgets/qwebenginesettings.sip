@@ -2,7 +2,7 @@
 //
 // This file is part of the QtWebEngineWidgets Python extension module.
 //
-// Copyright (c) 2016 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2017 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -77,6 +77,15 @@ public:
 %End
 %If (Qt_5_7_0 -)
         TouchIconsEnabled,
+%End
+%If (Qt_5_8_0 -)
+        FocusOnNavigationEnabled,
+%End
+%If (Qt_5_8_0 -)
+        PrintElementBackgrounds,
+%End
+%If (Qt_5_8_0 -)
+        AllowRunningInsecureContent,
 %End
     };
 

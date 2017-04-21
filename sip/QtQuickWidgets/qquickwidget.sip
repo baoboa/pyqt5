@@ -2,7 +2,7 @@
 //
 // This file is part of the QtQuickWidgets Python extension module.
 //
-// Copyright (c) 2016 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2017 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -103,6 +103,9 @@ protected:
 %End
 %If (Qt_5_5_0 -)
     virtual void dropEvent(QDropEvent *);
+%End
+%If (Qt_5_8_0 -)
+    virtual void paintEvent(QPaintEvent *event);
 %End
 
 public:

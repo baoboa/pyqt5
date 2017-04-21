@@ -2,7 +2,7 @@
 //
 // This file is part of the QtNetwork Python extension module.
 //
-// Copyright (c) 2016 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2017 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -65,6 +65,9 @@ public:
     explicit QHostAddress(const Q_IPV6ADDR &ip6Addr);
     QHostAddress(const QHostAddress &copy);
     ~QHostAddress();
+%If (Qt_5_8_0 -)
+    void setAddress(QHostAddress::SpecialAddress address /Constrained/);
+%End
     void setAddress(quint32 ip4Addr);
     bool setAddress(const QString &address);
     void setAddress(const Q_IPV6ADDR &ip6Addr);
@@ -94,6 +97,25 @@ public:
 %End
 %If (Qt_5_6_0 -)
     bool isMulticast() const;
+%End
+%If (Qt_5_8_0 -)
+
+    enum ConversionModeFlag
+    {
+        ConvertV4MappedToIPv4,
+        ConvertV4CompatToIPv4,
+        ConvertUnspecifiedAddress,
+        ConvertLocalHost,
+        TolerantConversion,
+        StrictConversion,
+    };
+
+%End
+%If (Qt_5_8_0 -)
+    typedef QFlags<QHostAddress::ConversionModeFlag> ConversionMode;
+%End
+%If (Qt_5_8_0 -)
+    bool isEqual(const QHostAddress &address, QHostAddress::ConversionMode mode = QHostAddress::ConversionModeFlag::TolerantConversion) const;
 %End
 };
 
@@ -161,3 +183,6 @@ QDataStream &operator>>(QDataStream &, QHostAddress &) /ReleaseGIL/;
     return sipGetState(sipTransferObj);
 %End
 };
+%If (Qt_5_8_0 -)
+QFlags<QHostAddress::ConversionModeFlag> operator|(QHostAddress::ConversionModeFlag f1, QFlags<QHostAddress::ConversionModeFlag> f2);
+%End

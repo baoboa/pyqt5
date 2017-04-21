@@ -1,6 +1,6 @@
 // This defines the OpenGL related API provided by this library.
 //
-// Copyright (c) 2016 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2017 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -58,6 +58,7 @@ const GLvoid *qpyopengl_value_array(sipErrorState *estate, PyObject *values,
 const GLvoid *qpyopengl_value_array_cached(sipErrorState *estate,
         PyObject *values, GLenum gl_type, PyObject *bindings, const char *pkey,
         GLuint skey);
+GLint qpyopengl_get(GLenum pname, GLenum *query);
 PyObject *qpyopengl_from_GLint(int *eflag, const GLint *array, Py_ssize_t len);
 PyObject *qpyopengl_from_GLuint(int *eflag, const GLuint *array,
         Py_ssize_t len);

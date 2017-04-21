@@ -1,6 +1,6 @@
 // This contains the implementation of the Q_ENUMS and Q_FLAGS support.
 //
-// Copyright (c) 2016 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2017 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 

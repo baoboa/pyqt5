@@ -2,7 +2,7 @@
 //
 // This file is part of the QtGui Python extension module.
 //
-// Copyright (c) 2016 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2017 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -515,6 +515,9 @@ public:
 
     public:
         Attribute(QInputMethodEvent::AttributeType t, int s, int l, QVariant val);
+%If (Qt_5_8_0 -)
+        Attribute(QInputMethodEvent::AttributeType typ, int s, int l);
+%End
         QInputMethodEvent::AttributeType type;
         int start;
         int length;
@@ -741,12 +744,21 @@ public:
         enum InfoFlag
         {
             Pen,
+%If (Qt_5_8_0 -)
+            Token,
+%End
         };
 
         typedef QFlags<QTouchEvent::TouchPoint::InfoFlag> InfoFlags;
         QVector2D velocity() const;
         QTouchEvent::TouchPoint::InfoFlags flags() const;
         QVector<QPointF> rawScreenPositions() const;
+%If (Qt_5_8_0 -)
+        QPointingDeviceUniqueId uniqueId() const;
+%End
+%If (Qt_5_8_0 -)
+        qreal rotation() const;
+%End
     };
 
     QTouchEvent(QEvent::Type eventType, QTouchDevice *device = 0, Qt::KeyboardModifiers modifiers = Qt::NoModifier, Qt::TouchPointStates touchPointStates = 0, const QList<QTouchEvent::TouchPoint> &touchPoints = QList<QTouchEvent::TouchPoint>());
@@ -877,4 +889,30 @@ public:
     QPlatformSurfaceEvent::SurfaceEventType surfaceEventType() const;
 };
 
+%End
+%If (Qt_5_8_0 -)
+
+class QPointingDeviceUniqueId
+{
+%TypeHeaderCode
+#include <qevent.h>
+%End
+
+public:
+    QPointingDeviceUniqueId();
+    static QPointingDeviceUniqueId fromNumericId(qint64 id);
+    bool isValid() const;
+    qint64 numericId() const;
+    long __hash__() const;
+%MethodCode
+        sipRes = qHash(*sipCpp);
+%End
+};
+
+%End
+%If (Qt_5_8_0 -)
+bool operator==(QPointingDeviceUniqueId lhs, QPointingDeviceUniqueId rhs);
+%End
+%If (Qt_5_8_0 -)
+bool operator!=(QPointingDeviceUniqueId lhs, QPointingDeviceUniqueId rhs);
 %End

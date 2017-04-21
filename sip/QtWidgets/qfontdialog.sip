@@ -2,7 +2,7 @@
 //
 // This file is part of the QtWidgets Python extension module.
 //
-// Copyright (c) 2016 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2017 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -57,9 +57,6 @@ protected:
     virtual void done(int result);
     virtual bool eventFilter(QObject *object, QEvent *event);
 
-private:
-    QFontDialog(const QFontDialog &);
-
 public:
     void setCurrentFont(const QFont &font);
     QFont currentFont() const;
@@ -89,6 +86,9 @@ public:
 signals:
     void currentFontChanged(const QFont &font);
     void fontSelected(const QFont &font);
+
+private:
+    QFontDialog(const QFontDialog &);
 };
 
 QFlags<QFontDialog::FontDialogOption> operator|(QFontDialog::FontDialogOption f1, QFlags<QFontDialog::FontDialogOption> f2);

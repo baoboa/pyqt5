@@ -2,7 +2,7 @@
 //
 // This file is part of the QtWebEngineWidgets Python extension module.
 //
-// Copyright (c) 2016 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2017 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -24,11 +24,12 @@
 
 %Import QtCore/QtCoremod.sip
 %Import QtNetwork/QtNetworkmod.sip
+%Import QtPrintSupport/QtPrintSupportmod.sip
 %Import QtWebChannel/QtWebChannelmod.sip
 %Import QtWidgets/QtWidgetsmod.sip
 
 %Copying
-Copyright (c) 2016 Riverbank Computing Limited <info@riverbankcomputing.com>
+Copyright (c) 2017 Riverbank Computing Limited <info@riverbankcomputing.com>
 
 This file is part of PyQt5.
 
