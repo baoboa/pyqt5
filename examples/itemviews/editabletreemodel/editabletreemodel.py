@@ -57,7 +57,9 @@ class TreeItem(object):
         self.childItems = []
 
     def child(self, row):
-        return self.childItems[row]
+        if row < len(self.childItems) and row >= 0:
+            return self.childItems[row]
+        # return None if try to axes row that none exist
 
     def childCount(self):
         return len(self.childItems)
