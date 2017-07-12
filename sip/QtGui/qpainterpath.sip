@@ -79,6 +79,21 @@ public:
     Qt::FillRule fillRule() const;
     void setFillRule(Qt::FillRule fillRule);
     QPainterPath toReversed() const;
+    QList<QPolygonF> toSubpathPolygons() const;
+%MethodCode
+        sipRes = new QList<QPolygonF>(sipCpp->toSubpathPolygons());
+%End
+
+    QList<QPolygonF> toFillPolygons() const;
+%MethodCode
+        sipRes = new QList<QPolygonF>(sipCpp->toFillPolygons());
+%End
+
+    QPolygonF toFillPolygon() const;
+%MethodCode
+        sipRes = new QPolygonF(sipCpp->toFillPolygon());
+%End
+
     bool operator==(const QPainterPath &other) const;
     bool operator!=(const QPainterPath &other) const;
     void moveTo(qreal x, qreal y);

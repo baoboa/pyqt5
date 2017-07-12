@@ -8,9 +8,9 @@ You must also have the SIP Python bindings generator installed.  PyQt4 is also
 available which supports earlier versions of Python, and Qt v4 and the
 compatible subset of Qt v5.
 
-The homepage is http://www.riverbankcomputing.com/software/pyqt/.
+The homepage is https://www.riverbankcomputing.com/software/pyqt/.
 
-The homepage of SIP is http://www.riverbankcomputing.com/software/sip/.
+The homepage of SIP is https://www.riverbankcomputing.com/software/sip/.
 
 
 COMMERCIAL VERSION
@@ -33,7 +33,7 @@ The first step is to configure PyQt5 by running the following command.
 This assumes that the correct Python interpreter is on your path.  Something
 like the following may be appropriate on Windows.
 
-	c:\python33\python configure.py
+	c:\python36\python configure.py
 
 If you have multiple versions of Python installed then make sure you use the
 interpreter for which you wish to generate bindings for.

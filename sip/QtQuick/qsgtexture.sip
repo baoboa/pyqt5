@@ -61,6 +61,24 @@ public:
     void setVerticalWrapMode(QSGTexture::WrapMode vwrap);
     QSGTexture::WrapMode verticalWrapMode() const;
     QRectF convertToNormalizedSourceRect(const QRectF &rect) const;
+%If (Qt_5_9_0 -)
+
+    enum AnisotropyLevel
+    {
+        AnisotropyNone,
+        Anisotropy2x,
+        Anisotropy4x,
+        Anisotropy8x,
+        Anisotropy16x,
+    };
+
+%End
+%If (Qt_5_9_0 -)
+    void setAnisotropyLevel(QSGTexture::AnisotropyLevel level);
+%End
+%If (Qt_5_9_0 -)
+    QSGTexture::AnisotropyLevel anisotropyLevel() const;
+%End
 };
 
 class QSGDynamicTexture : QSGTexture

@@ -759,6 +759,9 @@ public:
 %If (Qt_5_8_0 -)
         qreal rotation() const;
 %End
+%If (Qt_5_9_0 -)
+        QSizeF ellipseDiameters() const;
+%End
     };
 
     QTouchEvent(QEvent::Type eventType, QTouchDevice *device = 0, Qt::KeyboardModifiers modifiers = Qt::NoModifier, Qt::TouchPointStates touchPointStates = 0, const QList<QTouchEvent::TouchPoint> &touchPoints = QList<QTouchEvent::TouchPoint>());

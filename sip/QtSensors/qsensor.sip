@@ -94,50 +94,70 @@ class QSensor : QObject
         sipTypeDef **type;
         int yes, no;
     } graph[] = {
-        {sipName_QSensorReading, &sipType_QSensorReading, 2, 1},
-        {sipName_QSensor, &sipType_QSensor, 19, -1},
-        {sipName_QTiltReading, &sipType_QTiltReading, -1, 3},
-        {sipName_QTapReading, &sipType_QTapReading, -1, 4},
-        {sipName_QProximityReading, &sipType_QProximityReading, -1, 5},
-        {sipName_QHolsterReading, &sipType_QHolsterReading, -1, 6},
+        {sipName_QSensor, &sipType_QSensor, 2, 1},
+        {sipName_QSensorReading, &sipType_QSensorReading, 21, -1},
+        {sipName_QAccelerometer, &sipType_QAccelerometer, -1, 3},
+        {sipName_QAltimeter, &sipType_QAltimeter, -1, 4},
+        {sipName_QAmbientLightSensor, &sipType_QAmbientLightSensor, -1, 5},
+        {sipName_QAmbientTemperatureSensor, &sipType_QAmbientTemperatureSensor, -1, 6},
+        {sipName_QCompass, &sipType_QCompass, -1, 7},
     #if QT_VERSION >= 0x050400
-        {sipName_QDistanceReading, &sipType_QDistanceReading, -1, 7},
+        {sipName_QDistanceSensor, &sipType_QDistanceSensor, -1, 8},
     #else
-        {0, 0, -1, 7},
+        {0, 0, -1, 8},
     #endif
-        {sipName_QAmbientLightReading, &sipType_QAmbientLightReading, -1, 8},
-        {sipName_QPressureReading, &sipType_QPressureReading, -1, 9},
-        {sipName_QAmbientTemperatureReading, &sipType_QAmbientTemperatureReading, -1, 10},
-        {sipName_QMagnetometerReading, &sipType_QMagnetometerReading, -1, 11},
-        {sipName_QOrientationReading, &sipType_QOrientationReading, -1, 12},
-        {sipName_QGyroscopeReading, &sipType_QGyroscopeReading, -1, 13},
-        {sipName_QAltimeterReading, &sipType_QAltimeterReading, -1, 14},
-        {sipName_QIRProximityReading, &sipType_QIRProximityReading, -1, 15},
-        {sipName_QLightReading, &sipType_QLightReading, -1, 16},
-        {sipName_QRotationReading, &sipType_QRotationReading, -1, 17},
-        {sipName_QCompassReading, &sipType_QCompassReading, -1, 18},
-        {sipName_QAccelerometerReading, &sipType_QAccelerometerReading, -1, -1},
-        {sipName_QGyroscope, &sipType_QGyroscope, -1, 20},
-        {sipName_QIRProximitySensor, &sipType_QIRProximitySensor, -1, 21},
-        {sipName_QAccelerometer, &sipType_QAccelerometer, -1, 22},
-        {sipName_QProximitySensor, &sipType_QProximitySensor, -1, 23},
-        {sipName_QTiltSensor, &sipType_QTiltSensor, -1, 24},
-        {sipName_QHolsterSensor, &sipType_QHolsterSensor, -1, 25},
-        {sipName_QAmbientLightSensor, &sipType_QAmbientLightSensor, -1, 26},
-        {sipName_QOrientationSensor, &sipType_QOrientationSensor, -1, 27},
-        {sipName_QTapSensor, &sipType_QTapSensor, -1, 28},
-        {sipName_QAmbientTemperatureSensor, &sipType_QAmbientTemperatureSensor, -1, 29},
-        {sipName_QMagnetometer, &sipType_QMagnetometer, -1, 30},
-        {sipName_QPressureSensor, &sipType_QPressureSensor, -1, 31},
+        {sipName_QGyroscope, &sipType_QGyroscope, -1, 9},
+        {sipName_QHolsterSensor, &sipType_QHolsterSensor, -1, 10},
+    #if QT_VERSION >= 0x050900
+        {sipName_QHumiditySensor, &sipType_QHumiditySensor, -1, 11},
+    #else
+        {0, 0, -1, 11},
+    #endif
+        {sipName_QIRProximitySensor, &sipType_QIRProximitySensor, -1, 12},
+    #if QT_VERSION >= 0x050900
+        {sipName_QLidSensor, &sipType_QLidSensor, -1, 13},
+    #else
+        {0, 0, -1, 13},
+    #endif
+        {sipName_QLightSensor, &sipType_QLightSensor, -1, 14},
+        {sipName_QMagnetometer, &sipType_QMagnetometer, -1, 15},
+        {sipName_QOrientationSensor, &sipType_QOrientationSensor, -1, 16},
+        {sipName_QPressureSensor, &sipType_QPressureSensor, -1, 17},
+        {sipName_QProximitySensor, &sipType_QProximitySensor, -1, 18},
+        {sipName_QRotationSensor, &sipType_QRotationSensor, -1, 19},
+        {sipName_QTapSensor, &sipType_QTapSensor, -1, 20},
+        {sipName_QTiltSensor, &sipType_QTiltSensor, -1, -1},
+        {sipName_QAccelerometerReading, &sipType_QAccelerometerReading, -1, 22},
+        {sipName_QAltimeterReading, &sipType_QAltimeterReading, -1, 23},
+        {sipName_QAmbientLightReading, &sipType_QAmbientLightReading, -1, 24},
+        {sipName_QAmbientTemperatureReading, &sipType_QAmbientTemperatureReading, -1, 25},
+        {sipName_QCompassReading, &sipType_QCompassReading, -1, 26},
     #if QT_VERSION >= 0x050400
-        {sipName_QDistanceSensor, &sipType_QDistanceSensor, -1, 32},
+        {sipName_QDistanceReading, &sipType_QDistanceReading, -1, 27},
+    #else
+        {0, 0, -1, 27},
+    #endif
+        {sipName_QGyroscopeReading, &sipType_QGyroscopeReading, -1, 28},
+        {sipName_QHolsterReading, &sipType_QHolsterReading, -1, 29},
+    #if QT_VERSION >= 0x050900
+        {sipName_QHumidityReading, &sipType_QHumidityReading, -1, 30},
+    #else
+        {0, 0, -1, 30},
+    #endif
+        {sipName_QIRProximityReading, &sipType_QIRProximityReading, -1, 31},
+    #if QT_VERSION >= 0x050900
+        {sipName_QLidReading, &sipType_QLidReading, -1, 32},
     #else
         {0, 0, -1, 32},
     #endif
-        {sipName_QRotationSensor, &sipType_QRotationSensor, -1, 33},
-        {sipName_QCompass, &sipType_QCompass, -1, 34},
-        {sipName_QAltimeter, &sipType_QAltimeter, -1, 35},
-        {sipName_QLightSensor, &sipType_QLightSensor, -1, -1},
+        {sipName_QLightReading, &sipType_QLightReading, -1, 33},
+        {sipName_QMagnetometerReading, &sipType_QMagnetometerReading, -1, 34},
+        {sipName_QOrientationReading, &sipType_QOrientationReading, -1, 35},
+        {sipName_QPressureReading, &sipType_QPressureReading, -1, 36},
+        {sipName_QProximityReading, &sipType_QProximityReading, -1, 37},
+        {sipName_QRotationReading, &sipType_QRotationReading, -1, 38},
+        {sipName_QTapReading, &sipType_QTapReading, -1, 39},
+        {sipName_QTiltReading, &sipType_QTiltReading, -1, -1},
     };
     
     int i = 0;

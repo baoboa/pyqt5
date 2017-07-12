@@ -60,6 +60,9 @@ public:
         InvalidParametersError,
         NdefReadError,
         NdefWriteError,
+%If (Qt_5_9_0 -)
+        CommandError,
+%End
     };
 
     class RequestId
@@ -104,6 +107,20 @@ signals:
     void ndefMessagesWritten();
     void requestCompleted(const QNearFieldTarget::RequestId &id);
     void error(QNearFieldTarget::Error error, const QNearFieldTarget::RequestId &id);
+
+public:
+%If (Qt_5_9_0 -)
+    bool keepConnection() const;
+%End
+%If (Qt_5_9_0 -)
+    bool setKeepConnection(bool isPersistent);
+%End
+%If (Qt_5_9_0 -)
+    bool disconnect();
+%End
+%If (Qt_5_9_0 -)
+    int maxCommandLength() const;
+%End
 };
 
 %End

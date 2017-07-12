@@ -73,6 +73,9 @@ public:
     QWebEnginePage *page() const;
     void setPage(QWebEnginePage *page);
     void load(const QUrl &url);
+%If (Qt_5_9_0 -)
+    void load(const QWebEngineHttpRequest &request);
+%End
     void setHtml(const QString &html, const QUrl &baseUrl = QUrl());
     void setContent(const QByteArray &data, const QString &mimeType = QString(), const QUrl &baseUrl = QUrl());
     QWebEngineHistory *history() const;

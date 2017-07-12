@@ -204,6 +204,9 @@ public:
     QMenu *createStandardContextMenu() /Factory/;
     void setFeaturePermission(const QUrl &securityOrigin, QWebEnginePage::Feature feature, QWebEnginePage::PermissionPolicy policy);
     void load(const QUrl &url);
+%If (Qt_5_9_0 -)
+    void load(const QWebEngineHttpRequest &request);
+%End
     void setHtml(const QString &html, const QUrl &baseUrl = QUrl());
     void setContent(const QByteArray &data, const QString &mimeType = QString(), const QUrl &baseUrl = QUrl());
     void toHtml(SIP_PYCALLABLE resultCallback) const;
@@ -486,6 +489,9 @@ signals:
 %End
 %If (Qt_5_7_0 -)
     void recentlyAudibleChanged(bool recentlyAudible);
+%End
+%If (Qt_5_9_0 -)
+    void pdfPrintingFinished(const QString &filePath, bool success);
 %End
 
 public:

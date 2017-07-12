@@ -38,6 +38,9 @@ public:
 %If (Qt_5_6_0 -)
     QString errorString() const;
 %End
+%If (Qt_5_9_0 -)
+    QString filePath(const QString &fileName) const;
+%End
 
 private:
     QTemporaryDir(const QTemporaryDir &);

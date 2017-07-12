@@ -212,6 +212,90 @@ public:
 %If (Qt_5_6_0 -)
         RGB8_ETC1,
 %End
+%If (Qt_5_9_0 -)
+        RGBA_ASTC_4x4,
+%End
+%If (Qt_5_9_0 -)
+        RGBA_ASTC_5x4,
+%End
+%If (Qt_5_9_0 -)
+        RGBA_ASTC_5x5,
+%End
+%If (Qt_5_9_0 -)
+        RGBA_ASTC_6x5,
+%End
+%If (Qt_5_9_0 -)
+        RGBA_ASTC_6x6,
+%End
+%If (Qt_5_9_0 -)
+        RGBA_ASTC_8x5,
+%End
+%If (Qt_5_9_0 -)
+        RGBA_ASTC_8x6,
+%End
+%If (Qt_5_9_0 -)
+        RGBA_ASTC_8x8,
+%End
+%If (Qt_5_9_0 -)
+        RGBA_ASTC_10x5,
+%End
+%If (Qt_5_9_0 -)
+        RGBA_ASTC_10x6,
+%End
+%If (Qt_5_9_0 -)
+        RGBA_ASTC_10x8,
+%End
+%If (Qt_5_9_0 -)
+        RGBA_ASTC_10x10,
+%End
+%If (Qt_5_9_0 -)
+        RGBA_ASTC_12x10,
+%End
+%If (Qt_5_9_0 -)
+        RGBA_ASTC_12x12,
+%End
+%If (Qt_5_9_0 -)
+        SRGB8_Alpha8_ASTC_4x4,
+%End
+%If (Qt_5_9_0 -)
+        SRGB8_Alpha8_ASTC_5x4,
+%End
+%If (Qt_5_9_0 -)
+        SRGB8_Alpha8_ASTC_5x5,
+%End
+%If (Qt_5_9_0 -)
+        SRGB8_Alpha8_ASTC_6x5,
+%End
+%If (Qt_5_9_0 -)
+        SRGB8_Alpha8_ASTC_6x6,
+%End
+%If (Qt_5_9_0 -)
+        SRGB8_Alpha8_ASTC_8x5,
+%End
+%If (Qt_5_9_0 -)
+        SRGB8_Alpha8_ASTC_8x6,
+%End
+%If (Qt_5_9_0 -)
+        SRGB8_Alpha8_ASTC_8x8,
+%End
+%If (Qt_5_9_0 -)
+        SRGB8_Alpha8_ASTC_10x5,
+%End
+%If (Qt_5_9_0 -)
+        SRGB8_Alpha8_ASTC_10x6,
+%End
+%If (Qt_5_9_0 -)
+        SRGB8_Alpha8_ASTC_10x8,
+%End
+%If (Qt_5_9_0 -)
+        SRGB8_Alpha8_ASTC_10x10,
+%End
+%If (Qt_5_9_0 -)
+        SRGB8_Alpha8_ASTC_12x10,
+%End
+%If (Qt_5_9_0 -)
+        SRGB8_Alpha8_ASTC_12x12,
+%End
     };
 
     void setFormat(QOpenGLTexture::TextureFormat format);
@@ -524,6 +608,12 @@ public:
 %End
 %If (Qt_5_5_0 -)
     QOpenGLTexture::ComparisonMode comparisonMode() const;
+%End
+%If (Qt_5_9_0 -)
+    void setData(int mipLevel, int layer, int layerCount, QOpenGLTexture::CubeMapFace cubeFace, QOpenGLTexture::PixelFormat sourceFormat, QOpenGLTexture::PixelType sourceType, const void *data, const QOpenGLPixelTransferOptions * const options = 0);
+%End
+%If (Qt_5_9_0 -)
+    void setCompressedData(int mipLevel, int layer, int layerCount, QOpenGLTexture::CubeMapFace cubeFace, int dataSize, const void *data, const QOpenGLPixelTransferOptions * const options = 0);
 %End
 
 private:

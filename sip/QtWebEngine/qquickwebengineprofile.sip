@@ -29,7 +29,36 @@ class QQuickWebEngineProfile : QObject
 %End
 
 %ConvertToSubClassCode
-    sipType = (sipCpp->inherits(sipName_QQuickWebEngineProfile) ? sipType_QQuickWebEngineProfile : NULL);
+    static struct class_graph {
+        const char *name;
+        sipTypeDef **type;
+        int yes, no;
+    } graph[] = {
+        {sipName_QQuickWebEngineProfile, &sipType_QQuickWebEngineProfile, -1, 1},
+    #if QT_VERSION >= 0x050900
+        {sipName_QQuickWebEngineScript, &sipType_QQuickWebEngineScript, -1, -1},
+    #else
+        {0, 0, -1, -1},
+    #endif
+    };
+    
+    int i = 0;
+    
+    sipType = NULL;
+    
+    do
+    {
+        struct class_graph *cg = &graph[i];
+    
+        if (cg->name != NULL && sipCpp->inherits(cg->name))
+        {
+            sipType = *cg->type;
+            i = cg->yes;
+        }
+        else
+            i = cg->no;
+    }
+    while (i >= 0);
 %End
 
 public:

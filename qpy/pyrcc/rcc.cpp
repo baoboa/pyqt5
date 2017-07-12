@@ -1,6 +1,6 @@
 /****************************************************************************
 **
-** Copyright (c) 2016 Riverbank Computing Limited. All rights reserved.
+** Copyright (c) 2017 Riverbank Computing Limited. All rights reserved.
 ** Copyright (C) 2013 Digia Plc and/or its subsidiary(-ies).
 ** Contact: http://www.qt-project.org/legal
 **
@@ -46,40 +46,22 @@
 #include <qdir.h>
 #include <qstack.h>
 #include <qdom.h>
+#include <qdatetime.h>
 
 #include "rcc.h"
 
 
-static bool qt_rcc_write_number(FILE *out, quint32 number, int width)
+static void qt_rcc_write_number(FILE *out, quint64 number, int width)
 {
-    int dividend = 1;
-    switch (width) {
-    case 2:
-        dividend = 256;
-        break;
-    case 3:
-        dividend = 65536;
-        break;
-    case 4:
-        dividend = 16777216;
-        break;
-    default:
-        break;
-    }
-
     // Write <width> bytes
-    while (dividend >= 1) {
-        const quint8 tmp = number / dividend;
-
+    while (width-- > 0)
+    {
+        const quint8 tmp = number >> (width * 8);
         fprintf(out, "\\x%02x", tmp);
-
-        number -= tmp * dividend;
-        dividend /= 256;
     }
-    return true;
 }
 
-bool RCCFileInfo::writeDataInfo(FILE *out)
+void RCCFileInfo::writeDataInfo(FILE *out, int version)
 {
     //pointer data
     if(flags & RCCFileInfo::Directory) {
@@ -108,8 +90,19 @@ bool RCCFileInfo::writeDataInfo(FILE *out)
         //data offset
         qt_rcc_write_number(out, dataOffset, 4);
     }
+
     fprintf(out, "\\\n");
-    return true;
+
+    if (version >= 2)
+    {
+        const QDateTime lastModified = fileInfo.lastModified();
+
+        qt_rcc_write_number(out,
+                lastModified.isValid() ? lastModified.toMSecsSinceEpoch() : 0,
+                8);
+
+        fprintf(out, "\\\n");
+    }
 }
 
 qint64 RCCFileInfo::writeDataBlob(FILE *out, qint64 offset)
@@ -413,8 +406,10 @@ bool RCCResourceLibrary::output(const QString &out_name)
         error = "data blob";
     else if (!writeDataNames(out))
         error = "file names";
-    else if (!writeDataStructure(out))
-        error = "data tree";
+    else if (!writeDataStructure(out, 1))
+        error = "v1 data tree";
+    else if (!writeDataStructure(out, 2))
+        error = "v2 data tree";
     else if (!writeInitializer(out))
         error = "footer";
     else
@@ -510,10 +505,9 @@ static bool qt_rcc_compare_hash(const RCCFileInfo *left, const RCCFileInfo *righ
     return qt_hash(left->name) < qt_hash(right->name);
 }
 
-bool
-RCCResourceLibrary::writeDataStructure(FILE *out)
+bool RCCResourceLibrary::writeDataStructure(FILE *out, int version)
 {
-    fprintf(out, "qt_resource_struct = b\"\\\n");
+    fprintf(out, "qt_resource_struct_v%d = b\"\\\n", version);
     QStack<RCCFileInfo*> pending;
 
     if (!root)
@@ -541,7 +535,7 @@ RCCResourceLibrary::writeDataStructure(FILE *out)
 
     //write out the structure (ie iterate again!)
     pending.push(root);
-    root->writeDataInfo(out);
+    root->writeDataInfo(out, version);
     while(!pending.isEmpty()) {
         RCCFileInfo *file = pending.pop();
 
@@ -552,7 +546,7 @@ RCCResourceLibrary::writeDataStructure(FILE *out)
         //write out the actual data now
         for(int i = 0; i < children.size(); ++i) {
             RCCFileInfo *child = children.at(i);
-            child->writeDataInfo(out);
+            child->writeDataInfo(out, version);
             if(child->flags & RCCFileInfo::Directory)
                 pending.push(child);
         }
@@ -565,13 +559,23 @@ RCCResourceLibrary::writeDataStructure(FILE *out)
 bool
 RCCResourceLibrary::writeInitializer(FILE *out)
 {
+    fprintf(out, "qt_version = QtCore.qVersion().split('.')\n");
+    fprintf(out, "if qt_version < ['5', '8', '0']:\n");
+    fprintf(out, "    rcc_version = 1\n");
+    fprintf(out, "    qt_resource_struct = qt_resource_struct_v1\n");
+    fprintf(out, "else:\n");
+    fprintf(out, "    rcc_version = 2\n");
+    fprintf(out, "    qt_resource_struct = qt_resource_struct_v2\n");
+
+    fprintf(out, "\n");
+
     fprintf(out, "def qInitResources():\n");
-    fprintf(out, "    QtCore.qRegisterResourceData(0x01, qt_resource_struct, qt_resource_name, qt_resource_data)\n");
+    fprintf(out, "    QtCore.qRegisterResourceData(rcc_version, qt_resource_struct, qt_resource_name, qt_resource_data)\n");
 
     fprintf(out, "\n");
 
     fprintf(out, "def qCleanupResources():\n");
-    fprintf(out, "    QtCore.qUnregisterResourceData(0x01, qt_resource_struct, qt_resource_name, qt_resource_data)\n");
+    fprintf(out, "    QtCore.qUnregisterResourceData(rcc_version, qt_resource_struct, qt_resource_name, qt_resource_data)\n");
 
     fprintf(out, "\n");
 

@@ -47,6 +47,7 @@ WARRANTY OF DESIGN, MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE.
 %DefaultSupertype sip.simplewrapper
 
 %Include qwebenginecookiestore.sip
+%Include qwebenginehttprequest.sip
 %Include qwebengineurlrequestinfo.sip
 %Include qwebengineurlrequestinterceptor.sip
 %Include qwebengineurlrequestjob.sip

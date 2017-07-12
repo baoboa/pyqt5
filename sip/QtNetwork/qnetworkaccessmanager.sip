@@ -117,4 +117,27 @@ protected slots:
 %If (Qt_5_2_0 -)
     QStringList supportedSchemesImplementation() const;
 %End
+
+public:
+%If (Qt_5_9_0 -)
+    void clearConnectionCache();
+%End
+%If (Qt_5_9_0 -)
+    void setStrictTransportSecurityEnabled(bool enabled);
+%End
+%If (Qt_5_9_0 -)
+    bool isStrictTransportSecurityEnabled() const;
+%End
+%If (Qt_5_9_0 -)
+    void addStrictTransportSecurityHosts(const QVector<QHstsPolicy> &knownHosts);
+%End
+%If (Qt_5_9_0 -)
+    QVector<QHstsPolicy> strictTransportSecurityHosts() const;
+%End
+%If (Qt_5_9_0 -)
+    void setRedirectPolicy(QNetworkRequest::RedirectPolicy policy);
+%End
+%If (Qt_5_9_0 -)
+    QNetworkRequest::RedirectPolicy redirectPolicy() const;
+%End
 };

@@ -271,10 +271,14 @@ signals:
 
 public:
 %If (Qt_5_6_0 -)
+%If (PyQt_SessionManager)
     static bool isFallbackSessionManagementEnabled();
 %End
+%End
 %If (Qt_5_6_0 -)
+%If (PyQt_SessionManager)
     static void setFallbackSessionManagementEnabled(bool);
+%End
 %End
 
 signals:

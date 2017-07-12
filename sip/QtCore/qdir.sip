@@ -177,6 +177,9 @@ public:
 %If (Qt_5_6_0 -)
     static QChar listSeparator();
 %End
+%If (Qt_5_9_0 -)
+    bool isEmpty(QDir::Filters filters = QDir::AllEntries | QDir::NoDotAndDotDot) const;
+%End
 };
 
 QFlags<QDir::Filter> operator|(QDir::Filter f1, QFlags<QDir::Filter> f2);

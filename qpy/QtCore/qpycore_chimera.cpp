@@ -414,10 +414,6 @@ bool Chimera::parse_py_type(PyTypeObject *type_obj)
     {
         _metatype = QMetaType::QVariantList;
     }
-    else if (type_obj == &PyDict_Type)
-    {
-        _metatype = QMetaType::QVariantMap;
-    }
 #if PY_MAJOR_VERSION >= 3
     else if (type_obj == &PyUnicode_Type)
     {

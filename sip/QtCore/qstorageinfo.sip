@@ -54,6 +54,9 @@ public:
 %If (Qt_5_6_0 -)
     int blockSize() const;
 %End
+%If (Qt_5_9_0 -)
+    QByteArray subvolume() const;
+%End
 };
 
 %End

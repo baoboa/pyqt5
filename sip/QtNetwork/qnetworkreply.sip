@@ -129,6 +129,9 @@ signals:
 %If (Qt_5_6_0 -)
     void redirected(const QUrl &url);
 %End
+%If (Qt_5_9_0 -)
+    void redirectAllowed();
+%End
 
 protected:
     explicit QNetworkReply(QObject *parent /TransferThis/ = 0);

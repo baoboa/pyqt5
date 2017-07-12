@@ -53,4 +53,10 @@ public:
 %If (Qt_5_3_0 -)
     void setCompactMode(bool on);
 %End
+%If (Qt_5_9_0 -)
+    QString searchInput() const;
+%End
+%If (Qt_5_9_0 -)
+    void setSearchInput(const QString &searchInput);
+%End
 };

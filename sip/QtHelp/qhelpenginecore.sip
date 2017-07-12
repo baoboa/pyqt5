@@ -86,6 +86,9 @@ public:
     QUrl findFile(const QUrl &url) const;
     QByteArray fileData(const QUrl &url) const;
     QMap<QString, QUrl> linksForIdentifier(const QString &id) const;
+%If (Qt_5_9_0 -)
+    QMap<QString, QUrl> linksForKeyword(const QString &keyword) const;
+%End
     bool removeCustomValue(const QString &key);
     QVariant customValue(const QString &key, const QVariant &defaultValue = QVariant()) const;
     bool setCustomValue(const QString &key, const QVariant &value);

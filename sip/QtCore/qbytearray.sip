@@ -24,8 +24,6 @@
 #include <qbytearray.h>
 %End
 
-quint16 qChecksum(const char *s /Array/, uint len /ArraySize/);
-
 class QByteArray /TypeHintIn="Union[QByteArray, bytes, bytearray]"/
 {
 %TypeHeaderCode
@@ -396,6 +394,9 @@ public:
 %If (Qt_5_7_0 -)
     QByteArray &insert(int i, int count, char c /Encoding="None"/);
 %End
+%If (Qt_5_9_0 -)
+    QByteArray toHex(char separator) const;
+%End
 };
 
 bool operator==(const QByteArray &a1, const QByteArray &a2);
@@ -411,4 +412,8 @@ QByteArray qCompress(const QByteArray &data, int compressionLevel = -1);
 QByteArray qUncompress(const QByteArray &data);
 %If (Qt_5_2_0 -)
 QFlags<QByteArray::Base64Option> operator|(QByteArray::Base64Option f1, QFlags<QByteArray::Base64Option> f2);
+%End
+quint16 qChecksum(const char *s /Array/, uint len /ArraySize/);
+%If (Qt_5_9_0 -)
+quint16 qChecksum(const char *s /Array/, uint len /ArraySize/, Qt::ChecksumType standard);
 %End

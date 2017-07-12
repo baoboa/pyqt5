@@ -41,6 +41,12 @@ public:
     QSGTexture::WrapMode horizontalWrapMode() const;
     void setVerticalWrapMode(QSGTexture::WrapMode mode);
     QSGTexture::WrapMode verticalWrapMode() const;
+%If (Qt_5_9_0 -)
+    void setAnisotropyLevel(QSGTexture::AnisotropyLevel level);
+%End
+%If (Qt_5_9_0 -)
+    QSGTexture::AnisotropyLevel anisotropyLevel() const;
+%End
 };
 
 class QSGTextureMaterial : QSGOpaqueTextureMaterial

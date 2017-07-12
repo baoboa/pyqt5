@@ -70,6 +70,9 @@ public:
     void setHorizontalStretch(int stretchFactor);
     void setVerticalStretch(int stretchFactor);
     void transpose();
+%If (Qt_5_9_0 -)
+    QSizePolicy transposed() const;
+%End
 
     enum ControlType
     {

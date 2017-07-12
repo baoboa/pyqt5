@@ -159,6 +159,11 @@ signals:
     void exit(int retCode);
 %End
 
+public:
+%If (Qt_5_9_0 -)
+    QString offlineStorageDatabaseFilePath(const QString &databaseName) const;
+%End
+
 private:
     QQmlEngine(const QQmlEngine &);
 };

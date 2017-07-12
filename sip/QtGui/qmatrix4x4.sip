@@ -116,7 +116,7 @@ public:
     void translate(float x, float y);
     void translate(float x, float y, float z);
     void rotate(float angle, const QVector3D &vector);
-    void rotate(float angle, float x, float y, float z = 0.0f);
+    void rotate(float angle, float x, float y, float z = 0.F);
     void rotate(const QQuaternion &quaternion);
     void ortho(const QRect &rect);
     void ortho(const QRectF &rect);
@@ -183,7 +183,7 @@ public:
     QVector3D mapVector(const QVector3D &vector) const;
     QVector4D map(const QVector4D &point) const;
 %If (Qt_5_4_0 -)
-    void viewport(float left, float bottom, float width, float height, float nearPlane = 0.0f, float farPlane = 1.0e+0f);
+    void viewport(float left, float bottom, float width, float height, float nearPlane = 0.F, float farPlane = 1.F);
 %End
 %If (Qt_5_4_0 -)
     void viewport(const QRectF &rect);

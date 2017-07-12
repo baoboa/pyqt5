@@ -46,4 +46,10 @@ public:
 %If (Qt_5_2_0 -)
     void setObject(QObject *);
 %End
+%If (Qt_5_9_0 -)
+    QtMsgType messageType() const;
+%End
+%If (Qt_5_9_0 -)
+    void setMessageType(QtMsgType messageType);
+%End
 };

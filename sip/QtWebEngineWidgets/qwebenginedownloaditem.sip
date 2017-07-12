@@ -93,6 +93,43 @@ public:
 %If (Qt_5_8_0 -)
     QWebEngineDownloadItem::DownloadType type() const;
 %End
+%If (Qt_5_9_0 -)
+
+    enum DownloadInterruptReason
+    {
+        NoReason,
+        FileFailed,
+        FileAccessDenied,
+        FileNoSpace,
+        FileNameTooLong,
+        FileTooLarge,
+        FileVirusInfected,
+        FileTransientError,
+        FileBlocked,
+        FileSecurityCheckFailed,
+        FileTooShort,
+        FileHashMismatch,
+        NetworkFailed,
+        NetworkTimeout,
+        NetworkDisconnected,
+        NetworkServerDown,
+        NetworkInvalidRequest,
+        ServerFailed,
+        ServerBadContent,
+        ServerUnauthorized,
+        ServerCertProblem,
+        ServerForbidden,
+        ServerUnreachable,
+        UserCanceled,
+    };
+
+%End
+%If (Qt_5_9_0 -)
+    QWebEngineDownloadItem::DownloadInterruptReason interruptReason() const;
+%End
+%If (Qt_5_9_0 -)
+    QString interruptReasonString() const;
+%End
 
 private:
     QWebEngineDownloadItem(const QWebEngineDownloadItem &);

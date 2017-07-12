@@ -49,6 +49,9 @@ public:
     virtual void abort();
 
 signals:
+%If (Qt_5_9_0 -)
+    void aborted();
+%End
     void finished();
     void error(QGeoRouteReply::Error error, const QString &errorString = QString());
 

@@ -87,6 +87,9 @@ public:
 %If (Qt_5_8_0 -)
         AllowRunningInsecureContent,
 %End
+%If (Qt_5_9_0 -)
+        AllowGeolocationOnInsecureOrigins,
+%End
     };
 
     enum FontSize

@@ -115,11 +115,14 @@ public:
     typedef QFlags<QHostAddress::ConversionModeFlag> ConversionMode;
 %End
 %If (Qt_5_8_0 -)
-    bool isEqual(const QHostAddress &address, QHostAddress::ConversionMode mode = QHostAddress::ConversionModeFlag::TolerantConversion) const;
+    bool isEqual(const QHostAddress &address, QHostAddress::ConversionMode mode = QHostAddress::TolerantConversion) const;
 %End
 };
 
 bool operator==(QHostAddress::SpecialAddress address1, const QHostAddress &address2);
+%If (Qt_5_9_0 -)
+bool operator!=(QHostAddress::SpecialAddress lhs, const QHostAddress &rhs);
+%End
 QDataStream &operator<<(QDataStream &, const QHostAddress &) /ReleaseGIL/;
 QDataStream &operator>>(QDataStream &, QHostAddress &) /ReleaseGIL/;
 // Q_IPV6ADDR is implemented as a Python 16-tuple of ints.

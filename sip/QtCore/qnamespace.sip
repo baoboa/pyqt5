@@ -356,6 +356,9 @@ namespace Qt
 %If (Qt_5_4_0 -)
         WA_AlwaysStackOnTop,
 %End
+%If (Qt_5_9_0 -)
+        WA_TabletTracking,
+%End
     };
 
     enum ImageConversionFlag
@@ -1331,6 +1334,9 @@ namespace Qt
 %If (Qt_5_8_0 -)
         AA_DontCheckOpenGLContextThreadAffinity,
 %End
+%If (Qt_5_9_0 -)
+        AA_DisableShaderDiskCache,
+%End
     };
 
     enum ItemSelectionMode
@@ -1651,6 +1657,15 @@ namespace Qt
         EnterKeySearch,
         EnterKeyNext,
         EnterKeyPrevious,
+    };
+
+%End
+%If (Qt_5_9_0 -)
+
+    enum ChecksumType
+    {
+        ChecksumIso3309,
+        ChecksumItuV41,
     };
 
 %End

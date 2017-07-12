@@ -52,6 +52,17 @@ public:
         Py_END_ALLOW_THREADS
 %End
 
+%If (Qt_5_9_0 -)
+    bool tryTake(QRunnable *runnable /GetWrapper/);
+%MethodCode
+        sipRes = sipCpp->tryTake(a0);
+        
+        // We have to handle the object ownership manually.
+        if (sipRes)
+            sipTransferBack(a0Wrapper);
+%End
+
+%End
     int expiryTimeout() const;
     void setExpiryTimeout(int expiryTimeout);
     int maxThreadCount() const;

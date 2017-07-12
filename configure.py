@@ -28,9 +28,9 @@ import sys
 
 
 # Initialise the constants.
-PYQT_VERSION_STR = "5.8.2"
+PYQT_VERSION_STR = "5.9"
 
-SIP_MIN_VERSION = '4.19.1'
+SIP_MIN_VERSION = '4.19.3'
 
 
 class ModuleMetadata:
@@ -488,24 +488,6 @@ class TargetConfiguration:
         self.pyqt_sip_dir = os.path.join(py_config.data_dir, 'sip', 'PyQt5')
         self.pyuic_interpreter = py_config.pyuic_interpreter
 
-        # The qmake spec we want to use.
-        if self.py_platform == 'win32':
-            if self.py_version >= 0x030500:
-                self.qmake_spec = 'win32-msvc2015'
-            elif self.py_version >= 0x030300:
-                self.qmake_spec = 'win32-msvc2010'
-            elif self.py_version >= 0x020600:
-                self.qmake_spec = 'win32-msvc2008'
-            elif self.py_version >= 0x020400:
-                self.qmake_spec = 'win32-msvc.net'
-            else:
-                self.qmake_spec = 'win32-msvc'
-        else:
-            # Use the Qt default.  (We may update it for OS/X later.)
-            self.qmake_spec = ''
-
-        self.default_qmake_spec = ''
-
         # Remaining values.
         self.dbus_inc_dirs = []
         self.dbus_lib_dirs = []
@@ -521,6 +503,8 @@ class TargetConfiguration:
         self.no_tools = False
         self.prot_is_public = (self.py_platform.startswith('linux') or self.py_platform == 'darwin')
         self.qmake = self._find_exe('qmake')
+        self.qmake_spec = ''
+        self.qmake_spec_default = ''
         self.qmake_variables = []
         self.qml_debug = False
         self.py_pylib_dir = ''
@@ -623,134 +607,19 @@ class TargetConfiguration:
 
         inform("Determining the details of your Qt installation...")
 
-        out_file = 'qtdetail.out'
-
-        # Note that the new configuration internals of Qt v5.8 are not
-        # backwards compatible with previous versions.  Before, module-specific
-        # details were defined in QtCore, but now they are defined in the
-        # modules themselves.  This leads to a Catch-22 situation where we have
-        # to assume certain modules exist before checking that they actually
-        # do.  For the moment we only assume QtGui is present (in addition to
-        # QtCore) because we need the OpenGL features to be properly reported.
-        # The QtPrintSupport related tests will all be invalid but we can get
-        # away with this because they will only be wrong for platforms that we
-        # cross-compile for and we use explicit configuration files for those
-        # anyway.  It does need fixing properly by splitting this test program
-        # into module-specific tests that are run instead of the current
-        # module check program.
-
-        source = '''#include <QGuiApplication>
-#include <QFile>
-#include <QLibraryInfo>
-#include <QTextStream>
-
-int main(int argc, char **argv)
-{
-    QCoreApplication app(argc, argv);
-    QFile outf("%s");
-
-    if (!outf.open(QIODevice::WriteOnly|QIODevice::Truncate|QIODevice::Text))
-        return 1;
-
-    QTextStream out(&outf);
-
-    // Defined in QtCore.
-#if defined(QT_SHARED) || defined(QT_DLL)
-    out << "shared\\n";
-#else
-    out << "static\\n";
-#endif
-
-    // Determine which features should be disabled.
-
-    // Defined in ???.
-#if defined(QT_NO_ACCESSIBILITY)
-    out << "PyQt_Accessibility\\n";
-#endif
-
-    // Defined in ???.
-#if defined(QT_NO_SESSIONMANAGER)
-    out << "PyQt_SessionManager\\n";
-#endif
-
-    // Defined in ???.
-#if defined(QT_NO_SSL)
-    out << "PyQt_SSL\\n";
-#endif
-
-    // Defined in QtPrintSupport.
-#if defined(QT_NO_PRINTDIALOG)
-    out << "PyQt_PrintDialog\\n";
-#endif
-
-    // Defined in QtPrintSupport.
-#if defined(QT_NO_PRINTER)
-    out << "PyQt_Printer\\n";
-#endif
-
-    // Defined in QtPrintSupport.
-#if defined(QT_NO_PRINTPREVIEWDIALOG)
-    out << "PyQt_PrintPreviewDialog\\n";
-#endif
-
-    // Defined in QtPrintSupport.
-#if defined(QT_NO_PRINTPREVIEWWIDGET)
-    out << "PyQt_PrintPreviewWidget\\n";
-#endif
-
-    // Defined in ???.
-#if defined(QT_NO_RAWFONT)
-    out << "PyQt_RawFont\\n";
-#endif
-
-    // Defined in QtGui.
-#if defined(QT_NO_OPENGL)
-    out << "PyQt_OpenGL\\n";
-    out << "PyQt_Desktop_OpenGL\\n";
-#elif defined(QT_OPENGL_ES) || defined(QT_OPENGL_ES_2) || defined(QT_OPENGL_ES_3)
-    out << "PyQt_Desktop_OpenGL\\n";
-#endif
-
-#if QT_VERSION < 0x050200
-// This is the test used in qglobal.h in Qt prior to v5.2.  In v5.2 and later
-// qreal is double unless QT_COORD_TYPE is defined.
-#if defined(QT_NO_FPU) || defined(Q_PROCESSOR_ARM) || defined(Q_OS_WINCE)
-    out << "PyQt_qreal_double\\n";
-#endif
-#else
-    if (sizeof (qreal) != sizeof (double))
-        out << "PyQt_qreal_double\\n";
-#endif
-
-    // Defined in QtCore.
-#if defined(QT_NO_PROCESS)
-    out << "PyQt_Process\\n";
-#endif
-
-    return 0;
-}
-''' % out_file
-
-        cmd = compile_qt_program(self, verbose, 'qtdetail', source, 'QtGui',
-                debug=debug)
-
-        if cmd is None:
+        # Compile and run the QtCore test program.
+        test = compile_test_program(self, verbose, 'QtCore', debug=debug)
+        if test is None:
             error("Failed to determine the detail of your Qt installation. Try again using the --verbose flag to see more detail about the problem.")
 
-        # Create the output file, first making sure it doesn't exist.
-        remove_file(out_file)
-        run_command(cmd, verbose)
-
-        if not os.access(out_file, os.F_OK):
-            error("%s failed to create %s. Make sure your Qt installation is correct." % (cmd, out_file))
-
-        # Read the details.
-        f = open(out_file)
-        lines = f.read().split('\n')
-        f.close()
+        lines = run_test_program('QtCore', test, verbose)
 
         self.qt_shared = (lines[0] == 'shared')
         self.pyqt_disabled_features = lines[1:-1]
+
+        if self.pyqt_disabled_features:
+            inform("Disabled QtCore features: %s" % ', '.join(
+                    self.pyqt_disabled_features))
 
         # Get the details of the Python interpreter library.
         py_major = self.py_version >> 16
@@ -865,13 +734,27 @@ int main(int argc, char **argv)
         self.qsci_api = os.path.isdir(self.qsci_api_dir)
 
         # Save the default qmake spec. and finalise the value we want to use.
-        self.default_qmake_spec = qt_config.QMAKE_SPEC
+        self.qmake_spec_default = qt_config.QMAKE_SPEC
 
-        if self.qmake_spec == '':
-            self.qmake_spec = self.default_qmake_spec
+        # On Windows for Qt versions prior to v5.9.0 we need to be explicit
+        # about the qmake spec.
+        if self.qt_version < 0x050900 and self.py_platform == 'win32':
+            if self.py_version >= 0x030500:
+                self.qmake_spec = 'win32-msvc2015'
+            elif self.py_version >= 0x030300:
+                self.qmake_spec = 'win32-msvc2010'
+            elif self.py_version >= 0x020600:
+                self.qmake_spec = 'win32-msvc2008'
+            elif self.py_version >= 0x020400:
+                self.qmake_spec = 'win32-msvc.net'
+            else:
+                self.qmake_spec = 'win32-msvc'
+        else:
+            # Otherwise use the default.
+            self.qmake_spec = self.qmake_spec_default
 
-        # The binary OS/X Qt installer defaults to XCode.  If this is what we
-        # might have then use macx-clang.
+        # The binary OS/X Qt installer used to default to XCode.  If so then
+        # use macx-clang.
         if self.qmake_spec == 'macx-xcode':
             # This will exist (and we can't check anyway).
             self.qmake_spec = 'macx-clang'
@@ -1164,7 +1047,7 @@ def create_optparser(target_config):
             help="DIR is the target system root directory")
     g.add_option("--spec", dest='qmakespec', default=None, action='store',
             metavar="SPEC",
-            help="pass -spec SPEC to qmake [default: %s]" % "don't pass -spec" if target_config.qmake_spec == '' else target_config.qmake_spec)
+            help="pass -spec SPEC to qmake")
     g.add_option("--disable", dest='disabled_modules', default=[],
             action='append', metavar="MODULE",
             help="disable the specified MODULE [default: checks for all "
@@ -1329,20 +1212,17 @@ def check_modules(target_config, disabled_modules, verbose):
 
     target_config.pyqt_modules.append('QtCore')
 
-    check_module(target_config, disabled_modules, verbose, 'QtGui', 'qfont.h',
-            'new QFont()')
+    check_module(target_config, disabled_modules, verbose, 'QtGui')
     check_module(target_config, disabled_modules, verbose, 'QtHelp',
             'qhelpengine.h', 'new QHelpEngine("foo")')
     check_module(target_config, disabled_modules, verbose, 'QtMultimedia',
             'QAudioDeviceInfo', 'new QAudioDeviceInfo()')
     check_module(target_config, disabled_modules, verbose,
             'QtMultimediaWidgets', 'QVideoWidget', 'new QVideoWidget()')
-    check_module(target_config, disabled_modules, verbose, 'QtNetwork',
-            'qhostaddress.h', 'new QHostAddress()')
+    check_module(target_config, disabled_modules, verbose, 'QtNetwork')
     check_module(target_config, disabled_modules, verbose, 'QtOpenGL', 'qgl.h',
             'new QGLWidget()')
-    check_module(target_config, disabled_modules, verbose, 'QtPrintSupport',
-            'qprinter.h', 'new QPrinter()')
+    check_module(target_config, disabled_modules, verbose, 'QtPrintSupport')
     check_module(target_config, disabled_modules, verbose, 'QtQml',
             'qjsengine.h', 'new QJSEngine()')
     check_module(target_config, disabled_modules, verbose, 'QtQuick',
@@ -1545,11 +1425,11 @@ def generate_makefiles(target_config, verbose, parts, tracing):
             sp_qpy_dir = source_path('qpy', mname)
 
             qpy_c_sources = [os.path.relpath(f, mname)
-                    for f in glob.glob(os.path.join(sp_qpy_dir, '*.c'))]
+                    for f in matching_files(os.path.join(sp_qpy_dir, '*.c'))]
             qpy_cpp_sources = [os.path.relpath(f, mname)
-                    for f in glob.glob(os.path.join(sp_qpy_dir, '*.cpp'))]
+                    for f in matching_files(os.path.join(sp_qpy_dir, '*.cpp'))]
             qpy_headers = [os.path.relpath(f, mname)
-                    for f in glob.glob(os.path.join(sp_qpy_dir, '*.h'))]
+                    for f in matching_files(os.path.join(sp_qpy_dir, '*.h'))]
 
             qpy_sources = qpy_c_sources + qpy_cpp_sources
         else:
@@ -1684,6 +1564,23 @@ tools.path = %s
 INSTALLS += tools
 ''' % (' '.join(wrapper_exes), qmake_quote(target_config.pyqt_bin_dir)))
 
+    # Install the .sip files.
+    if target_config.pyqt_sip_dir:
+        for mname, metadata in MODULE_METADATA.items():
+            if metadata.public and mname != 'Qt':
+                sip_files = matching_files(source_path('sip', mname, '*.sip'))
+
+                if len(sip_files) != 0:
+                    out_f.write('''
+sip%s.path = %s
+sip%s.files = %s
+INSTALLS += sip%s
+''' % (
+    mname, qmake_quote(target_config.pyqt_sip_dir + '/' + mname),
+    mname, ' '.join(sip_files),
+    mname
+))
+
     # Install the stub files.
     if target_config.py_version >= 0x030500 and target_config.pyqt_stubs_dir:
         out_f.write('''
@@ -1780,7 +1677,7 @@ def pro_sources(src_dir, other_headers=None, other_sources=None):
 
     pro_lines = []
 
-    headers = [os.path.basename(f) for f in glob.glob('%s/*.h' % src_dir)]
+    headers = [os.path.basename(f) for f in matching_files('%s/*.h' % src_dir)]
 
     if other_headers is not None:
         headers += other_headers
@@ -1788,9 +1685,9 @@ def pro_sources(src_dir, other_headers=None, other_sources=None):
     if len(headers) != 0:
         pro_lines.append('HEADERS = %s' % ' '.join(headers))
 
-    sources = [os.path.basename(f) for f in glob.glob('%s/*.c' % src_dir)]
+    sources = [os.path.basename(f) for f in matching_files('%s/*.c' % src_dir)]
 
-    for f in glob.glob('%s/*.cpp' % src_dir):
+    for f in matching_files('%s/*.cpp' % src_dir):
         f = os.path.basename(f)
 
         # Exclude any moc generated C++ files that might be around from a
@@ -1805,7 +1702,7 @@ def pro_sources(src_dir, other_headers=None, other_sources=None):
         pro_lines.append('SOURCES = %s' % ' '.join(sources))
 
     objective_sources = [
-            os.path.basename(f) for f in glob.glob('%s/*.mm' % src_dir)]
+            os.path.basename(f) for f in matching_files('%s/*.mm' % src_dir)]
 
     if len(objective_sources) != 0:
         pro_lines.append('OBJECTIVE_SOURCES = %s' % ' '.join(objective_sources))
@@ -1981,7 +1878,7 @@ def run_qmake(target_config, verbose, pro_name, makefile_name='', fatal=True, re
 
     args = [quote(target_config.qmake)]
 
-    if target_config.qmake_spec != target_config.default_qmake_spec:
+    if target_config.qmake_spec != target_config.qmake_spec_default:
         args.append('-spec')
         args.append(target_config.qmake_spec)
 
@@ -2223,14 +2120,15 @@ def check_dbus(target_config, verbose):
         target_config.pydbus_module_dir = ''
 
 
-def check_module(target_config, disabled_modules, verbose, mname, incfile, test):
+def check_module(target_config, disabled_modules, verbose, mname, incfile=None, test=None):
     """ See if a module can be built and, if so, add it to the target
     configurations list of modules.  target_config is the target configuration.
     disabled_modules is the list of modules that have been explicitly disabled.
     verbose is set if the output is to be displayed.  mname is the name of the
     module.  incfile is the name of the include file (or sequence of multiple
     include files) needed for the test.  test is a C++ statement being used for
-    the test.
+    the test.  If either incfile or test are None then there is a test program
+    that needs to be run and its output captured.
     """
 
     if mname in disabled_modules:
@@ -2240,14 +2138,20 @@ def check_module(target_config, disabled_modules, verbose, mname, incfile, test)
     if not os.access(source_path('sip', mname, mname + 'mod.sip'), os.F_OK):
         return
 
+    if verbose:
+        sys.stdout.write('\n')
+
     inform("Checking to see if the %s module should be built..." % mname)
 
-    if isinstance(incfile, str):
-        incfile = [incfile]
+    if incfile is None or test is None:
+        source = None
+    else:
+        if isinstance(incfile, str):
+            incfile = [incfile]
 
-    incfile = ['#include<%s>' % i for i in incfile]
+        incfile = ['#include<%s>' % i for i in incfile]
 
-    source = '''%s
+        source = '''%s
 
 int main(int, char **)
 {
@@ -2255,27 +2159,50 @@ int main(int, char **)
 }
 ''' % ('\n'.join(incfile), test)
 
-    if compile_qt_program(target_config, verbose, 'cfgtest_' + mname, source, mname) is not None:
-        target_config.pyqt_modules.append(mname)
+    test = compile_test_program(target_config, verbose, mname, source)
+    if test is None:
+        return
+
+    # If there was an explicit test program then run it to get the disabled
+    # features.
+    if source is None:
+        for disabled in run_test_program(mname, test, verbose):
+            if disabled:
+                inform("Disabled %s features: %s" % (mname,
+                        ', '.join(disabled)))
+
+            target_config.pyqt_disabled_features.extend(disabled)
+
+    # Include the module in the build.
+    target_config.pyqt_modules.append(mname)
 
 
-def compile_qt_program(target_config, verbose, name, source, mname, debug=None):
+def compile_test_program(target_config, verbose, mname, source=None, debug=None):
     """ Compile the source of a Qt program and return the name of the
     executable or None if it couldn't be created.  target_config is the target
-    configuration.  verbose is set if the output is to be displayed.  name is
-    the root name of the program from which all program-specific file names
-    will be derived.  source is the C++ source of the program.  mname is the
-    name of the Qt module that the program uses.  debug is set if debug, rather
-    than release, mode is to be used.  If it is None then the mode is taken
-    from the target configuration.
+    configuration.  verbose is set if the output is to be displayed.  mname is
+    the name of the PyQt module being tested.  source is the C++ source of the
+    program.  If it is None then the source is expected to be found in the
+    config-tests directory.  debug is set if debug, rather than release, mode
+    is to be used.  If it is None then the mode is taken from the target
+    configuration.
     """
 
     metadata = MODULE_METADATA[mname]
 
     # The derived file names.
+    name = 'cfgtest_' + mname
     name_pro = name + '.pro'
     name_makefile = name + '.mk'
     name_source = name + '.cpp'
+
+    # Create the source file if necessary.
+    if source is None:
+        name_source = 'config-tests/' + name_source
+    else:
+        f = open_for_writing(name_source)
+        f.write(source)
+        f.close()
 
     # Create the .pro file.
     pro_lines = []
@@ -2287,15 +2214,33 @@ def compile_qt_program(target_config, verbose, name, source, mname, debug=None):
     f.write('\n'.join(pro_lines))
     f.close()
 
-    # Create the source file.
-    f = open_for_writing(name_source)
-    f.write(source)
-    f.close()
-
     if not run_qmake(target_config, verbose, name_pro, name_makefile, fatal=False):
         return None
 
     return run_make(target_config, verbose, name, name_makefile)
+
+
+def run_test_program(mname, test, verbose):
+    """ Run a test program and return the output as a list of lines.  mname is
+    the name of the PyQt module being tested.  test is the name of the test
+    executable.  verbose is set if the output is to be displayed.
+    """
+
+    out_file = 'cfgtest_' + mname + '.out'
+
+    # Create the output file, first making sure it doesn't exist.
+    remove_file(out_file)
+    run_command(test + ' ' + out_file, verbose)
+
+    if not os.access(out_file, os.F_OK):
+        error("%s failed to create %s. Make sure your Qt installation is correct." % (test, out_file))
+
+    # Read the details.
+    f = open(out_file)
+    lines = f.read().split('\n')
+    f.close()
+
+    return lines
 
 
 def pro_add_qt_dependencies(target_config, metadata, pro_lines, debug=None):
@@ -2524,6 +2469,9 @@ def generate_module_makefile(target_config, verbose, mname, include_paths=None, 
     support code header files.
     """
 
+    if verbose:
+        sys.stdout.write('\n')
+
     inform("Generating the .pro file for the %s module..." % mname)
 
     if src_dir == '':
@@ -2577,14 +2525,6 @@ win32 {
 
     pro_lines.append('target.path = %s' % install_path)
     pro_lines.append('INSTALLS += target')
-
-    if target_config.pyqt_sip_dir:
-        sip_files = [os.path.relpath(f, mname)
-                for f in glob.glob(source_path('sip', mname, '*.sip'))]
-        if len(sip_files) != 0:
-            pro_lines.append('sip.path = %s' % qmake_quote(target_config.pyqt_sip_dir + '/' + mname))
-            pro_lines.append('sip.files = %s' % ' '.join(sip_files))
-            pro_lines.append('INSTALLS += sip')
 
     # This optimisation could apply to other platforms.
     if 'linux' in target_config.qmake_spec and not target_config.static:
@@ -2893,6 +2833,12 @@ def open_for_writing(fname):
         error(
                 "There was an error creating %s.  Make sure you have write "
                 "permission on the parent directory." % fname)
+
+
+def matching_files(pattern):
+    """ Return a reproducable list of files that match a pattern. """
+
+    return sorted(glob.glob(pattern))
 
 
 def main(argv):

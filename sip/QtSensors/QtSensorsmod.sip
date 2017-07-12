@@ -53,7 +53,9 @@ WARRANTY OF DESIGN, MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE.
 %Include qdistancesensor.sip
 %Include qgyroscope.sip
 %Include qholstersensor.sip
+%Include qhumiditysensor.sip
 %Include qirproximitysensor.sip
+%Include qlidsensor.sip
 %Include qlightsensor.sip
 %Include qmagnetometer.sip
 %Include qorientationsensor.sip

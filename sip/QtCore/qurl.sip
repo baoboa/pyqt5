@@ -276,13 +276,13 @@ public:
     static QList<QUrl> fromStringList(const QStringList &uris, QUrl::ParsingMode mode = QUrl::TolerantMode);
 %End
 %If (Qt_5_2_0 -)
-    QUrl adjusted(QUrlTwoFlags<QUrl::UrlFormattingOption, QUrl::ComponentFormattingOption> options) const;
+    QUrl adjusted(QUrl::FormattingOptions options) const;
 %End
 %If (Qt_5_2_0 -)
     QString fileName(QFlags<QUrl::ComponentFormattingOption> options = QUrl::FullyDecoded) const;
 %End
 %If (Qt_5_2_0 -)
-    bool matches(const QUrl &url, QUrlTwoFlags<QUrl::UrlFormattingOption, QUrl::ComponentFormattingOption> options) const;
+    bool matches(const QUrl &url, QUrl::FormattingOptions options) const;
 %End
 %If (Qt_5_4_0 -)
 
@@ -297,7 +297,7 @@ public:
     typedef QFlags<QUrl::UserInputResolutionOption> UserInputResolutionOptions;
 %End
 %If (Qt_5_4_0 -)
-    static QUrl fromUserInput(const QString &userInput, const QString &workingDirectory, QFlags<QUrl::UserInputResolutionOption> options = QUrl::DefaultResolution);
+    static QUrl fromUserInput(const QString &userInput, const QString &workingDirectory, QUrl::UserInputResolutionOptions options = QUrl::UserInputResolutionOption::DefaultResolution);
 %End
 };
 

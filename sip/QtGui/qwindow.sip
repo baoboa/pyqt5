@@ -225,6 +225,14 @@ signals:
     void opacityChanged(qreal opacity);
 %End
 
+public:
+%If (Qt_5_9_0 -)
+    QWindow *parent(QWindow::AncestorMode mode) const;
+%End
+%If (Qt_5_9_0 -)
+    void setFlag(Qt::WindowType, bool on = true);
+%End
+
 private:
     QWindow(const QWindow &);
 };

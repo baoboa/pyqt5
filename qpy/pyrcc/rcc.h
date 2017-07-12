@@ -106,7 +106,7 @@ private:
     bool writeHeader(FILE *out);
     bool writeDataBlobs(FILE *out);
     bool writeDataNames(FILE *out);
-    bool writeDataStructure(FILE *out);
+    bool writeDataStructure(FILE *out, int version);
     bool writeInitializer(FILE *out);
 
     QStringList mFileNames;
@@ -158,7 +158,7 @@ struct RCCFileInfo
     qint64 nameOffset, dataOffset, childOffset;
     qint64 writeDataBlob(FILE *out, qint64 offset);
     qint64 writeDataName(FILE *out, qint64 offset);
-    bool   writeDataInfo(FILE *out);
+    void writeDataInfo(FILE *out, int version);
 };
 
 inline RCCFileInfo::RCCFileInfo(QString name, QFileInfo fileInfo, QLocale locale, uint flags,

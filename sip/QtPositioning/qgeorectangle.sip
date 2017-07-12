@@ -64,6 +64,9 @@ public:
 %If (Qt_5_5_0 -)
     QString toString() const;
 %End
+%If (Qt_5_9_0 -)
+    void extendRectangle(const QGeoCoordinate &coordinate);
+%End
 };
 
 %End

@@ -39,6 +39,12 @@ class QGeoShape
         sipType = sipType_QGeoRectangle;
         break;
     
+    #if QT_VERSION >= 0x050900
+    case QGeoShape::PathType:
+        sipType = sipType_QGeoPath;
+        break;
+    #endif
+    
     default:
         sipType = 0;
     }
@@ -54,6 +60,9 @@ public:
         UnknownType,
         RectangleType,
         CircleType,
+%If (Qt_5_9_0 -)
+        PathType,
+%End
     };
 
     QGeoShape::ShapeType type() const;
@@ -70,6 +79,9 @@ public:
 %End
 %If (Qt_5_5_0 -)
     QString toString() const;
+%End
+%If (Qt_5_9_0 -)
+    QGeoRectangle boundingGeoRectangle() const;
 %End
 };
 

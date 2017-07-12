@@ -49,6 +49,7 @@ WARRANTY OF DESIGN, MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE.
 %Include qgeocircle.sip
 %Include qgeocoordinate.sip
 %Include qgeolocation.sip
+%Include qgeopath.sip
 %Include qgeopositioninfo.sip
 %Include qgeopositioninfosource.sip
 %Include qgeorectangle.sip

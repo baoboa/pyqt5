@@ -98,7 +98,7 @@ public:
     void getRgb(int *r, int *g, int *b, int *alpha = 0) const;
     void setRgb(int r, int g, int b, int alpha = 255);
     void getRgbF(qreal *r, qreal *g, qreal *b, qreal *alpha = 0) const;
-    void setRgbF(qreal r, qreal g, qreal b, qreal alpha = 1.0e+0);
+    void setRgbF(qreal r, qreal g, qreal b, qreal alpha = 1.);
     QRgb rgba() const;
     void setRgba(QRgb rgba);
     QRgb rgb() const;
@@ -112,7 +112,7 @@ public:
     void getHsv(int *h, int *s, int *v, int *alpha = 0) const;
     void setHsv(int h, int s, int v, int alpha = 255);
     void getHsvF(qreal *h, qreal *s, qreal *v, qreal *alpha = 0) const;
-    void setHsvF(qreal h, qreal s, qreal v, qreal alpha = 1.0e+0);
+    void setHsvF(qreal h, qreal s, qreal v, qreal alpha = 1.);
     int cyan() const;
     int magenta() const;
     int yellow() const;
@@ -124,7 +124,7 @@ public:
     void getCmyk(int *c, int *m, int *y, int *k, int *alpha = 0);
     void setCmyk(int c, int m, int y, int k, int alpha = 255);
     void getCmykF(qreal *c, qreal *m, qreal *y, qreal *k, qreal *alpha = 0);
-    void setCmykF(qreal c, qreal m, qreal y, qreal k, qreal alpha = 1.0e+0);
+    void setCmykF(qreal c, qreal m, qreal y, qreal k, qreal alpha = 1.);
     QColor toRgb() const;
     QColor toHsv() const;
     QColor toCmyk() const;
@@ -132,11 +132,11 @@ public:
     static QColor fromRgb(QRgb rgb);
     static QColor fromRgba(QRgb rgba);
     static QColor fromRgb(int r, int g, int b, int alpha = 255);
-    static QColor fromRgbF(qreal r, qreal g, qreal b, qreal alpha = 1.0e+0);
+    static QColor fromRgbF(qreal r, qreal g, qreal b, qreal alpha = 1.);
     static QColor fromHsv(int h, int s, int v, int alpha = 255);
-    static QColor fromHsvF(qreal h, qreal s, qreal v, qreal alpha = 1.0e+0);
+    static QColor fromHsvF(qreal h, qreal s, qreal v, qreal alpha = 1.);
     static QColor fromCmyk(int c, int m, int y, int k, int alpha = 255);
-    static QColor fromCmykF(qreal c, qreal m, qreal y, qreal k, qreal alpha = 1.0e+0);
+    static QColor fromCmykF(qreal c, qreal m, qreal y, qreal k, qreal alpha = 1.);
     bool operator==(const QColor &c) const;
     bool operator!=(const QColor &c) const;
     QColor();
@@ -159,10 +159,10 @@ public:
     void getHsl(int *h, int *s, int *l, int *alpha = 0) const;
     void setHsl(int h, int s, int l, int alpha = 255);
     void getHslF(qreal *h, qreal *s, qreal *l, qreal *alpha = 0) const;
-    void setHslF(qreal h, qreal s, qreal l, qreal alpha = 1.0e+0);
+    void setHslF(qreal h, qreal s, qreal l, qreal alpha = 1.);
     QColor toHsl() const;
     static QColor fromHsl(int h, int s, int l, int alpha = 255);
-    static QColor fromHslF(qreal h, qreal s, qreal l, qreal alpha = 1.0e+0);
+    static QColor fromHslF(qreal h, qreal s, qreal l, qreal alpha = 1.);
     static bool isValidColor(const QString &name);
 %If (Qt_5_2_0 -)
 

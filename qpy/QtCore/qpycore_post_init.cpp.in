@@ -23,6 +23,7 @@
 #include <QMutex>
 
 #include "qpycore_api.h"
+#include "qpycore_event_handlers.h"
 #include "qpycore_objectified_strings.h"
 #include "qpycore_pyqtboundsignal.h"
 #include "qpycore_pyqtmethodproxy.h"
@@ -48,6 +49,9 @@ void qpycore_post_init(PyObject *module_dict)
 {
     // Disable the automatic destruction of C++ objects.
     sipSetDestroyOnExit(0);
+
+    // Register the event handlers.
+    qpycore_register_event_handlers();
 
     // Set the new user type handler for QObject.
     sipSetNewUserTypeHandler(sipType_QObject, qpycore_new_user_type_handler);

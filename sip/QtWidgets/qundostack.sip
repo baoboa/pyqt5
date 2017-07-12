@@ -39,6 +39,12 @@ public:
     int childCount() const;
     const QUndoCommand *child(int index) const;
     QString actionText() const;
+%If (Qt_5_9_0 -)
+    bool isObsolete() const;
+%End
+%If (Qt_5_9_0 -)
+    void setObsolete(bool obsolete);
+%End
 
 private:
     QUndoCommand(const QUndoCommand &);

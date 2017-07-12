@@ -1,3 +1,12 @@
+v5.9 3rd July 2017
+  - Added support for Qt v5.9.0 and v5.9.1.
+  - Improved detection of the destruction of QObject-based instances by C++.
+  - QFlags instances are now hashable.
+  - pyrcc5 now supports v2 of the resource file format.
+  - Added the interview.py, frozencolumn.py and storageview.py examples from
+    Hans-Peter Jansen.
+  - SIP v4.19.3 is required.
+
 v5.8.2 30th March 2017
   - This is a bug fix release.
 

@@ -210,6 +210,9 @@ public:
 %If (Qt_5_5_0 -)
         PlatformSurface,
 %End
+%If (Qt_5_9_0 -)
+        TabletTrackingChange,
+%End
         User,
         MaxUser,
     };

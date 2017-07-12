@@ -902,6 +902,12 @@ public:
 %If (Qt_5_7_0 -)
         RejectLeadingZeroInExponent,
 %End
+%If (Qt_5_9_0 -)
+        IncludeTrailingZeroesAfterDot,
+%End
+%If (Qt_5_9_0 -)
+        RejectTrailingZeroesAfterDot,
+%End
     };
 
     typedef QFlags<QLocale::NumberOption> NumberOptions;

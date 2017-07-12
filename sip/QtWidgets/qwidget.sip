@@ -433,6 +433,17 @@ signals:
     void windowIconTextChanged(const QString &iconText);
 %End
 
+public:
+%If (Qt_5_9_0 -)
+    void setTabletTracking(bool enable);
+%End
+%If (Qt_5_9_0 -)
+    bool hasTabletTracking() const;
+%End
+%If (Qt_5_9_0 -)
+    void setWindowFlag(Qt::WindowType, bool on = true);
+%End
+
 private:
     QWidget(const QWidget &);
 };

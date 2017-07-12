@@ -31,7 +31,12 @@ class QQuickItemGrabResult : QObject
 public:
     QImage image() const;
     QUrl url() const;
+%If (Qt_5_9_0 -)
+    bool saveToFile(const QString &fileName) const;
+%End
+%If (- Qt_5_9_0)
     bool saveToFile(const QString &fileName);
+%End
 
 protected:
     virtual bool event(QEvent *);

@@ -219,6 +219,9 @@ public:
 %If (Qt_5_6_0 -)
     void setPixelColor(const QPoint &pt, const QColor &c);
 %End
+%If (Qt_5_9_0 -)
+    bool reinterpretAsFormat(QImage::Format f);
+%End
 };
 
 QDataStream &operator<<(QDataStream &, const QImage & /Constrained/) /ReleaseGIL/;

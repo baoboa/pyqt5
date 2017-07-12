@@ -67,4 +67,40 @@ signals:
     void indexingFinished();
     void searchingStarted();
     void searchingFinished(int hits);
+
+public:
+%If (Qt_5_9_0 -)
+    int searchResultCount() const;
+%End
+%If (Qt_5_9_0 -)
+    QVector<QHelpSearchResult> searchResults(int start, int end) const;
+%End
+%If (Qt_5_9_0 -)
+    QString searchInput() const;
+%End
+
+public slots:
+%If (Qt_5_9_0 -)
+    void search(const QString &searchInput);
+%End
 };
+
+%If (Qt_5_9_0 -)
+
+class QHelpSearchResult
+{
+%TypeHeaderCode
+#include <qhelpsearchengine.h>
+%End
+
+public:
+    QHelpSearchResult();
+    QHelpSearchResult(const QHelpSearchResult &other);
+    QHelpSearchResult(const QUrl &url, const QString &title, const QString &snippet);
+    ~QHelpSearchResult();
+    QString title() const;
+    QUrl url() const;
+    QString snippet() const;
+};
+
+%End

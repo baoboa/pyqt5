@@ -29,6 +29,9 @@ class QXmlName
 public:
     QXmlName();
     QXmlName(QXmlNamePool &namePool, const QString &localName, const QString &namespaceUri = QString(), const QString &prefix = QString());
+%If (Qt_5_9_0 -)
+    QXmlName(const QXmlName &other);
+%End
     QString namespaceUri(const QXmlNamePool &query) const;
     QString prefix(const QXmlNamePool &query) const;
     QString localName(const QXmlNamePool &query) const;

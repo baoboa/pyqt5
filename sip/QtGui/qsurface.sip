@@ -42,6 +42,9 @@ public:
 %If (Qt_5_3_0 -)
         RasterGLSurface,
 %End
+%If (Qt_5_9_0 -)
+        OpenVGSurface,
+%End
     };
 
     virtual ~QSurface();

@@ -796,18 +796,19 @@ static bool get_receiver(PyObject *slot,
     {
         rx_self = slot_m.pm_self;
 
+        // The method may be any callable so don't assume it has a __name__.
         PyObject *f_name_obj = PyObject_GetAttr(slot_m.pm_function,
                 qpycore_dunder_name);
-        Q_ASSERT(f_name_obj);
+        if (!f_name_obj)
+            return false;
 
-        // We only want a borrowed reference.
+        PyObject *f_name_owner_obj = f_name_obj;
+        const char *f_name = sipString_AsASCIIString(&f_name_owner_obj);
         Py_DECREF(f_name_obj);
-
-        const char *f_name = sipString_AsASCIIString(&f_name_obj);
         Q_ASSERT(f_name);
 
         rx_name = f_name;
-        Py_DECREF(f_name_obj);
+        Py_DECREF(f_name_owner_obj);
 
         // See if this has been decorated.
         PyObject *decorations = PyObject_GetAttr(slot_m.pm_function,

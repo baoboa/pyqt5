@@ -55,6 +55,9 @@ public:
     void getRange(int index, int *, int *) const;
     QSplitterHandle *handle(int index) const /Transfer/;
     void setStretchFactor(int index, int stretch);
+%If (Qt_5_9_0 -)
+    QWidget *replaceWidget(int index, QWidget *widget /Transfer/) /TransferBack/;
+%End
 
 signals:
     void splitterMoved(int pos, int index);

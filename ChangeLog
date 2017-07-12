@@ -1,4 +1,273 @@
+2017-07-03  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* NEWS:
+	Released as v5.9.
+	[307fa2afedd4] [5.9]
+
+2017-07-02  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* sphinx/api_details/qjsonarray.rst,
+	sphinx/api_details/qjsonobject.rst,
+	sphinx/api_details/qjsonvalue.rst, sphinx/api_metadata.cfg,
+	sphinx/class_reference.rst, sphinx/conf.py, sphinx/dbus.rst,
+	sphinx/deploy_commercial.rst, sphinx/deprecations.rst,
+	sphinx/designer.rst, sphinx/extension_api.rst, sphinx/gotchas.rst,
+	sphinx/i18n.rst, sphinx/incompatibilities.rst, sphinx/index.rst,
+	sphinx/installation.rst, sphinx/introduction.rst,
+	sphinx/metaobjects.rst, sphinx/multiinheritance.rst,
+	sphinx/opengl.rst, sphinx/pickle.rst, sphinx/platforms.rst,
+	sphinx/pyqt4_differences.rst, sphinx/pyqt_qsettings.rst,
+	sphinx/pyqt_qvariant.rst, sphinx/python_shell.rst, sphinx/qml.rst,
+	sphinx/qt_interfaces.rst, sphinx/qt_properties.rst,
+	sphinx/resources.rst, sphinx/signals_slots.rst,
+	sphinx/static/classic.css, sphinx/static/logo.png,
+	sphinx/static/logo_tn.ico:
+	Remove the documentation.
+	[c10072f0b507]
+
+2017-07-01  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* PyQt5.msp:
+	Updated for Qt v5.9.1.
+	[a19c481d1d26]
+
+2017-06-15  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* qpy/QtCore/qpycore_pyqtboundsignal.cpp:
+	Removed some assumptions about a slot receiver when it is a method.
+	[e32538351d89]
+
+2017-06-11  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* lib/configure.py:
+	The .sip files of all public modules are now installed even if the
+	module has not been built.
+	[d5785dc95062]
+
+	* .hgignore:
+	Ignore .pyc files.
+	[e9483645c942]
+
+2017-06-10  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* lib/configure.py:
+	Deal with the incompatibilities introduced in Qt v5.9.0 in the
+	Windows specs.
+	[ccaae0890fa8]
+
+	* config-tests/cfgtest_QtCore.cpp, config-tests/cfgtest_QtGui.cpp,
+	config-tests/cfgtest_QtNetwork.cpp, config-
+	tests/cfgtest_QtPrintSupport.cpp, lib/configure.py:
+	Refactored the configuration tests so that they properly deal with
+	the build system incompatibilities introduced in Qt v5.8.0.
+	[5bff9174bdf5]
+
+2017-06-06  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* qpy/QtCore/qpycore_event_handlers.cpp,
+	qpy/QtCore/qpycore_event_handlers.h:
+	Fixed the QObject monitoring to deal with the argument of the
+	destroyed() signal.
+	[e600f5863011]
+
+2017-06-05  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* sphinx/conf.py:
+	Updated the documentation copyright notice.
+	[307e1590d17a]
+
+2017-06-04  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* PyQt5.msp:
+	Completed the updates for Qt v5.9.0.
+	[3f8fdcacc41e]
+
+	* PyQt5.msp, sphinx/api_metadata.cfg:
+	Updated QtWebEngineCore for Qt v5.9.0.
+	[2a44428921a5]
+
+	* PyQt5.msp, lib/SubclassCode/QtWebEngine.versions,
+	sphinx/api_metadata.cfg:
+	Updated QtWebEngine for Qt v5.9.0.
+	[200385c3790c]
+
+	* PyQt5.msp, lib/SubclassCode/QtSensors.versions,
+	sphinx/api_metadata.cfg:
+	Updated QtSensors for Qt v5.9.0.
+	[4f978799eaed]
+
+	* PyQt5.msp:
+	Update QtQml, QtQuick and QtWidgets for Qt v5.9.0.
+	[e4dce2d967dc]
+
+	* PyQt5.msp, sphinx/api_metadata.cfg:
+	Updated QtNfc and QtPositioning for Qt v5.9.0.
+	[e96fbd85d316]
+
+	* PyQt5.msp, sphinx/api_metadata.cfg:
+	Updated QtLocation and QtNetwork for Qt v5.9.0.
+	[66167aa051e8]
+
+2017-06-03  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* PyQt5.msp, sphinx/api_metadata.cfg:
+	Updated QtHelp for Qt v5.9.0.
+	[5ab49587596b]
+
+	* PyQt5.msp:
+	Updated QtGui for Qt v5.9.0.
+	[8c2adf7c6678]
+
+2017-06-01  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* PyQt5.msp, sphinx/api_metadata.cfg:
+	Completed QtCore for Qt v5.9.0.
+	[c1647883b06a]
+
+2017-05-31  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* PyQt5.msp:
+	Started work on Qt v5.9.0.
+	[45fb92dcc67b]
+
+2017-05-30  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* lib/LICENSE.commercial, lib/LICENSE.commercial.short,
+	lib/LICENSE.gpl, lib/LICENSE.gpl.short, lib/LICENSE.internal,
+	lib/RaspberryPi/configuration.txt:
+	Merged the 5.8-maint branch with the trunk.
+	[15759489c83d]
+
+	* .hgignore:
+	Updated .hgignore for the changed build directory.
+	[5507908d36d4] <5.8-maint>
+
+	* lib/README, lib/RaspberryPi/configuration.txt:
+	Minor tidy ups.
+	[ce0390f84167] <5.8-maint>
+
+2017-05-27  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* qpy/QtCore/qpycore_event_handlers.cpp,
+	qpy/QtCore/qpycore_event_handlers.h,
+	qpy/QtCore/qpycore_post_init.cpp.in, rb-product:
+	Added the event handlers to implement detection of the destruction
+	of QObject instances created by C++.
+	[3312bc9f9693] <5.8-maint>
+
+2017-05-24  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* lib/configure.py:
+	Improved the reproduceability of builds.
+	[8c18ae66b8a3] <5.8-maint>
+
+2017-05-23  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* lib/configure.py:
+	Make the output of configure.py easier to read with --verbose.
+	[ebc3188b638c] <5.8-maint>
+
+	* PyQt5.msp:
+	Fixed QGuiApplication for when there is no session management.
+	[f01c1372343b] <5.8-maint>
+
+2017-04-27  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* test/tests/classes/test_QObject.py:
+	Fixed the new QObject.inherits() unit test.
+	[05140ab844bf] <5.8-maint>
+
+	* qpy/QtCore/qpycore_qobject_helpers.cpp,
+	test/tests/classes/test_QObject.py:
+	Fixed a regression in the qt_metacast() helper.
+	[412e7be14d1f] <5.8-maint>
+
+	* qpy/QtCore/qpycore_chimera.cpp:
+	Reverted the part of changeset 1281 related to dict and QVariantMap.
+	[71b9958bad49] <5.8-maint>
+
+2017-04-18  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* sphinx/designer.rst:
+	Corrected the pyuic5 documentation.
+	[bba9257ee0f6] <5.8-maint>
+
+2017-04-17  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* examples/itemviews/interview/images/interview.png,
+	examples/itemviews/interview/images/services.png,
+	examples/itemviews/interview/interview.py,
+	examples/qtdemo/examples.xml:
+	Added the interview.py example from Hans-Peter Jansen.
+	[c9fd1cdbc210] <5.8-maint>
+
+	* examples/itemviews/frozencolumn/frozencolumn.py,
+	examples/itemviews/frozencolumn/grades.txt,
+	examples/qtdemo/examples.xml:
+	Added the frozencolumn.py example from Hans-Peter Jansen.
+	[7fb636b504e8] <5.8-maint>
+
+	* examples/itemviews/storageview.py, examples/qtdemo/examples.xml:
+	Added the storageview.py example from Hans-Peter Jansen.
+	[f98741ba3c82] <5.8-maint>
+
+	* examples/itemviews/editabletreemodel/editabletreemodel.py:
+	Updates to the editabletreemodel.py example from Hans-Peter Jansen.
+	[76d240529c4c] <5.8-maint>
+
+	* examples/itemviews/dirview.py:
+	Updated the dirview.py example from Hans-Peter Jansen.
+	[c588f6571970] <5.8-maint>
+
+	* examples/itemviews/combowidgetmapper.py:
+	Fixes for the combowidgetmapper.py example from Hans-Peter Jansen.
+	[81cbf58f3bcf] <5.8-maint>
+
+	* PyQt5.msp:
+	Implemented __hash__() for QFlags.
+	[7766a40af0d6] <5.8-maint>
+
+2017-04-05  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* examples/itemviews/pixelator/pixelator.py:
+	Fixes for the pixelator.py example.
+	[2c3574fb346f] <5.8-maint>
+
+	* PyQt5.msp:
+	Implemented the non-argument overloads of the toSubpathPolygons(),
+	toFillPolygons() and toFillPolygon() methods of QPainterPath.
+	[af1fdb5e696d] <5.8-maint>
+
+	* examples/itemviews/chart/chart.py:
+	Fixed issues with the chart.py example.
+	[86ca9f21d8ee] <5.8-maint>
+
+	* examples/itemviews/spinboxdelegate.py:
+	Updated the spinboxdelegate.py example to match the current C++
+	version.
+	[6d27e01c70b5] <5.8-maint>
+
+2017-04-03  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* examples/quick/animation/animation_rc.py,
+	examples/quick/canvas/canvas_rc.py,
+	examples/quick/models/abstractitemmodel/abstractitemmodel_rc.py,
+	examples/quick/models/objectlistmodel/objectlistmodel_rc.py,
+	examples/quick/models/stringlistmodel/stringlistmodel_rc.py,
+	examples/quick/scenegraph/customgeometry/customgeometry_rc.py,
+	examples/quick/shared/shared_rc.py:
+	Updated all the pyrcc output to use v2 where QML files are stored.
+	[0e09475f02d3] <5.8-maint>
+
+	* qpy/pyrcc/rcc.cpp, qpy/pyrcc/rcc.h:
+	Added support for v2 of the resource file format to pyrcc.
+	[bc8a379011ca] <5.8-maint>
+
 2017-03-30  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* .hgtags:
+	Added tag 5.8.2 for changeset 96c86cda6415
+	[833d4681ee3d] <5.8-maint>
 
 	* NEWS:
 	Released as v5.8.2.

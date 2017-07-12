@@ -260,6 +260,9 @@ public:
 %If (Qt_5_8_0 -)
     QSGImageNode *createImageNode() const /Factory/;
 %End
+%If (Qt_5_9_0 -)
+    static QString sceneGraphBackend();
+%End
 
 private:
     QQuickWindow(const QQuickWindow &);

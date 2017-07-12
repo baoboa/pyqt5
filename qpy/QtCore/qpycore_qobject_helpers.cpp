@@ -260,7 +260,7 @@ bool qpycore_qobject_qt_metacast(sipSimpleWrapper *pySelf,
             // The generated type definitions represent the C++ (rather than
             // Python) hierachy.  If the C++ hierachy doesn't match then the
             // super-type must be provided by a mixin.
-            if (PyType_IsSubtype(pytype, base_pytype))
+            if (PyType_IsSubtype(base_pytype, pytype))
                 *sipCpp = sipGetAddress(pySelf);
             else
                 *sipCpp = sipGetMixinAddress(pySelf, td);

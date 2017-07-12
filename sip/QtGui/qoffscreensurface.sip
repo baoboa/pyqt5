@@ -45,6 +45,14 @@ public:
 signals:
     void screenChanged(QScreen *screen);
 
+public:
+%If (Qt_5_9_0 -)
+    void *nativeHandle() const;
+%End
+%If (Qt_5_9_0 -)
+    void setNativeHandle(void *handle);
+%End
+
 private:
     QOffscreenSurface(const QOffscreenSurface &);
 };

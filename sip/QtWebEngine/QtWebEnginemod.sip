@@ -46,4 +46,5 @@ WARRANTY OF DESIGN, MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE.
 %DefaultSupertype sip.simplewrapper
 
 %Include qquickwebengineprofile.sip
+%Include qquickwebenginescript.sip
 %Include qtwebengineglobal.sip

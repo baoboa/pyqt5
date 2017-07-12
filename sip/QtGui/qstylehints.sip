@@ -93,6 +93,16 @@ signals:
     void useHoverEffectsChanged(bool useHoverEffects);
 %End
 
+public:
+%If (Qt_5_9_0 -)
+    int wheelScrollLines() const;
+%End
+
+signals:
+%If (Qt_5_9_0 -)
+    void wheelScrollLinesChanged(int scrollLines);
+%End
+
 private:
     QStyleHints();
 };

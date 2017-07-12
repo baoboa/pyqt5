@@ -344,6 +344,9 @@ public:
 %If (Qt_5_6_0 -)
     QStringList supportedSchemes() const;
 %End
+%If (Qt_5_9_0 -)
+    QString selectedMimeTypeFilter() const;
+%End
 
 private:
     QFileDialog(const QFileDialog &);

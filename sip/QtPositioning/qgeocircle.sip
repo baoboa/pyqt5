@@ -30,7 +30,7 @@ class QGeoCircle : QGeoShape
 
 public:
     QGeoCircle();
-    QGeoCircle(const QGeoCoordinate &center, qreal radius = -1.0e+0);
+    QGeoCircle(const QGeoCoordinate &center, qreal radius = -1.);
     QGeoCircle(const QGeoCircle &other);
     QGeoCircle(const QGeoShape &other);
     ~QGeoCircle();
@@ -44,6 +44,9 @@ public:
     QGeoCircle translated(double degreesLatitude, double degreesLongitude) const;
 %If (Qt_5_5_0 -)
     QString toString() const;
+%End
+%If (Qt_5_9_0 -)
+    void extendCircle(const QGeoCoordinate &coordinate);
 %End
 };
 

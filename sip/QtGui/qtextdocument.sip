@@ -194,6 +194,11 @@ signals:
     void baseUrlChanged(const QUrl &url);
 %End
 
+public:
+%If (Qt_5_9_0 -)
+    QString toRawText() const;
+%End
+
 private:
     QTextDocument(const QTextDocument &);
 };

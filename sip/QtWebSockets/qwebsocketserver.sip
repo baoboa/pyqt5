@@ -69,6 +69,9 @@ public:
 %If (Qt_5_4_0 -)
     QUrl serverUrl() const;
 %End
+%If (Qt_5_9_0 -)
+    void handleConnection(QTcpSocket *socket) const;
+%End
 
 signals:
     void acceptError(QAbstractSocket::SocketError socketError);

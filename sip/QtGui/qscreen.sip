@@ -77,6 +77,17 @@ signals:
     void availableGeometryChanged(const QRect &geometry);
 %End
 
+public:
+%If (Qt_5_9_0 -)
+    QString manufacturer() const;
+%End
+%If (Qt_5_9_0 -)
+    QString model() const;
+%End
+%If (Qt_5_9_0 -)
+    QString serialNumber() const;
+%End
+
 private:
     QScreen(const QScreen &);
 };

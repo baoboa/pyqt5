@@ -29,8 +29,8 @@ int PYQT_VERSION;
 const char *PYQT_VERSION_STR;
 
 %ModuleCode
-static int PYQT_VERSION = 0x050802;
-static const char *PYQT_VERSION_STR = "5.8.2";
+static int PYQT_VERSION = 0x050900;
+static const char *PYQT_VERSION_STR = "5.9";
 %End
 const int QT_VERSION;
 const char *QT_VERSION_STR;
@@ -109,6 +109,11 @@ public:
     int __bool__() const;
 %MethodCode
         sipRes = (sipCpp->operator QFlags::Int() != 0);
+%End
+
+    long __hash__() const;
+%MethodCode
+        sipRes = sipCpp->operator QFlags::Int();
 %End
 
 

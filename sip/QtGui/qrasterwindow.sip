@@ -30,6 +30,9 @@ class QRasterWindow : QPaintDeviceWindow
 
 public:
     explicit QRasterWindow(QWindow *parent /TransferThis/ = 0);
+%If (Qt_5_9_0 -)
+    virtual ~QRasterWindow();
+%End
 
 protected:
     virtual int metric(QPaintDevice::PaintDeviceMetric metric) const;

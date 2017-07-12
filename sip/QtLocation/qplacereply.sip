@@ -65,6 +65,9 @@ public slots:
     virtual void abort();
 
 signals:
+%If (Qt_5_9_0 -)
+    void aborted();
+%End
     void finished();
     void error(QPlaceReply::Error error, const QString &errorString = QString());
 
