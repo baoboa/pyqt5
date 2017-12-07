@@ -251,7 +251,7 @@ class MandelbrotWidget(QWidget):
             painter.save()
             painter.translate(newX, newY)
             painter.scale(scaleFactor, scaleFactor)
-            exposed, _ = painter.matrix().inverted()
+            exposed, _ = painter.worldTransform().inverted()
             exposed = exposed.mapRect(self.rect()).adjusted(-1, -1, 1, 1)
             painter.drawPixmap(exposed, self.pixmap, exposed)
             painter.restore()
