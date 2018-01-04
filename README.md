@@ -14,14 +14,14 @@ for pyqtdeploy use pip
 Change
 =====
 
-##SIP
+## SIP
 
 *    added the assign() function to the sip module
 *    added support for the final keyword
 *    added the use\_limited\_api argument to the %Module directive
 *    added the %HideNamespace directive.
 
-##PyQt5
+## PyQt5
 
 *    support for Qt v5.9.0 and v5.9.1
 
