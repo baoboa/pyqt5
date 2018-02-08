@@ -1,7 +1,7 @@
 pyqt5
 =====
 
-#### 5.9
+#### 5.10
 * source  -> http://www.riverbankcomputing.com/software/pyqt/download5
 * support -> https://www.riverbankcomputing.com/mailman/listinfo/pyqt/
 * doc     -> http://pyqt.sourceforge.net/Docs/PyQt5/
@@ -16,12 +16,10 @@ Change
 
 ## SIP
 
-*    added the assign() function to the sip module
-*    added support for the final keyword
-*    added the use\_limited\_api argument to the %Module directive
-*    added the %HideNamespace directive.
+* SIP v4.19.7 has been released. This is primarily a minor functional release that allows automatically generated signatures to be included in handwritten docstrings. 
 
 ## PyQt5
 
-*    support for Qt v5.9.0 and v5.9.1
+*    The highlights of the release are support for Qt v5.10.0 and the new QtNetworkAuth and Qt3DAnimation modules.
+*    Support for Qt v5.10
 
