@@ -2,7 +2,7 @@
 //
 // This file is part of the QtWidgets Python extension module.
 //
-// Copyright (c) 2017 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2018 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -282,6 +282,9 @@ public:
 %End
 %If (Qt_5_7_0 -)
     void resetHorizontalScrollMode();
+%End
+%If (Qt_5_10_0 -)
+    bool isPersistentEditorOpen(const QModelIndex &index) const;
 %End
 
 private:

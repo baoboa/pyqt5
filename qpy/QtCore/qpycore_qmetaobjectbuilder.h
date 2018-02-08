@@ -4,7 +4,7 @@
 // internal code.  The alternative would be to reverse engineer other internal
 // data structures which would be even more fragile.
 //
-// Copyright (c) 2017 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2018 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 

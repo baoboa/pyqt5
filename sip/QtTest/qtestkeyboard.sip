@@ -2,7 +2,7 @@
 //
 // This file is part of the QtTest Python extension module.
 //
-// Copyright (c) 2017 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2018 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -45,12 +45,18 @@ namespace QTest
     void keyPress(QWidget *widget, char key, Qt::KeyboardModifiers modifier = Qt::NoModifier, int delay = -1);
     void keyRelease(QWidget *widget, Qt::Key key, Qt::KeyboardModifiers modifier = Qt::NoModifier, int delay = -1);
     void keyRelease(QWidget *widget, char key, Qt::KeyboardModifiers modifier = Qt::NoModifier, int delay = -1);
-    void keyEvent(QTest::KeyAction action, QWindow *window, char ascii, Qt::KeyboardModifiers modifier = Qt::NoModifier, int delay = -1);
+%If (Qt_5_10_0 -)
+    void keySequence(QWidget *widget, const QKeySequence &keySequence);
+%End
     void keyEvent(QTest::KeyAction action, QWindow *window, Qt::Key key, Qt::KeyboardModifiers modifier = Qt::NoModifier, int delay = -1);
+    void keyEvent(QTest::KeyAction action, QWindow *window, char ascii, Qt::KeyboardModifiers modifier = Qt::NoModifier, int delay = -1);
     void keyClick(QWindow *window, Qt::Key key, Qt::KeyboardModifiers modifier = Qt::NoModifier, int delay = -1);
     void keyClick(QWindow *window, char key, Qt::KeyboardModifiers modifier = Qt::NoModifier, int delay = -1);
-    void keyRelease(QWindow *window, char key, Qt::KeyboardModifiers modifier = Qt::NoModifier, int delay = -1);
-    void keyRelease(QWindow *window, Qt::Key key, Qt::KeyboardModifiers modifier = Qt::NoModifier, int delay = -1);
-    void keyPress(QWindow *window, char key, Qt::KeyboardModifiers modifier = Qt::NoModifier, int delay = -1);
     void keyPress(QWindow *window, Qt::Key key, Qt::KeyboardModifiers modifier = Qt::NoModifier, int delay = -1);
+    void keyPress(QWindow *window, char key, Qt::KeyboardModifiers modifier = Qt::NoModifier, int delay = -1);
+    void keyRelease(QWindow *window, Qt::Key key, Qt::KeyboardModifiers modifier = Qt::NoModifier, int delay = -1);
+    void keyRelease(QWindow *window, char key, Qt::KeyboardModifiers modifier = Qt::NoModifier, int delay = -1);
+%If (Qt_5_10_0 -)
+    void keySequence(QWindow *window, const QKeySequence &keySequence);
+%End
 };

@@ -1,6 +1,6 @@
 // This is the SIP interface definition for the QtMacExtras module of PyQt v5.
 //
-// Copyright (c) 2017 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2018 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -24,7 +24,7 @@
 %Import QtGui/QtGuimod.sip
 
 %Copying
-Copyright (c) 2017 Riverbank Computing Limited <info@riverbankcomputing.com>
+Copyright (c) 2018 Riverbank Computing Limited <info@riverbankcomputing.com>
 
 This file is part of PyQt5.
 

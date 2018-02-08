@@ -1,7 +1,7 @@
 // This is the SIP interface definition for the QList based mapped types
 // specific to the QtPrintSupport module.
 //
-// Copyright (c) 2017 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2018 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -58,6 +58,7 @@
 
     if (!sipIsErr)
     {
+        PyErr_Clear();
         Py_XDECREF(iter);
 
         return (iter
@@ -95,7 +96,9 @@
             break;
         }
 
-        if (!sipCanConvertToEnum(itm, sipType_QPagedPaintDevice_PageSize))
+        int v = sipConvertToEnum(itm, sipType_QPagedPaintDevice_PageSize);
+
+        if (PyErr_Occurred())
         {
             PyErr_Format(PyExc_TypeError,
                     "index %zd has type '%s' but 'QPagedPaintDevice.PageSize' is expected",
@@ -109,8 +112,7 @@
             return 0;
         }
 
-        ql->append(
-                static_cast<QPagedPaintDevice::PageSize>(SIPLong_AsLong(itm)));
+        ql->append(static_cast<QPagedPaintDevice::PageSize>(v));
 
         Py_DECREF(itm);
     }
@@ -167,6 +169,7 @@
 
     if (!sipIsErr)
     {
+        PyErr_Clear();
         Py_XDECREF(iter);
 
         return (iter
@@ -204,7 +207,9 @@
             break;
         }
 
-        if (!sipCanConvertToEnum(itm, sipType_QPrinter_DuplexMode))
+        int v = sipConvertToEnum(itm, sipType_QPrinter_DuplexMode);
+
+        if (PyErr_Occurred())
         {
             PyErr_Format(PyExc_TypeError,
                     "index %zd has type '%s' but 'QPrinter.DuplexMode' is expected",
@@ -218,8 +223,7 @@
             return 0;
         }
 
-        ql->append(
-                static_cast<QPrinter::DuplexMode>(SIPLong_AsLong(itm)));
+        ql->append(static_cast<QPrinter::DuplexMode>(v));
 
         Py_DECREF(itm);
     }

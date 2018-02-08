@@ -1,6 +1,6 @@
 // This is the SIP interface definition for the QStringList mapped type.
 //
-// Copyright (c) 2017 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2018 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -67,6 +67,7 @@
 
     if (!sipIsErr)
     {
+        PyErr_Clear();
         Py_XDECREF(iter);
 
         return (iter

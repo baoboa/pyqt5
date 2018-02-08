@@ -2,7 +2,7 @@
 //
 // This file is part of the QtGui Python extension module.
 //
-// Copyright (c) 2017 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2018 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -318,6 +318,9 @@ int __contains__(const QPoint &value);
 sipRes = bool(sipCpp->contains(*a0));
 %End
     void swap(QPolygon &other /Constrained/);
+%If (Qt_5_10_0 -)
+    bool intersects(const QPolygon &r) const;
+%End
 };
 
 class QPolygonF
@@ -515,6 +518,9 @@ int __contains__(const QPointF &value);
 sipRes = bool(sipCpp->contains(*a0));
 %End
     void swap(QPolygonF &other /Constrained/);
+%If (Qt_5_10_0 -)
+    bool intersects(const QPolygonF &r) const;
+%End
 };
 
 QDataStream &operator<<(QDataStream &stream, const QPolygonF &array /Constrained/) /ReleaseGIL/;

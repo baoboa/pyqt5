@@ -2,7 +2,7 @@
 //
 // This file is part of the QtGui Python extension module.
 //
-// Copyright (c) 2017 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2018 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -351,6 +351,15 @@ public:
 %End
     };
 
+%If (Qt_5_10_0 -)
+
+    enum PdfVersion
+    {
+        PdfVersion_1_4,
+        PdfVersion_A1b,
+    };
+
+%End
     virtual void setPageSize(QPagedPaintDevice::PageSize size);
     QPagedPaintDevice::PageSize pageSize() const;
     virtual void setPageSizeMM(const QSizeF &size);

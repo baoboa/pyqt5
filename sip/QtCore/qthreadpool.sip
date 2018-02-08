@@ -2,7 +2,7 @@
 //
 // This file is part of the QtCore Python extension module.
 //
-// Copyright (c) 2017 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2018 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -53,9 +53,11 @@ public:
 %End
 
 %If (Qt_5_9_0 -)
-    bool tryTake(QRunnable *runnable /GetWrapper/);
+    bool tryTake(QRunnable *runnable /GetWrapper/) /ReleaseGIL/;
 %MethodCode
+        Py_BEGIN_ALLOW_THREADS
         sipRes = sipCpp->tryTake(a0);
+        Py_END_ALLOW_THREADS
         
         // We have to handle the object ownership manually.
         if (sipRes)
@@ -66,15 +68,21 @@ public:
     int expiryTimeout() const;
     void setExpiryTimeout(int expiryTimeout);
     int maxThreadCount() const;
-    void setMaxThreadCount(int maxThreadCount);
-    int activeThreadCount() const;
-    void reserveThread();
-    void releaseThread();
+    void setMaxThreadCount(int maxThreadCount) /ReleaseGIL/;
+    int activeThreadCount() const /ReleaseGIL/;
+    void reserveThread() /ReleaseGIL/;
+    void releaseThread() /ReleaseGIL/;
     bool waitForDone(int msecs = -1) /ReleaseGIL/;
 %If (Qt_5_2_0 -)
-    void clear();
+    void clear() /ReleaseGIL/;
 %End
 %If (Qt_5_5_0 -)
-    void cancel(QRunnable *runnable);
+    void cancel(QRunnable *runnable) /ReleaseGIL/;
+%End
+%If (Qt_5_10_0 -)
+    void setStackSize(uint stackSize);
+%End
+%If (Qt_5_10_0 -)
+    uint stackSize() const;
 %End
 };

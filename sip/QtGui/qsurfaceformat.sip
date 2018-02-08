@@ -2,7 +2,7 @@
 //
 // This file is part of the QtGui Python extension module.
 //
-// Copyright (c) 2017 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2018 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -124,6 +124,21 @@ public:
 %End
 %If (Qt_5_4_0 -)
     static QSurfaceFormat defaultFormat();
+%End
+%If (Qt_5_10_0 -)
+
+    enum ColorSpace
+    {
+        DefaultColorSpace,
+        sRGBColorSpace,
+    };
+
+%End
+%If (Qt_5_10_0 -)
+    QSurfaceFormat::ColorSpace colorSpace() const;
+%End
+%If (Qt_5_10_0 -)
+    void setColorSpace(QSurfaceFormat::ColorSpace colorSpace);
 %End
 };
 

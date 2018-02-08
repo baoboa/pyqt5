@@ -2,7 +2,7 @@
 //
 // This file is part of the QtLocation Python extension module.
 //
-// Copyright (c) 2017 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2018 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -51,6 +51,9 @@ public:
         DirtRoadFeature,
         ParksFeature,
         MotorPoolLaneFeature,
+%If (Qt_5_10_0 -)
+        TrafficFeature,
+%End
     };
 
     typedef QFlags<QGeoRouteRequest::FeatureType> FeatureTypes;
@@ -103,13 +106,13 @@ public:
     QList<QGeoRectangle> excludeAreas() const;
     void setNumberAlternativeRoutes(int alternatives);
     int numberAlternativeRoutes() const;
-    void setTravelModes(QFlags<QGeoRouteRequest::TravelMode> travelModes);
-    QFlags<QGeoRouteRequest::TravelMode> travelModes() const;
+    void setTravelModes(QGeoRouteRequest::TravelModes travelModes);
+    QGeoRouteRequest::TravelModes travelModes() const;
     void setFeatureWeight(QGeoRouteRequest::FeatureType featureType, QGeoRouteRequest::FeatureWeight featureWeight);
     QGeoRouteRequest::FeatureWeight featureWeight(QGeoRouteRequest::FeatureType featureType) const;
     QList<QGeoRouteRequest::FeatureType> featureTypes() const;
-    void setRouteOptimization(QFlags<QGeoRouteRequest::RouteOptimization> optimization);
-    QFlags<QGeoRouteRequest::RouteOptimization> routeOptimization() const;
+    void setRouteOptimization(QGeoRouteRequest::RouteOptimizations optimization);
+    QGeoRouteRequest::RouteOptimizations routeOptimization() const;
     void setSegmentDetail(QGeoRouteRequest::SegmentDetail segmentDetail);
     QGeoRouteRequest::SegmentDetail segmentDetail() const;
     void setManeuverDetail(QGeoRouteRequest::ManeuverDetail maneuverDetail);

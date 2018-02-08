@@ -1,7 +1,7 @@
 // This is the SIP interface definition for the majority of the QVector based
 // mapped types.
 //
-// Copyright (c) 2017 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2018 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -59,6 +59,7 @@ template<_TYPE_>
 
     if (!sipIsErr)
     {
+        PyErr_Clear();
         Py_XDECREF(iter);
 
         return (iter
@@ -171,6 +172,7 @@ template<qreal, _TYPE_>
 
     if (!sipIsErr)
     {
+        PyErr_Clear();
         Py_XDECREF(iter);
 
         return (iter
@@ -354,6 +356,7 @@ template<qreal, _TYPE_>
 
     if (!sipIsErr)
     {
+        PyErr_Clear();
         Py_XDECREF(iter);
 
         return (iter
@@ -391,14 +394,14 @@ template<qreal, _TYPE_>
             break;
         }
 
-        PyErr_Clear();
-        long val = SIPLong_AsLong(itm);
+        int val = sipLong_AsInt(itm);
 
         if (PyErr_Occurred())
         {
-            PyErr_Format(PyExc_TypeError,
-                    "index %zd has type '%s' but 'int' is expected", i,
-                    sipPyTypeName(Py_TYPE(itm)));
+            if (PyErr_ExceptionMatches(PyExc_TypeError))
+                PyErr_Format(PyExc_TypeError,
+                        "index %zd has type '%s' but 'int' is expected", i,
+                        sipPyTypeName(Py_TYPE(itm)));
 
             Py_DECREF(itm);
             delete qv;

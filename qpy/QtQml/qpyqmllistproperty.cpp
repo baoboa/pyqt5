@@ -1,6 +1,6 @@
 // This is the implementation of the QQmlListProperty class.
 //
-// Copyright (c) 2017 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2018 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -309,9 +309,7 @@ static int list_count(QQmlListProperty<QObject> *p)
 
         if (py_res)
         {
-            PyErr_Clear();
-
-            res = SIPLong_AsLong(py_res);
+            res = sipLong_AsInt(py_res);
 
             if (PyErr_Occurred())
             {

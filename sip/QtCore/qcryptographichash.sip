@@ -2,7 +2,7 @@
 //
 // This file is part of the QtCore Python extension module.
 //
-// Copyright (c) 2017 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2018 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -47,6 +47,18 @@ public:
 %End
 %If (Qt_5_1_0 -)
         Sha3_512,
+%End
+%If (Qt_5_9_2 -)
+        Keccak_224,
+%End
+%If (Qt_5_9_2 -)
+        Keccak_256,
+%End
+%If (Qt_5_9_2 -)
+        Keccak_384,
+%End
+%If (Qt_5_9_2 -)
+        Keccak_512,
 %End
     };
 

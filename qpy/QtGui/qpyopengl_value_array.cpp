@@ -1,6 +1,6 @@
 // This contains the support for QOpenGL value arrays.
 //
-// Copyright (c) 2017 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2018 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -369,52 +369,45 @@ static void *convert_values(Array *array, PyObject *values, GLenum gl_type,
 }
 
 
-#if PY_MAJOR_VERSION >= 3
-#define Long_AsUnsignedLong PyLong_AsUnsignedLongMask
-#else
-#define Long_AsUnsignedLong PyInt_AsUnsignedLongMask
-#endif
-
-
 // Convert a Python object to a GLbyte.
 static void convert_byte(PyObject *itm, void *array, Py_ssize_t i)
 {
-    reinterpret_cast<GLbyte *>(array)[i] = SIPLong_AsLong(itm);
+    reinterpret_cast<GLbyte *>(array)[i] = sipLong_AsSignedChar(itm);
 }
 
 
 // Convert a Python object to a GLubyte.
 static void convert_ubyte(PyObject *itm, void *array, Py_ssize_t i)
 {
-    reinterpret_cast<GLubyte *>(array)[i] = Long_AsUnsignedLong(itm);
+    reinterpret_cast<GLubyte *>(array)[i] = sipLong_AsUnsignedChar(itm);
 }
 
 
 // Convert a Python object to a GLshort.
 static void convert_short(PyObject *itm, void *array, Py_ssize_t i)
 {
-    reinterpret_cast<GLshort *>(array)[i] = SIPLong_AsLong(itm);
+    reinterpret_cast<GLshort *>(array)[i] = sipLong_AsShort(itm);
 }
 
 
 // Convert a Python object to a GLushort.
 static void convert_ushort(PyObject *itm, void *array, Py_ssize_t i)
 {
-    reinterpret_cast<GLushort *>(array)[i] = Long_AsUnsignedLong(itm);
+    reinterpret_cast<GLushort *>(array)[i] = sipLong_AsUnsignedShort(itm);
 }
 
 
 // Convert a Python object to a GLint.
 static void convert_int(PyObject *itm, void *array, Py_ssize_t i)
 {
-    reinterpret_cast<GLint *>(array)[i] = SIPLong_AsLong(itm);
+    reinterpret_cast<GLint *>(array)[i] = sipLong_AsInt(itm);
 }
 
 
 // Convert a Python object to a GLuint.
 static void convert_uint(PyObject *itm, void *array, Py_ssize_t i)
 {
-    reinterpret_cast<GLuint *>(array)[i] = Long_AsUnsignedLong(itm);
+    reinterpret_cast<GLuint *>(array)[i] = sipLong_AsUnsignedInt(itm);
 }
 
 

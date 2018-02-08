@@ -1,7 +1,7 @@
 // This is the SIP interface definition for the QPair based mapped types
 // specific to the QtGui module.
 //
-// Copyright (c) 2017 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2018 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -69,7 +69,9 @@
         return 0;
     }
 
-    if (!sipCanConvertToEnum(firstobj, sipType_QOpenGLTexture_Filter))
+    int firstv = sipConvertToEnum(firstobj, sipType_QOpenGLTexture_Filter);
+
+    if (PyErr_Occurred())
     {
         PyErr_Format(PyExc_TypeError,
                 "the first element has type '%s' but 'QOpenGLTexture.Filter' is expected",
@@ -90,7 +92,9 @@
         return 0;
     }
 
-    if (!sipCanConvertToEnum(secondobj, sipType_QOpenGLTexture_Filter))
+    int secondv = sipConvertToEnum(secondobj, sipType_QOpenGLTexture_Filter);
+
+    if (PyErr_Occurred())
     {
         PyErr_Format(PyExc_TypeError,
                 "the second element has type '%s' but 'QOpenGLTexture.Filter' is expected",
@@ -104,8 +108,8 @@
     }
 
     *sipCppPtr = new QPair<QOpenGLTexture::Filter, QOpenGLTexture::Filter>(
-            static_cast<QOpenGLTexture::Filter>(SIPLong_AsLong(firstobj)),
-            static_cast<QOpenGLTexture::Filter>(SIPLong_AsLong(secondobj)));
+            static_cast<QOpenGLTexture::Filter>(firstv),
+            static_cast<QOpenGLTexture::Filter>(secondv));
 
     Py_DECREF(secondobj);
     Py_DECREF(firstobj);

@@ -1,7 +1,7 @@
 // This is the SIP interface definition for the QHash based mapped types
 // specific to the QtNetwork module.
 //
-// Copyright (c) 2017 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2018 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -90,7 +90,9 @@
  
     while (PyDict_Next(sipPy, &pos, &kobj, &vobj))
     {
-        if (!sipCanConvertToEnum(kobj, sipType_QNetworkRequest_Attribute))
+        int k = sipConvertToEnum(kobj, sipType_QNetworkRequest_Attribute);
+
+        if (PyErr_Occurred())
         {
             PyErr_Format(PyExc_TypeError,
                     "a key has type '%s' but 'QNetworkRequest.Attribute' is expected",
@@ -116,9 +118,7 @@
             return 0;
         }
 
-        qh->insert(
-                static_cast<QNetworkRequest::Attribute>(SIPLong_AsLong(kobj)),
-                *v);
+        qh->insert(static_cast<QNetworkRequest::Attribute>(k), *v);
 
         sipReleaseType(v, sipType_QVariant, vstate);
     }

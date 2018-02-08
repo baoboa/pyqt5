@@ -1,4 +1,379 @@
+2018-01-23  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* NEWS:
+	Released as v5.10.
+	[9f68e48cf5f5] [5.10]
+
+	* NEWS:
+	Updated the NEWS file.
+	[0f2753f9a303]
+
+2018-01-19  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* PyQt5.msp:
+	Added the %ConvertToSubClassCode for QtNetworkAuth.
+	[b9783c0386aa]
+
+	* PyQt5.msp:
+	Implemented the remaining QtNetworkAuth methods.
+	[73f3c9cc94ae]
+
+2018-01-18  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* PyQt5.msp:
+	Fixes to get QtNetworkAuth to build.
+	[4d37b274bc0a]
+
+	* lib/configure.py:
+	Added support for QtNetworkAuth to configure.py.
+	[4f516477a254]
+
+	* qpy/QtCore/qpycore_qpair.sip:
+	Implemented the mapped typ etemplate for QPair<T1, T2> needed by
+	QtNetworkAuth.
+	[4657c9ea8733]
+
+2018-01-17  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* PyQt5.msp:
+	Added initial support for QtNetworkAuth.
+	[ddbbb40ddf1e]
+
+	* PyQt5.msp:
+	Updated QtWidgets for Qt v5.10.0.
+	[dadfd4f1295c]
+
+	* PyQt5.msp:
+	Updated QtTest, QtWebChannel, QtWebEngine, QtWebEngineCore,
+	QtWebEngineWidgets and QtWebSockets for Qt v5.10.0.
+	[83b53f46e600]
+
+2018-01-16  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* PyQt5.msp:
+	Updated QtPrintSupport, QtQml, QtQuick, QtQuickWidgets, QtSensors,
+	QtSerialPort and QtSql for Qt v5.10.0.
+	[6b6e25ea6792]
+
+	* PyQt5.msp:
+	Updated QtNetwork, QtNfc, QtOpenGL and QtPositioning for Qt v5.10.0.
+	[743896f26ce5]
+
+2018-01-10  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* PyQt5.msp:
+	Updated QtLocation, QtMultimedia and QtMultimediaWidgets for Qt
+	v5.10.0.
+	[3289ec6e2f72]
+
+	* PyQt5.msp:
+	Updated QtGui for Qt v5.10.0.
+	[fcec94307c8f]
+
+	* PyQt5.msp:
+	Updated QtDBus, QtDesigner, QtHelp, QtSvg, QtXml and QtXmlPatterns
+	for Qt v5.10.0.
+	[8fad1106423b]
+
+2018-01-09  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* qpy/QtCore/qpycore_qobject_helpers.cpp:
+	Properly fixed a regression in QObject.inherits().
+	[92cbc384946a]
+
+	* PyQt5.msp:
+	Finished updating QtCore for Qt v5.10.0.
+	[3dcac7147ec6]
+
+2018-01-08  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* PyQt5.msp:
+	Started to update QtCore for Qt v5.10.0.
+	[c18a11bf815d]
+
+	* PyQt5.msp:
+	Updated QtBluetooth for Qt v5.10.0.
+	[df5635ee7bf6]
+
+	* Merged the 5.9-maint branch into the trunk.
+	[e973de99d35d]
+
+2018-01-05  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* pyuic/uic/Compiler/qobjectcreator.py,
+	pyuic/uic/Loader/qobjectcreator.py, pyuic/uic/widget-
+	plugins/qtcharts.py:
+	Fixed pyuic's handling of widget implemented in a C++ namespace
+	(specifically QChartView).
+	[338e6a251aee] <5.9-maint>
+
+2017-12-20  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* pyrcc/pyrcc_main.py:
+	Fixed the handling of arguments to pyrcc5.
+	[7d9643a53c66] <5.9-maint>
+
+	* lib/configure.py:
+	Fixed out-of-tree builds.
+	[573d3b66d402] <5.9-maint>
+
+2017-12-16  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* lib/configure.py:
+	Fixes for building in a Windows venv.
+	[1003c37c2cb5] <5.9-maint>
+
+2017-12-12  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* qpy/QtCore/qpycore_pyqtboundsignal.cpp:
+	Die more gracefully when attempting to connect to a Python method
+	with a non-ASCII name.
+	[0d30a9b8441b] <5.9-maint>
+
+2017-11-24  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* pyuic/uic/properties.py:
+	Fixed a bug in loadUi() handling gradients.
+	[0aef34d2beb2] <5.9-maint>
+
+2017-11-23  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* .hgtags:
+	Added tag 5.9.2 for changeset 7fac90c2d528
+	[02e55c83f900] <5.9-maint>
+
+	* NEWS:
+	Released as v5.9.2.
+	[7fac90c2d528] [5.9.2] <5.9-maint>
+
+	* PyQt5.msp:
+	Updated for Qt v5.9.3.
+	[5fffc2c72bd5] <5.9-maint>
+
+2017-11-21  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* PyQt5.msp:
+	Added /NewThread/ to QRunnable::run().
+	[17c89f899276] <5.9-maint>
+
+2017-11-19  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* qpy/QtCore/qpycore_event_handlers.cpp:
+	Ignore destroyed QObjects when there is no interpreter.
+	[276966407f1c] <5.9-maint>
+
+2017-11-18  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* QtAndroidExtras/qtandroid.sip:
+	Fixed the name of the QtAndroid header file.
+	[58b1a3f4108d] <5.9-maint>
+
+	* QtAndroidExtras/qtandroid.sip:
+	Fixed the name of the QtAndroid namespace.
+	[87890f4acfe5] <5.9-maint>
+
+2017-11-15  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* QtAndroidExtras/qtandroid.sip:
+	Added the missing QtAndroid .sip file.
+	[ee26f550ab15] <5.9-maint>
+
+	* QtMacExtras/qmacpasteboardmime.sip, QtMacExtras/qmactoolbar.sip,
+	QtMacExtras/qmactoolbaritem.sip:
+	Fixed QtMacExtras for iOS.
+	[058934cee148] <5.9-maint>
+
+	* QtAndroidExtras/QtAndroidExtrasmod.sip:
+	Added the QtAndroid namespace to QtAndroidExtras.
+	[170c3a17042e] <5.9-maint>
+
+2017-11-14  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* lib/configure.py:
+	Check that user supplied module names are valid.
+	[b1154438a794] <5.9-maint>
+
+2017-11-10  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* QtAndroidExtras/QtAndroidExtrasmod.sip,
+	QtAndroidExtras/qandroidjniobject.sip, lib/configure.py:
+	Added the QtAndroidExtras module containing a sub-set of the
+	QAndroidJniObject class.
+	[bad8eb717c80] <5.9-maint>
+
+2017-11-06  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* PyQt5.msp:
+	Restored QUrl.query() for Qt v5.9.0 and earlier.
+	[3a40388e51bc] <5.9-maint>
+
+2017-11-02  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* lib/configure.py:
+	Module .pro fixes for static builds.
+	[08ccbbe1325c] <5.9-maint>
+
+	* lib/configure.py:
+	Extension modules on macOS are now bundles rather than shared
+	libraries.
+	[2f298782351f] <5.9-maint>
+
+	* .hgtags:
+	Added tag 5.9.1 for changeset 6a8d6710ba64
+	[b68eec6b9b94] <5.9-maint>
+
+	* NEWS:
+	Released as v5.9.1.
+	[6a8d6710ba64] [5.9.1] <5.9-maint>
+
+	* lib/configure.py:
+	Windows-specific fixes related to the detection of sip version
+	mismatches.
+	[2a30790477c1] <5.9-maint>
+
+2017-11-01  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* lib/configure.py:
+	Further fixes for --sip-incdir.
+	[4859965322a4] <5.9-maint>
+
+	* lib/configure.py:
+	Fixed the handling of the --sip-incdir option.
+	[e1ac86a6bc52] <5.9-maint>
+
+	* config-tests/cfgtest_QtCore.cpp, lib/configure.py:
+	configure.py now makes sure that the version numbers of the sip code
+	generator and sip.h match.
+	[d5b36b960994] <5.9-maint>
+
+	* lib/configure.py:
+	Added the --allow-sip-warnings option to configure.py.
+	[f4eebe2a30ee] <5.9-maint>
+
+2017-10-31  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* qpy/QtCore/qpycore_event_handlers.cpp:
+	Release the GIL when connecting a QObject monitor because of
+	reported deadlocks.
+	[f945685fa2b5] <5.9-maint>
+
+2017-10-07  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* PyQt5.msp:
+	Added support for Qt v5.9.2.
+	[f2ddcf108add] <5.9-maint>
+
+	* PyQt5.msp:
+	Rescanned QUrl with the fixed metasip to fix code that may not be
+	able to be handled by old versions of GCC. There will probably be
+	other cases but the only solution woukd be to rescan every single
+	class.
+	[dd92e57fbfaa] <5.9-maint>
+
+2017-10-06  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* pyuic/uic/uiparser.py:
+	Fixed pyuic handling of margins of QWidgets that are not layout
+	widgets.
+	[ee2eef5d82ee] <5.9-maint>
+
+2017-09-22  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* pyuic/uic/uiparser.py:
+	Fixed the default margins of nested layouts.
+	[0e7d014185b6] <5.9-maint>
+
+2017-09-06  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* qpy/QtCore/qpycore_event_handlers.cpp:
+	Fixed a memory leak caused by multiple identical connections when
+	monitoring a QObject's lifecycle.
+	[0abf2886cbef] <5.9-maint>
+
+2017-09-05  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* examples/ipc/sharedmemory/sharedmemory.py:
+	Fixed the shared memeory example.
+	[718b731a63a8] <5.9-maint>
+
+	* qpy/QtCore/qpycore_pyqtboundsignal.cpp,
+	qpy/QtCore/qpycore_qlist.sip, qpy/QtGui/qpygui_qlist.sip,
+	qpy/QtGui/qpygui_qpair.sip,
+	qpy/QtMultimedia/qpymultimedia_qlist.sip,
+	qpy/QtNetwork/qpynetwork_qhash.sip,
+	qpy/QtPrintSupport/qpyprintsupport_qlist.sip,
+	qpy/QtWidgets/qpywidgets_qlist.sip:
+	Removed all calls to sipCanConvertToEnum().
+	[c75deb889b1e] <5.9-maint>
+
+2017-08-31  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* qpy/QtCore/qpycore_enums_flags.cpp,
+	qpy/QtCore/qpycore_pyqtsignal.cpp, qpy/QtCore/qpycore_qhash.sip,
+	qpy/QtCore/qpycore_qlist.sip, qpy/QtCore/qpycore_qmap.sip,
+	qpy/QtCore/qpycore_qmessagelogger.cpp, qpy/QtCore/qpycore_qpair.sip,
+	qpy/QtCore/qpycore_qvector.sip, qpy/QtGui/qpyopengl_value_array.cpp,
+	qpy/QtQml/qpyqmllistproperty.cpp:
+	Removed all calls to SIPLong_AsLong().
+	[326d7caa3d2e] <5.9-maint>
+
+	* qpy/QtCore/qpycore_pyqtboundsignal.cpp,
+	qpy/QtCore/qpycore_qjsonvalue.cpp, qpy/QtCore/qpycore_qlist.sip,
+	qpy/QtGui/qpygui_qlist.sip, qpy/QtGui/qpygui_qpair.sip,
+	qpy/QtMultimedia/qpymultimedia_qlist.sip,
+	qpy/QtNetwork/qpynetwork_qhash.sip,
+	qpy/QtPrintSupport/qpyprintsupport_qlist.sip,
+	qpy/QtQml/qpyqml_qjsvalue.cpp, qpy/QtWidgets/qpywidgets_qlist.sip:
+	Migrated all handwritten code to use sipConvertToEnum().
+	[8f3251301f87] <5.9-maint>
+
+2017-08-30  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* rb-product:
+	SIP v4.19.4 is now required.
+	[302c09890e23] <5.9-maint>
+
+2017-07-25  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* pyrcc/pyrcc_main.py, pyrcc/pyrccmod.sip, qpy/pyrcc/rcc.h:
+	Removed the unimplemented -name option to pyrcc.
+	[307cff7f1dbb] <5.9-maint>
+
+2017-07-22  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* PyQt5.msp:
+	Fixed QTabBar when built without accessibility support.
+	[0c5314852dd2] <5.9-maint>
+
+2017-07-16  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* lib/configure.py:
+	Fixed the configuration tests' handling of disabled features.
+	[1a7f9ba28fed] <5.9-maint>
+
+2017-07-10  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* qpy/QtBluetooth/qpybluetooth_qlist.sip, qpy/QtCore/qjsonarray.sip,
+	qpy/QtCore/qpycore_qlist.sip, qpy/QtCore/qpycore_qset.sip,
+	qpy/QtCore/qpycore_qvector.sip, qpy/QtCore/qstringlist.sip,
+	qpy/QtGui/qpygui_qvector.sip,
+	qpy/QtMultimedia/qpymultimedia_qlist.sip,
+	qpy/QtPrintSupport/qpyprintsupport_qlist.sip,
+	qpy/QtWidgets/qpywidgets_qlist.sip:
+	Clear the exception whenever PyObject_GetIter() fails when checking
+	if an object can be converted.
+	[07fc1c2b14a6] <5.9-maint>
+
+	* PyQt5.msp:
+	Release the GIL on all QThreadPool methods that access the internal
+	mutex.
+	[f710d0e81300] <5.9-maint>
+
 2017-07-03  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* .hgtags:
+	Added tag 5.9 for changeset 307fa2afedd4
+	[d84f568cd92f]
 
 	* NEWS:
 	Released as v5.9.

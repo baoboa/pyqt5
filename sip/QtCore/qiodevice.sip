@@ -2,7 +2,7 @@
 //
 // This file is part of the QtCore Python extension module.
 //
-// Copyright (c) 2017 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2018 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -330,6 +330,11 @@ signals:
 %End
 %If (Qt_5_7_0 -)
     void channelBytesWritten(int channel, qint64 bytes);
+%End
+
+public:
+%If (Qt_5_10_0 -)
+    qint64 skip(qint64 maxSize);
 %End
 
 private:

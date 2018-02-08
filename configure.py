@@ -1,6 +1,6 @@
 # This script generates the Makefiles for building PyQt5.
 #
-# Copyright (c) 2017 Riverbank Computing Limited <info@riverbankcomputing.com>
+# Copyright (c) 2018 Riverbank Computing Limited <info@riverbankcomputing.com>
 # 
 # This file is part of PyQt5.
 # 
@@ -28,9 +28,9 @@ import sys
 
 
 # Initialise the constants.
-PYQT_VERSION_STR = "5.9"
+PYQT_VERSION_STR = "5.10"
 
-SIP_MIN_VERSION = '4.19.3'
+SIP_MIN_VERSION = '4.19.4'
 
 
 class ModuleMetadata:
@@ -62,6 +62,7 @@ MODULE_METADATA = {
                                     qmake_TARGET='pyqt5'),
     'QAxContainer':         ModuleMetadata(qmake_QT=['axcontainer']),
     'Qt':                   ModuleMetadata(qmake_QT=['-core', '-gui']),
+    'QtAndroidExtras':      ModuleMetadata(qmake_QT=['androidextras']),
     'QtBluetooth':          ModuleMetadata(qmake_QT=['bluetooth']),
     'QtCore':               ModuleMetadata(qmake_QT=['-gui'], qpy_lib=True),
     'QtDBus':               ModuleMetadata(qmake_QT=['dbus', '-gui'],
@@ -78,6 +79,10 @@ MODULE_METADATA = {
                                     qmake_QT=['multimediawidgets',
                                             'multimedia']),
     'QtNetwork':            ModuleMetadata(qmake_QT=['network', '-gui']),
+    'QtNetworkAuth':        ModuleMetadata(
+                                    qmake_QT=['network', 'networkauth',
+                                            '-gui'],
+                                    cpp11=True),
     'QtNfc':                ModuleMetadata(qmake_QT=['nfc', '-gui']),
     'QtOpenGL':             ModuleMetadata(qmake_QT=['opengl']),
     'QtPositioning':        ModuleMetadata(qmake_QT=['positioning']),
@@ -155,9 +160,10 @@ MODULE_METADATA = {
 # any modules that depend on it.
 COMPOSITE_COMPONENTS = (
     'QtCore',
-    'QtDBus', 'QtGui', 'QtNetwork', 'QtSensors', 'QtSerialPort',
-    'QtMultimedia', 'QtQml', 'QtWebKit', 'QtWidgets', 'QtXml', 'QtXmlPatterns',
-    'QtAxContainer', 'QtDesigner', 'QtHelp', 'QtMultimediaWidgets', 'QtOpenGL',
+    'QtAndroidExtras', 'QtDBus', 'QtGui', 'QtNetwork', 'QtNetworkAuth',
+    'QtSensors', 'QtSerialPort', 'QtMultimedia', 'QtQml', 'QtWebKit',
+    'QtWidgets', 'QtXml', 'QtXmlPatterns', 'QtAxContainer', 'QtDesigner',
+    'QtHelp', 'QtMultimediaWidgets', 'QtOpenGL',
         'QtPrintSupport', 'QtQuick', 'QtSql', 'QtSvg', 'QtTest',
     'QtWebKitWidgets', 'QtBluetooth', 'QtMacExtras', 'QtPositioning',
         'QtWinExtras', 'QtX11Extras', 'QtQuickWidgets', 'QtWebSockets',
@@ -409,9 +415,29 @@ class HostPythonConfiguration:
         self.debug = hasattr(sys, 'gettotalrefcount')
 
         if sys.platform == 'win32':
-            self.bin_dir = sys.exec_prefix
+            bin_dir = sys.exec_prefix
+
+            try:
+                # Python v3.3 and later.
+                base_prefix = sys.base_prefix
+
+                if sys.exec_prefix != sys.base_exec_prefix:
+                    bin_dir += '\\Scripts'
+
+            except AttributeError:
+                try:
+                    # virtualenv for Python v2.
+                    base_prefix = sys.real_prefix
+                    bin_dir += '\\Scripts'
+
+                except AttributeError:
+                    # We can't detect the base prefix in Python v3 prior to
+                    # v3.3.
+                    base_prefix = sys.prefix
+
+            self.bin_dir = bin_dir
             self.data_dir = sys.prefix
-            self.lib_dir = sys.prefix + '\\libs'
+            self.lib_dir = base_prefix + '\\libs'
         else:
             self.bin_dir = sys.exec_prefix + '/bin'
             self.data_dir = sys.prefix + '/share'
@@ -521,7 +547,8 @@ class TargetConfiguration:
         self.qt_shared = False
         self.qt_version = 0
         self.sip = self._find_exe('sip5', 'sip')
-        self.sip_inc_dir = ''
+        self.sip_h_version = None
+        self.sip_inc_dir = self.py_venv_inc_dir
         self.static = False
         self.sysroot = ''
         self.vend_enabled = False
@@ -601,25 +628,11 @@ class TargetConfiguration:
                 self.pyqt_sip_dir)
         self.pyuic_interpreter = parser.get(section, 'pyuic_interpreter',
                 self.pyuic_interpreter)
+
+        self.sip_inc_dir = self.py_venv_inc_dir
  
     def from_introspection(self, verbose, debug):
         """ Initialise the configuration by introspecting the system. """
-
-        inform("Determining the details of your Qt installation...")
-
-        # Compile and run the QtCore test program.
-        test = compile_test_program(self, verbose, 'QtCore', debug=debug)
-        if test is None:
-            error("Failed to determine the detail of your Qt installation. Try again using the --verbose flag to see more detail about the problem.")
-
-        lines = run_test_program('QtCore', test, verbose)
-
-        self.qt_shared = (lines[0] == 'shared')
-        self.pyqt_disabled_features = lines[1:-1]
-
-        if self.pyqt_disabled_features:
-            inform("Disabled QtCore features: %s" % ', '.join(
-                    self.pyqt_disabled_features))
 
         # Get the details of the Python interpreter library.
         py_major = self.py_version >> 16
@@ -683,6 +696,25 @@ class TargetConfiguration:
             self.pyqt_module_dir = self._apply_sysroot(self.pyqt_module_dir)
             self.pyqt_stubs_dir = self._apply_sysroot(self.pyqt_stubs_dir)
             self.pyqt_sip_dir = self._apply_sysroot(self.pyqt_sip_dir)
+
+        inform("Determining the details of your Qt installation...")
+
+        # Compile and run the QtCore test program.
+        test = compile_test_program(self, verbose, 'QtCore', debug=debug,
+                uses_sip_h=True)
+        if test is None:
+            error("Failed to determine the detail of your Qt installation. Try again using the --verbose flag to see more detail about the problem.")
+
+        lines = run_test_program('QtCore', test, verbose)
+
+        self.sip_h_version = lines[0]
+
+        self.qt_shared = (lines[1] == 'shared')
+        self.pyqt_disabled_features = lines[2:-1]
+
+        if self.pyqt_disabled_features:
+            inform("Disabled QtCore features: %s" % ', '.join(
+                    self.pyqt_disabled_features))
 
     def _apply_sysroot(self, dir_name):
         """ Replace any leading sys.prefix of a directory name with sysroot.
@@ -768,7 +800,6 @@ class TargetConfiguration:
         if self.py_platform.startswith('linux') or self.py_platform == 'darwin':
             self.prot_is_public = True
 
-        self.sip_inc_dir = self.py_venv_inc_dir
         self.vend_inc_dir = self.py_venv_inc_dir
         self.vend_lib_dir = self.py_lib_dir
 
@@ -818,6 +849,9 @@ class TargetConfiguration:
 
         if opts.qmakespec is not None:
             self.qmake_spec = opts.qmakespec
+
+        if opts.sipincdir is not None:
+            self.sip_inc_dir = opts.sipincdir
 
     def apply_post_options(self, opts):
         """ Apply options from the command line that override the previous
@@ -904,9 +938,6 @@ class TargetConfiguration:
         elif not opts.install_sipfiles:
             self.pyqt_sip_dir = ''
 
-        if opts.sipincdir is not None:
-            self.sip_inc_dir = opts.sipincdir
-
         if opts.static:
             self.static = True
 
@@ -931,12 +962,35 @@ class TargetConfiguration:
                     "Using the VendorID package when building static "
                     "libraries makes no sense.")
 
-    def get_pylib_link_arguments(self):
+    def get_pylib_link_arguments(self, name=True):
         """ Return a string to append to qmake's LIBS macro to link against the
         Python interpreter library.
         """
 
-        return qmake_quote('-L' + self.py_pylib_dir) + ' -l' + self.py_pylib_lib
+        args = qmake_quote('-L' + self.py_pylib_dir)
+
+        if name:
+            args += ' -l' + self.py_pylib_lib
+
+        return args
+
+    def add_sip_h_directives(self, pro_lines):
+        """ Add the directives required by sip.h to a sequence of .pro file
+        lines.
+        """
+
+        # Make sure the include directory is searched before the Python include
+        # directory if they are different.
+        pro_lines.append('INCLUDEPATH += %s' % qmake_quote(self.sip_inc_dir))
+        if self.py_inc_dir != self.sip_inc_dir:
+            pro_lines.append('INCLUDEPATH += %s' % qmake_quote(self.py_inc_dir))
+
+        # Python.h on Windows seems to embed the need for pythonXY.lib, so tell
+        # it where it is.
+        if not self.static:
+            pro_lines.extend(['win32 {',
+                    '    LIBS += ' + self.get_pylib_link_arguments(name=False),
+                    '}'])
 
     @staticmethod
     def _find_exe(*exes):
@@ -1111,6 +1165,10 @@ def create_optparser(target_config):
             metavar="DIR",
             help="the directory containing the sip.h header file is DIR "
                     "[default: %s]" % target_config.sip_inc_dir)
+    g.add_option("--allow-sip-warnings", dest='fatal_warnings',
+            default=True, action='store_false',
+            help="allow sip to issue non-fatal warning messages "
+                    "[default: warning messages are treated as errors]")
 
     g.add_option("--no-python-dbus", dest='nopydbus',
             default=False, action='store_true',
@@ -1275,6 +1333,9 @@ def check_modules(target_config, disabled_modules, verbose):
     if target_config.qt_version >= 0x050600:
         check_5_6_modules(target_config, disabled_modules, verbose)
 
+    if target_config.qt_version >= 0x050a00:
+        check_5_10_modules(target_config, disabled_modules, verbose)
+
 
 def check_5_1_modules(target_config, disabled_modules, verbose):
     """ Check which modules introduced in Qt v5.1 can be built and update the
@@ -1396,11 +1457,24 @@ def check_5_6_modules(target_config, disabled_modules, verbose):
             'const char *v = QTWEBENGINE_VERSION_STR')
 
 
-def generate_makefiles(target_config, verbose, parts, tracing):
+def check_5_10_modules(target_config, disabled_modules, verbose):
+    """ Check which modules introduced in Qt v5.10 can be built and update the
+    target configuration accordingly.  target_config is the target
+    configuration.  disabled_modules is the list of modules that have been
+    explicitly disabled.  verbose is set if the output is to be displayed.
+    """
+
+    check_module(target_config, disabled_modules, verbose, 'QtNetworkAuth',
+            'qtnetworkauthversion.h',
+            'const char *v = QTNETWORKAUTH_VERSION_STR')
+
+
+def generate_makefiles(target_config, verbose, parts, tracing, fatal_warnings):
     """ Generate the makefiles to build everything.  target_config is the
     target configuration.  verbose is set if the output is to be displayed.
     parts is the number of parts the generated code should be split into.
     tracing is set if the generated code should include tracing calls.
+    fatal_warnings is set if warnings are fatal.
     """
 
     # For the top-level .pro file.
@@ -1437,7 +1511,8 @@ def generate_makefiles(target_config, verbose, parts, tracing):
             qpy_headers = []
 
         generate_sip_module_code(target_config, verbose, parts, tracing, mname,
-                sip_flags, metadata.public, qpy_sources, qpy_headers)
+                fatal_warnings, sip_flags, metadata.public, qpy_sources,
+                qpy_headers)
         subdirs.append(mname)
 
     # Generate the composite module.
@@ -1458,7 +1533,7 @@ def generate_makefiles(target_config, verbose, parts, tracing):
     f.close()
 
     generate_sip_module_code(target_config, verbose, parts, tracing, 'Qt',
-            sip_flags, False)
+            fatal_warnings, sip_flags, False)
     subdirs.append('Qt')
 
     wrappers = []
@@ -2168,16 +2243,14 @@ int main(int, char **)
     if source is None:
         for disabled in run_test_program(mname, test, verbose):
             if disabled:
-                inform("Disabled %s features: %s" % (mname,
-                        ', '.join(disabled)))
-
-            target_config.pyqt_disabled_features.extend(disabled)
+                inform("Disabled %s feature: %s" % (mname, disabled))
+                target_config.pyqt_disabled_features.append(disabled)
 
     # Include the module in the build.
     target_config.pyqt_modules.append(mname)
 
 
-def compile_test_program(target_config, verbose, mname, source=None, debug=None):
+def compile_test_program(target_config, verbose, mname, source=None, debug=None, uses_sip_h=False):
     """ Compile the source of a Qt program and return the name of the
     executable or None if it couldn't be created.  target_config is the target
     configuration.  verbose is set if the output is to be displayed.  mname is
@@ -2185,7 +2258,7 @@ def compile_test_program(target_config, verbose, mname, source=None, debug=None)
     program.  If it is None then the source is expected to be found in the
     config-tests directory.  debug is set if debug, rather than release, mode
     is to be used.  If it is None then the mode is taken from the target
-    configuration.
+    configuration.  uses_sip_h is set if the test program uses sip.h.
     """
 
     metadata = MODULE_METADATA[mname]
@@ -2198,7 +2271,7 @@ def compile_test_program(target_config, verbose, mname, source=None, debug=None)
 
     # Create the source file if necessary.
     if source is None:
-        name_source = 'config-tests/' + name_source
+        name_source = source_path('config-tests', name_source)
     else:
         f = open_for_writing(name_source)
         f.write(source)
@@ -2208,6 +2281,10 @@ def compile_test_program(target_config, verbose, mname, source=None, debug=None)
     pro_lines = []
     pro_add_qt_dependencies(target_config, metadata, pro_lines, debug)
     pro_lines.append('TARGET = %s' % name)
+
+    if uses_sip_h:
+        target_config.add_sip_h_directives(pro_lines)
+
     pro_lines.append('SOURCES = %s' % name_source)
 
     f = open_for_writing(name_pro)
@@ -2349,16 +2426,16 @@ def mk_dir(name):
         pass
 
 
-def generate_sip_module_code(target_config, verbose, parts, tracing, mname, sip_flags, doc_support, qpy_sources=None, qpy_headers=None):
+def generate_sip_module_code(target_config, verbose, parts, tracing, mname, fatal_warnings, sip_flags, doc_support, qpy_sources=None, qpy_headers=None):
     """ Generate the code for a module.  target_config is the target
     configuration.  verbose is set if the output is to be displayed.  parts is
     the number of parts the generated code should be split into.  tracing is
     set if the generated code should include tracing calls.  mname is the name
-    of the module to generate the code for.  sip_flags is the string of flags
-    to pass to sip.  doc_support is set if documentation support is to be
-    generated for the module.  qpy_sources is the optional list of QPy support
-    code source files.  qpy_headers is the optional list of QPy support code
-    header files.
+    of the module to generate the code for.  fatal_warnings is set if warnings
+    are fatal.  sip_flags is the string of flags to pass to sip.  doc_support
+    is set if documentation support is to be generated for the module.
+    qpy_sources is the optional list of QPy support code source files.
+    qpy_headers is the optional list of QPy support code header files.
     """
 
     inform("Generating the C++ source for the %s module..." % mname)
@@ -2366,7 +2443,10 @@ def generate_sip_module_code(target_config, verbose, parts, tracing, mname, sip_
     mk_clean_dir(mname)
 
     # Build the SIP command line.
-    argv = [quote(target_config.sip), '-w', '-f', sip_flags]
+    argv = [quote(target_config.sip), '-w', sip_flags]
+
+    if fatal_warnings:
+        argv.append('-f')
 
     # Make sure any unknown Qt version gets treated as the latest Qt v5.
     argv.append('-B')
@@ -2486,7 +2566,9 @@ def generate_module_makefile(target_config, verbose, mname, include_paths=None, 
 
     pro_lines = ['TEMPLATE = lib']
 
-    pro_lines.append('CONFIG += warn_on exceptions_off %s' % ('staticlib hide_symbols' if target_config.static else 'plugin'))
+    # Note some version of Qt5 (probably incorrectly) implements
+    # 'plugin_bundle' instead of 'plugin' so we specify both.
+    pro_lines.append('CONFIG += warn_on exceptions_off %s' % ('staticlib hide_symbols' if target_config.static else 'plugin plugin_bundle'))
 
     pro_add_qt_dependencies(target_config, metadata, pro_lines)
 
@@ -2496,27 +2578,61 @@ def generate_module_makefile(target_config, verbose, mname, include_paths=None, 
     # Work around QTBUG-39300.
     pro_lines.append('CONFIG -= android_install')
 
+    pro_lines.append('TARGET = %s' % target_name)
+
     if not target_config.static:
         debug_suffix = target_config.get_win32_debug_suffix()
-        link = target_config.get_pylib_link_arguments()
 
-        shared = '''
-win32 {
-    PY_MODULE = %s%s.pyd
-    target.files = %s%s.pyd
-    LIBS += %s
-} else {
-    PY_MODULE = %s.so
-    target.files = %s.so
-}
-''' % (target_name, debug_suffix, target_name, debug_suffix, link, target_name, target_name)
+        # For Qt v5.5 make sure these frameworks are already loaded by the time
+        # the libqcocoa.dylib plugin gets loaded.  This problem seems to be
+        # fixed in Qt v5.6.
+        extra_lflags = ''
 
-        pro_lines.extend(shared.split('\n'))
+        if mname == 'QtGui':
+            # Note that this workaround is flawed because it looks at the PyQt
+            # configuration rather than the Qt configuration.  It will fail if
+            # the user is building a PyQt without the QtDBus module against a
+            # Qt with the QtDBus library.  However it will be fine for the
+            # common case where the PyQt configuration reflects the Qt
+            # configuration.
+            fwks = []
+            for m in ('QtPrintSupport', 'QtDBus', 'QtWidgets'):
+                if m in target_config.pyqt_modules:
+                    fwks.append('-framework ' + m)
+
+            if len(fwks) != 0:
+                extra_lflags = 'QMAKE_LFLAGS += "%s"\n        ' % ' '.join(fwks)
 
         # Without the 'no_check_exist' magic the target.files must exist when
         # qmake is run otherwise the install and uninstall targets are not
         # generated.
-        pro_lines.append('target.CONFIG = no_check_exist')
+        shared = '''
+win32 {
+    PY_MODULE = %s%s.pyd
+    PY_MODULE_SRC = $(DESTDIR_TARGET)
+} else {
+    PY_MODULE = %s.so
+
+    macx {
+        PY_MODULE_SRC = $(TARGET).plugin/Contents/MacOS/$(TARGET)
+
+        QMAKE_LFLAGS += "-undefined dynamic_lookup"
+
+        equals(QT_MINOR_VERSION, 5) {
+            %sQMAKE_RPATHDIR += $$[QT_INSTALL_LIBS]
+        }
+    } else {
+        PY_MODULE_SRC = $(TARGET)
+    }
+}
+
+QMAKE_POST_LINK = $(COPY_FILE) $$PY_MODULE_SRC $$PY_MODULE
+
+target.CONFIG = no_check_exist
+target.files = $$PY_MODULE
+''' % (target_name, debug_suffix, target_name, extra_lflags)
+
+        pro_lines.extend(shared.split('\n'))
 
     if install_path == '':
         install_path = target_config.pyqt_module_dir + '/PyQt5'
@@ -2548,11 +2664,7 @@ win32 {
     # This is needed for Windows.
     pro_lines.append('INCLUDEPATH += .')
 
-    # Make sure the SIP include directory is searched before the Python include
-    # directory if they are different.
-    pro_lines.append('INCLUDEPATH += %s' % qmake_quote(target_config.sip_inc_dir))
-    if target_config.py_inc_dir != target_config.sip_inc_dir:
-        pro_lines.append('INCLUDEPATH += %s' % qmake_quote(target_config.py_inc_dir))
+    target_config.add_sip_h_directives(pro_lines)
 
     if metadata.qpy_lib:
         # This is the easiest way to make sure it is set for handwritten code.
@@ -2569,47 +2681,6 @@ win32 {
 
     if libs != '':
         pro_lines.append('LIBS += %s' % libs)
-
-    if not target_config.static:
-        # For Qt v5.5 make sure these frameworks are already loaded by the time
-        # the libqcocoa.dylib plugin gets loaded.  This problem seems to be
-        # fixed in Qt v5.6.
-        extra_lflags = ''
-
-        if mname == 'QtGui':
-            # Note that this workaround is flawed because it looks at the PyQt
-            # configuration rather than the Qt configuration.  It will fail if
-            # the user is building a PyQt without the QtDBus module against a
-            # Qt with the QtDBus library.  However it will be fine for the
-            # common case where the PyQt configuration reflects the Qt
-            # configuration.
-            fwks = []
-            for m in ('QtPrintSupport', 'QtDBus', 'QtWidgets'):
-                if m in target_config.pyqt_modules:
-                    fwks.append('-framework ' + m)
-
-            if len(fwks) != 0:
-                extra_lflags = 'QMAKE_LFLAGS += "%s"\n        ' % ' '.join(fwks)
-
-        shared = '''
-win32 {
-    QMAKE_POST_LINK = $(COPY_FILE) $(DESTDIR_TARGET) $$PY_MODULE
-} else {
-    QMAKE_POST_LINK = $(COPY_FILE) $(TARGET) $$PY_MODULE
-}
-macx {
-    QMAKE_LFLAGS += "-undefined dynamic_lookup"
-    QMAKE_LFLAGS += "-install_name $$absolute_path($$PY_MODULE, $$target.path)"
-
-    equals(QT_MINOR_VERSION, 5) {
-        %sQMAKE_RPATHDIR += $$[QT_INSTALL_LIBS]
-    }
-}
-''' % extra_lflags
-
-        pro_lines.extend(shared.split('\n'))
-
-    pro_lines.append('TARGET = %s' % target_name)
 
     if src_dir != mname:
         pro_lines.append('INCLUDEPATH += %s' % qmake_quote(src_dir))
@@ -2877,6 +2948,13 @@ def main(argv):
     # Check SIP is what we need.
     sip_version = check_sip(target_config)
 
+    if target_config.sip_h_version is not None:
+        if target_config.sip_h_version != sip_version:
+            error("%s has version %s but %s has version %s." % (
+                    os.path.join(target_config.sip_inc_dir, 'sip.h'),
+                    target_config.sip_h_version, target_config.sip,
+                    sip_version))
+
     # Check Qt is what we need.
     check_qt(target_config)
 
@@ -2886,6 +2964,11 @@ def main(argv):
     # Check which modules to build if we haven't been told.
     if len(target_config.pyqt_modules) == 0:
         check_modules(target_config, opts.disabled_modules, opts.verbose)
+    else:
+        # Check that the user supplied module names are valid.
+        for mname in target_config.pyqt_modules:
+            if mname not in MODULE_METADATA:
+                error("'%s' is not a valid module name." % mname)
 
     check_dbus(target_config, opts.verbose)
 
@@ -2894,7 +2977,8 @@ def main(argv):
 
     # Generate the makefiles.
     generate_makefiles(target_config, opts.verbose,
-            opts.split if opts.concat else 0, opts.tracing)
+            opts.split if opts.concat else 0, opts.tracing,
+            opts.fatal_warnings)
 
 
 ###############################################################################

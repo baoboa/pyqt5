@@ -1,6 +1,6 @@
 // This is the implementation of the event handlers.
 //
-// Copyright (c) 2017 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2018 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -75,8 +75,10 @@ void PyQtMonitor::monitor(QObject *cppInst)
     // to monitoring.  Note that subsequently calling disconnect() would cause
     // a crash - this is why we keep a separate record of C++ instances
     // currently being monitored and never explicitly disconnect the monitor.
+    Py_BEGIN_ALLOW_THREADS
     connect(cppInst, SIGNAL(destroyed(QObject *)),
-            SLOT(on_destroyed(QObject *)));
+            SLOT(on_destroyed(QObject *)), Qt::UniqueConnection);
+    Py_END_ALLOW_THREADS
 }
 
 
@@ -101,9 +103,12 @@ void PyQtMonitor::on_destroyed(QObject *cppInst)
     {
         monitored.erase(it);
 
-        PyObject *pyObj = sipGetPyObject(cppInst, sipType_QObject);
+        if (sipGetInterpreter())
+        {
+            PyObject *pyObj = sipGetPyObject(cppInst, sipType_QObject);
 
-        if (pyObj)
-            sipInstanceDestroyed((sipSimpleWrapper *)pyObj);
+            if (pyObj)
+                sipInstanceDestroyed((sipSimpleWrapper *)pyObj);
+        }
     }
 }

@@ -2,7 +2,7 @@
 //
 // This file is part of the QtGui Python extension module.
 //
-// Copyright (c) 2017 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2018 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -862,6 +862,12 @@ class QNativeGestureEvent : QInputEvent
 
 public:
     QNativeGestureEvent(Qt::NativeGestureType type, const QPointF &localPos, const QPointF &windowPos, const QPointF &screenPos, qreal value, ulong sequenceId, quint64 intArgument);
+%If (Qt_5_10_0 -)
+    QNativeGestureEvent(Qt::NativeGestureType type, const QTouchDevice *dev, const QPointF &localPos, const QPointF &windowPos, const QPointF &screenPos, qreal value, ulong sequenceId, quint64 intArgument);
+%End
+%If (Qt_5_10_0 -)
+    virtual ~QNativeGestureEvent();
+%End
     Qt::NativeGestureType gestureType() const;
     qreal value() const;
     const QPoint pos() const;
@@ -869,6 +875,9 @@ public:
     const QPointF &localPos() const;
     const QPointF &windowPos() const;
     const QPointF &screenPos() const;
+%If (Qt_5_10_0 -)
+    const QTouchDevice *device() const;
+%End
 };
 
 %End

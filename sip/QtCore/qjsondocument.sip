@@ -2,7 +2,7 @@
 //
 // This file is part of the QtCore Python extension module.
 //
-// Copyright (c) 2017 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2018 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -97,4 +97,13 @@ public:
     bool operator==(const QJsonDocument &other) const;
     bool operator!=(const QJsonDocument &other) const;
     bool isNull() const;
+%If (Qt_5_10_0 -)
+    void swap(QJsonDocument &other /Constrained/);
+%End
+%If (Qt_5_10_0 -)
+    const QJsonValue operator[](const QString &key) const;
+%End
+%If (Qt_5_10_0 -)
+    const QJsonValue operator[](int i) const;
+%End
 };

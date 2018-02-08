@@ -2,7 +2,7 @@
 //
 // This file is part of the QtCore Python extension module.
 //
-// Copyright (c) 2017 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2018 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -29,8 +29,8 @@ int PYQT_VERSION;
 const char *PYQT_VERSION_STR;
 
 %ModuleCode
-static int PYQT_VERSION = 0x050900;
-static const char *PYQT_VERSION_STR = "5.9";
+static int PYQT_VERSION = 0x050a00;
+static const char *PYQT_VERSION_STR = "5.10";
 %End
 const int QT_VERSION;
 const char *QT_VERSION_STR;
@@ -224,4 +224,10 @@ SIP_PYOBJECT pyqtPickleProtocol() /TypeHint="Optional[int]"/;
         sipRes = Py_None;
     
     Py_INCREF(sipRes);
+%End
+%If (Qt_5_10_0 -)
+QString qEnvironmentVariable(const char *varName);
+%End
+%If (Qt_5_10_0 -)
+QString qEnvironmentVariable(const char *varName, const QString &defaultValue);
 %End

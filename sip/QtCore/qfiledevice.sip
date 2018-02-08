@@ -2,7 +2,7 @@
 //
 // This file is part of the QtCore Python extension module.
 //
-// Copyright (c) 2017 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2018 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -174,6 +174,25 @@ protected:
         
             delete[] s;
         }
+%End
+
+public:
+%If (Qt_5_10_0 -)
+
+    enum FileTime
+    {
+        FileAccessTime,
+        FileBirthTime,
+        FileMetadataChangeTime,
+        FileModificationTime,
+    };
+
+%End
+%If (Qt_5_10_0 -)
+    QDateTime fileTime(QFileDevice::FileTime time) const;
+%End
+%If (Qt_5_10_0 -)
+    bool setFileTime(const QDateTime &newDate, QFileDevice::FileTime fileTime);
 %End
 
 private:

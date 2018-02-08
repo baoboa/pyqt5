@@ -67,14 +67,12 @@ class _ModuleWrapper(object):
         if cls in self._classes:
             if self._module is None:
                 self._module = __import__(self._moduleName, {}, {}, self._classes)
-            # Allow for namespaces.
-            obj = self._module
-            for attr in cls.split('.'):
-                obj = getattr(obj, attr)
+            # Remove any C++ scope.
+            cls = cls.split('.')[-1]
 
-            return obj
-        else:
-            return None
+            return getattr(self._module, cls)
+
+        return None
 
 
 class _CustomWidgetLoader(object):

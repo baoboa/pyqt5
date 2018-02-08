@@ -1,7 +1,7 @@
 // This is the SIP interface definition for the QList based mapped types
 // specific to the QtMultimedia module.
 //
-// Copyright (c) 2017 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2018 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -56,6 +56,7 @@
 
     if (!sipIsErr)
     {
+        PyErr_Clear();
         Py_XDECREF(iter);
 
         return (iter
@@ -93,7 +94,9 @@
             break;
         }
 
-        if (!sipCanConvertToEnum(itm, sipType_QVideoFrame_PixelFormat))
+        int v = sipConvertToEnum(itm, sipType_QVideoFrame_PixelFormat);
+
+        if (PyErr_Occurred())
         {
             PyErr_Format(PyExc_TypeError,
                     "index %zd has type '%s' but 'QVideoFrame.PixelFormat' is expected",
@@ -107,7 +110,7 @@
             return 0;
         }
 
-        ql->append(static_cast<QVideoFrame::PixelFormat>(SIPLong_AsLong(itm)));
+        ql->append(static_cast<QVideoFrame::PixelFormat>(v));
 
         Py_DECREF(itm);
     }
@@ -158,6 +161,7 @@
 
     if (!sipIsErr)
     {
+        PyErr_Clear();
         Py_XDECREF(iter);
 
         return (iter
@@ -195,7 +199,9 @@
             break;
         }
 
-        if (!sipCanConvertToEnum(itm, sipType_QAudioFormat_Endian))
+        int v = sipConvertToEnum(itm, sipType_QAudioFormat_Endian);
+
+        if (PyErr_Occurred())
         {
             PyErr_Format(PyExc_TypeError,
                     "index %zd has type '%s' but 'QAudioFormat.Endian' is expected",
@@ -209,7 +215,7 @@
             return 0;
         }
 
-        ql->append(static_cast<QAudioFormat::Endian>(SIPLong_AsLong(itm)));
+        ql->append(static_cast<QAudioFormat::Endian>(v));
 
         Py_DECREF(itm);
     }
@@ -260,6 +266,7 @@
 
     if (!sipIsErr)
     {
+        PyErr_Clear();
         Py_XDECREF(iter);
 
         return (iter
@@ -297,7 +304,9 @@
             break;
         }
 
-        if (!sipCanConvertToEnum(itm, sipType_QAudioFormat_SampleType))
+        int v = sipConvertToEnum(itm, sipType_QAudioFormat_SampleType);
+
+        if (PyErr_Occurred())
         {
             PyErr_Format(PyExc_TypeError,
                     "index %zd has type '%s' but 'QAudioFormat.SampleType' is expected",
@@ -311,7 +320,7 @@
             return 0;
         }
 
-        ql->append(static_cast<QAudioFormat::SampleType>(SIPLong_AsLong(itm)));
+        ql->append(static_cast<QAudioFormat::SampleType>(v));
 
         Py_DECREF(itm);
     }
@@ -364,6 +373,7 @@
 
     if (!sipIsErr)
     {
+        PyErr_Clear();
         Py_XDECREF(iter);
 
         return (iter
@@ -401,7 +411,9 @@
             break;
         }
 
-        if (!sipCanConvertToEnum(itm, sipType_QAudio_Role))
+        int v = sipConvertToEnum(itm, sipType_QAudio_Role);
+
+        if (PyErr_Occurred())
         {
             PyErr_Format(PyExc_TypeError,
                     "index %zd has type '%s' but 'QAudio.Role' is expected",
@@ -415,7 +427,7 @@
             return 0;
         }
 
-        ql->append(static_cast<QAudio::Role>(SIPLong_AsLong(itm)));
+        ql->append(static_cast<QAudio::Role>(v));
 
         Py_DECREF(itm);
     }

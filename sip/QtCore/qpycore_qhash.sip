@@ -1,7 +1,7 @@
 // This is the SIP interface definition for the majority of the QHash based
 // mapped types.
 //
-// Copyright (c) 2017 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2018 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -337,14 +337,14 @@ template<int, _TYPE_>
  
     while (PyDict_Next(sipPy, &pos, &kobj, &vobj))
     {
-        PyErr_Clear();
-        int k = SIPLong_AsLong(kobj);
+        int k = sipLong_AsInt(kobj);
 
         if (PyErr_Occurred())
         {
-            PyErr_Format(PyExc_TypeError,
-                    "a dict key has type '%s' but 'int' is expected",
-                    sipPyTypeName(Py_TYPE(kobj)));
+            if (PyErr_ExceptionMatches(PyExc_TypeError))
+                PyErr_Format(PyExc_TypeError,
+                        "a dict key has type '%s' but 'int' is expected",
+                        sipPyTypeName(Py_TYPE(kobj)));
 
             delete qh;
             *sipIsErr = 1;

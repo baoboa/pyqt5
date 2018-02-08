@@ -1,6 +1,6 @@
 // This contains the implementation of the pyqtBoundSignal type.
 //
-// Copyright (c) 2017 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2018 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -385,7 +385,9 @@ static PyObject *pyqtBoundSignal_connect(PyObject *self, PyObject *args,
 
     if (py_type)
     {
-        if (!sipCanConvertToEnum(py_type, sipType_Qt_ConnectionType))
+        int v = sipConvertToEnum(py_type, sipType_Qt_ConnectionType);
+
+        if (PyErr_Occurred())
         {
             PyErr_Format(PyExc_TypeError,
                     "Qt.ConnectionType expected, not '%s'",
@@ -394,7 +396,7 @@ static PyObject *pyqtBoundSignal_connect(PyObject *self, PyObject *args,
             return 0;
         }
 
-        q_type = (Qt::ConnectionType)SIPLong_AsLong(py_type);
+        q_type = static_cast<Qt::ConnectionType>(v);
     }
 
     QObject *q_tx = bs->bound_qobject, *q_rx;
@@ -805,7 +807,9 @@ static bool get_receiver(PyObject *slot,
         PyObject *f_name_owner_obj = f_name_obj;
         const char *f_name = sipString_AsASCIIString(&f_name_owner_obj);
         Py_DECREF(f_name_obj);
-        Q_ASSERT(f_name);
+
+        if (!f_name)
+            return false;
 
         rx_name = f_name;
         Py_DECREF(f_name_owner_obj);

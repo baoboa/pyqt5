@@ -1,6 +1,6 @@
 // This implements the helpers for QObject.
 //
-// Copyright (c) 2017 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2018 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -237,52 +237,59 @@ bool qpycore_qobject_qt_metacast(sipSimpleWrapper *pySelf,
     SIP_BLOCK_THREADS
 
     PyTypeObject *base_pytype = sipTypeAsPyTypeObject(base);
-    PyObject *mro;
 
-#if PY_VERSION_HEX >= 0x03040000
-    mro = PyObject_GetAttr((PyObject *)Py_TYPE(pySelf), qpycore_dunder_mro);
-    Q_ASSERT(mro);
-#else
-    mro = Py_TYPE(pySelf)->tp_mro;
-#endif
-
-    for (Py_ssize_t i = 0; i < PyTuple_Size(mro); ++i)
+    // We only need to look at the MRO if the object is a wrapped type (rather
+    // than a user sub-class).
+    if (base_pytype != Py_TYPE(pySelf))
     {
-        PyTypeObject *pytype = (PyTypeObject *)PyTuple_GetItem(mro, i);
-
-        const sipTypeDef *td = sipTypeFromPyTypeObject(pytype);
-
-        if (!td || !qpycore_is_pyqt_class(td))
-            continue;
-
-        if (qstrcmp(sipPyTypeName(pytype), _clname) == 0)
-        {
-            // The generated type definitions represent the C++ (rather than
-            // Python) hierachy.  If the C++ hierachy doesn't match then the
-            // super-type must be provided by a mixin.
-            if (PyType_IsSubtype(base_pytype, pytype))
-                *sipCpp = sipGetAddress(pySelf);
-            else
-                *sipCpp = sipGetMixinAddress(pySelf, td);
-
-            is_py_class = true;
-            break;
-        }
-
-        const char *iface = reinterpret_cast<const pyqt5ClassPluginDef *>(
-                sipTypePluginData(td))->qt_interface;
-
-        if (iface && qstrcmp(iface, _clname) == 0)
-        {
-            *sipCpp = sipGetMixinAddress(pySelf, td);
-            is_py_class = true;
-            break;
-        }
-    }
+        PyObject *mro;
 
 #if PY_VERSION_HEX >= 0x03040000
-    Py_DECREF(mro);
+        mro = PyObject_GetAttr((PyObject *)Py_TYPE(pySelf),
+                qpycore_dunder_mro);
+        Q_ASSERT(mro);
+#else
+        mro = Py_TYPE(pySelf)->tp_mro;
 #endif
+
+        for (Py_ssize_t i = 0; i < PyTuple_Size(mro); ++i)
+        {
+            PyTypeObject *pytype = (PyTypeObject *)PyTuple_GetItem(mro, i);
+
+            const sipTypeDef *td = sipTypeFromPyTypeObject(pytype);
+
+            if (!td || !qpycore_is_pyqt_class(td))
+                continue;
+
+            if (qstrcmp(sipPyTypeName(pytype), _clname) == 0)
+            {
+                // The generated type definitions represent the C++ (rather
+                // than Python) hierachy.  If the C++ hierachy doesn't match
+                // then the super-type must be provided by a mixin.
+                if (PyType_IsSubtype(pytype, base_pytype))
+                    *sipCpp = sipGetAddress(pySelf);
+                else
+                    *sipCpp = sipGetMixinAddress(pySelf, td);
+
+                is_py_class = true;
+                break;
+            }
+
+            const char *iface = reinterpret_cast<const pyqt5ClassPluginDef *>(
+                    sipTypePluginData(td))->qt_interface;
+
+            if (iface && qstrcmp(iface, _clname) == 0)
+            {
+                *sipCpp = sipGetMixinAddress(pySelf, td);
+                is_py_class = true;
+                break;
+            }
+        }
+
+#if PY_VERSION_HEX >= 0x03040000
+        Py_DECREF(mro);
+#endif
+    }
 
     SIP_UNBLOCK_THREADS
 

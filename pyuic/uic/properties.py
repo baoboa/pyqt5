@@ -274,7 +274,7 @@ class Properties(object):
 
             gradient.setColorAt(position, color)
 
-        return name
+        return gradient
 
     def _palette(self, prop):
         palette = self.factory.createQObject("QPalette", "palette", (),

@@ -2,7 +2,7 @@
 //
 // This file is part of the QtGui Python extension module.
 //
-// Copyright (c) 2017 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2018 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -34,7 +34,12 @@ public:
     };
 
     QStaticText();
+%If (Qt_5_10_0 -)
+    explicit QStaticText(const QString &text);
+%End
+%If (- Qt_5_10_0)
     QStaticText(const QString &text);
+%End
     QStaticText(const QStaticText &other);
     ~QStaticText();
     void setText(const QString &text);

@@ -2,7 +2,7 @@
 //
 // This file is part of the QtPositioning Python extension module.
 //
-// Copyright (c) 2017 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2018 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -45,6 +45,13 @@ class QGeoShape
         break;
     #endif
     
+    #if QT_VERSION >= 0x050a00
+    case QGeoShape::PolygonType:
+        sipType = sipType_QGeoPolygon;
+        break;
+    #endif
+    
+    
     default:
         sipType = 0;
     }
@@ -62,6 +69,9 @@ public:
         CircleType,
 %If (Qt_5_9_0 -)
         PathType,
+%End
+%If (Qt_5_10_0 -)
+        PolygonType,
 %End
     };
 

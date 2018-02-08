@@ -2,7 +2,7 @@
 //
 // This file is part of the QtCore Python extension module.
 //
-// Copyright (c) 2017 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2018 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -60,9 +60,17 @@ public:
     static const QOperatingSystemVersion AndroidMarshmallow;
     static const QOperatingSystemVersion AndroidNougat;
     static const QOperatingSystemVersion AndroidNougat_MR1;
+%If (Qt_5_9_2 -)
+    static const QOperatingSystemVersion AndroidOreo;
+%End
+%If (- Qt_5_9_2)
     QOperatingSystemVersion(const QOperatingSystemVersion &other);
+%End
     QOperatingSystemVersion(QOperatingSystemVersion::OSType osType, int vmajor, int vminor = -1, int vmicro = -1);
     static QOperatingSystemVersion current();
+%If (Qt_5_10_0 -)
+    static QOperatingSystemVersion::OSType currentType();
+%End
     int majorVersion() const;
     int minorVersion() const;
     int microVersion() const;

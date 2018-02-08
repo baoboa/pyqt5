@@ -1,6 +1,6 @@
 // This is the support for QJSValue.
 //
-// Copyright (c) 2017 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2018 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -28,6 +28,8 @@
 // See if a Python object can be converted to a QJSValue.
 int qpyqml_canConvertTo_QJSValue(PyObject *py)
 {
+    // Note that the API doesn't provide the ability to test for a constrained
+    // named enum.
     if (PyObject_TypeCheck(py, sipTypeAsPyTypeObject(sipType_QJSValue_SpecialValue)))
         return 1;
 
@@ -58,7 +60,15 @@ int qpyqml_convertTo_QJSValue(PyObject *py, PyObject *transferObj,
 {
     if (PyObject_TypeCheck(py, sipTypeAsPyTypeObject(sipType_QJSValue_SpecialValue)))
     {
-        *cpp = new QJSValue((QJSValue::SpecialValue)SIPLong_AsLong(py));
+        int v = sipConvertToEnum(py, sipType_QJSValue_SpecialValue);
+
+        if (PyErr_Occurred())
+        {
+            *isErr = 1;
+            return 0;
+        }
+
+        *cpp = new QJSValue(static_cast<QJSValue::SpecialValue>(v));
 
         return sipGetState(transferObj);
     }

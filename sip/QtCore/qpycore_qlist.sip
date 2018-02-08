@@ -1,7 +1,7 @@
 // This is the SIP interface definition for the majority of the QList based
 // mapped types.
 //
-// Copyright (c) 2017 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2018 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -69,6 +69,7 @@ template<_TYPE_>
 
     if (!sipIsErr)
     {
+        PyErr_Clear();
         Py_XDECREF(iter);
 
         return (iter
@@ -184,6 +185,7 @@ template<_TYPE_>
 
     if (!sipIsErr)
     {
+        PyErr_Clear();
         Py_XDECREF(iter);
 
         return (iter
@@ -296,6 +298,7 @@ template<_TYPE1_, _TYPE2_>
 
     if (!sipIsErr)
     {
+        PyErr_Clear();
         Py_XDECREF(iter);
 
         return (iter
@@ -487,6 +490,7 @@ template<_TYPE1_, _TYPE2_>
 
     if (!sipIsErr)
     {
+        PyErr_Clear();
         Py_XDECREF(iter);
 
         return (iter
@@ -566,14 +570,14 @@ template<_TYPE1_, _TYPE2_>
             return 0;
         }
 
-        PyErr_Clear();
-        int first = SIPLong_AsLong(itm1);
+        int first = sipLong_AsInt(itm1);
 
         if (PyErr_Occurred())
         {
-            PyErr_Format(PyExc_TypeError,
-                    "the first sub-element of index %zd has type '%s' but 'int' is expected",
-                    i, sipPyTypeName(Py_TYPE(itm1)));
+            if (PyErr_ExceptionMatches(PyExc_TypeError))
+                PyErr_Format(PyExc_TypeError,
+                        "the first sub-element of index %zd has type '%s' but 'int' is expected",
+                        i, sipPyTypeName(Py_TYPE(itm1)));
 
             Py_DECREF(itm1);
             Py_DECREF(seq);
@@ -597,14 +601,14 @@ template<_TYPE1_, _TYPE2_>
             return 0;
         }
 
-        PyErr_Clear();
-        int second = SIPLong_AsLong(itm2);
+        int second = sipLong_AsInt(itm2);
 
         if (PyErr_Occurred())
         {
-            PyErr_Format(PyExc_TypeError,
-                    "the second sub-element of index %zd has type '%s' but 'int' is expected",
-                    i, sipPyTypeName(Py_TYPE(itm2)));
+            if (PyErr_ExceptionMatches(PyExc_TypeError))
+                PyErr_Format(PyExc_TypeError,
+                        "the second sub-element of index %zd has type '%s' but 'int' is expected",
+                        i, sipPyTypeName(Py_TYPE(itm2)));
 
             Py_DECREF(itm2);
             Py_DECREF(itm1);
@@ -670,6 +674,7 @@ template<_TYPE1_, _TYPE2_>
 
     if (!sipIsErr)
     {
+        PyErr_Clear();
         Py_XDECREF(iter);
 
         return (iter
@@ -707,14 +712,14 @@ template<_TYPE1_, _TYPE2_>
             break;
         }
 
-        PyErr_Clear();
-        long val = SIPLong_AsLong(itm);
+        int val = sipLong_AsInt(itm);
 
         if (PyErr_Occurred())
         {
-            PyErr_Format(PyExc_TypeError,
-                    "index %zd has type '%s' but 'int' is expected", i,
-                    sipPyTypeName(Py_TYPE(itm)));
+            if (PyErr_ExceptionMatches(PyExc_TypeError))
+                PyErr_Format(PyExc_TypeError,
+                        "index %zd has type '%s' but 'int' is expected", i,
+                        sipPyTypeName(Py_TYPE(itm)));
 
             Py_DECREF(itm);
             delete ql;
@@ -774,6 +779,7 @@ template<_TYPE1_, _TYPE2_>
 
     if (!sipIsErr)
     {
+        PyErr_Clear();
         Py_XDECREF(iter);
 
         return (iter
@@ -879,6 +885,7 @@ template<_TYPE1_, _TYPE2_>
 
     if (!sipIsErr)
     {
+        PyErr_Clear();
         Py_XDECREF(iter);
 
         return (iter
@@ -916,7 +923,9 @@ template<_TYPE1_, _TYPE2_>
             break;
         }
 
-        if (!sipCanConvertToEnum(itm, sipType_Qt_DayOfWeek))
+        int v = sipConvertToEnum(itm, sipType_Qt_DayOfWeek);
+
+        if (PyErr_Occurred())
         {
             PyErr_Format(PyExc_TypeError,
                     "index %zd has type '%s' but 'Qt.DayOfWeek' is expected",
@@ -930,7 +939,7 @@ template<_TYPE1_, _TYPE2_>
             return 0;
         }
 
-        ql->append(static_cast<Qt::DayOfWeek>(SIPLong_AsLong(itm)));
+        ql->append(static_cast<Qt::DayOfWeek>(v));
 
         Py_DECREF(itm);
     }

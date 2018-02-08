@@ -2,7 +2,7 @@
 //
 // This file is part of the QtMultimedia Python extension module.
 //
-// Copyright (c) 2017 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2018 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -41,6 +41,9 @@ namespace QAudio
         SuspendedState,
         StoppedState,
         IdleState,
+%If (Qt_5_10_0 -)
+        InterruptedState,
+%End
     };
 
     enum Mode

@@ -2,7 +2,7 @@
 //
 // This file is part of the QtWidgets Python extension module.
 //
-// Copyright (c) 2017 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2018 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -48,6 +48,9 @@ public:
     static QString getText(QWidget *parent, const QString &title, const QString &label, QLineEdit::EchoMode echo = QLineEdit::Normal, const QString &text = QString(), bool *ok = 0, Qt::WindowFlags flags = Qt::WindowFlags(), Qt::InputMethodHints inputMethodHints = Qt::ImhNone) /ReleaseGIL/;
     static int getInt(QWidget *parent, const QString &title, const QString &label, int value = 0, int min = -2147483647, int max = 2147483647, int step = 1, bool *ok = 0, Qt::WindowFlags flags = Qt::WindowFlags()) /ReleaseGIL/;
     static double getDouble(QWidget *parent, const QString &title, const QString &label, double value = 0, double min = -2147483647, double max = 2147483647, int decimals = 1, bool *ok = 0, Qt::WindowFlags flags = Qt::WindowFlags()) /ReleaseGIL/;
+%If (Qt_5_10_0 -)
+    static double getDouble(QWidget *parent, const QString &title, const QString &label, double value, double minValue, double maxValue, int decimals, bool *ok, Qt::WindowFlags flags, double step);
+%End
     static QString getItem(QWidget *parent, const QString &title, const QString &label, const QStringList &items, int current = 0, bool editable = true, bool *ok = 0, Qt::WindowFlags flags = Qt::WindowFlags(), Qt::InputMethodHints inputMethodHints = Qt::ImhNone) /ReleaseGIL/;
 %If (Qt_5_2_0 -)
     static QString getMultiLineText(QWidget *parent, const QString &title, const QString &label, const QString &text = QString(), bool *ok = 0, Qt::WindowFlags flags = Qt::WindowFlags(), Qt::InputMethodHints inputMethodHints = Qt::ImhNone) /ReleaseGIL/;
@@ -120,6 +123,14 @@ signals:
     void intValueSelected(int value);
     void doubleValueChanged(double value);
     void doubleValueSelected(double value);
+
+public:
+%If (Qt_5_10_0 -)
+    void setDoubleStep(double step);
+%End
+%If (Qt_5_10_0 -)
+    double doubleStep() const;
+%End
 
 private:
     QInputDialog(const QInputDialog &);

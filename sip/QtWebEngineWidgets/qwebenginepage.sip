@@ -2,7 +2,7 @@
 //
 // This file is part of the QtWebEngineWidgets Python extension module.
 //
-// Copyright (c) 2017 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2018 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -107,6 +107,42 @@ public:
 %If (Qt_5_8_0 -)
         ViewSource,
 %End
+%If (Qt_5_10_0 -)
+        ToggleBold,
+%End
+%If (Qt_5_10_0 -)
+        ToggleItalic,
+%End
+%If (Qt_5_10_0 -)
+        ToggleUnderline,
+%End
+%If (Qt_5_10_0 -)
+        ToggleStrikethrough,
+%End
+%If (Qt_5_10_0 -)
+        AlignLeft,
+%End
+%If (Qt_5_10_0 -)
+        AlignCenter,
+%End
+%If (Qt_5_10_0 -)
+        AlignRight,
+%End
+%If (Qt_5_10_0 -)
+        AlignJustified,
+%End
+%If (Qt_5_10_0 -)
+        Indent,
+%End
+%If (Qt_5_10_0 -)
+        Outdent,
+%End
+%If (Qt_5_10_0 -)
+        InsertOrderedList,
+%End
+%If (Qt_5_10_0 -)
+        InsertUnorderedList,
+%End
     };
 
     enum FindFlag
@@ -142,6 +178,12 @@ public:
         MediaAudioVideoCapture,
 %If (Qt_5_5_0 -)
         MouseLock,
+%End
+%If (Qt_5_10_0 -)
+        DesktopVideoCapture,
+%End
+%If (Qt_5_10_0 -)
+        DesktopAudioVideoCapture,
 %End
     };
 
@@ -499,7 +541,7 @@ public:
     void replaceMisspelledWord(const QString &replacement);
 %End
 %If (Qt_5_8_0 -)
-    void save(const QString &filePath, QWebEngineDownloadItem::SavePageFormat format = QWebEngineDownloadItem::SavePageFormat::MimeHtmlSaveFormat) const;
+    void save(const QString &filePath, QWebEngineDownloadItem::SavePageFormat format = QWebEngineDownloadItem::MimeHtmlSaveFormat) const /ReleaseGIL/;
 %End
 %If (Qt_5_8_0 -)
 %If (Py_v3)
@@ -533,6 +575,9 @@ public:
 
 %End
 %End
+%End
+%If (Qt_5_10_0 -)
+    void download(const QUrl &url, const QString &filename = QString());
 %End
 
 private:

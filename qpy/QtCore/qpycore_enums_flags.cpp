@@ -1,6 +1,6 @@
 // This contains the implementation of the Q_ENUMS and Q_FLAGS support.
 //
-// Copyright (c) 2017 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2018 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -90,7 +90,7 @@ static PyObject *parse_enums_flags(PyObject *args, bool flags)
         {
             PyErr_Clear();
 
-            int i_value = SIPLong_AsLong(value);
+            int i_value = sipLong_AsInt(value);
 
             if (PyErr_Occurred())
                 continue;

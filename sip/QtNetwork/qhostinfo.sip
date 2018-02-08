@@ -2,7 +2,7 @@
 //
 // This file is part of the QtNetwork Python extension module.
 //
-// Copyright (c) 2017 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2018 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -66,6 +66,9 @@ public:
     static QHostInfo fromName(const QString &name);
     static QString localHostName();
     static QString localDomainName();
+%If (Qt_5_10_0 -)
+    void swap(QHostInfo &other /Constrained/);
+%End
 };
 
 %ModuleHeaderCode

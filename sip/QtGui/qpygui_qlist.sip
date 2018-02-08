@@ -1,7 +1,7 @@
 // This is the SIP interface definition for the QList based mapped types
 // specific to the QtGui module.
 //
-// Copyright (c) 2017 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2018 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -79,7 +79,9 @@
             return 0;
         }
 
-        if (!sipCanConvertToEnum(itm, sipType_QFontDatabase_WritingSystem))
+        int v = sipConvertToEnum(itm, sipType_QFontDatabase_WritingSystem);
+
+        if (PyErr_Occurred())
         {
             PyErr_Format(PyExc_TypeError,
                     "element %zd has type '%s' but 'QFontDatabase.WritingSystem' is expected",
@@ -92,9 +94,7 @@
             return 0;
         }
 
-        ql->append(
-                static_cast<QFontDatabase::WritingSystem>(
-                        SIPLong_AsLong(itm)));
+        ql->append(static_cast<QFontDatabase::WritingSystem>(v));
 
         Py_DECREF(itm);
     }

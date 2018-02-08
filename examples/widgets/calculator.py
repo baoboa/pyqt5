@@ -158,7 +158,7 @@ class Calculator(QWidget):
 
     def digitClicked(self):
         clickedButton = self.sender()
-        digitValue = int(clickedButton.text().replace('&',''))
+        digitValue = int(clickedButton.text())
 
         if self.display.text() == '0' and digitValue == 0.0:
             return

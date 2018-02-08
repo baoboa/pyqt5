@@ -86,9 +86,6 @@ public:
     inline void setVerbose(bool b) { mVerbose = b; }
     inline bool verbose() const { return mVerbose; }
 
-    inline void setInitName(const QString &n) { mInitName = n; }
-    inline QString initName() const { return mInitName; }
-
     inline void setCompressLevel(int c) { mCompressLevel = c; }
     inline int compressLevel() const { return mCompressLevel; }
 
@@ -110,7 +107,7 @@ private:
     bool writeInitializer(FILE *out);
 
     QStringList mFileNames;
-    QString mResourceRoot, mInitName;
+    QString mResourceRoot;
     bool mVerbose;
     int mCompressLevel;
     int mCompressThreshold;

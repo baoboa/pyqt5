@@ -2,7 +2,7 @@
 //
 // This file is part of the QtCore Python extension module.
 //
-// Copyright (c) 2017 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2018 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -40,9 +40,12 @@ public:
     void setFileTemplate(const QString &name);
     static QTemporaryFile *createNativeFile(const QString &fileName) /Factory,ReleaseGIL/;
     static QTemporaryFile *createNativeFile(QFile &file) /Factory,ReleaseGIL/;
+%If (Qt_5_10_0 -)
+    bool rename(const QString &newName);
+%End
 
 protected:
-    virtual bool open(QFlags<QIODevice::OpenModeFlag> mode) /ReleaseGIL/;
+    virtual bool open(QIODevice::OpenMode flags) /ReleaseGIL/;
 
 private:
     QTemporaryFile(const QTemporaryFile &);

@@ -1,6 +1,6 @@
 // This contains the implementation of the pyqtSignal type.
 //
-// Copyright (c) 2017 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2018 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -341,15 +341,14 @@ static int pyqtSignal_init(PyObject *self, PyObject *args, PyObject *kwd_args)
             else if (qstrcmp(PyString_AsString(key), "revision") == 0)
 #endif
             {
-                PyErr_Clear();
-
-                revision = SIPLong_AsLong(value);
+                revision = sipLong_AsInt(value);
 
                 if (PyErr_Occurred())
                 {
-                    PyErr_Format(PyExc_TypeError,
-                            "signal 'revision' must be an int, not %s",
-                            sipPyTypeName(Py_TYPE(value)));
+                    if (PyErr_ExceptionMatches(PyExc_TypeError))
+                        PyErr_Format(PyExc_TypeError,
+                                "signal 'revision' must be an int, not %s",
+                                sipPyTypeName(Py_TYPE(value)));
 
                     Py_XDECREF(name_obj);
                     return -1;

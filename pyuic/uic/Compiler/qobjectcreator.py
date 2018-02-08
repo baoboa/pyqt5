@@ -1,6 +1,6 @@
 #############################################################################
 ##
-## Copyright (C) 2015 Riverbank Computing Limited.
+## Copyright (C) 2018 Riverbank Computing Limited.
 ## Copyright (C) 2006 Thorsten Marek.
 ## All right reserved.
 ##
@@ -87,6 +87,10 @@ class _ModuleWrapper(object):
     def search(self, cls):
         if cls in self._classes:
             self._used = True
+
+            # Remove any C++ scope.
+            cls = cls.split('.')[-1]
+
             return type(cls, (QtWidgets.QWidget,), {"module": self._module})
         else:
             return None

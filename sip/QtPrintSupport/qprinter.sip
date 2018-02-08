@@ -2,7 +2,7 @@
 //
 // This file is part of the QtPrintSupport Python extension module.
 //
-// Copyright (c) 2017 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2018 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -144,8 +144,8 @@ public:
     void setOrientation(QPrinter::Orientation);
     QPrinter::Orientation orientation() const;
     virtual void setPageSizeMM(const QSizeF &size);
-    void setPaperSize(QPagedPaintDevice::PageSize);
-    QPagedPaintDevice::PageSize paperSize() const;
+    void setPaperSize(QPrinter::PaperSize);
+    QPrinter::PaperSize paperSize() const;
     void setPaperSize(const QSizeF &paperSize, QPrinter::Unit unit);
     QSizeF paperSize(QPrinter::Unit unit) const;
     void setPageOrder(QPrinter::PageOrder);
@@ -204,6 +204,12 @@ public:
 %End
 %If (Qt_5_1_0 -)
     QString paperName() const;
+%End
+%If (Qt_5_10_0 -)
+    void setPdfVersion(QPagedPaintDevice::PdfVersion version);
+%End
+%If (Qt_5_10_0 -)
+    QPagedPaintDevice::PdfVersion pdfVersion() const;
 %End
 
 private:

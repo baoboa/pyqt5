@@ -1,3 +1,17 @@
+v5.10 23rd January 2017
+  - Added support for Qt v5.10.0.
+  - Added the QtNetworkAuth module.
+
+v5.9.2 23rd November 2017
+  - Added support for Qt v5.9.3.
+  - Added the QtAndroidExtras module.
+
+v5.9.1 1st November 2017
+  - Added support for Qt v5.9.2.
+  - Added the --allow-sip-warnings option to configure.py.
+  - Removed the unimplemented -name option to pyrcc5.
+  - SIP v4.19.4 is required.
+
 v5.9 3rd July 2017
   - Added support for Qt v5.9.0 and v5.9.1.
   - Improved detection of the destruction of QObject-based instances by C++.

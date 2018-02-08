@@ -2,7 +2,7 @@
 //
 // This file is part of the QtWidgets Python extension module.
 //
-// Copyright (c) 2017 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2018 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -89,7 +89,7 @@ public:
 %End
     static QAction *exec(QList<QAction*> actions, const QPoint &pos, QAction *at = 0, QWidget *parent = 0) /PostHook=__pyQtPostEventLoopHook__,PreHook=__pyQtPreEventLoopHook__,PyName=exec_,ReleaseGIL/;
 %If (Py_v3)
-    static QAction *exec(QList<QAction*> actions, const QPoint &pos, QAction *at = 0, QWidget *parent = 0) /PostHook=__pyQtPostEventLoopHook__,PreHook=__pyQtPreEventLoopHook__,ReleaseGIL/;
+    static QAction *exec(QList<QAction *> actions, const QPoint &pos, QAction *at = 0, QWidget *parent = 0) /PostHook=__pyQtPostEventLoopHook__,PreHook=__pyQtPreEventLoopHook__,ReleaseGIL/;
 %End
     virtual QSize sizeHint() const;
     QRect actionGeometry(QAction *) const;

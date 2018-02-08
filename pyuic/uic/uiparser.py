@@ -1,6 +1,6 @@
 #############################################################################
 ##
-## Copyright (C) 2016 Riverbank Computing Limited.
+## Copyright (C) 2017 Riverbank Computing Limited.
 ## Copyright (C) 2006 Thorsten Marek.
 ## All right reserved.
 ##
@@ -138,9 +138,9 @@ class WidgetStack(list):
 
     def topIsLayoutWidget(self):
         # A plain QWidget is a layout widget unless it's parent is a
-        # QMainWindow or a QTabWidget.  Note that the corresponding uic test is
-        # a little more complicated as it involves features not supported by
-        # pyuic.
+        # QMainWindow or a container widget.  Note that the corresponding uic
+        # test is a little more complicated as it involves features not
+        # supported by pyuic.
 
         if type(self[-1]) is not QtWidgets.QWidget:
             return False
@@ -148,7 +148,17 @@ class WidgetStack(list):
         if len(self) < 2:
             return False
 
-        return type(self[-2]) not in (QtWidgets.QMainWindow, QtWidgets.QTabWidget)
+        parent = self[-2]
+
+        return isinstance(parent, QtWidgets.QWidget) and type(parent) not in (
+                QtWidgets.QMainWindow,
+                QtWidgets.QStackedWidget,
+                QtWidgets.QToolBox,
+                QtWidgets.QTabWidget,
+                QtWidgets.QScrollArea,
+                QtWidgets.QMdiArea,
+                QtWidgets.QWizard,
+                QtWidgets.QDockWidget)
 
 
 class ButtonGroup(object):
@@ -444,8 +454,8 @@ class UIParser(object):
         # different.  The following will select, in order of preference,
         # separate margins, the same margin in all directions, and the default
         # margin.
-        margin = self.wprops.getProperty(elem, 'margin',
-                self.defaults['margin'])
+        margin = -1 if self.stack.topIsLayout() else self.defaults['margin']
+        margin = self.wprops.getProperty(elem, 'margin', margin)
         left = self.wprops.getProperty(elem, 'leftMargin', margin)
         top = self.wprops.getProperty(elem, 'topMargin', margin)
         right = self.wprops.getProperty(elem, 'rightMargin', margin)

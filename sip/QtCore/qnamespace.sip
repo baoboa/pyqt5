@@ -2,7 +2,7 @@
 //
 // This file is part of the QtCore Python extension module.
 //
-// Copyright (c) 2017 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2018 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -1336,6 +1336,15 @@ namespace Qt
 %End
 %If (Qt_5_9_0 -)
         AA_DisableShaderDiskCache,
+%End
+%If (Qt_5_10_0 -)
+        AA_DontShowShortcutsInContextMenus,
+%End
+%If (Qt_5_10_0 -)
+        AA_CompressTabletEvents,
+%End
+%If (Qt_5_10_0 -)
+        AA_DisableWindowContextHelpButton,
 %End
     };
 

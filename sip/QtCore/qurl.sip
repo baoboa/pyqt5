@@ -2,7 +2,7 @@
 //
 // This file is part of the QtCore Python extension module.
 //
-// Copyright (c) 2017 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2018 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -179,9 +179,9 @@ public:
     void setScheme(const QString &scheme);
     QString scheme() const;
     void setAuthority(const QString &authority, QUrl::ParsingMode mode = QUrl::TolerantMode);
-    QString authority(QFlags<QUrl::ComponentFormattingOption> options = QUrl::PrettyDecoded) const;
+    QString authority(QUrl::ComponentFormattingOptions options = QUrl::PrettyDecoded) const;
     void setUserInfo(const QString &userInfo, QUrl::ParsingMode mode = QUrl::TolerantMode);
-    QString userInfo(QFlags<QUrl::ComponentFormattingOption> options = QUrl::PrettyDecoded) const;
+    QString userInfo(QUrl::ComponentFormattingOptions options = QUrl::PrettyDecoded) const;
 %If (Qt_5_2_0 -)
     void setUserName(const QString &userName, QUrl::ParsingMode mode = QUrl::DecodedMode);
 %End
@@ -189,7 +189,7 @@ public:
     void setUserName(const QString &userName, QUrl::ParsingMode mode = QUrl::TolerantMode);
 %End
 %If (Qt_5_2_0 -)
-    QString userName(QFlags<QUrl::ComponentFormattingOption> options = QUrl::FullyDecoded) const;
+    QString userName(QUrl::ComponentFormattingOptions options = QUrl::FullyDecoded) const;
 %End
 %If (- Qt_5_2_0)
     QString userName(QFlags<QUrl::ComponentFormattingOption> options = QUrl::PrettyDecoded) const;
@@ -201,7 +201,7 @@ public:
     void setPassword(const QString &password, QUrl::ParsingMode mode = QUrl::TolerantMode);
 %End
 %If (Qt_5_2_0 -)
-    QString password(QFlags<QUrl::ComponentFormattingOption> options = QUrl::FullyDecoded) const;
+    QString password(QUrl::ComponentFormattingOptions options = QUrl::FullyDecoded) const;
 %End
 %If (- Qt_5_2_0)
     QString password(QFlags<QUrl::ComponentFormattingOption> options = QUrl::PrettyDecoded) const;
@@ -213,7 +213,7 @@ public:
     void setHost(const QString &host, QUrl::ParsingMode mode = QUrl::TolerantMode);
 %End
 %If (Qt_5_2_0 -)
-    QString host(QFlags<QUrl::ComponentFormattingOption> options = QUrl::FullyDecoded) const;
+    QString host(QUrl::ComponentFormattingOptions = QUrl::FullyDecoded) const;
 %End
 %If (- Qt_5_2_0)
     QString host(QFlags<QUrl::ComponentFormattingOption> options = QUrl::PrettyDecoded) const;
@@ -227,13 +227,13 @@ public:
     void setPath(const QString &path, QUrl::ParsingMode mode = QUrl::TolerantMode);
 %End
 %If (Qt_5_2_0 -)
-    QString path(QFlags<QUrl::ComponentFormattingOption> options = QUrl::FullyDecoded) const;
+    QString path(QUrl::ComponentFormattingOptions options = QUrl::FullyDecoded) const;
 %End
 %If (- Qt_5_2_0)
     QString path(QFlags<QUrl::ComponentFormattingOption> options = QUrl::PrettyDecoded) const;
 %End
     void setFragment(const QString &fragment, QUrl::ParsingMode mode = QUrl::TolerantMode);
-    QString fragment(QFlags<QUrl::ComponentFormattingOption> options = QUrl::PrettyDecoded) const;
+    QString fragment(QUrl::ComponentFormattingOptions options = QUrl::PrettyDecoded) const;
     QUrl resolved(const QUrl &relative) const;
     bool isRelative() const;
     bool isParentOf(const QUrl &url) const;
@@ -259,7 +259,7 @@ public:
     static QUrl fromUserInput(const QString &userInput);
     void swap(QUrl &other /Constrained/);
 %If (Qt_5_2_0 -)
-    QString topLevelDomain(QFlags<QUrl::ComponentFormattingOption> options = QUrl::FullyDecoded) const;
+    QString topLevelDomain(QUrl::ComponentFormattingOptions options = QUrl::FullyDecoded) const;
 %End
 %If (- Qt_5_2_0)
     QString topLevelDomain(QFlags<QUrl::ComponentFormattingOption> options = QUrl::PrettyDecoded) const;
@@ -268,7 +268,7 @@ public:
     QString toDisplayString(QUrlTwoFlags<QUrl::UrlFormattingOption, QUrl::ComponentFormattingOption> options = QUrl::PrettyDecoded) const;
     void setQuery(const QString &query, QUrl::ParsingMode mode = QUrl::TolerantMode);
     void setQuery(const QUrlQuery &query);
-    QString query(QFlags<QUrl::ComponentFormattingOption> options = QUrl::PrettyDecoded) const;
+    QString query(QUrl::ComponentFormattingOptions options = QUrl::PrettyDecoded) const;
 %If (Qt_5_1_0 -)
     static QStringList toStringList(const QList<QUrl> &uris, QUrlTwoFlags<QUrl::UrlFormattingOption, QUrl::ComponentFormattingOption> options = QUrl::PrettyDecoded);
 %End
@@ -279,7 +279,7 @@ public:
     QUrl adjusted(QUrl::FormattingOptions options) const;
 %End
 %If (Qt_5_2_0 -)
-    QString fileName(QFlags<QUrl::ComponentFormattingOption> options = QUrl::FullyDecoded) const;
+    QString fileName(QUrl::ComponentFormattingOptions options = QUrl::FullyDecoded) const;
 %End
 %If (Qt_5_2_0 -)
     bool matches(const QUrl &url, QUrl::FormattingOptions options) const;
@@ -297,7 +297,7 @@ public:
     typedef QFlags<QUrl::UserInputResolutionOption> UserInputResolutionOptions;
 %End
 %If (Qt_5_4_0 -)
-    static QUrl fromUserInput(const QString &userInput, const QString &workingDirectory, QUrl::UserInputResolutionOptions options = QUrl::UserInputResolutionOption::DefaultResolution);
+    static QUrl fromUserInput(const QString &userInput, const QString &workingDirectory, QUrl::UserInputResolutionOptions options = QUrl::DefaultResolution);
 %End
 };
 

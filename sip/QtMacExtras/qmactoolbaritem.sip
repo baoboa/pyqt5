@@ -1,6 +1,6 @@
 // This is the SIP interface definition for QMacToolBarItem.
 //
-// Copyright (c) 2017 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2018 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -19,6 +19,8 @@
 
 
 %If (Qt_5_3_0 -)
+
+%If (PyQt_MacOSXOnly)
 
 class NSToolbarItem;
 
@@ -59,5 +61,7 @@ signals:
 private:
     QMacToolBarItem(const QMacToolBarItem &);
 };
+
+%End
 
 %End

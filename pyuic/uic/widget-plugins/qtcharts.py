@@ -1,6 +1,6 @@
 #############################################################################
 ##
-## Copyright (c) 2017 Riverbank Computing Limited <info@riverbankcomputing.com>
+## Copyright (c) 2018 Riverbank Computing Limited <info@riverbankcomputing.com>
 ## 
 ## This file is part of PyQt5.
 ## 
@@ -30,4 +30,4 @@ pluginType = MODULE
 # "import A".  If "module" is "A[.B].C", the code generator will write
 # "from A[.B] import C".  Each entry in "widget_list" must be unique.
 def moduleInformation():
-    return "PyQt5.QtChart", ("QChartView", )
+    return 'PyQt5.QtChart', ('QtCharts.QChartView', )
