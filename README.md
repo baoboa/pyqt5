@@ -1,7 +1,10 @@
 pyqt5
 =====
 
-#### 5.10
+#### Disclaimer
+This repository is just a mirror of the official source code find on the riverbankcomputing website, i accept minor pull request but questions should be asked on the mailing list. 
+
+#### Release 5.10
 * source  -> http://www.riverbankcomputing.com/software/pyqt/download5
 * support -> https://www.riverbankcomputing.com/mailman/listinfo/pyqt/
 * doc     -> http://pyqt.sourceforge.net/Docs/PyQt5/
