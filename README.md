@@ -6,7 +6,7 @@ This repository is just a mirror of the official source code find on the riverba
 
 #### Release 5.10
 * source  -> http://www.riverbankcomputing.com/software/pyqt/download5
-* support -> https://www.riverbankcomputing.com/mailman/listinfo/pyqt/
+* support (Mailing List) -> https://www.riverbankcomputing.com/mailman/listinfo/pyqt/
 * doc     -> http://pyqt.sourceforge.net/Docs/PyQt5/
 * SIP 4.19 source code in tarball directory
 
