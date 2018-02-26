@@ -21,5 +21,5 @@ entry entitled "Examples and Demos" entry in the submenu containing PyQt5.
 
 On all platforms:
 
-The source code for the launcher can be found in the examples/demos/qtdemo
+The source code for the launcher can be found in the examples/qtdemo
 directory in the PyQt package.
