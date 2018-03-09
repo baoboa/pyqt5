@@ -1233,11 +1233,9 @@ QVariant Chimera::fromAnyPyObject(PyObject *py, int *is_err)
 
         if (ct.parse_py_type(Py_TYPE(py)))
         {
-            // If the type is a list or dict then try and convert it to a
-            // QVariantList or QVariantMap respectively if possible.
-            if (Py_TYPE(py) == &PyList_Type)
-                ct._metatype = QMetaType::QVariantList;
-            else if (Py_TYPE(py) == &PyDict_Type)
+            // If the type is a dict then try and convert it to a QVariantMap
+            // if possible.
+            if (Py_TYPE(py) == &PyDict_Type)
                 ct._metatype = QMetaType::QVariantMap;
 
             // The conversion is non-strict in case the type was a dict and we

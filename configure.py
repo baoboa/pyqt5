@@ -28,7 +28,7 @@ import sys
 
 
 # Initialise the constants.
-PYQT_VERSION_STR = "5.10"
+PYQT_VERSION_STR = "5.10.1"
 
 SIP_MIN_VERSION = '4.19.4'
 
@@ -858,6 +858,8 @@ class TargetConfiguration:
         configuration.  opts are the command line options.
         """
 
+        self.pyqt_disabled_features.extend(opts.disabled_features)
+
         if opts.assumeshared:
             self.qt_shared = True
 
@@ -1106,6 +1108,9 @@ def create_optparser(target_config):
             action='append', metavar="MODULE",
             help="disable the specified MODULE [default: checks for all "
                     "modules will be enabled]")
+    g.add_option("--disable-feature", dest='disabled_features', default=[],
+            action='append', metavar="FEATURE",
+            help="disable the specified FEATURE")
     g.add_option("--enable", "-e", dest='modules', default=[], action='append',
             metavar="MODULE",
             help="enable checks for the specified MODULE [default: checks for "

@@ -124,15 +124,13 @@ static int register_type(QQmlPrivate::RegisterType *rt)
 
 #define QPYQML_TYPE_INIT(n) \
     case n##U: \
-        QPyQmlObject##n::staticMetaObject = static_mo; \
+        QPyQmlObject##n::staticMetaObject = *mo; \
         QPyQmlObject##n::attachedPyType = attached; \
         rt->typeId = qRegisterNormalizedMetaType<QPyQmlObject##n *>(ptr_name); \
         rt->listId = qRegisterNormalizedMetaType<QQmlListProperty<QPyQmlObject##n> >(list_name); \
         rt->objectSize = ctor ? sizeof(QPyQmlObject##n) : 0; \
         if (ctor) rt->create = QQmlPrivate::createInto<QPyQmlObject##n>; else rt->create = 0; \
-        rt->metaObject = &QPyQmlObject##n::staticMetaObject; \
         rt->attachedPropertiesFunction = attached_mo ? QPyQmlObject##n::attachedProperties : 0; \
-        rt->attachedPropertiesMetaObject = attached_mo; \
         rt->parserStatusCast = is_parser_status ? QQmlPrivate::StaticCastSelector<QPyQmlObject##n,QQmlParserStatus>::cast() : -1; \
         rt->valueSourceCast = is_value_source ? QQmlPrivate::StaticCastSelector<QPyQmlObject##n,QQmlPropertyValueSource>::cast() : -1; \
         rt->valueInterceptorCast = QQmlPrivate::StaticCastSelector<QPyQmlObject##n,QQmlPropertyValueInterceptor>::cast(); \
@@ -219,33 +217,7 @@ static QQmlPrivate::RegisterType *init_type(PyTypeObject *py_type, bool ctor,
         return 0;
     }
 
-    const QMetaObject *orig_mo = pyqt5_qtqml_get_qmetaobject(py_type);
-    QMetaObject static_mo = *orig_mo;
-
-#if QT_VERSION >= 0x050800
-    // Qt v5.8.0 changed the way properties are handled by directly calling a
-    // class's static meta-call (if there was one) directly.  This bypasses the
-    // proxy and calls the static meta-call with a pointer to the proxy rather
-    // than a pointer to the real object.  To work round this we clone the
-    // QMetaObject chain and remove the references to the static meta-call
-    // forcing the earlier behaviour.  This approach may also work with earlier
-    // versions of Qt - but if it ain't broke...
-    static_mo.d.static_metacall = 0;
-
-    QMetaObject *sub_mo = &static_mo;
-
-    // By retaining the QObject static meta-object we don't appear to be a
-    // gadget.
-    for (const QMetaObject *mo = sub_mo->d.superdata; mo != &QObject::staticMetaObject; mo = mo->d.superdata)
-    {
-        QMetaObject *new_mo = new QMetaObject;
-        *new_mo = *mo;
-        new_mo->d.static_metacall = 0;
-
-        sub_mo->d.superdata = new_mo;
-        sub_mo = new_mo;
-    }
-#endif
+    const QMetaObject *mo = pyqt5_qtqml_get_qmetaobject(py_type);
 
     // See if the type is a parser status.
     bool is_parser_status = PyType_IsSubtype(py_type,
@@ -298,7 +270,7 @@ static QQmlPrivate::RegisterType *init_type(PyTypeObject *py_type, bool ctor,
 
     if (qquickitem_register)
     {
-        sipErrorState estate = qquickitem_register(py_type, orig_mo, ptr_name,
+        sipErrorState estate = qquickitem_register(py_type, mo, ptr_name,
                 list_name, &rt);
 
         if (estate == sipErrorFail)
@@ -387,6 +359,9 @@ static QQmlPrivate::RegisterType *init_type(PyTypeObject *py_type, bool ctor,
         QPYQML_TYPE_INIT(58);
         QPYQML_TYPE_INIT(59);
     }
+
+    rt->metaObject = mo;
+    rt->attachedPropertiesMetaObject = attached_mo;
 
     complete_init(rt, revision);
 

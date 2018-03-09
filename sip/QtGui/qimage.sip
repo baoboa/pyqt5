@@ -223,7 +223,7 @@ public:
     bool reinterpretAsFormat(QImage::Format f);
 %End
 %If (Qt_5_10_0 -)
-    SIP_SSIZE_T sizeInBytes() const [unknown_type ()];
+    SIP_SSIZE_T sizeInBytes() const [qsizetype ()];
 %End
 };
 

@@ -46,6 +46,7 @@ WARRANTY OF DESIGN, MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE.
 
 %DefaultSupertype sip.simplewrapper
 
+%Include qqml.sip
 %Include qjsengine.sip
 %Include qjsvalue.sip
 %Include qjsvalueiterator.sip

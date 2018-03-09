@@ -63,6 +63,20 @@ signals:
 
 protected:
     void setResponseType(const QString &responseType);
+
+public:
+%If (Qt_5_10_1 -)
+    virtual QNetworkReply *post(const QUrl &url, const QByteArray &data);
+%End
+%If (Qt_5_10_1 -)
+    virtual QNetworkReply *post(const QUrl &url, QHttpMultiPart *multiPart);
+%End
+%If (Qt_5_10_1 -)
+    virtual QNetworkReply *put(const QUrl &url, const QByteArray &data);
+%End
+%If (Qt_5_10_1 -)
+    virtual QNetworkReply *put(const QUrl &url, QHttpMultiPart *multiPart);
+%End
 };
 
 %End

@@ -84,7 +84,6 @@ static int register_type(QQmlPrivate::RegisterSingletonType *rt)
         QPyQmlSingletonObject##n::factory = factory; \
         rt->qobjectApi = QPyQmlSingletonObject##n::objectFactory; \
         rt->typeId = qRegisterNormalizedMetaType<QPyQmlSingletonObject##n *>(ptr_name.constData()); \
-        rt->instanceMetaObject = mo; \
         break
 
 
@@ -154,6 +153,8 @@ static QQmlPrivate::RegisterSingletonType *init_type(PyTypeObject *py_type,
     }
 
     // Initialise the remaining members.
+    rt->instanceMetaObject = mo;
+
     rt->version = 2;
     rt->uri = 0;
     rt->versionMajor = 0;

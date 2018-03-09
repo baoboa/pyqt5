@@ -1,4 +1,74 @@
+2018-02-26  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* NEWS:
+	Released as v5.10.1.
+	[dc149e6643d5] [5.10.1] <5.10-maint>
+
+2018-02-21  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* PyQt5.msp:
+	Added the new QAbstractOAuth2 methods added in Qt v5.10.1.
+	[b2ea22e58de6] <5.10-maint>
+
+2018-02-20  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* PyQt5.msp:
+	Updated for Qt v5.10.1.
+	[e27d89dd3457] <5.10-maint>
+
+2018-02-13  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* PyQt5.msp:
+	Added the missing qmlClearTypeRegistrations() to the QtQml module.
+	[c9a7040cb4a7] <5.10-maint>
+
+2018-02-12  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* PyQt5.msp:
+	Removed incorrect annotation on
+	QQmlNetworkAccessManagerFactory::create().
+	[6401ed81edee] <5.10-maint>
+
+2018-02-08  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* qpy/QtCore/qpycore_chimera.cpp:
+	Removed some (hopefully) redundant code.
+	[6e9e33411f41] <5.10-maint>
+
+2018-02-06  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* PyQt5.msp:
+	Make sure LTS releases of Qt v5.9 don't get handled as Qt v5.10.
+	[8474d7f26f1f] <5.10-maint>
+
+2018-02-04  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* lib/configure.py:
+	Added the --disabled-feature option to configure.py.
+	[5a554278bbf0] <5.10-maint>
+
+2018-01-31  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* examples/quick/tutorials/extending/chapter1-basics/chapter1-basics.p
+	y, examples/quick/tutorials/extending/chapter2-methods/chapter2-meth
+	ods.py, examples/quick/tutorials/extending/chapter3-bindings/chapter
+	3-bindings.py, examples/quick/tutorials/extending/chapter4-customPro
+	pertyTypes/chapter4-customPropertyTypes.py, examples/quick/tutorials
+	/extending/chapter5-listproperties/chapter5-listproperties.py:
+	Avoid an assertion failure when using a debug version of Qt.
+	[6eb406e64db8] <5.10-maint>
+
+	* qpy/QtQml/qpyqml_register_singleton_type.cpp,
+	qpy/QtQml/qpyqml_register_type.cpp:
+	Reverted the change in PyQt v5.8 that dealt with QML and properties
+	so that all the examples work again.
+	[9eb53449681d] <5.10-maint>
+
 2018-01-23  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* .hgtags:
+	Added tag 5.10 for changeset 9f68e48cf5f5
+	[c18dad0e8eec]
 
 	* NEWS:
 	Released as v5.10.
