@@ -1,12 +1,9 @@
 pyqt5
 =====
 
-#### Disclaimer
-This repository is just a mirror of the official source code find on the riverbankcomputing website, i accept minor pull request on the master branch but questions should be asked on the mailing list. 
-
-#### Release 5.10
+#### 5.10.1
 * source  -> http://www.riverbankcomputing.com/software/pyqt/download5
-* support (Mailing List) -> https://www.riverbankcomputing.com/mailman/listinfo/pyqt/
+* support -> https://www.riverbankcomputing.com/mailman/listinfo/pyqt/
 * doc     -> http://pyqt.sourceforge.net/Docs/PyQt5/
 * SIP 4.19 source code in tarball directory
 
@@ -19,10 +16,18 @@ Change
 
 ## SIP
 
-* SIP v4.19.7 has been released. This is primarily a minor functional release that allows automatically generated signatures to be included in handwritten docstrings. 
+* SIP v4.19.8 has been released. This is a minor bug-fix release. 
 
 ## PyQt5
 
+### 5.10
+
 *    The highlights of the release are support for Qt v5.10.0 and the new QtNetworkAuth and Qt3DAnimation modules.
 *    Support for Qt v5.10
+
+### 5.10.1
+
+*   Added support for Qt v5.10.1.
+*   Added the missing qmlClearTypeRegistrations() to the QtQml module.
+*   Added the --disable-feature option to configure.py.
 
