@@ -57,6 +57,8 @@ class TreeItem(object):
         self.childItems = []
 
     def child(self, row):
+        if row < 0 or row >= len(self.childItems):
+            return None
         return self.childItems[row]
 
     def childCount(self):
@@ -71,6 +73,8 @@ class TreeItem(object):
         return len(self.itemData)
 
     def data(self, column):
+        if column < 0 or column >= len(self.itemData):
+            return None
         return self.itemData[column]
 
     def insertChildren(self, position, count, columns):
