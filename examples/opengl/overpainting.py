@@ -51,6 +51,7 @@ from PyQt5.QtGui import (QBrush, QColor, QFontMetrics, QImage, QPainter,
         QRadialGradient, QSurfaceFormat)
 from PyQt5.QtWidgets import QApplication, QOpenGLWidget
 
+import OpenGL.GL as gl
 
 class Bubble(object):
     def __init__(self, position, radius, velocity):
@@ -157,8 +158,8 @@ class GLWidget(QOpenGLWidget):
             self.zRot = angle
 
     def initializeGL(self):
-        self.gl = self.context().versionFunctions()
-        self.gl.initializeOpenGLFunctions()
+        # gl = self.context().versionFunctions()
+        # gl.initializeOpenGLFunctions()
 
         self.object = self.makeObject()
 
@@ -181,32 +182,32 @@ class GLWidget(QOpenGLWidget):
     def paintEvent(self, event):
         self.makeCurrent()
 
-        self.gl.glMatrixMode(self.gl.GL_MODELVIEW)
-        self.gl.glPushMatrix()
+        gl.glMatrixMode(gl.GL_MODELVIEW)
+        gl.glPushMatrix()
 
         self.setClearColor(self.trolltechPurple.darker())
-        self.gl.glShadeModel(self.gl.GL_SMOOTH)
-        self.gl.glEnable(self.gl.GL_DEPTH_TEST)
-        #self.gl.glEnable(self.gl.GL_CULL_FACE)
-        self.gl.glEnable(self.gl.GL_LIGHTING)
-        self.gl.glEnable(self.gl.GL_LIGHT0)
-        self.gl.glEnable(self.gl.GL_MULTISAMPLE)
-        self.gl.glLightfv(self.gl.GL_LIGHT0, self.gl.GL_POSITION,
+        gl.glShadeModel(gl.GL_SMOOTH)
+        gl.glEnable(gl.GL_DEPTH_TEST)
+        #gl.glEnable(gl.GL_CULL_FACE)
+        gl.glEnable(gl.GL_LIGHTING)
+        gl.glEnable(gl.GL_LIGHT0)
+        gl.glEnable(gl.GL_MULTISAMPLE)
+        gl.glLightfv(gl.GL_LIGHT0, gl.GL_POSITION,
                 (0.5, 5.0, 7.0, 1.0))
 
         self.setupViewport(self.width(), self.height())
 
-        self.gl.glClear(
-                self.gl.GL_COLOR_BUFFER_BIT | self.gl.GL_DEPTH_BUFFER_BIT)
-        self.gl.glLoadIdentity()
-        self.gl.glTranslated(0.0, 0.0, -10.0)
-        self.gl.glRotated(self.xRot / 16.0, 1.0, 0.0, 0.0)
-        self.gl.glRotated(self.yRot / 16.0, 0.0, 1.0, 0.0)
-        self.gl.glRotated(self.zRot / 16.0, 0.0, 0.0, 1.0)
-        self.gl.glCallList(self.object)
+        gl.glClear(
+                gl.GL_COLOR_BUFFER_BIT | gl.GL_DEPTH_BUFFER_BIT)
+        gl.glLoadIdentity()
+        gl.glTranslated(0.0, 0.0, -10.0)
+        gl.glRotated(self.xRot / 16.0, 1.0, 0.0, 0.0)
+        gl.glRotated(self.yRot / 16.0, 0.0, 1.0, 0.0)
+        gl.glRotated(self.zRot / 16.0, 0.0, 0.0, 1.0)
+        gl.glCallList(self.object)
 
-        self.gl.glMatrixMode(self.gl.GL_MODELVIEW)
-        self.gl.glPopMatrix()
+        gl.glMatrixMode(gl.GL_MODELVIEW)
+        gl.glPopMatrix()
 
         painter = QPainter(self)
         painter.setRenderHint(QPainter.Antialiasing)
@@ -228,16 +229,10 @@ class GLWidget(QOpenGLWidget):
         return QSize(400, 400)
 
     def makeObject(self):
-        list = self.gl.glGenLists(1)
-        self.gl.glNewList(list, self.gl.GL_COMPILE)
+        genList = gl.glGenLists(1)
+        gl.glNewList(genList, gl.GL_COMPILE)
 
-        self.gl.glEnable(self.gl.GL_NORMALIZE)
-        self.gl.glBegin(self.gl.GL_QUADS)
-
-        self.gl.glMaterialfv(self.gl.GL_FRONT, self.gl.GL_DIFFUSE,
-                (self.trolltechGreen.red()/255.0,
-                 self.trolltechGreen.green()/255.0,
-                 self.trolltechGreen.blue()/255.0, 1.0))
+        gl.glBegin(gl.GL_QUADS)
 
         x1 = +0.06
         y1 = -0.14
@@ -279,32 +274,32 @@ class GLWidget(QOpenGLWidget):
             self.extrude(x6, y6, x7, y7)
             self.extrude(x8, y8, x5, y5)
 
-        self.gl.glEnd()
+        gl.glEnd()
+        gl.glEndList()
 
-        self.gl.glEndList()
-        return list
+        return genList
 
     def quad(self, x1, y1, x2, y2, x3, y3, x4, y4):
-        self.gl.glNormal3d(0.0, 0.0, -1.0)
-        self.gl.glVertex3d(x1, y1, -0.05)
-        self.gl.glVertex3d(x2, y2, -0.05)
-        self.gl.glVertex3d(x3, y3, -0.05)
-        self.gl.glVertex3d(x4, y4, -0.05)
+        gl.glNormal3d(0.0, 0.0, -1.0)
+        gl.glVertex3d(x1, y1, -0.05)
+        gl.glVertex3d(x2, y2, -0.05)
+        gl.glVertex3d(x3, y3, -0.05)
+        gl.glVertex3d(x4, y4, -0.05)
 
-        self.gl.glNormal3d(0.0, 0.0, 1.0)
-        self.gl.glVertex3d(x4, y4, +0.05)
-        self.gl.glVertex3d(x3, y3, +0.05)
-        self.gl.glVertex3d(x2, y2, +0.05)
-        self.gl.glVertex3d(x1, y1, +0.05)
+        gl.glNormal3d(0.0, 0.0, 1.0)
+        gl.glVertex3d(x4, y4, +0.05)
+        gl.glVertex3d(x3, y3, +0.05)
+        gl.glVertex3d(x2, y2, +0.05)
+        gl.glVertex3d(x1, y1, +0.05)
 
     def extrude(self, x1, y1, x2, y2):
         self.setColor(self.trolltechGreen.darker(250 + int(100 * x1)))
 
-        self.gl.glNormal3d((x1 + x2)/2.0, (y1 + y2)/2.0, 0.0)
-        self.gl.glVertex3d(x1, y1, +0.05)
-        self.gl.glVertex3d(x2, y2, +0.05)
-        self.gl.glVertex3d(x2, y2, -0.05)
-        self.gl.glVertex3d(x1, y1, -0.05)
+        gl.glNormal3d((x1 + x2)/2.0, (y1 + y2)/2.0, 0.0)
+        gl.glVertex3d(x1, y1, +0.05)
+        gl.glVertex3d(x2, y2, +0.05)
+        gl.glVertex3d(x2, y2, -0.05)
+        gl.glVertex3d(x1, y1, -0.05)
 
     def normalizeAngle(self, angle):
         while angle < 0:
@@ -331,13 +326,13 @@ class GLWidget(QOpenGLWidget):
 
     def setupViewport(self, width, height):
         side = min(width, height)
-        self.gl.glViewport((width - side) // 2, (height - side) // 2, side,
+        gl.glViewport((width - side) // 2, (height - side) // 2, side,
                 side)
 
-        self.gl.glMatrixMode(self.gl.GL_PROJECTION)
-        self.gl.glLoadIdentity()
-        self.gl.glOrtho(-0.5, +0.5, +0.5, -0.5, 4.0, 15.0)
-        self.gl.glMatrixMode(self.gl.GL_MODELVIEW)
+        gl.glMatrixMode(gl.GL_PROJECTION)
+        gl.glLoadIdentity()
+        gl.glOrtho(-0.5, +0.5, +0.5, -0.5, 4.0, 15.0)
+        gl.glMatrixMode(gl.GL_MODELVIEW)
 
     def drawInstructions(self, painter):
         text = "Click and drag with the left mouse button to rotate the Qt " \
@@ -358,10 +353,10 @@ class GLWidget(QOpenGLWidget):
                 rect.height(), Qt.AlignCenter | Qt.TextWordWrap, text)
 
     def setClearColor(self, c):
-        self.gl.glClearColor(c.redF(), c.greenF(), c.blueF(), c.alphaF())
+        gl.glClearColor(c.redF(), c.greenF(), c.blueF(), c.alphaF())
 
     def setColor(self, c):
-        self.gl.glColor4f(c.redF(), c.greenF(), c.blueF(), c.alphaF())
+        gl.glColor4f(c.redF(), c.greenF(), c.blueF(), c.alphaF())
 
 
 if __name__ == '__main__':
