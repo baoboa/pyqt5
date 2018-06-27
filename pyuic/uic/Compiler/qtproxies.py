@@ -51,6 +51,7 @@ else:
     from ..port_v2.proxy_base import ProxyBase
     from ..port_v2.as_string import as_string
 
+GETTEXT_ACTIVE = "--gettext" in sys.argv or "-g" in sys.argv
 
 i18n_strings = []
 i18n_context = ""
@@ -84,10 +85,13 @@ class i18n_string(object):
         self.disambig = disambig
 
     def __str__(self):
-        if self.disambig is None:
-            return '_translate("%s", %s)' % (i18n_context, as_string(self.string))
+        if GETTEXT_ACTIVE:
+            return '_(%s)' % (as_string(self.string))
+        else:
+            if self.disambig is None:
+                return '_translate("%s", %s)' % (i18n_context, as_string(self.string))
 
-        return '_translate("%s", %s, %s)' % (i18n_context, as_string(self.string), as_string(self.disambig))
+            return '_translate("%s", %s, %s)' % (i18n_context, as_string(self.string), as_string(self.disambig))
 
 
 # Classes with this flag will be handled as literal values. If functions are
