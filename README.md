@@ -1,6 +1,8 @@
 pyqt5
 =====
 
+#### This is a personal mirror of the Pyqt5 project, feel free to use it in the respect of the project licence.
+
 #### 5.10.1
 * source  -> http://www.riverbankcomputing.com/software/pyqt/download5
 * support -> https://www.riverbankcomputing.com/mailman/listinfo/pyqt/
