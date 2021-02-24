@@ -36,7 +36,7 @@ static int register_type(QQmlPrivate::RegisterSingletonType *rt);
 
 
 // The number of types that can be registered.
-const int NrOfTypes = 30;
+const int NrOfTypes = 60;
 
 
 // The registration data for the proxy types.
