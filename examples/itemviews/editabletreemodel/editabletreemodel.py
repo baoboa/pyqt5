@@ -268,7 +268,7 @@ class TreeModel(QAbstractItemModel):
         while number < len(lines):
             position = 0
             while position < len(lines[number]):
-                if lines[number][position] != " ":
+                if lines[number][position] != b' ':
                     break
                 position += 1
 
