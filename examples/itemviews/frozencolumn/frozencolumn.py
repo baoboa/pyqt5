@@ -55,11 +55,9 @@ from PyQt5.QtCore import QFile, QFileInfo, Qt
 from PyQt5.QtGui import QStandardItem, QStandardItemModel
 from PyQt5.QtWidgets import QApplication, QHeaderView, QTableView
 
-
 class FreezeTableWidget(QTableView):
-    def __init__(self, model):
-        super(FreezeTableWidget, self).__init__()
-        self.setModel(model)
+    def __init__(self, parent):
+        super(FreezeTableWidget, self).__init__(parent)
         self.frozenTableView = QTableView(self)
         self.init()
         self.horizontalHeader().sectionResized.connect(self.updateSectionWidth)
@@ -69,8 +67,14 @@ class FreezeTableWidget(QTableView):
         self.verticalScrollBar().valueChanged.connect(
             self.frozenTableView.verticalScrollBar().setValue)
 
+    def setModel(self, model):
+        super(FreezeTableWidget, self).setModel(model)
+        self.frozenTableView.setModel(model)
+        for col in range(1, model.columnCount()):
+            self.frozenTableView.setColumnHidden(col, True)
+        self.frozenTableView.setSelectionModel(self.selectionModel())
+
     def init(self):
-        self.frozenTableView.setModel(self.model())
         self.frozenTableView.setFocusPolicy(Qt.NoFocus)
         self.frozenTableView.verticalHeader().hide()
         self.frozenTableView.horizontalHeader().setSectionResizeMode(
@@ -83,9 +87,6 @@ class FreezeTableWidget(QTableView):
                          selection-background-color: #999;
             }''') # for demo purposes
 
-        self.frozenTableView.setSelectionModel(self.selectionModel())
-        for col in range(1, self.model().columnCount()):
-            self.frozenTableView.setColumnHidden(col, True)
         self.frozenTableView.setColumnWidth(0, self.columnWidth(0))
         self.frozenTableView.setHorizontalScrollBarPolicy(Qt.ScrollBarAlwaysOff)
         self.frozenTableView.setVerticalScrollBarPolicy(Qt.ScrollBarAlwaysOff)
@@ -96,7 +97,7 @@ class FreezeTableWidget(QTableView):
         self.frozenTableView.setVerticalScrollMode(self.ScrollPerPixel)
 
     def updateSectionWidth(self, logicalIndex, oldSize, newSize):
-        if self.logicalIndex == 0:
+        if logicalIndex == 0:
             self.frozenTableView.setColumnWidth(0, newSize)
             self.updateFrozenTableGeometry()
 
@@ -108,7 +109,8 @@ class FreezeTableWidget(QTableView):
         self.updateFrozenTableGeometry()
 
     def moveCursor(self, cursorAction, modifiers):
-        current = super(FreezeTableWidget, self).moveCursor(cursorAction, modifiers)
+        current = super(FreezeTableWidget, self).moveCursor(cursorAction,
+                                                            modifiers)
         if (cursorAction == self.MoveLeft and
                 self.current.column() > 0 and
                 self.visualRect(current).topLeft().x() <
@@ -132,7 +134,7 @@ class FreezeTableWidget(QTableView):
 
 def main(args):
     def split_and_strip(s, splitter):
-        return [s.strip() for s in line.split(splitter)]
+        return [l.strip() for l in s.split(splitter)]
 
     app = QApplication(args)
     model = QStandardItemModel()
