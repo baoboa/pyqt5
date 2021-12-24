@@ -50,7 +50,7 @@ typedef QList<MetaTranslatorMessage> TML;
 /*
   Augments a MetaTranslator with trivially derived translations.
 
-  For example, if "Enabled:" is consistendly translated as "Eingeschaltet:" no
+  For example, if "Enabled:" is consistently translated as "Eingeschaltet:" no
   matter the context or the comment, "Eingeschaltet:" is added as the
   translation of any untranslated "Enabled:" text and is marked Unfinished.
 

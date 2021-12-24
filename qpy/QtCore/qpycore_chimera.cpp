@@ -1316,7 +1316,7 @@ PyObject *Chimera::toPyObject(const QVariant &var) const
 }
 
 
-// Convert a C++ object at an arbitary address to Python.
+// Convert a C++ object at an arbitrary address to Python.
 PyObject *Chimera::toPyObject(void *cpp) const
 {
     if (_metatype == PyQt_PyObject::metatype)
