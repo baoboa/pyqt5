@@ -722,7 +722,7 @@ int qpycore_get_lazy_attr(const sipTypeDef *td, PyObject *dict)
     const pyqt5QtSignal *sigs = reinterpret_cast<const pyqt5ClassPluginDef *>(
             sipTypePluginData(td))->qt_signals;
 
-    // Handle the trvial case.
+    // Handle the trivial case.
     if (!sigs)
         return 0;
 

@@ -202,7 +202,7 @@ public:
     // Convert a QVariant to a Python object.
     PyObject *toPyObject(const QVariant &var) const;
 
-    // Convert a C++ object at an arbitary address to a Python object.
+    // Convert a C++ object at an arbitrary address to a Python object.
     PyObject *toPyObject(void *cpp) const;
 
     // Convert a QVariant to a Python object based on the type of the object.
